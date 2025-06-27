@@ -1,0 +1,81 @@
+import './i18n';
+import FrontPage from './scripts/FrontPage';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Header from './scripts/Header';
+import { SectionOne } from './scripts/SectionOne';
+import { SponsorshipBanner } from './scripts/Sponsorship';
+import { SingleEventPage } from './scripts/SingleEvent';
+import { RegisterIndividual } from './scripts/RegisterIndividual';
+import { Footer } from './scripts/Footer';
+import { LoginForm } from './scripts/LoginForm'
+import { TermsAndConditions } from './scripts/TermsAndConditions';
+import { ContactForm } from './scripts/ContactUs';
+import { Page404 } from './scripts/Page404';
+import { RegisterOrganisation } from './scripts/RegisterOrganisation';
+
+
+if (document.querySelector('#front-page')) {
+  const root = ReactDOM.createRoot(document.querySelector('#front-page'));
+  root.render(<FrontPage />);
+}
+
+// Render the Header component
+if (document.querySelector('#header')) {
+  const root = ReactDOM.createRoot(document.querySelector('#header'));
+  root.render(<Header />);
+}
+
+const el1 = document.getElementById('section-one');
+if (el1) {
+  const events = JSON.parse(el1.dataset.events);
+  ReactDOM.createRoot(el1).render(<SectionOne events={events} />);
+}
+
+const el2 = document.getElementById('sponsorship-banner');
+if (el2) {
+  const data = JSON.parse(el2.dataset.banner);
+  ReactDOM.createRoot(el2).render(<SponsorshipBanner {...data} />);
+}
+
+const el3 = document.getElementById('single-event-page');
+if (el3) {
+  const data = JSON.parse(el3.dataset.event);
+  console.log('Single Event Data:');
+  ReactDOM.createRoot(el3).render(<SingleEventPage {...data} />);
+}
+
+const el4 = document.getElementById('register-individual');
+if (el4) {
+  ReactDOM.createRoot(el4).render(<RegisterIndividual />);
+}
+
+const el5 = document.getElementById('footer');
+if (el5) {
+  ReactDOM.createRoot(el5).render(<Footer />);
+}
+
+const el6 = document.getElementById('login-form');
+if (el6) {
+  ReactDOM.createRoot(el6).render(<LoginForm />)
+}
+
+const el7 = document.getElementById('terms-and-conditions');
+if (el7) {
+  ReactDOM.createRoot(el7).render(<TermsAndConditions/>)
+}
+
+const el8 = document.getElementById('contact-us');
+if(el8) {
+  ReactDOM.createRoot(el8).render(<ContactForm />)
+}
+
+const el9 = document.getElementById('404');
+if(el9) {
+  ReactDOM.createRoot(el9).render(<Page404 />);
+}
+
+const el10 = document.getElementById('register-organisation');
+if(el10) {
+  ReactDOM.createRoot(el10).render(<RegisterOrganisation />);
+}

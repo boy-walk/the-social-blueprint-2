@@ -1,0 +1,8 @@
+[16-Dec-2024 09:29:35 Australia/Sydney] PHP Fatal error:  Uncaught Error: Class 'TEC\Common\Contracts\Service_Provider' not found in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Views/V2/Service_Provider.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Views/V2/Service_Provider.php on line 20
+[16-Dec-2024 09:29:44 Australia/Sydney] PHP Fatal error:  Uncaught Error: Class 'TEC\Common\Contracts\Service_Provider' not found in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Views/V2/Hooks.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Views/V2/Hooks.php on line 30

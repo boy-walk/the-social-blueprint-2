@@ -1,0 +1,7 @@
+    <div class="event-card">
+      <p class="event-card__date">Fri, Feb 21 @ 10:00am</p>
+      <h3 class="event-card__title">I could have danced all night by Danielle Brustman</h3>
+      <p class="event-card__location"></p>
+      <a href="http://thesocialblueprint.test/event/i-could-have-danced-all-night-by-danielle-brustman/" class="event-card__read-more">Read more</a>
+    </div>
+    

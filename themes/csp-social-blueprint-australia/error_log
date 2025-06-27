@@ -1,0 +1,16 @@
+[12-Mar-2025 17:16:40 Australia/Sydney] PHP Fatal error:  Uncaught Error: Call to undefined function porto_get_featured_images() in /home/thesocia/public_html/wp-content/themes/csp-social-blueprint-australia/content-blog-medium-alt.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/themes/csp-social-blueprint-australia/content-blog-medium-alt.php on line 6
+[14-Mar-2025 00:22:59 Australia/Sydney] PHP Fatal error:  Uncaught Error: Call to undefined function porto_get_featured_images() in /home/thesocia/public_html/wp-content/themes/csp-social-blueprint-australia/content-blog-medium-alt.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/themes/csp-social-blueprint-australia/content-blog-medium-alt.php on line 6
+[15-Mar-2025 00:50:44 Australia/Sydney] PHP Fatal error:  Uncaught Error: Call to undefined function porto_get_featured_images() in /home/thesocia/public_html/wp-content/themes/csp-social-blueprint-australia/content-blog-medium-alt.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/themes/csp-social-blueprint-australia/content-blog-medium-alt.php on line 6
+[16-Mar-2025 01:27:33 Australia/Sydney] PHP Fatal error:  Uncaught Error: Call to undefined function porto_get_featured_images() in /home/thesocia/public_html/wp-content/themes/csp-social-blueprint-australia/content-blog-medium-alt.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/themes/csp-social-blueprint-australia/content-blog-medium-alt.php on line 6

@@ -1,0 +1,12 @@
+[16-Dec-2024 09:21:21 Australia/Sydney] PHP Fatal error:  Uncaught Error: Class 'Tribe__Events__Community__Captcha__Abstract_Captcha' not found in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Captcha/Recaptcha.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Captcha/Recaptcha.php on line 3
+[16-Dec-2024 09:21:26 Australia/Sydney] PHP Fatal error:  Uncaught Error: Class 'Tribe__Events__Community__Captcha__Abstract_Captcha' not found in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Captcha/Null_Captcha.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Captcha/Null_Captcha.php on line 12
+[16-Dec-2024 09:21:43 Australia/Sydney] PHP Fatal error:  Uncaught Error: Class 'Tribe__Events__Community__Captcha__Recaptcha' not found in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Captcha/Recaptcha_V2.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/plugins/the-events-calendar-community-events/src/Tribe/Captcha/Recaptcha_V2.php on line 4

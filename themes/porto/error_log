@@ -1,0 +1,4 @@
+[24-Oct-2024 19:40:47 Australia/Sydney] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/thesocia/public_html/wp-content/themes/porto/index.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/thesocia/public_html/wp-content/themes/porto/index.php on line 1

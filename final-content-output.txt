@@ -1,0 +1,5 @@
+<!-- wp:paragraph -->
+<p>Hello thereeeee!</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:myblocks/custom-event-card /-->

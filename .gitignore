@@ -1,0 +1,21 @@
+# Node modules (if any frontend tools exist)
+node_modules/
+
+# Ignore uploads (unless you want to commit media)
+uploads/
+
+# Ignore plugin/theme vendor folders
+plugins/*/vendor/
+themes/*/vendor/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDE/editor configs
+.vscode/
+.idea/
+
+# Logs and temp files
+*.log
+*.tmp
