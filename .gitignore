@@ -8,6 +8,12 @@ uploads/
 plugins/*/vendor/
 themes/*/vendor/
 
+# Ignore all themes...
+themes/*
+
+# ...except your custom theme
+!themes/brads-boilerplate-theme-tailwind/
+
 # OS junk
 .DS_Store
 Thumbs.db
