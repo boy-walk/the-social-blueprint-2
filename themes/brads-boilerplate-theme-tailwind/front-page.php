@@ -43,7 +43,7 @@ $events = array_map(function ($post) {
 <div id="section-one"
      data-events='<?php echo esc_attr(json_encode($events)); ?>'>
 </div>
-<?php
+<!-- <?php
 $post = get_posts([
   'post_type' => 'sponsorship-banner',
   'posts_per_page' => 1,
@@ -58,7 +58,7 @@ $banner_data = [
 ?>
 <div id="sponsorship-banner"
      data-banner='<?php echo esc_attr(json_encode($banner_data)); ?>'>
-</div>
+</div> -->
 </main>
 
 <?php get_footer();
