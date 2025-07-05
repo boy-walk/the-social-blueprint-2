@@ -7090,8 +7090,8 @@ if (el11) {
 }
 const el12 = document.getElementById('search-root');
 if (el12) {
-  const query = el.getAttribute("data-query");
-  const results = JSON.parse(el.getAttribute("data-results"));
+  const query = el12.getAttribute("data-query") || '';
+  const results = JSON.parse(el12.getAttribute("data-results"));
   react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el12).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_scripts_SearchPage__WEBPACK_IMPORTED_MODULE_16__.SearchPage, {
     query: query,
     results: results
