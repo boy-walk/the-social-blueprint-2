@@ -20,7 +20,7 @@ const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!query.trim()) return;
-    window.location.href = `/search?s=${encodeURIComponent(query)}`;
+    window.location.href = `/?s=${encodeURIComponent(query)}`;
   };
 
   return (

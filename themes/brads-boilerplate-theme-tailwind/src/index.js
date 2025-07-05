@@ -14,6 +14,7 @@ import { ContactForm } from './scripts/ContactUs';
 import { Page404 } from './scripts/Page404';
 import { RegisterOrganisation } from './scripts/RegisterOrganisation';
 import PodcastPage from './scripts/PodcastPage';
+import { SearchPage } from './scripts/SearchPage';
 
 
 if (document.querySelector('#front-page')) {
@@ -84,4 +85,11 @@ if(el10) {
 const el11 = document.getElementById('podcast-page-root');
 if (el11) {
   ReactDOM.createRoot(el11).render(<PodcastPage />);
+}
+
+const el12 = document.getElementById('search-root');
+if (el12) {
+  const query = el.getAttribute("data-query");
+  const results = JSON.parse(el.getAttribute("data-results"));
+  ReactDOM.createRoot(el12).render(<SearchPage query={query} results={results} />);
 }
