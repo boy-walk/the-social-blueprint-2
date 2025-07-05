@@ -82,9 +82,17 @@ if(el10) {
   ReactDOM.createRoot(el10).render(<RegisterOrganisation />);
 }
 
-const el11 = document.getElementById('podcast-page-root');
+const el11 = document.getElementById('podcast-root');
 if (el11) {
-  ReactDOM.createRoot(el11).render(<PodcastPage />);
+  const props = {
+    title: el11.dataset.title,
+    subtitle: el11.dataset.subtitle,
+    videoUrl: el11.dataset.videoUrl,
+    sections: JSON.parse(el11.dataset.sections),
+    tags: JSON.parse(el11.dataset.tags),
+  };
+  console.log(props)
+  ReactDOM.createRoot(el11).render(<PodcastPage {...props}/>);
 }
 
 const el12 = document.getElementById('search-root');

@@ -5711,62 +5711,78 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
 
 
-function PodcastPage() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "flex gap-16",
+function PodcastPage({
+  title,
+  subtitle,
+  videoUrl,
+  sections,
+  tags
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("main", {
+    className: "bg-schemesSurface text-schemesOnSurface py-12 px-16 sm:px-8",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "max-w-7xl mx-auto flex flex-col flex-3 gap-16",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("header", {
-        className: "flex flex-col gap-4 text-left",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-          className: "Blueprint-headline-large",
-          children: "Podcast Title Placeholder"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-          className: "Blueprint-label-large text-schemesOnSurfaceVariant",
-          children: "Interview with Guest Name \xB7 July 2025"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "w-full aspect-video bg-white rounded-xl shadow-md flex items-center justify-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-          className: "text-schemesOutline",
-          children: "Post Embed Placeholder"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("section", {
-        className: "Blueprint-body-large text-schemesOnSurface max-w-2xl mx-auto text-left",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-          className: "mb-4",
-          children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo nec sapien ultricies viverra."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-          children: "This would be the description or transcript of the podcast episode. You can render this dynamically from WP."
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("section", {
-        className: "flex flex-col gap-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
-          className: "Blueprint-title-medium",
-          children: "More Interviews"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "bg-white rounded-lg h-64 shadow-inner flex items-center justify-center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "text-schemesOutline",
-            children: "More interviews placeholder"
+      className: "max-w-6xl mx-auto flex flex-col lg:flex-row gap-12",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "flex-1 space-y-10",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("header", {
+          className: "space-y-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+            className: "Blueprint-headline-large leading-tight",
+            children: title
+          }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+            children: subtitle
+          })]
+        }), console.log(videoUrl.replace("watch?v=", "embed/")), videoUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "w-full aspect-video rounded-xl overflow-hidden shadow-md",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("iframe", {
+            src: videoUrl.replace("watch?v=", "embed/"),
+            title: "Podcast Video",
+            frameBorder: "0",
+            allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+            allowFullScreen: true,
+            className: "w-full h-full"
           })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("section", {
+          className: "space-y-6 max-w-3xl",
+          children: sections.map((section, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "prose [&_ul]:list-disc [&_ul]:pl-5",
+            dangerouslySetInnerHTML: {
+              __html: section.text
+            }
+          }, index))
+        }), tags?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex flex-wrap gap-2 pt-4",
+          children: tags.map(tag => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "bg-schemesSurfaceVariant text-schemesOnSurface px-3 py-1 rounded-full text-sm",
+            children: tag
+          }, tag))
         })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "flex-1 w-full h-full bg-schemesSurfaceVariant rounded-lg shadow-md p-6",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("section", {
-        className: "flex flex-col gap-4",
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("aside", {
+        className: "w-full lg:w-80 space-y-4 sticky top-12",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
           className: "Blueprint-title-medium",
           children: "Related Content"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "bg-white rounded-lg h-64 shadow-inner flex items-center justify-center",
+          className: "bg-white rounded-lg shadow-inner h-64 flex items-center justify-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
             className: "text-schemesOutline",
             children: "Related content placeholder"
           })
         })]
-      })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("section", {
+      className: "max-w-6xl mx-auto mt-20 space-y-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+        className: "Blueprint-title-medium",
+        children: "More Interviews"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "bg-white rounded-lg shadow-inner h-64 flex items-center justify-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "text-schemesOutline",
+          children: "More interviews placeholder"
+        })
+      })]
     })]
   });
 }
@@ -7084,9 +7100,19 @@ const el10 = document.getElementById('register-organisation');
 if (el10) {
   react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el10).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_scripts_RegisterOrganisation__WEBPACK_IMPORTED_MODULE_14__.RegisterOrganisation, {}));
 }
-const el11 = document.getElementById('podcast-page-root');
+const el11 = document.getElementById('podcast-root');
 if (el11) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el11).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_scripts_PodcastPage__WEBPACK_IMPORTED_MODULE_15__["default"], {}));
+  const props = {
+    title: el11.dataset.title,
+    subtitle: el11.dataset.subtitle,
+    videoUrl: el11.dataset.videoUrl,
+    sections: JSON.parse(el11.dataset.sections),
+    tags: JSON.parse(el11.dataset.tags)
+  };
+  console.log(props);
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el11).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_scripts_PodcastPage__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    ...props
+  }));
 }
 const el12 = document.getElementById('search-root');
 if (el12) {

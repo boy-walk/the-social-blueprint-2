@@ -1,47 +1,84 @@
-import React from 'react';
+import React from "react";
 
-export default function PodcastPage() {
-  return (
-    <div className="flex gap-16">
-        <div className="max-w-7xl mx-auto flex flex-col flex-3 gap-16">
-        {/* Podcast Heading & Meta */}
-        <header className="flex flex-col gap-4 text-left">
-            <h1 className="Blueprint-headline-large">Podcast Title Placeholder</h1>
-            <p className="Blueprint-label-large text-schemesOnSurfaceVariant">Interview with Guest Name · July 2025</p>
-        </header>
+export default function PodcastPage({
+    title,
+    subtitle,
+    videoUrl,
+    sections,
+    tags
+}) {
+    return (
+        <main className="bg-schemesSurface text-schemesOnSurface py-12 px-16 sm:px-8">
+            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12">
+                {/* Left Column: Main Content */}
+                <div className="flex-1 space-y-10">
+                    {/* Title and Subtitle */}
+                    <header className="space-y-2">
+                        <h1 className="Blueprint-headline-large leading-tight">{title}</h1>
+                        {subtitle && (
+                            <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
+                                {subtitle}
+                            </p>
+                        )}
+                    </header>
 
-        {/* Video/Audio or Image Embed */}
-        <div className="w-full aspect-video bg-white rounded-xl shadow-md flex items-center justify-center">
-            <span className="text-schemesOutline">Post Embed Placeholder</span>
-        </div>
+                    {/* Video Embed */}
+                    {console.log(videoUrl.replace("watch?v=", "embed/"))}
+                    {videoUrl && (
+                        <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
+                            <iframe
+                                src={videoUrl.replace("watch?v=", "embed/")}
+                                title="Podcast Video"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className="w-full h-full"
+                            ></iframe>
+                        </div>
+                    )}
 
-        {/* Description Text */}
-        <section className="Blueprint-body-large text-schemesOnSurface max-w-2xl mx-auto text-left">
-            <p className="mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec justo nec sapien ultricies viverra.
-            </p>
-            <p>
-            This would be the description or transcript of the podcast episode. You can render this dynamically from WP.
-            </p>
-        </section>
+                    {/* Post Body */}
+                    <section className="space-y-6 max-w-3xl">
+                        {sections.map((section, index) => (
+                            <div
+                                key={index}
+                                className="prose [&_ul]:list-disc [&_ul]:pl-5"
+                                dangerouslySetInnerHTML={{ __html: section.text }}
+                            />
+                        ))}
+                    </section>
 
-        {/* More Interviews */}
-        <section className="flex flex-col gap-4">
-            <h2 className="Blueprint-title-medium">More Interviews</h2>
-            <div className="bg-white rounded-lg h-64 shadow-inner flex items-center justify-center">
-            <span className="text-schemesOutline">More interviews placeholder</span>
+                    {/* Tags */}
+                    {tags?.length > 0 && (
+                        <div className="flex flex-wrap gap-2 pt-4">
+                            {tags.map((tag) => (
+                                <span
+                                    key={tag}
+                                    className="bg-schemesSurfaceVariant text-schemesOnSurface px-3 py-1 rounded-full text-sm"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                {/* Right Column: Related Content */}
+                <aside className="w-full lg:w-80 space-y-4 sticky top-12">
+                    <h2 className="Blueprint-title-medium">Related Content</h2>
+                    <div className="bg-white rounded-lg shadow-inner h-64 flex items-center justify-center">
+                        <span className="text-schemesOutline">Related content placeholder</span>
+                    </div>
+                </aside>
             </div>
-        </section>
-        </div>
-        <div className="flex-1 w-full h-full bg-schemesSurfaceVariant rounded-lg shadow-md p-6">
-                    {/* Related Content */}
-        <section className="flex flex-col gap-4">
-            <h2 className="Blueprint-title-medium">Related Content</h2>
-            <div className="bg-white rounded-lg h-64 shadow-inner flex items-center justify-center">
-            <span className="text-schemesOutline">Related content placeholder</span>
-            </div>
-        </section>
-        </div>
-    </div>
-  );
+
+            {/* More Interviews */}
+            <section className="max-w-6xl mx-auto mt-20 space-y-4">
+                <h2 className="Blueprint-title-medium">More Interviews</h2>
+                <div className="bg-white rounded-lg shadow-inner h-64 flex items-center justify-center">
+                    <span className="text-schemesOutline">More interviews placeholder</span>
+                </div>
+            </section>
+        </main>
+    );
 }

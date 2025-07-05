@@ -191,3 +191,54 @@ function uwp_custom_register_organisation( WP_REST_Request $request ) {
 
   return new WP_REST_Response( [ 'success' => true ], 200 );
 }
+
+add_action('init', function () {
+  // ===== REGISTER CUSTOM POST TYPES =====
+  $post_types = [
+    'event' => 'Event',
+    'podcast' => 'Podcast',
+    'article' => 'Article',
+    'directory' => 'Directory Listing',
+    'resource' => 'Resource',
+  ];
+
+  foreach ($post_types as $slug => $name) {
+    register_post_type($slug, [
+      'labels' => [
+        'name' => $name . 's',
+        'singular_name' => $name,
+        'add_new_item' => 'Add New ' . $name,
+        'edit_item' => 'Edit ' . $name,
+        'new_item' => 'New ' . $name,
+        'view_item' => 'View ' . $name,
+        'search_items' => 'Search ' . $name . 's',
+      ],
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => ['slug' => $slug . 's'], // e.g. /podcasts
+      'supports' => ['title', 'editor', 'thumbnail', 'excerpt'],
+      'show_in_rest' => true,
+      'menu_position' => 5,
+      'menu_icon' => 'dashicons-media-document', // Customize per type if you want
+    ]);
+  }
+
+  // ===== REGISTER CUSTOM TAXONOMIES =====
+  $taxonomies = [
+    'topic_tag'     => 'Topic',
+    'audience_tag'  => 'Audience',
+    'location_tag'  => 'Location',
+    'feature_tag'   => 'Feature',
+    'people_tag'    => 'People',
+  ];
+
+  foreach ($taxonomies as $slug => $name) {
+    register_taxonomy($slug, ['event', 'podcast', 'article', 'directory', 'resource'], [
+      'label' => $name . ' Tags',
+      'hierarchical' => false,
+      'public' => true,
+      'rewrite' => ['slug' => $slug],
+      'show_in_rest' => true,
+    ]);
+  }
+});
