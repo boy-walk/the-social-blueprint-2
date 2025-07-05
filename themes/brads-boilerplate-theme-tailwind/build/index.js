@@ -5033,7 +5033,7 @@ function Footer({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ FrontPage)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -5051,7 +5051,6 @@ function FrontPage() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FrontPageGrid__WEBPACK_IMPORTED_MODULE_1__.FrontPageGrid, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(SearchBar, {})]
   });
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FrontPage);
 const SearchBar = () => {
   const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const {
@@ -5063,51 +5062,55 @@ const SearchBar = () => {
     window.location.href = `/?s=${encodeURIComponent(query)}`;
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "bg-container-dark flex flex-col items-center justify-center gap-4 py-16 px-8",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "ibm-plex-sans-condensed-bold text-center text-[#474740]",
+    className: "bg-container-dark flex flex-col items-center justify-center gap-8 py-16 px-4 sm:px-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+      className: "text-center font-bold text-xl text-[#474740]",
       children: "Search The Social Blueprint"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
-      class: "w-auto mx-auto",
+      className: "w-full max-w-xl",
       onSubmit: handleSubmit,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        for: "default-search",
-        class: "mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white",
+        htmlFor: "default-search",
+        className: "sr-only",
         children: "Search"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        class: "relative",
+        className: "relative",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          class: "absolute inset-y-0 start-1 flex items-center ps-3 pointer-events-none",
+          className: "absolute inset-y-0 left-3 flex items-center pointer-events-none",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-            class: "w-4 h-4 text-gray-500 dark:text-gray-400",
-            "aria-hidden": "true",
+            className: "w-5 h-5 text-gray-500",
             xmlns: "http://www.w3.org/2000/svg",
             fill: "none",
             viewBox: "0 0 20 20",
+            "aria-hidden": "true",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
               stroke: "currentColor",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              "stroke-width": "2",
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeWidth: "2",
               d: "m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
           type: "search",
           id: "default-search",
-          class: "block w-110 p-4 ps-10 text-sm text-gray-900 border border-border-light rounded-lg bg-container-lighter focus:ring-blue-500 focus:border-blue-500",
-          placeholder: "Search Mockups, Logos...",
+          className: "block w-full py-3 pl-10 pr-4 text-sm text-gray-900 border border-border-light rounded-lg bg-container-lighter focus:ring-blue-500 focus:border-blue-500",
+          placeholder: "Search podcasts, events, resources...",
           onChange: e => setQuery(e.target.value),
           required: true
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "flex flex-wrap items-center justify-center gap-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "flex flex-wrap items-center justify-center gap-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
         className: "text-sm text-gray-600",
         children: "Trending Searches:"
       }), ['Jewish Podcasts', 'mental health help', 'family-friendly events', 'kosher recipes'].map(tag => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-        className: "bg-white border border-gray-300 px-3 py-1 rounded-md text-sm text-gray-700 hover:bg-gray-100 shadow-3x3",
+        className: "bg-white border border-gray-300 px-3 py-1 rounded-md text-sm text-gray-700 hover:bg-gray-100 shadow-sm",
+        onClick: () => {
+          setQuery(tag);
+          window.location.href = `/?s=${encodeURIComponent(tag)}`;
+        },
         children: tag
       }, tag))]
     })]
@@ -5719,9 +5722,9 @@ function PodcastPage({
   tags
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("main", {
-    className: "bg-schemesSurface text-schemesOnSurface py-12 px-16 sm:px-8",
+    className: "bg-schemesSurface text-schemesOnSurface py-12 px-4 lg:px-16",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "max-w-6xl mx-auto flex flex-col lg:flex-row gap-12",
+      className: "flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-7xl mx-auto px-4 sm:px-6",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "flex-1 space-y-10",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("header", {

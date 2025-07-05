@@ -8,8 +8,8 @@ export default function PodcastPage({
     tags
 }) {
     return (
-        <main className="bg-schemesSurface text-schemesOnSurface py-12 px-16 sm:px-8">
-            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12">
+        <main className="bg-schemesSurface text-schemesOnSurface py-12 px-4 lg:px-16">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-7xl mx-auto px-4 sm:px-6">
                 {/* Left Column: Main Content */}
                 <div className="flex-1 space-y-10">
                     {/* Title and Subtitle */}
