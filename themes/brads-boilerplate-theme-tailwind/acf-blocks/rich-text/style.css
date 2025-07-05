@@ -1,0 +1,4 @@
+/* Optional, if needed for global scope fallback */
+.sb-rich-text {
+  @apply prose prose-lg max-w-none;
+}

@@ -13,6 +13,7 @@ import { TermsAndConditions } from './scripts/TermsAndConditions';
 import { ContactForm } from './scripts/ContactUs';
 import { Page404 } from './scripts/Page404';
 import { RegisterOrganisation } from './scripts/RegisterOrganisation';
+import PodcastPage from './scripts/PodcastPage';
 
 
 if (document.querySelector('#front-page')) {
@@ -78,4 +79,9 @@ if(el9) {
 const el10 = document.getElementById('register-organisation');
 if(el10) {
   ReactDOM.createRoot(el10).render(<RegisterOrganisation />);
+}
+
+const el11 = document.getElementById('podcast-page-root');
+if (el11) {
+  ReactDOM.createRoot(el11).render(<PodcastPage />);
 }
