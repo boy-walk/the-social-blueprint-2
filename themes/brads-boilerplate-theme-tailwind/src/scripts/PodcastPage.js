@@ -72,10 +72,10 @@ export default function PodcastPage({
                 </aside>
             </div>
 
-            {/* More Interviews */}
-            <section className="max-w-7xl mx-auto mt-20 space-y-4">
-                <MoreInterviews items={moreInterviews}/>
-            </section>
-        </main>
+            {/* More Interviews aligned with left column */}
+            <div className="max-w-7xl mx-auto sm:px-6 mt-20">
+                <MoreInterviews items={moreInterviews} />
+            </div>
+        </main >
     );
 }

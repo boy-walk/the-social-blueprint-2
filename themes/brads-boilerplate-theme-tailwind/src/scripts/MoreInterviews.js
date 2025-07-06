@@ -1,42 +1,37 @@
-import React from 'react';
-import { ArrowIcon } from '../../assets/icons/arrow';
+import React from "react";
 
-export const MoreInterviews = ({ items = [] }) => {
-  if (!items.length) return null;
+export function MoreInterviews({ items = [] }) {
+    if (!items.length) return null;
 
-  return (
-    <section className="py-12">
-      <div className="flex items-center gap-2 mb-6">
-        <h2 className="Blueprint-headline-medium font-bold">More Interviews</h2>
-        <ArrowIcon className="text-schemesPrimary fill-current"/>
-      </div>
-
-      <div className="flex flex-col gap-6 md:flex-row md:gap-4">
-        {items.map(({ id, title, link, thumbnail }) => (
-          <a
-            key={id}
-            href={link}
-            className="flex flex-col w-full md:w-1/3 rounded-2xl overflow-hidden shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] border border-[color:var(--schemesOutlineVariant,#C9C7BD)] bg-white transition hover:shadow-lg"
-          >
-            <div className="relative w-full h-64">
-              <img
-                src={thumbnail}
-                alt={title}
-                className="w-full h-full object-cover"
-              />
-              <span className="absolute top-2 left-2 bg-white text-xs font-semibold text-gray-700 px-3 py-1 rounded-full shadow">
-                Event
-              </span>
+    return (
+        <section className="space-y-6">
+            <div className="flex items-center gap-2">
+                <h2 className="Blueprint-headline-medium">More Interviews</h2>
+                {/* Optional: decorative arrow icon */}
+                {/* <ArrowIcon className="w-6 h-6 text-primary" /> */}
             </div>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-              <p className="text-sm font-medium text-[#555] mt-1">
-                New podcast
-              </p>
+
+            <div className="flex flex-wrap gap-6">
+                {items.map((item) => (
+                    <a
+                        key={item.id}
+                        href={item.link}
+                        className="block rounded-xl overflow-hidden shadow-md bg-white w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] transition hover:shadow-lg"
+                    >
+                        {item.thumbnail && (
+                            <img
+                                src={item.thumbnail}
+                                alt={item.title}
+                                className="w-full aspect-[16/9] object-cover"
+                            />
+                        )}
+                        <div className="p-4">
+                            <span className="text-xs text-gray-500 font-medium uppercase mb-2 block">Event</span>
+                            <h3 className="font-bold text-lg text-schemesOnSurface">{item.title}</h3>
+                        </div>
+                    </a>
+                ))}
             </div>
-          </a>
-        ))}
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
