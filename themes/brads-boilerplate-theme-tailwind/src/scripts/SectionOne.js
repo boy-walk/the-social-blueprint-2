@@ -8,8 +8,8 @@ import ExploreThemeTwo from '../../assets/explore-theme-2.svg';
 
 export const SectionOne = ({ events }) => {
   return (
-    <div className="flex px-32 py-12 bg-white flex-col items-center justify-center gap-12">
-      <div className="flex flex-col justify-center items-center gap-4 self-stretch">
+    <div className="flex flex-col px-4 sm:px-8 md:px-16 lg:px-32 py-12 bg-white items-center justify-center gap-12">
+      <div className="flex flex-col justify-center items-center gap-4 w-full">
         <div className="flex gap-2 justify-center items-center">
           <div className="ibm-plex-sans-condensed-regular-italic text-xl font-bold text-center text-gray-800 leading-snug">
             Explore by
@@ -20,69 +20,64 @@ export const SectionOne = ({ events }) => {
           From support services to creative culture, start where you're curious.
         </div>
       </div>
-      <div className="flex items-center justify-center self-stretch gap-4">
-        <Card styles="flex-1 h-64 max-w-59 border-1 border-background-light px-4 pt-4">
-          <div className="flex flex-col items-end justify-end gap-2">
-            <ArrowIcon />
-            <div className="w-full text-xl text-right ">
-              Community
-              <br />
-              Connection
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <Card
+            key={i}
+            styles="h-64 max-w-full border-1 border-background-light px-4 pt-4"
+          >
+            <div className="flex flex-col items-end justify-end gap-2 h-full">
+              <ArrowIcon />
+              <div className="w-full text-xl text-right">
+                {i === 0 && (
+                  <>
+                    Community
+                    <br />
+                    Connection
+                  </>
+                )}
+                {i === 1 && (
+                  <>
+                    Events and
+                    <br />
+                    Experiences
+                  </>
+                )}
+                {i === 2 && (
+                  <>
+                    Learning and
+                    <br />
+                    Growth
+                  </>
+                )}
+                {i === 3 && (
+                  <>
+                    Support and
+                    <br />
+                    Services
+                  </>
+                )}
+                {i === 4 && (
+                  <>
+                    Culture and
+                    <br />
+                    Identity
+                  </>
+                )}
+              </div>
+              <img
+                src={i === 1 ? ExploreThemeTwo : ExploreThemeOne}
+                alt="Theme Icon"
+                className="object-cover w-full"
+              />
             </div>
-            <img src={ExploreThemeOne} alt="Community Connection" className="object-cover flex-2" />
-          </div>
-        </Card>
-        <Card styles=" h-64 max-w-59 border-1 border-background-light px-4 pt-4">
-          <div className="flex flex-col items-end justify-end gap-2">
-            <ArrowIcon />
-            <div className="w-full text-xl text-right ">
-              Events and
-              <br />
-              Experiences
-            </div>
-            <img
-              src={ExploreThemeTwo}
-              alt="Events and Experiences"
-              className="object-cover flex-2"
-            />
-          </div>
-        </Card>
-        <Card styles=" h-64 max-w-59 border-1 border-background-light px-4 pt-4">
-          <div className="flex flex-col items-end justify-end gap-2">
-            <ArrowIcon />
-            <div className="w-full text-xl text-right">
-              Learning and
-              <br />
-              Growth
-            </div>
-            <img src={ExploreThemeOne} alt="Learning and Growth" className="object-cover flex-2" />
-          </div>
-        </Card>
-        <Card styles=" h-64 max-w-59 border-1 border-background-light px-4 pt-4">
-          <div className="flex flex-col items-end justify-end gap-2">
-            <ArrowIcon />
-            <div className="w-full text-xl text-right ">
-              Support and
-              <br />
-              Services
-            </div>
-            <img src={ExploreThemeOne} alt="Support and Services" className="object-cover flex-2" />
-          </div>
-        </Card>
-        <Card styles=" h-64 max-w-59 border-1 border-background-light px-4 pt-4">
-          <div className="flex flex-col items-end justify-end gap-2">
-            <ArrowIcon />
-            <div className="w-full text-xl text-right">
-              Culture and
-              <br />
-              Identity
-            </div>
-            <img src={ExploreThemeOne} alt="Culture and Identity" className="object-cover flex-2" />
-          </div>
-        </Card>
+          </Card>
+        ))}
       </div>
-      <div className="bg-container-light flex p-16 flex-col items-center gap-12 self-stretch rounded-xl shadow-3x1">
-        <div className="flex justify-between items-end self-stretch">
+
+      <div className="bg-container-light flex flex-col items-center gap-12 self-stretch rounded-xl shadow-3x1 px-4 sm:px-6 md:px-8 lg:px-16 py-12">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
           <div className="flex flex-col justify-center items-start gap-4">
             <div className="flex gap-2 items-center">
               <div className="text-xl font-bold text-gray-800 leading-snug">Upcoming</div>
@@ -92,7 +87,7 @@ export const SectionOne = ({ events }) => {
               Workshops, holidays, classes and community gatherings, updated regularly.
             </div>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex flex-wrap gap-4 items-center">
             <Button
               label="Browse the calendar"
               onClick={() => (window.location.href = '/events')}
@@ -107,26 +102,20 @@ export const SectionOne = ({ events }) => {
             />
           </div>
         </div>
-        <div className="grid gap-4 grid-rows-1 grid-cols-5 items-start w-full">
-          <EventCard styles="col-span-1 row-span-3" {...events[0]} isFeatured={true}>
-            <div className="bg-green-100 rounded-md w-full"></div>
-          </EventCard>
-          <EventCard styles="col-span-1 row-span-3" {...events[1]} isFeatured={true}>
-            <div className="bg-blue-100 rounded-md w-full"></div>
-          </EventCard>
-          <EventCard styles="col-span-1 row-span-3" {...events[2]} isFeatured={true}>
-            <div className="bg-indigo-200 rounded-md w-full"></div>
-          </EventCard>
-          <div className="col-span-2 row-span-1 flex flex-col gap-4">
-            <EventListCard {...events[3]}>
-              <div className="bg-pink-200 rounded-md w-full"></div>
-            </EventListCard>
-            <EventListCard {...events[4]}>
-              <div className="bg-pink-200 rounded-md w-full"></div>
-            </EventListCard>
-            <EventListCard {...events[5]}>
-              <div className="bg-pink-200 rounded-md w-full"></div>
-            </EventListCard>
+
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-start w-full">
+          {events.slice(0, 3).map((event, i) => (
+            <EventCard key={i} styles="w-full" {...event} isFeatured={true}>
+              <div className="bg-green-100 rounded-md w-full"></div>
+            </EventCard>
+          ))}
+
+          <div className="col-span-1 sm:col-span-2 flex flex-col gap-4">
+            {events.slice(3, 6).map((event, i) => (
+              <EventListCard key={i} {...event}>
+                <div className="bg-pink-200 rounded-md w-full"></div>
+              </EventListCard>
+            ))}
           </div>
         </div>
       </div>
@@ -149,7 +138,6 @@ const EventListCard = ({ title, date, location, imageUrl }) => {
         </div>
       </div>
 
-      {/* Event content */}
       <div className="flex flex-col justify-center text-sm text-gray-800">
         <div className="text-gray-500 text-[13px] mb-1">{date}</div>
         <div className="font-bold text-[15px] leading-tight mb-1">{title}</div>

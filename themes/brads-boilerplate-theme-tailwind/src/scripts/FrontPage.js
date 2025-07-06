@@ -4,7 +4,7 @@ import { Card } from './Card';
 
 export default function FrontPage() {
   return (
-    <div className="bg-schemesInversePrimary">
+    <div className="bg-schemesPrimaryFixed">
       <FrontPageGrid />
       <SearchBar />
     </div>

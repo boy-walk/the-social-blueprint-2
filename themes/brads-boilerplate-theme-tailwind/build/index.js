@@ -4600,8 +4600,11 @@ const Card = ({
   styles
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: `border border-[color:var(--schemesOutlineVariant,#C9C7BD)] border-solid flex justify-center bg-white rounded-lg shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] ${styles}`,
-    children: children
+    className: `relative rounded-lg bg-white border border-[color:var(--schemesOutlineVariant,#C9C7BD)] shadow-none ${styles} before:absolute before:inset-0 before:rounded-lg before:shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] before:mix-blend-multiply before:z-0 before:content-['']`,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "relative z-10 w-full h-full flex justify-center items-center",
+      children: children
+    })
   });
 };
 
@@ -5048,7 +5051,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function FrontPage() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "bg-schemesInversePrimary",
+    className: "bg-schemesPrimaryFixed",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(FrontPageGrid, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(SearchBar, {})]
   });
 }
@@ -5216,7 +5219,7 @@ function Header() {
     t
   } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_11__.useTranslation)();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("header", {
-    className: " relative bg-[var(--schemesPrimaryContainer)] text-[var(--schemesOnPrimaryContainer)] w-full px-8 lg:px-16 py-6 flex items-center justify-between z-50 shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] ",
+    className: " relative bg-[var(--schemesPrimaryContainer)] text-[var(--schemesOnPrimaryContainer)] w-full px-8 lg:px-16 py-6 flex items-center justify-between z-50 shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] mix-blend-multiply ",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
       href: "/",
       className: "flex items-center",
@@ -6258,9 +6261,9 @@ const SectionOne = ({
   events
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-    className: "flex px-32 py-12 bg-white flex-col items-center justify-center gap-12",
+    className: "flex flex-col px-4 sm:px-8 md:px-16 lg:px-32 py-12 bg-white items-center justify-center gap-12",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-      className: "flex flex-col justify-center items-center gap-4 self-stretch",
+      className: "flex flex-col justify-center items-center gap-4 w-full",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "flex gap-2 justify-center items-center",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
@@ -6274,78 +6277,36 @@ const SectionOne = ({
         className: "w-full text-xl text-center",
         children: "From support services to creative culture, start where you're curious."
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-      className: "flex items-center justify-center self-stretch gap-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-        styles: "flex-1 h-64 max-w-59 border-1 border-background-light px-4 pt-4",
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full",
+      children: [0, 1, 2, 3, 4].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
+        styles: "h-64 max-w-full border-1 border-background-light px-4 pt-4",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex flex-col items-end justify-end gap-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ArrowIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-            className: "w-full text-xl text-right ",
-            children: ["Community", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Connection"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-            src: _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
-            alt: "Community Connection",
-            className: "object-cover flex-2"
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-        styles: " h-64 max-w-59 border-1 border-background-light px-4 pt-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex flex-col items-end justify-end gap-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ArrowIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-            className: "w-full text-xl text-right ",
-            children: ["Events and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Experiences"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-            src: _assets_explore_theme_2_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
-            alt: "Events and Experiences",
-            className: "object-cover flex-2"
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-        styles: " h-64 max-w-59 border-1 border-background-light px-4 pt-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex flex-col items-end justify-end gap-2",
+          className: "flex flex-col items-end justify-end gap-2 h-full",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ArrowIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: "w-full text-xl text-right",
-            children: ["Learning and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Growth"]
+            children: [i === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+              children: ["Community", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Connection"]
+            }), i === 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+              children: ["Events and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Experiences"]
+            }), i === 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+              children: ["Learning and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Growth"]
+            }), i === 3 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+              children: ["Support and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Services"]
+            }), i === 4 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+              children: ["Culture and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Identity"]
+            })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-            src: _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
-            alt: "Learning and Growth",
-            className: "object-cover flex-2"
+            src: i === 1 ? _assets_explore_theme_2_svg__WEBPACK_IMPORTED_MODULE_6__["default"] : _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
+            alt: "Theme Icon",
+            className: "object-cover w-full"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-        styles: " h-64 max-w-59 border-1 border-background-light px-4 pt-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex flex-col items-end justify-end gap-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ArrowIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-            className: "w-full text-xl text-right ",
-            children: ["Support and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Services"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-            src: _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
-            alt: "Support and Services",
-            className: "object-cover flex-2"
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-        styles: " h-64 max-w-59 border-1 border-background-light px-4 pt-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex flex-col items-end justify-end gap-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ArrowIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-            className: "w-full text-xl text-right",
-            children: ["Culture and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "Identity"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-            src: _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
-            alt: "Culture and Identity",
-            className: "object-cover flex-2"
-          })]
-        })
-      })]
+      }, i))
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-      className: "bg-container-light flex p-16 flex-col items-center gap-12 self-stretch rounded-xl shadow-3x1",
+      className: "bg-container-light flex flex-col items-center gap-12 self-stretch rounded-xl shadow-3x1 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "flex justify-between items-end self-stretch",
+        className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "flex flex-col justify-center items-start gap-4",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -6362,7 +6323,7 @@ const SectionOne = ({
             children: "Workshops, holidays, classes and community gatherings, updated regularly."
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex gap-4 items-center",
+          className: "flex flex-wrap gap-4 items-center",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: "Browse the calendar",
             onClick: () => window.location.href = '/events',
@@ -6376,46 +6337,22 @@ const SectionOne = ({
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "grid gap-4 grid-rows-1 grid-cols-5 items-start w-full",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_EventCard__WEBPACK_IMPORTED_MODULE_3__.EventCard, {
-          styles: "col-span-1 row-span-3",
-          ...events[0],
+        className: "grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-start w-full",
+        children: [events.slice(0, 3).map((event, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_EventCard__WEBPACK_IMPORTED_MODULE_3__.EventCard, {
+          styles: "w-full",
+          ...event,
           isFeatured: true,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "bg-green-100 rounded-md w-full"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_EventCard__WEBPACK_IMPORTED_MODULE_3__.EventCard, {
-          styles: "col-span-1 row-span-3",
-          ...events[1],
-          isFeatured: true,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            className: "bg-blue-100 rounded-md w-full"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_EventCard__WEBPACK_IMPORTED_MODULE_3__.EventCard, {
-          styles: "col-span-1 row-span-3",
-          ...events[2],
-          isFeatured: true,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            className: "bg-indigo-200 rounded-md w-full"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "col-span-2 row-span-1 flex flex-col gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(EventListCard, {
-            ...events[3],
+        }, i)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "col-span-1 sm:col-span-2 flex flex-col gap-4",
+          children: events.slice(3, 6).map((event, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(EventListCard, {
+            ...event,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               className: "bg-pink-200 rounded-md w-full"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(EventListCard, {
-            ...events[4],
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              className: "bg-pink-200 rounded-md w-full"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(EventListCard, {
-            ...events[5],
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              className: "bg-pink-200 rounded-md w-full"
-            })
-          })]
+          }, i))
         })]
       })]
     })]
@@ -7099,6 +7036,7 @@ const el12 = document.getElementById('search-root');
 if (el12) {
   const query = el12.getAttribute("data-query") || '';
   const results = JSON.parse(el12.getAttribute("data-results"));
+  console.log(results);
   react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el12).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_scripts_SearchPage__WEBPACK_IMPORTED_MODULE_16__.SearchPage, {
     query: query,
     results: results

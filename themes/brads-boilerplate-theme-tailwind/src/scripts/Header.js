@@ -27,6 +27,7 @@ export default function Header() {
         w-full px-8 lg:px-16 py-6
         flex items-center justify-between z-50
         shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]
+        mix-blend-multiply
       "
     >
       {/* logo -------------------------------------------------- */}

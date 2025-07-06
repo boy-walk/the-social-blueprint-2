@@ -27,3 +27,6 @@ Thumbs.db
 # Logs and temp files
 *.log
 *.tmp
+
+# Ignore All-in-One WP Migration backup folder
+ai1wm-backups/

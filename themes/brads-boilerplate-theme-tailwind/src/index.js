@@ -99,5 +99,6 @@ const el12 = document.getElementById('search-root');
 if (el12) {
   const query = el12.getAttribute("data-query") || '';
   const results = JSON.parse(el12.getAttribute("data-results"))
+  console.log(results)
   ReactDOM.createRoot(el12).render(<SearchPage query={query} results={results} />);
 }
