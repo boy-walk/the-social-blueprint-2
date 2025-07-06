@@ -42,7 +42,7 @@ export default function PodcastPage({
                         {sections.map((section, index) => (
                             <div
                                 key={index}
-                                className="prose [&_ul]:list-disc [&_ul]:pl-5"
+                                className="prose [&_ul]:list-disc [&_ul]:pl-5 break-words prose-a:break-all"
                                 dangerouslySetInnerHTML={{ __html: section.text }}
                             />
                         ))}

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { FrontPageGrid } from './FrontPageGrid';
 import { useTranslation } from 'react-i18next';
+import { Card } from './Card';
 
 export default function FrontPage() {
   return (
-    <div className="bg-background-dark">
+    <div className="bg-schemesInversePrimary">
       <FrontPageGrid />
       <SearchBar />
     </div>
   );
 }
+
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
@@ -23,7 +24,7 @@ const SearchBar = () => {
 
   return (
     <div className="bg-container-dark flex flex-col items-center justify-center gap-8 py-16 px-4 sm:px-6">
-      <h2 className="text-center font-bold text-xl text-[#474740]">
+      <h2 className="Blueprint-display-small-emphasized font-bold text-xl text-[#474740]">
         Search The Social Blueprint
       </h2>
 
@@ -52,7 +53,7 @@ const SearchBar = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full py-3 pl-10 pr-4 text-sm text-gray-900 border border-border-light rounded-lg bg-container-lighter focus:ring-blue-500 focus:border-blue-500"
+            className="block w-full py-3 pl-10 pr-4 text-sm text-gray-900 border border-border-light rounded-lg bg-schemesSurfaceContainerLowest focus:ring-blue-500 focus:border-blue-500"
             placeholder="Search podcasts, events, resources..."
             onChange={(e) => setQuery(e.target.value)}
             required
@@ -77,6 +78,37 @@ const SearchBar = () => {
           )
         )}
       </div>
+    </div>
+  );
+};
+
+export const FrontPageGrid = () => {
+  return (
+    <div className="grid grid-cols-5 grid-rows-4 py-8 px-16 gap-4 h-150">
+      <Card styles="col-span-1 row-span-2 p-2">
+        <div className="bg-green-100 rounded-md w-full h-full"></div>
+      </Card>
+      <Card styles="col-span-2 row-span-2 p-2">
+        <div className="bg-blue-100 rounded-md w-full h-full "></div>
+      </Card>
+      <Card styles="col-span-1 row-span-3 p-2">
+        <div className="bg-indigo-200 rounded-md w-full h-full"></div>
+      </Card>
+      <Card styles="col-span-1 row-span-2 p-2">
+        <div className="bg-pink-200 rounded-md w-full h-full"></div>
+      </Card>
+      <Card styles="col-span-2 row-span-2 p-2">
+        <div className="bg-blue-800 rounded-md w-full h-full"></div>
+      </Card>
+      <Card styles="col-span-1 row-span-2 p-2">
+        <div className="bg-pink-200 rounded-md w-full h-full"></div>
+      </Card>
+      <Card styles="col-span-1 row-span-2 p-2">
+        <div className="bg-green-200 rounded-md w-full h-full"></div>
+      </Card>
+      <Card styles="col-span-1 row-span-1 p-2">
+        <div className="bg-cyan-800 rounded-md w-full h-full"></div>
+      </Card>
     </div>
   );
 };
