@@ -49,7 +49,7 @@
 
 /* Headline */
 .Blueprint-headline-large {
-  font-weight: 700;
+  font-weight: 600;
   font-size:   32px;
   line-height: 40px;
   font-family: 'IBM Plex Sans Condensed', sans-serif;
@@ -62,7 +62,7 @@
 }
 
 .Blueprint-headline-medium {
-  font-weight: 400;
+  font-weight: 600;
   font-size:   28px;
   line-height: 36px;
   font-family: 'IBM Plex Sans Condensed', sans-serif;

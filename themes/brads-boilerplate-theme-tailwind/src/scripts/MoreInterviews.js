@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowIcon } from '../../assets/icons/arrow';
 
 export const MoreInterviews = ({ items = [] }) => {
   if (!items.length) return null;
@@ -6,8 +7,8 @@ export const MoreInterviews = ({ items = [] }) => {
   return (
     <section className="py-12">
       <div className="flex items-center gap-2 mb-6">
-        <h2 className="text-2xl font-bold">More Interviews</h2>
-        <img src="/assets/icons/arrow-icon.svg" alt="" className="w-6 h-6" />
+        <h2 className="Blueprint-headline-medium font-bold">More Interviews</h2>
+        <ArrowIcon className="text-schemesPrimary fill-current"/>
       </div>
 
       <div className="flex flex-col gap-6 md:flex-row md:gap-4">

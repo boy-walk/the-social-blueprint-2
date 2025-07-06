@@ -65,7 +65,7 @@ export default function PodcastPage({
 
                 {/* Right Column: Related Content */}
                 <aside className="w-full lg:w-80 space-y-4 sticky top-12">
-                    <h2 className="Blueprint-title-medium">Related Content</h2>
+                    <h2 className="Blueprint-headline-small-emphasized">Related Content</h2>
                     <div className="bg-white rounded-lg shadow-inner h-64 flex items-center justify-center">
                         <span className="text-schemesOutline">Related content placeholder</span>
                     </div>
