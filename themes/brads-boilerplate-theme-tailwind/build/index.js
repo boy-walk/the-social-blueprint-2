@@ -5653,7 +5653,7 @@ function MoreInterviews({
         className: "Blueprint-headline-medium",
         children: "More Interviews"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_1__.ArrowIcon, {
-        className: "w-6 h-6 text-schemesPrimary"
+        className: "text-schemesPrimary"
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "flex flex-wrap gap-6",
