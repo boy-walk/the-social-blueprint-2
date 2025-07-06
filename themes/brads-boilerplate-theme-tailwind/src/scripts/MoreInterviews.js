@@ -1,4 +1,5 @@
 import React from "react";
+import { ArrowIcon } from "../../assets/icons/arrow";
 
 export function MoreInterviews({ items = [] }) {
     if (!items.length) return null;
