@@ -1,15 +1,17 @@
 import React from "react";
+import { MoreInterviews } from "./MoreInterviews";
 
 export default function PodcastPage({
     title,
     subtitle,
     videoUrl,
     sections,
-    tags
+    tags,
+    moreInterviews
 }) {
     return (
         <main className="bg-schemesSurface text-schemesOnSurface py-12 px-4 lg:px-16">
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-7xl mx-auto sm:px-6">
                 {/* Left Column: Main Content */}
                 <div className="flex-1 space-y-10">
                     {/* Title and Subtitle */}
@@ -22,8 +24,6 @@ export default function PodcastPage({
                         )}
                     </header>
 
-                    {/* Video Embed */}
-                    {console.log(videoUrl.replace("watch?v=", "embed/"))}
                     {videoUrl && (
                         <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
                             <iframe
@@ -73,11 +73,8 @@ export default function PodcastPage({
             </div>
 
             {/* More Interviews */}
-            <section className="max-w-6xl mx-auto mt-20 space-y-4">
-                <h2 className="Blueprint-title-medium">More Interviews</h2>
-                <div className="bg-white rounded-lg shadow-inner h-64 flex items-center justify-center">
-                    <span className="text-schemesOutline">More interviews placeholder</span>
-                </div>
+            <section className="max-w-7xl mx-auto mt-20 space-y-4">
+                <MoreInterviews items={moreInterviews}/>
             </section>
         </main>
     );

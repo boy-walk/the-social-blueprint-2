@@ -90,6 +90,7 @@ if (el11) {
     videoUrl: el11.dataset.videoUrl,
     sections: JSON.parse(el11.dataset.sections),
     tags: JSON.parse(el11.dataset.tags),
+    moreInterviews: JSON.parse(el11.dataset.moreInterviews) || [],
   };
   console.log(props)
   ReactDOM.createRoot(el11).render(<PodcastPage {...props}/>);

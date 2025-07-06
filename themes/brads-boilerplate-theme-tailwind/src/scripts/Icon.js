@@ -44,7 +44,7 @@ export function IconButton({
 
     /* Tonal ───────────────────────────── */
     tonal: clsx(
-      'bg-[var(--schemesPrimary)] text-[var(--schemesOnSecondaryContainer)]',
+      'bg-schemesPrimaryFixed text-[var(--schemesOnSecondaryContainer)]',
       'hover:bg-[var(--schemesPrimaryFixedDim)] hover:text-[var(--schemesOnSecondary)]',
       'active:bg-[var(--schemesSecondary)]',
       'focus-visible:ring-2 focus-visible:ring-[var(--schemesSecondaryContainer)]'

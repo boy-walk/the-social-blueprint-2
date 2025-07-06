@@ -40,28 +40,28 @@ export default function Header() {
         {/* social icons */}
         <div className="flex gap-4">
           <IconButton
-            icon={<img src={FacebookIcon} alt="Facebook" className="w-auto h-auto" />}
+            icon={<img src={FacebookIcon} alt="Facebook" className="text-white fill-current w-auto h-auto" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.facebook.com', '_blank')}
             aria-label={t('follow_us_on_facebook')}
           />
           <IconButton
-            icon={<img src={YoutubeIcon} alt="YouTube" className="text-schemesPrimaryFixed w-auto h-auto" />}
+            icon={<img src={YoutubeIcon} alt="YouTube" className="text-black fill-current w-auto h-auto" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.youtube.com', '_blank')}
             aria-label={t('follow_us_on_youtube')}
           />
           <IconButton
-            icon={<img src={InstagramIcon} alt="Instagram" className="w-auto h-auto" />}
+            icon={<img src={InstagramIcon} alt="Instagram" className="text-schemesOnPrimaryFixedVariant w-auto h-auto" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.instagram.com', '_blank')}
             aria-label={t('follow_us_on_instagram')}
           />
           <IconButton
-            icon={<img src={LinkedInIcon} alt="LinkedIn" className="w-auto h-auto" />}
+            icon={<img src={LinkedInIcon} alt="LinkedIn" className="text-schemesOnPrimaryFixedVariant w-auto h-auto" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.linkedin.com', '_blank')}
