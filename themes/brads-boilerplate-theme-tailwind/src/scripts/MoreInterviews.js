@@ -8,7 +8,7 @@ export function MoreInterviews({ items = [] }) {
             <div className="flex items-center gap-2">
                 <h2 className="Blueprint-headline-medium">More Interviews</h2>
                 {/* Optional: decorative arrow icon */}
-                <ArrowIcon className="w-6 h-6 text-primary" />
+                <ArrowIcon className="w-6 h-6 text-schemesPrimary" />
             </div>
 
             <div className="flex flex-wrap gap-6">
