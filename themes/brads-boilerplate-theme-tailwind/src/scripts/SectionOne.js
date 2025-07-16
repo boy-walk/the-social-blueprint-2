@@ -25,6 +25,7 @@ export const SectionOne = ({ events }) => {
         {[0, 1, 2, 3, 4].map((i) => (
           <Card
             key={i}
+            href={i === 0 ? '/community-connect' : `/explore/${i + 1}`}
             styles="h-64 max-w-full border-1 border-background-light px-4 pt-4"
           >
             <div className="flex flex-col items-end justify-end gap-2 h-full">

@@ -5,6 +5,7 @@ import { SimpleCard } from "./SimpleCard";
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
     return (
         <div>
+            {/* Hero Section */}
             <div className="bg-schemesPrimaryFixed py-8 px-4 sm:px-8 lg:px-16">
                 <div className="pb-4">
                     <h1 className="Blueprint-display-small-emphasized text-schemesOnSurface mb-3">
@@ -15,9 +16,11 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                         local notices, and informal support through our active message boards and groups.
                     </p>
                 </div>
+
+                {/* Quick Links */}
                 <div className="pt-4">
                     <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-4 mt-4">Quick Links</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-6 h-32">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mt-6 min-h-[8rem]">
                         <SimpleCard title="Community message board" />
                         <SimpleCard title="Stories and interviews" />
                         <SimpleCard title="Upcoming community events" />
@@ -27,14 +30,16 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                 </div>
             </div>
 
+            {/* Featured in Community */}
             <div className="py-8 px-4 sm:px-8 lg:px-16 bg-schemesSurface">
                 <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-6">Featured in Community</h2>
+
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Hero */}
+                    {/* Hero Feature */}
                     {featured[0] && (
-                        <div className="lg:col-span-1 rounded-lg overflow-hidden shadow-md border border-outlineVariant">
+                        <div className="rounded-lg overflow-hidden shadow-md border border-outlineVariant">
                             <img
-                                src={featured[0].thumbnail || '/placeholder.jpg'}
+                                src={featured[0].thumbnail || "/placeholder.jpg"}
                                 alt={featured[0].title}
                                 className="w-full h-auto object-cover"
                             />
@@ -47,8 +52,8 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                         </div>
                     )}
 
-                    {/* Stacked Cards */}
-                    <div className="lg:col-span-2 flex flex-col gap-6">
+                    {/* Right Column - Stacked Cards */}
+                    <div className="flex flex-col gap-6">
                         {featured.slice(1).map((post, i) => (
                             <SimpleCard
                                 key={i}
@@ -64,12 +69,15 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                 </div>
             </div>
 
-            {/* Message Board Section */}
+            {/* Message Board */}
             <div className="py-8 px-4 sm:px-8 lg:px-16">
                 <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-4">Recent message board posts</h2>
-                <div className="flex flex-wrap gap-6 justify-start items-stretch">
+                <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch">
                     {messageBoard.map((post) => (
-                        <div key={post.id} className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow">
+                        <div
+                            key={post.id}
+                            className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow"
+                        >
                             <ContentCard
                                 image={post.thumbnail}
                                 title={post.title}
@@ -85,9 +93,12 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
             {/* Events */}
             <div className="py-8 px-4 sm:px-8 lg:px-16 bg-[#E6E8FD]">
                 <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-4">What's on this week</h2>
-                <div className="flex flex-wrap gap-6 justify-start items-stretch">
+                <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch">
                     {events.map((event) => (
-                        <div key={event.id} className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow">
+                        <div
+                            key={event.id}
+                            className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow"
+                        >
                             <ContentCard
                                 image={event.thumbnail}
                                 title={event.title}
@@ -103,9 +114,12 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
             {/* Browse All */}
             <div className="py-8 px-4 sm:px-8 lg:px-16">
                 <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-4">Browse all community</h2>
-                <div className="flex flex-wrap gap-6 justify-start items-stretch">
+                <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch">
                     {browseAll.map((post) => (
-                        <div key={post.id} className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow">
+                        <div
+                            key={post.id}
+                            className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow"
+                        >
                             <ContentCard
                                 image={post.thumbnail}
                                 title={post.title}

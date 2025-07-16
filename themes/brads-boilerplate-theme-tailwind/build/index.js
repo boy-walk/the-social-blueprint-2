@@ -4628,13 +4628,17 @@ __webpack_require__.r(__webpack_exports__);
 
 const Card = ({
   children,
-  styles
+  styles,
+  href
 }) => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: `relative rounded-lg bg-white border border-[color:var(--schemesOutlineVariant,#C9C7BD)] shadow-none ${styles} before:absolute before:inset-0 before:rounded-lg before:shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] before:mix-blend-multiply before:z-0 before:content-['']`,
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
+    href: href,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "relative z-10 w-full h-full flex justify-center items-center",
-      children: children
+      className: `relative rounded-lg bg-white border border-[color:var(--schemesOutlineVariant,#C9C7BD)] shadow-none ${styles} before:absolute before:inset-0 before:rounded-lg before:shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] before:mix-blend-multiply before:z-0 before:content-['']`,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "relative z-10 w-full h-full flex justify-center items-center",
+        children: children
+      })
     })
   });
 };
@@ -4686,7 +4690,7 @@ function CommunityHubPage({
           className: "Blueprint-headline-medium text-schemesOnSurface mb-4 mt-4",
           children: "Quick Links"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-6 h-32",
+          className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mt-6 min-h-[8rem]",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SimpleCard__WEBPACK_IMPORTED_MODULE_2__.SimpleCard, {
             title: "Community message board"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SimpleCard__WEBPACK_IMPORTED_MODULE_2__.SimpleCard, {
@@ -4708,9 +4712,9 @@ function CommunityHubPage({
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "grid grid-cols-1 lg:grid-cols-3 gap-6",
         children: [featured[0] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "lg:col-span-1 rounded-lg overflow-hidden shadow-md border border-outlineVariant",
+          className: "rounded-lg overflow-hidden shadow-md border border-outlineVariant",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-            src: featured[0].thumbnail || '/placeholder.jpg',
+            src: featured[0].thumbnail || "/placeholder.jpg",
             alt: featured[0].title,
             className: "w-full h-auto object-cover"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -4724,7 +4728,7 @@ function CommunityHubPage({
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "lg:col-span-2 flex flex-col gap-6",
+          className: "flex flex-col gap-6",
           children: featured.slice(1).map((post, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SimpleCard__WEBPACK_IMPORTED_MODULE_2__.SimpleCard, {
             image: post.thumbnail,
             category: post.post_type,
@@ -4741,7 +4745,7 @@ function CommunityHubPage({
         className: "Blueprint-headline-medium text-schemesOnSurface mb-4",
         children: "Recent message board posts"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "flex flex-wrap gap-6 justify-start items-stretch",
+        className: "flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch",
         children: messageBoard.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
@@ -4759,7 +4763,7 @@ function CommunityHubPage({
         className: "Blueprint-headline-medium text-schemesOnSurface mb-4",
         children: "What's on this week"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "flex flex-wrap gap-6 justify-start items-stretch",
+        className: "flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch",
         children: events.map(event => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
@@ -4777,7 +4781,7 @@ function CommunityHubPage({
         className: "Blueprint-headline-medium text-schemesOnSurface mb-4",
         children: "Browse all community"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "flex flex-wrap gap-6 justify-start items-stretch",
+        className: "flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch",
         children: browseAll.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
@@ -6643,6 +6647,7 @@ const SectionOne = ({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full",
       children: [0, 1, 2, 3, 4].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
+        href: i === 0 ? '/community-connect' : `/explore/${i + 1}`,
         styles: "h-64 max-w-full border-1 border-background-light px-4 pt-4",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "flex flex-col items-end justify-end gap-2 h-full",
