@@ -257,3 +257,5 @@ add_filter('acf/settings/load_json', function ($paths) {
 
   return $paths;
 });
+
+add_filter('uwp_disable_redirect', '__return_true');
