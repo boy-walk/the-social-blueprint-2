@@ -107,5 +107,6 @@ if (el12) {
 
 const el13 = document.getElementById('community-hub-root');
 if (el13) {
-  ReactDOM.createRoot(el13).render(<CommunityHubPage />);
+  const props = window.__COMMUNITY_HUB_PROPS__ || {};
+  ReactDOM.createRoot(el13).render(<CommunityHubPage {...props}/>);
 }
