@@ -15,6 +15,7 @@ import { Page404 } from './scripts/Page404';
 import { RegisterOrganisation } from './scripts/RegisterOrganisation';
 import PodcastPage from './scripts/PodcastPage';
 import { SearchPage } from './scripts/SearchPage';
+import { CommunityHubPage } from './scripts/CommunityHubPage';
 
 
 if (document.querySelector('#front-page')) {
@@ -102,4 +103,9 @@ if (el12) {
   const results = JSON.parse(el12.getAttribute("data-results"))
   console.log(results)
   ReactDOM.createRoot(el12).render(<SearchPage query={query} results={results} />);
+}
+
+const el13 = document.getElementById('community-hub-root');
+if (el13) {
+  ReactDOM.createRoot(el13).render(<CommunityHubPage />);
 }
