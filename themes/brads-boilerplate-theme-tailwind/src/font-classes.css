@@ -170,8 +170,8 @@
   font-size:   11px;
   line-height: 16px;
   letter-spacing: 0.5px;
-  font-family: 'Heebo', sans-serif;
-  text-transform: uppercase;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  text-transform: titlecase;
 }
 .Blueprint-label-small-emphasized {
   font-weight: 600;

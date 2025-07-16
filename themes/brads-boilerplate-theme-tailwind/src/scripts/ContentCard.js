@@ -16,7 +16,7 @@ export function ContentCard({ image, type, title, subtitle, badge, href }) {
                         />
                     )}
                     {badge && (
-                        <span className="absolute top-2 left-2 bg-white text-schemesPrimary font-medium px-2 py-1 rounded text-xs z-10">
+                        <span className="absolute top-2 left-2 bg-white Blueprint-label-small font-medium px-2 py-1 rounded text-xs z-10">
                             {badge}
                         </span>
                     )}

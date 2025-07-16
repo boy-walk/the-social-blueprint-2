@@ -4836,7 +4836,7 @@ function ContentCard({
           alt: title,
           className: "w-full h-full object-cover"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-          className: "absolute top-2 left-2 bg-white text-schemesPrimary font-medium px-2 py-1 rounded text-xs z-10",
+          className: "absolute top-2 left-2 bg-white Blueprint-label-small font-medium px-2 py-1 rounded text-xs z-10",
           children: badge
         })]
       })
@@ -6406,13 +6406,13 @@ function SearchPage({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "flex flex-wrap gap-[24px] justify-start items-start",
           children: paginatedResults.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] max-w-[280px]",
+            className: "flex-shrink-0 sm:w-[calc(50%-12px)] lg:w-[calc(19%-18px)] max-w-[280px]",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
               image: item.thumbnail,
               title: item.title,
               type: item.type,
               subtitle: item.meta?.author || item.meta?.location || "",
-              badge: item.type.toLowerCase() === "podcast" ? "New Interview" : item.type.toLowerCase() === "blog" ? "Blog" : item.type.toLowerCase() === "event" ? "Event" : null,
+              badge: item.type.toLowerCase() === "podcast" ? "Podcast" : item.type.toLowerCase() === "blog" ? "Blog" : item.type.toLowerCase() === "event" ? "Event" : null,
               href: item.link
             })
           }, item.id))

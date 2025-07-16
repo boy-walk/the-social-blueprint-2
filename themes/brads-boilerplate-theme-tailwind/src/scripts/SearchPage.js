@@ -59,7 +59,7 @@ export function SearchPage({ query, results }) {
             {paginatedResults.map((item) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] max-w-[280px]"
+                className="flex-shrink-0 sm:w-[calc(50%-12px)] lg:w-[calc(19%-18px)] max-w-[280px]"
               >
                 <ContentCard
                   image={item.thumbnail}
@@ -68,7 +68,7 @@ export function SearchPage({ query, results }) {
                   subtitle={item.meta?.author || item.meta?.location || ""}
                   badge={
                     item.type.toLowerCase() === "podcast"
-                      ? "New Interview"
+                      ? "Podcast"
                       : item.type.toLowerCase() === "blog"
                       ? "Blog"
                       : item.type.toLowerCase() === "event"
