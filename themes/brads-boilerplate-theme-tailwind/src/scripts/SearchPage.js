@@ -1,89 +1,113 @@
 import React, { useState } from "react";
-import { ArrowIcon } from "../../assets/icons/arrow";
+import { ContentCard } from "./ContentCard";
 import { SearchBar } from "./SearchBar";
 
-const FILTERS = [
-  { label: "All", value: "all" },
-  { label: "Articles", value: "post" },
-  { label: "Podcasts", value: "podcast" },
-  { label: "Recipes", value: "recipe" },
-  { label: "Toolkit", value: "toolkit" },
-  { label: "Events", value: "event" },
-];
+const FILTERS = ["All", "Article", "Podcast", "Recipe", "Toolkit", "Event"];
+const RESULTS_PER_PAGE = 10;
 
 export function SearchPage({ query, results }) {
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredResults =
-    activeFilter === "all"
-      ? results
-      : results.filter((item) => item.type === activeFilter);
+  const filtered = selectedFilter === "All"
+    ? results
+    : results.filter((r) => r.type.toLowerCase() === selectedFilter.toLowerCase());
+
+  const totalPages = Math.ceil(filtered.length / RESULTS_PER_PAGE);
+  const paginatedResults = filtered.slice(
+    (currentPage - 1) * RESULTS_PER_PAGE,
+    currentPage * RESULTS_PER_PAGE
+  );
 
   return (
-    <main className="bg-schemesSurface text-schemesOnSurface min-h-screen">
-      <section className="bg-schemesPrimaryFixed text-onPrimaryContainer py-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-2">
-          <h1 className="Blueprint-headline-medium">Search Results</h1>
-         <SearchBar />
+    <>
+      {/* Header */}
+      <div className="bg-schemesPrimaryFixed py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="Blueprint-display-small-emphasized mb-3 text-schemesOnSurface">Search Results</h1>
+          <SearchBar />
         </div>
-      </section>
+      </div>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-wrap gap-2 mb-6">
-          {FILTERS.map((filter) => (
-            <button
-              key={filter.value}
-              className={`px-4 py-2 rounded-full text-sm border ${
-                activeFilter === filter.value
-                  ? "bg-primary text-white border-primary"
-                  : "bg-schemesSurfaceVariant text-schemesOnSurface border-schemesOutline"
-              }`}
-              onClick={() => setActiveFilter(filter.value)}
-            >
-              {filter.label}
-            </button>
-          ))}
-        </div>
-
-        {filteredResults.length === 0 ? (
-          <p className="text-schemesOnSurfaceVariant">No results found.</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredResults.map((item) => (
-              <a
-                href={item.link}
-                key={item.id}
-                className="bg-white rounded-xl shadow hover:shadow-lg transition-all overflow-hidden"
+      {/* Body */}
+      <div className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-3 mb-8 mt-4">
+            {FILTERS.map((filter) => (
+              <button
+                key={filter}
+                onClick={() => {
+                  setSelectedFilter(filter);
+                  setCurrentPage(1);
+                }}
+                className={`px-4 py-1.5 rounded-full border Blueprint-label-large ${
+                  selectedFilter === filter
+                    ? "bg-black text-white"
+                    : "bg-white text-schemesOnSurface border-gray-300"
+                }`}
               >
-                {item.thumbnail && (
-                  <img
-                    src={item.thumbnail}
-                    alt={item.title}
-                    className="w-full h-48 object-cover"
-                  />
-                )}
-                <div className="p-4 space-y-1">
-                  <span className="text-sm text-primary font-medium capitalize">
-                    {item.type}
-                  </span>
-                  <h2 className="text-lg Blueprint-title-small line-clamp-2">
-                    {item.title}
-                  </h2>
-                  {item.meta?.event_date && (
-                    <p className="text-sm text-schemesOnSurfaceVariant">
-                      {item.meta.event_date}
-                    </p>
-                  )}
-                </div>
-              </a>
+                {filter}
+              </button>
             ))}
           </div>
-        )}
 
-        <p className="text-schemesOnSurfaceVariant text-sm mt-6">
-          Displaying {filteredResults.length} of {results.length} results
-        </p>
-      </section>
-    </main>
+          {paginatedResults.length === 0 && <p>No results found.</p>}
+
+          {/* Content Cards */}
+          <div className="flex flex-wrap gap-[24px] justify-start items-start">
+            {paginatedResults.map((item) => (
+              <div
+                key={item.id}
+                className="flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] max-w-[280px]"
+              >
+                <ContentCard
+                  image={item.thumbnail}
+                  title={item.title}
+                  type={item.type}
+                  subtitle={item.meta?.author || item.meta?.location || ""}
+                  badge={
+                    item.type.toLowerCase() === "podcast"
+                      ? "New Interview"
+                      : item.type.toLowerCase() === "blog"
+                      ? "Blog"
+                      : item.type.toLowerCase() === "event"
+                      ? "Event"
+                      : null
+                  }
+                  href={item.link}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center gap-3 mt-10">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+                <button
+                  key={num}
+                  onClick={() => setCurrentPage(num)}
+                  className={`w-10 h-10 rounded-full text-sm font-medium ${
+                    num === currentPage
+                      ? "bg-black text-white"
+                      : "bg-white border border-gray-300 text-gray-700"
+                  }`}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Count */}
+          <p className="text-sm text-schemesOnSurfaceVariant mt-6">
+            Showing {(currentPage - 1) * RESULTS_PER_PAGE + 1}–
+            {Math.min(currentPage * RESULTS_PER_PAGE, filtered.length)} of {filtered.length} result
+            {filtered.length !== 1 ? "s" : ""}
+          </p>
+        </div>
+      </div>
+    </>
   );
 }
