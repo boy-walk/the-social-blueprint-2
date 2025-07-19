@@ -5617,7 +5617,7 @@ function CommunityHubPage({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_MessageBoardSlider__WEBPACK_IMPORTED_MODULE_8__.MessageBoardSlider, {
       messageBoard: messageBoard
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-      className: "py-16 px-16 sm:px-8 lg:px-16 bg-schemesSecondaryFixed",
+      className: "py-16 px-4 sm:px-8 lg:px-16 bg-schemesSecondaryFixed",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "flex items-center gap-2 mb-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h2", {
@@ -5640,14 +5640,14 @@ function CommunityHubPage({
         }, `event.id-${index}`))
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-      className: "py-16 px-16 sm:px-8 lg:px-16",
+      className: "py-16 px-4 sm:px-8 lg:px-16",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h2", {
         className: "Blueprint-headline-medium text-schemesOnSurface mb-4",
         children: "Browse all community"
       }), console.log(browseAll), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch",
         children: browseAll.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-          className: "w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow",
+          className: "w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)]  sm:max-w-[calc(50%-12px)] md:max-w-[calc(33.333%-16px)] lg:max-w-[calc(25%-18px)] flex-grow",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
             image: post.thumbnail,
             title: post.title,

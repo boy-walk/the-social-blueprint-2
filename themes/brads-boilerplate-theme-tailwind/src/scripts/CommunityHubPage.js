@@ -137,10 +137,10 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
 
             </div>
 
-           <MessageBoardSlider messageBoard={messageBoard} />
+            <MessageBoardSlider messageBoard={messageBoard} />
 
             {/* Events */}
-            <div className="py-16 px-16 sm:px-8 lg:px-16 bg-schemesSecondaryFixed">
+            <div className="py-16 px-4 sm:px-8 lg:px-16 bg-schemesSecondaryFixed">
                 <div className="flex items-center gap-2 mb-6">
                     <h2 className="Blueprint-headline-medium text-schemesOnSecondaryFixed">What's on this week</h2>
                     <ArrowIcon className="text-schemesOnSecondaryFixed" />
@@ -164,14 +164,16 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
             </div>
 
             {/* Browse All */}
-            <div className="py-16 px-16 sm:px-8 lg:px-16">
+            <div className="py-16 px-4 sm:px-8 lg:px-16">
                 <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-4">Browse all community</h2>
                 {console.log(browseAll)}
                 <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch">
                     {browseAll.map((post) => (
                         <div
                             key={post.id}
-                            className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] max-w-[280px] flex-grow"
+                            className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] 
+                                sm:max-w-[calc(50%-12px)] md:max-w-[calc(33.333%-16px)] lg:max-w-[calc(25%-18px)]
+                            flex-grow"
                         >
                             <ContentCard
                                 image={post.thumbnail}
