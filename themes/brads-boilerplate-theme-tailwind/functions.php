@@ -225,6 +225,7 @@ add_action('init', function () {
 
   // ===== REGISTER CUSTOM TAXONOMIES =====
   $taxonomies = [
+    'category'      => 'Category',
     'topic_tag'     => 'Topic',
     'audience_tag'  => 'Audience',
     'location_tag'  => 'Location',

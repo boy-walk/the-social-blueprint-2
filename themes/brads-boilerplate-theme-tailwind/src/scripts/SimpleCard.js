@@ -15,7 +15,7 @@ export function SimpleCard({
   const content = (
     <div
       className={classNames(
-        "rounded-lg bg-white border border-outlineVariant shadow-md",
+        "rounded-lg bg-white border border-schemesOutlineVariant shadow-3x2",
         "flex p-4 gap-4 w-full max-w-full h-full"
       )}
     >

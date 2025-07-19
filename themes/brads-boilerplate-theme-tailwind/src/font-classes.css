@@ -62,7 +62,7 @@
 }
 
 .Blueprint-headline-medium {
-  font-weight: 600;
+  font-weight: 700;
   font-size:   28px;
   line-height: 36px;
   font-family: 'IBM Plex Sans Condensed', sans-serif;
@@ -154,8 +154,8 @@
   line-height: 16px;
   letter-spacing: 0.5px;
   font-family: 'Heebo', sans-serif;
-  text-transform: uppercase;
 }
+
 .Blueprint-label-medium-emphasized {
   font-weight: 600;
   font-size:   12px;
