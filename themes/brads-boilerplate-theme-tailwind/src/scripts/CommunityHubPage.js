@@ -4,6 +4,8 @@ import { SimpleCard } from "./SimpleCard";
 import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { DetailedCard } from "./DetailedCard";
+import { ExploreByTheme } from "./ExploreByTheme";
+import PillTag from "./PillTag";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
     return (
@@ -205,6 +207,19 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                     ))}
                 </div>
             </div>
+            <div className="py-16 px-16 sm:px-8 lg:px-16 bg-schemesPrimaryFixed flex flex-col gap-4">
+                <div className="flex gap-3 items-center">
+                    <div className="Blueprint-headline-medium italic">
+                        Explore more by
+                    </div>
+                    <PillTag label="Theme" backgroundColor="#007ea8" />
+                </div>
+                <div className="Blurprint-title-large mb-6 text-schemesOnSurface">
+                    From support services to creative culture, start where you're curious.
+                </div>
+                <ExploreByTheme />
+            </div>
+
         </div>
     );
 }
