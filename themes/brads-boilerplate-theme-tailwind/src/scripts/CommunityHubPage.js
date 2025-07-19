@@ -1,6 +1,5 @@
 import React from "react";
 import { ContentCard } from "./ContentCard";
-import { SimpleCard } from "./SimpleCard";
 import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { DetailedCard } from "./DetailedCard";

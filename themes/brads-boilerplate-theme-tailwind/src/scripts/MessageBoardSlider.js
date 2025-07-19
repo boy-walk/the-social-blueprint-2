@@ -90,19 +90,19 @@ export function MessageBoardSlider({ messageBoard }) {
             <div className="flex justify-between gap-4 mt-6">
                 <button
                     onClick={prev}
-                    className={`bg-schemesSurface shadow-md rounded-full p-2 w-10 h-10 flex items-center justify-center ${currentIndex === 0 ? "opacity-30 cursor-not-allowed" : ""
+                    className={`bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center ${currentIndex === 0 ? "opacity-30 cursor-not-allowed" : ""
                         }`}
                     disabled={currentIndex === 0}
                 >
-                    <ArrowLeftIcon size={20} />
+                    <ArrowLeftIcon size={20} fill="bold"/>
                 </button>
                 <button
                     onClick={next}
-                    className={`bg-schemesSurface shadow-md rounded-full p-2 w-10 h-10 flex items-center justify-center ${currentIndex >= totalSlides - 1 ? "opacity-30 cursor-not-allowed" : ""
+                    className={`bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center ${currentIndex >= totalSlides - 1 ? "opacity-30 cursor-not-allowed" : ""
                         }`}
                     disabled={currentIndex >= totalSlides - 1}
                 >
-                    <ArrowRightIcon size={20} />
+                    <ArrowRightIcon size={20} fill="bold"/>
                 </button>
             </div>
         </div>
