@@ -7,6 +7,7 @@ import { DetailedCard } from "./DetailedCard";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
+import { MessageBoardSlider } from "./MessageBoardSlider";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
     return (
@@ -136,41 +137,7 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
 
             </div>
 
-            {/* Message Board */}
-            <div className="py-16 px-16 sm:px-8 lg:px-16">
-                <div className="flex items-center gap-2 mb-4">
-                    <h2 className="Blueprint-headline-medium text-schemesOnSurface">Recent message board posts</h2>
-                    <ArrowIcon />
-                </div>
-
-                <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch">
-                    {messageBoard.map((post) => (
-                        <div
-                            key={post.id}
-                            className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(33%-18px)] flex-grow"
-                        >
-                            <Card>
-                                <div className="flex flex-col gap-2 items-start p-4 w-full">
-                                    <div className="rounded-md px-3 py-1.5 bg-schemesSurfaceContainer Blueprint-label-small">
-                                        Health & Wellbeing
-                                    </div>
-                                    <div>
-                                        {post.title && (
-                                            <h3 className="Blueprint-title-medium text-schemesOnSurface mb-2
-                                        line-clamp-2">
-                                                {post.title}
-                                            </h3>
-                                        )}
-                                    </div>
-                                    <div className="text-schemesOnSurfaceVariant Blueprint-label-medium">
-                                        {post.excerpt}
-                                    </div>
-                                </div>
-                            </Card>
-                        </div>
-                    ))}
-                </div>
-            </div>
+           <MessageBoardSlider messageBoard={messageBoard} />
 
             {/* Events */}
             <div className="py-16 px-16 sm:px-8 lg:px-16 bg-schemesSecondaryFixed">

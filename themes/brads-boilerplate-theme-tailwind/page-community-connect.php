@@ -28,7 +28,7 @@ $featured_posts = get_posts($featured_args);
 // 2. Recent Message Board Posts — custom post type `gd_discount`
 $message_board_args = [
   'post_type' => 'gd_discount',
-  'posts_per_page' => 3,
+  'posts_per_page' => 15,
   'orderby' => 'date',
   'order' => 'DESC',
 ];
