@@ -6,13 +6,9 @@ import { IconButton } from './Icon';
 /* ——--- static assets —---——————————— */
 /* Swap these imports to wherever you keep your images / SVGs */
 import Logo from '../../assets/logo.svg';
-import FacebookIcon from '../../assets/icons/facebook.svg';
-import YoutubeIcon from '../../assets/icons/youtube.svg';
-import InstagramIcon from '../../assets/icons/instagram.svg';
-import LinkedInIcon from '../../assets/icons/linkedin.svg';
-import SpotifyIcon from '../../assets/icons/spotify.svg';
 import IndigenousFlagIcon from '../../assets/icons/indigenous-flag.svg';
 import TorresStraitFlagIcon from '../../assets/icons/torres-strait-flag.svg';
+import { FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, SpotifyLogoIcon, YoutubeLogoIcon } from '@phosphor-icons/react';
 
 /* ——————————————————————————————————————— */
 /*  Footer component                                                            */
@@ -36,31 +32,31 @@ export function Footer({ className = '' }) {
                         {/* Social icons */}
                         <div className="flex gap-4">
                             <IconButton
-                                icon={<img src={FacebookIcon} alt="Facebook" />}
+                                icon={<FacebookLogoIcon size={22} weight="bold" />}
                                 style="tonal" size="sm"
                                 aria-label="Follow us on Facebook"
                                 onClick={() => window.open('https://www.facebook.com', '_blank')}
                             />
                             <IconButton
-                                icon={<img src={YoutubeIcon} alt="YouTube" />}
+                                icon={<YoutubeLogoIcon size={22} weight="bold" />}
                                 style="tonal" size="sm"
                                 aria-label="Follow us on YouTube"
                                 onClick={() => window.open('https://www.youtube.com', '_blank')}
                             />
                             <IconButton
-                                icon={<img src={InstagramIcon} alt="Instagram" />}
+                                icon={<InstagramLogoIcon size={22} weight="bold" />}
                                 style="tonal" size="sm"
                                 aria-label="Follow us on Instagram"
                                 onClick={() => window.open('https://www.instagram.com', '_blank')}
                             />
                             <IconButton
-                                icon={<img src={LinkedInIcon} alt="LinkedIn" />}
+                                icon={<LinkedinLogoIcon size={22} weight="bold" />}
                                 style="tonal" size="sm"
                                 aria-label="Follow us on LinkedIn"
                                 onClick={() => window.open('https://www.linkedin.com', '_blank')}
                             />
                             <IconButton
-                                icon={<img src={SpotifyIcon} alt="Spotify" />}
+                                icon={<SpotifyLogoIcon size={22} weight="bold" />}
                                 style="tonal" size="sm"
                                 aria-label="Follow us on Spotify"
                                 onClick={() => window.open('https://www.spotify.com', '_blank')}

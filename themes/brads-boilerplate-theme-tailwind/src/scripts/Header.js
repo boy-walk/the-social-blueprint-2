@@ -1,15 +1,10 @@
 import React from 'react';
 import Logo from '../../assets/logo.svg';
-import FacebookIcon from '../../assets/icons/facebook.svg';
-import YoutubeIcon from '../../assets/icons/youtube.svg';
-import InstagramIcon from '../../assets/icons/instagram.svg';
-import LinkedInIcon from '../../assets/icons/linkedin.svg';
-import SpotifyIcon from '../../assets/icons/spotify.svg';
-import ListIcon from '../../assets/icons/list.svg';
 import { Button } from './Button';          // ← our new token-driven button
 import { IconButton } from './Icon';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+import { FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, SpotifyLogoIcon, YoutubeLogoIcon, ListIcon } from '@phosphor-icons/react';
 
 /**
  * Blueprint Header
@@ -40,35 +35,35 @@ export default function Header() {
         {/* social icons */}
         <div className="flex gap-4">
           <IconButton
-            icon={<img src={FacebookIcon} alt="Facebook" className="text-white fill-current w-auto h-auto" />}
+            icon={<FacebookLogoIcon size={22} weight="bold" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.facebook.com', '_blank')}
             aria-label={t('follow_us_on_facebook')}
           />
           <IconButton
-            icon={<img src={YoutubeIcon} alt="YouTube" className="text-black fill-current w-auto h-auto" />}
+            icon={<YoutubeLogoIcon size={22} weight="bold" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.youtube.com', '_blank')}
             aria-label={t('follow_us_on_youtube')}
           />
           <IconButton
-            icon={<img src={InstagramIcon} alt="Instagram" className="text-schemesOnPrimaryFixedVariant w-auto h-auto" />}
+            icon={<InstagramLogoIcon size={22} weight="bold" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.instagram.com', '_blank')}
             aria-label={t('follow_us_on_instagram')}
           />
           <IconButton
-            icon={<img src={LinkedInIcon} alt="LinkedIn" className="text-schemesOnPrimaryFixedVariant w-auto h-auto" />}
+            icon={<LinkedinLogoIcon size={22} weight="bold" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.linkedin.com', '_blank')}
             aria-label={t('follow_us_on_linkedin')}
           />
           <IconButton
-            icon={<img src={SpotifyIcon} alt="Spotify" className="w-auto h-auto" />}
+            icon={<SpotifyLogoIcon size={22} weight="bold" />}
             style="tonal"
             size="sm"
             onClick={() => window.open('https://www.spotify.com', '_blank')}
@@ -112,7 +107,7 @@ export default function Header() {
       </div>
       <div className="lg:hidden items-center">
         <IconButton
-          icon={<img src={ListIcon} alt="Menu" className="w-auto h-auto fill-current" />}
+          icon={<ListIcon size={22} weight="bold" />}
           style="tonal"
           size="sm"
           onClick={() => console.log('Menu clicked')}

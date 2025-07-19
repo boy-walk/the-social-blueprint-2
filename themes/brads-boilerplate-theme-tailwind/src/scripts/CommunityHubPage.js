@@ -6,6 +6,7 @@ import { ArrowIcon } from "../../assets/icons/arrow";
 import { DetailedCard } from "./DetailedCard";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
+import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
     return (
@@ -28,14 +29,15 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
 
                     </div>
                 </div>
-
                 {/* Quick Links */}
                 <div className="pt-4">
                     <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-4 mt-4">Quick Links</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mt-6 min-h-[10rem]">
                         <Card>
                             <div className="flex flex-col gap-2 h-full justify-between items-start p-4 w-full">
-                                <ArrowIcon />
+                                <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
+                                    <MailboxIcon size={22} />
+                                </div>
                                 <div className="Blueprint-title-medium">
                                     Community message board
                                 </div>
@@ -44,7 +46,9 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                         </Card>
                         <Card>
                             <div className="flex flex-col gap-2 h-full justify-between items-start p-4 w-full">
-                                <ArrowIcon />
+                                <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
+                                    <CellTowerIcon size={22} />
+                                </div>
                                 <div className="Blueprint-title-medium">
                                     Stories and interviews
                                 </div>
@@ -52,7 +56,9 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                         </Card>
                         <Card>
                             <div className="flex flex-col gap-2 h-full justify-between items-start p-4 w-full">
-                                <ArrowIcon />
+                                <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
+                                    <CalendarDotIcon size={22} />
+                                </div>
                                 <div className="Blueprint-title-medium">
                                     Upcoming community events
                                 </div>
@@ -60,7 +66,9 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                         </Card>
                         <Card>
                             <div className="flex flex-col gap-2 h-full justify-between items-start p-4 w-full">
-                                <ArrowIcon />
+                                <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
+                                    <TrendUpIcon size={22} />
+                                </div>
                                 <div className="Blueprint-title-medium">
                                     Submit your own story
                                 </div>
@@ -68,7 +76,9 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                         </Card>
                         <Card>
                             <div className="flex flex-col gap-2 h-full justify-between items-start p-4 w-full">
-                                <ArrowIcon />
+                                <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
+                                    <StarIcon size={22} />
+                                </div>
                                 <div className="Blueprint-title-medium">
                                     Nominate someone
                                 </div>
