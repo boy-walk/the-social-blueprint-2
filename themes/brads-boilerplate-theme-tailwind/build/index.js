@@ -5759,7 +5759,7 @@ function Header() {
                 d: "M10 2a8 8 0 100 16 8 8 0 000-16z"
               })
             }),
-            onClick: () => window.location.href = '/register-individual'
+            onClick: () => window.location.href = '/login'
           })]
         })]
       })]

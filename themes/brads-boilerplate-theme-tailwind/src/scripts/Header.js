@@ -105,7 +105,7 @@ export default function Header() {
                   <path d="M10 2a8 8 0 100 16 8 8 0 000-16z" />
                 </svg>
               )}
-              onClick={() => window.location.href = '/register-individual'}
+              onClick={() => window.location.href = '/login'}
             />
           </div>
         </div>
