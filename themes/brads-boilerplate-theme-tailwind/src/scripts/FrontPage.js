@@ -8,7 +8,7 @@ export default function FrontPage() {
     <div className="bg-schemesPrimaryFixed">
       <FrontPageGrid />
       <div className="flex justify-center flex-col items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-4">
-        <h2 className="Blueprint-display-small-emphasized font-bold text-xl text-[#474740]">
+        <h2 className="Blueprint-display-small-emphasized text-schemesLightOnSurface mb-4 text-center">
           Search The Social Blueprint
         </h2>
         <SearchBar />
@@ -36,7 +36,7 @@ export default function FrontPage() {
 
 export const FrontPageGrid = () => {
   return (
-    <div className="grid grid-cols-5 grid-rows-4 py-8 px-16 gap-4 h-150">
+    <div className="px-4 grid grid-cols-5 grid-rows-4 py-8 lg:px-16 gap-4 h-150">
       <Card styles="col-span-1 row-span-2 p-2">
         <div className="bg-green-100 rounded-md w-full h-full"></div>
       </Card>

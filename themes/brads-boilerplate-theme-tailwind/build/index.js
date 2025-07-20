@@ -6323,12 +6323,12 @@ const ExploreByTheme = () => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full",
     children: [0, 1, 2, 3, 4].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_0__.Card, {
-      href: i === 0 ? '/community-connect' : `/explore/${i + 1}`,
-      styles: "h-64 max-w-full border-1 border-background-light px-4 pt-4",
+      href: i === 0 ? "/community-connect" : `/explore/${i + 1}`,
+      styles: "min-h-[16rem] max-w-full border-1 border-background-light px-4 pt-4",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "flex flex-col items-end justify-end gap-2 h-full",
+        className: "flex flex-col items-end justify-between h-full gap-2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SectionOne__WEBPACK_IMPORTED_MODULE_1__.ArrowIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "w-full text-xl text-right",
+          className: "w-full text-right text-xl leading-snug break-words text-wrap overflow-hidden",
           children: [i === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
             children: ["Community", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Connection"]
           }), i === 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
@@ -6343,7 +6343,7 @@ const ExploreByTheme = () => {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
           src: i === 1 ? _assets_explore_theme_2_svg__WEBPACK_IMPORTED_MODULE_3__["default"] : _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
           alt: "Theme Icon",
-          className: "object-cover w-full"
+          className: "object-contain w-full"
         })]
       })
     }, i))
@@ -6515,7 +6515,7 @@ function FrontPage() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(FrontPageGrid, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "flex justify-center flex-col items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-        className: "Blueprint-display-small-emphasized font-bold text-xl text-[#474740]",
+        className: "Blueprint-display-small-emphasized text-schemesLightOnSurface mb-4 text-center",
         children: "Search The Social Blueprint"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_3__.SearchBar, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "flex flex-wrap items-center justify-center gap-3",
@@ -6536,7 +6536,7 @@ function FrontPage() {
 }
 const FrontPageGrid = () => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "grid grid-cols-5 grid-rows-4 py-8 px-16 gap-4 h-150",
+    className: "px-4 grid grid-cols-5 grid-rows-4 py-8 lg:px-16 gap-4 h-150",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
       styles: "col-span-1 row-span-2 p-2",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
