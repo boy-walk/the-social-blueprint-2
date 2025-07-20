@@ -31,6 +31,8 @@ export default function Header({isUserLoggedIn = false}) {
         <img src={Logo} alt="The Social Blueprint" className="h-20" />
       </a>
 
+      <LanguageSwitcher />
+
       {/* right-hand block ------------------------------------- */}
       <div className="hidden lg:flex flex-col items-end gap-6">
         <Socials />

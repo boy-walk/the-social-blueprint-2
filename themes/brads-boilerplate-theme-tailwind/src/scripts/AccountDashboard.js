@@ -1,16 +1,25 @@
 import React from "react";
 import { GearIcon, MailboxIcon, UserCircleIcon } from "@phosphor-icons/react";
 import { Card } from "./Card";
+import { EventsSlider } from "./EventsSlider";
+import { NewsletterBanner } from "./NewsletterBanner";
+import { useTranslation } from "react-i18next";
 
-export function AccountDashboard({ user }) {
+export function AccountDashboard({ user, events }) {
+    const { t } = useTranslation();
+
     return (
-        <div className="bg-schemesPrimaryFixed min-h-screen">
-            <div className="px-6 lg:px-16 py-8">
-                <h1 className="Blueprint-display-small-emphasized">Welcome {user?.first_name || "[FirstName]"}</h1>
-                <p className="mt-3 Blueprint-title-large text-schemesOnPrimaryFixedVariant">Here's where you manage your corner of our community.</p>
+        <div className="min-h-screen">
+            <div className="px-6 lg:px-16 py-8 bg-schemesPrimaryFixed ">
+                <h1 className="Blueprint-display-small-emphasized">
+                    {t('welcome', { name: user?.first_name || "[FirstName]" })}
+                </h1>
+                <p className="mt-3 Blueprint-title-large text-schemesOnPrimaryFixedVariant">
+                    {t('manageCommunity')}
+                </p>
                 <div className="flex flex-col gap-8 mt-8">
                     <div className="Blueprint-headline-medium">
-                        Quick links
+                        {t('quickLinks')}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <Card>
@@ -19,7 +28,7 @@ export function AccountDashboard({ user }) {
                                     <MailboxIcon size={22} />
                                 </div>
                                 <div className="Blueprint-title-medium">
-                                    Manage upcoming events
+                                    {t('manageEvents')}
                                 </div>
                             </div>
                         </Card>
@@ -29,7 +38,7 @@ export function AccountDashboard({ user }) {
                                     <UserCircleIcon size={22} />
                                 </div>
                                 <div className="Blueprint-title-medium">
-                                    Active listings
+                                    {t('activeListings')}
                                 </div>
                             </div>
                         </Card>
@@ -39,7 +48,7 @@ export function AccountDashboard({ user }) {
                                     <GearIcon size={22} />
                                 </div>
                                 <div className="Blueprint-title-medium">
-                                    Account settings
+                                    {t('accountSettings')}
                                 </div>
                             </div>
                         </Card>
@@ -47,10 +56,13 @@ export function AccountDashboard({ user }) {
                 </div>
 
             </div>
-            <div className="bg-[#FCFAF7] px-6 py-10">
-                <h2 className="text-xl font-bold mb-4">Your Upcoming Events</h2>
-                <p className="text-gray-600">No upcoming events.</p>
+        
+            <EventsSlider events={events} />
+            
+            <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8">
+                <NewsletterBanner />
             </div>
+
         </div>
     );
 }

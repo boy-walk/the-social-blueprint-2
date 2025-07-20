@@ -8,5 +8,13 @@
     "get_involved": "Get involved",
     "log_in": "Log in",
     "message_board": "Message board",
-    "account_dasboard": "Account dashboard"
+    "account_dasboard": "Account dashboard",
+    "recentMessageBoardPosts": "Recent message board posts",
+    "healthAndWellbeing": "Health & Wellbeing",
+    "welcome": "Welcome {{name}}",
+    "manageCommunity": "Here's where you manage your corner of our community.",
+    "quickLinks": "Quick links",
+    "manageEvents": "Manage upcoming events",
+    "activeListings": "Active listings",
+    "accountSettings": "Account settings"
 }

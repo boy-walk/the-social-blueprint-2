@@ -6,5 +6,13 @@
     "blueprint_stories": "סיפורי בלופרינט",
     "about_us": "אודותינו",
     "get_involved": "הצטרפו אלינו",
-    "log_in": "התחברו"
+    "log_in": "התחברו",
+    "recentMessageBoardPosts": "פוסטים אחרונים בלוח ההודעות",
+    "healthAndWellbeing": "בריאות ורווחה",
+    "welcome": "ברוך הבא {{name}}",
+    "manageCommunity": "כאן תוכל לנהל את הפינה שלך בקהילה שלנו.",
+    "quickLinks": "קישורים מהירים",
+    "manageEvents": "נהל אירועים קרובים",
+    "activeListings": "רשימות פעילות",
+    "accountSettings": "הגדרות חשבון"
 }

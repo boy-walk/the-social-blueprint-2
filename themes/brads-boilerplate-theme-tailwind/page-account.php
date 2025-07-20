@@ -14,6 +14,48 @@ if (!is_user_logged_in()) {
 // Get current user
 $current_user = wp_get_current_user();
 
+
+$today = date('Y-m-d H:i:s');
+
+$query = new WP_Query([
+    'post_type' => 'tribe_events',
+    'posts_per_page' => 10,
+    'post_status' => 'publish',
+    'author' => $current_user->ID,
+    'meta_query' => [
+        [
+            'key' => '_EventStartDate',
+            'value' => $today,
+            'compare' => '>=',
+            'type' => 'DATETIME',
+        ],
+    ],
+    'orderby' => 'meta_value',
+    'meta_key' => '_EventStartDate',
+    'order' => 'ASC',
+]);
+
+$events = [];
+
+while ($query->have_posts()) {
+    $query->the_post();
+    $event_id = get_the_ID();
+    $start_date = tribe_get_start_date($event_id, false, 'D, M j \a\t g:ia');
+    $location = tribe_get_venue($event_id);
+
+    $events[] = [
+        'id' => $event_id,
+        'title' => get_the_title(),
+        'excerpt' => get_the_excerpt(),
+        'permalink' => get_permalink(),
+        'thumbnail' => get_the_post_thumbnail_url($event_id, 'medium'),
+        'startDate' => $start_date,
+        'location' => $location,
+    ];
+}
+
+wp_reset_postdata();
+
 // Prepare data
 $user = [
   'ID'           => $current_user->ID,
@@ -26,7 +68,8 @@ $user = [
 ?>
 
 <div id="account-dashboard-root"
-     data-user='<?php echo json_encode($user); ?>'>
+     data-user='<?php echo json_encode($user); ?>'
+     data-events='<?php echo wp_json_encode($events); ?>'>
 </div>
 
 <?php get_footer(); ?>

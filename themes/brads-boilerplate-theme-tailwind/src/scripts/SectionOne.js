@@ -6,6 +6,7 @@ import PillTag from './PillTag';
 import ExploreThemeOne from '../../assets/explore-theme-1.svg';
 import ExploreThemeTwo from '../../assets/explore-theme-2.svg';
 import { ExploreByTheme } from './ExploreByTheme';
+import { NewsletterBanner } from './NewsletterBanner';
 
 export const SectionOne = ({ events }) => {
   return (

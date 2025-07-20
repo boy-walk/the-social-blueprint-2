@@ -57,9 +57,9 @@ export function Button({
 
     /* light-tint “tonal” button */
     tonal: clsx(
-      'bg-[var(--schemesPrimaryFixedDim)]',
+      'bg-[var(--schemesPrimaryFixed)]',
       'text-[var(--schemesOnPrimaryFixedVariant)]',
-      'hover:bg-[var(--schemesPrimaryFixed)]'
+      'hover:bg-[var(--schemesPrimaryFixedDim)]'
     ),
 
     /* outline – transparent, takes on-surface text */

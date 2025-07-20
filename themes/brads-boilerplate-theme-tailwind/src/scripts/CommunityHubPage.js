@@ -7,6 +7,7 @@ import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
 import { MessageBoardSlider } from "./MessageBoardSlider";
+import { NewsletterBanner } from "./NewsletterBanner";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
     return (
@@ -185,6 +186,9 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                     ))}
                 </div>
             </div>
+            <div className="py-16 px-4 sm:px-8 lg:px-16">
+                <NewsletterBanner />
+            </div>
             <div className="py-16 px-4 sm:px-8 lg:px-16 bg-schemesPrimaryFixed flex flex-col gap-4">
                 <div className="flex gap-3 items-center">
                     <div className="Blueprint-headline-medium italic">
@@ -197,7 +201,6 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                 </div>
                 <ExploreByTheme />
             </div>
-
         </div>
     );
 }

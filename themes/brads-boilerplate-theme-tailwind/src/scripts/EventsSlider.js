@@ -2,10 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
-import { useTranslation } from "react-i18next";
+import { ContentCard } from "./ContentCard";
 
-export function MessageBoardSlider({ messageBoard }) {
-    const { t } = useTranslation();
+export function EventsSlider({ events }) {
     const scrollRef = useRef();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [itemsPerView, setItemsPerView] = useState(3);
@@ -19,9 +18,9 @@ export function MessageBoardSlider({ messageBoard }) {
         updateItemsPerView();
         window.addEventListener("resize", updateItemsPerView);
         return () => window.removeEventListener("resize", updateItemsPerView);
-    }, [window.innerWidth]);
+    }, []);
 
-    const totalSlides = Math.ceil(messageBoard.length / itemsPerView);
+    const totalSlides = Math.ceil(events.length / itemsPerView);
 
     const scrollToIndex = (index) => {
         if (!scrollRef.current) return;
@@ -51,7 +50,7 @@ export function MessageBoardSlider({ messageBoard }) {
             {/* Header */}
             <div className="flex items-center gap-2 mb-8">
                 <h2 className="Blueprint-headline-medium text-schemesOnSurface">
-                    {t("recentMessageBoardPosts")}
+                    Your upcoming events
                 </h2>
                 <ArrowIcon />
             </div>
@@ -62,7 +61,7 @@ export function MessageBoardSlider({ messageBoard }) {
                     ref={scrollRef}
                     className="flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden"
                 >
-                    {messageBoard.map((post) => (
+                    {events.map((post) => (
                         <div
                             key={post.id}
                             className="flex-shrink-0 px-2 flex flex-col pb-4"
@@ -70,19 +69,22 @@ export function MessageBoardSlider({ messageBoard }) {
                                 width: `${100 / itemsPerView}%`,
                             }}
                         >
-                            <Card href={post.permalink} styles="h-full flex flex-col">
-                                <div className="flex flex-col gap-2 items-start p-4 flex-grow">
-                                    <div className="rounded-md px-3 py-1.5 bg-schemesSurfaceContainer Blueprint-label-small">
-                                        {t("healthAndWellbeing")}
-                                    </div>
-                                    <h3 className="Blueprint-title-medium text-schemesOnSurface mb-2 line-clamp-2">
-                                        {post.title}
-                                    </h3>
-                                    <div className="text-schemesOnSurfaceVariant Blueprint-label-medium line-clamp-3">
-                                        {post.excerpt}
-                                    </div>
-                                </div>
-                            </Card>
+                           <ContentCard
+                                image={post.thumbnail}
+                                title={post.title}
+                                type={post.type}
+                                subtitle={post.meta?.author || post.meta?.location || ""}
+                                badge={
+                                    post.type.toLowerCase() === "podcast"
+                                        ? "Podcast"
+                                        : post.type.toLowerCase() === "blog"
+                                            ? "Blog"
+                                            : post.type.toLowerCase() === "event"
+                                                ? "Event"
+                                                : null
+                                }
+                                href={post.link}
+                            />
                         </div>
                     ))}
                 </div>

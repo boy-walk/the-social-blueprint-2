@@ -24,7 +24,6 @@ if (document.querySelector('#front-page')) {
   root.render(<FrontPage />);
 }
 
-// Render the Header component
 const header = document.getElementById('header');
 if (header) {
   const isUserLoggedIn = header.getAttribute('isUserLoggedIn') === 'true';
@@ -116,5 +115,7 @@ if (el13) {
 const el14 = document.getElementById('account-dashboard-root');
 if (el14) {
   const userData = JSON.parse(el14.dataset.user);
-  ReactDOM.createRoot(el14).render(<AccountDashboard user={userData} />);
+  const eventsData = JSON.parse(el14.dataset.events || '[]');
+  console.log(eventsData)
+  ReactDOM.createRoot(el14).render(<AccountDashboard user={userData}  events={eventsData}/>);
 }
