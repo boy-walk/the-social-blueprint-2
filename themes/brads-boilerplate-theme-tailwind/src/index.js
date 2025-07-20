@@ -16,6 +16,7 @@ import { RegisterOrganisation } from './scripts/RegisterOrganisation';
 import PodcastPage from './scripts/PodcastPage';
 import { SearchPage } from './scripts/SearchPage';
 import { CommunityHubPage } from './scripts/CommunityHubPage';
+import { AccountDashboard } from './scripts/AccountDashboard';
 
 
 if (document.querySelector('#front-page')) {
@@ -109,4 +110,10 @@ const el13 = document.getElementById('community-hub-root');
 if (el13) {
   const props = window.__COMMUNITY_HUB_PROPS__ || {};
   ReactDOM.createRoot(el13).render(<CommunityHubPage {...props}/>);
+}
+
+const el14 = document.getElementById('account-dashboard-root');
+if (el14) {
+  const userData = JSON.parse(el14.dataset.user);
+  ReactDOM.createRoot(el14).render(<AccountDashboard user={userData} />);
 }
