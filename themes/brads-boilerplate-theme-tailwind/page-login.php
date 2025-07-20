@@ -1,11 +1,16 @@
 <?php
 /**
- * Template Name: Login
- *
- * Renders the React “LoginForm” component.
+ * Template Name: Login Page
  */
 
-get_header(); ?>
+if (is_user_logged_in()) {
+  wp_redirect(home_url('/account-dashboard'));
+  exit;
+}
+
+get_header();
+?>
+
 
 <main id="login-form"></main>
 

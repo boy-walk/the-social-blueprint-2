@@ -9,6 +9,7 @@ import Logo from '../../assets/logo.svg';
 import IndigenousFlagIcon from '../../assets/icons/indigenous-flag.svg';
 import TorresStraitFlagIcon from '../../assets/icons/torres-strait-flag.svg';
 import { FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, SpotifyLogoIcon, YoutubeLogoIcon } from '@phosphor-icons/react';
+import { Socials } from './Socials';
 
 /* ——————————————————————————————————————— */
 /*  Footer component                                                            */
@@ -29,39 +30,7 @@ export function Footer({ className = '' }) {
                     <div className="flex flex-col items-start gap-6 ">
                         <img src={Logo} alt="The Social Blueprint" className="h-20 w-auto" />
 
-                        {/* Social icons */}
-                        <div className="flex gap-4">
-                            <IconButton
-                                icon={<FacebookLogoIcon size={22} weight="bold" />}
-                                style="tonal" size="sm"
-                                aria-label="Follow us on Facebook"
-                                onClick={() => window.open('https://www.facebook.com', '_blank')}
-                            />
-                            <IconButton
-                                icon={<YoutubeLogoIcon size={22} weight="bold" />}
-                                style="tonal" size="sm"
-                                aria-label="Follow us on YouTube"
-                                onClick={() => window.open('https://www.youtube.com', '_blank')}
-                            />
-                            <IconButton
-                                icon={<InstagramLogoIcon size={22} weight="bold" />}
-                                style="tonal" size="sm"
-                                aria-label="Follow us on Instagram"
-                                onClick={() => window.open('https://www.instagram.com', '_blank')}
-                            />
-                            <IconButton
-                                icon={<LinkedinLogoIcon size={22} weight="bold" />}
-                                style="tonal" size="sm"
-                                aria-label="Follow us on LinkedIn"
-                                onClick={() => window.open('https://www.linkedin.com', '_blank')}
-                            />
-                            <IconButton
-                                icon={<SpotifyLogoIcon size={22} weight="bold" />}
-                                style="tonal" size="sm"
-                                aria-label="Follow us on Spotify"
-                                onClick={() => window.open('https://www.spotify.com', '_blank')}
-                            />
-                        </div>
+                       <Socials />
 
                         <p className="Blueprint-label-large text-schemesInverseOnSurface italic">
                             Listings on The Social Blueprint are community-submitted. We do not

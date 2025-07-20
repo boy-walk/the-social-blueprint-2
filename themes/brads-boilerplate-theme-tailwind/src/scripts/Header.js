@@ -4,14 +4,15 @@ import { Button } from './Button';          // ← our new token-driven button
 import { IconButton } from './Icon';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
-import { FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, SpotifyLogoIcon, YoutubeLogoIcon, ListIcon } from '@phosphor-icons/react';
+import { ListIcon } from '@phosphor-icons/react';
+import { Socials } from './Socials';
 
 /**
  * Blueprint Header
  * — colours straight from design-token custom-props
  * — uses new <Button> with proper variants & hover states
  */
-export default function Header() {
+export default function Header({isUserLoggedIn = false}) {
   const { t } = useTranslation();
 
   return (
@@ -32,44 +33,7 @@ export default function Header() {
 
       {/* right-hand block ------------------------------------- */}
       <div className="hidden lg:flex flex-col items-end gap-6">
-        {/* social icons */}
-        <div className="flex gap-4">
-          <IconButton
-            icon={<FacebookLogoIcon size={22} weight="bold" />}
-            style="tonal"
-            size="sm"
-            onClick={() => window.open('https://www.facebook.com', '_blank')}
-            aria-label={t('follow_us_on_facebook')}
-          />
-          <IconButton
-            icon={<YoutubeLogoIcon size={22} weight="bold" />}
-            style="tonal"
-            size="sm"
-            onClick={() => window.open('https://www.youtube.com', '_blank')}
-            aria-label={t('follow_us_on_youtube')}
-          />
-          <IconButton
-            icon={<InstagramLogoIcon size={22} weight="bold" />}
-            style="tonal"
-            size="sm"
-            onClick={() => window.open('https://www.instagram.com', '_blank')}
-            aria-label={t('follow_us_on_instagram')}
-          />
-          <IconButton
-            icon={<LinkedinLogoIcon size={22} weight="bold" />}
-            style="tonal"
-            size="sm"
-            onClick={() => window.open('https://www.linkedin.com', '_blank')}
-            aria-label={t('follow_us_on_linkedin')}
-          />
-          <IconButton
-            icon={<SpotifyLogoIcon size={22} weight="bold" />}
-            style="tonal"
-            size="sm"
-            onClick={() => window.open('https://www.spotify.com', '_blank')}
-            aria-label={t('follow_us_on_spotify')}
-          />
-        </div>
+        <Socials />
 
         {/* nav + CTAs */}
         <div className="hidden lg:flex items-center gap-6">
@@ -91,7 +55,7 @@ export default function Header() {
               onClick={() => console.log('Subscribe')}
             />
             <Button
-              label={t('log_in')}
+              label={isUserLoggedIn ? t("account_dasboard") : t('log_in')}
               variant="tonal"
               shape="pill"
               size="sm"
@@ -100,7 +64,7 @@ export default function Header() {
                   <path d="M10 2a8 8 0 100 16 8 8 0 000-16z" />
                 </svg>
               )}
-              onClick={() => window.location.href = '/login'}
+              onClick={() => isUserLoggedIn ? window.location.href = '/account-dashboard' : window.location.href = '/login'}
             />
           </div>
         </div>

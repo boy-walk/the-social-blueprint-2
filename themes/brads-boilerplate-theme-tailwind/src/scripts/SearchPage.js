@@ -21,7 +21,6 @@ export function SearchPage({ query, results }) {
 
   return (
     <>
-      {/* Header */}
       <div className="bg-schemesPrimaryFixed py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="Blueprint-display-small-emphasized mb-3 text-schemesOnSurface">Search Results</h1>
@@ -29,10 +28,8 @@ export function SearchPage({ query, results }) {
         </div>
       </div>
 
-      {/* Body */}
       <div className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Filter Buttons */}
           <div className="flex flex-wrap gap-3 mb-8 mt-4">
             {FILTERS.map((filter) => (
               <button
@@ -54,7 +51,6 @@ export function SearchPage({ query, results }) {
 
           {paginatedResults.length === 0 && <p>No results found.</p>}
 
-          {/* Content Cards */}
           <div className="flex flex-wrap gap-[24px] justify-start items-start">
             {paginatedResults.map((item) => (
               <div
@@ -81,7 +77,6 @@ export function SearchPage({ query, results }) {
             ))}
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center gap-3 mt-10">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
@@ -100,7 +95,6 @@ export function SearchPage({ query, results }) {
             </div>
           )}
 
-          {/* Count */}
           <p className="text-sm text-schemesOnSurfaceVariant mt-6">
             Showing {(currentPage - 1) * RESULTS_PER_PAGE + 1}–
             {Math.min(currentPage * RESULTS_PER_PAGE, filtered.length)} of {filtered.length} result

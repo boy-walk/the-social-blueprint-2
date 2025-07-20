@@ -25,9 +25,10 @@ if (document.querySelector('#front-page')) {
 }
 
 // Render the Header component
-if (document.querySelector('#header')) {
-  const root = ReactDOM.createRoot(document.querySelector('#header'));
-  root.render(<Header />);
+const header = document.getElementById('header');
+if (header) {
+  const isUserLoggedIn = header.getAttribute('isUserLoggedIn') === 'true';
+  ReactDOM.createRoot(header).render(<Header isUserLoggedIn={isUserLoggedIn}/>);
 }
 
 const el1 = document.getElementById('section-one');

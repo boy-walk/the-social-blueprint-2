@@ -5440,7 +5440,7 @@ i18next__WEBPACK_IMPORTED_MODULE_0__["default"].use(react_i18next__WEBPACK_IMPOR
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"search_placeholder":"Try “mental health support” or “media contact list”","read_more":"Read more","whats_on":"What\'s on","directory":"Directory","blueprint_stories":"Blueprint stories","about_us":"About us","get_involved":"Get involved","log_in":"Log in","message_board":"Message board"}');
+module.exports = /*#__PURE__*/JSON.parse('{"search_placeholder":"Try “mental health support” or “media contact list”","read_more":"Read more","whats_on":"What\'s on","directory":"Directory","blueprint_stories":"Blueprint stories","about_us":"About us","get_involved":"Get involved","log_in":"Log in","message_board":"Message board","account_dasboard":"Account dashboard"}');
 
 /***/ }),
 
@@ -6370,13 +6370,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/logo.svg */ "./assets/logo.svg");
 /* harmony import */ var _assets_icons_indigenous_flag_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/icons/indigenous-flag.svg */ "./assets/icons/indigenous-flag.svg");
 /* harmony import */ var _assets_icons_torres_strait_flag_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/icons/torres-strait-flag.svg */ "./assets/icons/torres-strait-flag.svg");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FacebookLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/YoutubeLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/InstagramLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/LinkedinLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/SpotifyLogo.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
 // components/Footer.js
 
 
@@ -6389,6 +6385,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* ——————————————————————————————————————— */
 /*  Footer component                                                            */
 /* ——————————————————————————————————————— */
@@ -6396,67 +6393,19 @@ __webpack_require__.r(__webpack_exports__);
 function Footer({
   className = ''
 }) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("footer", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("footer", {
     className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-schemesInverseSurface text-schemesInverseOnSurface', 'px-6 py-12 md:py-16', className),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "max-w-7xl mx-auto flex flex-col gap-12",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "grid gap-4 lg:gap-12 md:grid-cols-[minmax(0,3fr)_repeat(3,minmax(0,1fr))]",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "flex flex-col items-start gap-6 ",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
             src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
             alt: "The Social Blueprint",
             className: "h-20 w-auto"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            className: "flex gap-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_2__.IconButton, {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.FacebookLogoIcon, {
-                size: 22,
-                weight: "bold"
-              }),
-              style: "tonal",
-              size: "sm",
-              "aria-label": "Follow us on Facebook",
-              onClick: () => window.open('https://www.facebook.com', '_blank')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_2__.IconButton, {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.YoutubeLogoIcon, {
-                size: 22,
-                weight: "bold"
-              }),
-              style: "tonal",
-              size: "sm",
-              "aria-label": "Follow us on YouTube",
-              onClick: () => window.open('https://www.youtube.com', '_blank')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_2__.IconButton, {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.InstagramLogoIcon, {
-                size: 22,
-                weight: "bold"
-              }),
-              style: "tonal",
-              size: "sm",
-              "aria-label": "Follow us on Instagram",
-              onClick: () => window.open('https://www.instagram.com', '_blank')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_2__.IconButton, {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.LinkedinLogoIcon, {
-                size: 22,
-                weight: "bold"
-              }),
-              style: "tonal",
-              size: "sm",
-              "aria-label": "Follow us on LinkedIn",
-              onClick: () => window.open('https://www.linkedin.com', '_blank')
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_2__.IconButton, {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.SpotifyLogoIcon, {
-                size: 22,
-                weight: "bold"
-              }),
-              style: "tonal",
-              size: "sm",
-              "aria-label": "Follow us on Spotify",
-              onClick: () => window.open('https://www.spotify.com', '_blank')
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_6__.Socials, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
             className: "Blueprint-label-large text-schemesInverseOnSurface italic",
             children: "Listings on The Social Blueprint are community-submitted. We do not endorse the views or work of those listed, and take no responsibility for any interactions between users and listed individuals or organisations."
           })]
@@ -6472,15 +6421,15 @@ function Footer({
         }].map(({
           heading,
           links
-        }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("nav", {
+        }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("nav", {
           className: "flex flex-col gap-0 lg:gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
             className: "Blueprint-label-large text-schemesInverseOnSurface",
             children: heading
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
             className: "hidden lg:flex flex-col gap-2",
-            children: links.map(txt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            children: links.map(txt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                 href: "#",
                 className: "Blueprint-body-medium hover:underline focus-visible:underline",
                 children: txt
@@ -6488,43 +6437,43 @@ function Footer({
             }, txt))
           })]
         }, heading))]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "flex flex-col gap-8 md:gap-12",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "flex flex-col md:flex-row md:items-center md:justify-between gap-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
             className: "Blueprint-body-small",
             children: "The Social Blueprint Inc. ABN 71 688 744 769. All Rights Reserved."
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("ul", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("ul", {
             className: "flex gap-6",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                 href: "#",
                 className: "Blueprint-body-small hover:underline focus-visible:underline",
                 children: "Privacy policy"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                 href: "#",
                 className: "Blueprint-body-small hover:underline focus-visible:underline",
                 children: "Terms of use"
               })
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "flex flex-col items-start lg:flex-row lg:items-center gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: "flex gap-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
               src: _assets_icons_indigenous_flag_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
               alt: "Australian Aboriginal Flag",
               className: "w-14 h-auto shrink-0"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
               src: _assets_icons_torres_strait_flag_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
               alt: "Torres Strait Islander Flag",
               className: "w-14 h-auto shrink-0"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
             className: "Blueprint-body-small",
             children: "We\u2019d like to acknowledge the Traditional Custodians of the land we live and work on. We\u2019re grateful for their care of Country and pay our respects to Elders past and present. We recognise and honour their ongoing connection to land, water, and community."
           })]
@@ -6652,17 +6601,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icon */ "./src/scripts/Icon.js");
 /* harmony import */ var _LanguageSwitcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LanguageSwitcher */ "./src/scripts/LanguageSwitcher.js");
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FacebookLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/YoutubeLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/InstagramLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/LinkedinLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/SpotifyLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
+/* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
 
 
  // ← our new token-driven button
+
 
 
 
@@ -6674,133 +6620,87 @@ __webpack_require__.r(__webpack_exports__);
  * — uses new <Button> with proper variants & hover states
  */
 
-function Header() {
+function Header({
+  isUserLoggedIn = false
+}) {
   const {
     t
   } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_5__.useTranslation)();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("header", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("header", {
     className: " relative bg-[var(--schemesPrimaryContainer)] text-[var(--schemesOnPrimaryContainer)] w-full px-8 lg:px-16 py-6 flex items-center justify-between z-50 shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] mix-blend-multiply ",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
       href: "/",
       className: "flex items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
         src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
         alt: "The Social Blueprint",
         className: "h-20"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "hidden lg:flex flex-col items-end gap-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "flex gap-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.FacebookLogoIcon, {
-            size: 22,
-            weight: "bold"
-          }),
-          style: "tonal",
-          size: "sm",
-          onClick: () => window.open('https://www.facebook.com', '_blank'),
-          "aria-label": t('follow_us_on_facebook')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.YoutubeLogoIcon, {
-            size: 22,
-            weight: "bold"
-          }),
-          style: "tonal",
-          size: "sm",
-          onClick: () => window.open('https://www.youtube.com', '_blank'),
-          "aria-label": t('follow_us_on_youtube')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.InstagramLogoIcon, {
-            size: 22,
-            weight: "bold"
-          }),
-          style: "tonal",
-          size: "sm",
-          onClick: () => window.open('https://www.instagram.com', '_blank'),
-          "aria-label": t('follow_us_on_instagram')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.LinkedinLogoIcon, {
-            size: 22,
-            weight: "bold"
-          }),
-          style: "tonal",
-          size: "sm",
-          onClick: () => window.open('https://www.linkedin.com', '_blank'),
-          "aria-label": t('follow_us_on_linkedin')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.SpotifyLogoIcon, {
-            size: 22,
-            weight: "bold"
-          }),
-          style: "tonal",
-          size: "sm",
-          onClick: () => window.open('https://www.spotify.com', '_blank'),
-          "aria-label": t('follow_us_on_spotify')
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_6__.Socials, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "hidden lg:flex items-center gap-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("nav", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("nav", {
           className: "hidden lg:flex items-center gap-6 Blueprint-body-medium",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('whats_on'),
             className: "text-white",
             size: "sm",
             variant: "text",
             onClick: () => window.location.href = '/events'
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('directory'),
             className: "text-white",
             size: "sm",
             variant: "text",
             onClick: () => window.location.href = '/directory'
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('blueprint_stories'),
             className: "text-white",
             size: "sm",
             variant: "text",
             onClick: () => window.location.href = '/stories'
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('about_us'),
             className: "text-white",
             size: "sm",
             variant: "text",
             onClick: () => window.location.href = '/about'
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('message_board'),
             className: "text-white",
             size: "sm",
             variant: "text",
             onClick: () => window.location.href = '/message-board'
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "flex gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('Subscribe'),
             variant: "filled",
             shape: "square",
             size: "sm",
             onClick: () => console.log('Subscribe')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: t('log_in'),
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            label: isUserLoggedIn ? t("account_dasboard") : t('log_in'),
             variant: "tonal",
             shape: "pill",
             size: "sm",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("svg", {
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("svg", {
               viewBox: "0 0 20 20",
               className: "w-4 h-4 fill-current",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("path", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("path", {
                 d: "M10 2a8 8 0 100 16 8 8 0 000-16z"
               })
             }),
-            onClick: () => window.location.href = '/login'
+            onClick: () => isUserLoggedIn ? window.location.href = '/account-dashboard' : window.location.href = '/login'
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "lg:hidden items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.ListIcon, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.ListIcon, {
           size: 22,
           weight: "bold"
         }),
@@ -8232,6 +8132,87 @@ const SingleEventPage = ({
 
 /***/ }),
 
+/***/ "./src/scripts/Socials.js":
+/*!********************************!*\
+  !*** ./src/scripts/Socials.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Socials: () => (/* binding */ Socials)
+/* harmony export */ });
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FacebookLogo.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/YoutubeLogo.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/InstagramLogo.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/LinkedinLogo.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/SpotifyLogo.es.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Icon */ "./src/scripts/Icon.js");
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+const Socials = () => {
+  const {
+    t
+  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_1__.useTranslation)();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "flex gap-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_0__.IconButton, {
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.FacebookLogoIcon, {
+        size: 22,
+        weight: "bold"
+      }),
+      style: "tonal",
+      size: "sm",
+      onClick: () => window.open('https://www.facebook.com/TheSocialBlueprintInc/', '_blank'),
+      "aria-label": t('follow_us_on_facebook')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_0__.IconButton, {
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.YoutubeLogoIcon, {
+        size: 22,
+        weight: "bold"
+      }),
+      style: "tonal",
+      size: "sm",
+      onClick: () => window.open('https://www.youtube.com/@thesocialblueprint', '_blank'),
+      "aria-label": t('follow_us_on_youtube')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_0__.IconButton, {
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.InstagramLogoIcon, {
+        size: 22,
+        weight: "bold"
+      }),
+      style: "tonal",
+      size: "sm",
+      onClick: () => window.open('https://www.instagram.com/thesocialblueprintinc', '_blank'),
+      "aria-label": t('follow_us_on_instagram')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_0__.IconButton, {
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.LinkedinLogoIcon, {
+        size: 22,
+        weight: "bold"
+      }),
+      style: "tonal",
+      size: "sm",
+      onClick: () => window.open('https://www.linkedin.com/company/the-social-blueprint-inc', '_blank'),
+      "aria-label": t('follow_us_on_linkedin')
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_0__.IconButton, {
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.SpotifyLogoIcon, {
+        size: 22,
+        weight: "bold"
+      }),
+      style: "tonal",
+      size: "sm",
+      onClick: () => window.open('https://open.spotify.com/show/5RwgbA2ILk2LGD3io8LWFj', '_blank'),
+      "aria-label": t('follow_us_on_spotify')
+    })]
+  });
+};
+
+/***/ }),
+
 /***/ "./src/scripts/Sponsorship.js":
 /*!************************************!*\
   !*** ./src/scripts/Sponsorship.js ***!
@@ -8685,9 +8666,12 @@ if (document.querySelector('#front-page')) {
 }
 
 // Render the Header component
-if (document.querySelector('#header')) {
-  const root = react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(document.querySelector('#header'));
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_scripts_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {}));
+const header = document.getElementById('header');
+if (header) {
+  const isUserLoggedIn = header.getAttribute('isUserLoggedIn') === 'true';
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(header).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_scripts_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isUserLoggedIn: isUserLoggedIn
+  }));
 }
 const el1 = document.getElementById('section-one');
 if (el1) {
