@@ -1,18 +1,13 @@
 import React from 'react';
 import Logo from '../../assets/logo.svg';
-import { Button } from './Button';          // ← our new token-driven button
+import { Button } from './Button';
 import { IconButton } from './Icon';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { ListIcon } from '@phosphor-icons/react';
 import { Socials } from './Socials';
 
-/**
- * Blueprint Header
- * — colours straight from design-token custom-props
- * — uses new <Button> with proper variants & hover states
- */
-export default function Header({isUserLoggedIn = false}) {
+export default function Header({ isUserLoggedIn = false }) {
   const { t } = useTranslation();
 
   return (
@@ -26,18 +21,13 @@ export default function Header({isUserLoggedIn = false}) {
         mix-blend-multiply
       "
     >
-      {/* logo -------------------------------------------------- */}
       <a href="/" className="flex items-center">
         <img src={Logo} alt="The Social Blueprint" className="h-20" />
       </a>
 
-      <LanguageSwitcher />
-
-      {/* right-hand block ------------------------------------- */}
+      {/*<LanguageSwitcher />*/}
       <div className="hidden lg:flex flex-col items-end gap-6">
         <Socials />
-
-        {/* nav + CTAs */}
         <div className="hidden lg:flex items-center gap-6">
           <nav className="hidden lg:flex items-center gap-6 Blueprint-body-medium">
             <Button label={t('whats_on')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/events'} />
@@ -46,9 +36,7 @@ export default function Header({isUserLoggedIn = false}) {
             <Button label={t('about_us')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/about'} />
             <Button label={t('message_board')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/message-board'} />
           </nav>
-          {/* ----- action buttons ----- */}
           <div className="flex gap-4">
-            {/* outline / pill */}
             <Button
               label={t('Subscribe')}
               variant="filled"

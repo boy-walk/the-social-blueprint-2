@@ -38,11 +38,10 @@ export function SearchPage({ query, results }) {
                   setSelectedFilter(filter);
                   setCurrentPage(1);
                 }}
-                className={`px-4 py-1.5 rounded-full border Blueprint-label-large ${
-                  selectedFilter === filter
-                    ? "bg-black text-white"
-                    : "bg-white text-schemesOnSurface border-gray-300"
-                }`}
+                className={`px-4 py-1.5 rounded-full border Blueprint-label-large ${selectedFilter === filter
+                  ? "bg-black text-white"
+                  : "bg-white text-schemesOnSurface border-gray-300"
+                  }`}
               >
                 {filter}
               </button>
@@ -66,10 +65,10 @@ export function SearchPage({ query, results }) {
                     item.type.toLowerCase() === "podcast"
                       ? "Podcast"
                       : item.type.toLowerCase() === "blog"
-                      ? "Blog"
-                      : item.type.toLowerCase() === "event"
-                      ? "Event"
-                      : null
+                        ? "Blog"
+                        : item.type.toLowerCase() === "event"
+                          ? "Event"
+                          : null
                   }
                   href={item.link}
                 />
@@ -83,11 +82,10 @@ export function SearchPage({ query, results }) {
                 <button
                   key={num}
                   onClick={() => setCurrentPage(num)}
-                  className={`w-10 h-10 rounded-full text-sm font-medium ${
-                    num === currentPage
-                      ? "bg-black text-white"
-                      : "bg-white border border-gray-300 text-gray-700"
-                  }`}
+                  className={`w-10 h-10 rounded-full text-sm font-medium ${num === currentPage
+                    ? "bg-black text-white"
+                    : "bg-white border border-gray-300 text-gray-700"
+                    }`}
                 >
                   {num}
                 </button>

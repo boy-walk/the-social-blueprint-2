@@ -36,7 +36,7 @@ export function RegisterIndividual() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': window?.wpApiSettings?.nonce || '', // Fallback safe
+          'X-WP-Nonce': window?.wpApiSettings?.nonce || '',
         },
         body: JSON.stringify({
           email: form.email,
@@ -129,7 +129,7 @@ export function RegisterIndividual() {
             checked={form.newsOptIn}
             onChange={handleToggle('newsOptIn')}
           />
-          Yes please, sign me up for The Social Blueprint’s news and exclusive
+          Yes please, sign me up for The Social Blueprint's news and exclusive
           offers.
         </label>
 
@@ -143,7 +143,7 @@ export function RegisterIndividual() {
           />
           <div>
             By subscribing and / or creating an account you agree to The Social
-            Blueprint Inc’s{' '}
+            Blueprint Inc's{' '}
             <a href="/terms" className="underline">
               Terms&nbsp;&amp;&nbsp;Conditions and Privacy Policy
             </a>
@@ -151,10 +151,10 @@ export function RegisterIndividual() {
           </div>
         </label>
         {error && (
-        <div className="text-schemesError text-center">
-          <p className="Blueprint-body-medium">{error}</p>
-        </div>
-      )}
+          <div className="text-schemesError text-center">
+            <p className="Blueprint-body-medium">{error}</p>
+          </div>
+        )}
       </form>
       <div className="flex w-full">
         <Button

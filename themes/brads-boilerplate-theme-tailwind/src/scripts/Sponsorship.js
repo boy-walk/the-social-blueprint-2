@@ -1,5 +1,4 @@
 export const SponsorshipBanner = ({ imgSrc, enabled }) => {
-  console.log(enabled, imgSrc);
   if (!enabled) {
     return null;
   }

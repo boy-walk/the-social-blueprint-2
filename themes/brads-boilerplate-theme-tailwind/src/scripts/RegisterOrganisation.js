@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
-import { TextField }     from './TextField';
-import { Button }        from './Button';
+import { TextField } from './TextField';
+import { Button } from './Button';
 
 export function RegisterOrganisation() {
-  /* ─────────────────────────────────────────────────
-   *  local state
-   * ───────────────────────────────────────────────── */
   const [form, setForm] = useState({
-    firstName   : '',
-    lastName    : '',
-    email       : '',
-    phone       : '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
     organisation: '',
-    businessType: 'for-profit',   // 'for-profit' | 'not-for-profit'
-    password    : '',
-    confirm     : '',
-    newsOptIn   : false,
-    agreed      : false,
+    businessType: 'for-profit',
+    password: '',
+    confirm: '',
+    newsOptIn: false,
+    agreed: false,
   });
 
   /* helpers ------------------------------------------------------------- */
@@ -35,7 +32,7 @@ export function RegisterOrganisation() {
   const canSubmit =
     Object.values({
       ...form,
-      newsOptIn: true,   // optional
+      newsOptIn: true,
     }).every(Boolean) && !passwordMismatch;
 
   /* submit -------------------------------------------------------------- */
@@ -44,23 +41,22 @@ export function RegisterOrganisation() {
     if (!canSubmit) return;
 
     try {
-      /* Notice the new endpoint ▼ */
       const res = await fetch('/wp-json/uwp-custom/v1/register-organisation', {
-        method : 'POST',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce'  : window?.wpApiSettings?.nonce || '',
+          'X-WP-Nonce': window?.wpApiSettings?.nonce || '',
         },
         body: JSON.stringify({
-          email        : form.email,
-          password     : form.password,
-          first_name   : form.firstName,
-          last_name    : form.lastName,
-          organisation : form.organisation,
+          email: form.email,
+          password: form.password,
+          first_name: form.firstName,
+          last_name: form.lastName,
+          organisation: form.organisation,
           business_type: form.businessType,
-          phone        : form.phone,
-          news_opt_in  : form.newsOptIn ? 'yes' : 'no',
-          agree        : form.agreed     ? 'yes' : 'no',
+          phone: form.phone,
+          news_opt_in: form.newsOptIn ? 'yes' : 'no',
+          agree: form.agreed ? 'yes' : 'no',
         }),
       });
 
@@ -74,12 +70,8 @@ export function RegisterOrganisation() {
     }
   };
 
-  /* ─────────────────────────────────────────────────
-   *  render
-   * ───────────────────────────────────────────────── */
   return (
     <main className="flex flex-col max-w-xl mx-auto px-4 py-16 gap-16">
-      {/* heading */}
       <header className="text-center space-y-4">
         <h1 className="italic Blueprint-headline-large">
           Registration for Organisations
@@ -93,9 +85,7 @@ export function RegisterOrganisation() {
         </p>
       </header>
 
-      {/* form */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        {/* two-column on md+ */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <TextField
             label="First name"
@@ -134,7 +124,6 @@ export function RegisterOrganisation() {
           onChange={handleChange('organisation')}
         />
 
-        {/* Business type radio group */}
         <fieldset className="flex flex-wrap gap-3">
           <legend className="Blueprint-title-medium mb-4">
             Business type
@@ -163,7 +152,6 @@ export function RegisterOrganisation() {
           </label>
         </fieldset>
 
-        {/* passwords */}
         <TextField
           label="Password"
           placeholder="Input"
@@ -181,7 +169,6 @@ export function RegisterOrganisation() {
           error={passwordMismatch}
         />
 
-        {/* check-boxes */}
         <label className="flex items-start gap-3 Blueprint-body-medium">
           <input
             type="checkbox"
@@ -203,7 +190,7 @@ export function RegisterOrganisation() {
           />
           <div>
             By subscribing and / or creating an account you agree to The Social
-            Blueprint Inc’s{' '}
+            Blueprint Inc's{' '}
             <a href="/terms" className="underline">
               Terms&nbsp;&amp;&nbsp;Conditions and Privacy Policy
             </a>
@@ -211,7 +198,6 @@ export function RegisterOrganisation() {
           </div>
         </label>
 
-        {/* submit */}
         <Button
           label="Create account"
           style="filled"

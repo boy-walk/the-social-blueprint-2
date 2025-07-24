@@ -10,38 +10,38 @@ import clsx from 'clsx';
  */
 export function Button({
   className = '',
-  label   = 'Label',
-  size    = 'base',
+  label = 'Label',
+  size = 'base',
   variant = 'filled',
-  shape   = 'square',
+  shape = 'square',
   icon,
   disabled = false,
-  onClick  = () => {},
+  onClick = () => { },
 }) {
   /* ---------- size → padding / radius / typography ---------- */
   const sizeStyles = {
-    xs:   'px-3  py-1.5 Blueprint-label-large',
-    sm:   'px-4  py-2 Blueprint-label-large',
+    xs: 'px-3  py-1.5 Blueprint-label-large',
+    sm: 'px-4  py-2 Blueprint-label-large',
     base: 'px-4  py-2.5 Blueprint-title-medium',
-    lg:   'px-6  py-3 Blueprint-headline-small',
-    xl:   'px-8  py-6 Blueprint-headline-large',
+    lg: 'px-6  py-3 Blueprint-headline-small',
+    xl: 'px-8  py-6 Blueprint-headline-large',
   }[size];
 
   /* ---------- square vs pill ---------- */
   const rounded = {
     square: {
-      xs:   'rounded-xl',
-      sm:   'rounded-xl',
+      xs: 'rounded-xl',
+      sm: 'rounded-xl',
       base: 'rounded-[16px]',
-      lg:   'rounded-[28px]', 
-      xl:   'rounded-[28px]',
+      lg: 'rounded-[28px]',
+      xl: 'rounded-[28px]',
     },
     pill: {
-      xs:   'rounded-[100px]',
-      sm:   'rounded-[100px]',
+      xs: 'rounded-[100px]',
+      sm: 'rounded-[100px]',
       base: 'rounded-[100px]',
-      lg:   'rounded-[100px]',
-      xl:   'rounded-[100px]',
+      lg: 'rounded-[100px]',
+      xl: 'rounded-[100px]',
     },
   };
 

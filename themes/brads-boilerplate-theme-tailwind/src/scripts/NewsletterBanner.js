@@ -23,8 +23,8 @@ export const NewsletterBanner = () => {
           className="rounded-lg"
           label="Subscribe"
           size="lg"
-          onClick={() => {}}
-         />
+          onClick={() => { }}
+        />
       </div>
       <p className="text-sm text-white opacity-80">
         We respect your inbox. Unsubscribe anytime.

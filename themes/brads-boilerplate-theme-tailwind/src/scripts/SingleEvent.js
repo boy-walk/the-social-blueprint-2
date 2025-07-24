@@ -1,4 +1,3 @@
-// components/SingleEventPage.jsx
 import React from 'react';
 
 export const SingleEventPage = ({

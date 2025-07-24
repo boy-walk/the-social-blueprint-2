@@ -1,15 +1,6 @@
 import React, { useId } from 'react';
 import clsx from 'clsx';
 
-/**
- * Blueprint TextField
- * --------------------------------------------------------------
- * -   Styles:  'outlined' | 'filled'
- * -   States:  enabled · hover · focus · error · disabled
- * -   Features: floating label, leading / trailing icon,
- *               supporting text, required flag
- * -------------------------------------------------------------- */
-
 export function TextField({
   label = 'Label',
   value = '',
@@ -21,17 +12,13 @@ export function TextField({
   error = false,
   disabled = false,
   required = false,
-  style = 'outlined', // 'outlined' | 'filled'
+  style = 'outlined',
   type = 'text',
   name,
   id,
 }) {
   const inputId = id || useId();
   const hasText = Boolean(value);
-
-  /* ──────────────────────────
-     Variant / state class maps
-  ────────────────────────── */
   const containerBase =
     'relative w-full text-schemesOnSurface Blueprint-body-medium';
 
@@ -51,9 +38,6 @@ export function TextField({
     ? 'opacity-50 pointer-events-none cursor-not-allowed'
     : '';
 
-  /* ──────────────────────────
-     Floating-label positioning
-  ────────────────────────── */
   const labelBase =
     'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 ' +
     'Blueprint-body-large text-schemesOnPrimary pointer-events-none bg-black peer-focus:bg-[#0799D0]';
@@ -62,9 +46,6 @@ export function TextField({
     ? 'text-schemesError peer-focus:text-schemesError'
     : '';
 
-  /* ──────────────────────────
-     Input element classes
-  ────────────────────────── */
   const inputBase =
     'peer w-full py-3 pr-4 pl-3 bg-transparent outline-none ' +
     'text-schemesOnSurface placeholder:opacity-0 ' +
@@ -72,14 +53,11 @@ export function TextField({
 
   return (
     <div className={clsx(containerBase, variantMap[style], errorClasses, disabledClasses)}>
-      {/* Leading icon */}
       {leadingIcon && (
         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant pointer-events-none">
           {leadingIcon}
         </span>
       )}
-
-      {/* Input */}
       <input
         id={inputId}
         type={type}
@@ -91,13 +69,9 @@ export function TextField({
         disabled={disabled}
         className={inputBase}
       />
-
-      {/* Floating label */}
       <label htmlFor={inputId} className={clsx(labelBase, labelError)}>
         {label}
       </label>
-
-      {/* Trailing icon */}
       {trailingIcon && (
         <button
           type="button"
@@ -107,8 +81,6 @@ export function TextField({
           {trailingIcon}
         </button>
       )}
-
-      {/* Supporting text */}
       {supportingText && (
         <p
           className={clsx(

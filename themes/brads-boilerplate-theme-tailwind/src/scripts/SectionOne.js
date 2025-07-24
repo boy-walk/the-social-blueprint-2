@@ -1,12 +1,8 @@
 import React from 'react';
-import { Card } from './Card';
 import { Button } from './Button';
 import { EventCard } from './EventCard';
 import PillTag from './PillTag';
-import ExploreThemeOne from '../../assets/explore-theme-1.svg';
-import ExploreThemeTwo from '../../assets/explore-theme-2.svg';
 import { ExploreByTheme } from './ExploreByTheme';
-import { NewsletterBanner } from './NewsletterBanner';
 
 export const SectionOne = ({ events }) => {
   return (
