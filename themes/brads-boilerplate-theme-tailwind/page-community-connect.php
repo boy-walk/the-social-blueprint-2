@@ -62,8 +62,12 @@ $events_query = new WP_Query([
 $event_posts = $events_query->posts;
 
 // 4. Browse all community — all posts tagged 'Community Connection'
-$all_community_args = new WP_Query([
-  'posts_per_page' => 8,
+$all_community_query = new WP_Query([
+  'posts_per_page' => 30,
+  'post_type' => ['post', 'tribe_events', 'podcast', 'article', 'directory', 'resource'],
+  'post_status' => 'publish',
+  'ignore_sticky_posts' => true,
+  'suppress_filters' => true, // Match get_posts default
   'tax_query' => [
     [
       'taxonomy' => 'category',
@@ -72,7 +76,7 @@ $all_community_args = new WP_Query([
     ]
   ],
 ]);
-$all_community_posts = get_posts($all_community_args);
+$all_community_posts = $all_community_query->posts;
 
 // Convert to clean data
 function map_post($post) {

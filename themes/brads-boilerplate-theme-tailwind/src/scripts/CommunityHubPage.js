@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { ContentCard } from "./ContentCard";
 import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { DetailedCard } from "./DetailedCard";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
-import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
+import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 import { MessageBoardSlider } from "./MessageBoardSlider";
 import { NewsletterBanner } from "./NewsletterBanner";
 import { EventsSlider } from "./EventsSlider";
+import { SimpleCard } from "./SimpleCard";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
   return (
@@ -152,27 +153,7 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
       </div>
 
       {/* Browse All */}
-      <div className="py-16 px-4 sm:px-8 lg:px-16">
-        <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-4">Browse all community</h2>
-        <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch">
-          {browseAll.map((post) => (
-            <div
-              key={post.id}
-              className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] 
-                                sm:max-w-[calc(50%-12px)] md:max-w-[calc(33.333%-16px)] lg:max-w-[calc(25%-18px)]
-                            flex-grow"
-            >
-              <ContentCard
-                image={post.thumbnail}
-                title={post.title}
-                type={post.post_type}
-                subtitle={post.date}
-                href={post.permalink}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <BrowseAllCommunity posts={browseAll} />
       <div className="py-16 px-4 sm:px-8 lg:px-16">
         <NewsletterBanner />
       </div>
@@ -189,5 +170,90 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
         <ExploreByTheme />
       </div>
     </div>
+  );
+}
+
+function BrowseAllCommunity({ posts }) {
+  const filters = [
+    "All",
+    "Notice Board",
+    "Community Jobs",
+    "Activities & Programs",
+    "Volunteering & Getting Involved",
+  ];
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [page, setPage] = useState(0);
+
+  const filteredPosts = useMemo(() => {
+    if (activeFilter === "All") return posts;
+    return posts.filter((post) =>
+      post.tags?.includes(activeFilter)
+    );
+  }, [activeFilter, posts]);
+
+  const postsPerPage = 10;
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  const paginatedPosts = filteredPosts.slice(
+    page * postsPerPage,
+    page * postsPerPage + postsPerPage
+  );
+
+  return (
+    <section className="py-16 px-4 sm:px-8 lg:px-16 mx-auto">
+      <h2 className="Blueprint-headline-medium mb-6">Browse all community</h2>
+
+      {/* Filters */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        {filters.map((label) => (
+          <button
+            key={label}
+            onClick={() => {
+              setActiveFilter(label);
+              setPage(0);
+            }}
+            className={`px-4 py-1.5 text-sm rounded-full border transition ${activeFilter === label
+              ? "bg-[var(--schemesPrimary)] text-white"
+              : "bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)]"
+              }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {paginatedPosts.map((post) => (
+          <ContentCard
+            image={post.thumbnail}
+            title={post.title}
+            type={post.post_type}
+            subtitle={post.date}
+            href={post.permalink}
+          />
+        ))}
+      </div>
+
+      {/* Pagination Arrows */}
+      <div className="flex justify-center items-center gap-4 mt-8">
+        <button
+          disabled={page === 0}
+          onClick={() => setPage((p) => Math.max(p - 1, 0))}
+          className="p-2 rounded-full bg-[var(--schemesSurface)] border border-[var(--schemesOutlineVariant)] disabled:opacity-30"
+        >
+          <CaretLeftIcon size={24} weight="bold" />
+        </button>
+        <span className="text-sm font-medium">
+          {page + 1} / {totalPages}
+        </span>
+        <button
+          disabled={page >= totalPages - 1}
+          onClick={() => setPage((p) => Math.min(p + 1, totalPages - 1))}
+          className="p-2 rounded-full bg-[var(--schemesSurface)] border border-[var(--schemesOutlineVariant)] disabled:opacity-30"
+        >
+          <CaretRightIcon size={24} weight="bold" />
+        </button>
+      </div>
+    </section>
   );
 }
