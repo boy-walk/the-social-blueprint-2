@@ -176,18 +176,19 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
 function BrowseAllCommunity({ posts }) {
   const filters = [
     "All",
-    "Notice Board",
+    "test tag",
     "Community Jobs",
     "Activities & Programs",
     "Volunteering & Getting Involved",
   ];
   const [activeFilter, setActiveFilter] = useState("All");
   const [page, setPage] = useState(0);
+  console.log(posts)
 
   const filteredPosts = useMemo(() => {
     if (activeFilter === "All") return posts;
     return posts.filter((post) =>
-      post.tags?.includes(activeFilter)
+      post.topics?.includes(activeFilter)
     );
   }, [activeFilter, posts]);
 

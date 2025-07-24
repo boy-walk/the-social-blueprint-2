@@ -6063,12 +6063,13 @@ function CommunityHubPage({
 function BrowseAllCommunity({
   posts
 }) {
-  const filters = ["All", "Notice Board", "Community Jobs", "Activities & Programs", "Volunteering & Getting Involved"];
+  const filters = ["All", "test tag", "Community Jobs", "Activities & Programs", "Volunteering & Getting Involved"];
   const [activeFilter, setActiveFilter] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("All");
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  console.log(posts);
   const filteredPosts = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     if (activeFilter === "All") return posts;
-    return posts.filter(post => post.tags?.includes(activeFilter));
+    return posts.filter(post => post.topics?.includes(activeFilter));
   }, [activeFilter, posts]);
   const postsPerPage = 10;
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);

@@ -90,6 +90,7 @@ function map_post($post) {
     'post_type' => get_post_type($post),
     'date' => get_the_date('', $post),
     'author' => get_the_author_meta('display_name', $author_id),
+    'topics' => wp_get_post_terms($post->ID, 'topic_tag', ['fields' => 'names']),
   ];
 }
 
