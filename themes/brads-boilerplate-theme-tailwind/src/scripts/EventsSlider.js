@@ -7,13 +7,13 @@ import { ContentCard } from "./ContentCard";
 export function EventsSlider({ events }) {
   const scrollRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerView, setItemsPerView] = useState(3);
+  const [itemsPerView, setItemsPerView] = useState(4);
 
   // Detect screen size
   useEffect(() => {
     const updateItemsPerView = () => {
       const width = window.innerWidth;
-      setItemsPerView(width < 640 ? 1 : 3);
+      setItemsPerView(width < 640 ? 1 : 4);
     };
     updateItemsPerView();
     window.addEventListener("resize", updateItemsPerView);
@@ -46,22 +46,14 @@ export function EventsSlider({ events }) {
   };
 
   return (
-    <div className="py-16 px-4 sm:px-8 lg:px-16">
-      {/* Header */}
-      <div className="flex items-center gap-2 mb-8">
-        <h2 className="Blueprint-headline-medium text-schemesOnSurface">
-          Your upcoming events
-        </h2>
-        <ArrowIcon />
-      </div>
-
-      {/* Scrollable view */}
+    <div>
       <div className="overflow-hidden">
         <div
           ref={scrollRef}
           className="flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden"
         >
           {events.map((post) => (
+
             <div
               key={post.id}
               className="flex-shrink-0 px-2 flex flex-col pb-4"
@@ -69,22 +61,16 @@ export function EventsSlider({ events }) {
                 width: `${100 / itemsPerView}%`,
               }}
             >
-              <ContentCard
-                image={post.thumbnail}
-                title={post.title}
-                type={post.type}
-                subtitle={post.meta?.author || post.meta?.location || ""}
-                badge={
-                  post.type.toLowerCase() === "podcast"
-                    ? "Podcast"
-                    : post.type.toLowerCase() === "blog"
-                      ? "Blog"
-                      : post.type.toLowerCase() === "event"
-                        ? "Event"
-                        : null
-                }
-                href={post.link}
-              />
+              <a href={post.permalink}>
+                <ContentCard
+                  image={post.thumbnail}
+                  title={post.title}
+                  type={post.type || "Event"}
+                  subtitle={post.meta?.author || post.meta?.location || ""}
+                  badge={"Event"}
+                  href={post.link}
+                />
+              </a>
             </div>
           ))}
         </div>

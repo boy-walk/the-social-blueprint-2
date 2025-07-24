@@ -27,7 +27,7 @@ if (document.querySelector('#front-page')) {
 const header = document.getElementById('header');
 if (header) {
   const isUserLoggedIn = header.getAttribute('isUserLoggedIn') === 'true';
-  ReactDOM.createRoot(header).render(<Header isUserLoggedIn={isUserLoggedIn}/>);
+  ReactDOM.createRoot(header).render(<Header isUserLoggedIn={isUserLoggedIn} />);
 }
 
 const el1 = document.getElementById('section-one');
@@ -66,21 +66,21 @@ if (el6) {
 
 const el7 = document.getElementById('terms-and-conditions');
 if (el7) {
-  ReactDOM.createRoot(el7).render(<TermsAndConditions/>)
+  ReactDOM.createRoot(el7).render(<TermsAndConditions />)
 }
 
 const el8 = document.getElementById('contact-us');
-if(el8) {
+if (el8) {
   ReactDOM.createRoot(el8).render(<ContactForm />)
 }
 
 const el9 = document.getElementById('404');
-if(el9) {
+if (el9) {
   ReactDOM.createRoot(el9).render(<Page404 />);
 }
 
 const el10 = document.getElementById('register-organisation');
-if(el10) {
+if (el10) {
   ReactDOM.createRoot(el10).render(<RegisterOrganisation />);
 }
 
@@ -95,7 +95,7 @@ if (el11) {
     moreInterviews: JSON.parse(el11.dataset.moreInterviews) || [],
   };
   console.log(props)
-  ReactDOM.createRoot(el11).render(<PodcastPage {...props}/>);
+  ReactDOM.createRoot(el11).render(<PodcastPage {...props} />);
 }
 
 const el12 = document.getElementById('search-root');
@@ -109,13 +109,12 @@ if (el12) {
 const el13 = document.getElementById('community-hub-root');
 if (el13) {
   const props = window.__COMMUNITY_HUB_PROPS__ || {};
-  ReactDOM.createRoot(el13).render(<CommunityHubPage {...props}/>);
+  ReactDOM.createRoot(el13).render(<CommunityHubPage {...props} />);
 }
 
 const el14 = document.getElementById('account-dashboard-root');
 if (el14) {
   const userData = JSON.parse(el14.dataset.user);
   const eventsData = JSON.parse(el14.dataset.events || '[]');
-  console.log(eventsData)
-  ReactDOM.createRoot(el14).render(<AccountDashboard user={userData}  events={eventsData}/>);
+  ReactDOM.createRoot(el14).render(<AccountDashboard user={userData} events={eventsData} />);
 }

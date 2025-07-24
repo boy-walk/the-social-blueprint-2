@@ -234,7 +234,7 @@ add_action('init', function () {
   ];
 
   foreach ($taxonomies as $slug => $name) {
-    register_taxonomy($slug, ['event', 'podcast', 'article', 'directory', 'resource'], [
+    register_taxonomy($slug, ['tribe_events', 'podcast', 'article', 'directory', 'resource'], [
       'label' => $name . ' Tags',
       'hierarchical' => false,
       'public' => true,

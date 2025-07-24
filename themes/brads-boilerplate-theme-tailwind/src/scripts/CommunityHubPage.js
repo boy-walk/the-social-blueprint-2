@@ -8,6 +8,7 @@ import PillTag from "./PillTag";
 import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
 import { MessageBoardSlider } from "./MessageBoardSlider";
 import { NewsletterBanner } from "./NewsletterBanner";
+import { EventsSlider } from "./EventsSlider";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
   return (
@@ -97,7 +98,7 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
         <div className="flex flex-col lg:flex-row gap-3 lg:gap-3 mx-auto w-full">
           {/* Left column - hero */}
           {featured[0] && (
-            <div className="flex-1 flex">
+            <div className="flex-1 h-full">
               <ContentCard
                 image={featured[0].thumbnail}
                 type={featured[0].post_type}
@@ -113,6 +114,8 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                           : null
                 }
                 href={featured[0].permalink}
+                fullHeight
+                fullWidth
               />
             </div>
           )}
@@ -145,28 +148,12 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
           <h2 className="Blueprint-headline-medium text-schemesOnSecondaryFixed">What's on this week</h2>
           <ArrowIcon className="text-schemesOnSecondaryFixed" />
         </div>
-        <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch">
-          {events.map((event, index) => (
-            <div
-              key={`event.id-${index}`}
-              className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] flex-grow"
-            >
-              <ContentCard
-                image={event.thumbnail}
-                title={event.title}
-                type="Event"
-                subtitle={event.date}
-                href={event.permalink}
-              />
-            </div>
-          ))}
-        </div>
+        <EventsSlider events={events} />
       </div>
 
       {/* Browse All */}
       <div className="py-16 px-4 sm:px-8 lg:px-16">
         <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-4">Browse all community</h2>
-        {console.log(browseAll)}
         <div className="flex flex-wrap gap-4 sm:gap-6 justify-start items-stretch">
           {browseAll.map((post) => (
             <div

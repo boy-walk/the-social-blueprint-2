@@ -8,18 +8,18 @@ get_header();
 // 1. Featured in Community — 3 posts tagged both 'Community Connection' and 'Featured'
 $featured_args = [
   'posts_per_page' => 3,
-  'post_type' => ['event', 'podcast', 'article', 'directory', 'resource'], // match what your taxonomy is registered to
+  'post_type' => ['event', 'podcast', 'article', 'directory', 'resource'],
   'post_status' => 'publish',
   'tax_query' => [
     [
       'taxonomy' => 'feature_tag',
       'field' => 'slug',
-      'operator' => 'EXISTS', // fetch posts that have *any* feature_tag
+      'operator' => 'EXISTS',
     ],
     [
       'taxonomy' => 'category',
       'field' => 'slug',
-      'terms' => 'community-connection', // only fetch posts tagged with 'community-
+      'terms' => 'community-connection',
     ]
   ],
 ];
@@ -34,28 +34,41 @@ $message_board_args = [
 ];
 $message_board_posts = get_posts($message_board_args);
 
-// 3. What’s on This Week — Events from The Events Calendar
+// 3. What’s on This Week — Events from The Events Calendar (deduplicated by series)
+
 $events_query = new WP_Query([
   'post_type' => 'tribe_events',
-  'posts_per_page' => 4,
+  'posts_per_page' => 30,
+  'meta_key' => '_EventStartDate',
   'orderby' => 'meta_value',
   'order' => 'ASC',
-  'meta_key' => '_EventStartDate',
-  'tag' => 'community-connection',
-  'ignore_sticky_posts' => true,
-  'no_found_rows' => true,
+  'tax_query' => [
+    [
+      'taxonomy' => 'category',
+      'field' => 'slug',
+      'terms' => 'community-connection',
+    ]
+    ],
+  'meta_query' => [
+    [
+      'key' => '_EventStartDate',
+      'value' => date('Y-m-d H:i:s'),
+      'compare' => '>=',
+      'type' => 'DATETIME',
+    ],
+  ],
 ]);
 
 $event_posts = $events_query->posts;
 
 // 4. Browse all community — all posts tagged 'Community Connection'
-$all_community_args = new WP_QUERY([
+$all_community_args = new WP_Query([
   'posts_per_page' => 8,
   'tax_query' => [
     [
       'taxonomy' => 'category',
       'field' => 'slug',
-      'terms' => 'community-connection', // only fetch posts tagged with 'community-
+      'terms' => 'community-connection',
     ]
   ],
 ]);
