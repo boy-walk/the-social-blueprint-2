@@ -17,6 +17,9 @@ import PodcastPage from './scripts/PodcastPage';
 import { SearchPage } from './scripts/SearchPage';
 import { CommunityHubPage } from './scripts/CommunityHubPage';
 import { AccountDashboard } from './scripts/AccountDashboard';
+import { NewsletterBanner } from './scripts/NewsletterBanner';
+import AccountSettingsPage from './scripts/AccountSettingsPage';
+import { AccountChangePassword } from './scripts/AccountChangePassword';
 
 
 if (document.querySelector('#front-page')) {
@@ -117,4 +120,21 @@ if (el14) {
   const userData = JSON.parse(el14.dataset.user);
   const eventsData = JSON.parse(el14.dataset.events || '[]');
   ReactDOM.createRoot(el14).render(<AccountDashboard user={userData} events={eventsData} />);
+}
+
+const el15 = document.getElementById('newsletter-banner');
+if (el15) {
+  ReactDOM.createRoot(el15).render(<NewsletterBanner />);
+}
+
+const el16 = document.getElementById('account-settings-root');
+if (el16) {
+  const props = JSON.parse(el16.dataset.props);
+  ReactDOM.createRoot(el16).render(<AccountSettingsPage profile={props} />);
+}
+
+const el17 = document.getElementById('account-change-password-root');
+if (el17) {
+  const user = JSON.parse(el17.dataset.user);
+  ReactDOM.createRoot(el17).render(<AccountChangePassword user={user} />);
 }

@@ -327,12 +327,12 @@
   --extendedColorsCustomColorContainer: #007dab;
   --extendedColorsOnCustomColorContainer: #ffffff;
   --shadow-3x1: 7px 6px 1px 0 rgba(0, 0, 0, 0.20);
-  --shadow-3x2: 5px 4px 1px var(--schemesOutlineVariant,#C9C7BD);
+  --shadow-3x2: 5px 4px 1px var(--schemesOutlineVariant, #C9C7BD);
   --shadow-3x3: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
-  
+
 
   --font-ibmCondensed: 'IBM Plex Sans Condensed', sans-serif;
-  --font-heebo:        'Heebo', sans-serif;
+  --font-heebo: 'Heebo', sans-serif;
 }
 
 .shadow-3x2 {
@@ -340,10 +340,13 @@
 }
 
 .scrollbar-hidden {
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For IE and Edge */
+  scrollbar-width: none;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For IE and Edge */
 }
 
 .scrollbar-hidden::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
+  display: none;
+  /* For Chrome, Safari, and Opera */
 }

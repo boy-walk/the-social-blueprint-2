@@ -14,25 +14,13 @@ if (!is_user_logged_in()) {
 // Get current user
 $current_user = wp_get_current_user();
 
-
 $today = date('Y-m-d H:i:s');
 
 $query = new WP_Query([
-    'post_type' => 'tribe_events',
-    'posts_per_page' => 10,
-    'post_status' => 'publish',
-    'author' => $current_user->ID,
-    'meta_query' => [
-        [
-            'key' => '_EventStartDate',
-            'value' => $today,
-            'compare' => '>=',
-            'type' => 'DATETIME',
-        ],
-    ],
-    'orderby' => 'meta_value',
-    'meta_key' => '_EventStartDate',
-    'order' => 'ASC',
+  'post_type' => 'tribe_events',
+  'posts_per_page' => 10,
+  'post_status' => 'any',
+  'author' => $current_user->ID,
 ]);
 
 $events = [];

@@ -32,8 +32,11 @@ export function ContactForm() {
       >
         <header className="space-y-2">
           <h1 className="Blueprint-headline-large-emphasized italic">
-            Get quick access to community support.
+            Got a question? Contact Us.
           </h1>
+          <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
+            Feel free to reach out for general inquiries.
+          </p>
         </header>
 
         {/* Left: Form Fields */}
@@ -44,6 +47,7 @@ export function ContactForm() {
               placeholder="Input"
               value={form.firstName}
               onChange={handleChange('firstName')}
+              style="outlined"
             />
             <TextField
               label="Last name"

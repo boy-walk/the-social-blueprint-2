@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 export function AccountDashboard({ user, events }) {
   const { t } = useTranslation();
-
+  console.log(events)
   return (
     <div className="min-h-screen">
       <div className="px-6 lg:px-16 py-8 bg-schemesPrimaryFixed ">
@@ -42,7 +42,7 @@ export function AccountDashboard({ user, events }) {
                 </div>
               </div>
             </Card>
-            <Card>
+            <Card href="/account-settings">
               <div className="flex flex-col gap-8 h-full justify-between items-start p-4 w-full">
                 <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
                   <GearIcon size={22} />
@@ -56,8 +56,13 @@ export function AccountDashboard({ user, events }) {
         </div>
 
       </div>
+      <div className="px-6 lg:px-16 py-8">
+        <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-6">
+          Your upcoming events
+        </h2>
+        <EventsSlider events={events} />
+      </div>
 
-      <EventsSlider events={events} />
 
       <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8">
         <NewsletterBanner />

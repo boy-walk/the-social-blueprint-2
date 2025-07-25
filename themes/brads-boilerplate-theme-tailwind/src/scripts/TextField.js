@@ -14,20 +14,20 @@ export function TextField({
   required = false,
   style = 'outlined',
   type = 'text',
+  multiline = false,
   name,
   id,
 }) {
   const inputId = id || useId();
-  const hasText = Boolean(value);
   const containerBase =
     'relative w-full text-schemesOnSurface Blueprint-body-medium';
 
   const variantMap = {
     outlined:
-      'border border-schemesOutline rounded-lg bg-transparent hover:border-schemesOnSurfaceVariant ' +
-      'focus-within:border-schemesPrimary',
+      'border border-schemesOutline bg-transparent hover:border-schemesOnSurfaceVariant ' +
+      'focus-within:border-schemesPrimaryContainer',
     filled:
-      'bg-schemesSurfaceVariant rounded-lg hover:bg-schemesSurface focus-within:bg-schemesSurface',
+      'bg-schemesSurfaceVariant hover:bg-schemesSurface focus-within:bg-schemesSurface',
   };
 
   const errorClasses = error
@@ -39,8 +39,8 @@ export function TextField({
     : '';
 
   const labelBase =
-    'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 ' +
-    'Blueprint-body-large text-schemesOnPrimary pointer-events-none bg-black peer-focus:bg-[#0799D0]';
+    'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight' +
+    'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixedDim peer-focus:bg-[#0799D0]';
 
   const labelError = error
     ? 'text-schemesError peer-focus:text-schemesError'
@@ -49,7 +49,7 @@ export function TextField({
   const inputBase =
     'peer w-full py-3 pr-4 pl-3 bg-transparent outline-none ' +
     'text-schemesOnSurface placeholder:opacity-0 ' +
-    'focus:placeholder:opacity-100 disabled:bg-transparent';
+    'disabled:bg-transparent';
 
   return (
     <div className={clsx(containerBase, variantMap[style], errorClasses, disabledClasses)}>
@@ -58,17 +58,29 @@ export function TextField({
           {leadingIcon}
         </span>
       )}
-      <input
-        id={inputId}
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder || label}
-        required={required}
-        disabled={disabled}
-        className={inputBase}
-      />
+      {multiline ? (
+        <textarea
+          id={inputId}
+          name={name}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder || label}
+          required={required}
+          disabled={disabled}
+          className={clsx(inputBase, 'resize-none h-32')}
+        />
+      ) : (
+        <input
+          id={inputId}
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder || label}
+          required={required}
+          disabled={disabled}
+          className={inputBase}
+        />)}
       <label htmlFor={inputId} className={clsx(labelBase, labelError)}>
         {label}
       </label>

@@ -9,7 +9,6 @@ import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon, Car
 import { MessageBoardSlider } from "./MessageBoardSlider";
 import { NewsletterBanner } from "./NewsletterBanner";
 import { EventsSlider } from "./EventsSlider";
-import { SimpleCard } from "./SimpleCard";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
   return (
@@ -177,7 +176,7 @@ function BrowseAllCommunity({ posts }) {
   const filters = [
     "All",
     "test tag",
-    "Community Jobs",
+    "Community jobs",
     "Activities & Programs",
     "Volunteering & Getting Involved",
   ];
