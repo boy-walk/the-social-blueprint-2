@@ -6,11 +6,7 @@
 get_header();
 ?>
 
-<!-- <main id="contact-us" class="min-h-screen"> -->
-<?php the_content(); ?>
-
-
-</main>
+<main id="contact-us" class="min-h-screen"></main>
 
 <?php get_footer(); ?>
 

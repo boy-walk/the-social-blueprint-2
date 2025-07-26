@@ -4,7 +4,7 @@ import { Button } from './Button';
 import { IconButton } from './Icon';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
-import { ListIcon } from '@phosphor-icons/react';
+import { ListIcon, SmileyIcon } from '@phosphor-icons/react';
 import { Socials } from './Socials';
 
 export default function Header({ isUserLoggedIn = false }) {
@@ -41,18 +41,16 @@ export default function Header({ isUserLoggedIn = false }) {
               label={t('Subscribe')}
               variant="filled"
               shape="square"
-              size="sm"
+              size="lg"
               onClick={() => console.log('Subscribe')}
             />
             <Button
               label={isUserLoggedIn ? t("account_dasboard") : t('log_in')}
               variant="tonal"
-              shape="pill"
-              size="sm"
+              shape="square"
+              size="lg"
               icon={(
-                <svg viewBox="0 0 20 20" className="w-4 h-4 fill-current">
-                  <path d="M10 2a8 8 0 100 16 8 8 0 000-16z" />
-                </svg>
+                <SmileyIcon size={22} weight="bold" />
               )}
               onClick={() => isUserLoggedIn ? window.location.href = '/account-dashboard' : window.location.href = '/login'}
             />

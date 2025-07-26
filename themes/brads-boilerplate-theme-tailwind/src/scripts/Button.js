@@ -1,13 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 
-/**
- * Blueprint Button
- * --------------------------------------------------
- * ‣ size:     xs | sm | base | lg | xl
- * ‣ variant:  filled | tonal | outline | elevated | text
- * ‣ shape:    square | pill
- */
 export function Button({
   className = '',
   label = 'Label',
@@ -18,7 +11,6 @@ export function Button({
   disabled = false,
   onClick = () => { },
 }) {
-  /* ---------- size → padding / radius / typography ---------- */
   const sizeStyles = {
     xs: 'px-3  py-1.5 Blueprint-label-large',
     sm: 'px-4  py-2 Blueprint-label-large',
@@ -33,7 +25,7 @@ export function Button({
       xs: 'rounded-xl',
       sm: 'rounded-xl',
       base: 'rounded-[16px]',
-      lg: 'rounded-[28px]',
+      lg: 'rounded-[16px]',
       xl: 'rounded-[28px]',
     },
     pill: {
@@ -45,24 +37,19 @@ export function Button({
     },
   };
 
-  /* ---------- colour / elevation ----------
-     (uses CSS custom props already in :root)   */
   const variantStyles = {
-    /* solid brand */
     filled: clsx(
-      'bg-[var(--schemesPrimary)]',               // normal
-      'text-[var(--schemesOnPrimary)]',         // text
+      'bg-[var(--schemesPrimary)]',
+      'text-[var(--schemesOnPrimary)]',
       'hover:bg-[var(--schemesPrimaryContainer)]'
     ),
 
-    /* light-tint “tonal” button */
     tonal: clsx(
       'bg-[var(--schemesPrimaryFixed)]',
       'text-[var(--schemesOnPrimaryFixedVariant)]',
       'hover:bg-[var(--schemesPrimaryFixedDim)]'
     ),
 
-    /* outline – transparent, takes on-surface text */
     outline: clsx(
       'border',
       'border-[var(--schemesOnPrimary]',
@@ -70,7 +57,6 @@ export function Button({
       'hover:bg-[var(--stateLayersOnSurfaceOpacity08)]'
     ),
 
-    /* elevated – subtle card-like surface with shadow */
     elevated: clsx(
       'bg-[var(--schemesSurfaceContainerHigh)]',
       'text-[var(--schemesPrimary)]',
@@ -78,7 +64,6 @@ export function Button({
       'hover:bg-[var(--stateLayersSurfaceContainerHighOpacity08)]'
     ),
 
-    /* text-only button */
     text: clsx(
       'bg-transparent',
       'text-[var(--schemesPrimary)]',

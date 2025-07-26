@@ -112,7 +112,7 @@ export function ContactForm() {
         <div>
           <p className="Blueprint-title-large-emphasized text-schemesOnSurface mb-1">Mental Health Support - Jewish Care</p>
           <p className="Blueprint-body-large mb-1">Free sessions for community members 16+</p>
-          <p className="Blueprint-body-large-emphasized">(03) 8517 5999  Mon to Fri, 9am–5pm</p>
+          <p className="Blueprint-body-large-emphasized">(03) 8517 5999  Mon to Fri, 9am-5pm</p>
         </div>
         <div>
           <p className="Blueprint-title-large-emphasized text-schemesOnSurface mb-1">Report Antisemitism - CSG</p>
