@@ -9,8 +9,11 @@ import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon, Car
 import { MessageBoardSlider } from "./MessageBoardSlider";
 import { NewsletterBanner } from "./NewsletterBanner";
 import { EventsSlider } from "./EventsSlider";
+import FeaturedPostLayout from "./FeaturedPostLayout";
+import { useTranslation } from "react-i18next";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
+  const { t } = useTranslation();
   return (
     <div>
       <div className="flex px-12 h-16 py-3 items-center bg-schemesPrimaryFixed Blueprint-label-large text-schemesLightPrimary">
@@ -95,52 +98,18 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
           Featured in Community
         </h2>
 
-        <div className="flex flex-col lg:flex-row gap-3 lg:gap-3 mx-auto w-full">
-          {/* Left column - hero */}
-          {featured[0] && (
-            <div className="flex-1 h-full">
-              <ContentCard
-                image={featured[0].thumbnail}
-                type={featured[0].post_type}
-                badge={
-                  featured[0].post_type.toLowerCase() === "podcast"
-                    ? "Podcast"
-                    : featured[0].post_type.toLowerCase() === "blog"
-                      ? "Blog"
-                      : featured[0].post_type.toLowerCase() === "event"
-                        ? "Event"
-                        : featured[0].post_type.toLowerCase() === "article" ?
-                          "Article"
-                          : null
-                }
-                href={featured[0].permalink}
-                fullHeight
-                fullWidth
-              />
-            </div>
-          )}
-
-          {/* Right column - stacked simple cards */}
-          <div className="flex-1 flex flex-col gap-3">
-            {featured.slice(1).map((post, i) => (
-              <DetailedCard
-                key={i}
-                image={post.thumbnail}
-                category={post.post_type}
-                title={post.title}
-                description={post.excerpt}
-                author={post.author}
-                date={post.date}
-                href={post.permalink}
-                buttonText="Read more"
-              />
-            ))}
-          </div>
-        </div>
+        <FeaturedPostLayout posts={featured} />
 
       </div>
-
-      <MessageBoardSlider messageBoard={messageBoard} />
+      <div className="py-16 px-4 sm:px-8 lg:px-16">
+        <div className="flex items-center gap-2 mb-8">
+          <h2 className="Blueprint-headline-medium text-schemesOnSurface">
+            {t("recentMessageBoardPosts")}
+          </h2>
+          <ArrowIcon />
+        </div>
+        <MessageBoardSlider messageBoard={messageBoard} />
+      </div>
 
       {/* Events */}
       <div className="py-16 px-4 sm:px-8 lg:px-16 bg-schemesSecondaryFixed">

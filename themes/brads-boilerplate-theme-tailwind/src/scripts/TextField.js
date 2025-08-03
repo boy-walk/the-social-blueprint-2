@@ -20,7 +20,7 @@ export function TextField({
 }) {
   const inputId = id || useId();
   const containerBase =
-    'relative w-full text-schemesOnSurface Blueprint-body-medium';
+    'relative w-full rounded-lg text-schemesOnSurface Blueprint-body-medium';
 
   const variantMap = {
     outlined:
@@ -40,7 +40,7 @@ export function TextField({
 
   const labelBase =
     'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight' +
-    'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixedDim peer-focus:bg-[#0799D0]';
+    'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixed peer-focus:bg-[#0799D0] rounded-sm';
 
   const labelError = error
     ? 'text-schemesError peer-focus:text-schemesError'

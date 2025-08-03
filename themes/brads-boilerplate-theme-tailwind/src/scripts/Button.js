@@ -76,7 +76,7 @@ export function Button({
 
   return (
     <button
-      type="button"
+      type="submit"
       onClick={onClick}
       disabled={disabled}
       className={clsx(

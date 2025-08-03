@@ -4,11 +4,15 @@ import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { useTranslation } from "react-i18next";
 
-export function MessageBoardSlider({ messageBoard }) {
+export function MessageBoardSlider({ messageBoard, displaySlider = true }) {
   const { t } = useTranslation();
   const scrollRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
+
+  if (!messageBoard || messageBoard.length === 0) {
+    return null;
+  }
 
   // Detect screen size
   useEffect(() => {
@@ -47,14 +51,7 @@ export function MessageBoardSlider({ messageBoard }) {
   };
 
   return (
-    <div className="py-16 px-4 sm:px-8 lg:px-16">
-      <div className="flex items-center gap-2 mb-8">
-        <h2 className="Blueprint-headline-medium text-schemesOnSurface">
-          {t("recentMessageBoardPosts")}
-        </h2>
-        <ArrowIcon />
-      </div>
-
+    <div>
       <div className="overflow-hidden">
         <div
           ref={scrollRef}
@@ -86,7 +83,7 @@ export function MessageBoardSlider({ messageBoard }) {
         </div>
       </div>
 
-      <div className="flex justify-between gap-4 mt-6">
+      {displaySlider && (<div className="flex justify-between gap-4 mt-6">
         <button
           onClick={prev}
           className={`bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center ${currentIndex === 0 ? "opacity-30 cursor-not-allowed" : ""
@@ -103,7 +100,7 @@ export function MessageBoardSlider({ messageBoard }) {
         >
           <ArrowRightIcon size={20} fill="bold" />
         </button>
-      </div>
+      </div>)}
     </div>
   );
 }

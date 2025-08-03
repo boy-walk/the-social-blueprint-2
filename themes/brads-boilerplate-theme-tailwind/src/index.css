@@ -328,15 +328,17 @@
   --extendedColorsOnCustomColorContainer: #ffffff;
   --shadow-3x1: 7px 6px 1px 0 rgba(0, 0, 0, 0.20);
   --shadow-3x2: 5px 4px 1px var(--schemesOutlineVariant, #C9C7BD);
-  --shadow-3x3: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
-
-
+  --shadow-3x3: 4px 4px 1px 0 rgba(71, 71, 64, 0.16);
   --font-ibmCondensed: 'IBM Plex Sans Condensed', sans-serif;
   --font-heebo: 'Heebo', sans-serif;
 }
 
 .shadow-3x2 {
   box-shadow: var(--shadow-3x2);
+}
+
+.shadow-3x3 {
+  box-shadow: var(--shadow-3x3);
 }
 
 .scrollbar-hidden {

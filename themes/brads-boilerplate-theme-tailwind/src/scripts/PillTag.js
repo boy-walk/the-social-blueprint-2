@@ -3,10 +3,10 @@ import React from 'react';
 export default function PillTag({ label, backgroundColor = '#007ea8' }) {
   return (
     <span
-      className="inline-block px-3 py-1 rounded-xl shadow-[4px_4px_0px_rgba(0,0,0,0.2)] text-white italic font-semibold text-xl"
-      style={{ backgroundColor }}
+      className={`relative inline-block px-3 py-1 rounded-xl text-white italic Blueprint-headline-large-emphasized bg-${backgroundColor}`}
     >
-      {label}
+      <span className="relative z-10">{label}</span>
+      <span className="absolute inset-0 rounded-xl shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] mix-blend-multiply z-0 content-['']"></span>
     </span>
   );
 }

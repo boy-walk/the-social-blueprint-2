@@ -7,7 +7,7 @@ export default function FrontPage() {
     <div className="bg-schemesPrimaryFixed">
       <FrontPageGrid />
       <div className="flex justify-center flex-col items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-4">
-        <h2 className="Blueprint-display-small-emphasized text-schemesLightOnSurface text-center">
+        <h2 className="Blueprint-display-small-emphasized text-schemesOnSurface text-center">
           Search The Social Blueprint
         </h2>
         <SearchBar />

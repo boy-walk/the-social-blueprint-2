@@ -1,92 +1,99 @@
 import React from 'react';
 import { Button } from './Button';
-import { EventCard } from './EventCard';
 import PillTag from './PillTag';
 import { ExploreByTheme } from './ExploreByTheme';
+import FeaturedPostLayout from './FeaturedPostLayout';
+import { StarIcon } from '@phosphor-icons/react';
+import { MessageBoardSlider } from './MessageBoardSlider';
 
-export const SectionOne = ({ events }) => {
+export const SectionOne = ({ events, podcasts, messageBoardPosts }) => {
   return (
-    <div className="flex flex-col px-4 sm:px-8 md:px-16 lg:px-32 py-12 bg-white items-center justify-center gap-12">
-      <div className="flex flex-col justify-center items-center gap-4 w-full">
-        <div className="flex gap-2 justify-center items-center">
-          <div className="ibm-plex-sans-condensed-regular-italic text-xl font-bold text-center text-gray-800 leading-snug">
+    <div>
+      <div className="flex flex-col justify-center items-center gap-12 w-full px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex gap-3 justify-center items-center">
+          <div className="Blueprint-headline-large-emphasized italic text-center leading-snug">
             Explore by
           </div>
-          <PillTag label="Theme" backgroundColor="#007ea8" />
+          <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
         </div>
-        <div className="w-full text-xl text-center">
+        <div className="w-full Blueprint-body-large text-center text-schemesOnSurface">
           From support services to creative culture, start where you're curious.
         </div>
       </div>
-
-      <ExploreByTheme />
-
-      <div className="bg-container-light flex flex-col items-center gap-12 self-stretch rounded-xl shadow-3x1 px-4 sm:px-6 md:px-8 lg:px-16 py-12">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
-          <div className="flex flex-col justify-center items-start gap-4">
-            <div className="flex gap-2 items-center">
-              <div className="text-xl font-bold text-gray-800 leading-snug">Upcoming</div>
-              <PillTag label="Events" backgroundColor="#007ea8" />
+      <div className="w-full flex justify-center pb-8">
+        <div className="max-w-7xl w-full px-4 lg:px-0">
+          <ExploreByTheme />
+        </div>
+      </div>
+      <div className="py-16 px-4 sm:px-8 lg:px-16">
+        <div className="bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
+            <div className="flex flex-col justify-center items-start gap-12">
+              <div className="flex gap-3 items-center">
+                <div className="Blueprint-headline-large-emphasized italic leading-snug">Upcoming</div>
+                <PillTag label="Events" backgroundColor="schemesPrimaryContainer" />
+              </div>
+              <div className="w-full Blueprint-body-large text-schemesOnSurfaceVariant">
+                Workshops, holidays, classes and community gatherings, updated regularly.
+              </div>
             </div>
-            <div className="w-full text-xl">
-              Workshops, holidays, classes and community gatherings, updated regularly.
+            <div className="flex flex-wrap gap-4 items-center">
+              <Button
+                label="Browse the calendar"
+                onClick={() => (window.location.href = '/events')}
+                size="base"
+                variant="filled"
+                icon={<div className="bg-white rounded-full p-1"><StarIcon color="#1e6586" weight="fill" size={12} /></div>}
+              />
+              <Button
+                label="View all events"
+                onClick={() => (window.location.href = '/submit-event')}
+                size="base"
+                variant="filled"
+              />
+            </div>
+          </div>
+          <FeaturedPostLayout posts={events} />
+        </div>
+      </div>
+      <div className="flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 px-4 sm:px-6 md:px-8 lg:px-16 py-12">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
+          <div className="flex flex-col justify-center items-start gap-12">
+            <div className="flex flex-col lg:flex-row gap-3 items-start lg:items-center">
+              <PillTag label="Real stories" backgroundColor="schemesPrimaryContainer" />
+              <div className="Blueprint-headline-large-emphasized italic leading-snug">from our community</div>
+            </div>
+            <div className="w-full Blueprint-body-large text-schemesOnSurfaceVariant">
+              Personal reflections, creative insights and thoughtful perspectives.
             </div>
           </div>
           <div className="flex flex-wrap gap-4 items-center">
             <Button
-              label="Browse the calendar"
-              onClick={() => (window.location.href = '/events')}
-              size="base"
-              variant="secondary"
-            />
-            <Button
-              label="View all events"
+              label="View all"
               onClick={() => (window.location.href = '/submit-event')}
               size="base"
-              variant="primary"
+              variant="filled"
             />
           </div>
         </div>
-
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-start w-full">
-          {events.slice(0, 3).map((event, i) => (
-            <EventCard key={i} styles="w-full" {...event} isFeatured={true}>
-              <div className="bg-green-100 rounded-md w-full"></div>
-            </EventCard>
-          ))}
-
-          <div className="col-span-1 sm:col-span-2 flex flex-col gap-4">
-            {events.slice(3, 6).map((event, i) => (
-              <EventListCard key={i} {...event}>
-                <div className="bg-pink-200 rounded-md w-full"></div>
-              </EventListCard>
-            ))}
-          </div>
-        </div>
+        <FeaturedPostLayout posts={podcasts} />
       </div>
-    </div>
-  );
-};
-
-const EventListCard = ({ title, date, location, imageUrl }) => {
-  return (
-    <div className="flex gap-4 p-4 rounded-2xl bg-neutral-50 shadow-3x2 border border-gray-300">
-      <div className="flex-shrink-0">
-        <div className="relative w-20 h-20 rounded-xl bg-gray-200 overflow-hidden">
-          {imageUrl ? (
-            <img src={imageUrl} alt={title} className="object-cover w-full h-full" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-              No Image
+      <div className="py-16 px-4 sm:px-8 lg:px-16 flex flex-col">
+        <div className="bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-8 lg:py-16">
+          <div className="flex flex-col justify-center items-start gap-12">
+            <div className="flex flex-col lg:flex-row sm:gap-1 lg:gap-3 justify-center items-start lg:items-center w-full">
+              <div className="flex gap-3 items-center">
+                <div className="Blueprint-headline-large leading-snug">Ask, offer or </div>
+                <PillTag label="Connect" backgroundColor="schemesSecondary" />
+              </div>
+              <div className="Blueprint-headline-large leading-snug"> via the community message board</div>
             </div>
-          )}
+            <div className="w-full Blueprint-body-large text-center text-schemesOnSecondaryContainer">
+              A living space for announcements, questions, and informal support.
+            </div>
+          </div>
+          <MessageBoardSlider displaySlider={false} messageBoard={messageBoardPosts} />
         </div>
-      </div>
-
-      <div className="flex flex-col justify-center text-sm text-gray-800">
-        <div className="text-gray-500 text-[13px] mb-1">{date}</div>
-        <div className="font-bold text-[15px] leading-tight mb-1">{title}</div>
-        <div className="text-gray-600 text-[13px]">{location}</div>
       </div>
     </div>
   );

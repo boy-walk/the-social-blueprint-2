@@ -54,9 +54,8 @@ export const AccountChangePassword = ({ user }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto py-10">
-      <h2 className="Blueprint-headline-small mb-6">Change Password</h2>
-
+    <form onSubmit={handleSubmit} className="max-w-xl mx-auto py-10">
+      <h2 className="Blueprint-headline-small-emphasized mb-6">Change Password</h2>
       <div className="space-y-4">
         <TextField
           type="password"
@@ -85,16 +84,16 @@ export const AccountChangePassword = ({ user }) => {
       </div>
 
       <div className="mt-6">
-        <button type="submit" disabled={submitting} >
-          Submit
-        </button>
+        <Button
+          label={submitting ? 'Updating...' : 'Save Changes'}
+          type="submit"
+          disabled={submitting}
+          variant="filled"
+          size="base"
+          shape="square"
+          className="w-full"
+        />
       </div>
-
-      {status && (
-        <p className={`mt-4 ${status.error ? 'text-red-600' : 'text-green-600'}`}>
-          {status.message}
-        </p>
-      )}
     </form>
   );
 };

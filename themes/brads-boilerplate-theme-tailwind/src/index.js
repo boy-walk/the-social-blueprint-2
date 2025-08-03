@@ -36,7 +36,9 @@ if (header) {
 const el1 = document.getElementById('section-one');
 if (el1) {
   const events = JSON.parse(el1.dataset.events);
-  ReactDOM.createRoot(el1).render(<SectionOne events={events} />);
+  const podcasts = JSON.parse(el1.dataset.podcasts || '[]');
+  const messageBoardPosts = JSON.parse(el1.dataset.messageBoardPosts || '[]');
+  ReactDOM.createRoot(el1).render(<SectionOne events={events} podcasts={podcasts} messageBoardPosts={messageBoardPosts} />);
 }
 
 const el2 = document.getElementById('sponsorship-banner');

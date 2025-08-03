@@ -39,7 +39,7 @@ export function LoginForm() {
       console.log('Login successful:', data);
       window.location.href = '/';
     } else {
-      console.error('Login failed:', data.message);
+      window.alert(`Login failed: ${data.message}`);
     }
   };
 

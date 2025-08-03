@@ -12,9 +12,22 @@ get_header(); ?>
 <div>
   <div id="front-page"></div>
   <?php
+function map_post($post) {
+  return [
+    'id' => $post->ID,
+    'title' => get_the_title($post),
+    'post_type' => get_post_type($post),
+    'excerpt' => get_the_excerpt($post),
+    'author' => get_the_author_meta('display_name', $post->post_author),
+    'date' => get_the_date('', $post),
+    'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
+    'permalink' => get_permalink($post),
+  ];
+}
+
 $event_posts = get_posts([
   'post_type' => 'tribe_events',
-  'posts_per_page' => 6,
+  'posts_per_page' => 3,
   'orderby' => 'meta_value',
   'meta_key' => '_EventStartDate',
   'order' => 'ASC',
@@ -28,20 +41,31 @@ $event_posts = get_posts([
   ]
 ]);
 
-$events = array_map(function ($post) {
-  return [
-    'title' => get_the_title($post),
-    'date' => tribe_get_start_date($post, false, 'D, M j @ g:ia'),
-    'location' => tribe_get_venue($post),
-    'imageUrl' => get_the_post_thumbnail_url($post, 'medium_large'),
-    'readMoreUrl' => get_permalink($post),
-    'isFeatured' => get_post_meta($post->ID, '_is_featured', true) === '1'
-  ];
-}, $event_posts);
+$events = array_map('map_post', $event_posts);
+
+$podcasts = get_posts([
+  'post_type' => 'podcast',
+  'posts_per_page' => 3,
+  'orderby' => 'date',
+  'order' => 'DESC'
+]);
+
+
+$podcast_posts = array_map('map_post', $podcasts);
+
+$message_board_posts = get_posts([
+  'post_type' => 'gd_discount',
+  'posts_per_page' => 3,
+  'orderby' => 'date',
+  'order' => 'DESC',
+]);
+$message_board_posts = array_map('map_post', $message_board_posts);
 ?>
 
 <div id="section-one"
-     data-events='<?php echo esc_attr(json_encode($events)); ?>'>
+     data-events='<?php echo esc_attr(json_encode($events)); ?>'
+     data-podcasts='<?php echo esc_attr(json_encode($podcast_posts)); ?>'
+     data-message-board-posts='<?php echo esc_attr(json_encode($message_board_posts)); ?>'>
 </div>
 <!-- <?php
 $post = get_posts([
