@@ -83,7 +83,5 @@ $banner_data = [
 <div id="sponsorship-banner"
      data-banner='<?php echo esc_attr(json_encode($banner_data)); ?>'>
 </div> -->
-<div id="newsletter-banner" style="padding-left: 64px; padding-right: 64px; padding-top: 64px; padding-bottom: 64px"></div>
-</main>
 
 <?php get_footer();

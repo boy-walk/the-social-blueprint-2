@@ -16,13 +16,13 @@ export function ContentCard({
     flex flex-col 
     ${fullHeight ? "h-full" : ""} 
     ${fullWidth ? "w-full" : ""} 
-    p-1
+    p-2
   `.trim();
 
   return (
     <Card href={href} styles={cardStyles}>
       <div className="flex flex-col flex-grow">
-        <div className="rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100">
+        <div className="rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100 max-h-75">
           {image && (
             <img
               src={image}

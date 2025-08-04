@@ -130,9 +130,9 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
           <div className="Blueprint-headline-medium italic">
             Explore more by
           </div>
-          <PillTag label="Theme" backgroundColor="#007ea8" />
+          <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
         </div>
-        <div className="Blurprint-title-large mb-6 text-schemesOnSurface">
+        <div className="Blurprint-title-large mb-12 text-schemesOnSurface">
           From support services to creative culture, start where you're curious.
         </div>
         <ExploreByTheme />

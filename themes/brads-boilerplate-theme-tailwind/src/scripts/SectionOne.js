@@ -5,6 +5,8 @@ import { ExploreByTheme } from './ExploreByTheme';
 import FeaturedPostLayout from './FeaturedPostLayout';
 import { StarIcon } from '@phosphor-icons/react';
 import { MessageBoardSlider } from './MessageBoardSlider';
+import { ListingCallout } from './ListingCallout';
+import { NewsletterBanner } from './NewsletterBanner';
 
 export const SectionOne = ({ events, podcasts, messageBoardPosts }) => {
   return (
@@ -94,6 +96,24 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts }) => {
           </div>
           <MessageBoardSlider displaySlider={false} messageBoard={messageBoardPosts} />
         </div>
+      </div>
+      <div className="py-16 px-4 sm:px-8 lg:px-16">
+        <ListingCallout />
+      </div>
+      <div className="py-16 px-4 sm:px-8 lg:px-16">
+        <NewsletterBanner />
+      </div>
+      <div className="py-16 px-4 sm:px-8 lg:px-16 bg-schemesPrimaryFixed flex flex-col gap-4">
+        <div className="flex gap-3 items-center">
+          <div className="Blueprint-headline-medium italic">
+            Explore more by
+          </div>
+          <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
+        </div>
+        <div className="Blurprint-title-large mb-12 text-schemesOnSurface">
+          From support services to creative culture, start where you're curious.
+        </div>
+        <ExploreByTheme />
       </div>
     </div>
   );

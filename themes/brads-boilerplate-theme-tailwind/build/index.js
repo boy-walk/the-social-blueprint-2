@@ -892,6 +892,106 @@ var SvgLogo = function SvgLogo(props) {
 
 /***/ }),
 
+/***/ "./assets/megaphone.svg":
+/*!******************************!*\
+  !*** ./assets/megaphone.svg ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ReactComponent: () => (/* binding */ SvgMegaphone),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _path, _path2, _path3, _path4, _path5, _path6, _path7, _path8, _path9, _path0, _path1, _path10, _path11, _path12;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+
+var SvgMegaphone = function SvgMegaphone(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 202,
+    height: 206,
+    fill: "none"
+  }, props), _path || (_path = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#fff",
+    stroke: "#000",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeMiterlimit: 10,
+    strokeWidth: 2.025,
+    d: "M91.28 117.356s-10.463 7.347-10.94 8.143c1.183 3.343 3.275 6.437 6.096 8.962l9.167-6.619 6.983-5.482c1.66-1.297 2.479-3.412 1.91-4.936-1.592-4.185-6.619-3.071-13.215-.068"
+  })), _path2 || (_path2 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#fff",
+    d: "m61.62 204.064 18.47-39.578 12.214-6.711-2.752-15.535-1.751-1.934.91-2.82-2.457-13.875c-.978.909-1.683 1.615-1.797 1.819-.5 1.001-.319 2.593.023 4.117l-2.07-.546-.432-.887-1.07.501-9.576-2.571-4.185 7.12c-.5-.387-.796-.591-.796-.591l2.48-7.984a9.08 9.08 0 0 0-1.752-8.598l-2.23-2.639-12.237 22.496.91 20.335-.114.273-51.634 47.631"
+  })), _path3 || (_path3 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    stroke: "#000",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeMiterlimit: 10,
+    strokeWidth: 2.025,
+    d: "m61.62 204.064 18.47-39.578 12.214-6.711-2.752-15.535-1.751-1.934.91-2.82-2.457-13.875c-.978.909-1.683 1.615-1.797 1.819-.5 1.001-.319 2.593.023 4.117l-2.07-.546-.432-.887-1.07.501-9.576-2.571-4.185 7.12c-.5-.387-.796-.591-.796-.591l2.48-7.984a9.08 9.08 0 0 0-1.752-8.598l-2.23-2.639-12.237 22.496.91 20.335-.114.273-51.634 47.631"
+  })), _path4 || (_path4 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#000",
+    d: "m87.163 111.191 15.172 43.923-15.285 5.846-28.57-40.534M43.878 88.832l-3.39 1.228c-5.367 1.934-8.142 7.848-6.186 13.193l4.868 13.352c1.956 5.346 7.892 8.098 13.26 6.164l3.39-1.228"
+  })), _path5 || (_path5 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#fff",
+    d: "m97.127 111.055 70.376 3.867-34.392-94.147L81.659 68.68"
+  })), _path6 || (_path6 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    stroke: "#000",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeMiterlimit: 10,
+    strokeWidth: 2.025,
+    d: "m97.127 111.055 70.376 3.867-34.392-94.147L81.659 68.68"
+  })), _path7 || (_path7 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#000",
+    d: "m100.403 114.058-29.275 10.577c-10.35 3.73-21.79-1.57-25.544-11.874l-4.549-12.488c-3.753-10.304 1.592-21.677 11.919-25.407l29.274-10.577z"
+  })), _path8 || (_path8 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    stroke: "#fff",
+    strokeWidth: 2.025,
+    d: "m64.236 84.124 12.26-4.436"
+  })), _path9 || (_path9 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#fff",
+    stroke: "#000",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeMiterlimit: 10,
+    strokeWidth: 2.025,
+    d: "m102.382 151.93-2.002-15.9a18 18 0 0 0-.318-2.456l-.091-.728h-.046c-.205-.978-.41-1.661-.41-1.661-.159-1.592-1.82-2.661-3.252-2.138l-1.774.66-5.391 2.388c-1.274.569-1.91 2.025-1.456 3.435.523 1.592 1.479 2.616 2.798 3.23l-2.23.978c-1.273.569-1.91 2.024-1.455 3.412.91 2.82 3.23 3.867 6.437 4.026l-2.115.933c-1.274.568-1.91 2.024-1.456 3.434 1.228 3.844 5.095 4.39 10.19 3.913 0 0 1.775-.501 2.138-1.001.387-.501.455-1.456.387-2.525z"
+  })), _path0 || (_path0 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    stroke: "#000",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeMiterlimit: 10,
+    strokeWidth: 2.025,
+    d: "m90.166 138.896 9.713-3.685M91.758 147.677l9.144-3.526"
+  })), _path1 || (_path1 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#fff",
+    d: "m68.763 135.257-1.524-2.684 2.479-7.984a9.08 9.08 0 0 0-1.751-8.598l-2.23-2.639L53.5 135.848l.91 20.335-.114.273M179.399 121.473c-.477 0-.978-.023-1.455-.069-15.673-1.524-31.549-26.704-40.329-50.996-5.414-14.99-8.371-29.934-8.348-42.081.068-18.038 6.573-24.156 12.01-26.113a14 14 0 0 1 4.685-.796c.478 0 .979.023 1.456.068 15.672 1.524 31.549 26.705 40.329 50.998 5.414 14.99 8.371 29.934 8.348 42.08-.045 18.06-6.551 24.156-11.987 26.113a14.4 14.4 0 0 1-4.709.796"
+  })), _path10 || (_path10 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#000",
+    d: "M145.963 2.442q.683 0 1.364.068c10.987 1.07 27.432 17.037 39.465 50.337 5.368 14.877 8.325 29.707 8.28 41.74-.046 17.469-6.187 23.315-11.328 25.157-1.387.501-2.82.751-4.322.751q-.682 0-1.364-.068c-10.987-1.07-27.432-17.037-39.465-50.338-5.368-14.876-8.325-29.706-8.28-41.74.046-17.491 6.165-23.337 11.305-25.18 1.388-.5 2.843-.727 4.345-.727m0-2.025c-1.729 0-3.435.296-5.027.865-5.755 2.047-12.602 8.416-12.67 27.045-.045 12.26 2.934 27.318 8.393 42.422 5.619 15.535 12.693 28.637 20.472 37.872 6.983 8.28 14.33 13.17 20.699 13.784.523.046 1.046.069 1.547.069a15 15 0 0 0 5.027-.865c5.755-2.047 12.601-8.416 12.669-27.045.046-12.26-2.934-27.318-8.393-42.422-5.618-15.535-12.692-28.637-20.472-37.872-6.983-8.28-14.33-13.17-20.699-13.784a18 18 0 0 0-1.546-.069"
+  })), _path11 || (_path11 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#000",
+    d: "M184.726 114.374c9.415-3.405 8.33-30.27-2.424-60.005s-27.104-51.08-36.519-47.675c-9.416 3.405-8.331 30.27 2.423 60.006 10.754 29.735 27.104 51.079 36.52 47.674"
+  })), _path12 || (_path12 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#fff",
+    stroke: "#000",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeMiterlimit: 10,
+    strokeWidth: 2.025,
+    d: "m164.115 81.69 3.389-1.229c5.368-1.933 8.143-7.847 6.187-13.192l-4.868-13.352c-1.956-5.346-7.893-8.098-13.261-6.165l-3.389 1.229-.068.34c-2.116 12.147 2.456 24.499 12.01 32.369"
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAyIiBoZWlnaHQ9IjIwNiIgdmlld0JveD0iMCAwIDIwMiAyMDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik05MS4yODA4IDExNy4zNTZDOTEuMjgwOCAxMTcuMzU2IDgwLjgxNzUgMTI0LjcwMyA4MC4zMzk4IDEyNS40OTlDODEuNTIyNiAxMjguODQyIDgzLjYxNTMgMTMxLjkzNiA4Ni40MzU4IDEzNC40NjFMOTUuNjAyNiAxMjcuODQyTDEwMi41ODYgMTIyLjM2QzEwNC4yNDYgMTIxLjA2MyAxMDUuMDY1IDExOC45NDggMTA0LjQ5NiAxMTcuNDI0QzEwMi45MDQgMTEzLjIzOSA5Ny44NzcyIDExNC4zNTMgOTEuMjgwOCAxMTcuMzU2WiIgZmlsbD0id2hpdGUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMi4wMjQ3OCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTYxLjYxOTcgMjA0LjA2NEw4MC4wODk2IDE2NC40ODZMOTIuMzA0MyAxNTcuNzc1TDg5LjU1MjEgMTQyLjI0TDg3LjgwMDYgMTQwLjMwNkw4OC43MTA0IDEzNy40ODZMODYuMjUzOSAxMjMuNjExQzg1LjI3NTggMTI0LjUyIDg0LjU3MDYgMTI1LjIyNiA4NC40NTY5IDEyNS40M0M4My45NTY1IDEyNi40MzEgODQuMTM4NSAxMjguMDIzIDg0LjQ3OTYgMTI5LjU0N0w4Mi40MDk3IDEyOS4wMDFMODEuOTc3NiAxMjguMTE0TDgwLjkwODUgMTI4LjYxNUw3MS4zMzIzIDEyNi4wNDRMNjcuMTQ3IDEzMy4xNjRDNjYuNjQ2NiAxMzIuNzc3IDY2LjM1MDkgMTMyLjU3MyA2Ni4zNTA5IDEzMi41NzNMNjguODMwMyAxMjQuNTg5QzY5Ljc2MjggMTIxLjYwOSA2OS4xMDMyIDExOC4zNzkgNjcuMDc4OCAxMTUuOTkxTDY0Ljg0OTcgMTEzLjM1Mkw1Mi42MTIyIDEzNS44NDhMNTMuNTIyMSAxNTYuMTgzTDUzLjQwODMgMTU2LjQ1NkwxLjc3NDQxIDIwNC4wODciIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik02MS42MTk3IDIwNC4wNjRMODAuMDg5NiAxNjQuNDg2TDkyLjMwNDMgMTU3Ljc3NUw4OS41NTIxIDE0Mi4yNEw4Ny44MDA2IDE0MC4zMDZMODguNzEwNCAxMzcuNDg2TDg2LjI1MzkgMTIzLjYxMUM4NS4yNzU4IDEyNC41MiA4NC41NzA2IDEyNS4yMjYgODQuNDU2OSAxMjUuNDNDODMuOTU2NSAxMjYuNDMxIDg0LjEzODUgMTI4LjAyMyA4NC40Nzk2IDEyOS41NDdMODIuNDA5NyAxMjkuMDAxTDgxLjk3NzYgMTI4LjExNEw4MC45MDg1IDEyOC42MTVMNzEuMzMyMyAxMjYuMDQ0TDY3LjE0NyAxMzMuMTY0QzY2LjY0NjYgMTMyLjc3NyA2Ni4zNTA5IDEzMi41NzMgNjYuMzUwOSAxMzIuNTczTDY4LjgzMDMgMTI0LjU4OUM2OS43NjI4IDEyMS42MDkgNjkuMTAzMiAxMTguMzc5IDY3LjA3ODggMTE1Ljk5MUw2NC44NDk3IDExMy4zNTJMNTIuNjEyMiAxMzUuODQ4TDUzLjUyMjEgMTU2LjE4M0w1My40MDgzIDE1Ni40NTZMMS43NzQ0MSAyMDQuMDg3IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIuMDI0NzgiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik04Ny4xNjM0IDExMS4xOTFMMTAyLjMzNSAxNTUuMTE0TDg3LjA0OTcgMTYwLjk2TDU4LjQ4MDUgMTIwLjQyNiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTQzLjg3NzkgODguODMyTDQwLjQ4ODcgOTAuMDYwM0MzNS4xMjA2IDkxLjk5MzggMzIuMzQ1NiA5Ny45MDc4IDM0LjMwMTggMTAzLjI1M0wzOS4xNjk1IDExNi42MDVDNDEuMTI1NiAxMjEuOTUxIDQ3LjA2MjQgMTI0LjcwMyA1Mi40MzA1IDEyMi43NjlMNTUuODE5NyAxMjEuNTQxIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNOTcuMTI2NiAxMTEuMDU1TDE2Ny41MDMgMTE0LjkyMkwxMzMuMTExIDIwLjc3NTRMODEuNjU5MiA2OC42Nzg5IiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNOTcuMTI2NiAxMTEuMDU1TDE2Ny41MDMgMTE0LjkyMkwxMzMuMTExIDIwLjc3NTRMODEuNjU5MiA2OC42Nzg5IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIuMDI0NzgiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0xMDAuNDAzIDExNC4wNThMNzEuMTI4MiAxMjQuNjM1QzYwLjc3ODcgMTI4LjM2NSA0OS4zMzc0IDEyMy4wNjUgNDUuNTg0MiAxMTIuNzYxTDQxLjAzNSAxMDAuMjczQzM3LjI4MTkgODkuOTY5MyA0Mi42MjcyIDc4LjU5NjIgNTIuOTU0IDc0Ljg2NThMODIuMjI4NCA2NC4yODg4TDEwMC40MDMgMTE0LjA1OFoiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGQ9Ik02NC4yMzYzIDg0LjEyMzVMNzYuNDk2NSA3OS42ODgiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMi4wMjQ3OCIvPgo8cGF0aCBkPSJNMTAyLjM4MiAxNTEuOTNMMTAwLjM4IDEzNi4wM0MxMDAuMzM0IDEzNS4yMzQgMTAwLjIyMSAxMzQuMzQ3IDEwMC4wNjIgMTMzLjU3NEw5OS45NzA1IDEzMi44NDZIOTkuOTI1Qzk5LjcyMDMgMTMxLjg2OCA5OS41MTU2IDEzMS4xODUgOTkuNTE1NiAxMzEuMTg1Qzk5LjM1NjQgMTI5LjU5MyA5Ny42OTU5IDEyOC41MjQgOTYuMjYyOSAxMjkuMDQ3TDk0LjQ4ODcgMTI5LjcwN0w4OS4wOTc4IDEzMi4wOTVDODcuODI0IDEzMi42NjQgODcuMTg3MiAxMzQuMTIgODcuNjQyMSAxMzUuNTNDODguMTY1MiAxMzcuMTIyIDg5LjEyMDYgMTM4LjE0NiA5MC40Mzk5IDEzOC43Nkw4OC4yMTA3IDEzOS43MzhDODYuOTM2OSAxNDAuMzA3IDg2LjMgMTQxLjc2MiA4Ni43NTUgMTQzLjE1Qzg3LjY2NDggMTQ1Ljk3IDg5Ljk4NDkgMTQ3LjAxNyA5My4xOTIyIDE0Ny4xNzZMOTEuMDc2NyAxNDguMTA5Qzg5LjgwMyAxNDguNjc3IDg5LjE2NjEgMTUwLjEzMyA4OS42MjEgMTUxLjU0M0M5MC44NDkzIDE1NS4zODcgOTQuNzE2MSAxNTUuOTMzIDk5LjgxMTMgMTU1LjQ1NkM5OS44MTEzIDE1NS40NTYgMTAxLjU4NiAxNTQuOTU1IDEwMS45NDkgMTU0LjQ1NUMxMDIuMzM2IDE1My45NTQgMTAyLjQwNCAxNTIuOTk5IDEwMi4zMzYgMTUxLjkzSDEwMi4zODJaIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyLjAyNDc4IiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNOTAuMTY2IDEzOC44OTZMOTkuODc4NyAxMzUuMjExIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIuMDI0NzgiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik05MS43NTc4IDE0Ny42NzdMMTAwLjkwMiAxNDQuMTUxIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIuMDI0NzgiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik02OC43NjI3IDEzNS4yNTdMNjcuMjM4NyAxMzIuNTczTDY5LjcxOCAxMjQuNTg5QzcwLjY1MDYgMTIxLjYwOSA2OS45OTEgMTE4LjM3OSA2Ny45NjY2IDExNS45OTFMNjUuNzM3NSAxMTMuMzUyTDUzLjUgMTM1Ljg0OEw1NC40MDk4IDE1Ni4xODNMNTQuMjk2MSAxNTYuNDU2IiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTc5LjM5OSAxMjEuNDczQzE3OC45MjIgMTIxLjQ3MyAxNzguNDIxIDEyMS40NSAxNzcuOTQ0IDEyMS40MDRDMTYyLjI3MSAxMTkuODggMTQ2LjM5NSA5NC43MDA0IDEzNy42MTUgNzAuNDA3NUMxMzIuMjAxIDU1LjQxNzcgMTI5LjI0NCA0MC40NzM1IDEyOS4yNjcgMjguMzI3QzEyOS4zMzUgMTAuMjg5MiAxMzUuODQgNC4xNzA1IDE0MS4yNzcgMi4yMTQzM0MxNDIuNzU1IDEuNjkxMTcgMTQ0LjMyNSAxLjQxODIxIDE0NS45NjIgMS40MTgyMUMxNDYuNDQgMS40MTgyMSAxNDYuOTQxIDEuNDQwOTYgMTQ3LjQxOCAxLjQ4NjQ1QzE2My4wOSAzLjAxMDQ1IDE3OC45NjcgMjguMTkwNSAxODcuNzQ3IDUyLjQ4MzVDMTkzLjE2MSA2Ny40NzMyIDE5Ni4xMTggODIuNDE3NSAxOTYuMDk1IDk0LjU2NEMxOTYuMDUgMTEyLjYyNCAxODkuNTQ0IDExOC43MiAxODQuMTA4IDEyMC42NzdDMTgyLjU4NCAxMjEuMiAxODEuMDE0IDEyMS40NzMgMTc5LjM5OSAxMjEuNDczWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTE0NS45NjMgMi40NDE4OUMxNDYuNDE4IDIuNDQxODkgMTQ2Ljg3MyAyLjQ2NDY0IDE0Ny4zMjcgMi41MTAxM0MxNTguMzE0IDMuNTc5MjEgMTc0Ljc1OSAxOS41NDcgMTg2Ljc5MiA1Mi44NDc1QzE5Mi4xNiA2Ny43MjM1IDE5NS4xMTcgODIuNTU0MSAxOTUuMDcyIDk0LjU4NjhDMTk1LjAyNiAxMTIuMDU2IDE4OC44ODUgMTE3LjkwMiAxODMuNzQ0IDExOS43NDRDMTgyLjM1NyAxMjAuMjQ1IDE4MC45MjQgMTIwLjQ5NSAxNzkuNDIyIDEyMC40OTVDMTc4Ljk2NyAxMjAuNDk1IDE3OC41MTMgMTIwLjQ3MiAxNzguMDU4IDEyMC40MjdDMTY3LjA3MSAxMTkuMzU3IDE1MC42MjYgMTAzLjM5IDEzOC41OTMgNzAuMDg5MUMxMzMuMjI1IDU1LjIxMzEgMTMwLjI2OCA0MC4zODI2IDEzMC4zMTMgMjguMzQ5OEMxMzAuMzU5IDEwLjg1OCAxMzYuNDc4IDUuMDEyMjIgMTQxLjYxOCAzLjE2OTc3QzE0My4wMDYgMi42NjkzNiAxNDQuNDYxIDIuNDQxODkgMTQ1Ljk2MyAyLjQ0MTg5Wk0xNDUuOTYzIDAuNDE3NDhDMTQ0LjIzNCAwLjQxNzQ4IDE0Mi41MjggMC43MTMxODIgMTQwLjkzNiAxLjI4MTg0QzEzNS4xODEgMy4zMjkgMTI4LjMzNCA5LjY5Nzk0IDEyOC4yNjYgMjguMzI3MUMxMjguMjIxIDQwLjU4NzMgMTMxLjIgNTUuNjQ1MyAxMzYuNjU5IDcwLjc0ODhDMTQyLjI3OCA4Ni4yODQ0IDE0OS4zNTIgOTkuMzg2MyAxNTcuMTMxIDEwOC42MjFDMTY0LjExNCAxMTYuOTAxIDE3MS40NjEgMTIxLjc5MSAxNzcuODMgMTIyLjQwNUMxNzguMzUzIDEyMi40NTEgMTc4Ljg3NiAxMjIuNDc0IDE3OS4zNzcgMTIyLjQ3NEMxODEuMTA2IDEyMi40NzQgMTgyLjgxMiAxMjIuMTc4IDE4NC40MDQgMTIxLjYwOUMxOTAuMTU5IDExOS41NjIgMTk3LjAwNSAxMTMuMTkzIDE5Ny4wNzMgOTQuNTY0MUMxOTcuMTE5IDgyLjMwMzggMTk0LjEzOSA2Ny4yNDU5IDE4OC42OCA1Mi4xNDI0QzE4My4wNjIgMzYuNjA2NyAxNzUuOTg4IDIzLjUwNDkgMTY4LjIwOCAxNC4yNjk5QzE2MS4yMjUgNS45OTAzIDE1My44NzggMS4wOTk4NyAxNDcuNTA5IDAuNDg1NzJDMTQ2Ljk4NiAwLjQ0MDIyNyAxNDYuNDYzIDAuNDE3NDggMTQ1Ljk2MyAwLjQxNzQ4WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTE4NC43MjYgMTE0LjM3NEMxOTQuMTQxIDExMC45NjkgMTkzLjA1NiA4NC4xMDM3IDE4Mi4zMDIgNTQuMzY4N0MxNzEuNTQ5IDI0LjYzMzcgMTU1LjE5OCAzLjI4OTEyIDE0NS43ODMgNi42OTQyOEMxMzYuMzY3IDEwLjA5OTQgMTM3LjQ1MiAzNi45NjQ4IDE0OC4yMDYgNjYuNjk5OUMxNTguOTYgOTYuNDM0OSAxNzUuMzEgMTE3Ljc3OSAxODQuNzI2IDExNC4zNzRaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNMTY0LjExNSA4MS42ODk3TDE2Ny41MDQgODAuNDYxNEMxNzIuODcyIDc4LjUyOCAxNzUuNjQ3IDcyLjYxNCAxNzMuNjkxIDY3LjI2ODZMMTY4LjgyMyA1My45MTY2QzE2Ni44NjcgNDguNTcxMiAxNjAuOTMgNDUuODE5IDE1NS41NjIgNDcuNzUyNEwxNTIuMTczIDQ4Ljk4MDdMMTUyLjEwNSA0OS4zMjE5QzE0OS45ODkgNjEuNDY4NCAxNTQuNTYxIDczLjgxOTUgMTY0LjExNSA4MS42ODk3WiIgZmlsbD0id2hpdGUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMi4wMjQ3OCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==");
+
+/***/ }),
+
 /***/ "./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js ***!
@@ -6539,10 +6639,10 @@ function CommunityHubPage({
           children: "Explore more by"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_6__["default"], {
           label: "Theme",
-          backgroundColor: "#007ea8"
+          backgroundColor: "schemesPrimaryContainer"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
-        className: "Blurprint-title-large mb-6 text-schemesOnSurface",
+        className: "Blurprint-title-large mb-12 text-schemesOnSurface",
         children: "From support services to creative culture, start where you're curious."
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_5__.ExploreByTheme, {})]
     })]
@@ -6810,7 +6910,7 @@ function ContentCard({
     flex flex-col 
     ${fullHeight ? "h-full" : ""} 
     ${fullWidth ? "w-full" : ""} 
-    p-1
+    p-2
   `.trim();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
     href: href,
@@ -6818,7 +6918,7 @@ function ContentCard({
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "flex flex-col flex-grow",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100",
+        className: "rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100 max-h-75",
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
@@ -6860,9 +6960,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowUpRight.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _assets_icons_arrow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/icons/arrow */ "./assets/icons/arrow.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -6876,42 +6977,41 @@ function DetailedCard({
   href,
   buttonText = "Read more"
 }) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
     styles: "h-full",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
       href: href || "#",
-      className: "flex h-full w-full p-3 gap-4 group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden rounded-lg bg-schemesSurface",
-        children: image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+      className: "flex h-full w-full gap-4 group",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden rounded-lg bg-schemesSurface p-2",
+        children: image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           src: image,
           alt: title,
           className: "w-full h-full object-cover"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex flex-col justify-between w-full h-full",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "space-y-1",
-          children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex flex-col justify-between w-full h-full p-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "space-y-1 py-2",
+          children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
             className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
             children: date
-          }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+          }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
             className: "Blueprint-body-large-emphasized text-schemesLightOnSurface",
             children: title
-          }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+          }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
             className: "Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2",
             children: description
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "flex justify-between items-end pt-2 mt-auto",
-          children: [location && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: "Blueprint-label-medium text-schemesOnSurfaceVariant",
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex items-center pt-2 mt-auto w-full",
+          children: [location && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "Blueprint-label-large text-schemesOnSurfaceVariant",
             children: location
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-            className: "inline-flex items-center gap-1 Blueprint-label-medium text-schemesOnSurfaceVariant group-hover:underline",
-            children: [buttonText, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.ArrowUpRightIcon, {
-              size: 18,
-              weight: "duotone"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            className: "inline-flex ml-auto items-center gap-1 Blueprint-label-large text-schemesOnSurface group-hover:underline",
+            children: [buttonText, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_2__.ArrowIcon, {
+              className: "w-7.5"
             })]
           })]
         })]
@@ -7047,44 +7147,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ExploreByTheme: () => (/* binding */ ExploreByTheme)
 /* harmony export */ });
 /* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
-/* harmony import */ var _SectionOne__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SectionOne */ "./src/scripts/SectionOne.js");
-/* harmony import */ var _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/explore-theme-1.svg */ "./assets/explore-theme-1.svg");
-/* harmony import */ var _assets_explore_theme_2_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/explore-theme-2.svg */ "./assets/explore-theme-2.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowUpRight.es.js");
+/* harmony import */ var _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/explore-theme-1.svg */ "./assets/explore-theme-1.svg");
+/* harmony import */ var _assets_explore_theme_2_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/explore-theme-2.svg */ "./assets/explore-theme-2.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
 
 
 const ExploreByTheme = () => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full",
-    children: [0, 1, 2, 3, 4].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_0__.Card, {
+    children: [0, 1, 2, 3, 4].map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_0__.Card, {
       href: i === 0 ? "/community-connect" : `/explore/${i + 1}`,
       styles: "min-h-[16rem] h-full max-w-full border-1 border-background-light pt-4",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "flex flex-col justify-between h-full w-full",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "flex flex-col items-end gap-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SectionOne__WEBPACK_IMPORTED_MODULE_1__.ArrowIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex flex-col items-end gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "bg-schemesPrimaryFixed mx-4 rounded-xl p-1.5",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.ArrowUpRightIcon, {
+              size: 20,
+              weight: "bold"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "w-full text-right Blueprint-headline-small-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 mb-2",
-            children: [i === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: ["Community", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Connection"]
-            }), i === 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: ["Events and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Experiences"]
-            }), i === 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: ["Learning and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Growth"]
-            }), i === 3 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: ["Support and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Services"]
-            }), i === 4 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-              children: ["Culture and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Identity"]
+            children: [i === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: "Community Connection"
+            }), i === 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: ["Events and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "Experiences"]
+            }), i === 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: "Learning and Growth"
+            }), i === 3 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: "Support and Services"
+            }), i === 4 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+              children: ["Culture and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "Identity"]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-          src: i === 1 ? _assets_explore_theme_2_svg__WEBPACK_IMPORTED_MODULE_3__["default"] : _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: i === 1 ? _assets_explore_theme_2_svg__WEBPACK_IMPORTED_MODULE_2__["default"] : _assets_explore_theme_1_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
           alt: "Theme Icon",
-          className: "object-contain w-full mt-auto"
+          className: "object-contain mt-auto mr-auto"
         })]
       })
     }, i))
@@ -7603,6 +7709,56 @@ const LanguageSwitcher = () => {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
       onClick: () => switchLanguage('he'),
       children: ["\uD83C\uDDEE\uD83C\uDDF1 ", t('language.hebrew')]
+    })]
+  });
+};
+
+/***/ }),
+
+/***/ "./src/scripts/ListingCallout.js":
+/*!***************************************!*\
+  !*** ./src/scripts/ListingCallout.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ListingCallout: () => (/* binding */ ListingCallout)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_icons_arrow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/icons/arrow */ "./assets/icons/arrow.js");
+/* harmony import */ var _assets_megaphone_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/megaphone.svg */ "./assets/megaphone.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+const ListingCallout = () => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "flex flex-col md:flex-row items-end justify-between bg-schemesPrimaryFixed rounded-3xl px-6 pt-8 md:pt-12 md:px-16 gap-8 shadow-3x3",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "flex-1 pb-8 md:pb-12",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h2", {
+        className: "Blueprint-headline-large-emphasized mb-4",
+        children: ["Want to contribute", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "and have your listing on", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "The Social Blueprint?"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
+        href: "/submit-listing",
+        className: "font-body Blueprint-label-large inline-flex items-center gap-2 hover:opacity-80",
+        children: ["Add your listing. It's free!", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_1__.ArrowIcon, {
+          className: "h-4"
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "mb-[-2]",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+        src: _assets_megaphone_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
+        alt: "Megaphone Icon",
+        className: ""
+      })
     })]
   });
 };
@@ -8762,10 +8918,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PillTag__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PillTag */ "./src/scripts/PillTag.js");
 /* harmony import */ var _ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ExploreByTheme */ "./src/scripts/ExploreByTheme.js");
 /* harmony import */ var _FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FeaturedPostLayout */ "./src/scripts/FeaturedPostLayout.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Star.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Star.es.js");
 /* harmony import */ var _MessageBoardSlider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MessageBoardSlider */ "./src/scripts/MessageBoardSlider.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _ListingCallout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ListingCallout */ "./src/scripts/ListingCallout.js");
+/* harmony import */ var _NewsletterBanner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./NewsletterBanner */ "./src/scripts/NewsletterBanner.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+
+
 
 
 
@@ -8779,148 +8939,169 @@ const SectionOne = ({
   podcasts,
   messageBoardPosts
 }) => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "flex flex-col justify-center items-center gap-12 w-full px-4 sm:px-6 lg:px-8 py-12",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "flex gap-3 justify-center items-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "Blueprint-headline-large-emphasized italic text-center leading-snug",
           children: "Explore by"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
           label: "Theme",
           backgroundColor: "schemesPrimaryContainer"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "w-full Blueprint-body-large text-center text-schemesOnSurface",
         children: "From support services to creative culture, start where you're curious."
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "w-full flex justify-center pb-8",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "max-w-7xl w-full px-4 lg:px-0",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__.ExploreByTheme, {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__.ExploreByTheme, {})
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "py-16 px-4 sm:px-8 lg:px-16",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "flex flex-col justify-center items-start gap-12",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
               className: "flex gap-3 items-center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "Blueprint-headline-large-emphasized italic leading-snug",
                 children: "Upcoming"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
                 label: "Events",
                 backgroundColor: "schemesPrimaryContainer"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant",
               children: "Workshops, holidays, classes and community gatherings, updated regularly."
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "flex flex-wrap gap-4 items-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
               label: "Browse the calendar",
               onClick: () => window.location.href = '/events',
               size: "base",
               variant: "filled",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "bg-white rounded-full p-1",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.StarIcon, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.StarIcon, {
                   color: "#1e6586",
                   weight: "fill",
                   size: 12
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
               label: "View all events",
               onClick: () => window.location.href = '/submit-event',
               size: "base",
               variant: "filled"
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
           posts: events
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "flex flex-col justify-center items-start gap-12",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "flex flex-col lg:flex-row gap-3 items-start lg:items-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
               label: "Real stories",
               backgroundColor: "schemesPrimaryContainer"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "Blueprint-headline-large-emphasized italic leading-snug",
               children: "from our community"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant",
             children: "Personal reflections, creative insights and thoughtful perspectives."
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "flex flex-wrap gap-4 items-center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
             label: "View all",
             onClick: () => window.location.href = '/submit-event',
             size: "base",
             variant: "filled"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
         posts: podcasts
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "py-16 px-4 sm:px-8 lg:px-16 flex flex-col",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-8 lg:py-16",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "flex flex-col justify-center items-start gap-12",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "flex flex-col lg:flex-row sm:gap-1 lg:gap-3 justify-center items-start lg:items-center w-full",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
               className: "flex gap-3 items-center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "Blueprint-headline-large leading-snug",
                 children: "Ask, offer or "
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
                 label: "Connect",
                 backgroundColor: "schemesSecondary"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "Blueprint-headline-large leading-snug",
               children: " via the community message board"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "w-full Blueprint-body-large text-center text-schemesOnSecondaryContainer",
             children: "A living space for announcements, questions, and informal support."
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_MessageBoardSlider__WEBPACK_IMPORTED_MODULE_5__.MessageBoardSlider, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_MessageBoardSlider__WEBPACK_IMPORTED_MODULE_5__.MessageBoardSlider, {
           displaySlider: false,
           messageBoard: messageBoardPosts
         })]
       })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "py-16 px-4 sm:px-8 lg:px-16",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ListingCallout__WEBPACK_IMPORTED_MODULE_6__.ListingCallout, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "py-16 px-4 sm:px-8 lg:px-16",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_7__.NewsletterBanner, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: "py-16 px-4 sm:px-8 lg:px-16 bg-schemesPrimaryFixed flex flex-col gap-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: "flex gap-3 items-center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "Blueprint-headline-medium italic",
+          children: "Explore more by"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          label: "Theme",
+          backgroundColor: "schemesPrimaryContainer"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "Blurprint-title-large mb-12 text-schemesOnSurface",
+        children: "From support services to creative culture, start where you're curious."
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__.ExploreByTheme, {})]
     })]
   });
 };
-const ArrowIcon = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+const ArrowIcon = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
   className: "bg-container-light rounded-xl p-1",
-  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("svg", {
+  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 color-black",
     fill: "none",
     viewBox: "0 0 24 24",
     strokeWidth: 2,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("path", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("path", {
       strokeLinecap: "round",
       strokeLinejoin: "round",
       d: "M13 7l5 5m0 0l-5 5m5-5H6"

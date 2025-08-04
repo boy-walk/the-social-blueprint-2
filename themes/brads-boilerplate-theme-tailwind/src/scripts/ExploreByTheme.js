@@ -1,5 +1,5 @@
 import { Card } from "./Card"
-import { ArrowIcon } from "./SectionOne"
+import { ArrowUpRightIcon } from "@phosphor-icons/react"
 import ExploreThemeOne from "../../assets/explore-theme-1.svg"
 import ExploreThemeTwo from "../../assets/explore-theme-2.svg"
 
@@ -13,14 +13,14 @@ export const ExploreByTheme = () => {
           styles="min-h-[16rem] h-full max-w-full border-1 border-background-light pt-4"
         >
           <div className="flex flex-col justify-between h-full w-full">
-            <div className="flex flex-col items-end gap-2">
-              <ArrowIcon />
+            <div className="flex flex-col items-end gap-3">
+              <div className="bg-schemesPrimaryFixed mx-4 rounded-xl p-1.5">
+                <ArrowUpRightIcon size={20} weight="bold" />
+              </div>
               <div className="w-full text-right Blueprint-headline-small-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 mb-2">
                 {i === 0 && (
                   <>
-                    Community
-                    <br />
-                    Connection
+                    Community Connection
                   </>
                 )}
                 {i === 1 && (
@@ -32,16 +32,12 @@ export const ExploreByTheme = () => {
                 )}
                 {i === 2 && (
                   <>
-                    Learning and
-                    <br />
-                    Growth
+                    Learning and Growth
                   </>
                 )}
                 {i === 3 && (
                   <>
-                    Support and
-                    <br />
-                    Services
+                    Support and Services
                   </>
                 )}
                 {i === 4 && (
@@ -58,7 +54,7 @@ export const ExploreByTheme = () => {
             <img
               src={i === 1 ? ExploreThemeTwo : ExploreThemeOne}
               alt="Theme Icon"
-              className="object-contain w-full mt-auto"
+              className="object-contain mt-auto mr-auto"
             />
           </div>
         </Card>
