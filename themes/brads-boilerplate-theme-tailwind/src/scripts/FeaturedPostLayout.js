@@ -37,7 +37,6 @@ export default function FeaturedPostLayout({ posts }) {
           fullHeight
           fullWidth
           title={hero.title}
-          subtitle={hero.excerpt}
         />
       </div>
       <div className="flex-1 flex flex-col gap-3">

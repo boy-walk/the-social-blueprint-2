@@ -6916,9 +6916,9 @@ function ContentCard({
     href: href,
     styles: cardStyles,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "flex flex-col flex-grow",
+      className: "flex flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100 max-h-75",
+        className: "flex-grow rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100 max-h-70",
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
@@ -6928,15 +6928,15 @@ function ContentCard({
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "p-4 space-y-1 flex flex-col flex-grow",
+        className: "p-4 flex flex-col flex-shrink",
         children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
           children: date
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-          className: "Blueprint-body-large-emphasized line-clamp-2 min-h-[3.2em]",
+          className: "Blueprint-body-large-emphasized line-clamp-1 min-h-[2.2em]",
           children: title
         }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-          className: "text-sm text-schemesOnSurfaceVariant",
+          className: "text-sm text-schemesOnSurfaceVariant line-clamp-2",
           children: subtitle
         })]
       })]
@@ -6983,7 +6983,7 @@ function DetailedCard({
       href: href || "#",
       className: "flex h-full w-full gap-4 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden rounded-lg bg-schemesSurface p-2",
+        className: "aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden rounded-lg p-2",
         children: image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           src: image,
           alt: title,
@@ -7253,8 +7253,7 @@ function FeaturedPostLayout({
         href: hero.permalink,
         fullHeight: true,
         fullWidth: true,
-        title: hero.title,
-        subtitle: hero.excerpt
+        title: hero.title
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "flex-1 flex flex-col gap-3",
@@ -8941,140 +8940,143 @@ const SectionOne = ({
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-      className: "flex flex-col justify-center items-center gap-12 w-full px-4 sm:px-6 lg:px-8 py-12",
+      className: "max-w-[1600px] mx-auto",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "flex gap-3 justify-center items-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: "Blueprint-headline-large-emphasized italic text-center leading-snug",
-          children: "Explore by"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          label: "Theme",
-          backgroundColor: "schemesPrimaryContainer"
+        className: "flex flex-col justify-center items-center gap-12 w-full px-4 sm:px-6 lg:px-8 py-12",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "flex gap-3 justify-center items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+            className: "Blueprint-headline-large-emphasized italic text-center leading-snug",
+            children: "Explore by"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            label: "Theme",
+            backgroundColor: "schemesPrimaryContainer"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "w-full Blueprint-body-large text-center text-schemesOnSurface",
+          children: "From support services to creative culture, start where you're curious."
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        className: "w-full Blueprint-body-large text-center text-schemesOnSurface",
-        children: "From support services to creative culture, start where you're curious."
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "w-full flex justify-center pb-8",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        className: "max-w-7xl w-full px-4 lg:px-0",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__.ExploreByTheme, {})
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "py-16 px-4 sm:px-8 lg:px-16",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
+        className: "w-full flex justify-center pb-8",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "max-w-7xl w-full px-4 lg:px-0",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__.ExploreByTheme, {})
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "py-16 px-4 sm:px-8 lg:px-16",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+              className: "flex flex-col justify-center items-start gap-12",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+                className: "flex gap-3 items-center",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                  className: "Blueprint-headline-large-emphasized italic leading-snug",
+                  children: "Upcoming"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  label: "Events",
+                  backgroundColor: "schemesPrimaryContainer"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant",
+                children: "Workshops, holidays, classes and community gatherings, updated regularly."
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+              className: "flex flex-wrap gap-4 items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                label: "Browse the calendar",
+                onClick: () => window.location.href = '/events',
+                size: "base",
+                variant: "filled",
+                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                  className: "bg-white rounded-full p-1",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.StarIcon, {
+                    color: "#1e6586",
+                    weight: "fill",
+                    size: 12
+                  })
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                label: "View all events",
+                onClick: () => window.location.href = '/submit-event',
+                size: "base",
+                variant: "filled"
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            posts: events
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: "flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "flex flex-col justify-center items-start gap-12",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-              className: "flex gap-3 items-center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                className: "Blueprint-headline-large-emphasized italic leading-snug",
-                children: "Upcoming"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                label: "Events",
+              className: "flex flex-col lg:flex-row gap-3 items-start lg:items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                label: "Real stories",
                 backgroundColor: "schemesPrimaryContainer"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                className: "Blueprint-headline-large-emphasized italic leading-snug",
+                children: "from our community"
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant",
-              children: "Workshops, holidays, classes and community gatherings, updated regularly."
+              children: "Personal reflections, creative insights and thoughtful perspectives."
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "flex flex-wrap gap-4 items-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-              label: "Browse the calendar",
-              onClick: () => window.location.href = '/events',
-              size: "base",
-              variant: "filled",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                className: "bg-white rounded-full p-1",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.StarIcon, {
-                  color: "#1e6586",
-                  weight: "fill",
-                  size: 12
-                })
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-              label: "View all events",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+              label: "View all",
               onClick: () => window.location.href = '/submit-event',
               size: "base",
               variant: "filled"
-            })]
+            })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          posts: events
+          posts: podcasts
         })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-      className: "flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          className: "flex flex-col justify-center items-start gap-12",
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "py-16 px-4 sm:px-8 lg:px-16 flex flex-col",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-8 lg:py-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-            className: "flex flex-col lg:flex-row gap-3 items-start lg:items-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-              label: "Real stories",
-              backgroundColor: "schemesPrimaryContainer"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-              className: "Blueprint-headline-large-emphasized italic leading-snug",
-              children: "from our community"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-            className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant",
-            children: "Personal reflections, creative insights and thoughtful perspectives."
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: "flex flex-wrap gap-4 items-center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-            label: "View all",
-            onClick: () => window.location.href = '/submit-event',
-            size: "base",
-            variant: "filled"
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        posts: podcasts
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "py-16 px-4 sm:px-8 lg:px-16 flex flex-col",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-8 lg:py-16",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          className: "flex flex-col justify-center items-start gap-12",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-            className: "flex flex-col lg:flex-row sm:gap-1 lg:gap-3 justify-center items-start lg:items-center w-full",
+            className: "flex flex-col justify-center items-start gap-12",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-              className: "flex gap-3 items-center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+              className: "flex flex-col lg:flex-row sm:gap-1 lg:gap-3 justify-center items-start lg:items-center w-full",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+                className: "flex gap-3 items-center",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                  className: "Blueprint-headline-large leading-snug",
+                  children: "Ask, offer or "
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  label: "Connect",
+                  backgroundColor: "schemesSecondary"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "Blueprint-headline-large leading-snug",
-                children: "Ask, offer or "
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                label: "Connect",
-                backgroundColor: "schemesSecondary"
+                children: " via the community message board"
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-              className: "Blueprint-headline-large leading-snug",
-              children: " via the community message board"
+              className: "w-full Blueprint-body-large text-center text-schemesOnSecondaryContainer",
+              children: "A living space for announcements, questions, and informal support."
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-            className: "w-full Blueprint-body-large text-center text-schemesOnSecondaryContainer",
-            children: "A living space for announcements, questions, and informal support."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_MessageBoardSlider__WEBPACK_IMPORTED_MODULE_5__.MessageBoardSlider, {
+            displaySlider: false,
+            messageBoard: messageBoardPosts
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_MessageBoardSlider__WEBPACK_IMPORTED_MODULE_5__.MessageBoardSlider, {
-          displaySlider: false,
-          messageBoard: messageBoardPosts
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "py-16 px-4 sm:px-8 lg:px-16",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ListingCallout__WEBPACK_IMPORTED_MODULE_6__.ListingCallout, {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "py-16 px-4 sm:px-8 lg:px-16",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_7__.NewsletterBanner, {})
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "py-16 px-4 sm:px-8 lg:px-16",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ListingCallout__WEBPACK_IMPORTED_MODULE_6__.ListingCallout, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "py-16 px-4 sm:px-8 lg:px-16",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_7__.NewsletterBanner, {})
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "py-16 px-4 sm:px-8 lg:px-16 bg-schemesPrimaryFixed flex flex-col gap-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {

@@ -15,7 +15,7 @@ export function DetailedCard({
   return (
     <Card styles="h-full">
       <a href={href || "#"} className="flex h-full w-full gap-4 group">
-        <div className="aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden rounded-lg bg-schemesSurface p-2">
+        <div className="aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden rounded-lg p-2">
           {image && (
             <img
               src={image}

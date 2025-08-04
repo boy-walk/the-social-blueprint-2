@@ -21,8 +21,8 @@ export function ContentCard({
 
   return (
     <Card href={href} styles={cardStyles}>
-      <div className="flex flex-col flex-grow">
-        <div className="rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100 max-h-75">
+      <div className="flex flex-col">
+        <div className="flex-grow rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100 max-h-70">
           {image && (
             <img
               src={image}
@@ -37,15 +37,15 @@ export function ContentCard({
           )}
         </div>
         {title && (
-          <div className="p-4 space-y-1 flex flex-col flex-grow">
+          <div className="p-4 flex flex-col flex-shrink">
             {date && (
               <div className="Blueprint-body-medium text-schemesOnSurfaceVariant">
                 {date}
               </div>
             )}
-            <h3 className="Blueprint-body-large-emphasized line-clamp-2 min-h-[3.2em]">{title}</h3>
+            <h3 className="Blueprint-body-large-emphasized line-clamp-1 min-h-[2.2em]">{title}</h3>
             {subtitle && (
-              <p className="text-sm text-schemesOnSurfaceVariant">{subtitle}</p>
+              <p className="text-sm text-schemesOnSurfaceVariant line-clamp-2">{subtitle}</p>
             )}
           </div>
         )}
