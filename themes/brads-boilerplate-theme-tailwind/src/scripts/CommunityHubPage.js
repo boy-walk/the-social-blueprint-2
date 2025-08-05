@@ -93,24 +93,25 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
         </div>
       </div>
 
-      <div className="py-16 px-4 sm:px-8 lg:px-16">
-        <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-6">
-          Featured in Community
-        </h2>
-
-        <FeaturedPostLayout posts={featured} />
-
-      </div>
-      <div className="py-16 px-4 sm:px-8 lg:px-16">
-        <div className="flex items-center gap-2 mb-8">
-          <h2 className="Blueprint-headline-medium text-schemesOnSurface">
-            {t("recentMessageBoardPosts")}
+      <div className="max-w-[1600px] mx-auto">
+        <div className="py-16 px-4 sm:px-8 lg:px-16">
+          <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-6">
+            Featured in Community
           </h2>
-          <ArrowIcon />
-        </div>
-        <MessageBoardSlider messageBoard={messageBoard} />
-      </div>
 
+          <FeaturedPostLayout posts={featured} />
+
+        </div>
+        <div className="py-16 px-4 sm:px-8 lg:px-16">
+          <div className="flex items-center gap-2 mb-8">
+            <h2 className="Blueprint-headline-medium text-schemesOnSurface">
+              {t("recentMessageBoardPosts")}
+            </h2>
+            <ArrowIcon />
+          </div>
+          <MessageBoardSlider messageBoard={messageBoard} />
+        </div>
+      </div>
       {/* Events */}
       <div className="py-16 px-4 sm:px-8 lg:px-16 bg-schemesSecondaryFixed">
         <div className="flex items-center gap-2 mb-6">
@@ -119,11 +120,12 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
         </div>
         <EventsSlider events={events} />
       </div>
-
-      {/* Browse All */}
-      <BrowseAllCommunity posts={browseAll} />
-      <div className="py-16 px-4 sm:px-8 lg:px-16">
-        <NewsletterBanner />
+      <div className="max-w-[1600px] mx-auto">
+        {/* Browse All */}
+        <BrowseAllCommunity posts={browseAll} />
+        <div className="py-16 px-4 sm:px-8 lg:px-16">
+          <NewsletterBanner />
+        </div>
       </div>
       <div className="py-16 px-4 sm:px-8 lg:px-16 bg-schemesPrimaryFixed flex flex-col gap-4">
         <div className="flex gap-3 items-center">
@@ -137,7 +139,7 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
         </div>
         <ExploreByTheme />
       </div>
-    </div>
+    </div >
   );
 }
 

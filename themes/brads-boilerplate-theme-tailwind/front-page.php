@@ -1,8 +1,11 @@
 
 <?php
 /**
+ * Template Name: Front Page
+ */
+/** 
  * The site front page template.
- *
+ * 
  * Place in your theme root.  WordPress loads this automatically
  * for the site root URL.
  */
@@ -60,12 +63,25 @@ $message_board_posts = get_posts([
   'order' => 'DESC',
 ]);
 $message_board_posts = array_map('map_post', $message_board_posts);
+
+$callout_one = get_field('callout_one');
+$callout_two = get_field('callout_two');
+$pdf_flipbook = get_field('pdf_flipbook');
+
+$dynamic_props = [
+  'image1' => $callout_one ? $callout_one : null,
+  'image2' => $callout_two ? $callout_two : null,
+  'pdfUrl' => $pdf_flipbook ? $pdf_flipbook : null,
+];
 ?>
+
 
 <div id="section-one"
      data-events='<?php echo esc_attr(json_encode($events)); ?>'
      data-podcasts='<?php echo esc_attr(json_encode($podcast_posts)); ?>'
-     data-message-board-posts='<?php echo esc_attr(json_encode($message_board_posts)); ?>'>
+     data-message-board-posts='<?php echo esc_attr(json_encode($message_board_posts)); ?>'
+      data-dynamic-props='<?php echo esc_attr(json_encode($dynamic_props)); ?>'
+>
 </div>
 <!-- <?php
 $post = get_posts([

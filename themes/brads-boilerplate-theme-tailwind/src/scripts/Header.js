@@ -29,7 +29,7 @@ export default function Header({ isUserLoggedIn = false }) {
       <div className="hidden lg:flex flex-col items-end gap-6">
         <Socials />
         <div className="hidden lg:flex items-center gap-6">
-          <nav className="hidden lg:flex items-center gap-6 Blueprint-body-medium">
+          <nav className="hidden lg:flex items-center gap-3 Blueprint-body-medium">
             <Button label={t('whats_on')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/events'} />
             <Button label={t('directory')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/directory'} />
             <Button label={t('blueprint_stories')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/stories'} />

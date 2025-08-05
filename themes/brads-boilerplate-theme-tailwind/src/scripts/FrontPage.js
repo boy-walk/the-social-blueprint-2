@@ -1,32 +1,35 @@
 import React from 'react';
 import { Card } from './Card';
 import { SearchBar } from './SearchBar';
+import CardText from "../../assets/card-text.svg";
 
 export default function FrontPage() {
   return (
     <div className="bg-schemesPrimaryFixed">
-      <FrontPageGrid />
-      <div className="flex justify-center flex-col items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-4">
-        <h2 className="Blueprint-display-small-emphasized text-schemesOnSurface text-center">
-          Search The Social Blueprint
-        </h2>
-        <SearchBar />
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <span className="text-sm text-gray-600">Trending Searches:</span>
-          {['Jewish Podcasts', 'mental health help', 'family-friendly events', 'kosher recipes'].map(
-            (tag) => (
-              <button
-                key={tag}
-                className="bg-white border border-gray-300 px-3 py-1 rounded-md text-sm text-gray-700 hover:bg-gray-100 shadow-sm"
-                onClick={() => {
-                  setQuery(tag);
-                  window.location.href = `/?s=${encodeURIComponent(tag)}`;
-                }}
-              >
-                {tag}
-              </button>
-            )
-          )}
+      <div className="max-w-[1600px] mx-auto">
+        <FrontPageGrid />
+        <div className="flex justify-center flex-col items-center mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-4">
+          <h2 className="Blueprint-display-small-emphasized text-schemesOnSurface text-center">
+            Search The Social Blueprint
+          </h2>
+          <SearchBar />
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <span className="text-sm text-gray-600">Trending Searches:</span>
+            {['Jewish Podcasts', 'mental health help', 'family-friendly events', 'kosher recipes'].map(
+              (tag) => (
+                <button
+                  key={tag}
+                  className="bg-schemesPrimaryFixedDim px-3 py-1 rounded-md Blueprint-label-large text-schemesOnPrimaryFixed hover:bg-white shadow-sm"
+                  onClick={() => {
+                    setQuery(tag);
+                    window.location.href = `/?s=${encodeURIComponent(tag)}`;
+                  }}
+                >
+                  {tag}
+                </button>
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -40,7 +43,9 @@ export const FrontPageGrid = () => {
         <div className="bg-green-100 rounded-md w-full h-full"></div>
       </Card>
       <Card styles="col-span-2 row-span-2 p-2">
-        <div className="bg-blue-100 rounded-md w-full h-full "></div>
+        <div className="bg-blue-100 rounded-md w-full h-full ">
+          <img src={CardText} alt="Card Text" className="w-full h-full object-cover rounded-lg" />
+        </div>
       </Card>
       <Card styles="col-span-1 row-span-3 p-2">
         <div className="bg-indigo-200 rounded-md w-full h-full"></div>

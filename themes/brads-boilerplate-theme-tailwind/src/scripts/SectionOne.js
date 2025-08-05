@@ -8,7 +8,7 @@ import { MessageBoardSlider } from './MessageBoardSlider';
 import { ListingCallout } from './ListingCallout';
 import { NewsletterBanner } from './NewsletterBanner';
 
-export const SectionOne = ({ events, podcasts, messageBoardPosts }) => {
+export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps }) => {
   return (
     <div>
       <div className="max-w-[1600px] mx-auto">
@@ -24,7 +24,7 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts }) => {
           </div>
         </div>
         <div className="w-full flex justify-center pb-8">
-          <div className="max-w-7xl w-full px-4 lg:px-0">
+          <div className="max-w-[1400px] w-full px-4 lg:px-0">
             <ExploreByTheme />
           </div>
         </div>
@@ -59,27 +59,29 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts }) => {
             <FeaturedPostLayout posts={events} />
           </div>
         </div>
-        <div className="flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 px-4 sm:px-6 md:px-8 lg:px-16 py-12">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
-            <div className="flex flex-col justify-center items-start gap-12">
-              <div className="flex flex-col lg:flex-row gap-3 items-start lg:items-center">
-                <PillTag label="Real stories" backgroundColor="schemesPrimaryContainer" />
-                <div className="Blueprint-headline-large-emphasized italic leading-snug">from our community</div>
+        <div className="px-4 sm:px-8 lg:px-16">
+          <div className="py-16 px-4 sm:px-8 lg:px-16 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 ">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
+              <div className="flex flex-col justify-center items-start gap-12">
+                <div className="flex flex-col lg:flex-row gap-3 items-start lg:items-center">
+                  <PillTag label="Real stories" backgroundColor="schemesPrimaryContainer" />
+                  <div className="Blueprint-headline-large-emphasized italic leading-snug">from our community</div>
+                </div>
+                <div className="w-full Blueprint-body-large text-schemesOnSurfaceVariant">
+                  Personal reflections, creative insights and thoughtful perspectives.
+                </div>
               </div>
-              <div className="w-full Blueprint-body-large text-schemesOnSurfaceVariant">
-                Personal reflections, creative insights and thoughtful perspectives.
+              <div className="flex flex-wrap gap-4 items-center">
+                <Button
+                  label="View all"
+                  onClick={() => (window.location.href = '/submit-event')}
+                  size="base"
+                  variant="filled"
+                />
               </div>
             </div>
-            <div className="flex flex-wrap gap-4 items-center">
-              <Button
-                label="View all"
-                onClick={() => (window.location.href = '/submit-event')}
-                size="base"
-                variant="filled"
-              />
-            </div>
+            <FeaturedPostLayout posts={podcasts} />
           </div>
-          <FeaturedPostLayout posts={podcasts} />
         </div>
         <div className="py-16 px-4 sm:px-8 lg:px-16 flex flex-col">
           <div className="bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-8 lg:py-16">
@@ -98,24 +100,29 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts }) => {
             <MessageBoardSlider displaySlider={false} messageBoard={messageBoardPosts} />
           </div>
         </div>
-        <div className="py-16 px-4 sm:px-8 lg:px-16">
+        <div className="py-8 px-4 sm:px-8 lg:px-16">
           <ListingCallout />
+        </div>
+        <div className="py-16 px-4 sm:px-8 lg:px-16">
+          <DynamicSection dynamicProps={dynamicProps} />
         </div>
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <NewsletterBanner />
         </div>
       </div>
-      <div className="py-16 px-4 sm:px-8 lg:px-16 bg-schemesPrimaryFixed flex flex-col gap-4">
-        <div className="flex gap-3 items-center">
-          <div className="Blueprint-headline-medium italic">
-            Explore more by
+      <div className="bg-schemesPrimaryFixed">
+        <div className="py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4">
+          <div className="flex gap-3 items-center">
+            <div className="Blueprint-headline-medium italic">
+              Explore more by
+            </div>
+            <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
           </div>
-          <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
+          <div className="Blurprint-title-large mb-12 text-schemesOnSurface">
+            From support services to creative culture, start where you're curious.
+          </div>
+          <ExploreByTheme />
         </div>
-        <div className="Blurprint-title-large mb-12 text-schemesOnSurface">
-          From support services to creative culture, start where you're curious.
-        </div>
-        <ExploreByTheme />
       </div>
     </div>
   );
@@ -134,3 +141,33 @@ export const ArrowIcon = () => (
     </svg>
   </div>
 );
+
+export const DynamicSection = ({ dynamicProps }) => {
+  return (
+    <div className="flex w-full gap-8 flex-col lg:flex-row h-150">
+      <div className="flex flex-col flex-2 gap-8 justify-between">
+        <div className="rounded-xl flex-1 overflow-hidden shadow-3x3">
+          {dynamicProps.image1 && (
+            <img
+              src={dynamicProps.image1}
+              alt="Dynamic Image 1"
+              className="w-full h-full object-fit"
+            />
+          )}
+        </div>
+        <div className="rounded-xl overflow-hidden flex-1 shadow-3x3">
+          {dynamicProps.image2 && (
+            <img
+              src={dynamicProps.image2}
+              alt="Dynamic Image 2"
+              className="w-full h-full object-fit"
+            />
+          )}
+        </div>
+      </div>
+      <div className="flex-1">
+        <div className="bg-black rounded-xl h-full w-full min-h-[200px] shadow-3x3"></div>
+      </div>
+    </div>
+  )
+}
