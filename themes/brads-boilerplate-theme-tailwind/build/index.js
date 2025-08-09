@@ -1778,32 +1778,6 @@ const s = o;
 
 /***/ }),
 
-/***/ "./node_modules/@phosphor-icons/react/dist/csr/CheckCircle.es.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/@phosphor-icons/react/dist/csr/CheckCircle.es.js ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckCircle: () => (/* binding */ s),
-/* harmony export */   CheckCircleIcon: () => (/* binding */ c)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
-/* harmony import */ var _defs_CheckCircle_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/CheckCircle.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/CheckCircle.es.js");
-
-
-
-const c = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((o, r) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: r, ...o, weights: _defs_CheckCircle_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
-c.displayName = "CheckCircleIcon";
-const s = c;
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@phosphor-icons/react/dist/csr/FacebookLogo.es.js":
 /*!************************************************************************!*\
   !*** ./node_modules/@phosphor-icons/react/dist/csr/FacebookLogo.es.js ***!
@@ -1877,32 +1851,6 @@ __webpack_require__.r(__webpack_exports__);
 const a = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((r, t) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: t, ...r, weights: _defs_InstagramLogo_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
 a.displayName = "InstagramLogoIcon";
 const c = a;
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@phosphor-icons/react/dist/csr/LinkSimple.es.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@phosphor-icons/react/dist/csr/LinkSimple.es.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   LinkSimple: () => (/* binding */ p),
-/* harmony export */   LinkSimpleIcon: () => (/* binding */ o)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
-/* harmony import */ var _defs_LinkSimple_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/LinkSimple.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/LinkSimple.es.js");
-
-
-
-const o = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((i, m) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: m, ...i, weights: _defs_LinkSimple_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
-o.displayName = "LinkSimpleIcon";
-const p = o;
 
 
 
@@ -2007,32 +1955,6 @@ __webpack_require__.r(__webpack_exports__);
 const a = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((e, r) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: r, ...e, weights: _defs_Mailbox_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
 a.displayName = "MailboxIcon";
 const s = a;
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@phosphor-icons/react/dist/csr/ShareFat.es.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@phosphor-icons/react/dist/csr/ShareFat.es.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ShareFat: () => (/* binding */ n),
-/* harmony export */   ShareFatIcon: () => (/* binding */ e)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
-/* harmony import */ var _defs_ShareFat_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/ShareFat.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/ShareFat.es.js");
-
-
-
-const e = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((o, r) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: r, ...o, weights: _defs_ShareFat_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
-e.displayName = "ShareFatIcon";
-const n = e;
 
 
 
@@ -2163,32 +2085,6 @@ __webpack_require__.r(__webpack_exports__);
 const r = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((o, c) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: c, ...o, weights: _defs_UserCircle_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
 r.displayName = "UserCircleIcon";
 const m = r;
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/@phosphor-icons/react/dist/csr/X.es.js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   X: () => (/* binding */ n),
-/* harmony export */   XIcon: () => (/* binding */ e)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
-/* harmony import */ var _defs_X_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/X.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/X.es.js");
-
-
-
-const e = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((r, t) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: t, ...r, weights: _defs_X_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
-e.displayName = "XIcon";
-const n = e;
 
 
 
@@ -2540,50 +2436,6 @@ const e = /* @__PURE__ */ new Map([
 
 /***/ }),
 
-/***/ "./node_modules/@phosphor-icons/react/dist/defs/CheckCircle.es.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@phosphor-icons/react/dist/defs/CheckCircle.es.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ a)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-
-const a = /* @__PURE__ */ new Map([
-  [
-    "bold",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M176.49,95.51a12,12,0,0,1,0,17l-56,56a12,12,0,0,1-17,0l-24-24a12,12,0,1,1,17-17L112,143l47.51-47.52A12,12,0,0,1,176.49,95.51ZM236,128A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Z" }))
-  ],
-  [
-    "duotone",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" }))
-  ],
-  [
-    "fill",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z" }))
-  ],
-  [
-    "light",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M172.24,99.76a6,6,0,0,1,0,8.48l-56,56a6,6,0,0,1-8.48,0l-24-24a6,6,0,0,1,8.48-8.48L112,151.51l51.76-51.75A6,6,0,0,1,172.24,99.76ZM230,128A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z" }))
-  ],
-  [
-    "regular",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" }))
-  ],
-  [
-    "thin",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M170.83,101.17a4,4,0,0,1,0,5.66l-56,56a4,4,0,0,1-5.66,0l-24-24a4,4,0,0,1,5.66-5.66L112,154.34l53.17-53.17A4,4,0,0,1,170.83,101.17ZM228,128A100,100,0,1,1,128,28,100.11,100.11,0,0,1,228,128Zm-8,0a92,92,0,1,0-92,92A92.1,92.1,0,0,0,220,128Z" }))
-  ]
-]);
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@phosphor-icons/react/dist/defs/FacebookLogo.es.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/@phosphor-icons/react/dist/defs/FacebookLogo.es.js ***!
@@ -2721,56 +2573,6 @@ const e = /* @__PURE__ */ new Map([
   [
     "thin",
     /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,80a36,36,0,1,1,36-36A36,36,0,0,1,128,164ZM176,28H80A52.06,52.06,0,0,0,28,80v96a52.06,52.06,0,0,0,52,52h96a52.06,52.06,0,0,0,52-52V80A52.06,52.06,0,0,0,176,28Zm44,148a44.05,44.05,0,0,1-44,44H80a44.05,44.05,0,0,1-44-44V80A44.05,44.05,0,0,1,80,36h96a44.05,44.05,0,0,1,44,44ZM188,76a8,8,0,1,1-8-8A8,8,0,0,1,188,76Z" }))
-  ]
-]);
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@phosphor-icons/react/dist/defs/LinkSimple.es.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/@phosphor-icons/react/dist/defs/LinkSimple.es.js ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ l)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-
-const l = /* @__PURE__ */ new Map([
-  [
-    "bold",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M87.5,151.52l64-64a12,12,0,0,1,17,17l-64,64a12,12,0,0,1-17-17Zm131-114a60.08,60.08,0,0,0-84.87,0L103.51,67.61a12,12,0,0,0,17,17l30.07-30.06a36,36,0,0,1,50.93,50.92L171.4,135.52a12,12,0,1,0,17,17l30.08-30.06A60.09,60.09,0,0,0,218.45,37.55ZM135.52,171.4l-30.07,30.08a36,36,0,0,1-50.92-50.93l30.06-30.07a12,12,0,0,0-17-17L37.55,133.58a60,60,0,0,0,84.88,84.87l30.06-30.07a12,12,0,0,0-17-17Z" }))
-  ],
-  [
-    "duotone",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
-      "path",
-      {
-        d: "M209.94,113.94l-96,96a48,48,0,0,1-67.88-67.88l96-96a48,48,0,0,1,67.88,67.88Z",
-        opacity: "0.2"
-      }
-    ), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M165.66,90.34a8,8,0,0,1,0,11.32l-64,64a8,8,0,0,1-11.32-11.32l64-64A8,8,0,0,1,165.66,90.34ZM215.6,40.4a56,56,0,0,0-79.2,0L106.34,70.45a8,8,0,0,0,11.32,11.32l30.06-30a40,40,0,0,1,56.57,56.56l-30.07,30.06a8,8,0,0,0,11.31,11.32L215.6,119.6a56,56,0,0,0,0-79.2ZM138.34,174.22l-30.06,30.06a40,40,0,1,1-56.56-56.57l30.05-30.05a8,8,0,0,0-11.32-11.32L40.4,136.4a56,56,0,0,0,79.2,79.2l30.06-30.07a8,8,0,0,0-11.32-11.31Z" }))
-  ],
-  [
-    "fill",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM144.56,173.66l-21.45,21.45a44,44,0,0,1-62.22-62.22l21.45-21.46a8,8,0,0,1,11.32,11.31L72.2,144.2a28,28,0,0,0,39.6,39.6l21.45-21.46a8,8,0,0,1,11.31,11.32Zm-34.9-16a8,8,0,0,1-11.32-11.32l48-48a8,8,0,0,1,11.32,11.32Zm85.45-34.55-21.45,21.45a8,8,0,0,1-11.32-11.31L183.8,111.8a28,28,0,0,0-39.6-39.6L122.74,93.66a8,8,0,0,1-11.31-11.32l21.46-21.45a44,44,0,0,1,62.22,62.22Z" }))
-  ],
-  [
-    "light",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M164.25,91.75a6,6,0,0,1,0,8.49l-64,64a6,6,0,0,1-8.49-8.48l64-64A6,6,0,0,1,164.25,91.75ZM214.2,41.8a54.07,54.07,0,0,0-76.38,0L107.75,71.85a6,6,0,0,0,8.49,8.49l30.07-30.06a42,42,0,0,1,59.41,59.41l-30.08,30.07a6,6,0,1,0,8.49,8.49l30.07-30.07A54,54,0,0,0,214.2,41.8ZM139.76,175.64l-30.07,30.08a42,42,0,0,1-59.41-59.41l30.06-30.07a6,6,0,0,0-8.49-8.49l-30,30.07a54,54,0,0,0,76.38,76.39l30.07-30.08a6,6,0,0,0-8.49-8.49Z" }))
-  ],
-  [
-    "regular",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M165.66,90.34a8,8,0,0,1,0,11.32l-64,64a8,8,0,0,1-11.32-11.32l64-64A8,8,0,0,1,165.66,90.34ZM215.6,40.4a56,56,0,0,0-79.2,0L106.34,70.45a8,8,0,0,0,11.32,11.32l30.06-30a40,40,0,0,1,56.57,56.56l-30.07,30.06a8,8,0,0,0,11.31,11.32L215.6,119.6a56,56,0,0,0,0-79.2ZM138.34,174.22l-30.06,30.06a40,40,0,1,1-56.56-56.57l30.05-30.05a8,8,0,0,0-11.32-11.32L40.4,136.4a56,56,0,0,0,79.2,79.2l30.06-30.07a8,8,0,0,0-11.32-11.31Z" }))
-  ],
-  [
-    "thin",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M162.84,93.16a4,4,0,0,1,0,5.66l-64,64a4,4,0,0,1-5.66-5.66l64-64A4,4,0,0,1,162.84,93.16Zm49.95-49.95a52.07,52.07,0,0,0-73.56,0L109.17,73.27a4,4,0,0,0,5.65,5.66l30.07-30.06a44,44,0,0,1,62.24,62.24l-30.07,30.06a4,4,0,0,0,5.66,5.66l30.07-30.06A52.07,52.07,0,0,0,212.79,43.21ZM141.17,177.06l-30.06,30.07a44,44,0,0,1-62.24-62.24l30.06-30.06a4,4,0,0,0-5.66-5.66L43.21,139.23a52,52,0,0,0,73.56,73.56l30.06-30.07a4,4,0,1,0-5.66-5.66Z" }))
   ]
 ]);
 
@@ -2959,56 +2761,6 @@ const e = /* @__PURE__ */ new Map([
   [
     "thin",
     /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M100,152a4,4,0,0,1-4,4H56a4,4,0,0,1,0-8H96A4,4,0,0,1,100,152Zm136-36v60a12,12,0,0,1-12,12H132v36a4,4,0,0,1-8,0V188H32a12,12,0,0,1-12-12V116A56.06,56.06,0,0,1,76,60h80V24a4,4,0,0,1,4-4h32a4,4,0,0,1,0,8H164V60h16A56.06,56.06,0,0,1,236,116ZM124,180V116a48,48,0,0,0-96,0v60a4,4,0,0,0,4,4Zm104-64a48.05,48.05,0,0,0-48-48H164v76a4,4,0,0,1-8,0V68H104.82A56,56,0,0,1,132,116v64h92a4,4,0,0,0,4-4Z" }))
-  ]
-]);
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@phosphor-icons/react/dist/defs/ShareFat.es.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@phosphor-icons/react/dist/defs/ShareFat.es.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ a)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-
-const a = /* @__PURE__ */ new Map([
-  [
-    "bold",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M240.49,103.52l-80-80A12,12,0,0,0,140,32V68.74c-25.76,3.12-53.66,15.89-76.75,35.47-29.16,24.74-47.32,56.69-51.14,90A16,16,0,0,0,39.67,207h0c10.46-11.14,47-45.74,100.33-50.42V192a12,12,0,0,0,20.48,8.48l80-80A12,12,0,0,0,240.49,103.52ZM164,163V144a12,12,0,0,0-12-12c-49,0-86.57,21.56-109.79,40.11,7.13-18.16,19.63-35.22,36.57-49.59C101.3,103.41,128.67,92,152,92a12,12,0,0,0,12-12V61l51,51Z" }))
-  ],
-  [
-    "duotone",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
-      "path",
-      {
-        d: "M152,192V144c-61.4,0-104.61,37.19-121.07,54.72a4,4,0,0,1-6.9-3.18C31.51,130.45,99.19,80,152,80V32l80,80Z",
-        opacity: "0.2"
-      }
-    ), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M237.66,106.35l-80-80A8,8,0,0,0,144,32V72.35c-25.94,2.22-54.59,14.92-78.16,34.91-28.38,24.08-46.05,55.11-49.76,87.37a12,12,0,0,0,20.68,9.58h0c11-11.71,50.14-48.74,107.24-52V192a8,8,0,0,0,13.66,5.65l80-80A8,8,0,0,0,237.66,106.35ZM160,172.69V144a8,8,0,0,0-8-8c-28.08,0-55.43,7.33-81.29,21.8a196.17,196.17,0,0,0-36.57,26.52c5.8-23.84,20.42-46.51,42.05-64.86C99.41,99.77,127.75,88,152,88a8,8,0,0,0,8-8V51.32L220.69,112Z" }))
-  ],
-  [
-    "fill",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M237.66,117.66l-80,80A8,8,0,0,1,144,192V152.23c-57.1,3.24-96.25,40.27-107.24,52h0a12,12,0,0,1-20.68-9.58c3.71-32.26,21.38-63.29,49.76-87.37,23.57-20,52.22-32.69,78.16-34.91V32a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,237.66,117.66Z" }))
-  ],
-  [
-    "light",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M236.24,107.76l-80-80A6,6,0,0,0,146,32V74.2c-54.48,3.59-120.39,55-127.93,120.66a10,10,0,0,0,17.23,8h0C46.56,190.85,87,152.6,146,150.13V192a6,6,0,0,0,10.24,4.24l80-80A6,6,0,0,0,236.24,107.76ZM158,177.52V144a6,6,0,0,0-6-6c-27.73,0-54.76,7.25-80.32,21.55a193.38,193.38,0,0,0-40.81,30.65c4.7-26.56,20.16-52,44-72.27C98.47,97.94,127.29,86,152,86a6,6,0,0,0,6-6V46.49L223.51,112Z" }))
-  ],
-  [
-    "regular",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M237.66,106.35l-80-80A8,8,0,0,0,144,32V72.35c-25.94,2.22-54.59,14.92-78.16,34.91-28.38,24.08-46.05,55.11-49.76,87.37a12,12,0,0,0,20.68,9.58h0c11-11.71,50.14-48.74,107.24-52V192a8,8,0,0,0,13.66,5.65l80-80A8,8,0,0,0,237.66,106.35ZM160,172.69V144a8,8,0,0,0-8-8c-28.08,0-55.43,7.33-81.29,21.8a196.17,196.17,0,0,0-36.57,26.52c5.8-23.84,20.42-46.51,42.05-64.86C99.41,99.77,127.75,88,152,88a8,8,0,0,0,8-8V51.32L220.69,112Z" }))
-  ],
-  [
-    "thin",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M234.83,109.17l-80-80A4,4,0,0,0,148,32V76.09c-54,2.44-120.43,53.55-127.94,119a7.87,7.87,0,0,0,4.58,8.16,8,8,0,0,0,3.41.77,7.9,7.9,0,0,0,5.79-2.55h0c11.53-12.27,53.29-51.73,114.16-53.4V192a4,4,0,0,0,6.83,2.83l80-80A4,4,0,0,0,234.83,109.17ZM156,182.33V144a4,4,0,0,0-4-4c-27.39,0-54.08,7.17-79.34,21.3A189.91,189.91,0,0,0,28,196l2.92,2.74L28,196c3.36-29.21,19.55-57.48,45.6-79.57C97.53,96.11,126.83,84,152,84a4,4,0,0,0,4-4V41.66L226.34,112Z" }))
   ]
 ]);
 
@@ -3241,56 +2993,6 @@ const a = /* @__PURE__ */ new Map([
   [
     "thin",
     /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28ZM68.87,198.42a68,68,0,0,1,118.26,0,91.8,91.8,0,0,1-118.26,0Zm124.3-5.55a75.61,75.61,0,0,0-44.51-34,44,44,0,1,0-41.32,0,75.61,75.61,0,0,0-44.51,34,92,92,0,1,1,130.34,0ZM128,156a36,36,0,1,1,36-36A36,36,0,0,1,128,156Z" }))
-  ]
-]);
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@phosphor-icons/react/dist/defs/X.es.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@phosphor-icons/react/dist/defs/X.es.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ a)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-
-const a = /* @__PURE__ */ new Map([
-  [
-    "bold",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z" }))
-  ],
-  [
-    "duotone",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
-      "path",
-      {
-        d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
-        opacity: "0.2"
-      }
-    ), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
-  ],
-  [
-    "fill",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM181.66,170.34a8,8,0,0,1-11.32,11.32L128,139.31,85.66,181.66a8,8,0,0,1-11.32-11.32L116.69,128,74.34,85.66A8,8,0,0,1,85.66,74.34L128,116.69l42.34-42.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
-  ],
-  [
-    "light",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z" }))
-  ],
-  [
-    "regular",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
-  ],
-  [
-    "thin",
-    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M202.83,197.17a4,4,0,0,1-5.66,5.66L128,133.66,58.83,202.83a4,4,0,0,1-5.66-5.66L122.34,128,53.17,58.83a4,4,0,0,1,5.66-5.66L128,122.34l69.17-69.17a4,4,0,1,1,5.66,5.66L133.66,128Z" }))
   ]
 ]);
 
@@ -10269,275 +9971,9 @@ const ThankYouBanner = () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED
 /*!************************************!*\
   !*** ./src/scripts/ShareButton.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ShareButton: () => (/* binding */ ShareButton)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CheckCircle.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FacebookLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/LinkedinLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/InstagramLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/YoutubeLogo.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/LinkSimple.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ShareFat.es.js");
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
-// ShareButton.jsx
-
-
-
-
-
-// Robust copier: uses Clipboard API when available, falls back to execCommand
-
-async function safeCopyToClipboard(text) {
-  try {
-    if (typeof navigator !== 'undefined' && navigator.clipboard && typeof navigator.clipboard.writeText === 'function' && (window.isSecureContext || location.hostname === 'localhost')) {
-      await navigator.clipboard.writeText(text);
-      return true;
-    }
-    // Fallback: hidden textarea + execCommand
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    ta.style.pointerEvents = 'none';
-    document.body.appendChild(ta);
-    ta.select();
-    ta.setSelectionRange(0, ta.value.length);
-    const ok = document.execCommand('copy');
-    document.body.removeChild(ta);
-    return ok;
-  } catch {
-    return false;
-  }
-}
-function Snackbar({
-  open,
-  message = 'Link copied',
-  onClose
-}) {
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!open) return;
-    const id = setTimeout(onClose, 2500);
-    return () => clearTimeout(id);
-  }, [open, onClose]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_2__["default"])('pointer-events-none fixed inset-x-0 bottom-4 z-[9999] flex justify-center transition-all', open ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'),
-    "aria-live": "polite",
-    "aria-atomic": "true",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: (0,clsx__WEBPACK_IMPORTED_MODULE_2__["default"])('pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-[16px]', 'bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)]', 'border border-[var(--schemesOutlineVariant)] shadow-lg'),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CheckCircle, {
-        size: 18,
-        weight: "bold"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-        className: "Blueprint-label-large",
-        children: message
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-        onClick: onClose,
-        className: "ml-2 p-1 rounded-md hover:bg-[var(--stateLayersSurfaceOpacity10)]",
-        "aria-label": "Dismiss",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.X, {
-          size: 16
-        })
-      })]
-    })
-  });
-}
-function ShareButton({
-  url,
-  title = '',
-  summary = '',
-  className = '',
-  size = 'base',
-  variant = 'filled',
-  shape = 'square'
-}) {
-  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [snack, setSnack] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    open: false,
-    message: ''
-  });
-  const btnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const menuRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const shareUrl = typeof window !== 'undefined' ? url || window.location.href : url || '';
-  const encodedUrl = encodeURIComponent(shareUrl);
-  const encodedTitle = encodeURIComponent(title || (typeof document !== 'undefined' ? document.title : '') || '');
-  const links = [{
-    id: 'facebook',
-    label: 'Facebook',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.FacebookLogo, {
-      size: 20,
-      weight: "fill"
-    }),
-    type: 'link',
-    href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`
-  }, {
-    id: 'linkedin',
-    label: 'LinkedIn',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.LinkedinLogo, {
-      size: 20,
-      weight: "fill"
-    }),
-    type: 'link',
-    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
-  }, {
-    id: 'instagram',
-    label: 'Instagram (copy link)',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.InstagramLogo, {
-      size: 20,
-      weight: "fill"
-    }),
-    type: 'ig'
-  }, {
-    id: 'youtube',
-    label: 'YouTube (copy link)',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.YoutubeLogo, {
-      size: 20,
-      weight: "fill"
-    }),
-    type: 'yt'
-  }, {
-    id: 'copy',
-    label: 'Copy link',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.LinkSimple, {
-      size: 20,
-      weight: "bold"
-    }),
-    type: 'copy'
-  }];
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    function onDown(e) {
-      if (!open) return;
-      if (menuRef.current && !menuRef.current.contains(e.target) && btnRef.current && !btnRef.current.contains(e.target)) setOpen(false);
-    }
-    function onEsc(e) {
-      if (e.key === 'Escape') setOpen(false);
-    }
-    window.addEventListener('mousedown', onDown);
-    window.addEventListener('keydown', onEsc);
-    return () => {
-      window.removeEventListener('mousedown', onDown);
-      window.removeEventListener('keydown', onEsc);
-    };
-  }, [open]);
-  async function nativeShare() {
-    try {
-      await navigator.share({
-        title: title || document?.title || '',
-        text: summary || '',
-        url: shareUrl
-      });
-    } catch {
-      setOpen(v => !v);
-    }
-  }
-  async function copyLink(extraText = '') {
-    const payload = extraText ? `${extraText}\n${shareUrl}` : shareUrl;
-    const ok = await safeCopyToClipboard(payload);
-    setSnack({
-      open: true,
-      message: ok ? 'Link copied' : 'Copy failed — press ⌘/Ctrl+C'
-    });
-    if (!ok) {
-      // Last‑resort prompt so users can manually copy
-      const res = window.prompt('Copy this link:', payload);
-      if (res !== null) setSnack({
-        open: true,
-        message: 'Link ready to paste'
-      });
-    }
-  }
-  async function handleAction(item) {
-    if (item.type === 'link') {
-      window.open(item.href, '_blank', 'noopener,noreferrer');
-      setOpen(false);
-      return;
-    }
-    if (item.type === 'ig') {
-      await copyLink(title);
-      // try app, then web (no official web intent)
-      window.location.href = 'instagram://app';
-      setTimeout(() => window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer'), 300);
-      setOpen(false);
-      return;
-    }
-    if (item.type === 'yt') {
-      await copyLink(title);
-      window.open('https://www.youtube.com/', '_blank', 'noopener,noreferrer');
-      setOpen(false);
-      return;
-    }
-    if (item.type === 'copy') {
-      await copyLink(title);
-      setOpen(false);
-      return;
-    }
-  }
-  const canNativeShare = false;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: (0,clsx__WEBPACK_IMPORTED_MODULE_2__["default"])('relative inline-block', className),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-        ref: btnRef,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-          label: "Share",
-          size: size,
-          variant: variant,
-          shape: shape,
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.ShareFat, {
-            size: 20,
-            weight: "bold"
-          }),
-          onClick: () => canNativeShare ? nativeShare() : setOpen(v => !v),
-          className: "!bg-[var(--schemesPrimary)] !text-[var(--schemesOnPrimary)]"
-        })
-      }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        ref: menuRef,
-        className: (0,clsx__WEBPACK_IMPORTED_MODULE_2__["default"])('absolute right-0 mt-2 min-w-[14rem] z-50', 'rounded-2xl border border-[var(--schemesOutlineVariant)]', 'bg-[var(--schemesSurfaceContainerHigh)] shadow-lg p-3 flex flex-col gap-2'),
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "flex items-center justify-between mb-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "Blueprint-title-small text-[var(--schemesOnSurface)]",
-            children: "Share this page"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            onClick: () => setOpen(false),
-            className: "p-1 rounded-md hover:bg-[var(--stateLayersSurfaceOpacity10)]",
-            "aria-label": "Close",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.X, {
-              size: 18
-            })
-          })]
-        }), links.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-          label: item.label,
-          size: "sm",
-          variant: "text",
-          shape: "square",
-          icon: item.icon,
-          onClick: () => handleAction(item),
-          className: "w-full justify-start !px-2"
-        }, item.id))]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Snackbar, {
-      open: snack.open,
-      message: snack.message,
-      onClose: () => setSnack(s => ({
-        ...s,
-        open: false
-      }))
-    })]
-  });
-}
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/src/scripts/ShareButton.js: Unexpected token, expected \"...\" (186:81)\n\n\u001b[0m \u001b[90m 184 |\u001b[39m             shape\u001b[33m=\u001b[39m{shape}\n \u001b[90m 185 |\u001b[39m             icon\u001b[33m=\u001b[39m{\u001b[33m<\u001b[39m\u001b[33mShareFat\u001b[39m size\u001b[33m=\u001b[39m{\u001b[35m20\u001b[39m} weight\u001b[33m=\u001b[39m\u001b[32m\"bold\"\u001b[39m \u001b[33m/\u001b[39m\u001b[33m>\u001b[39m}\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 186 |\u001b[39m             onClick\u001b[33m=\u001b[39m{() \u001b[33m=>\u001b[39m setOpen(\u001b[36mtrue\u001b[39m)}          {\u001b[90m/* never open native share */\u001b[39m}\n \u001b[90m     |\u001b[39m                                                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 187 |\u001b[39m             className\u001b[33m=\u001b[39m\u001b[32m\"!bg-[var(--schemesPrimary)] !text-[var(--schemesOnPrimary)]\"\u001b[39m\n \u001b[90m 188 |\u001b[39m           \u001b[33m/\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 189 |\u001b[39m         \u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mspan\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n    at constructor (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:360:19)\n    at JSXParserMixin.raise (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:6613:19)\n    at JSXParserMixin.unexpected (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:6633:16)\n    at JSXParserMixin.expect (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:6914:12)\n    at JSXParserMixin.jsxParseAttribute (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4651:12)\n    at JSXParserMixin.jsxParseOpeningElementAfterName (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4673:28)\n    at JSXParserMixin.jsxParseOpeningElementAt (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4668:17)\n    at JSXParserMixin.jsxParseElementAt (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4692:33)\n    at JSXParserMixin.jsxParseElementAt (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4704:32)\n    at JSXParserMixin.jsxParseElementAt (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4704:32)\n    at JSXParserMixin.jsxParseElementAt (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4704:32)\n    at JSXParserMixin.jsxParseElement (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4755:17)\n    at JSXParserMixin.parseExprAtom (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4765:19)\n    at JSXParserMixin.parseExprSubscripts (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10992:23)\n    at JSXParserMixin.parseUpdate (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10977:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10957:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10810:61)\n    at JSXParserMixin.parseExprOps (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10815:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10792:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10745:21)\n    at /Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10714:39\n    at JSXParserMixin.allowInAnd (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:12334:12)\n    at JSXParserMixin.parseMaybeAssignAllowIn (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10714:17)\n    at JSXParserMixin.parseParenAndDistinguishExpression (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:11591:28)\n    at JSXParserMixin.parseExprAtom (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:11242:23)\n    at JSXParserMixin.parseExprAtom (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:4770:20)\n    at JSXParserMixin.parseExprSubscripts (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10992:23)\n    at JSXParserMixin.parseUpdate (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10977:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10957:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10810:61)\n    at JSXParserMixin.parseExprOps (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10815:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10792:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10745:21)\n    at JSXParserMixin.parseExpressionBase (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10698:23)\n    at /Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10694:39\n    at JSXParserMixin.allowInAnd (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:12329:16)\n    at JSXParserMixin.parseExpression (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:10694:17)\n    at JSXParserMixin.parseReturnStatement (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:13018:28)\n    at JSXParserMixin.parseStatementContent (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:12675:21)\n    at JSXParserMixin.parseStatementLike (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:12644:17)\n    at JSXParserMixin.parseStatementListItem (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:12624:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:13192:61)\n    at JSXParserMixin.parseBlockBody (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:13185:10)\n    at JSXParserMixin.parseBlock (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:13173:10)\n    at JSXParserMixin.parseFunctionBody (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:12018:24)\n    at JSXParserMixin.parseFunctionBodyAndFinish (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:12004:10)\n    at /Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:13317:12\n    at JSXParserMixin.withSmartMixTopicForbiddingContext (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:12311:14)\n    at JSXParserMixin.parseFunction (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:13316:10)\n    at JSXParserMixin.parseFunctionStatement (/Users/raphaelwirth/Documents/thesocialblueprint.org.au/site/web/app/themes/brads-boilerplate-theme-tailwind/node_modules/@babel/parser/lib/index.js:13001:17)");
 
 /***/ }),
 

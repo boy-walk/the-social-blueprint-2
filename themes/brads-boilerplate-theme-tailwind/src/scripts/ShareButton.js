@@ -37,7 +37,6 @@ async function safeCopyToClipboard(text) {
   }
 }
 
-
 function Snackbar({ open, message = 'Link copied', onClose }) {
   useEffect(() => {
     if (!open) return;
@@ -53,11 +52,13 @@ function Snackbar({ open, message = 'Link copied', onClose }) {
       )}
       aria-live="polite" aria-atomic="true"
     >
-      <div className={clsx(
-        'pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-[16px]',
-        'bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)]',
-        'border border-[var(--schemesOutlineVariant)] shadow-lg'
-      )}>
+      <div
+        className={clsx(
+          'pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-[16px]',
+          'bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)]',
+          'border border-[var(--schemesOutlineVariant)] shadow-lg'
+        )}
+      >
         <CheckIcon size={18} weight="bold" />
         <span className="Blueprint-label-large">{message}</span>
         <button
@@ -92,12 +93,18 @@ export function ShareButton({
 
   const links = [
     {
-      id: 'facebook', label: 'Facebook', icon: <FacebookLogo size={20} weight="fill" />, type: 'link',
-      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`
+      id: 'facebook',
+      label: 'Facebook',
+      icon: <FacebookLogo size={20} weight="fill" />,
+      type: 'link',
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`,
     },
     {
-      id: 'linkedin', label: 'LinkedIn', icon: <LinkedinLogo size={20} weight="fill" />, type: 'link',
-      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
+      id: 'linkedin',
+      label: 'LinkedIn',
+      icon: <LinkedinLogo size={20} weight="fill" />,
+      type: 'link',
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
     },
     { id: 'instagram', label: 'Instagram (copy link)', icon: <InstagramLogo size={20} weight="fill" />, type: 'ig' },
     { id: 'youtube', label: 'YouTube (copy link)', icon: <YoutubeLogo size={20} weight="fill" />, type: 'yt' },
@@ -107,10 +114,18 @@ export function ShareButton({
   useEffect(() => {
     function onDown(e) {
       if (!open) return;
-      if (menuRef.current && !menuRef.current.contains(e.target) &&
-        btnRef.current && !btnRef.current.contains(e.target)) setOpen(false);
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target) &&
+        btnRef.current &&
+        !btnRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
     }
-    function onEsc(e) { if (e.key === 'Escape') setOpen(false); }
+    function onEsc(e) {
+      if (e.key === 'Escape') setOpen(false);
+    }
     window.addEventListener('mousedown', onDown);
     window.addEventListener('keydown', onEsc);
     return () => {
@@ -118,14 +133,6 @@ export function ShareButton({
       window.removeEventListener('keydown', onEsc);
     };
   }, [open]);
-
-  async function nativeShare() {
-    try {
-      await navigator.share({ title: title || document?.title || '', text: summary || '', url: shareUrl });
-    } catch {
-      setOpen(v => !v);
-    }
-  }
 
   async function copyLink(extraText = '') {
     const payload = extraText ? `${extraText}\n${shareUrl}` : shareUrl;
@@ -138,7 +145,6 @@ export function ShareButton({
       if (res !== null) setSnack({ open: true, message: 'Link ready to paste' });
     }
   }
-
 
   async function handleAction(item) {
     if (item.type === 'link') {
@@ -167,8 +173,6 @@ export function ShareButton({
     }
   }
 
-  const canNativeShare = false
-
   return (
     <>
       <div className={clsx('relative inline-block', className)}>
@@ -179,7 +183,7 @@ export function ShareButton({
             variant={variant}
             shape={shape}
             icon={<ShareFat size={20} weight="bold" />}
-            onClick={() => (canNativeShare ? nativeShare() : setOpen(v => !v))}
+            onClick={() => setOpen(true)}          {/* never open native share */}
             className="!bg-[var(--schemesPrimary)] !text-[var(--schemesOnPrimary)]"
           />
         </span>
@@ -223,7 +227,7 @@ export function ShareButton({
       <Snackbar
         open={snack.open}
         message={snack.message}
-        onClose={() => setSnack(s => ({ ...s, open: false }))}
+        onClose={() => setSnack((s) => ({ ...s, open: false }))}
       />
     </>
   );
