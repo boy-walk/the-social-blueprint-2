@@ -183,7 +183,7 @@ export function ShareButton({
             variant={variant}
             shape={shape}
             icon={<ShareFat size={20} weight="bold" />}
-            onClick={() => setOpen(true)}          {/* never open native share */}
+            onClick={() => setOpen(true)}
             className="!bg-[var(--schemesPrimary)] !text-[var(--schemesOnPrimary)]"
           />
         </span>
