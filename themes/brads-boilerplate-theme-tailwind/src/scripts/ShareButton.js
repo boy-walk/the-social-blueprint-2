@@ -167,7 +167,7 @@ export function ShareButton({
     }
   }
 
-  const canNativeShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
+  const canNativeShare = false
 
   return (
     <>
