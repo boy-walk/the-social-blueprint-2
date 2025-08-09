@@ -1,17 +1,16 @@
 <?php
+// functions.php
 
 function boilerplate_load_assets() {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
   wp_enqueue_style('ourmaincss', get_theme_file_uri('/build/index.css'));
 }
-
 add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
 
 function boilerplate_add_support() {
   add_theme_support('title-tag');
   add_theme_support('post-thumbnails');
 }
-
 add_action('after_setup_theme', 'boilerplate_add_support');
 
 add_action('init', function () {
@@ -32,14 +31,13 @@ add_action('wp_enqueue_scripts', 'enqueue_google_fonts');
 
 // 1. Add nonce to localized script
 add_action('wp_enqueue_scripts', function () {
-  wp_enqueue_script('ourmainjs'); // Replace with your actual handle
+  wp_enqueue_script('ourmainjs');
   wp_localize_script('ourmainjs', 'wpApiSettings', [
     'nonce' => wp_create_nonce('wp_rest'),
   ]);
 });
-
 add_action('wp_enqueue_scripts', function () {
-  wp_enqueue_script('ourmainjs'); // Replace with your actual handle
+  wp_enqueue_script('ourmainjs');
   wp_localize_script('ourmainjs', 'WPData', [
     'nonce' => wp_create_nonce('wp_rest'),
   ]);
@@ -60,20 +58,13 @@ add_action('rest_api_init', function () {
 function uwp_custom_register_user(WP_REST_Request $request) {
   $data = $request->get_json_params();
 
-  // Basic validation
-  if (
-    empty($data['email']) ||
-    empty($data['password']) ||
-    empty($data['first_name'])
-  ) {
+  if (empty($data['email']) || empty($data['password']) || empty($data['first_name'])) {
     return new WP_REST_Response(['message' => 'Missing required fields'], 400);
   }
-
   if (!is_email($data['email'])) {
     return new WP_REST_Response(['message' => 'Invalid email'], 400);
   }
 
-  // Create the user
   $user_id = wp_insert_user([
     'user_login' => sanitize_user($data['email']),
     'user_pass'  => $data['password'],
@@ -87,27 +78,22 @@ function uwp_custom_register_user(WP_REST_Request $request) {
     return new WP_REST_Response(['message' => $user_id->get_error_message()], 400);
   }
 
-  // Store checkbox value
   update_user_meta($user_id, 'agree', sanitize_text_field($data['agree']));
-
-  // Notify UsersWP
   do_action('uwp_user_register', $user_id, null, $data);
 
   return new WP_REST_Response(['success' => true], 200);
 }
 
 add_action( 'wp_enqueue_scripts', function () {
-	$handle = 'theme-frontend';                // ← change to your real JS handle
+	$handle = 'theme-frontend';
 	$src    = get_theme_file_uri( 'build/index.js' );
 
-	// enqueue main bundle first (if not already enqueued elsewhere)
 	if ( ! wp_script_is( $handle, 'enqueued' ) ) {
 		wp_enqueue_script( $handle, $src, [ 'wp-api-fetch' ], null, true );
 	}
 
-	// UsersWP provides its own nonce via wp_create_nonce( 'wp_rest' )
 	wp_localize_script( $handle, 'UWP_LOGIN', [
-		'endpoint' => rest_url( 'uwp/v1/login' ), // UsersWP REST route
+		'endpoint' => rest_url( 'uwp/v1/login' ),
 		'nonce'    => wp_create_nonce( 'wp_rest' ),
 	] );
 } );
@@ -121,12 +107,9 @@ add_action('rest_api_init', function () {
 });
 
 function uwp_custom_login_user(WP_REST_Request $request) {
-  file_put_contents(
-    __DIR__ . '/login-debug.log', // adjust path as needed
-    print_r($data, true),
-    FILE_APPEND
-  );
-  $data = $request->get_json_params();
+  $data = $request->get_json_params(); // moved BEFORE debug
+  // optional debug:
+  // file_put_contents(__DIR__ . '/login-debug.log', print_r($data, true), FILE_APPEND);
 
   $creds = [
     'user_login'    => isset($data['email']) ? sanitize_user($data['email']) : '',
@@ -140,7 +123,6 @@ function uwp_custom_login_user(WP_REST_Request $request) {
     return new WP_REST_Response(['message' => $user->get_error_message()], 403);
   }
 
-  // Optional: Set current user + cookie for auth
   wp_set_current_user($user->ID);
   wp_set_auth_cookie($user->ID);
 
@@ -164,7 +146,6 @@ add_action( 'rest_api_init', function () {
 function uwp_custom_register_organisation( WP_REST_Request $request ) {
   $d = $request->get_json_params();
 
-  // --- minimal validation -------------------------------------------------
   foreach ( [ 'email', 'password', 'first_name', 'organisation' ] as $key ) {
     if ( empty( $d[ $key ] ) )
       return new WP_REST_Response( [ 'message' => "Missing field: $key" ], 400 );
@@ -172,7 +153,6 @@ function uwp_custom_register_organisation( WP_REST_Request $request ) {
   if ( ! is_email( $d['email'] ) )
     return new WP_REST_Response( [ 'message' => 'Invalid email' ], 400 );
 
-  // --- create user --------------------------------------------------------
   $user_id = wp_insert_user( [
     'user_login' => sanitize_user( $d['email'] ),
     'user_pass'  => $d['password'],
@@ -180,20 +160,18 @@ function uwp_custom_register_organisation( WP_REST_Request $request ) {
     'first_name' => sanitize_text_field( $d['first_name'] ),
     'last_name'  => sanitize_text_field( $d['last_name'] ),
     'display_name' => sanitize_text_field( $d['organisation'] ),
-    'role'       => 'subscriber',                // or a custom 'organisation' role
+    'role'       => 'subscriber',
   ] );
 
   if ( is_wp_error( $user_id ) )
     return new WP_REST_Response( [ 'message' => $user_id->get_error_message() ], 400 );
 
-  // --- meta + UsersWP fields ---------------------------------------------
   update_user_meta( $user_id, 'organisation_name', sanitize_text_field( $d['organisation'] ) );
   update_user_meta( $user_id, 'business_type',     sanitize_text_field( $d['business_type'] ) );
   update_user_meta( $user_id, 'phone',             sanitize_text_field( $d['phone'] ) );
   update_user_meta( $user_id, 'news_opt_in',       $d['news_opt_in'] === 'yes' ? 'yes' : 'no' );
   update_user_meta( $user_id, 'agree',             $d['agree'] === 'yes' ? 'yes' : 'no' );
 
-  // tell UsersWP
   do_action( 'uwp_user_register', $user_id, null, $d );
 
   return new WP_REST_Response( [ 'success' => true ], 200 );
@@ -202,7 +180,6 @@ function uwp_custom_register_organisation( WP_REST_Request $request ) {
 add_action('init', function () {
   // ===== REGISTER CUSTOM POST TYPES =====
   $post_types = [
-    'event' => 'Event',
     'podcast' => 'Podcast',
     'article' => 'Article',
     'directory' => 'Directory Listing',
@@ -222,15 +199,17 @@ add_action('init', function () {
       ],
       'public' => true,
       'has_archive' => true,
-      'rewrite' => ['slug' => $slug . 's'], // e.g. /podcasts
+      'rewrite' => ['slug' => $slug . 's'],
       'supports' => ['title', 'editor', 'thumbnail', 'excerpt'],
       'show_in_rest' => true,
       'menu_position' => 5,
-      'menu_icon' => 'dashicons-media-document', // Customize per type if you want
+      'menu_icon' => 'dashicons-media-document',
     ]);
   }
+});
 
-  // ===== REGISTER CUSTOM TAXONOMIES =====
+add_action('init', function () {
+  // Your taxonomies and their labels
   $taxonomies = [
     'category'      => 'Category',
     'topic_tag'     => 'Topic',
@@ -254,15 +233,9 @@ add_action('init', function () {
 add_filter('acf/settings/save_json', function ($path) {
   return get_stylesheet_directory() . '/acf-json';
 });
-
-// Load ACF JSON from your theme folder
 add_filter('acf/settings/load_json', function ($paths) {
-  // Remove default path
   unset($paths[0]);
-
-  // Append theme path
   $paths[] = get_stylesheet_directory() . '/acf-json';
-
   return $paths;
 });
 
@@ -316,9 +289,7 @@ add_action('rest_api_init', function () {
   register_rest_route('custom/v1', '/upload-avatar', [
     'methods' => 'POST',
     'callback' => 'custom_upload_avatar',
-    'permission_callback' => function () {
-      return is_user_logged_in();
-    }
+    'permission_callback' => function () { return is_user_logged_in(); }
   ]);
 });
 
@@ -331,14 +302,12 @@ function custom_upload_avatar(WP_REST_Request $request) {
   require_once ABSPATH . 'wp-admin/includes/media.php';
   require_once ABSPATH . 'wp-admin/includes/image.php';
 
-  $file = $_FILES['avatar'];
   $upload = media_handle_upload('avatar', 0);
 
   if (is_wp_error($upload)) {
     return new WP_REST_Response(['message' => $upload->get_error_message()], 400);
   }
 
-  // Save attachment ID to user meta
   $user_id = get_current_user_id();
   update_user_meta($user_id, 'uwp_profile_photo', $upload);
 
@@ -372,3 +341,16 @@ add_action('rest_api_init', function () {
     'permission_callback' => '__return_true',
   ]);
 });
+
+function register_historical_photos_cpt() {
+  register_post_type('historical_photo', [
+    'label' => 'Historical Photos',
+    'public' => false,
+    'show_ui' => true,
+    'exclude_from_search' => true,
+    'show_in_nav_menus' => false,
+    'supports' => ['title', 'thumbnail'],
+    'menu_icon' => 'dashicons-format-image',
+  ]);
+}
+add_action('init', 'register_historical_photos_cpt');

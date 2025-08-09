@@ -8,12 +8,12 @@ import ExploreThemeFive from "../../assets/explore-theme-5.svg"
 
 export const ExploreByTheme = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 w-full justify-items-center">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 w-full justify-items-center sm:justify-items-stretch">
       {[0, 1, 2, 3, 4].map((i) => (
         <Card
           key={i}
           href={i === 0 ? "/community-connect" : `/explore/${i + 1}`}
-          styles="group min-h-[16rem] h-full w-[260px] border-1 border-background-light pt-4"
+          styles="group min-h-[16rem] h-full max-w-[260px] w-full border-1 border-background-light pt-4"
         >
           <div className="flex flex-col justify-between h-full w-full">
             <div className="flex flex-col items-end gap-3">

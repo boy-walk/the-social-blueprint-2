@@ -21,7 +21,6 @@ export function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Contact form submitted:', form);
   };
 
   return (

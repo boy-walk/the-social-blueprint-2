@@ -13,7 +13,7 @@ export function ContentCard({
   fullWidth = false
 }) {
   const cardStyles = `
-    flex flex-col 
+    flex flex-col
     ${fullHeight ? "h-full" : ""} 
     ${fullWidth ? "w-full" : ""} 
     p-2
@@ -22,12 +22,12 @@ export function ContentCard({
   return (
     <Card href={href} styles={cardStyles}>
       <div className="flex flex-col">
-        <div className="flex-grow rounded-lg overflow-hidden relative aspect-[5/2.5] bg-gray-100 max-h-75">
+        <div className={`flex-grow rounded-lg overflow-hidden relative ${fullWidth ? "aspect-[2]" : "aspect-[1]"} bg-gray-100 max-h-75`}>
           {image && (
             <img
               src={image}
               alt={title}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-cover"
             />
           )}
           {badge && (
@@ -43,7 +43,7 @@ export function ContentCard({
                 {date}
               </div>
             )}
-            <h3 className="Blueprint-body-large-emphasized line-clamp-1 min-h-[2.2em]">{title}</h3>
+            <h3 className="Blueprint-body-large-emphasized line-clamp-2">{title}</h3>
             {subtitle && (
               <p className="text-sm text-schemesOnSurfaceVariant line-clamp-2">{subtitle}</p>
             )}

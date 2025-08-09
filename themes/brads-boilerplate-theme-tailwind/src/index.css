@@ -352,3 +352,7 @@
   display: none;
   /* For Chrome, Safari, and Opera */
 }
+
+.tsb-events-sidebar {
+  min-height: 320px;
+}

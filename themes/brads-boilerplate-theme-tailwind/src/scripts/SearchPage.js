@@ -54,7 +54,7 @@ export function SearchPage({ query, results }) {
             {paginatedResults.map((item) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 sm:w-[calc(50%-12px)] lg:w-[calc(19%-18px)] max-w-[280px]"
+                className="sm:w-[calc(50%-12px)] lg:w-[calc(19%-18px)] max-w-[280px]"
               >
                 <ContentCard
                   image={item.thumbnail}

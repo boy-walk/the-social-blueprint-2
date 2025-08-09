@@ -1,0 +1,7 @@
+@import "/src/colour-classes.css";
+@import "/src/path-to/font-classes.css";
+
+/* then all your Tailwind stuff */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

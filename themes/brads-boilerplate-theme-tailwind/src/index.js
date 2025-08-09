@@ -39,7 +39,8 @@ if (el1) {
   const podcasts = JSON.parse(el1.dataset.podcasts || '[]');
   const messageBoardPosts = JSON.parse(el1.dataset.messageBoardPosts || '[]');
   const dynamicProps = JSON.parse(el1.dataset.dynamicProps || '{}');
-  ReactDOM.createRoot(el1).render(<SectionOne events={events} podcasts={podcasts} messageBoardPosts={messageBoardPosts} dynamicProps={dynamicProps} />);
+  const historicalPhotos = JSON.parse(el1.dataset.historicalPhotos || '[]');
+  ReactDOM.createRoot(el1).render(<SectionOne events={events} podcasts={podcasts} messageBoardPosts={messageBoardPosts} dynamicProps={dynamicProps} historicalPhotos={historicalPhotos} />);
 }
 
 const el2 = document.getElementById('sponsorship-banner');
@@ -51,7 +52,6 @@ if (el2) {
 const el3 = document.getElementById('single-event-page');
 if (el3) {
   const data = JSON.parse(el3.dataset.event);
-  console.log('Single Event Data:');
   ReactDOM.createRoot(el3).render(<SingleEventPage {...data} />);
 }
 
@@ -94,13 +94,15 @@ const el11 = document.getElementById('podcast-root');
 if (el11) {
   const props = {
     title: el11.dataset.title,
+    date: el11.dataset.date,
     subtitle: el11.dataset.subtitle,
     videoUrl: el11.dataset.videoUrl,
     sections: JSON.parse(el11.dataset.sections),
     tags: JSON.parse(el11.dataset.tags),
     moreInterviews: JSON.parse(el11.dataset.moreInterviews) || [],
+    author: JSON.parse(el11.dataset.authorObj),
+    taxonomies: JSON.parse(el11.dataset.taxonomies || '{}'),
   };
-  console.log(props)
   ReactDOM.createRoot(el11).render(<PodcastPage {...props} />);
 }
 
@@ -108,7 +110,6 @@ const el12 = document.getElementById('search-root');
 if (el12) {
   const query = el12.getAttribute("data-query") || '';
   const results = JSON.parse(el12.getAttribute("data-results"))
-  console.log(results)
   ReactDOM.createRoot(el12).render(<SearchPage query={query} results={results} />);
 }
 

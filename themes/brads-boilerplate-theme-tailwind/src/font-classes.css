@@ -168,7 +168,7 @@
 
 .Blueprint-label-medium-emphasized {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 16px;
   letter-spacing: 0.5px;
   font-family: 'Roboto', sans-serif;
@@ -177,7 +177,7 @@
 
 .Blueprint-label-small {
   font-weight: 500;
-  font-size: 11px;
+  font-size: 14px;
   line-height: 16px;
   letter-spacing: 0.5px;
   font-family: 'IBM Plex Sans Condensed', sans-serif;

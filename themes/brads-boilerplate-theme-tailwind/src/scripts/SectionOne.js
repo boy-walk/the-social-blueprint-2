@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Button } from './Button';
 import PillTag from './PillTag';
 import { ExploreByTheme } from './ExploreByTheme';
@@ -7,8 +7,10 @@ import { StarIcon } from '@phosphor-icons/react';
 import { MessageBoardSlider } from './MessageBoardSlider';
 import { ListingCallout } from './ListingCallout';
 import { NewsletterBanner } from './NewsletterBanner';
+import { PdfFlipBook } from './PdfFlipBook';
 
-export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps }) => {
+export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, historicalPhotos }) => {
+  console.log(historicalPhotos)
   return (
     <div>
       <div className="max-w-[1600px] mx-auto">
@@ -24,7 +26,7 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps }
           </div>
         </div>
         <div className="w-full flex justify-center pb-8">
-          <div className="max-w-[1400px] w-full px-4 lg:px-0">
+          <div className="max-w-[1400px] w-full px-12 lg:px-0">
             <ExploreByTheme />
           </div>
         </div>
@@ -107,6 +109,22 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps }
           <DynamicSection dynamicProps={dynamicProps} />
         </div>
         <div className="py-16 px-4 sm:px-8 lg:px-16">
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4 items-center justify-center mb-4">
+              <h2 className="Blueprint-headline-large text-schemesOnSurface italic">
+                Historical photos from the archive
+              </h2>
+              <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
+                A gallery showcasing the rich history of our community
+              </p>
+            </div>
+            <HistoricalPhotosSection historicalPhotos={historicalPhotos} />
+          </div>
+        </div>
+        <div className="pb-16 px-4 sm:px-8 lg:px-16">
+          <ThankYouBanner />
+        </div>
+        <div className="py-16 px-4 sm:px-8 lg:px-16">
           <NewsletterBanner />
         </div>
       </div>
@@ -142,7 +160,8 @@ export const ArrowIcon = () => (
   </div>
 );
 
-export const DynamicSection = ({ dynamicProps }) => {
+const DynamicSection = ({ dynamicProps }) => {
+  console.log(dynamicProps)
   return (
     <div className="flex w-full gap-8 flex-col lg:flex-row h-150">
       <div className="flex flex-col flex-2 gap-8 justify-between">
@@ -166,8 +185,77 @@ export const DynamicSection = ({ dynamicProps }) => {
         </div>
       </div>
       <div className="flex-1">
-        <div className="bg-black rounded-xl h-full w-full min-h-[200px] shadow-3x3"></div>
+        <div className="rounded-xl h-full w-full min-h-[200px] shadow-3x3">
+          <PdfFlipBook pdfUrl={dynamicProps.pdfUrl} />
+        </div>
+      </div>
+    </div>
+  )
+};
+
+const HistoricalPhotosSection = ({ historicalPhotos }) => {
+  const scrollRef = useRef(null)
+  const scrollSpeed = 0.65 // px per frame (~30px/sec)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    let frame
+
+    const autoScroll = () => {
+      el.scrollLeft += scrollSpeed
+      if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
+        el.scrollLeft = 0 // loop back
+      }
+      frame = requestAnimationFrame(autoScroll)
+    }
+
+    frame = requestAnimationFrame(autoScroll)
+
+    return () => cancelAnimationFrame(frame)
+  }, [])
+
+  const historicalPhotosTimesTwo = historicalPhotos.concat(historicalPhotos)
+
+  return (
+    <div className="overflow-hidden">
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto scrollbar-hidden"
+      >
+        {historicalPhotosTimesTwo.map((photo) => (
+          <div key={photo.id} className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/2">
+            <div className="rounded-lg aspect-[5/3] overflow-hidden shadow-lg">
+              <img
+                src={photo.image}
+                alt={photo.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="Blueprint-title-medium">{photo.title}</h3>
+              <p className="text-sm text-schemesOnSurfaceVariant">{photo.subtitle}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )
 }
+
+const ThankYouBanner = () => (
+  <div className="bg-schemesInverseSurface rounded-xl shadow-3x2">
+    <div className="flex flex-col justify-center items-center w-full p-6">
+      <h2 className="Blueprint-headline-medium-emphasized text-schemesOnSecondary">
+        Thank you to the Jack and
+      </h2>
+      <h2 className="Blueprint-headline-medium-emphasized text-schemesOnSecondary mb-4">
+        Robert Smorgon Families Foundation
+      </h2>
+      <p className="Blueprint-body-large text-schemesOnSecondary">
+        For their continued support and sponsorship of The Social Blueprint mission.
+      </p>
+    </div>
+  </div>
+)

@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 
 export function AccountDashboard({ user, events }) {
   const { t } = useTranslation();
-  console.log(events)
   return (
     <div className="min-h-screen">
       <div className="px-6 lg:px-16 py-8 bg-schemesPrimaryFixed ">

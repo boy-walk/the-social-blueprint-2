@@ -1,74 +1,118 @@
 import React from "react";
 import { MoreInterviews } from "./MoreInterviews";
+import { Tag } from "./Tag";
+import { ExploreByTheme } from "./ExploreByTheme";
+import PillTag from "./PillTag";
+import { ShareButton } from "./ShareButton";
 
 export default function PodcastPage({
   title,
+  date,
   subtitle,
   videoUrl,
   sections,
   tags,
-  moreInterviews
+  moreInterviews,
+  author,
 }) {
+  console.log(author)
   return (
-    <main className="bg-schemesSurface text-schemesOnSurface py-12 px-4 lg:px-16">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-7xl mx-auto sm:px-6">
-        <div className="flex-1 space-y-10">
-          <header className="space-y-2">
-            <h1 className="Blueprint-headline-large leading-tight">{title}</h1>
-            {subtitle && (
-              <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
-                {subtitle}
-              </p>
-            )}
-          </header>
-
-          {videoUrl && (
-            <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
-              <iframe
-                src={videoUrl.replace("watch?v=", "embed/")}
-                title="Podcast Video"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
+    <main className="bg-schemesSurface text-schemesOnSurface">
+      <div className="py-12 px-4 lg:px-16">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-7xl mx-auto sm:px-6">
+          <div className="flex-1 space-y-10">
+            <header className="space-y-2">
+              <h1 className="Blueprint-headline-large leading-tight">{title}</h1>
+              {subtitle && (
+                <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
+                  {subtitle}
+                </p>
+              )}
+            </header>
+            <div className="flex flex-col gap-4">
+              {videoUrl && (
+                <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
+                  <iframe
+                    src={videoUrl.replace("watch?v=", "embed/")}
+                    title="Podcast Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  ></iframe>
+                </div>
+              )}
+              <div className="flex justify-between">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={author?.avatar || "/default-avatar.png"}
+                    alt={author?.name || "Podcast Author"}
+                    className="w-10 h-10 rounded-full"
+                  />
+                  <div className="flex flex-col gap-1">
+                    <div className="Blueprint-title-medium">
+                      {author?.name ? `${author.name}` : "Podcast Author"}
+                    </div>
+                    <div className="Blueprint-label-large">
+                      {date
+                        ? new Date(date).toLocaleDateString("en-AU", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
+                        : "No date provided"}
+                    </div>
+                  </div>
+                </div>
+                <ShareButton
+                  title="Understanding Kindness in a Strained World"
+                  summary="Great read from Rabbi Yaakov Glasman AM"
+                  url={typeof window !== 'undefined' ? window.location.href : undefined}
+                />
+              </div>
             </div>
-          )}
 
-          <section className="space-y-6 max-w-3xl">
-            {sections.map((section, index) => (
-              <div
-                key={index}
-                className="prose [&_ul]:list-disc [&_ul]:pl-5 break-words prose-a:break-all"
-                dangerouslySetInnerHTML={{ __html: section.text }}
-              />
-            ))}
-          </section>
-
-          {tags?.length > 0 && (
-            <div className="flex flex-wrap gap-2 pt-4">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-schemesSurfaceVariant text-schemesOnSurface px-3 py-1 rounded-full text-sm"
-                >
-                  {tag}
-                </span>
+            <section className="space-y-6 max-w-3xl">
+              {sections.map((section, index) => (
+                <div
+                  key={index}
+                  className="prose [&_ul]:list-disc [&_ul]:pl-5 break-words prose-a:break-all"
+                  dangerouslySetInnerHTML={{ __html: section.text }}
+                />
               ))}
+            </section>
+            {tags?.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-4">
+                {tags.map((tag) => (
+                  <Tag key={tag} tagName={tag} />
+                ))}
+              </div>
+            )}
+          </div>
+          <aside className="w-full lg:w-80 space-y-4 sticky top-16">
+            <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant">Related Content</h2>
+            <div className="bg-white rounded-lg shadow-inner h-64 flex items-center justify-center">
+              <span className="text-schemesOutline">Related content placeholder</span>
             </div>
-          )}
+          </aside>
         </div>
 
-        <aside className="w-full lg:w-80 space-y-4 sticky top-12">
-          <h2 className="Blueprint-headline-small-emphasized">Related Content</h2>
-          <div className="bg-white rounded-lg shadow-inner h-64 flex items-center justify-center">
-            <span className="text-schemesOutline">Related content placeholder</span>
-          </div>
-        </aside>
+        <div className="max-w-7xl mx-auto sm:px-6 mt-20">
+          <MoreInterviews items={moreInterviews} />
+        </div>
       </div>
-
-      <div className="max-w-7xl mx-auto sm:px-6 mt-20">
-        <MoreInterviews items={moreInterviews} />
+      <div className="bg-schemesPrimaryFixed w-full">
+        <div className="py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4">
+          <div className="flex gap-3 items-center">
+            <div className="Blueprint-headline-medium italic">
+              Explore more by
+            </div>
+            <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
+          </div>
+          <div className="Blurprint-title-large mb-12 text-schemesOnSurface">
+            From support services to creative culture, start where you're curious.
+          </div>
+          <ExploreByTheme />
+        </div>
       </div>
     </main >
   );

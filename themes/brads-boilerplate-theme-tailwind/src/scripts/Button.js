@@ -71,7 +71,6 @@ export function Button({
     ),
   }[variant];
 
-  /* ---------- disabled overlay ---------- */
   const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
 
   return (

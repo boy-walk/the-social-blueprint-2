@@ -114,11 +114,13 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
       </div>
       {/* Events */}
       <div className="py-16 px-4 sm:px-8 lg:px-16 bg-schemesSecondaryFixed">
-        <div className="flex items-center gap-2 mb-6">
-          <h2 className="Blueprint-headline-medium text-schemesOnSecondaryFixed">What's on this week</h2>
-          <ArrowIcon className="text-schemesOnSecondaryFixed" />
+        <div className="max-w-[1500px] mx-auto">
+          <div className="flex items-center gap-2 mb-6">
+            <h2 className="Blueprint-headline-medium text-schemesOnSecondaryFixed">What's on this week</h2>
+            <ArrowIcon className="text-schemesOnSecondaryFixed" />
+          </div>
+          <EventsSlider events={events} />
         </div>
-        <EventsSlider events={events} />
       </div>
       <div className="max-w-[1600px] mx-auto">
         {/* Browse All */}
@@ -153,7 +155,6 @@ function BrowseAllCommunity({ posts }) {
   ];
   const [activeFilter, setActiveFilter] = useState("All");
   const [page, setPage] = useState(0);
-  console.log(posts)
 
   const filteredPosts = useMemo(() => {
     if (activeFilter === "All") return posts;

@@ -31,14 +31,11 @@ $author_name = $first || $last
   ? trim( $first . ' ' . $last )
   : get_the_author_meta( 'display_name', $author_id );
 
-$uwp_avatar_id = get_user_meta($author_id, 'uwp_profile_photo', true);
-$avatar_url = $uwp_avatar_id ? wp_get_attachment_url($uwp_avatar_id) : get_avatar_url($author_id, ['size' => 96]);
-
 $author_obj = [
   'id'     => $author_id,
   'name'   => $author_name,
   'url'    => get_author_posts_url($author_id),
-  'avatar' => $avatar_url,
+  'avatar' => get_avatar_url($author_id, ['size' => 96]),
   // add more if needed:
   // 'bio' => get_the_author_meta('description', $author_id),
 ];

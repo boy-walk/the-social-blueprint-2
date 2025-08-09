@@ -8,8 +8,6 @@ export default function FeaturedPostLayout({ posts }) {
   const hero = posts[0];
   const stack = posts.slice(1, 3);
 
-  console.log(hero.date)
-
   const getBadge = (type) => {
     switch (type?.toLowerCase()) {
       case 'podcast':

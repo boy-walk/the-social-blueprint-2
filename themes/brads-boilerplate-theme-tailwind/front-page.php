@@ -73,6 +73,22 @@ $dynamic_props = [
   'image2' => $callout_two ? $callout_two : null,
   'pdfUrl' => $pdf_flipbook ? $pdf_flipbook : null,
 ];
+
+$historical_photos = get_posts([
+  'post_type' => 'historical_photo',
+  'posts_per_page' => 12,
+  'orderby' => 'rand',
+]);
+
+
+$carouselData = array_map(function($photo) {
+  return [
+    'image' => get_field('image', $photo->ID),
+    'title' => get_field('title', $photo->ID),
+    'subtitle' => get_field('subtitle', $photo->ID),
+    'date' => get_field('date', $photo->ID),
+  ];
+}, $historical_photos);
 ?>
 
 
@@ -80,7 +96,8 @@ $dynamic_props = [
      data-events='<?php echo esc_attr(json_encode($events)); ?>'
      data-podcasts='<?php echo esc_attr(json_encode($podcast_posts)); ?>'
      data-message-board-posts='<?php echo esc_attr(json_encode($message_board_posts)); ?>'
-      data-dynamic-props='<?php echo esc_attr(json_encode($dynamic_props)); ?>'
+    data-dynamic-props='<?php echo esc_attr(json_encode($dynamic_props)); ?>'
+    data-historical-photos='<?php echo esc_attr(json_encode($carouselData)); ?>'
 >
 </div>
 <!-- <?php
