@@ -91,7 +91,7 @@ export function AboutUs(props) {
       </div>
       <div className="max-w-[1600px] p-8 lg:p16 mx-auto">
         <div className="Blueprint-headline-large text-center text-schemesOnSurface mb-6">{featuredVideo.title}</div>
-        <div className="Blueprint-body-large text-center text-schemesOnSurfaceVariant mb-8">
+        <div className="Blueprint-body-large text-center text-schemesOnSurfaceVariant mb-20 mx-auto max-w-xl">
           {featuredVideo.description}
         </div>
         <div className="rounded-xl overflow-hidden bg-palettesNeutral10/20 max-w-[1400px] mx-auto">

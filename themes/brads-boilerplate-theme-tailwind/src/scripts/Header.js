@@ -33,7 +33,7 @@ export default function Header({ isUserLoggedIn = false }) {
             <Button label={t('whats_on')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/events'} />
             <Button label={t('directory')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/directory'} />
             <Button label={t('blueprint_stories')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/stories'} />
-            <Button label={t('about_us')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/about'} />
+            <Button label={t('about_us')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/about-us'} />
             <Button label={t('message_board')} className="text-white" size="sm" variant="text" onClick={() => window.location.href = '/message-board'} />
           </nav>
           <div className="flex gap-4">

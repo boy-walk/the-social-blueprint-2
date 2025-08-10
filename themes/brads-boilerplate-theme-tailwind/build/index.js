@@ -7702,7 +7702,7 @@ function AboutUs(props) {
         className: "Blueprint-headline-large text-center text-schemesOnSurface mb-6",
         children: featuredVideo.title
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "Blueprint-body-large text-center text-schemesOnSurfaceVariant mb-8",
+        className: "Blueprint-body-large text-center text-schemesOnSurfaceVariant mb-20 mx-auto max-w-xl",
         children: featuredVideo.description
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "rounded-xl overflow-hidden bg-palettesNeutral10/20 max-w-[1400px] mx-auto",
@@ -9481,7 +9481,7 @@ function Header({
             className: "text-white",
             size: "sm",
             variant: "text",
-            onClick: () => window.location.href = '/about'
+            onClick: () => window.location.href = '/about-us'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('message_board'),
             className: "text-white",
