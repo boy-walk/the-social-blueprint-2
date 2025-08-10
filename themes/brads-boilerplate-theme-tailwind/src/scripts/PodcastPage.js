@@ -4,6 +4,8 @@ import { Tag } from "./Tag";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { ShareButton } from "./ShareButton";
+import { DetailedCard } from "./DetailedCard";
+import { RelatedContentCard } from "./RelatedContentCard";
 
 export default function PodcastPage({
   title,
@@ -14,12 +16,12 @@ export default function PodcastPage({
   tags,
   moreInterviews,
   author,
+  relatedContent = [],
 }) {
-  console.log(author)
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="py-12 px-4 lg:px-16">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-7xl mx-auto sm:px-6">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-[1600px] mx-auto sm:px-6">
           <div className="flex-1 space-y-10">
             <header className="space-y-2">
               <h1 className="Blueprint-headline-large leading-tight">{title}</h1>
@@ -88,15 +90,38 @@ export default function PodcastPage({
               </div>
             )}
           </div>
-          <aside className="w-full lg:w-80 space-y-4 sticky top-16">
-            <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant">Related Content</h2>
-            <div className="bg-white rounded-lg shadow-inner h-64 flex items-center justify-center">
-              <span className="text-schemesOutline">Related content placeholder</span>
+          <aside className="w-full h-full lg:w-80 space-y-4 sticky top-16">
+            <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant">
+              Related Content
+            </h2>
+            <div className="rounded-lg flex items-stretch justify-center">
+              <div className="flex flex-col gap-2 w-full">
+                {relatedContent.length > 0 ? (
+                  relatedContent.map((item) => (
+                    <RelatedContentCard
+                      key={item.id}
+                      image={item.thumbnail}
+                      title={item.title}
+                      href={item.link}
+                    />
+                  ))
+                ) : (
+                  <p className="text-schemesOnSurfaceVariant">
+                    No related content available.
+                  </p>
+                )}
+                <a href="/topics" className="mt-2">
+                  <div className="Blueprint-label-large underline text-schemesPrimary" >
+                    Explore all topics
+                  </div>
+                </a>
+              </div>
             </div>
           </aside>
+
         </div>
 
-        <div className="max-w-7xl mx-auto sm:px-6 mt-20">
+        <div className="max-w-[1600px] mx-auto sm:px-6 mt-20">
           <MoreInterviews items={moreInterviews} />
         </div>
       </div>

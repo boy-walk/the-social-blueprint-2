@@ -1,6 +1,5 @@
 import React from "react";
 import { Card } from "./Card";
-import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { ArrowIcon } from "../../assets/icons/arrow";
 
 export function DetailedCard({
@@ -15,7 +14,7 @@ export function DetailedCard({
   return (
     <Card styles="h-full">
       <a href={href || "#"} className="flex h-full w-full gap-4 group">
-        <div className="aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden p-2">
+        <div className="lg:aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden p-2">
           {image && (
             <img
               src={image}
@@ -25,9 +24,8 @@ export function DetailedCard({
           )}
         </div>
 
-        {/* Right content */}
-        <div className="flex flex-col justify-between w-full h-full p-4">
-          <div className="space-y-1 py-2">
+        <div className="flex flex-col justify-between w-full h-full p-2 lg:p-4">
+          <div className="space-y-1 py-1 lg:py-2">
             {date && (
               <p className="Blueprint-body-medium text-schemesOnSurfaceVariant">
                 {date}

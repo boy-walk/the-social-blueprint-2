@@ -3,7 +3,6 @@ import { Card } from "./Card";
 
 export function ContentCard({
   image,
-  type,
   title,
   date,
   subtitle,
