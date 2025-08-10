@@ -107,7 +107,7 @@ export function AboutUs(props) {
 
 export const TimelineSection = ({ timeline = [], intro = "" }) => {
   return (
-    <div className="flex gap-16 self-stretch">
+    <div className="flex flex-col lg:flex-row gap-16 self-stretch">
       <div className="flex flex-col gap-4">
         <h2 className="Blueprint-headline-large text-schemesOnSurface">
           {intro}
