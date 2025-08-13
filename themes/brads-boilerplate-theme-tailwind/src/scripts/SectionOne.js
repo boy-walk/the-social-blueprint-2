@@ -10,7 +10,6 @@ import { NewsletterBanner } from './NewsletterBanner';
 import { PdfFlipBook } from './PdfFlipBook';
 
 export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, historicalPhotos }) => {
-  console.log(historicalPhotos)
   return (
     <div>
       <div className="max-w-[1600px] mx-auto">
@@ -193,56 +192,150 @@ const DynamicSection = ({ dynamicProps }) => {
   )
 };
 
-const HistoricalPhotosSection = ({ historicalPhotos }) => {
-  const scrollRef = useRef(null)
-  const scrollSpeed = 0.65 // px per frame (~30px/sec)
+const HistoricalPhotosSection = ({ historicalPhotos = [], speed = 12, pauseOnHover = true }) => {
+  const scrollRef = useRef(null);
 
+  // state refs
+  const rafRef = useRef(0);
+  const posRef = useRef(0);           // float position for smooth low speeds
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const startScrollRef = useRef(0);
+  const pauseAutoRef = useRef(false);
+  const resumeTimerRef = useRef(null);
+
+  // drag to scroll (pointer events)
   useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
+    const el = scrollRef.current;
+    if (!el) return;
 
-    let frame
+    const onPointerDown = (e) => {
+      // only left/mouse/touch
+      isDraggingRef.current = true;
+      pauseAutoRef.current = true;
+      startXRef.current = e.clientX;
+      startScrollRef.current = el.scrollLeft;
+      posRef.current = el.scrollLeft;
+      el.setPointerCapture?.(e.pointerId);
+      el.classList.add("cursor-grabbing");
+    };
 
-    const autoScroll = () => {
-      el.scrollLeft += scrollSpeed
-      if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
-        el.scrollLeft = 0 // loop back
+    const onPointerMove = (e) => {
+      if (!isDraggingRef.current) return;
+      // prevent text/image selection and native drag
+      e.preventDefault();
+      const dx = e.clientX - startXRef.current;
+      const next = startScrollRef.current - dx;
+      el.scrollLeft = next;
+      posRef.current = next;
+    };
+
+    const endDrag = (e) => {
+      if (!isDraggingRef.current) return;
+      isDraggingRef.current = false;
+      el.classList.remove("cursor-grabbing");
+      el.releasePointerCapture?.(e.pointerId);
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = setTimeout(() => (pauseAutoRef.current = false), 800);
+    };
+
+    // kill native image drag (this was the big blocker)
+    const preventNativeDrag = (ev) => ev.preventDefault();
+
+    el.addEventListener("pointerdown", onPointerDown, { passive: true });
+    el.addEventListener("pointermove", onPointerMove, { passive: false }); // must be non-passive to preventDefault
+    el.addEventListener("pointerup", endDrag, { passive: true });
+    el.addEventListener("pointercancel", endDrag, { passive: true });
+    // NOTE: no pointerleave handler; pointer capture keeps events on the element
+
+    el.addEventListener("dragstart", preventNativeDrag); // prevent img drag-ghost
+
+    return () => {
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", endDrag);
+      el.removeEventListener("pointercancel", endDrag);
+      el.removeEventListener("dragstart", preventNativeDrag);
+    };
+  }, []);
+
+  // pause on hover (desktop)
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || !pauseOnHover) return;
+    const onEnter = () => (pauseAutoRef.current = true);
+    const onLeave = () => (pauseAutoRef.current = false);
+    el.addEventListener("mouseenter", onEnter);
+    el.addEventListener("mouseleave", onLeave);
+    return () => {
+      el.removeEventListener("mouseenter", onEnter);
+      el.removeEventListener("mouseleave", onLeave);
+    };
+  }, [pauseOnHover]);
+
+  // auto-scroll (speed = px/sec)
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    posRef.current = el.scrollLeft;
+    let last = performance.now();
+
+    const loop = (now) => {
+      const dt = Math.min(64, now - last);
+      last = now;
+
+      if (!pauseAutoRef.current && !isDraggingRef.current && speed > 0) {
+        posRef.current += (speed * dt) / 1000;
+        const max = el.scrollWidth - el.clientWidth;
+        if (posRef.current >= max) posRef.current = 0; // seamless loop
+        el.scrollLeft = posRef.current;
       }
-      frame = requestAnimationFrame(autoScroll)
-    }
+      rafRef.current = requestAnimationFrame(loop);
+    };
 
-    frame = requestAnimationFrame(autoScroll)
+    rafRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [speed]);
 
-    return () => cancelAnimationFrame(frame)
-  }, [])
+  if (!historicalPhotos?.length) return null;
 
-  const historicalPhotosTimesTwo = historicalPhotos.concat(historicalPhotos)
+  const historicalPhotosTimesThree = historicalPhotos.concat(historicalPhotos, historicalPhotos);
 
   return (
     <div className="overflow-hidden">
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hidden"
+        className="flex gap-4 overflow-x-auto scrollbar-hidden select-none cursor-grab"
+        style={{
+          touchAction: "pan-y",              // allow vertical page scroll; we manage horizontal
+          overscrollBehaviorX: "contain",     // contain horizontal overscroll
+          WebkitUserSelect: "none",
+          userSelect: "none",
+        }}
+        aria-label="Historical photos carousel"
+        role="region"
       >
-        {historicalPhotosTimesTwo.map((photo) => (
+        {historicalPhotosTimesThree.map((photo) => (
           <div key={photo.id} className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/2">
             <div className="rounded-lg aspect-[5/3] overflow-hidden shadow-lg">
               <img
                 src={photo.image}
                 alt={photo.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover pointer-events-none"
+                loading="lazy"
+                draggable={false}               // stop native image drag
               />
             </div>
             <div className="p-4">
               <h3 className="Blueprint-title-medium">{photo.title}</h3>
-              <p className="text-sm text-schemesOnSurfaceVariant">{photo.subtitle}</p>
+              <p className="Blueprint-body-small text-schemesOnSurfaceVariant">{photo.subtitle}</p>
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const ThankYouBanner = () => (
   <div className="bg-schemesInverseSurface rounded-xl shadow-3x2">

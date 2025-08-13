@@ -8243,88 +8243,119 @@ function ArticlePage({
   subtitle,
   imageUrl,
   content,
-  tags,
-  moreArticles,
+  tags = [],
   author,
-  relatedContent = []
+  relatedContent = [],
+  // new (optional) props to match the design; safe empty states
+  moreFromAuthor = [],
+  moreArticles = [],
+  trendingTopics = [],
+  thoughtLeaders = []
 }) {
+  const formattedDate = date ? new Date(date).toLocaleDateString("en-AU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  }) : "No date provided";
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("main", {
     className: "bg-schemesSurface text-schemesOnSurface",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      className: "py-12 px-4 lg:px-16",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-[1600px] mx-auto sm:px-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "py-8 sm:py-10 lg:py-12",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_20rem] gap-8 lg:gap-12 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex-1 space-y-10",
+          className: "min-w-0 space-y-8 lg:space-y-10",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("header", {
             className: "space-y-2",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
-              className: "Blueprint-headline-large leading-tight",
+              className: "Blueprint-headline-large lg:Blueprint-display-small-emphasized leading-tight",
               children: title
             }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
-              className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+              className: "Blueprint-body-large text-schemesOnSurfaceVariant max-w-[68ch]",
               children: subtitle
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: "flex flex-col gap-4",
             children: [imageUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              className: "w-full aspect-video rounded-xl overflow-hidden shadow-md",
+              className: "w-full rounded-xl overflow-hidden shadow-md",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
                 src: imageUrl,
-                alt: title,
-                className: "w-full h-full"
+                alt: title || "",
+                className: "w-full h-auto block",
+                loading: "lazy"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-              className: "flex justify-between",
+              className: "flex flex-wrap items-start sm:items-center justify-between gap-4",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                 className: "flex items-center gap-4",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
                   src: author?.avatar || "/default-avatar.png",
-                  alt: author?.name || "Podcast Author",
+                  alt: author?.name || "Author",
                   className: "w-10 h-10 rounded-full"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                   className: "flex flex-col gap-1",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                     className: "Blueprint-title-medium",
-                    children: author?.name ? `${author.name}` : "Podcast Author"
+                    children: author?.name || "Author"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                    className: "Blueprint-label-large",
-                    children: date ? new Date(date).toLocaleDateString("en-AU", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric"
-                    }) : "No date provided"
+                    className: "Blueprint-label-large text-schemesOnSurfaceVariant",
+                    children: formattedDate
                   })]
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ShareButton__WEBPACK_IMPORTED_MODULE_4__.ShareButton, {
-                title: "Understanding Kindness in a Strained World",
-                summary: "Great read from Rabbi Yaakov Glasman AM",
-                url: typeof window !== 'undefined' ? window.location.href : undefined
+                title: title,
+                summary: subtitle || "",
+                url: typeof window !== "undefined" ? window.location.href : undefined
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
-            className: "space-y-6",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              className: "prose [&_ul]:list-disc [&_ul]:pl-5 break-words prose-a:break-all",
+            className: "space-y-6 lg:space-y-7 max-w-3xl",
+            children: content ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline",
               dangerouslySetInnerHTML: {
                 __html: content
               }
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+              className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+              children: "Content coming soon."
             })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "rounded-xl bg-palettesPrimary100 p-5 sm:p-6 lg:p-7 flex gap-4 items-start",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "w-12 h-12 rounded-lg bg-red-500/20 text-red-900 flex items-center justify-center shrink-0",
+              children: "!"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "min-w-0",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "Blueprint-headline-small-emphasized mb-1",
+                children: "Wanna hear more from us?"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+                children: "Subscribe to our newsletter"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+              href: "/subscribe",
+              className: "ml-auto self-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "Blueprint-label-large underline text-schemesPrimary",
+                children: "Subscribe"
+              })
+            })]
           }), tags?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            className: "flex flex-wrap gap-2 pt-4",
+            className: "flex flex-wrap gap-2 pt-2",
             children: tags.map(tag => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_1__.Tag, {
               tagName: tag
             }, tag))
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("aside", {
-          className: "w-full h-full lg:w-80 space-y-4 sticky top-16",
+          className: "w-full h-full space-y-4 lg:sticky lg:top-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
             className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant",
             children: "Related Content"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            className: "rounded-lg flex items-stretch justify-center",
+            className: "rounded-lg",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-              className: "flex flex-col gap-2 w-full",
+              className: "flex flex-col gap-2",
               children: [relatedContent.length > 0 ? relatedContent.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_RelatedContentCard__WEBPACK_IMPORTED_MODULE_6__.RelatedContentCard, {
                 image: item.thumbnail,
                 title: item.title,
@@ -8334,22 +8365,129 @@ function ArticlePage({
                 children: "No related content available."
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                 href: "/topics",
-                className: "mt-2",
+                className: "mt-1",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                   className: "Blueprint-label-large underline text-schemesPrimary",
                   children: "Explore all topics"
                 })
               })]
             })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: trendingTopics.length ? "" : "bg-red-500/10 p-3 rounded",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
+              className: "Blueprint-title-medium-emphasized text-schemesOnSurfaceVariant",
+              children: "Trending Topics"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "mt-2 flex flex-wrap gap-2",
+              children: trendingTopics.length ? trendingTopics.map(t => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_1__.Tag, {
+                tagName: t
+              }, t)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "Blueprint-label-large text-red-900",
+                children: "placeholder"
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: thoughtLeaders.length ? "" : "bg-red-500/10 p-3 rounded",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
+              className: "Blueprint-title-medium-emphasized text-schemesOnSurfaceVariant",
+              children: "Thought Leaders"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "mt-2 space-y-2",
+              children: thoughtLeaders.length ? thoughtLeaders.map(p => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                className: "flex items-center justify-between gap-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  className: "flex items-center gap-3",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                    src: p.avatar || "/default-avatar.png",
+                    alt: p.name,
+                    className: "w-8 h-8 rounded-full",
+                    loading: "lazy"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "Blueprint-label-large",
+                    children: p.name
+                  })]
+                }), p.href && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                  href: p.href,
+                  className: "Blueprint-label-large underline text-schemesPrimary",
+                  children: "View"
+                })]
+              }, p.id || p.name)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "Blueprint-label-large text-red-900",
+                children: "placeholder"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+              href: "/thought-leaders",
+              className: "Blueprint-label-large underline text-schemesPrimary",
+              children: "See more suggestions"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "space-y-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
+              className: "Blueprint-title-medium-emphasized text-schemesOnSurfaceVariant",
+              children: "Looking for something else?"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("form", {
+              action: "/search",
+              method: "get",
+              className: "relative",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                type: "text",
+                name: "s",
+                placeholder: "Search for more",
+                className: "w-full rounded-lg px-3 py-2 Blueprint-body-medium text-schemesOnSurface border border-schemesOutlineVariant"
+              })
+            })]
           })]
         })]
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16 mt-16 lg:mt-20 space-y-12",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
+          className: moreFromAuthor.length ? "space-y-4" : "space-y-4 bg-red-500/10 p-3 rounded",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "flex items-center gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "Blueprint-headline-small-emphasized",
+              children: ["More From ", author?.name || "the Author"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "Blueprint-headline-small-emphasized",
+              children: "\uD83D\uDCAC\uD83D\uDCAC"
+            })]
+          }), moreFromAuthor.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4",
+            children: moreFromAuthor.map(it => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_DetailedCard__WEBPACK_IMPORTED_MODULE_5__.DetailedCard, {
+              ...it
+            }, it.id))
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "Blueprint-label-large text-red-900",
+            children: "placeholder"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
+          className: moreArticles.length ? "space-y-4" : "space-y-4 bg-red-500/10 p-3 rounded",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "flex items-center gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "Blueprint-headline-small-emphasized",
+              children: "More Articles"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "Blueprint-headline-small-emphasized",
+              children: "\uD83D\uDCAC\uD83D\uDCAC"
+            })]
+          }), moreArticles.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4",
+            children: moreArticles.map(it => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_DetailedCard__WEBPACK_IMPORTED_MODULE_5__.DetailedCard, {
+              ...it
+            }, it.id))
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "Blueprint-label-large text-red-900",
+            children: "placeholder"
+          })]
+        })]
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "bg-schemesPrimaryFixed w-full",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4",
+        className: "py-12 sm:py-14 lg:py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex gap-3 items-center",
+          className: "flex flex-wrap gap-3 items-center",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "Blueprint-headline-medium italic",
             children: "Explore more by"
@@ -8358,7 +8496,7 @@ function ArticlePage({
             backgroundColor: "schemesPrimaryContainer"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          className: "Blurprint-title-large mb-12 text-schemesOnSurface",
+          className: "Blueprint-title-large text-schemesOnSurface mb-8 lg:mb-12 max-w-[68ch]",
           children: "From support services to creative culture, start where you're curious."
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_2__.ExploreByTheme, {})]
       })
@@ -8398,14 +8536,12 @@ function Button({
   onClick = () => {}
 }) {
   const sizeStyles = {
-    xs: 'px-3  py-1.5 Blueprint-label-large',
-    sm: 'px-4  py-2 Blueprint-label-large',
-    base: 'px-4  py-2.5 Blueprint-title-medium',
-    lg: 'px-6  py-3 Blueprint-headline-small',
-    xl: 'px-8  py-6 Blueprint-headline-large'
+    xs: 'px-3 py-1.5 Blueprint-label-large',
+    sm: 'px-4 py-2 Blueprint-label-large',
+    base: 'px-4 py-2.5 Blueprint-title-medium',
+    lg: 'px-6 py-4 Blueprint-headline-small',
+    xl: 'px-8 py-6 Blueprint-headline-large'
   }[size];
-
-  /* ---------- square vs pill ---------- */
   const rounded = {
     square: {
       xs: 'rounded-xl',
@@ -8423,18 +8559,26 @@ function Button({
     }
   };
   const variantStyles = {
-    filled: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-[var(--schemesPrimary)]', 'text-[var(--schemesOnPrimary)]', 'hover:bg-[var(--schemesPrimaryContainer)]'),
-    tonal: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-[var(--schemesPrimaryFixed)]', 'text-[var(--schemesOnPrimaryFixedVariant)]', 'hover:bg-[var(--schemesPrimaryFixedDim)]'),
-    outline: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('border', 'border-[var(--schemesOnPrimary]', 'text-[var(--schemesOnPrimary)]', 'hover:bg-[var(--stateLayersOnSurfaceOpacity08)]'),
-    elevated: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-[var(--schemesSurfaceContainerHigh)]', 'text-[var(--schemesPrimary)]', 'shadow-3x3', 'hover:bg-[var(--stateLayersSurfaceContainerHighOpacity08)]'),
-    text: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-transparent', 'text-[var(--schemesPrimary)]', 'hover:bg-[var(--stateLayersPrimaryOpacity08)]')
+    filled: 'bg-[var(--schemesPrimary)] text-[var(--schemesOnPrimary)] hover:bg-[var(--palettesPrimary40)]',
+    tonal: 'bg-[var(--schemesPrimaryFixed)] text-[var(--schemesOnPrimaryFixedVariant)] hover:bg-[var(--schemesPrimaryFixedDim)]',
+    outline: 'border border-[var(--schemesOnPrimary)] text-[var(--schemesOnPrimary)] hover:bg-[var(--palettesOnPrimary40)]',
+    elevated: 'bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesPrimary)] shadow-3x3 hover:bg-[var(--stateLayersSurfaceContainerHighOpacity08)]',
+    text: 'bg-transparent text-[var(--schemesPrimary)] hover:bg-[var(--palettesPrimary60)]'
   }[variant];
+
+  // cursor + disabled handling
   const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
+  const baseCursor = disabled ? '' : 'cursor-pointer';
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-    type: "submit",
+    type: "button",
     onClick: onClick,
     disabled: disabled,
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('inline-flex items-center justify-center gap-2 transition-colors duration-150', sizeStyles, rounded[shape][size], variantStyles, disabledStyles, className),
+    "aria-disabled": disabled,
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('inline-flex items-center justify-center gap-2 transition-colors duration-150', baseCursor,
+    // pointer on hover for enabled buttons
+    sizeStyles, rounded[shape][size], variantStyles, disabledStyles,
+    // overrides cursor when disabled
+    className),
     children: [icon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
       className: "shrink-0",
       children: icon
@@ -9237,7 +9381,7 @@ const ExploreByTheme = () => {
               weight: "bold"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            className: "w-full text-right Blueprint-headline-small-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 mb-2  transition-transform duration-600 ease-in-out group-hover:-translate-y-2",
+            className: "w-full text-right Blueprint-headline-small text-schemesOnSurface leading-snug break-words overflow-hidden px-4 mb-2  transition-transform duration-600 ease-in-out group-hover:-translate-y-2",
             children: [i === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
               children: "Community Connection"
             }), i === 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
@@ -9623,31 +9767,31 @@ function Header({
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('whats_on'),
             className: "text-white",
-            size: "sm",
+            size: "lg",
             variant: "text",
             onClick: () => window.location.href = '/events'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('directory'),
             className: "text-white",
-            size: "sm",
+            size: "lg",
             variant: "text",
             onClick: () => window.location.href = '/directory'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('blueprint_stories'),
             className: "text-white",
-            size: "sm",
+            size: "lg",
             variant: "text",
             onClick: () => window.location.href = '/stories'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('about_us'),
             className: "text-white",
-            size: "sm",
+            size: "lg",
             variant: "text",
             onClick: () => window.location.href = '/about-us'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: t('message_board'),
             className: "text-white",
-            size: "sm",
+            size: "lg",
             variant: "text",
             onClick: () => window.location.href = '/message-board'
           })]
@@ -9728,7 +9872,7 @@ function IconButton({
   };
   const variantMap = {
     filled: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-[var(--schemesPrimary)] text-[var(--schemesOnPrimary)]', 'hover:bg-[var(--schemesPrimaryContainer)]', 'active:bg-[var(--schemesPrimary)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesPrimaryContainer)]'),
-    tonal: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-schemesPrimaryFixed text-[var(--schemesOnSecondaryContainer)]', 'hover:bg-[var(--schemesPrimaryFixedDim)] hover:text-[var(--schemesOnSecondary)]', 'active:bg-[var(--schemesSecondary)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesSecondaryContainer)]'),
+    tonal: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-schemesPrimaryFixed text-[var(--schemesOnSecondaryContainer)]', 'hover:bg-[var(--palettesOnPrimary60)]', 'active:bg-[var(--schemesSecondary)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesSecondaryContainer)]'),
     outlined: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('border border-[var(--schemesOutline)]  text-[var(--schemesOnSurface)]  bg-transparent', 'hover:bg-[var(--schemesSurfaceVariant)]', 'active:bg-[var(--schemesSurfaceVariant)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesOutline)]'),
     standard: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('text-[var(--schemesOnSurface)]  bg-transparent', 'hover:bg-[var(--schemesSurfaceVariant)]', 'active:bg-[var(--schemesSurfaceVariant)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesSurfaceVariant)]')
   };
@@ -9737,7 +9881,7 @@ function IconButton({
     type: "button",
     "aria-label": ariaLabel,
     disabled: disabled,
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('inline-flex items-center justify-center', 'rounded-[12px] transition-colors duration-200 text-black', sizeMap[size], variantMap[style], disabled && disabledClasses, className),
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('inline-flex items-center justify-center', 'rounded-[12px] transition-colors duration-200 text-black cursor-pointer', sizeMap[size], variantMap[style], disabled && disabledClasses, className),
     onClick: onClick,
     ...rest,
     children: icon
@@ -10428,11 +10572,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ExploreByTheme */ "./src/scripts/ExploreByTheme.js");
 /* harmony import */ var _PillTag__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PillTag */ "./src/scripts/PillTag.js");
 /* harmony import */ var _ShareButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ShareButton */ "./src/scripts/ShareButton.js");
-/* harmony import */ var _DetailedCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DetailedCard */ "./src/scripts/DetailedCard.js");
-/* harmony import */ var _RelatedContentCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RelatedContentCard */ "./src/scripts/RelatedContentCard.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
-
+/* harmony import */ var _RelatedContentCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RelatedContentCard */ "./src/scripts/RelatedContentCard.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -10452,97 +10594,97 @@ function PodcastPage({
   author,
   relatedContent = []
 }) {
-  console.log(tags);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("main", {
+  const formattedDate = date ? new Date(date).toLocaleDateString("en-AU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  }) : "No date provided";
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("main", {
     className: "bg-schemesSurface text-schemesOnSurface",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-      className: "py-12 px-4 lg:px-16",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "flex flex-col lg:flex-row gap-8 lg:gap-16 max-w-[1600px] mx-auto sm:px-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          className: "flex-1 space-y-10",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("header", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "py-8 sm:py-10 lg:py-12",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_20rem] gap-8 lg:gap-12 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "min-w-0 space-y-8 lg:space-y-10",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("header", {
             className: "space-y-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h1", {
-              className: "Blueprint-headline-large leading-tight",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+              className: "Blueprint-headline-large lg:Blueprint-display-small-emphasized leading-tight",
               children: title
-            }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
-              className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+            }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+              className: "Blueprint-body-large text-schemesOnSurfaceVariant max-w-[68ch]",
               children: subtitle
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: "flex flex-col gap-4",
-            children: [videoUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+            children: [videoUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               className: "w-full aspect-video rounded-xl overflow-hidden shadow-md",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("iframe", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("iframe", {
                 src: videoUrl.replace("watch?v=", "embed/"),
                 title: "Podcast Video",
                 allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
                 allowFullScreen: true,
                 className: "w-full h-full"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-              className: "flex justify-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "flex flex-wrap items-start sm:items-center justify-between gap-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                 className: "flex items-center gap-4",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
                   src: author?.avatar || "/default-avatar.png",
                   alt: author?.name || "Podcast Author",
                   className: "w-10 h-10 rounded-full"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                   className: "flex flex-col gap-1",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                     className: "Blueprint-title-medium",
                     children: author?.name ? `${author.name}` : "Podcast Author"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                    className: "Blueprint-label-large",
-                    children: date ? new Date(date).toLocaleDateString("en-AU", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric"
-                    }) : "No date provided"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "Blueprint-label-large text-schemesOnSurfaceVariant",
+                    children: formattedDate
                   })]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ShareButton__WEBPACK_IMPORTED_MODULE_5__.ShareButton, {
-                title: "Understanding Kindness in a Strained World",
-                summary: "Great read from Rabbi Yaakov Glasman AM",
-                url: typeof window !== 'undefined' ? window.location.href : undefined
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ShareButton__WEBPACK_IMPORTED_MODULE_5__.ShareButton, {
+                title: title,
+                summary: subtitle || "",
+                url: typeof window !== "undefined" ? window.location.href : undefined
               })]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("section", {
-            className: "space-y-6 max-w-3xl",
-            children: sections.map((section, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-              className: "prose [&_ul]:list-disc [&_ul]:pl-5 break-words prose-a:break-all",
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
+            className: "space-y-6 lg:space-y-7 max-w-3xl",
+            children: sections.map((section, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline",
               dangerouslySetInnerHTML: {
                 __html: section.text
               }
             }, index))
-          }), tags?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-            className: "flex flex-wrap gap-2 pt-4",
-            children: tags.map(tag => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_2__.Tag, {
+          }), tags?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "flex flex-wrap gap-2 pt-2",
+            children: tags.map(tag => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_2__.Tag, {
               tagName: tag
             }, tag))
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("aside", {
-          className: "w-full h-full lg:w-80 space-y-4 sticky top-16",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("aside", {
+          className: "w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
             className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant",
             children: "Related Content"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "rounded-lg flex items-stretch justify-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
               className: "flex flex-col gap-2 w-full",
-              children: [relatedContent.length > 0 ? relatedContent.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_RelatedContentCard__WEBPACK_IMPORTED_MODULE_7__.RelatedContentCard, {
+              children: [relatedContent.length > 0 ? relatedContent.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_RelatedContentCard__WEBPACK_IMPORTED_MODULE_6__.RelatedContentCard, {
                 image: item.thumbnail,
                 title: item.title,
                 href: item.link
-              }, item.id)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+              }, item.id)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
                 className: "text-schemesOnSurfaceVariant",
                 children: "No related content available."
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                 href: "/topics",
-                className: "mt-2",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                className: "mt-1",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                   className: "Blueprint-label-large underline text-schemesPrimary",
                   children: "Explore all topics"
                 })
@@ -10550,29 +10692,29 @@ function PodcastPage({
             })
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        className: "max-w-[1600px] mx-auto sm:px-6 mt-20",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_MoreInterviews__WEBPACK_IMPORTED_MODULE_1__.MoreInterviews, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16 mt-16 lg:mt-20",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_MoreInterviews__WEBPACK_IMPORTED_MODULE_1__.MoreInterviews, {
           items: moreInterviews
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "bg-schemesPrimaryFixed w-full",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          className: "flex gap-3 items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "py-12 sm:py-14 lg:py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex flex-wrap gap-3 items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "Blueprint-headline-medium italic",
             children: "Explore more by"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_4__["default"], {
             label: "Theme",
             backgroundColor: "schemesPrimaryContainer"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: "Blurprint-title-large mb-12 text-schemesOnSurface",
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "Blueprint-title-large text-schemesOnSurface mb-8 lg:mb-12 max-w-[68ch]",
           children: "From support services to creative culture, start where you're curious."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__.ExploreByTheme, {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__.ExploreByTheme, {})]
       })
     })]
   });
@@ -11225,7 +11367,6 @@ const SectionOne = ({
   dynamicProps,
   historicalPhotos
 }) => {
-  console.log(historicalPhotos);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "max-w-[1600px] mx-auto",
@@ -11464,39 +11605,141 @@ const DynamicSection = ({
   });
 };
 const HistoricalPhotosSection = ({
-  historicalPhotos
+  historicalPhotos = [],
+  speed = 12,
+  pauseOnHover = true
 }) => {
   const scrollRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const scrollSpeed = 0.65; // px per frame (~30px/sec)
 
+  // state refs
+  const rafRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  const posRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0); // float position for smooth low speeds
+  const isDraggingRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  const startXRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  const startScrollRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  const pauseAutoRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  const resumeTimerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // drag to scroll (pointer events)
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const el = scrollRef.current;
     if (!el) return;
-    let frame;
-    const autoScroll = () => {
-      el.scrollLeft += scrollSpeed;
-      if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
-        el.scrollLeft = 0; // loop back
-      }
-      frame = requestAnimationFrame(autoScroll);
+    const onPointerDown = e => {
+      // only left/mouse/touch
+      isDraggingRef.current = true;
+      pauseAutoRef.current = true;
+      startXRef.current = e.clientX;
+      startScrollRef.current = el.scrollLeft;
+      posRef.current = el.scrollLeft;
+      el.setPointerCapture?.(e.pointerId);
+      el.classList.add("cursor-grabbing");
     };
-    frame = requestAnimationFrame(autoScroll);
-    return () => cancelAnimationFrame(frame);
+    const onPointerMove = e => {
+      if (!isDraggingRef.current) return;
+      // prevent text/image selection and native drag
+      e.preventDefault();
+      const dx = e.clientX - startXRef.current;
+      const next = startScrollRef.current - dx;
+      el.scrollLeft = next;
+      posRef.current = next;
+    };
+    const endDrag = e => {
+      if (!isDraggingRef.current) return;
+      isDraggingRef.current = false;
+      el.classList.remove("cursor-grabbing");
+      el.releasePointerCapture?.(e.pointerId);
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = setTimeout(() => pauseAutoRef.current = false, 800);
+    };
+
+    // kill native image drag (this was the big blocker)
+    const preventNativeDrag = ev => ev.preventDefault();
+    el.addEventListener("pointerdown", onPointerDown, {
+      passive: true
+    });
+    el.addEventListener("pointermove", onPointerMove, {
+      passive: false
+    }); // must be non-passive to preventDefault
+    el.addEventListener("pointerup", endDrag, {
+      passive: true
+    });
+    el.addEventListener("pointercancel", endDrag, {
+      passive: true
+    });
+    // NOTE: no pointerleave handler; pointer capture keeps events on the element
+
+    el.addEventListener("dragstart", preventNativeDrag); // prevent img drag-ghost
+
+    return () => {
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", endDrag);
+      el.removeEventListener("pointercancel", endDrag);
+      el.removeEventListener("dragstart", preventNativeDrag);
+    };
   }, []);
-  const historicalPhotosTimesTwo = historicalPhotos.concat(historicalPhotos);
+
+  // pause on hover (desktop)
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const el = scrollRef.current;
+    if (!el || !pauseOnHover) return;
+    const onEnter = () => pauseAutoRef.current = true;
+    const onLeave = () => pauseAutoRef.current = false;
+    el.addEventListener("mouseenter", onEnter);
+    el.addEventListener("mouseleave", onLeave);
+    return () => {
+      el.removeEventListener("mouseenter", onEnter);
+      el.removeEventListener("mouseleave", onLeave);
+    };
+  }, [pauseOnHover]);
+
+  // auto-scroll (speed = px/sec)
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    posRef.current = el.scrollLeft;
+    let last = performance.now();
+    const loop = now => {
+      const dt = Math.min(64, now - last);
+      last = now;
+      if (!pauseAutoRef.current && !isDraggingRef.current && speed > 0) {
+        posRef.current += speed * dt / 1000;
+        const max = el.scrollWidth - el.clientWidth;
+        if (posRef.current >= max) posRef.current = 0; // seamless loop
+        el.scrollLeft = posRef.current;
+      }
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [speed]);
+  if (!historicalPhotos?.length) return null;
+  const historicalPhotosTimesThree = historicalPhotos.concat(historicalPhotos, historicalPhotos);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
     className: "overflow-hidden",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       ref: scrollRef,
-      className: "flex gap-4 overflow-x-auto scrollbar-hidden",
-      children: historicalPhotosTimesTwo.map(photo => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      className: "flex gap-4 overflow-x-auto scrollbar-hidden select-none cursor-grab",
+      style: {
+        touchAction: "pan-y",
+        // allow vertical page scroll; we manage horizontal
+        overscrollBehaviorX: "contain",
+        // contain horizontal overscroll
+        WebkitUserSelect: "none",
+        userSelect: "none"
+      },
+      "aria-label": "Historical photos carousel",
+      role: "region",
+      children: historicalPhotosTimesThree.map(photo => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "flex-shrink-0 w-full sm:w-1/2 lg:w-1/2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "rounded-lg aspect-[5/3] overflow-hidden shadow-lg",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
             src: photo.image,
             alt: photo.title,
-            className: "w-full h-full object-cover"
+            className: "w-full h-full object-cover pointer-events-none",
+            loading: "lazy",
+            draggable: false // stop native image drag
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "p-4",
@@ -11504,7 +11747,7 @@ const HistoricalPhotosSection = ({
             className: "Blueprint-title-medium",
             children: photo.title
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
-            className: "text-sm text-schemesOnSurfaceVariant",
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant",
             children: photo.subtitle
           })]
         })]

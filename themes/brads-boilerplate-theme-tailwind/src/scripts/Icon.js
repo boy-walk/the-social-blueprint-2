@@ -25,7 +25,7 @@ export function IconButton({
     ),
     tonal: clsx(
       'bg-schemesPrimaryFixed text-[var(--schemesOnSecondaryContainer)]',
-      'hover:bg-[var(--schemesPrimaryFixedDim)] hover:text-[var(--schemesOnSecondary)]',
+      'hover:bg-[var(--palettesOnPrimary60)]',
       'active:bg-[var(--schemesSecondary)]',
       'focus-visible:ring-2 focus-visible:ring-[var(--schemesSecondaryContainer)]'
     ),
@@ -53,7 +53,7 @@ export function IconButton({
       disabled={disabled}
       className={clsx(
         'inline-flex items-center justify-center',
-        'rounded-[12px] transition-colors duration-200 text-black',
+        'rounded-[12px] transition-colors duration-200 text-black cursor-pointer',
         sizeMap[size],
         variantMap[style],
         disabled && disabledClasses,

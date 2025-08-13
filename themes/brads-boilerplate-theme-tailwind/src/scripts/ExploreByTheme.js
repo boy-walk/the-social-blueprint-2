@@ -20,7 +20,7 @@ export const ExploreByTheme = () => {
               <div className="bg-schemesPrimaryFixed mx-4 rounded-xl p-1.5">
                 <ArrowUpRightIcon size={20} weight="bold" />
               </div>
-              <div className="w-full text-right Blueprint-headline-small-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 mb-2  transition-transform duration-600 ease-in-out group-hover:-translate-y-2">
+              <div className="w-full text-right Blueprint-headline-small text-schemesOnSurface leading-snug break-words overflow-hidden px-4 mb-2  transition-transform duration-600 ease-in-out group-hover:-translate-y-2">
                 {i === 0 && <>Community Connection</>}
                 {i === 1 && (
                   <>
