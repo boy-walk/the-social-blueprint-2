@@ -66,28 +66,28 @@
 }
 
 .Blueprint-headline-medium {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 28px;
   line-height: 36px;
   font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 .Blueprint-headline-medium-emphasized {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 28px;
   line-height: 36px;
   font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 .Blueprint-headline-small {
-  font-weight: 400;
+  font-weight: 600;
   font-size: 24px;
   line-height: 32px;
   font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 .Blueprint-headline-small-emphasized {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 24px;
   line-height: 32px;
   font-family: 'IBM Plex Sans Condensed', sans-serif;
@@ -96,48 +96,48 @@
 /* Title */
 .Blueprint-title-large {
   font-weight: 400;
-  font-size: 22px;
-  line-height: 28px;
-  font-family: 'Heebo', sans-serif;
+  font-size: 24px;
+  line-height: 30px;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 .Blueprint-title-large-emphasized {
   font-weight: 500;
-  font-size: 22px;
-  line-height: 28px;
-  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  line-height: 30px;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 .Blueprint-title-medium {
   font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 26px;
   letter-spacing: 0.15px;
-  font-family: 'Heebo', sans-serif;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 .Blueprint-title-medium-emphasized {
   font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 26px;
   letter-spacing: 0.15px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 .Blueprint-title-small {
   font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 22px;
   letter-spacing: 0.1px;
-  font-family: 'Heebo', sans-serif;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 .Blueprint-title-small-emphasized {
   font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 22px;
   letter-spacing: 0.1px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 /* Label */
@@ -155,7 +155,7 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.1px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 
 .Blueprint-label-medium {
@@ -163,7 +163,7 @@
   font-size: 16px;
   line-height: 26px;
   letter-spacing: 0.5px;
-  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 
 .Blueprint-label-medium-emphasized {
@@ -171,7 +171,7 @@
   font-size: 16px;
   line-height: 16px;
   letter-spacing: 0.5px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Heebo', sans-serif;
   text-transform: uppercase;
 }
 
@@ -180,7 +180,7 @@
   font-size: 14px;
   line-height: 16px;
   letter-spacing: 0.5px;
-  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-family: 'Heebo', sans-serif;
   text-transform: titlecase;
 }
 
@@ -189,7 +189,7 @@
   font-size: 11px;
   line-height: 16px;
   letter-spacing: 0.5px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Heebo', sans-serif;
   text-transform: uppercase;
 }
 
@@ -203,7 +203,7 @@
 }
 
 .Blueprint-body-large-emphasized {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.5px;
@@ -223,7 +223,7 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.25px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 
 .Blueprint-body-small {
@@ -239,5 +239,5 @@
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.4px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Heebo', sans-serif;
 }

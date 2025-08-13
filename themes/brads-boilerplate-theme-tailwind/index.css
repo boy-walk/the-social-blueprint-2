@@ -1,7 +1,49 @@
-@import "/src/colour-classes.css";
-@import "/src/path-to/font-classes.css";
+/* Scope all tweaks so we don't fight other pages */
+.sb-gd-form input[type="text"],
+.sb-gd-form input[type="email"],
+.sb-gd-form input[type="url"],
+.sb-gd-form input[type="tel"],
+.sb-gd-form input[type="number"],
+.sb-gd-form input[type="search"],
+.sb-gd-form input[type="password"],
+.sb-gd-form select,
+.sb-gd-form textarea,
+.sb-gd-form .form-control {
+  /* GD/AyeCode often uses .form-control */
+  font: inherit;
+  /* use your Blueprint font */
+  color: inherit;
+  /* token text color from wrapper */
+  background: transparent;
+  /* use wrapper bg token */
+  border-radius: 12px;
+  /* your shape */
+  padding: 12px 14px;
+  /* your spacing */
+  line-height: 1.4;
+}
 
-/* then all your Tailwind stuff */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Softer placeholder, still using your text color via opacity */
+.sb-gd-form input::placeholder,
+.sb-gd-form textarea::placeholder {
+  opacity: .6;
+}
+
+/* Focus state: clean, token-colored outline (uses current text color) */
+.sb-gd-form input:focus,
+.sb-gd-form select:focus,
+.sb-gd-form textarea:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Tighten field gaps a bit */
+.sb-gd-form .form-row,
+.sb-gd-form .geodir-field {
+  margin-bottom: 16px;
+}
+
+/* Submit area breathing room */
+.sb-gd-form .geodir-submit {
+  margin-top: 24px;
+}

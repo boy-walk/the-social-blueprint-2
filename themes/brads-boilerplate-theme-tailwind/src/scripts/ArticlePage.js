@@ -1,5 +1,4 @@
 import React from "react";
-import { MoreInterviews } from "./MoreInterviews";
 import { Tag } from "./Tag";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
@@ -7,18 +6,17 @@ import { ShareButton } from "./ShareButton";
 import { DetailedCard } from "./DetailedCard";
 import { RelatedContentCard } from "./RelatedContentCard";
 
-export default function PodcastPage({
+export function ArticlePage({
   title,
   date,
   subtitle,
-  videoUrl,
-  sections,
+  imageUrl,
+  content,
   tags,
-  moreInterviews,
+  moreArticles,
   author,
   relatedContent = [],
 }) {
-  console.log(tags)
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="py-12 px-4 lg:px-16">
@@ -33,15 +31,13 @@ export default function PodcastPage({
               )}
             </header>
             <div className="flex flex-col gap-4">
-              {videoUrl && (
+              {imageUrl && (
                 <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
-                  <iframe
-                    src={videoUrl.replace("watch?v=", "embed/")}
-                    title="Podcast Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+                  <img
+                    src={imageUrl}
+                    alt={title}
                     className="w-full h-full"
-                  ></iframe>
+                  ></img>
                 </div>
               )}
               <div className="flex justify-between">
@@ -73,15 +69,11 @@ export default function PodcastPage({
                 />
               </div>
             </div>
-
-            <section className="space-y-6 max-w-3xl">
-              {sections.map((section, index) => (
-                <div
-                  key={index}
-                  className="prose [&_ul]:list-disc [&_ul]:pl-5 break-words prose-a:break-all"
-                  dangerouslySetInnerHTML={{ __html: section.text }}
-                />
-              ))}
+            <section className="space-y-6">
+              <div
+                className="prose [&_ul]:list-disc [&_ul]:pl-5 break-words prose-a:break-all"
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
             </section>
             {tags?.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-4">
@@ -119,11 +111,6 @@ export default function PodcastPage({
               </div>
             </div>
           </aside>
-
-        </div>
-
-        <div className="max-w-[1600px] mx-auto sm:px-6 mt-20">
-          <MoreInterviews items={moreInterviews} />
         </div>
       </div>
       <div className="bg-schemesPrimaryFixed w-full">

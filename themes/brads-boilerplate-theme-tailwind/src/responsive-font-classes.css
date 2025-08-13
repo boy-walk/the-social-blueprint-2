@@ -1,0 +1,707 @@
+/* ───────────── sm: 0–767px ───────────── */
+@media (max-width: 767px) {
+  .sm\:Blueprint-display-large {
+    font-weight: 400;
+    font-size: 57px;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-display-large-emphasized {
+    font-weight: 500;
+    font-size: 57px;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-display-medium {
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 52px;
+    letter-spacing: 0;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-display-medium-emphasized {
+    font-weight: 500;
+    font-size: 45px;
+    line-height: 52px;
+    letter-spacing: 0;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-display-small {
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 44px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-display-small-emphasized {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-headline-large {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 40px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-headline-large-emphasized {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-headline-medium {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 36px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-headline-medium-emphasized {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-headline-small {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-headline-small-emphasized {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-title-large {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-title-large-emphasized {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-title-medium {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.15px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-title-medium-emphasized {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.15px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-title-small {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-title-small-emphasized {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .sm\:Blueprint-label-large {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .sm\:Blueprint-label-large-emphasized {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .sm\:Blueprint-label-medium {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .sm\:Blueprint-label-medium-emphasized {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .sm\:Blueprint-label-small {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: titlecase;
+  }
+
+  .sm\:Blueprint-label-small-emphasized {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .sm\:Blueprint-body-large {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .sm\:Blueprint-body-large-emphasized {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .sm\:Blueprint-body-medium {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .sm\:Blueprint-body-medium-emphasized {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .sm\:Blueprint-body-small {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .sm\:Blueprint-body-small-emphasized {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    font-family: 'Heebo', sans-serif;
+  }
+}
+
+/* ───────────── md: 768–1023px ───────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .md\:Blueprint-display-large {
+    font-weight: 400;
+    font-size: 57px;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-display-large-emphasized {
+    font-weight: 500;
+    font-size: 57px;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-display-medium {
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 52px;
+    letter-spacing: 0;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-display-medium-emphasized {
+    font-weight: 500;
+    font-size: 45px;
+    line-height: 52px;
+    letter-spacing: 0;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-display-small {
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 44px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-display-small-emphasized {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-headline-large {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 40px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-headline-large-emphasized {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-headline-medium {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 36px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-headline-medium-emphasized {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-headline-small {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-headline-small-emphasized {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-title-large {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-title-large-emphasized {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-title-medium {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.15px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-title-medium-emphasized {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.15px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-title-small {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-title-small-emphasized {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .md\:Blueprint-label-large {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .md\:Blueprint-label-large-emphasized {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .md\:Blueprint-label-medium {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .md\:Blueprint-label-medium-emphasized {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .md\:Blueprint-label-small {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: titlecase;
+  }
+
+  .md\:Blueprint-label-small-emphasized {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .md\:Blueprint-body-large {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .md\:Blueprint-body-large-emphasized {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .md\:Blueprint-body-medium {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .md\:Blueprint-body-medium-emphasized {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .md\:Blueprint-body-small {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .md\:Blueprint-body-small-emphasized {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    font-family: 'Heebo', sans-serif;
+  }
+}
+
+/* ───────────── lg: ≥1024px ───────────── */
+@media (min-width: 1024px) {
+  .lg\:Blueprint-display-large {
+    font-weight: 400;
+    font-size: 57px;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-display-large-emphasized {
+    font-weight: 500;
+    font-size: 57px;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-display-medium {
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 52px;
+    letter-spacing: 0;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-display-medium-emphasized {
+    font-weight: 500;
+    font-size: 45px;
+    line-height: 52px;
+    letter-spacing: 0;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-display-small {
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 44px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-display-small-emphasized {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-headline-large {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 40px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-headline-large-emphasized {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-headline-medium {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 36px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-headline-medium-emphasized {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-headline-small {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-headline-small-emphasized {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-title-large {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-title-large-emphasized {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-title-medium {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.15px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-title-medium-emphasized {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.15px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-title-small {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-title-small-emphasized {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+  }
+
+  .lg\:Blueprint-label-large {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lg\:Blueprint-label-large-emphasized {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lg\:Blueprint-label-medium {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lg\:Blueprint-label-medium-emphasized {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .lg\:Blueprint-label-small {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: titlecase;
+  }
+
+  .lg\:Blueprint-label-small-emphasized {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .lg\:Blueprint-body-large {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lg\:Blueprint-body-large-emphasized {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lg\:Blueprint-body-medium {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lg\:Blueprint-body-medium-emphasized {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lg\:Blueprint-body-small {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lg\:Blueprint-body-small-emphasized {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    font-family: 'Heebo', sans-serif;
+  }
+}

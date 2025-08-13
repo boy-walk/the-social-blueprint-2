@@ -21,6 +21,7 @@ import { NewsletterBanner } from './scripts/NewsletterBanner';
 import AccountSettingsPage from './scripts/AccountSettingsPage';
 import { AccountChangePassword } from './scripts/AccountChangePassword';
 import { AboutUs } from './scripts/AboutUs';
+import { ArticlePage } from './scripts/ArticlePage';
 
 
 if (document.querySelector('#front-page')) {
@@ -149,4 +150,20 @@ const el18 = document.getElementById("OurMissionPage")
 if (el18) {
   const props = JSON.parse(el18.getAttribute("data-props") || "{}")
   ReactDOM.createRoot(el18).render(<AboutUs {...props} />)
+}
+
+const el19 = document.getElementById('article-root');
+if (el19) {
+  const props = {
+    title: el19.dataset.title,
+    date: el19.dataset.date,
+    subtitle: el19.dataset.subtitle,
+    imageUrl: el19.dataset.imageUrl,
+    content: JSON.parse(el19.dataset.content || '[]'),
+    moreArticles: JSON.parse(el19.dataset.moreArticles || '[]'),
+    relatedContent: JSON.parse(el19.dataset.relatedContent || '[]'),
+    tags: JSON.parse(el19.dataset.tags || '[]'),
+    author: JSON.parse(el19.dataset.authorObj || '{}'),
+  };
+  ReactDOM.createRoot(el19).render(<ArticlePage {...props} />);
 }

@@ -17,7 +17,7 @@ export function TestimonialSlider({ testimonials, displaySlider = true }) {
   useEffect(() => {
     const updateItemsPerView = () => {
       const width = window.innerWidth;
-      setItemsPerView(width < 640 ? 1 : 2);
+      setItemsPerView(width < 1023 ? 1 : 2);
     };
     updateItemsPerView();
     window.addEventListener("resize", updateItemsPerView);
@@ -65,13 +65,13 @@ export function TestimonialSlider({ testimonials, displaySlider = true }) {
               }}
             >
               <Card styles="h-full flex flex-col">
-                <div className="flex flex-col p-8 h-full">
-                  <h3 className="Blueprint-body-large text-schemesOnSurface mb-2">
+                <div className="flex flex-col p-4 md:p-8 h-full">
+                  <h3 className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface mb-2">
                     {post.quote}
                   </h3>
                   {/* Spacer pushes author to bottom */}
                   <div className="flex-grow"></div>
-                  <div className="text-schemesOnSurfaceVariant Blueprint-title-medium-emphasized line-clamp-3">
+                  <div className="text-schemesOnSurfaceVariant Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-3">
                     {post.author}
                   </div>
                 </div>
@@ -81,7 +81,7 @@ export function TestimonialSlider({ testimonials, displaySlider = true }) {
         </div>
       </div>
 
-      {displaySlider && (<div className="flex justify-between gap-4 mt-8">
+      {displaySlider && (<div className="flex justify-between gap-4 mt-4 md:mt-6 lg:mt-8">
         <button
           onClick={prev}
           className={`bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center ${currentIndex === 0 ? "opacity-30 cursor-not-allowed" : ""

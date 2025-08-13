@@ -6,6 +6,8 @@
 /* Design-token utilities */
 @import "./colour-classes.css";
 @import "./font-classes.css";
+@import "./responsive-font-classes.css";
+
 
 /* --------------------------------------------------
    Blueprint JSON colour tokens â†’ CSS custom props (full list)

@@ -1,5 +1,6 @@
 <?php
 // functions.php
+require_once get_template_directory() . '/inc/related.php';
 
 function boilerplate_load_assets() {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
@@ -19,15 +20,6 @@ add_action('init', function () {
     'label' => 'Sponsorship Banner',
   ]);
 });
-
-function enqueue_google_fonts() {
-  wp_enqueue_style(
-    'google-fonts',
-    'https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=IBM+Plex+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans+Hebrew:wght@100;200;300;400;500;600;700&display=swap',
-    false
-  );
-}
-add_action('wp_enqueue_scripts', 'enqueue_google_fonts');
 
 // 1. Add nonce to localized script
 add_action('wp_enqueue_scripts', function () {

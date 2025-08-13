@@ -25,7 +25,7 @@ export const RelatedContentCard = ({
               {date}
             </div>
           )}
-          <div className="Blueprint-title-medium font-bold mb-1">
+          <div className="Blueprint-title-medium font-bold mb-1 line-clamp-3">
             {title}
           </div>
           {location && (
