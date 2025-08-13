@@ -7614,7 +7614,7 @@ function AboutUs(props) {
             children: "Our Mission"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "flex flex-col md:items-center max-w-4xl",
+          className: "flex flex-col md:items-center text-left md:text-center max-w-4xl",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
             className: `Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant`,
             children: "We bring clarity, connection, and opportunity to the Melbourne Jewish community. We're an independent, apolitical platform hosting events, support, organisations, and stories so everyone can engage in community life in a way that matters to them"

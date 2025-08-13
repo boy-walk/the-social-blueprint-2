@@ -36,7 +36,7 @@ export function AboutUs(props) {
               Our Mission
             </span>
           </div>
-          <div className="flex flex-col md:items-center max-w-4xl">
+          <div className="flex flex-col md:items-center text-left md:text-center max-w-4xl">
             <p className={`Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant`}>
               We bring clarity, connection, and opportunity to the Melbourne Jewish community. We're an independent, apolitical platform hosting events, support, organisations, and stories so everyone can engage in community life in a way that matters to them
             </p>
