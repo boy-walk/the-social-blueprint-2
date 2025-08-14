@@ -346,3 +346,25 @@ function register_historical_photos_cpt() {
   ]);
 }
 add_action('init', 'register_historical_photos_cpt');
+
+function fullcalendar_cdn_script() {
+  // Check if the current page is using a specific template
+  if (is_page_template('templates/page-fullcalendar.php')) { // Replace 'template-name.php' with your actual template filename
+    wp_enqueue_script(
+      'fullcalendar-io', // Unique handle for your script
+      'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js', // Full CDN URL
+      array('jquery'), // Array of dependencies (e.g., array('jquery'))
+      '6.1.19', // Version number
+      true // Load in the footer (recommended)
+    );
+
+    wp_enqueue_script(
+        'fullcalendar-io-page-js', // Unique handle for your script
+        get_stylesheet_directory_uri() . '/src/fullcalendar.start.js', // Path to your JS file
+        array('fullcalendar-io'), // Dependencies (e.g., 'jquery' if your script relies on it)
+        '1.0.1', // Version number (optional, useful for cache busting)
+        true // Load in the footer (true) or head (false)
+    );
+  }
+}
+add_action('wp_enqueue_scripts', 'fullcalendar_cdn_script');
