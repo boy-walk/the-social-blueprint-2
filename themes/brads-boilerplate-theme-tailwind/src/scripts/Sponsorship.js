@@ -1,11 +1,13 @@
-export const SponsorshipBanner = ({ imgSrc, enabled }) => {
+export const SponsorshipBanner = ({ imgSrc, enabled, href }) => {
   if (!enabled) {
     return null;
   }
 
   return (
-    <div className="flex justify-center">
-      <img src={imgSrc} alt="Sponsorship Banner" className="max-w-2xl w-auto h-auto object-none" />
-    </div>
+    <a href={href || "#"} target="_blank">
+      <div className="flex justify-center">
+        <img src={imgSrc} alt="Sponsorship Banner" className="w-full h-auto object-fit rounded-xl" />
+      </div>
+    </a>
   )
 };

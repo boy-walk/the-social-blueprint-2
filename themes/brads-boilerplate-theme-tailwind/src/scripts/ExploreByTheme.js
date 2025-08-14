@@ -16,11 +16,11 @@ export const ExploreByTheme = () => {
           styles="group min-h-[16rem] h-full max-w-[260px] w-full border-1 border-background-light pt-4"
         >
           <div className="flex flex-col justify-between h-full w-full">
-            <div className="flex flex-col items-end gap-3">
+            <div className="flex flex-col items-end gap-5">
               <div className="bg-schemesPrimaryFixed mx-4 rounded-xl p-1.5">
                 <ArrowUpRightIcon size={20} weight="bold" />
               </div>
-              <div className="w-full text-right Blueprint-headline-small text-schemesOnSurface leading-snug break-words overflow-hidden px-4 mb-2  transition-transform duration-600 ease-in-out group-hover:-translate-y-2">
+              <div className="w-full text-right Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 transition-transform duration-600 ease-in-out group-hover:-translate-y-2">
                 {i === 0 && <>Community Connection</>}
                 {i === 1 && (
                   <>

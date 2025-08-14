@@ -14,13 +14,6 @@ function boilerplate_add_support() {
 }
 add_action('after_setup_theme', 'boilerplate_add_support');
 
-add_action('init', function () {
-  register_post_type('sponsorship-banner', [
-    'public' => true,
-    'label' => 'Sponsorship Banner',
-  ]);
-});
-
 // 1. Add nonce to localized script
 add_action('wp_enqueue_scripts', function () {
   wp_enqueue_script('ourmainjs');
@@ -28,6 +21,7 @@ add_action('wp_enqueue_scripts', function () {
     'nonce' => wp_create_nonce('wp_rest'),
   ]);
 });
+
 add_action('wp_enqueue_scripts', function () {
   wp_enqueue_script('ourmainjs');
   wp_localize_script('ourmainjs', 'WPData', [
@@ -203,7 +197,7 @@ add_action('init', function () {
 add_action('init', function () {
   // Your taxonomies and their labels
   $taxonomies = [
-    'category'      => 'Category',
+    'category' => 'Category',
     'topic_tag'     => 'Topic',
     'audience_tag'  => 'Audience',
     'location_tag'  => 'Location',
@@ -346,3 +340,39 @@ function register_historical_photos_cpt() {
   ]);
 }
 add_action('init', 'register_historical_photos_cpt');
+
+// Route all GeoDirectory CPT singles to a generic template unless a specific one exists.
+add_filter('single_template', function ($template) {
+  if (!is_singular()) return $template;
+  $pt = get_post_type();
+  if (strpos($pt, 'gd_') !== 0) return $template;
+
+  if ($specific = locate_template("single-{$pt}.php")) return $specific;
+  if ($generic  = locate_template('single-gd_generic.php')) return $generic;
+
+  return $template;
+}, 20);
+
+// Route GeoDirectory CPT archives to a generic archive template unless a specific one exists.
+add_filter('archive_template', function ($template) {
+  if (!is_post_type_archive()) return $template;
+  $pt = get_query_var('post_type');
+  if (is_array($pt)) $pt = reset($pt);
+  if (strpos($pt, 'gd_') !== 0) return $template;
+
+  if ($specific = locate_template("archive-{$pt}.php")) return $specific;
+  if ($generic  = locate_template('archive-gd_generic.php')) return $generic;
+
+  return $template;
+}, 20);
+
+// Route GeoDirectory taxonomies (e.g., gd_businesscategory, gd_business_tags) to a generic taxonomy template.
+add_filter('taxonomy_template', function ($template) {
+  $tax = get_query_var('taxonomy');
+  if (!$tax || strpos($tax, 'gd_') !== 0) return $template;
+
+  if ($specific = locate_template("taxonomy-{$tax}.php")) return $specific;
+  if ($generic  = locate_template('taxonomy-gd_generic.php')) return $generic;
+
+  return $template;
+}, 20);

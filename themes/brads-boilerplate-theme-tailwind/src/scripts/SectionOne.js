@@ -8,12 +8,13 @@ import { MessageBoardSlider } from './MessageBoardSlider';
 import { ListingCallout } from './ListingCallout';
 import { NewsletterBanner } from './NewsletterBanner';
 import { PdfFlipBook } from './PdfFlipBook';
+import { SponsorshipBanner } from './Sponsorship';
 
-export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, historicalPhotos }) => {
+export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, historicalPhotos, sponsorshipBanner }) => {
   return (
     <div>
       <div className="max-w-[1600px] mx-auto">
-        <div className="flex flex-col justify-center items-center gap-12 w-full px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex flex-col justify-center items-center gap-12 w-full px-4 px-6 lg:px-32 py-12">
           <div className="flex gap-3 justify-center items-center">
             <div className="Blueprint-headline-large-emphasized italic text-center leading-snug">
               Explore by
@@ -23,12 +24,16 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, 
           <div className="w-full Blueprint-body-large text-center text-schemesOnSurface">
             From support services to creative culture, start where you're curious.
           </div>
-        </div>
-        <div className="w-full flex justify-center pb-8">
-          <div className="max-w-[1400px] w-full px-12 lg:px-0">
-            <ExploreByTheme />
+          <div className="w-full flex justify-center pb-8">
+            <div className="px-12 lg:px-0 w-full">
+              <ExploreByTheme />
+            </div>
+          </div>
+          <div className="mx-auto w-full">
+            <SponsorshipBanner {...sponsorshipBanner} />
           </div>
         </div>
+
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <div className="bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">

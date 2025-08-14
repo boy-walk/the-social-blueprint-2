@@ -27,123 +27,116 @@ export default function PodcastPage({
 
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
-      {/* Top section */}
       <div className="py-8 sm:py-10 lg:py-12">
-        {/* Layout: 1 col on small, content + sidebar at lg */}
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_20rem] gap-8 lg:gap-12 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16">
-          {/* Content */}
-          <div className="min-w-0 space-y-8 lg:space-y-10">
-            <header className="space-y-2">
-              <h1 className="Blueprint-headline-large lg:Blueprint-display-small-emphasized leading-tight">
-                {title}
-              </h1>
-              {subtitle && (
-                <p className="Blueprint-body-large text-schemesOnSurfaceVariant max-w-[68ch]">
-                  {subtitle}
-                </p>
-              )}
-            </header>
-
-            <div className="flex flex-col gap-4">
-              {videoUrl && (
-                <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
-                  <iframe
-                    src={videoUrl.replace("watch?v=", "embed/")}
-                    title="Podcast Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  ></iframe>
-                </div>
-              )}
-
-              {/* Author + Share */}
-              <div className="flex flex-wrap items-start sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <img
-                    src={author?.avatar || "/default-avatar.png"}
-                    alt={author?.name || "Podcast Author"}
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <div className="flex flex-col gap-1">
-                    <div className="Blueprint-title-medium">
-                      {author?.name ? `${author.name}` : "Podcast Author"}
-                    </div>
-                    <div className="Blueprint-label-large text-schemesOnSurfaceVariant">
-                      {formattedDate}
-                    </div>
-                  </div>
-                </div>
-
-                <ShareButton
-                  title={title}
-                  summary={subtitle || ""}
-                  url={typeof window !== "undefined" ? window.location.href : undefined}
-                />
-              </div>
-            </div>
-
-            {/* Article sections */}
-            <section className="space-y-6 lg:space-y-7 max-w-3xl">
-              {sections.map((section, index) => (
-                <div
-                  key={index}
-                  className="break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline"
-                  dangerouslySetInnerHTML={{ __html: section.text }}
-                />
-              ))}
-            </section>
-
-            {/* Tags */}
-            {tags?.length > 0 && (
-              <div className="flex flex-wrap gap-2 pt-2">
-                {tags.map((tag) => (
-                  <Tag key={tag} tagName={tag} />
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Sidebar */}
-          <aside className="w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16">
-            <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant">
-              Related Content
-            </h2>
-
-            <div className="rounded-lg flex items-stretch justify-center">
-              <div className="flex flex-col gap-2 w-full">
-                {relatedContent.length > 0 ? (
-                  relatedContent.map((item) => (
-                    <RelatedContentCard
-                      key={item.id}
-                      image={item.thumbnail}
-                      title={item.title}
-                      href={item.link}
-                    />
-                  ))
-                ) : (
-                  <p className="text-schemesOnSurfaceVariant">
-                    No related content available.
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+            <div className="flex-3 min-w-0 space-y-8 lg:space-y-10">
+              <header className="space-y-2">
+                <h1 className="Blueprint-headline-large lg:Blueprint-display-small-emphasized leading-tight">
+                  {title}
+                </h1>
+                {subtitle && (
+                  <p className="Blueprint-body-large text-schemesOnSurfaceVariant max-w-[68ch]">
+                    {subtitle}
                   </p>
                 )}
+              </header>
 
-                <a href="/topics" className="mt-1">
-                  <div className="Blueprint-label-large underline text-schemesPrimary">
-                    Explore all topics
+              <div className="flex flex-col gap-4">
+                {videoUrl && (
+                  <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
+                    <iframe
+                      src={videoUrl.replace("watch?v=", "embed/")}
+                      title="Podcast Video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    ></iframe>
                   </div>
-                </a>
+                )}
+
+                <div className="flex flex-wrap items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={author?.avatar || "/default-avatar.png"}
+                      alt={author?.name || "Podcast Author"}
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <div className="Blueprint-title-medium">
+                        {author?.name ? `${author.name}` : "Podcast Author"}
+                      </div>
+                      <div className="Blueprint-label-large text-schemesOnSurfaceVariant">
+                        {formattedDate}
+                      </div>
+                    </div>
+                  </div>
+
+                  <ShareButton
+                    title={title}
+                    summary={subtitle || ""}
+                    url={typeof window !== "undefined" ? window.location.href : undefined}
+                  />
+                </div>
               </div>
+
+              <section className="space-y-6 lg:space-y-7 max-w-3xl">
+                {sections.map((section, index) => (
+                  <div
+                    key={index}
+                    className="break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline"
+                    dangerouslySetInnerHTML={{ __html: section.text }}
+                  />
+                ))}
+              </section>
+
+              {tags?.length > 0 && (
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {tags.map((tag) => (
+                    <Tag key={tag} tagName={tag} />
+                  ))}
+                </div>
+              )}
             </div>
-          </aside>
+
+            <aside className="w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1">
+              <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-4">
+                Related Content
+              </h2>
+
+              <div className="rounded-lg flex items-stretch justify-center">
+                <div className="flex flex-col gap-2 w-full">
+                  {relatedContent.length > 0 ? (
+                    relatedContent.map((item) => (
+                      <RelatedContentCard
+                        key={item.id}
+                        image={item.thumbnail}
+                        title={item.title}
+                        href={item.link}
+                      />
+                    ))
+                  ) : (
+                    <p className="text-schemesOnSurfaceVariant">
+                      No related content available.
+                    </p>
+                  )}
+
+                  <a href="/topics" className="mt-1">
+                    <div className="Blueprint-label-large underline text-schemesPrimary">
+                      Explore all topics
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
 
-        {/* More Interviews */}
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16 mt-16 lg:mt-20">
           <MoreInterviews items={moreInterviews} />
         </div>
       </div>
 
-      {/* Explore by Theme */}
       <div className="bg-schemesPrimaryFixed w-full">
         <div className="py-12 sm:py-14 lg:py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4">
           <div className="flex flex-wrap gap-3 items-center">

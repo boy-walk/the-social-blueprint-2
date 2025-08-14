@@ -20,7 +20,7 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
 
     add_filter( 'posts_clauses', $filter, 10, 1 );
     $hits = get_posts([
-      'post_type'          => ['post', 'tribe_events', 'podcast', 'article', 'directory', 'resource'],
+      'post_type'          => ['tribe_events', 'podcast', 'article', 'directory', 'resource'],
       'post_status'         => 'publish',
       'posts_per_page'      => $limit,
       'post__not_in'        => [ $post_id ],
@@ -32,6 +32,7 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
 
     if ( count( $hits ) < $limit ) {
       $fill = get_posts([
+        'post_type'          => ['tribe_events', 'podcast', 'article', 'directory', 'resource'],
         'post_status'         => 'publish',
         'posts_per_page'      => $limit - count( $hits ),
         'post__not_in'        => array_merge( [ $post_id ], wp_list_pluck( $hits, 'ID' ) ),

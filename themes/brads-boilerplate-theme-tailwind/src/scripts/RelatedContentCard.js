@@ -13,8 +13,8 @@ export const RelatedContentCard = ({
         <div className="w-[6em] h-[7em] flex-shrink-0 p-2">
           <img
             src={image}
-            alt={title}
-            className="w-full h-full object-cover rounded-sm"
+            alt={image ? title : null}
+            className="w-full h-full object-cover rounded-sm bg-gray-200"
           />
         </div>
 

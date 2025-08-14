@@ -6,9 +6,8 @@
 get_header();
 
 // 1. Featured in Community — 3 posts tagged both 'Community Connection' and 'Featured'
-$featured_args = [
+$featured_args = new WP_Query([
   'posts_per_page' => 3,
-  'post_type' => ['event', 'podcast', 'article', 'directory', 'resource'],
   'post_status' => 'publish',
   'tax_query' => [
     [
@@ -22,8 +21,8 @@ $featured_args = [
       'terms' => 'community-connection',
     ]
   ],
-];
-$featured_posts = get_posts($featured_args);
+]);
+$featured_posts = $featured_args->posts;
 
 // 2. Recent Message Board Posts — custom post type `gd_discount`
 $message_board_args = [

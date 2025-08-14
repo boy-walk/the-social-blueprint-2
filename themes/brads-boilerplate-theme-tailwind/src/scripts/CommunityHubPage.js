@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 
 export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
   const { t } = useTranslation();
+  console.log(featured)
   return (
     <div>
       <div className="flex px-12 h-16 py-3 items-center bg-schemesPrimaryFixed Blueprint-label-large text-schemesLightPrimary">

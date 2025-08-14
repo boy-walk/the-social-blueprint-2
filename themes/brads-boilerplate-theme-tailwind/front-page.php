@@ -89,32 +89,24 @@ $carouselData = array_map(function($photo) {
     'date' => get_field('date', $photo->ID),
   ];
 }, $historical_photos);
-?>
 
-
-<div id="section-one"
-     data-events='<?php echo esc_attr(json_encode($events)); ?>'
-     data-podcasts='<?php echo esc_attr(json_encode($podcast_posts)); ?>'
-     data-message-board-posts='<?php echo esc_attr(json_encode($message_board_posts)); ?>'
-    data-dynamic-props='<?php echo esc_attr(json_encode($dynamic_props)); ?>'
-    data-historical-photos='<?php echo esc_attr(json_encode($carouselData)); ?>'
->
-</div>
-<!-- <?php
-$post = get_posts([
-  'post_type' => 'sponsorship-banner',
-  'posts_per_page' => 1,
-  'orderby' => 'date',
-  'order' => 'DESC'
-])[0];
-
+$is_enabled = get_field('display_banner');
+$banner_image = get_field('banner_image');
+$href = get_field('link');
 $banner_data = [
-  'imgSrc'       => get_field('banner_image', $post->ID),
-  'enabled'     => get_field('display_banner', $post->ID), 
+  'imgSrc' => $banner_image ? $banner_image : null,
+  'enabled' => $is_enabled,
+  'href' => $href ? $href : null,
 ];
 ?>
-<div id="sponsorship-banner"
-     data-banner='<?php echo esc_attr(json_encode($banner_data)); ?>'>
-</div> -->
 
+<div id="section-one"
+    data-events='<?php echo esc_attr(json_encode($events)); ?>'
+    data-podcasts='<?php echo esc_attr(json_encode($podcast_posts)); ?>'
+    data-message-board-posts='<?php echo esc_attr(json_encode($message_board_posts)); ?>'
+    data-dynamic-props='<?php echo esc_attr(json_encode($dynamic_props)); ?>'
+    data-historical-photos='<?php echo esc_attr(json_encode($carouselData)); ?>'
+    data-sponsorship-banner='<?php echo esc_attr(json_encode($banner_data)); ?>'
+>
+</div>
 <?php get_footer();

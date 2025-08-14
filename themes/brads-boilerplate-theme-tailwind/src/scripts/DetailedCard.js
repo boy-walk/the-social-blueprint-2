@@ -14,14 +14,12 @@ export function DetailedCard({
   return (
     <Card styles="h-full">
       <a href={href || "#"} className="flex h-full w-full gap-4 group">
-        <div className="lg:aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden p-2">
-          {image && (
-            <img
-              src={image}
-              alt={title}
-              className="w-full h-full object-cover rounded-lg"
-            />
-          )}
+        <div className="lg:aspect-[4/3] max-h-[250px] w-1/4 flex-shrink-0 overflow-hidden p-2 rounded-lg">
+          <img
+            src={image}
+            alt={image ? title : null}
+            className="w-full h-full object-cover bg-gray-100 rounded-lg"
+          />
         </div>
 
         <div className="flex flex-col justify-between w-full h-full p-2 lg:p-4">

@@ -3,10 +3,12 @@ import { ContentCard } from './ContentCard';
 import { DetailedCard } from './DetailedCard';
 
 export default function FeaturedPostLayout({ posts }) {
-  if (!posts || posts.length < 3) return null;
+  if (!posts) return null;
+
+  const postLength = posts.length < 3 ? posts.length : 3;
 
   const hero = posts[0];
-  const stack = posts.slice(1, 3);
+  const stack = posts.slice(1, postLength);
 
   const getBadge = (type) => {
     switch (type?.toLowerCase()) {

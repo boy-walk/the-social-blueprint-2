@@ -22,6 +22,7 @@ import AccountSettingsPage from './scripts/AccountSettingsPage';
 import { AccountChangePassword } from './scripts/AccountChangePassword';
 import { AboutUs } from './scripts/AboutUs';
 import { ArticlePage } from './scripts/ArticlePage';
+import { EventPage } from './scripts/EventPage';
 
 
 if (document.querySelector('#front-page')) {
@@ -42,7 +43,17 @@ if (el1) {
   const messageBoardPosts = JSON.parse(el1.dataset.messageBoardPosts || '[]');
   const dynamicProps = JSON.parse(el1.dataset.dynamicProps || '{}');
   const historicalPhotos = JSON.parse(el1.dataset.historicalPhotos || '[]');
-  ReactDOM.createRoot(el1).render(<SectionOne events={events} podcasts={podcasts} messageBoardPosts={messageBoardPosts} dynamicProps={dynamicProps} historicalPhotos={historicalPhotos} />);
+  const sponsorshipBanner = JSON.parse(el1.dataset.sponsorshipBanner || '{}');
+  ReactDOM.createRoot(el1).render(
+    <SectionOne
+      events={events}
+      podcasts={podcasts}
+      messageBoardPosts={messageBoardPosts}
+      dynamicProps={dynamicProps}
+      historicalPhotos={historicalPhotos}
+      sponsorshipBanner={sponsorshipBanner}
+    />
+  );
 }
 
 const el2 = document.getElementById('sponsorship-banner');
@@ -166,4 +177,10 @@ if (el19) {
     author: JSON.parse(el19.dataset.authorObj || '{}'),
   };
   ReactDOM.createRoot(el19).render(<ArticlePage {...props} />);
+}
+
+const el20 = document.getElementById("tsb-event-root");
+if (el20) {
+  const props = JSON.parse(el20.dataset.props || '{}');
+  ReactDOM.createRoot(el20).render(<EventPage {...props} />);
 }
