@@ -28,7 +28,7 @@ export default function FeaturedPostLayout({ posts }) {
   return (
     <div className="flex flex-col lg:flex-row gap-3 w-full items-stretch">
       <div className="flex-1 w-full">
-        <ContentCard
+        {hero && (<ContentCard
           date={hero.date}
           image={hero.thumbnail}
           type={hero.post_type}
@@ -37,7 +37,7 @@ export default function FeaturedPostLayout({ posts }) {
           fullHeight
           fullWidth
           title={hero.title}
-        />
+        />)}
       </div>
       <div className="flex-1 flex flex-col gap-3">
         {stack.map((post, i) => (

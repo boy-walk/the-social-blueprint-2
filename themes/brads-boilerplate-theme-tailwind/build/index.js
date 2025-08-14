@@ -9712,7 +9712,7 @@ function FeaturedPostLayout({
     className: "flex flex-col lg:flex-row gap-3 w-full items-stretch",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "flex-1 w-full",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
+      children: hero && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
         date: hero.date,
         image: hero.thumbnail,
         type: hero.post_type,
