@@ -66,6 +66,31 @@ if ($more_articles->have_posts()) {
 }
 
 $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3 );
+
+$more_by_author = new WP_Query([
+  'post_type'      => 'article',
+  'posts_per_page' => 3,
+  'post__not_in'   => [$post_id],
+  'author'         => $author_id,
+  'orderby'        => 'date',
+  'order'          => 'DESC',
+]);
+
+if ($more_by_author->have_posts()) {
+  $more_by_author_data = [];
+  while ($more_by_author->have_posts()) {
+    $more_by_author->the_post();
+    $more_by_author_data[] = [
+      'id'        => get_the_ID(),
+      'title'     => get_the_title(),
+      'link'      => get_permalink(),
+      'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+    ];
+  }
+  wp_reset_postdata();
+} else {
+  $more_by_author_data = [];
+}
 ?>
 
 <div id="article-root"
@@ -85,6 +110,7 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3 );
          'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
        ];
      }, $related_content)) ); ?>'
+    data-more-by-author='<?php echo esc_attr( wp_json_encode($more_by_author_data) ); ?>'
 >
 </div>
 

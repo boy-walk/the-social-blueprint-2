@@ -22,7 +22,7 @@ export function ContentCard({
   return (
     <Card href={href} styles={cardStyles}>
       <div className="flex flex-col">
-        <div className={`flex-grow rounded-lg overflow-hidden relative ${fullWidth ? "aspect-[2]" : "aspect-[1]"} bg-gray-100 max-h-75`}>
+        <div className={`flex-grow rounded-lg overflow-hidden relative ${fullHeight ? "aspect-[1]" : "aspect-[1.6]"} bg-gray-100 ${fullHeight ? "max-h-100" : "max-h-75"}`}>
           {image && (
             <img
               src={image}

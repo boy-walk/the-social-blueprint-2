@@ -13,8 +13,8 @@ module.exports = {
     },
     screens: {
       sm: { max: '767px' },              // 0–767px
-      md: { min: '768px', max: '1023px' }, // 768–1023px
-      lg: { min: '1024px' },             // ≥1024px
+      md: { min: '768px', max: '1028px' }, // 768–1023px
+      lg: { min: '1028px' },             // ≥1024px
     },
   },
   plugins: [require('@tailwindcss/typography')],

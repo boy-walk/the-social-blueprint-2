@@ -191,6 +191,7 @@ add_action('init', function () {
       'menu_position' => 5,
       'menu_icon' => 'dashicons-media-document',
     ]);
+    add_post_type_support($slug, 'author');
   }
 });
 
@@ -204,6 +205,7 @@ add_action('init', function () {
     'feature_tag'   => 'Feature',
     'people_tag'    => 'People',
   ];
+
 
   foreach ($taxonomies as $slug => $name) {
     register_taxonomy($slug, ['tribe_events', 'podcast', 'article', 'directory', 'resource'], [

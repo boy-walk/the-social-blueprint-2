@@ -175,6 +175,7 @@ if (el19) {
     relatedContent: JSON.parse(el19.dataset.relatedContent || '[]'),
     tags: JSON.parse(el19.dataset.tags || '[]'),
     author: JSON.parse(el19.dataset.authorObj || '{}'),
+    moreByAuthor: JSON.parse(el19.dataset.moreByAuthor || '[]'),
   };
   ReactDOM.createRoot(el19).render(<ArticlePage {...props} />);
 }

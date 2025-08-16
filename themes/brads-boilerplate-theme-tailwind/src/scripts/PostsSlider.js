@@ -4,7 +4,7 @@ import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { ContentCard } from "./ContentCard";
 
-export function EventsSlider({ events, itemsToDisplay = 4 }) {
+export function PostsSlider({ events, itemsToDisplay = 4 }) {
   const scrollRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(itemsToDisplay);

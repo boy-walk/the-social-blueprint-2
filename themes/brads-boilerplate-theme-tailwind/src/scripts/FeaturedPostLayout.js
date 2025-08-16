@@ -26,8 +26,8 @@ export default function FeaturedPostLayout({ posts }) {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-3 w-full items-stretch">
-      <div className="flex-1 w-full">
+    <div className="flex flex-col md:flex-row gap-4 w-full items-stretch">
+      <div className="flex-1 md:flex-2 lg:flex-2 w-full">
         {hero && (<ContentCard
           date={hero.date}
           image={hero.thumbnail}
@@ -39,9 +39,9 @@ export default function FeaturedPostLayout({ posts }) {
           title={hero.title}
         />)}
       </div>
-      <div className="flex-1 flex flex-col gap-3">
+      <div className={`flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`}>
         {stack.map((post, i) => (
-          <div key={i} className="flex-1">
+          <div key={i} className="w-full h-full">
             <DetailedCard
               key={i}
               image={post.thumbnail}
@@ -57,6 +57,5 @@ export default function FeaturedPostLayout({ posts }) {
         ))}
       </div>
     </div>
-
   );
 }

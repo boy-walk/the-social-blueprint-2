@@ -5,7 +5,7 @@ import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { ShareButton } from "./ShareButton";
 import { RelatedContentCard } from "./RelatedContentCard";
-import { EventsSlider } from "./EventsSlider";
+import { PostsSlider } from "./PostsSlider";
 
 export default function PodcastPage({
   title,
@@ -135,13 +135,13 @@ export default function PodcastPage({
       </div>
 
       <div className="hidden md:block md:p-8 lg:p-16 lg:max-w-[1600px] mx-auto">
-        <EventsSlider events={moreInterviews} itemsToDisplay={3} />
+        <PostsSlider events={moreInterviews} itemsToDisplay={3} />
       </div>
 
       <div className="bg-schemesPrimaryFixed w-full">
         <div className="p-6 md:p-8 lg:p-16 flex flex-col max-w-[1600px] mx-auto gap-4">
           <div className="flex flex-wrap gap-3 items-center">
-            <div className="Blueprint-headline-medium italic">
+            <div className="lg:Blueprint-headline-large-emphasized md:Blueprint-title-medium-emphasized Blueprint-title-small-emphasized italic">
               Explore more by
             </div>
             <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />

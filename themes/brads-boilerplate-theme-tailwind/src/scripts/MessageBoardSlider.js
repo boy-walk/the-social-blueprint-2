@@ -18,7 +18,7 @@ export function MessageBoardSlider({ messageBoard, displaySlider = true }) {
   useEffect(() => {
     const updateItemsPerView = () => {
       const width = window.innerWidth;
-      setItemsPerView(width < 640 ? 1 : 3);
+      setItemsPerView(width < 1028 ? 1 : 3);
     };
     updateItemsPerView();
     window.addEventListener("resize", updateItemsPerView);

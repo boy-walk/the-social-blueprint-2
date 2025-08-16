@@ -1,7 +1,7 @@
 import React from "react";
 import { GearIcon, MailboxIcon, UserCircleIcon } from "@phosphor-icons/react";
 import { Card } from "./Card";
-import { EventsSlider } from "./EventsSlider";
+import { PostsSlider } from "./PostsSlider";
 import { NewsletterBanner } from "./NewsletterBanner";
 import { useTranslation } from "react-i18next";
 
@@ -59,7 +59,7 @@ export function AccountDashboard({ user, events }) {
         <h2 className="Blueprint-headline-medium text-schemesOnSurface mb-6">
           Your upcoming events
         </h2>
-        <EventsSlider events={events} />
+        <PostsSlider events={events} />
       </div>
 
 
