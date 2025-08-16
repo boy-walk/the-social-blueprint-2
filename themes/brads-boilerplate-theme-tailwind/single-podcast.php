@@ -54,7 +54,7 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 // -------- Retrieve 3 other podcasts for "more interviews" --------
 $more_interviews = new WP_Query([
   'post_type'      => 'podcast',
-  'posts_per_page' => 3,
+  'posts_per_page' => 12,
   'post__not_in'   => [$post_id],
   'orderby'        => 'rand',
 ]);
@@ -68,6 +68,8 @@ if ($more_interviews->have_posts()) {
       'title'     => get_the_title(),
       'link'      => get_permalink(),
       'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+      'date'      => get_the_date('', get_the_ID()),
+      'author'    => get_the_author_meta('display_name')
     ];
   }
   wp_reset_postdata();

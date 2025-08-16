@@ -5,6 +5,7 @@ import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { ShareButton } from "./ShareButton";
 import { RelatedContentCard } from "./RelatedContentCard";
+import { EventsSlider } from "./EventsSlider";
 
 export default function PodcastPage({
   title,
@@ -27,22 +28,22 @@ export default function PodcastPage({
 
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
-      <div className="py-8 sm:py-10 lg:py-12">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            <div className="flex-3 min-w-0 space-y-8 lg:space-y-10">
-              <header className="space-y-2">
-                <h1 className="Blueprint-headline-large lg:Blueprint-display-small-emphasized leading-tight">
+      <div className="p-6 md:p-8 lg:p-12">
+        <div className="lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16">
+          <div className="flex flex-col md:flex-col lg:flex-row lg:gap-16">
+            <div className="flex-3 min-w-0 space-y-4">
+              <header className="space-y-1 lg:space-y-2">
+                <h1 className="Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight py-3">
                   {title}
                 </h1>
                 {subtitle && (
-                  <p className="Blueprint-body-large text-schemesOnSurfaceVariant max-w-[68ch]">
+                  <p className="Blueprint-title-small md:Blueprint-title-medium lg:Blueprint-title-large text-schemesOnSurfaceVariant max-w-[68ch]">
                     {subtitle}
                   </p>
                 )}
               </header>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 items-center justify-center">
                 {videoUrl && (
                   <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
                     <iframe
@@ -55,7 +56,7 @@ export default function PodcastPage({
                   </div>
                 )}
 
-                <div className="flex flex-wrap items-start sm:items-center justify-between gap-4">
+                <div className="flex flex-wrap items-start sm:items-center justify-between gap-4 w-full">
                   <div className="flex items-center gap-4">
                     <img
                       src={author?.avatar || "/default-avatar.png"}
@@ -80,7 +81,7 @@ export default function PodcastPage({
                 </div>
               </div>
 
-              <section className="space-y-6 lg:space-y-7 max-w-3xl">
+              <section className="space-y-6 lg:space-y-7 max-w-3xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant">
                 {sections.map((section, index) => (
                   <div
                     key={index}
@@ -131,14 +132,14 @@ export default function PodcastPage({
             </aside>
           </div>
         </div>
+      </div>
 
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16 mt-16 lg:mt-20">
-          <MoreInterviews items={moreInterviews} />
-        </div>
+      <div className="hidden md:block md:p-8 lg:p-16 lg:max-w-[1600px] mx-auto">
+        <EventsSlider events={moreInterviews} itemsToDisplay={3} />
       </div>
 
       <div className="bg-schemesPrimaryFixed w-full">
-        <div className="py-12 sm:py-14 lg:py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4">
+        <div className="p-6 md:p-8 lg:p-16 flex flex-col max-w-[1600px] mx-auto gap-4">
           <div className="flex flex-wrap gap-3 items-center">
             <div className="Blueprint-headline-medium italic">
               Explore more by

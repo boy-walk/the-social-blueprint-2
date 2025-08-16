@@ -3,7 +3,7 @@
 get_header(); ?>
 
 <div>
-  <div className="p-16">
+  <div style="padding: 64px">
   <?php if (have_posts()) {
         while(have_posts()) {
           the_post(); ?>

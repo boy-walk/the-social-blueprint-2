@@ -8,6 +8,7 @@ export function ContentCard({
   subtitle,
   badge,
   href,
+  author,
   fullHeight = false,
   fullWidth = false
 }) {
@@ -38,13 +39,18 @@ export function ContentCard({
         {title && (
           <div className="p-4 flex flex-col flex-shrink">
             {date && (
-              <div className="Blueprint-body-medium text-schemesOnSurfaceVariant">
+              <div className="md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant">
                 {date}
               </div>
             )}
-            <h3 className="Blueprint-body-large-emphasized line-clamp-2">{title}</h3>
+            <h3 className="Blueprint-body-large-emphasized md:Blueprint-body-small-emphasized line-clamp-2">{title}</h3>
             {subtitle && (
               <p className="text-sm text-schemesOnSurfaceVariant line-clamp-2">{subtitle}</p>
+            )}
+            {author && (
+              <p className="lg:Blueprint-body-medium Blueprint-body-small text-schemesOnSurfaceVariant mt-1">
+                {author}
+              </p>
             )}
           </div>
         )}

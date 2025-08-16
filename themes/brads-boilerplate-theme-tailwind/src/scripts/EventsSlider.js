@@ -4,16 +4,16 @@ import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { ContentCard } from "./ContentCard";
 
-export function EventsSlider({ events }) {
+export function EventsSlider({ events, itemsToDisplay = 4 }) {
   const scrollRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerView, setItemsPerView] = useState(4);
+  const [itemsPerView, setItemsPerView] = useState(itemsToDisplay);
 
   // Detect screen size
   useEffect(() => {
     const updateItemsPerView = () => {
       const width = window.innerWidth;
-      setItemsPerView(width < 640 ? 1 : 4);
+      setItemsPerView(width < 640 ? 1 : itemsToDisplay);
     };
     updateItemsPerView();
     window.addEventListener("resize", updateItemsPerView);
@@ -64,6 +64,8 @@ export function EventsSlider({ events }) {
               <a href={post.permalink}>
                 <ContentCard
                   image={post.thumbnail}
+                  date={post.date}
+                  author={post.author}
                   title={post.title}
                   type={post.type || "Event"}
                   subtitle={post.meta?.author || post.meta?.location || ""}
