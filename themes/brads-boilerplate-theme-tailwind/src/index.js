@@ -22,6 +22,7 @@ import AccountSettingsPage from './scripts/AccountSettingsPage';
 import { AccountChangePassword } from './scripts/AccountChangePassword';
 import { AboutUs } from './scripts/AboutUs';
 import { ArticlePage } from './scripts/ArticlePage';
+import { EventsCalendar } from './scripts/EventsCalendar';
 
 
 if (document.querySelector('#front-page')) {
@@ -166,4 +167,15 @@ if (el19) {
     author: JSON.parse(el19.dataset.authorObj || '{}'),
   };
   ReactDOM.createRoot(el19).render(<ArticlePage {...props} />);
+}
+
+const el20 = document.getElementById('events-fullcalendar');
+if (el20) {
+  const props = {
+    types: JSON.parse(el20.dataset.types),
+    topics: JSON.parse(el20.dataset.topics),
+    audiences: JSON.parse(el20.dataset.audiences),
+    locations: JSON.parse(el20.dataset.locations)
+  }
+  ReactDOM.createRoot(el20).render(<EventsCalendar {...props} />)
 }
