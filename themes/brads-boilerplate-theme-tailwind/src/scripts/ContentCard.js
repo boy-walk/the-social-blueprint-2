@@ -21,8 +21,8 @@ export function ContentCard({
 
   return (
     <Card href={href} styles={cardStyles}>
-      <div className="flex flex-col">
-        <div className={`flex-grow rounded-lg overflow-hidden relative ${fullHeight ? "aspect-[1]" : "aspect-[1.6]"} bg-gray-100 ${fullHeight ? "max-h-100" : "max-h-75"}`}>
+      <div className="flex flex-col h-full">
+        <div className={`flex-grow rounded-lg overflow-hidden relative ${fullHeight ? "aspect-[1]" : "aspect-[1.6]"} bg-gray-100 ${fullHeight ? "max-h-50 lg:max-h-100" : "max-h-40 lg:max-h-75"}`}>
           {image && (
             <img
               src={image}

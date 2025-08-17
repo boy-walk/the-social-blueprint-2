@@ -64,7 +64,7 @@ export default function PodcastPage({
                       className="w-10 h-10 rounded-full"
                     />
                     <div className="flex flex-col gap-1">
-                      <div className="Blueprint-title-medium">
+                      <div className="lg:Blueprint-title-medium">
                         {author?.name ? `${author.name}` : "Podcast Author"}
                       </div>
                       <div className="Blueprint-label-large text-schemesOnSurfaceVariant">
@@ -85,7 +85,10 @@ export default function PodcastPage({
                 {sections.map((section, index) => (
                   <div
                     key={index}
-                    className="break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline"
+                    className=" break-words
+                                [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline
+                                [&_img]:max-w-full [&_img]:h-auto [&_img]:block
+                                [&_figure]:max-w-full [&_figure]:overflow-hidden"
                     dangerouslySetInnerHTML={{ __html: section.text }}
                   />
                 ))}
@@ -100,7 +103,7 @@ export default function PodcastPage({
               )}
             </div>
 
-            <aside className="w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1">
+            <aside className="w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1 min-w-70 mt-10 lg:mt-0">
               <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-4">
                 Related Content
               </h2>
@@ -147,7 +150,7 @@ export default function PodcastPage({
             <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
           </div>
 
-          <div className="Blueprint-title-large text-schemesOnSurface mb-8 lg:mb-12 max-w-[68ch]">
+          <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface mb-8 lg:mb-12 max-w-[68ch]">
             From support services to creative culture, start where you're curious.
           </div>
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField } from './TextField';
 import { Button } from './Button';
 
-export default function AccountSettings({ profile }) {
+export function AccountSettings({ profile }) {
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState(profile);
 
@@ -27,7 +27,7 @@ export default function AccountSettings({ profile }) {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 lg:px-0 py-12">
+    <div className="max-w-2xl mx-auto px-4 lg:px-0">
       <h2 className="Blueprint-headline-small-emphasized mb-1">Profile</h2>
       <p className="Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant">Supporting line text lorem ipsum dolor sit amet, consectetur</p>
 

@@ -15,14 +15,14 @@ export default function Header({ isUserLoggedIn = false }) {
         relative
         bg-[var(--schemesPrimaryContainer)]
         text-[var(--schemesOnPrimaryContainer)]
-        w-full px-8 lg:px-16 py-6
+        w-full p-4 lg:px-16 lg:py-6
         flex items-center justify-between z-50
         shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]
         mix-blend-multiply
       "
     >
       <a href="/" className="flex items-center">
-        <img src={Logo} alt="The Social Blueprint" className="h-20" />
+        <img src={Logo} alt="The Social Blueprint" className="h-15 lg:h-20" />
       </a>
 
       {/*<LanguageSwitcher />*/}

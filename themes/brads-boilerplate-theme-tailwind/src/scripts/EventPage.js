@@ -6,6 +6,7 @@ import { RelatedContentCard } from "./RelatedContentCard";
 import { DetailedCard } from "./DetailedCard";
 import { ExploreByTheme } from "./ExploreByTheme";
 import { Button } from "./Button";
+import { PostsSlider } from "./PostsSlider";
 
 function fmtEventDateRange({ startISO, endISO }) {
   if (!startISO) return "";
@@ -175,11 +176,8 @@ export function EventPage({
         <div className="bg-palettesPrimary90/30 mt-12 lg:mt-16">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16 py-8 lg:py-12 space-y-4">
             <div className="Blueprint-headline-small-emphasized">More on this week</div>
-            {console.log(moreThisWeek)}
             {moreThisWeek?.length ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                {moreThisWeek.map((it) => <DetailedCard key={it.id} {...it} />)}
-              </div>
+              <PostsSlider events={moreThisWeek} itemsToDisplay={3} />
             ) : (
               <div className="Blueprint-body-medium text-schemesOnSurfaceVariant">No events to show.</div>
             )}

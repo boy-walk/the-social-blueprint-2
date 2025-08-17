@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import { ContentCard } from "./ContentCard";
 import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
-import { DetailedCard } from "./DetailedCard";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
@@ -99,7 +98,7 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
         </div>
       </div>
 
-      <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-8 md:gap-16 lg:gap-32">
+      <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-24 lg:gap-32">
         <div>
           <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface py-3 mb-4">
             Featured in Community
@@ -107,7 +106,7 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
           <FeaturedPostLayout posts={featured} />
         </div>
         <div>
-          <div className="flex md:justify-between lg:justify-start items-center gap-2 mb-8">
+          <div className="flex justify-between lg:justify-start items-center gap-2 mb-8">
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface">
               {t("recentMessageBoardPosts")}
             </h2>

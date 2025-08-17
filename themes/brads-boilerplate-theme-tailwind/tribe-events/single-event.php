@@ -88,10 +88,12 @@ if ($week_q->have_posts()) {
     $more_week[] = [
       'id'        => get_the_ID(),
       'title'     => get_the_title(),
-      'href'      => get_permalink(),
+      'link'      => get_permalink(),
       'image'     => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
       'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
       'subtitle'  => get_post_meta(get_the_ID(), '_EventStartDate', true),
+      'date'      => get_the_date('', get_the_ID()),
+      'author'    => get_the_author_meta('display_name', get_post_field('post_author', get_the_ID())),
     ];
   }
   wp_reset_postdata();

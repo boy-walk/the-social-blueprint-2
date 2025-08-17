@@ -70,10 +70,10 @@ export function MessageBoardSlider({ messageBoard, displaySlider = true }) {
                   <div className="rounded-md px-3 py-1.5 bg-schemesSurfaceContainer Blueprint-label-small">
                     {t("healthAndWellbeing")}
                   </div>
-                  <h3 className="Blueprint-title-medium text-schemesOnSurface mb-2 line-clamp-2">
+                  <h3 className="Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized text-schemesOnSurface mb-1 md:mb-2 line-clamp-2">
                     {post.title}
                   </h3>
-                  <div className="text-schemesOnSurfaceVariant Blueprint-label-medium line-clamp-3">
+                  <div className="text-schemesOnSurfaceVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium line-clamp-3">
                     {post.excerpt}
                   </div>
                 </div>

@@ -333,6 +333,9 @@
   --shadow-3x3: 4px 4px 1px 0 rgba(71, 71, 64, 0.16);
   --font-ibmCondensed: 'IBM Plex Sans Condensed', sans-serif;
   --font-heebo: 'Heebo', sans-serif;
+  --breakpoint-sm: 567px;
+  --breakpoint-md: 568px;
+  --breakpoint-lg: 1071px;
 }
 
 .shadow-3x2 {

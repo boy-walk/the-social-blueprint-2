@@ -18,8 +18,8 @@ import { SearchPage } from './scripts/SearchPage';
 import { CommunityHubPage } from './scripts/CommunityHubPage';
 import { AccountDashboard } from './scripts/AccountDashboard';
 import { NewsletterBanner } from './scripts/NewsletterBanner';
-import AccountSettingsPage from './scripts/AccountSettingsPage';
-import { AccountChangePassword } from './scripts/AccountChangePassword';
+import { AccountEditProfilePage } from './scripts/AccountProfilePage';
+import { AccountChangePasswordPage } from './scripts/AccountProfilePage';
 import { AboutUs } from './scripts/AboutUs';
 import { ArticlePage } from './scripts/ArticlePage';
 import { EventPage } from './scripts/EventPage';
@@ -147,14 +147,22 @@ if (el15) {
 
 const el16 = document.getElementById('account-settings-root');
 if (el16) {
-  const props = JSON.parse(el16.dataset.props);
-  ReactDOM.createRoot(el16).render(<AccountSettingsPage profile={props} />);
+  const props = {
+    links: JSON.parse(el16.dataset.links || '{}'),
+    user: JSON.parse(el16.dataset.user || '{}'),
+    profile: JSON.parse(el16.dataset.profile || '{}'),
+  }
+  ReactDOM.createRoot(el16).render(<AccountEditProfilePage {...props} />);
 }
 
 const el17 = document.getElementById('account-change-password-root');
 if (el17) {
-  const user = JSON.parse(el17.dataset.user);
-  ReactDOM.createRoot(el17).render(<AccountChangePassword user={user} />);
+  const props = {
+    links: JSON.parse(el17.dataset.links || '{}'),
+    user: JSON.parse(el17.dataset.user || '{}'),
+    profile: JSON.parse(el17.dataset.profile || '{}'),
+  }
+  ReactDOM.createRoot(el17).render(<AccountChangePasswordPage {...props} />);
 }
 
 const el18 = document.getElementById("OurMissionPage")

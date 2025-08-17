@@ -24,9 +24,21 @@ $profile_data = [
   'bio' => get_user_meta($user_id, 'description', true),
   'avatar' => $avatar_url,
 ];
+
+$links = [
+  'profileHref'  => home_url('/account-settings'),
+  'passwordHref' => home_url('/change-password'),
+  'logoutHref'   => wp_logout_url( home_url('/') ),
+]
 ?>
 
 <div id="account-settings-root"
-     data-props='<?php echo json_encode($profile_data); ?>'></div>
+    data-user='<?php echo json_encode([
+      'email' => $current_user->user_email,
+      'id' => $current_user->ID,
+    ]); ?>'
+    data-profile='<?php echo json_encode($profile_data); ?>'
+    data-links='<?php echo json_encode($links); ?>'>
+</div>
 
 <?php get_footer(); ?>
