@@ -70,50 +70,42 @@ function uwp_custom_register_user(WP_REST_Request $request) {
   return new WP_REST_Response(['success' => true], 200);
 }
 
-add_action( 'wp_enqueue_scripts', function () {
-	$handle = 'theme-frontend';
-	$src    = get_theme_file_uri( 'build/index.js' );
-
-	if ( ! wp_script_is( $handle, 'enqueued' ) ) {
-		wp_enqueue_script( $handle, $src, [ 'wp-api-fetch' ], null, true );
-	}
-
-	wp_localize_script( $handle, 'UWP_LOGIN', [
-		'endpoint' => rest_url( 'uwp/v1/login' ),
-		'nonce'    => wp_create_nonce( 'wp_rest' ),
-	] );
-} );
-
 add_action('rest_api_init', function () {
   register_rest_route('uwp-custom/v1', '/login', [
-    'methods' => 'POST',
+    'methods'  => 'POST',
     'callback' => 'uwp_custom_login_user',
     'permission_callback' => '__return_true',
   ]);
 });
 
-function uwp_custom_login_user(WP_REST_Request $request) {
-  $data = $request->get_json_params(); // moved BEFORE debug
-  // optional debug:
-  // file_put_contents(__DIR__ . '/login-debug.log', print_r($data, true), FILE_APPEND);
+function uwp_custom_login_user( WP_REST_Request $request ) {
+  $data = $request->get_json_params();
+
+  // Keep emails intact; don't use sanitize_user() here
+  $login    = isset($data['email'])    ? sanitize_text_field($data['email']) : '';
+  $password = isset($data['password']) ? $data['password'] : '';
+
+  if (!$login || !$password) {
+    return new WP_REST_Response(['message' => 'Missing credentials.'], 400);
+  }
 
   $creds = [
-    'user_login'    => isset($data['email']) ? sanitize_user($data['email']) : '',
-    'user_password' => $data['password'] ?? '',
-    'remember'      => true,
+    'user_login'    => $login,       // can be username OR email
+    'user_password' => $password,
+    'remember'      => true,         // persistent cookie
   ];
 
-  $user = wp_signon($creds, false);
+  // Let WP decide secure cookie based on HTTPS/FORCE_SSL_ADMIN
+  $user = wp_signon($creds);         // <-- no second arg, no manual cookie calls
 
-  if (is_wp_error($user)) {
+  if ( is_wp_error($user) ) {
     return new WP_REST_Response(['message' => $user->get_error_message()], 403);
   }
 
-  wp_set_current_user($user->ID);
-  wp_set_auth_cookie($user->ID);
-
+  // DO NOT call wp_set_current_user/wp_set_auth_cookie again.
   return new WP_REST_Response(['success' => true, 'user_id' => $user->ID], 200);
 }
+
 
 /**
  *  Register a BUSINESS / ORGANISATION account
