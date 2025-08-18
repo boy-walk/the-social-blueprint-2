@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import { StyledCheckbox } from './StyledCheckbox';
+import { EventsCalendarFilterGroup } from './EventsCalendarFilterGroup';
 
 export function EventsCalendar({types, topics, audiences, locations}) {
     const [keyword, setKeyword] = useState('');
@@ -11,6 +13,7 @@ export function EventsCalendar({types, topics, audiences, locations}) {
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [selectedAudiences, setSelectedAudiences] = useState([]);
     const [selectedLocations, setSelectedLocations] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const isFirstDatesSet = useRef(true);
 
     const calendarRef = useRef(null);
@@ -33,10 +36,6 @@ export function EventsCalendar({types, topics, audiences, locations}) {
         const calendarApi = calendarRef.current.getApi(); // Get the Calendar API
         calendarApi.removeAllEvents();
     };
-
-    const handleKeywordChange = (event) => {
-        console.log(event.target.value)
-    }
 
     const handleTypeChange = (event) => {
         const { value, checked } = event.target;
@@ -93,6 +92,8 @@ export function EventsCalendar({types, topics, audiences, locations}) {
             return; // skip first call
         }
 
+        setIsLoading(true);
+
         const fetchData = async () => {
             try {
                 const url = '/wp-json/sbp/v1/events';
@@ -122,8 +123,10 @@ export function EventsCalendar({types, topics, audiences, locations}) {
                         });
                     }
                 }
+                setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setIsLoading(false);
             }
         };
 
@@ -151,10 +154,8 @@ export function EventsCalendar({types, topics, audiences, locations}) {
 
     return (
         <>
-            {/* <h2 className="mb-6">This is a template</h2> */}
-
-            <div className="flex flex-grow">
-                <div className="calendar-sidebar pr-4 basis-[20%] shrink-0">
+            <div className={`flex flex-grow ${isLoading ? 'cursor-wait' : ''}`}>
+                <div className={`calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
                     <div className="relative flex items-center mb-6 filters-search">
                         <input
                             type="text"
@@ -179,80 +180,63 @@ export function EventsCalendar({types, topics, audiences, locations}) {
                     </div>
                     <h2 className='text-lg mb-4'>Filters</h2>
 
-                    <div className='mb-4 filters-type'>
-                        <h3 className='mb-2'>Type</h3>
-                        {types.slice(0,5).map((option) => (
-                            <p>
-                                <input
-                                    id={`filter-${option.id}`}
-                                    className='form-checkbox'
-                                    type="checkbox"
-                                    value={option.id}
-                                    onChange={handleTypeChange}
-                                />
-                                <label className='ml-2' for={`filter-${option.id}`} key={option.id}>
-                                    {option.name}
-                                </label>
-                            </p>
-                        ))}
-                    </div>
+                    <EventsCalendarFilterGroup
+                        key={'filter-group-types'}
+                        title={'Type'}
+                        options={types}
+                        selected={selectedTypes}
+                        onChangeHandler={handleTypeChange}
+                    />
 
-                    <div className="mb-4 filters-topic">
-                        <h3 className='mb-2'>Topic</h3>
-                        {topics.slice(0,5).map((option) => (
-                            <p>
-                                <input
-                                    id={`filter-${option.id}`}
-                                    className='form-checkbox'
-                                    type="checkbox"
-                                    value={option.id}
-                                    onChange={handleTopicChange}
-                                />
-                                <label className='ml-2' for={`filter-${option.id}`} key={option.id}>
-                                    {option.name}
-                                </label>
-                            </p>
-                        ))}
-                    </div>
+                    <EventsCalendarFilterGroup
+                        key={'filter-group-topics'}
+                        title={'Topic'}
+                        options={topics}
+                        selected={selectedTopics}
+                        onChangeHandler={handleTopicChange}
+                    />
 
-                    <div className="mb-4 filters-audience">
-                        <h3 className='mb-2'>Audience</h3>
-                        {audiences.slice(0,5).map((option) => (
-                            <p>
-                                <input
-                                    id={`filter-${option.id}`}
-                                    className='form-checkbox'
-                                    type="checkbox"
-                                    value={option.id}
-                                    onChange={handleAudienceChange}
-                                />
-                                <label className='ml-2' for={`filter-${option.id}`} key={option.id}>
-                                    {option.name}
-                                </label>
-                            </p>
-                        ))}
-                    </div>
+                    <EventsCalendarFilterGroup
+                        key={'filter-group-audience'}
+                        title={'Audience'}
+                        options={audiences}
+                        selected={selectedAudiences}
+                        onChangeHandler={handleAudienceChange}
+                    />
 
-                    <div className="mb-4 filters-location">
-                        <h3 className='mb-2'>Location</h3>
-                        {locations.slice(0,5).map((option) => (
-                            <p>
-                                <input
-                                    id={`filter-${option.id}`}
-                                    className='form-checkbox'
-                                    type="checkbox"
-                                    value={option.id}
-                                    onChange={handleLocationChange}
-                                    // checked={selectedLocations.includes(option.id)}
-                                />
-                                <label className='ml-2' for={`filter-${option.id}`} key={option.id}>
-                                    {option.name}
-                                </label>
-                            </p>
-                        ))}
-                    </div>
+                    <EventsCalendarFilterGroup
+                        key={'filter-group-audience'}
+                        title={'Location'}
+                        options={locations}
+                        selected={selectedLocations}
+                        onChangeHandler={handleLocationChange}
+                    />
                 </div>
-                <div className='flex-1 min-w-0 px-6'>
+                <div className={`flex-1 min-w-0 transition duration-100 px-6 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
+                    <div className="flex flex-row gap-2">
+                        <StyledCheckbox
+                            key={`all-types`}
+                            id={`all-types`}
+                            label={'All'}
+                            checked={selectedTypes.length === 0}
+                            onChangeHandler={() => {
+                                // Clear all selected types
+                                setSelectedTypes([]);
+                            }}
+                        />
+                        <div className="flex flex-row gap-1 types-topbar">
+                            {types.slice(0, 5).map((option) => (
+                                <StyledCheckbox
+                                    key={`filter-topbar-${option.id}`}
+                                    id={option.id}
+                                    label={option.name}
+                                    checked={selectedTypes.includes(String(option.id))}
+                                    onChangeHandler={handleTypeChange}
+                                />
+                            ))}
+                        </div>
+
+                    </div>
                     <FullCalendar
                         ref={calendarRef}
                         plugins={[ dayGridPlugin ]}
@@ -276,9 +260,6 @@ export function EventsCalendar({types, topics, audiences, locations}) {
                                 showNonCurrentDates: false,
                                 displayEventTime: false
                             }
-                        }}
-                        loading={(isLoading) => {
-                            console.log('loading', isLoading)
                         }}
                     />
                 </div>
