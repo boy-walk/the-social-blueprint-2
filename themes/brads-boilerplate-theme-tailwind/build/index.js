@@ -8476,7 +8476,7 @@ const AccountChangePassword = ({
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
     onSubmit: handleSubmit,
-    className: "max-w-xl mx-auto",
+    className: "max-w-2xl mx-auto",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
       className: "Blueprint-headline-small-emphasized mb-6",
       children: "Change Password"

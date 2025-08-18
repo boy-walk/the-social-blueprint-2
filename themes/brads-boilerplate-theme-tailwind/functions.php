@@ -370,3 +370,34 @@ add_filter('taxonomy_template', function ($template) {
 
   return $template;
 }, 20);
+
+// functions.php
+add_action('pre_get_posts', function ($q) {
+  if ( is_admin() || ! $q->is_main_query() ) return;
+
+  // Include CPTs on category archives
+  if ( $q->is_category() ) {
+    $q->set('post_type', [
+      'post',
+      'podcast',
+      'gd_discount', // Custom post type for message board
+      'tribe_events',
+      'article',
+      'directory',
+      'resource',
+    ]); // adjust to your CPTs
+  }
+
+  // (optional) include CPTs on tag archives too
+  if ( $q->is_tag() ) {
+    $q->set('post_type', [
+      'post',
+      'podcast',
+      'gd_discount', // Custom post type for message board
+      'tribe_events',
+      'article',
+      'directory',
+      'resource',
+    ]);
+  }
+});

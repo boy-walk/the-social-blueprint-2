@@ -54,7 +54,7 @@ export const AccountChangePassword = ({ user }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
+    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
       <h2 className="Blueprint-headline-small-emphasized mb-6">Change Password</h2>
       <div className="space-y-4">
         <TextField
