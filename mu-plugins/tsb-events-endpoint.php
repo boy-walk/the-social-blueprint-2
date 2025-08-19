@@ -68,7 +68,7 @@ add_action('rest_api_init', function () {
           'orderby'               => $orderby,
           'order'                 => $order,
           // include scheduled/EA states so nothing vanishes due to status
-          'post_status'           => ['publish','future','tribe-ea-success','tribe-ea-pending','tribe-ea-schedule','tribe-ea-draft','tribe-ea-failed'],
+          'post_status'           => ['publish','future'],
         ];
         if ($meta_key)      $args['meta_key'] = $meta_key;
         if (!empty($p['start_date'])) $args['start_date'] = sanitize_text_field($p['start_date']); // only if provided

@@ -39,7 +39,7 @@ export const ExploreByTheme = () => {
       {keys.map((item, index) => (
         <Card
           key={index}
-          href={`/explore/${item.key}`}
+          href={`/${item.key}`}
           styles="group min-h-[9rem] md:min-h-[16rem] h-full lg:max-w-[260px] w-full border-1 border-background-light pt-4 rounded-xl"
         >
           <div className="flex flex-row-reverse md:flex-col justify-between h-full w-full">
