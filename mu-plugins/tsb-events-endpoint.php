@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TSB Events Endpoint
  * Description: POST /wp-json/tsb/v1/events — tribe_get_events with the same filtering contract as /browse + file debug logs.
- * Version: 1.0.0
+ * Version: 1.0.1
  */
 
 add_action('rest_api_init', function () {
@@ -12,99 +12,74 @@ add_action('rest_api_init', function () {
     'callback' => function (WP_REST_Request $req) {
       try {
         $p = $req->get_json_params() ?: [];
+        if (function_exists('tsb_debug')) tsb_debug('events:payload_in', $p, 'events');
 
-        // Log incoming payload
-        if (function_exists('tsb_debug')) {
-          tsb_debug('events:payload_in', $p, 'events');
-        }
-
-        // --------- Basics (pagination / ordering / search) ----------
         $page = max(1, (int)($p['page'] ?? 1));
         $per  = min(50, max(1, (int)($p['per_page'] ?? 10)));
 
-        // Support 'start_date' defaulting to "now" unless explicitly passed
-        $start_date = isset($p['start_date']) && $p['start_date'] !== ''
-          ? sanitize_text_field($p['start_date'])
-          : current_time('mysql');
-        $end_date   = isset($p['end_date']) && $p['end_date'] !== '' ? sanitize_text_field($p['end_date']) : null;
-
-        // Accept friendly orderby "start_date" and map to meta ordering;
-        // otherwise allow standard WP orderby keys.
+        // Friendly orderby: "start_date" => _EventStartDate meta
         $orderby_in = sanitize_key($p['orderby'] ?? 'start_date');
-        $order      = (strtoupper($p['order'] ?? 'ASC') === 'DESC') ? 'DESC' : 'ASC'; // events usually ASC
+        $order      = (strtoupper($p['order'] ?? 'ASC') === 'DESC') ? 'DESC' : 'ASC';
 
-        $orderby = $orderby_in;
-        $meta_key = null;
-        if ($orderby_in === 'start_date') {
-          $orderby  = 'meta_value';
-          $meta_key = '_EventStartDate';
-        } elseif (!in_array($orderby_in, ['date','title','modified','menu_order','meta_value','meta_value_num'], true)) {
-          // default backstop
-          $orderby  = 'meta_value';
-          $meta_key = '_EventStartDate';
+        $orderby  = $orderby_in === 'start_date' ? 'meta_value' : $orderby_in;
+        if (!in_array($orderby, ['date','title','modified','menu_order','meta_value','meta_value_num'], true)) {
+          $orderby = 'meta_value';
         }
+        $meta_key = $orderby === 'meta_value' ? '_EventStartDate' : null;
 
         $search = isset($p['s']) ? sanitize_text_field($p['s']) : '';
 
-        // --------- Taxonomy filters (same contract as /browse) ----------
+        // Build tax_query (same contract as /browse)
         $tax_query = [];
         if (!empty($p['tax']) && is_array($p['tax'])) {
           foreach ($p['tax'] as $t) {
             $taxonomy = sanitize_key($t['taxonomy'] ?? '');
-            $terms_in = (array)($t['terms'] ?? []);
-            $terms    = array_filter(array_map('sanitize_text_field', $terms_in));
+            $terms    = array_filter(array_map('sanitize_text_field', (array)($t['terms'] ?? [])));
             if (!$taxonomy) continue;
 
             $field = strtolower((string)($t['field'] ?? 'slug'));
             $field = in_array($field, ['slug','name','term_id'], true) ? $field : 'slug';
 
-            $operator = strtoupper((string)($t['operator'] ?? 'IN'));
-            $allowed_ops = ['IN','NOT IN','AND','EXISTS','NOT EXISTS'];
-            $operator = in_array($operator, $allowed_ops, true) ? $operator : 'IN';
+            $op    = strtoupper((string)($t['operator'] ?? 'IN'));
+            $op    = in_array($op, ['IN','NOT IN','AND','EXISTS','NOT EXISTS'], true) ? $op : 'IN';
 
-            $clause = [
-              'taxonomy' => $taxonomy,
-              'field'    => $field,
-              'operator' => $operator,
-            ];
-
-            if (!in_array($operator, ['EXISTS','NOT EXISTS'], true)) {
+            $clause = ['taxonomy'=>$taxonomy,'field'=>$field,'operator'=>$op];
+            if (!in_array($op, ['EXISTS','NOT EXISTS'], true)) {
               if ($field === 'term_id') $terms = array_map('intval', $terms);
               if (empty($terms)) continue;
               $clause['terms'] = $terms;
             }
-
             $tax_query[] = $clause;
           }
         }
         if ($tax_query) {
-          $relation = strtoupper((string)($p['tax_relation'] ?? (count($tax_query) > 1 ? 'AND' : 'AND')));
-          if (!in_array($relation, ['AND','OR'], true)) $relation = 'AND';
-          $tax_query = array_merge(['relation' => $relation], $tax_query);
+          $rel = strtoupper($p['tax_relation'] ?? 'AND');
+          if (!in_array($rel, ['AND','OR'], true)) $rel = 'AND';
+          $tax_query = array_merge(['relation'=>$rel], $tax_query);
         }
 
-        // --------- Build tribe_get_events args ----------
+        // --------- tribe_get_events args (NO implicit date floor) ---------
         $args = [
-          'posts_per_page'      => $per,
-          'paged'               => $page,
-          'eventDisplay'        => 'custom',                 // custom list, no month/day rewrite
-          'tribeHideRecurrence' => !empty($p['hide_recurring']),
-          'start_date'          => $start_date,
-          'orderby'             => $orderby,
-          'order'               => $order,
+          'posts_per_page'        => $per,
+          'paged'                 => $page,
+          'eventDisplay'          => 'custom', // don't switch to list/month/day
+          'tribeHideRecurrence'   => !empty($p['hide_recurring']),
+          'tribe_suppress_query_filters' => true, // stop TEC defaults from forcing "upcoming"
+          'orderby'               => $orderby,
+          'order'                 => $order,
+          // include scheduled/EA states so nothing vanishes due to status
+          'post_status'           => ['publish','future','tribe-ea-success','tribe-ea-pending','tribe-ea-schedule','tribe-ea-draft','tribe-ea-failed'],
         ];
-        if ($end_date)  $args['end_date']  = $end_date;
-        if ($meta_key)  $args['meta_key']  = $meta_key;
-        if ($search)    $args['s']         = $search;
-        if (!empty($tax_query)) $args['tax_query'] = $tax_query;
+        if ($meta_key)      $args['meta_key'] = $meta_key;
+        if (!empty($p['start_date'])) $args['start_date'] = sanitize_text_field($p['start_date']); // only if provided
+        if (!empty($p['end_date']))   $args['end_date']   = sanitize_text_field($p['end_date']);   // only if provided
+        if ($search !== '') $args['s'] = $search;
+        if ($tax_query)     $args['tax_query'] = $tax_query;
 
-        // Log args before running the query
-        if (function_exists('tsb_debug')) {
-          tsb_debug('events:args', $args, 'events');
-        }
+        if (function_exists('tsb_debug')) tsb_debug('events:args', $args, 'events');
 
-        // Ask tribe_get_events for the WP_Query so we can get totals + SQL
-        $q = tribe_get_events($args, true); // $full = true
+        // Ask TEC for a WP_Query (so we can log SQL + totals)
+        $q = tribe_get_events($args, true);
 
         if (function_exists('tsb_debug')) {
           tsb_debug('events:sql_out', [
@@ -114,7 +89,6 @@ add_action('rest_api_init', function () {
           ], 'events');
         }
 
-        // --------- Map to the SAME shape as /browse ----------
         $items = array_map(function ($post) {
           $start = get_post_meta($post->ID, '_EventStartDate', true);
           return [
@@ -126,9 +100,8 @@ add_action('rest_api_init', function () {
             'post_type' => 'tribe_events',
             'date'      => $start ?: get_the_date('', $post),
             'author'    => get_bloginfo('name'),
-            // include both Event Categories and your cross-type tags if you like:
-            'event_categories' => wp_get_post_terms($post->ID, 'tribe_events_cat', ['fields' => 'names']),
-            'topics'           => wp_get_post_terms($post->ID, 'topic_tag',        ['fields' => 'names']),
+            'event_categories' => wp_get_post_terms($post->ID, 'tribe_events_cat', ['fields'=>'names']),
+            'topics'           => wp_get_post_terms($post->ID, 'topic_tag',        ['fields'=>'names']),
           ];
         }, $q->posts);
 
@@ -141,14 +114,10 @@ add_action('rest_api_init', function () {
         ], 200);
 
       } catch (\Throwable $e) {
-        if (function_exists('tsb_debug')) {
-          tsb_debug('events:error', [
-            'message' => $e->getMessage(),
-            'file'    => $e->getFile(),
-            'line'    => $e->getLine(),
-          ], 'events');
-        }
-        return new WP_REST_Response(['error' => true, 'message' => 'Server error'], 500);
+        if (function_exists('tsb_debug')) tsb_debug('events:error', [
+          'message'=>$e->getMessage(),'file'=>$e->getFile(),'line'=>$e->getLine()
+        ], 'events');
+        return new WP_REST_RESPONSE(['error'=>true,'message'=>'Server error'], 500);
       }
     },
   ]);
