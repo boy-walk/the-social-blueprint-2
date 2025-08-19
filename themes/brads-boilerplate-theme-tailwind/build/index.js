@@ -9205,11 +9205,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ContentCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContentCard */ "./src/scripts/ContentCard.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretLeft.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretLeft.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
+/* harmony import */ var _getBadge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getBadge */ "./src/scripts/getBadge.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 // components/BrowseAll.jsx
+
 
 
 
@@ -9307,75 +9309,76 @@ function BrowseAll({
   // Skeleton cards
   const skeletons = Array.from({
     length: perPage
-  }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+  }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: `rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden ${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "w-full h-1/2 bg-[var(--schemesSurfaceContainerHighest)] animate-pulse"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "p-4 space-y-2",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "h-4 w-3/4 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "h-3 w-1/2 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "h-3 w-2/3 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
       })]
     })]
   }, `sk-${i}`));
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
     className: "py-16 px-4 sm:px-8 lg:px-16 mx-auto",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
       className: "Blueprint-headline-medium mb-6",
       children: title
-    }), filters.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    }), filters.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "flex flex-wrap gap-2 mb-6",
       children: [{
         label: "All"
       }, ...filters.filter(f => f.label !== "All")].map(({
         label
-      }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         onClick: () => setActive(label),
         className: `px-4 py-1.5 text-sm rounded-full border transition ${active === label ? "bg-[var(--schemesPrimary)] text-white" : "bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)]"}`,
         children: label
       }, label))
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-stretch",
-      children: loading ? skeletons : data.items.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: loading ? skeletons : data.items.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: `overflow-hidden ${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard // ensure the card fills the fixed wrapper
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard // ensure the card fills the fixed wrapper
         , {
           image: post.thumbnail,
           title: post.title,
+          badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
           type: post.post_type,
           subtitle: post.date,
           href: post.permalink,
           fullHeight: true
         })
       }, post.id))
-    }), !loading && !err && data.items.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+    }), !loading && !err && data.items.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
       className: "Blueprint-body-large text-[var(--schemesOnSurfaceVariant)] mt-6",
       children: "No results found."
-    }), err && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
+    }), err && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
       className: "Blueprint-body-large text-[var(--schemesError)] mt-6",
       children: ["Error: ", err]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "flex justify-center items-center gap-4 mt-8",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         disabled: page === 1,
         onClick: () => setPage(p => Math.max(p - 1, 1)),
         className: "p-2 rounded-full bg-[var(--schemesSurface)] border border-[var(--schemesOutlineVariant)] disabled:opacity-30",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.CaretLeftIcon, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretLeftIcon, {
           size: 24,
           weight: "bold"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
         className: "text-sm font-medium",
         children: [page, " / ", totalPages]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         disabled: page >= totalPages,
         onClick: () => setPage(p => Math.min(p + 1, totalPages)),
         className: "p-2 rounded-full bg-[var(--schemesSurface)] border border-[var(--schemesOutlineVariant)] disabled:opacity-30",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretRightIcon, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.CaretRightIcon, {
           size: 24,
           weight: "bold"
         })
@@ -10749,8 +10752,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ContentCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContentCard */ "./src/scripts/ContentCard.js");
 /* harmony import */ var _DetailedCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DetailedCard */ "./src/scripts/DetailedCard.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _getBadge__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getBadge */ "./src/scripts/getBadge.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -10762,39 +10767,25 @@ function FeaturedPostLayout({
   const postLength = posts.length < 3 ? posts.length : 3;
   const hero = posts[0];
   const stack = posts.slice(1, postLength);
-  const getBadge = type => {
-    switch (type?.toLowerCase()) {
-      case 'podcast':
-        return 'Podcast';
-      case 'blog':
-        return 'Blog';
-      case 'event':
-        return 'Event';
-      case 'article':
-        return 'Article';
-      default:
-        return "Post";
-    }
-  };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "flex flex-col md:flex-row gap-4 w-full items-stretch",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "flex-1 md:flex-2 lg:flex-2 w-full",
-      children: hero && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
+      children: hero && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
         date: hero.date,
         image: hero.thumbnail,
         type: hero.post_type,
-        badge: getBadge(hero.post_type),
+        badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(hero.post_type),
         href: hero.permalink,
         fullHeight: true,
         fullWidth: true,
         title: hero.title
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: `flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`,
-      children: stack.map((post, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      children: stack.map((post, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "w-full h-full",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_DetailedCard__WEBPACK_IMPORTED_MODULE_2__.DetailedCard, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_DetailedCard__WEBPACK_IMPORTED_MODULE_2__.DetailedCard, {
           image: post.thumbnail,
           category: post.post_type,
           title: post.title,
@@ -14140,6 +14131,48 @@ function TextField({
     })]
   });
 }
+
+/***/ }),
+
+/***/ "./src/scripts/getBadge.js":
+/*!*********************************!*\
+  !*** ./src/scripts/getBadge.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getBadge: () => (/* binding */ getBadge)
+/* harmony export */ });
+const getBadge = type => {
+  switch (type?.toLowerCase()) {
+    case 'tribe_events':
+      return 'Event';
+    case 'podcast':
+      return 'Podcast';
+    case 'article':
+      return 'Article';
+    case 'directory':
+      return 'Directory';
+    case 'resource':
+      return 'Resource';
+    case 'gd_discount':
+      return 'Message Board';
+    case 'gd_aid_listing':
+      return 'Aid Listing';
+    case 'gd_health_listing':
+      return 'Health Listing';
+    case 'gd_business':
+      return 'Business';
+    case 'gd_photo_gallery':
+      return 'Photo Gallery';
+    case 'gd_cost_of_living':
+      return 'Cost of Living';
+    default:
+      return "Post";
+  }
+};
 
 /***/ }),
 

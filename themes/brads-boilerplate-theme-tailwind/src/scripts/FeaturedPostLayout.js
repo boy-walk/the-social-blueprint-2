@@ -1,6 +1,7 @@
 import React from 'react';
 import { ContentCard } from './ContentCard';
 import { DetailedCard } from './DetailedCard';
+import { getBadge } from './getBadge';
 
 export default function FeaturedPostLayout({ posts }) {
   if (!posts) return null;
@@ -9,21 +10,6 @@ export default function FeaturedPostLayout({ posts }) {
 
   const hero = posts[0];
   const stack = posts.slice(1, postLength);
-
-  const getBadge = (type) => {
-    switch (type?.toLowerCase()) {
-      case 'podcast':
-        return 'Podcast';
-      case 'blog':
-        return 'Blog';
-      case 'event':
-        return 'Event';
-      case 'article':
-        return 'Article';
-      default:
-        return "Post";
-    }
-  };
 
   return (
     <div className="flex flex-col md:flex-row gap-4 w-full items-stretch">

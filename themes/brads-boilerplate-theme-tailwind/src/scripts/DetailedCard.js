@@ -21,7 +21,6 @@ export function DetailedCard({
             className="w-full h-full object-cover bg-gray-100 rounded-lg"
           />
         </div>
-
         <div className="flex flex-col justify-between w-full h-full p-2 lg:p-4">
           <div className="space-y-1 py-1 lg:py-2">
             {date && (

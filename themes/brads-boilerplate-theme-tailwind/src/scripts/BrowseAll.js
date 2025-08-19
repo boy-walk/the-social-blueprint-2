@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ContentCard } from "./ContentCard";
 import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import { getBadge } from "./getBadge";
 
 export default function BrowseAll({
   title = "Browse all",
@@ -119,6 +120,7 @@ export default function BrowseAll({
               <ContentCard           // ensure the card fills the fixed wrapper
                 image={post.thumbnail}
                 title={post.title}
+                badge={getBadge(post.post_type)}
                 type={post.post_type}
                 subtitle={post.date}
                 href={post.permalink}
