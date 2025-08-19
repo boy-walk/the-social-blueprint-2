@@ -117,13 +117,12 @@ export function EventsHubPage({ featured, eventsThisWeek, browseAll }) {
       </div>
       <div className="max-w-[1600px] mx-auto">
         <BrowseAll
-          title="What's on this week"
+          title="Browse all events"
           endpoint="/wp-json/tsb/v1/events"
           baseQuery={{
             per_page: 10,
-            orderby: 'start_date', // friendly alias -> sorts by _EventStartDate
+            orderby: 'start_date',
             order: 'ASC',
-            start_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
             hide_recurring: true,
           }}
           filters={[

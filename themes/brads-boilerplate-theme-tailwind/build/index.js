@@ -10555,14 +10555,12 @@ function EventsHubPage({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
       className: "max-w-[1600px] mx-auto",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_BrowseAll__WEBPACK_IMPORTED_MODULE_12__["default"], {
-        title: "What's on this week",
+        title: "Browse all events",
         endpoint: "/wp-json/tsb/v1/events",
         baseQuery: {
           per_page: 10,
           orderby: 'start_date',
-          // friendly alias -> sorts by _EventStartDate
           order: 'ASC',
-          start_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
           hide_recurring: true
         },
         filters: [{
