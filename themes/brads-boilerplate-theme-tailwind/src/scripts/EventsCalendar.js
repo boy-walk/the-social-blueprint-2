@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import { StyledCheckbox } from './StyledCheckbox';
 import { EventsCalendarFilterGroup } from './EventsCalendarFilterGroup';
+import { DateDropdown } from './DateDropdown';
 
 export function EventsCalendar({types, topics, audiences, locations}) {
     const [keyword, setKeyword] = useState('');
@@ -31,6 +31,16 @@ export function EventsCalendar({types, topics, audiences, locations}) {
             clearTimeout(handler);
         };
     }, [keyword]);
+
+    const handlePrevClick = () => {
+        const calendarAPI = calendarRef.current.getApi();
+        calendarAPI.prev();
+    };
+
+    const handleNextClick = () => {
+        const calendarAPI = calendarRef.current.getApi();
+        calendarAPI.next();
+    };
     
     const clearEvents = () => {
         const calendarApi = calendarRef.current.getApi(); // Get the Calendar API
@@ -213,41 +223,37 @@ export function EventsCalendar({types, topics, audiences, locations}) {
                     />
                 </div>
                 <div className={`flex-1 min-w-0 transition duration-100 px-6 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
-                    <div className="flex flex-row gap-2">
-                        <StyledCheckbox
-                            key={`all-types`}
-                            id={`all-types`}
-                            label={'All'}
-                            checked={selectedTypes.length === 0}
-                            onChangeHandler={() => {
-                                // Clear all selected types
-                                setSelectedTypes([]);
-                            }}
-                        />
-                        <div className="flex flex-row gap-1 types-topbar">
-                            {types.slice(0, 5).map((option) => (
-                                <StyledCheckbox
-                                    key={`filter-topbar-${option.id}`}
-                                    id={option.id}
-                                    label={option.name}
-                                    checked={selectedTypes.includes(String(option.id))}
-                                    onChangeHandler={handleTypeChange}
-                                />
-                            ))}
+                    <div className="flex justify-between flex-row gap-2 mb-4">
+                        <div className="flex items-center month-selector">
+                            <DateDropdown 
+                                onMonthChange={(first, last) => {
+                                    const calendarAPI = calendarRef.current.getApi();
+                                    calendarAPI.gotoDate(first); // This will trigger month change, which will trigger datesSet, which will then trigger dateChanged, which will then trigger useEffect catching change in dateRange
+                                }}
+                            />
                         </div>
+                        <div className="flex items-center justify-between month-navigator">
+                            <button onClick={handlePrevClick} className="flex items-center px-2 py-0.5 mr-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75">
+                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                                Previous
+                            </button>
 
+                            {/* <!-- Next Button --> */}
+                            <button onClick={handleNextClick} className="flex items-center px-2 py-0.5 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75">
+                                Next
+                                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <FullCalendar
                         ref={calendarRef}
                         plugins={[ dayGridPlugin ]}
                         initialView="dayGridMonth"
-                        headerToolbar= {{
-                            left: '',
-                            right: ''
-                        }}
-                        footerToolbar={{
-                            center: 'prev,next'
-                        }}
+                        headerToolbar= {false}
                         datesSet={dateChanged}
                         views={{
                             dayGridMonth: {
