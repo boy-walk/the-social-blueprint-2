@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import CommunityConnectionHubIcon from "../../assets/community-connection-hub.svg";
 import BrowseAll from "./BrowseAll";
 
-export function CommunityHubPage({ featured, messageBoard, events, browseAll }) {
+export function EventsHubPage({ featured, eventsThisWeek, browseAll }) {
   const { t } = useTranslation();
   return (
     <div>
@@ -22,11 +22,10 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
           <div className="flex p-4 pt-12 md:p-8 lg:px-16 lg:py-8 items-center justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3">
-                Community Connection
+                What's On
               </h1>
               <p className="text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl">
-                Stay informed and connected. Find community jobs, volunteer opportunities,
-                local notices, and informal support through our active message boards and groups.
+                Never miss an event again. Explore our extensive event listings, from cultural festivals to educational workshops.
               </p>
             </div>
             <img src={CommunityConnectionHubIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />
@@ -39,12 +38,12 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                 <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card href="/events">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <MailboxIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Community message board</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Events Calendar</div>
                       </div>
                     </Card>
                   </div>
@@ -106,42 +105,31 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
           </h2>
           <FeaturedPostLayout posts={featured} />
         </div>
-        <div>
-          <div className="flex justify-between lg:justify-start items-center gap-2 mb-8">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface">
-              {t("recentMessageBoardPosts")}
-            </h2>
-            <ArrowIcon />
-          </div>
-          <MessageBoardSlider messageBoard={messageBoard} />
-        </div>
       </div>
-      {/* Events */}
       <div className="bg-schemesSecondaryFixed">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
           <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">What's on this week</h2>
+            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Events this week</h2>
             <ArrowIcon className="text-schemesOnSecondaryFixed" />
           </div>
-          <PostsSlider events={events} />
+          <PostsSlider events={eventsThisWeek} />
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto">
-        {/* Browse All */}
         <BrowseAll
-          title="Browse all community"
-          endpoint="/wp-json/tsb/v1/browse"
+          title="What's on this week"
+          endpoint="/wp-json/tsb/v1/events"
           baseQuery={{
-            post_type: ['tribe_events', 'podcast', 'article', 'directory', 'resource', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'],
             per_page: 10,
-            orderby: 'date',
-            order: 'DESC',
-            tax: [{ taxonomy: 'category', field: 'slug', terms: ['community-connection'] }],
+            orderby: 'start_date', // friendly alias -> sorts by _EventStartDate
+            order: 'ASC',
+            start_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            hide_recurring: true,
           }}
           filters={[
-            { label: "Community jobs", tax: { taxonomy: "topic_tag", terms: ["community-jobs"] } },
-            { label: "Activities & Programs", tax: { taxonomy: "topic_tag", terms: ["activities-programs"] } },
-            { label: "Volunteering & Getting Involved", tax: { taxonomy: "topic_tag", terms: ["volunteering-getting-involved"] } },
+            { label: "Workshops", tax: { taxonomy: "tribe_events_cat", terms: ["workshops"] } },
+            { label: "Festivals", tax: { taxonomy: "tribe_events_cat", terms: ["festivals"] } },
+            { label: "Education", tax: { taxonomy: "tribe_events_cat", terms: ["education"] } },
           ]}
         />
         <div className="py-16 px-4 sm:px-8 lg:px-16">

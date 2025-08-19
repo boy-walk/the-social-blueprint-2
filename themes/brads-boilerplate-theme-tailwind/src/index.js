@@ -23,6 +23,7 @@ import { AccountChangePasswordPage } from './scripts/AccountProfilePage';
 import { AboutUs } from './scripts/AboutUs';
 import { ArticlePage } from './scripts/ArticlePage';
 import { EventPage } from './scripts/EventPage';
+import { EventsHubPage } from './scripts/EventsHubPage';
 
 
 if (document.querySelector('#front-page')) {
@@ -192,4 +193,10 @@ const el20 = document.getElementById("tsb-event-root");
 if (el20) {
   const props = JSON.parse(el20.dataset.props || '{}');
   ReactDOM.createRoot(el20).render(<EventPage {...props} />);
+}
+
+const el21 = document.getElementById('events-hub-root');
+if (el21) {
+  const props = JSON.parse(el21.dataset.props || '{}');
+  ReactDOM.createRoot(el21).render(<EventsHubPage {...props} />);
 }

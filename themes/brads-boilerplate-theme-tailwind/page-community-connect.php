@@ -30,40 +30,34 @@ $message_board_args = [
   'posts_per_page' => 15,
   'orderby' => 'date',
   'order' => 'DESC',
-];
-$message_board_posts = get_posts($message_board_args);
-
-// 3. What’s on This Week — Events from The Events Calendar (deduplicated by series)
-
-$events_query = new WP_Query([
-  'post_type' => 'tribe_events',
-  'posts_per_page' => 30,
-  'meta_key' => '_EventStartDate',
-  'orderby' => 'meta_value',
-  'order' => 'ASC',
   'tax_query' => [
     [
       'taxonomy' => 'category',
       'field' => 'slug',
       'terms' => 'community-connection',
     ]
-    ],
-  'meta_query' => [
+  ],
+];
+$message_board_posts = get_posts($message_board_args);
+
+$event_posts = tribe_get_events([
+  'posts_per_page' => 30,
+  'start_date' => current_time('mysql'),
+  'end_date' => date('Y-m-d H:i:s', strtotime('+1 week')),
+  'tribeHideRecurrence' => true,
+  'eventDisplay' => 'list',
+  'tax_query' => [
     [
-      'key' => '_EventStartDate',
-      'value' => date('Y-m-d H:i:s'),
-      'compare' => '>=',
-      'type' => 'DATETIME',
-    ],
+      'taxonomy' => 'category',
+      'field' => 'slug',
+      'terms' => 'community-connection',
+    ]
   ],
 ]);
 
-$event_posts = $events_query->posts;
-
-// 4. Browse all community — all posts tagged 'Community Connection'
 $all_community_query = new WP_Query([
-  'posts_per_page' => 30,
-  'post_type' => ['post', 'tribe_events', 'podcast', 'article', 'directory', 'resource'],
+  'posts_per_page' => -1,
+  'post_type' => get_post_types([ '_builtin' => false ], 'names'),
   'post_status' => 'publish',
   'ignore_sticky_posts' => true,
   'suppress_filters' => true, // Match get_posts default

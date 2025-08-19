@@ -31,7 +31,8 @@ $author_obj = [
   'avatar' => $avatar_url,
 ];
 
-$terms = get_the_terms( $post->ID, 'topic_tag' ); 
+$terms = get_the_terms( $post->ID, ['topic_tag', 'people_tag', 'location_tag', 'audience_tag', 'category'] ); 
+// If terms are not empty, map them to an array of names
 if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
   $terms = array_map( function( $term ) {
     return $term->name;
@@ -39,6 +40,7 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 } else {
   $terms = [];
 }
+
 
 
 // -------- Retrieve 3 other podcasts for "more interviews" --------

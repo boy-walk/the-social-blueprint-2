@@ -34,11 +34,15 @@ $uwp_avatar_id = get_user_meta($author_id, 'uwp_profile_photo', true);
 $avatar_url = $uwp_avatar_id ? wp_get_attachment_url($uwp_avatar_id) : get_avatar_url($author_id, ['size' => 96]);
 $organizer    = $organizer ?: get_the_author_meta('display_name', $author_id);
 
-$tags = [];
-$terms = wp_get_post_terms($post_id, ['post_tag', 'tribe_events_cat'], ['fields' => 'all']);
-if (!is_wp_error($terms) && $terms) {
-  foreach ($terms as $t) $tags[] = $t->name;
+$terms = get_the_terms( $post->ID, ['topic_tag', 'people_tag', 'location_tag', 'audience_tag', 'category'] ); 
+if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+  $terms = array_map( function( $term ) {
+    return $term->name;
+  }, $terms );
+} else {
+  $terms = [];
 }
+
 
 $content_html = apply_filters('the_content', get_post_field('post_content', $post_id));
 $sections = [['text' => $content_html]];
@@ -99,6 +103,15 @@ if ($week_q->have_posts()) {
   wp_reset_postdata();
 }
 
+$popular_terms = get_terms([
+  'taxonomy'   => ['topic_tag'], // pick yours
+  'hide_empty' => false,
+  'number'     => 10,
+  'meta_key'   => 'views',
+  'orderby'    => 'meta_value_num',
+  'order'      => 'DESC',
+]); 
+
 $props = [
   'title'          => $title,
   'subtitle'       => $excerpt,
@@ -117,6 +130,7 @@ $props = [
   'calendarUrl'    => $ical_url,
   'bookingUrl'     => $event_site ?: get_permalink($post_id),
 ];
+
 
 ?>
 <div

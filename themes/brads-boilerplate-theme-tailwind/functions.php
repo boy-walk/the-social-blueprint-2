@@ -200,7 +200,8 @@ add_action('init', function () {
 
 
   foreach ($taxonomies as $slug => $name) {
-    register_taxonomy($slug, ['tribe_events', 'podcast', 'article', 'directory', 'resource'], [
+    register_taxonomy($slug, ['tribe_events', 'podcast', 'article', 'directory', 'resource', 
+    'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living' ], [
       'label' => $name . ' Tags',
       'hierarchical' => false,
       'public' => true,
@@ -370,34 +371,3 @@ add_filter('taxonomy_template', function ($template) {
 
   return $template;
 }, 20);
-
-// functions.php
-add_action('pre_get_posts', function ($q) {
-  if ( is_admin() || ! $q->is_main_query() ) return;
-
-  // Include CPTs on category archives
-  if ( $q->is_category() ) {
-    $q->set('post_type', [
-      'post',
-      'podcast',
-      'gd_discount', // Custom post type for message board
-      'tribe_events',
-      'article',
-      'directory',
-      'resource',
-    ]); // adjust to your CPTs
-  }
-
-  // (optional) include CPTs on tag archives too
-  if ( $q->is_tag() ) {
-    $q->set('post_type', [
-      'post',
-      'podcast',
-      'gd_discount', // Custom post type for message board
-      'tribe_events',
-      'article',
-      'directory',
-      'resource',
-    ]);
-  }
-});
