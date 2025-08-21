@@ -1,5 +1,20 @@
 <?php
 // archive.php
+if (!function_exists('tsb_clean_archive_title')) {
+  function tsb_clean_archive_title(): string {
+    if (is_category())            return single_cat_title('', false);
+    if (is_tag())                 return single_tag_title('', false);
+    if (is_tax())                 return single_term_title('', false);
+    if (is_post_type_archive())   return post_type_archive_title('', false);
+    if (is_author())              return get_the_author();
+    if (is_year())                return get_the_date('Y');
+    if (is_month())               return get_the_date('F Y');
+    if (is_day())                 return get_the_date('F j, Y');
+    // Fallback to WP's default if none matched
+    return get_the_archive_title();
+  }
+}
+
 get_header(); ?>
 
 <main class="bg-schemesSurface text-schemesOnSurface">
@@ -7,7 +22,7 @@ get_header(); ?>
     <div class="mx-auto lg:max-w-[1600px] px-0 lg:px-16">
       <header class="mb-6 md:mb-8">
         <h1 class="Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large">
-          <?php echo get_the_archive_title(); ?>
+          <?php echo esc_html( tsb_clean_archive_title() ); ?>
         </h1>
         <?php if ( get_the_archive_description() ) : ?>
           <div class="Blueprint-body-large text-schemesOnSurfaceVariant mt-2">

@@ -3,7 +3,6 @@ import PillTag from "./PillTag";
 import { ShareButton } from "./ShareButton";
 import { Tag } from "./Tag";
 import { RelatedContentCard } from "./RelatedContentCard";
-import { DetailedCard } from "./DetailedCard";
 import { ExploreByTheme } from "./ExploreByTheme";
 import { Button } from "./Button";
 import { PostsSlider } from "./PostsSlider";
@@ -46,16 +45,13 @@ export function EventPage({
   bookingUrl = "#",
 }) {
   const dateLine = fmtEventDateRange({ startISO, endISO });
+  console.log(relatedContent)
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="py-8 sm:py-10 lg:py-12">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="flex-3 min-w-0 space-y-8 lg:space-y-10">
-              <div className="flex flex-wrap gap-2">
-                {tags?.slice(0, 3).map((t) => <Tag key={t} tagName={t} />)}
-              </div>
-
               <header className="space-y-2">
                 {dateLine && <div className="Blueprint-label-large text-schemesOnSurfaceVariant">{dateLine}</div>}
                 <h1 className="Blueprint-headline-large lg:Blueprint-display-small-emphasized leading-tight">
@@ -80,7 +76,7 @@ export function EventPage({
               <div className="flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-3">
                   <img
-                    src={organizer?.avatar || "/default-avatar.png"}
+                    src={organizer?.avatar ?? "/wp-content/plugins/userswp/assets/images/no_profile.png"}
                     alt={organizer?.name || "Organizer"}
                     className="w-10 h-10 rounded-full"
                   />

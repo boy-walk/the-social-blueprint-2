@@ -24,6 +24,7 @@ import { AboutUs } from './scripts/AboutUs';
 import { ArticlePage } from './scripts/ArticlePage';
 import { EventPage } from './scripts/EventPage';
 import { EventsHubPage } from './scripts/EventsHubPage';
+import { StoriesAndInterviews } from './scripts/StoriesAndInterviews';
 
 
 if (document.querySelector('#front-page')) {
@@ -66,6 +67,7 @@ if (el2) {
 const el3 = document.getElementById('single-event-page');
 if (el3) {
   const data = JSON.parse(el3.dataset.event);
+  console.log("Hellooooo")
   ReactDOM.createRoot(el3).render(<SingleEventPage {...data} />);
 }
 
@@ -199,4 +201,17 @@ const el21 = document.getElementById('events-hub-root');
 if (el21) {
   const props = JSON.parse(el21.dataset.props || '{}');
   ReactDOM.createRoot(el21).render(<EventsHubPage {...props} />);
+}
+
+const el22 = document.getElementById('stories-and-interviews-root');
+if (el22) {
+  const props = {
+    everyBodyHasAStory: JSON.parse(el22.dataset.everyBodyHasAStory || '[]'),
+    featured: JSON.parse(el22.dataset.featured || '[]'),
+    eventsThisWeek: JSON.parse(el22.dataset.eventsThisWeek || '[]'),
+    candidConversations: JSON.parse(el22.dataset.candidConversations || '[]'),
+    blueprintStories: JSON.parse(el22.dataset.blueprintStories || '[]'),
+    holocaustStories: JSON.parse(el22.dataset.holocaustStories || '[]'),
+  };
+  ReactDOM.createRoot(el22).render(<StoriesAndInterviews {...props} />);
 }

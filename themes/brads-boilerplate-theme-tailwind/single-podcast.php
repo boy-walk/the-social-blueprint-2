@@ -69,7 +69,8 @@ if ($more_interviews->have_posts()) {
       'link'      => get_permalink(),
       'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
       'date'      => get_the_date('', get_the_ID()),
-      'author'    => get_the_author_meta('display_name')
+      'author'    => get_the_author_meta('display_name'),
+      'post_type' => get_post_type(),
     ];
   }
   wp_reset_postdata();

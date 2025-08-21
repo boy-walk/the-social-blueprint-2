@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from "react";
-import { ContentCard } from "./ContentCard";
 import { Card } from "./Card";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { ExploreByTheme } from "./ExploreByTheme";
@@ -50,7 +49,7 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card href="/stories-and-interviews">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CellTowerIcon size={22} />
@@ -61,7 +60,7 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card href="/events">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CalendarDotIcon size={22} />
@@ -127,7 +126,6 @@ export function CommunityHubPage({ featured, messageBoard, events, browseAll }) 
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto">
-        {/* Browse All */}
         <BrowseAll
           title="Browse all community"
           endpoint="/wp-json/tsb/v1/browse"

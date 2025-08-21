@@ -10,15 +10,8 @@ function sb_get_search_results() {
 
   $args = [
     's' => $query,
-    'post_type' => [
-      'post',
-      'tribe_events',
-      'gd_discount', // Custom post type for message board
-      'podcast',
-      'article',
-      'directory',
-      'resource',
-    ],
+    'post_type' => ['tribe_events', 'podcast', 'article', 'directory', 'resource', 
+    'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living' ],
     'post_status' => 'publish',
     'posts_per_page' => -1,
   ];

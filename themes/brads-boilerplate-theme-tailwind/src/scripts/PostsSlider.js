@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { ContentCard } from "./ContentCard";
+import { getBadge } from "./getBadge";
 
 export function PostsSlider({ events, itemsToDisplay = 4 }) {
   const scrollRef = useRef(null);
@@ -22,12 +23,12 @@ export function PostsSlider({ events, itemsToDisplay = 4 }) {
 
   // Equalize heights (watch content + resize)
   useEffect(() => {
-    if (!itemRefs.current.length) return;
+    if (!itemRefs.current?.length || 0) return;
 
     const measure = () => {
       const h = Math.max(
         0,
-        ...itemRefs.current.map((el) => (el ? el.offsetHeight : 0))
+        ...itemRefs.current?.map((el) => (el ? el.offsetHeight : 0))
       );
       setMaxCardHeight(h);
     };
@@ -45,7 +46,7 @@ export function PostsSlider({ events, itemsToDisplay = 4 }) {
     };
   }, [events, itemsPerView]);
 
-  const totalSlides = Math.ceil(events.length / itemsPerView);
+  const totalSlides = Math.ceil(events?.length || 0 / itemsPerView);
 
   const scrollToIndex = (index) => {
     if (!scrollRef.current) return;
@@ -59,7 +60,7 @@ export function PostsSlider({ events, itemsToDisplay = 4 }) {
   const prev = () => currentIndex > 0 && scrollToIndex(currentIndex - 1);
 
   // Keep refs array in sync
-  itemRefs.current = Array(events.length);
+  itemRefs.current = Array(events?.length || 0);
 
 
   return (
@@ -69,7 +70,7 @@ export function PostsSlider({ events, itemsToDisplay = 4 }) {
           ref={scrollRef}
           className="flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[350px]"
         >
-          {events.map((post, idx) => (
+          {events?.map((post, idx) => (
             <div
               key={post.id}
               className="flex-shrink-0 px-2 flex pb-4"
@@ -86,9 +87,8 @@ export function PostsSlider({ events, itemsToDisplay = 4 }) {
                     date={post.date}
                     author={post.author}
                     title={post.title}
-                    type={post.type || "Event"}
+                    badge={getBadge(post.post_type)}
                     subtitle={post.meta?.author || post.meta?.location || ""}
-                    badge={"Event"}
                     href={post.link}
                     fullHeight
                   />

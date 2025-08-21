@@ -347,27 +347,3 @@ add_filter('single_template', function ($template) {
 
   return $template;
 }, 20);
-
-// Route GeoDirectory CPT archives to a generic archive template unless a specific one exists.
-add_filter('archive_template', function ($template) {
-  if (!is_post_type_archive()) return $template;
-  $pt = get_query_var('post_type');
-  if (is_array($pt)) $pt = reset($pt);
-  if (strpos($pt, 'gd_') !== 0) return $template;
-
-  if ($specific = locate_template("archive-{$pt}.php")) return $specific;
-  if ($generic  = locate_template('archive-gd_generic.php')) return $generic;
-
-  return $template;
-}, 20);
-
-// Route GeoDirectory taxonomies (e.g., gd_businesscategory, gd_business_tags) to a generic taxonomy template.
-add_filter('taxonomy_template', function ($template) {
-  $tax = get_query_var('taxonomy');
-  if (!$tax || strpos($tax, 'gd_') !== 0) return $template;
-
-  if ($specific = locate_template("taxonomy-{$tax}.php")) return $specific;
-  if ($generic  = locate_template('taxonomy-gd_generic.php')) return $generic;
-
-  return $template;
-}, 20);

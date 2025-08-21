@@ -47,26 +47,7 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 $content_html = apply_filters('the_content', get_post_field('post_content', $post_id));
 $sections = [['text' => $content_html]];
 
-$related = [];
-$rel_q = new WP_Query([
-  'post_type'      => 'tribe_events',
-  'posts_per_page' => 3,
-  'post__not_in'   => [$post_id],
-  'orderby'        => 'date',
-  'order'          => 'DESC',
-  'no_found_rows'  => true,
-]);
-if ($rel_q->have_posts()) {
-  while ($rel_q->have_posts()) { $rel_q->the_post();
-    $related[] = [
-      'id'        => get_the_ID(),
-      'title'     => get_the_title(),
-      'link'      => get_permalink(),
-      'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
-    ];
-  }
-  wp_reset_postdata();
-}
+$related = sb_get_related_by_topic_tags( $post_id, 3, true, ['tribe_events'] );
 
 $more_week = [];
 $week_start = (new DateTime('monday this week'))->format('Y-m-d 00:00:00');
@@ -103,15 +84,6 @@ if ($week_q->have_posts()) {
   wp_reset_postdata();
 }
 
-$popular_terms = get_terms([
-  'taxonomy'   => ['topic_tag'], // pick yours
-  'hide_empty' => false,
-  'number'     => 10,
-  'meta_key'   => 'views',
-  'orderby'    => 'meta_value_num',
-  'order'      => 'DESC',
-]); 
-
 $props = [
   'title'          => $title,
   'subtitle'       => $excerpt,
@@ -123,9 +95,15 @@ $props = [
   'heroUrl'        => $hero,
   'organizer'      => ['name' => $organizer, 'avatar' => $avatar_url],
   'sections'       => $sections,
-  'tags'           => $tags,
-  'relatedContent' => $related,
-  'trendingTopics' => array_slice($tags, 0, 6),
+  'tags'           => $terms,
+  'relatedContent' => array_map(function($post) {
+    return [
+      'id'        => $post->ID,
+      'title'     => get_the_title($post),
+      'link'      => get_permalink($post),
+      'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+    ];
+  }, $related),
   'moreThisWeek'   => $more_week,
   'calendarUrl'    => $ical_url,
   'bookingUrl'     => $event_site ?: get_permalink($post_id),
