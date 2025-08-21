@@ -215,3 +215,14 @@ if (el22) {
   };
   ReactDOM.createRoot(el22).render(<StoriesAndInterviews {...props} />);
 }
+
+const el23 = document.getElementById('events-fullcalendar');
+if (el23) {
+  const props = {
+    types: JSON.parse(el20.dataset.types),
+    topics: JSON.parse(el20.dataset.topics),
+    audiences: JSON.parse(el20.dataset.audiences),
+    locations: JSON.parse(el20.dataset.locations)
+  }
+  ReactDOM.createRoot(el20).render(<EventsCalendar {...props} />)
+}
