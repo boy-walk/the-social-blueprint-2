@@ -361,3 +361,85 @@
 .tsb-events-sidebar {
   min-height: 320px;
 }
+
+.fc-theme-standard table {
+  border-radius: 16px;
+}
+
+.fc-theme-standard .fc-col-header-cell {
+  text-align: right;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: var(--schemesOutlineVariant);
+}
+
+/* Nav buttons used above */
+.btn-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .375rem .75rem;
+  border-radius: .5rem;
+  font-weight: 600;
+  background: var(--schemesSurface);
+  color: var(--schemesOnSurface);
+  border: 1px solid var(--schemesOutlineVariant);
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.btn-nav:hover {
+  background: var(--schemesSurfaceContainer);
+}
+
+/* Pill for grid view events */
+.tsb-event-pill {
+  display: inline-block;
+  max-width: 100%;
+  padding: .25rem .5rem;
+  border-radius: 9999px;
+  background: var(--schemesPrimaryContainer);
+  color: var(--schemesOnPrimaryContainer);
+  font-size: .75rem;
+  line-height: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Day grid tweaks */
+.fc .fc-daygrid-day-number {
+  color: var(--schemesOnSurfaceVariant);
+  font-weight: 600;
+  padding: .35rem .5rem .15rem .5rem;
+}
+
+.fc .fc-daygrid-event {
+  margin: 2px 4px;
+}
+
+/* Compact list view on mobile */
+@media (max-width: 767px) {
+  .fc .fc-list {
+    font-size: .95rem;
+  }
+
+  .fc .fc-list-day-cushion {
+    padding: .5rem .75rem;
+  }
+
+  .fc .fc-list-event-title {
+    font-weight: 600;
+  }
+
+  .fc .fc-list-event-dot,
+  .fc .fc-list-event-graphic {
+    display: none;
+  }
+
+  /* cleaner, text-only list */
+  .fc .fc-list-table tbody tr {
+    border-color: var(--schemesOutlineVariant);
+  }
+}

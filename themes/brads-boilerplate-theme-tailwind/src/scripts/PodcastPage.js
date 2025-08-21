@@ -104,7 +104,7 @@ export default function PodcastPage({
             </div>
 
             <aside className="w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1 min-w-70 mt-10 lg:mt-0">
-              <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-4">
+              <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2">
                 Related Content
               </h2>
 
@@ -126,7 +126,7 @@ export default function PodcastPage({
                   )}
 
                   <a href="/topics" className="mt-1">
-                    <div className="Blueprint-label-large underline text-schemesPrimary">
+                    <div className="Blueprint-label-large underline text-schemesPrimary p-2">
                       Explore all topics
                     </div>
                   </a>

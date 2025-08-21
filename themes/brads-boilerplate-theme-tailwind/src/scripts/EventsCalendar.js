@@ -1,275 +1,204 @@
-import React, { useState, useEffect, useRef } from 'react';
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import { EventsCalendarFilterGroup } from './EventsCalendarFilterGroup';
-import { DateDropdown } from './DateDropdown';
+import React, { useEffect, useRef, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import listPlugin from "@fullcalendar/list";
+import { EventsCalendarFilterGroup } from "./EventsCalendarFilterGroup";
 
 export function EventsCalendar({ types, topics, audiences, locations }) {
-  const [keyword, setKeyword] = useState('');
-  const [debouncedKeywordValue, setDebouncedKeywordValue] = useState('');
-  const [dateRange, setDateRange] = useState({ start: '', end: '' });
+  const [keyword, setKeyword] = useState("");
+  const [debouncedKeywordValue, setDebouncedKeywordValue] = useState("");
+  const [dateRange, setDateRange] = useState({ start: "", end: "" });
   const [requestParams, setRequestParams] = useState({ per_page: 100 });
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedAudiences, setSelectedAudiences] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const isFirstDatesSet = useRef(true);
 
   const calendarRef = useRef(null);
+  const isFirstDatesSet = useRef(true);
 
+  // debounce search
   useEffect(() => {
-    // console.log(types, topics, audiences, locations)
-  }, [])
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedKeywordValue(keyword);
-    }, 1000); // 500ms delay
-
-    return () => {
-      clearTimeout(handler);
-    };
+    const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
+    return () => clearTimeout(t);
   }, [keyword]);
 
-  const handlePrevClick = () => {
-    const calendarAPI = calendarRef.current.getApi();
-    calendarAPI.prev();
+  const handlePrevClick = () => calendarRef.current.getApi().prev();
+  const handleNextClick = () => calendarRef.current.getApi().next();
+  const clearEvents = () => calendarRef.current.getApi().removeAllEvents();
+
+  const onType = (e) =>
+    setSelectedTypes((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
+  const onTopic = (e) =>
+    setSelectedTopics((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
+  const onAudience = (e) =>
+    setSelectedAudiences((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
+  const onLocation = (e) =>
+    setSelectedLocations((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
+
+  const datesSet = (info) => {
+    const start = info.startStr.split("T")[0];
+    const end = info.endStr.split("T")[0];
+    setDateRange({ start, end });
   };
 
-  const handleNextClick = () => {
-    const calendarAPI = calendarRef.current.getApi();
-    calendarAPI.next();
-  };
-
-  const clearEvents = () => {
-    const calendarApi = calendarRef.current.getApi(); // Get the Calendar API
-    calendarApi.removeAllEvents();
-  };
-
-  const handleTypeChange = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setSelectedTypes([...selectedTypes, value]);
-    } else {
-      setSelectedTypes(selectedTypes.filter((option) => option !== value));
-    }
-  };
-
-  const handleTopicChange = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setSelectedTopics([...selectedTopics, value]);
-    } else {
-      setSelectedTopics(selectedTopics.filter((option) => option !== value));
-    }
-  };
-
-  const handleAudienceChange = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setSelectedAudiences([...selectedAudiences, value]);
-    } else {
-      setSelectedAudiences(selectedAudiences.filter((option) => option !== value));
-    }
-  };
-
-  const handleLocationChange = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setSelectedLocations([...selectedLocations, value]);
-    } else {
-      setSelectedLocations(selectedLocations.filter((option) => option !== value));
-    }
-  };
-
-  const dateChanged = (dateInfo) => {
-    const startParts = dateInfo.startStr.split('T');
-    const startDate = startParts[0]; // "2025-08-10"
-
-    const endParts = dateInfo.endStr.split('T');
-    const endDate = endParts[0]; // "2025-08-10"
-
-    setDateRange({
-      start: startDate,
-      end: endDate
-    });
-  }
-
+  // fetch events when requestParams change
   useEffect(() => {
     if (isFirstDatesSet.current) {
       isFirstDatesSet.current = false;
-      return; // skip first call
+      return;
     }
-
+    let cancelled = false;
     setIsLoading(true);
 
-    const fetchData = async () => {
+    (async () => {
       try {
-        const url = '/wp-json/sbp/v1/events';
-        const queryString = new URLSearchParams(requestParams).toString();
-        const finalUrl = queryString ? `${url}?${queryString}` : url;
-
-        const response = await fetch(finalUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          }
+        const qs = new URLSearchParams(requestParams).toString();
+        const res = await fetch(`/wp-json/sbp/v1/events${qs ? "?" + qs : ""}`, {
+          headers: { Accept: "application/json" },
         });
-
-        const result = await response.json();
+        const json = await res.json();
+        if (cancelled) return;
 
         clearEvents();
-
-        const calendarApi = calendarRef.current.getApi();
-        if (result.events) {
-          for (const event of result.events) {
-            calendarApi.addEvent({
-              id: event.id,
-              title: event.title || 'No title found',
-              start: event.start,
-              end: event.end,
-              url: event.url
-            });
-          }
-        }
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
+        const api = calendarRef.current.getApi();
+        (json.events || []).forEach((ev) => {
+          api.addEvent({
+            id: ev.id,
+            title: ev.title || "Untitled",
+            start: ev.start,
+            end: ev.end,
+            url: ev.url,
+          });
+        });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        if (!cancelled) setIsLoading(false);
       }
+    })();
+
+    return () => {
+      cancelled = true;
     };
+  }, [requestParams]);
 
-    fetchData();
-
-  }, [requestParams])
-
+  // rebuild request on any filter/date/search change
   useEffect(() => {
-
-  }, [debouncedKeywordValue])
-
-  useEffect(() => {
-    // Update request params
-    setRequestParams(prev => ({
-      ...prev,          // keep existing properties
+    setRequestParams((prev) => ({
+      ...prev,
       start_date: dateRange.start,
       end_date: dateRange.end,
       types: selectedTypes.toString(),
       topics: selectedTopics.toString(),
       audience: selectedAudiences.toString(),
       locations: selectedLocations.toString(),
-      s: debouncedKeywordValue
+      s: debouncedKeywordValue,
     }));
-  }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, debouncedKeywordValue])
+  }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, debouncedKeywordValue]);
+
+  // switch view at Tailwind's md breakpoint (768px)
+  const applyResponsiveView = (api) => {
+    if (!api || typeof window === "undefined") return;
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const desired = mobile ? "listMonth" : "dayGridMonth";
+    if (api.view?.type !== desired) api.changeView(desired);
+  };
+
+  useEffect(() => {
+    const api = calendarRef.current?.getApi();
+    if (!api) return;
+
+    // initial
+    applyResponsiveView(api);
+
+    // watch viewport changes
+    const mql = window.matchMedia("(max-width: 767px)");
+    const onChange = () => applyResponsiveView(api);
+    if (mql.addEventListener) mql.addEventListener("change", onChange);
+    else mql.addListener(onChange);
+
+    return () => {
+      if (mql.removeEventListener) mql.removeEventListener("change", onChange);
+      else mql.removeListener(onChange);
+    };
+  }, []);
 
   return (
-    <>
-      <div className={`flex flex-grow ${isLoading ? 'cursor-wait' : ''}`}>
-        <div className={`calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
-          <div className="relative flex items-center mb-6 filters-search">
+    <div className="bg-schemesSurface">
+      <div className="bg-schemesPrimaryFixed">
+        <div className="max-w-[1600px]">
+          <div className="px-16 py-16 flex flex-col justify-end items-start gap-2 max-w-3xl">
+            <div className="py-4 px-1.5 Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large">
+              Upcoming Community Events
+            </div>
+            <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small text-schemesOnPrimaryFixedVariant">
+              Stay informed and connected. Find community jobs, volunteer opportunities, local notices, and informal support through our active message boards and groups.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={`mx-auto py-8 px-16 flex max-w-[1600px] flex-grow ${isLoading ? "cursor-wait" : ""}`}>
+        <aside className={`calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
+          <div className="relative flex items-center mb-6">
             <input
               type="text"
               placeholder="Search..."
               onChange={(e) => setKeyword(e.target.value)}
-              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-3 pr-10 py-2 rounded-md border border-[var(--schemesOutlineVariant)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
             />
-            <svg
-              className="absolute right-3 text-gray-400 w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
+            <svg className="absolute right-3 text-[var(--schemesOnSurfaceVariant)] w-5 h-5" viewBox="0 0 24 24" fill="none">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h2 className='text-lg mb-4'>Filters</h2>
 
-          <EventsCalendarFilterGroup
-            key={'filter-group-types'}
-            title={'Type'}
-            options={types}
-            selected={selectedTypes}
-            onChangeHandler={handleTypeChange}
-          />
+          <h2 className="Blueprint-title-small mb-4">Filters</h2>
 
-          <EventsCalendarFilterGroup
-            key={'filter-group-topics'}
-            title={'Topic'}
-            options={topics}
-            selected={selectedTopics}
-            onChangeHandler={handleTopicChange}
-          />
+          <EventsCalendarFilterGroup title="Type" options={types} selected={selectedTypes} onChangeHandler={onType} />
+          <EventsCalendarFilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
+          <EventsCalendarFilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
+          <EventsCalendarFilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
+        </aside>
 
-          <EventsCalendarFilterGroup
-            key={'filter-group-audience'}
-            title={'Audience'}
-            options={audiences}
-            selected={selectedAudiences}
-            onChangeHandler={handleAudienceChange}
-          />
+        {/* RIGHT: calendar */}
+        <section className={`flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""} max-w-7xl`}>
+          <div className="flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14">
+            <div className="flex items-center justify-end gap-2 w-full">
+              <button onClick={handlePrevClick} className="btn-nav">← Previous Month</button>
+              <button onClick={handleNextClick} className="btn-nav">Next Month →</button>
+            </div>
+          </div>
 
-          <EventsCalendarFilterGroup
-            key={'filter-group-audience'}
-            title={'Location'}
-            options={locations}
-            selected={selectedLocations}
-            onChangeHandler={handleLocationChange}
-          />
-        </div>
-        <div className={`flex-1 min-w-0 transition duration-100 px-6 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
-          <div className="flex justify-between flex-row gap-2 mb-4">
-            <div className="flex items-center month-selector">
-              <DateDropdown
-                onMonthChange={(first, last) => {
-                  const calendarAPI = calendarRef.current.getApi();
-                  calendarAPI.gotoDate(first); // This will trigger month change, which will trigger datesSet, which will then trigger dateChanged, which will then trigger useEffect catching change in dateRange
+          <div className="px-3 sm:px-4 md:px-6 lg:px-8 pb-3 rounded-b-2xl">
+            <div className="bg-[var(--schemesSurface)] rounded-2xl overflow-hidden">
+              <FullCalendar
+                ref={calendarRef}
+                plugins={[dayGridPlugin, listPlugin]}   // ← include list
+                initialView="dayGridMonth"              // will be swapped by applyResponsiveView()
+                headerToolbar={false}
+                height="auto"
+                fixedWeekCount={false}
+                dayMaxEvents={4}
+                dayMaxEventRows={3}
+                eventDisplay="block"
+                datesSet={datesSet}
+                views={{
+                  dayGridMonth: {
+                    showNonCurrentDates: false,
+                    displayEventTime: false,
+                    dayHeaderFormat: { weekday: "short" },
+                  },
+                  listMonth: {
+                    noEventsContent: "No events this month",
+                  },
                 }}
               />
             </div>
-            <div className="flex items-center justify-between month-navigator">
-              <button onClick={handlePrevClick} className="flex items-center px-2 py-0.5 mr-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-                Previous
-              </button>
-
-              {/* <!-- Next Button --> */}
-              <button onClick={handleNextClick} className="flex items-center px-2 py-0.5 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75">
-                Next
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </button>
-            </div>
           </div>
-          <FullCalendar
-            ref={calendarRef}
-            plugins={[dayGridPlugin]}
-            initialView="dayGridMonth"
-            headerToolbar={false}
-            datesSet={dateChanged}
-            views={{
-              dayGridMonth: {
-                eventTimeFormat: {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  meridiem: 'short',
-                  hour12: true
-                },
-                showNonCurrentDates: false,
-                displayEventTime: false
-              }
-            }}
-          />
-        </div>
+        </section>
       </div>
-    </>
+    </div>
+
   );
 }

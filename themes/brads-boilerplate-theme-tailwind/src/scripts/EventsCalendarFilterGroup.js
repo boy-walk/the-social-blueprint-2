@@ -9,7 +9,7 @@ export function EventsCalendarFilterGroup({ title, options, selected, onChangeHa
 
   const handleToggle = () => {
     if (showingAll) {
-      setVisibleCount(5); // collapse back
+      setVisibleCount(5);
     } else {
       setVisibleCount((prev) => prev + 5);
     }

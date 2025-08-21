@@ -31,7 +31,7 @@ export function SearchPage({ query = "" }) {
       {/* Header + search input */}
       <div className="bg-schemesPrimaryFixed py-8">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16">
-          <h1 className="Blueprint-display-small-emphasized mb-3 text-schemesOnSurface">Search results</h1>
+          <h1 className="Blueprint-display-small-emphasized mb-4 text-schemesOnSurface">{`Search results '${query}'`}</h1>
           <SearchBar defaultValue={query} />
         </div>
       </div>

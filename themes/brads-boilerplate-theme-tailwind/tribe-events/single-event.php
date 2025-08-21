@@ -16,6 +16,7 @@ $end_iso      = function_exists('tribe_get_end_date')   ? tribe_get_end_date($po
 
 $venue_name   = function_exists('tribe_get_venue') ? tribe_get_venue($post_id) : '';
 $venue_link   = function_exists('tribe_get_venue_link') ? tribe_get_venue_link($post_id) : '';
+$venue_address = function_exists('tribe_get_address') ? tribe_get_address($post_id) : '';
 $event_site   = function_exists('tribe_get_event_website_url') ? tribe_get_event_website_url($post_id) : '';
 $ical_url = '';
 if ( function_exists('tribe_get_single_ical_link') ) {
@@ -73,6 +74,7 @@ if ($week_q->have_posts()) {
     $more_week[] = [
       'id'        => get_the_ID(),
       'title'     => get_the_title(),
+      'post_type' => get_post_type(),
       'link'      => get_permalink(),
       'image'     => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
       'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
@@ -90,6 +92,7 @@ $props = [
   'startISO'       => $start_iso,
   'endISO'         => $end_iso,
   'locationLabel'  => $venue_name ? "In person @ {$venue_name}" : '',
+  'locationAddress' => $venue_address,
   'venueUrl'       => $venue_link,
   'isOnline'       => false,
   'heroUrl'        => $hero,

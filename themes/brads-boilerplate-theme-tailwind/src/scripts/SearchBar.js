@@ -3,8 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { MagnifyingGlassIcon } from "@phosphor-icons/react"
 
 export const SearchBar = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState();
   const { t } = useTranslation();
+
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('s');
+    if (searchQuery) {
+      setQuery(searchQuery);
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +38,7 @@ export const SearchBar = () => {
           placeholder="Search podcasts, events, resources..."
           onChange={(e) => setQuery(e.target.value)}
           required
+          value={query || ''}
         />
       </div>
     </form>

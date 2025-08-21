@@ -22,7 +22,7 @@ export const NewsletterBanner = () => {
 
   if (submitted) {
     return (
-      <div className="bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full">
+      <div className="flex flex-col justify-center h-70 bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full">
         <h2 className="Blueprint-headline-medium mb-4 font-bold">
           Thanks for subscribing!
         </h2>
@@ -36,7 +36,7 @@ export const NewsletterBanner = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full"
+      className="h-70 bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full"
     >
       <h2 className="Blueprint-headline-medium mb-4 font-bold">
         Stay connected to the Melbourne Jewish community

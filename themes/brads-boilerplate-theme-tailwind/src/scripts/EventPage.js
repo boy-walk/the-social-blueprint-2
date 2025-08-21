@@ -52,6 +52,9 @@ export function EventPage({
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="flex-3 min-w-0 space-y-8 lg:space-y-10">
+              {tags.length > 0 && (<div className="flex flex-wrap gap-2">
+                {tags?.map((t) => <Tag key={t} tagName={t} />)}
+              </div>)}
               <header className="space-y-2">
                 {dateLine && <div className="Blueprint-label-large text-schemesOnSurfaceVariant">{dateLine}</div>}
                 <h1 className="Blueprint-headline-large lg:Blueprint-display-small-emphasized leading-tight">
@@ -72,6 +75,20 @@ export function EventPage({
                   </div>
                 )}
               </header>
+
+              <section className="space-y-6 lg:space-y-7 max-w-3xl">
+                {sections.length > 0 ? (
+                  sections.map((s, i) => (
+                    <div
+                      key={i}
+                      className="break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline"
+                      dangerouslySetInnerHTML={{ __html: s.text }}
+                    />
+                  ))
+                ) : (
+                  <p className="Blueprint-body-large text-schemesOnSurfaceVariant">Details coming soon.</p>
+                )}
+              </section>
 
               <div className="flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-3">
@@ -111,23 +128,9 @@ export function EventPage({
                 </div>
               )}
 
-              <section className="space-y-6 lg:space-y-7 max-w-3xl">
-                {sections.length > 0 ? (
-                  sections.map((s, i) => (
-                    <div
-                      key={i}
-                      className="break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline"
-                      dangerouslySetInnerHTML={{ __html: s.text }}
-                    />
-                  ))
-                ) : (
-                  <p className="Blueprint-body-large text-schemesOnSurfaceVariant">Details coming soon.</p>
-                )}
-              </section>
-
               {tags?.length > 0 && (
                 <div className="pt-2">
-                  <div className="Blueprint-headline-small-emphasized mb-2">Keep exploring</div>
+                  <div className="Blueprint-headline-small-emphasized mb-4">Keep exploring</div>
                   <div className="flex flex-wrap gap-2">
                     {tags.map((t) => <Tag key={t} tagName={t} />)}
                   </div>
@@ -136,8 +139,8 @@ export function EventPage({
             </div>
 
             <aside className="w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1">
-              <div className="space-y-4 lg:sticky lg:top-[88px]">
-                <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-4">
+              <div className="space-y-2 lg:sticky lg:top-[88px]">
+                <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2">
                   Related Content
                 </h2>
                 <div className="flex flex-col gap-2">
@@ -148,12 +151,12 @@ export function EventPage({
                   ) : (
                     <p className="text-schemesOnSurfaceVariant">No related content available.</p>
                   )}
-                  <a href="/events" className="mt-1">
+                  <a href="/events" className="mt-1 p-2">
                     <div className="Blueprint-label-large underline text-schemesPrimary">Browse all events</div>
                   </a>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-4 p-2">
                   <h3 className="Blueprint-title-medium-emphasized text-schemesOnSurfaceVariant">Trending Topics</h3>
                   <div className="flex flex-wrap gap-2">
                     {trendingTopics?.length ? trendingTopics.map((t) => <Tag key={t} tagName={t} />) : (

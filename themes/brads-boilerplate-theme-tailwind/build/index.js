@@ -13042,6 +13042,360 @@ var css_248z = ":root{--fc-daygrid-event-dot-width:8px}.fc-daygrid-day-events:af
 
 /***/ }),
 
+/***/ "./node_modules/@fullcalendar/list/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@fullcalendar/list/index.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ index)
+/* harmony export */ });
+/* harmony import */ var _fullcalendar_core_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fullcalendar/core/index.js */ "./node_modules/@fullcalendar/core/index.js");
+/* harmony import */ var _internal_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./internal.js */ "./node_modules/@fullcalendar/list/internal.js");
+/* harmony import */ var _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fullcalendar/core/internal.js */ "./node_modules/@fullcalendar/core/internal-common.js");
+
+
+
+
+
+const OPTION_REFINERS = {
+    listDayFormat: createFalsableFormatter,
+    listDaySideFormat: createFalsableFormatter,
+    noEventsClassNames: _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.n,
+    noEventsContent: _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.n,
+    noEventsDidMount: _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.n,
+    noEventsWillUnmount: _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.n,
+    // noEventsText is defined in base options
+};
+function createFalsableFormatter(input) {
+    return input === false ? null : (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.x)(input);
+}
+
+var index = (0,_fullcalendar_core_index_js__WEBPACK_IMPORTED_MODULE_1__.createPlugin)({
+    name: '@fullcalendar/list',
+    optionRefiners: OPTION_REFINERS,
+    views: {
+        list: {
+            component: _internal_js__WEBPACK_IMPORTED_MODULE_2__.ListView,
+            buttonTextKey: 'list',
+            listDayFormat: { month: 'long', day: 'numeric', year: 'numeric' }, // like "January 1, 2016"
+        },
+        listDay: {
+            type: 'list',
+            duration: { days: 1 },
+            listDayFormat: { weekday: 'long' }, // day-of-week is all we need. full date is probably in headerToolbar
+        },
+        listWeek: {
+            type: 'list',
+            duration: { weeks: 1 },
+            listDayFormat: { weekday: 'long' },
+            listDaySideFormat: { month: 'long', day: 'numeric', year: 'numeric' },
+        },
+        listMonth: {
+            type: 'list',
+            duration: { month: 1 },
+            listDaySideFormat: { weekday: 'long' }, // day-of-week is nice-to-have
+        },
+        listYear: {
+            type: 'list',
+            duration: { year: 1 },
+            listDaySideFormat: { weekday: 'long' }, // day-of-week is nice-to-have
+        },
+    },
+});
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@fullcalendar/list/internal.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@fullcalendar/list/internal.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ListView: () => (/* binding */ ListView)
+/* harmony export */ });
+/* harmony import */ var _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fullcalendar/core/internal.js */ "./node_modules/@fullcalendar/core/internal-common.js");
+/* harmony import */ var _fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fullcalendar/core/preact.js */ "./node_modules/preact/dist/preact.module.js");
+
+
+
+class ListViewHeaderRow extends _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.B {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            textId: (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.a3)(),
+        };
+    }
+    render() {
+        let { theme, dateEnv, options, viewApi } = this.context;
+        let { cellId, dayDate, todayRange } = this.props;
+        let { textId } = this.state;
+        let dayMeta = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.aY)(dayDate, todayRange);
+        // will ever be falsy?
+        let text = options.listDayFormat ? dateEnv.format(dayDate, options.listDayFormat) : '';
+        // will ever be falsy? also, BAD NAME "alt"
+        let sideText = options.listDaySideFormat ? dateEnv.format(dayDate, options.listDaySideFormat) : '';
+        let renderProps = Object.assign({ date: dateEnv.toDate(dayDate), view: viewApi, textId,
+            text,
+            sideText, navLinkAttrs: (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.a_)(this.context, dayDate), sideNavLinkAttrs: (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.a_)(this.context, dayDate, 'day', false) }, dayMeta);
+        // TODO: make a reusable HOC for dayHeader (used in daygrid/timegrid too)
+        return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.C, { elTag: "tr", elClasses: [
+                'fc-list-day',
+                ...(0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.aX)(dayMeta, theme),
+            ], elAttrs: {
+                'data-date': (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bt)(dayDate),
+            }, renderProps: renderProps, generatorName: "dayHeaderContent", customGenerator: options.dayHeaderContent, defaultGenerator: renderInnerContent, classNameGenerator: options.dayHeaderClassNames, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, (InnerContent) => ( // TODO: force-hide top border based on :first-child
+        (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("th", { scope: "colgroup", colSpan: 3, id: cellId, "aria-labelledby": textId },
+            (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(InnerContent, { elTag: "div", elClasses: [
+                    'fc-list-day-cushion',
+                    theme.getClass('tableCellShaded'),
+                ] })))));
+    }
+}
+function renderInnerContent(props) {
+    return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.Fragment, null,
+        props.text && ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("a", Object.assign({ id: props.textId, className: "fc-list-day-text" }, props.navLinkAttrs), props.text)),
+        props.sideText && ( /* not keyboard tabbable */(0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("a", Object.assign({ "aria-hidden": true, className: "fc-list-day-side-text" }, props.sideNavLinkAttrs), props.sideText))));
+}
+
+const DEFAULT_TIME_FORMAT = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.x)({
+    hour: 'numeric',
+    minute: '2-digit',
+    meridiem: 'short',
+});
+class ListViewEventRow extends _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.B {
+    render() {
+        let { props, context } = this;
+        let { options } = context;
+        let { seg, timeHeaderId, eventHeaderId, dateHeaderId } = props;
+        let timeFormat = options.eventTimeFormat || DEFAULT_TIME_FORMAT;
+        return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.ck, Object.assign({}, props, { elTag: "tr", elClasses: [
+                'fc-list-event',
+                seg.eventRange.def.url && 'fc-event-forced-url',
+            ], defaultGenerator: () => renderEventInnerContent(seg, context) /* weird */, seg: seg, timeText: "", disableDragging: true, disableResizing: true }), (InnerContent, eventContentArg) => ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.Fragment, null,
+            buildTimeContent(seg, timeFormat, context, timeHeaderId, dateHeaderId),
+            (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("td", { "aria-hidden": true, className: "fc-list-event-graphic" },
+                (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", { className: "fc-list-event-dot", style: {
+                        borderColor: eventContentArg.borderColor || eventContentArg.backgroundColor,
+                    } })),
+            (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(InnerContent, { elTag: "td", elClasses: ['fc-list-event-title'], elAttrs: { headers: `${eventHeaderId} ${dateHeaderId}` } })))));
+    }
+}
+function renderEventInnerContent(seg, context) {
+    let interactiveAttrs = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bS)(seg, context);
+    return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("a", Object.assign({}, interactiveAttrs), seg.eventRange.def.title));
+}
+function buildTimeContent(seg, timeFormat, context, timeHeaderId, dateHeaderId) {
+    let { options } = context;
+    if (options.displayEventTime !== false) {
+        let eventDef = seg.eventRange.def;
+        let eventInstance = seg.eventRange.instance;
+        let doAllDay = false;
+        let timeText;
+        if (eventDef.allDay) {
+            doAllDay = true;
+        }
+        else if ((0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.ax)(seg.eventRange.range)) { // TODO: use (!isStart || !isEnd) instead?
+            if (seg.isStart) {
+                timeText = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bO)(seg, timeFormat, context, null, null, eventInstance.range.start, seg.end);
+            }
+            else if (seg.isEnd) {
+                timeText = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bO)(seg, timeFormat, context, null, null, seg.start, eventInstance.range.end);
+            }
+            else {
+                doAllDay = true;
+            }
+        }
+        else {
+            timeText = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bO)(seg, timeFormat, context);
+        }
+        if (doAllDay) {
+            let renderProps = {
+                text: context.options.allDayText,
+                view: context.viewApi,
+            };
+            return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.C, { elTag: "td", elClasses: ['fc-list-event-time'], elAttrs: {
+                    headers: `${timeHeaderId} ${dateHeaderId}`,
+                }, renderProps: renderProps, generatorName: "allDayContent", customGenerator: options.allDayContent, defaultGenerator: renderAllDayInner, classNameGenerator: options.allDayClassNames, didMount: options.allDayDidMount, willUnmount: options.allDayWillUnmount }));
+        }
+        return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("td", { className: "fc-list-event-time" }, timeText));
+    }
+    return null;
+}
+function renderAllDayInner(renderProps) {
+    return renderProps.text;
+}
+
+/*
+Responsible for the scroller, and forwarding event-related actions into the "grid".
+*/
+class ListView extends _fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bc {
+    constructor() {
+        super(...arguments);
+        this.computeDateVars = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.z)(computeDateVars);
+        this.eventStoreToSegs = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.z)(this._eventStoreToSegs);
+        this.state = {
+            timeHeaderId: (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.a3)(),
+            eventHeaderId: (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.a3)(),
+            dateHeaderIdRoot: (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.a3)(),
+        };
+        this.setRootEl = (rootEl) => {
+            if (rootEl) {
+                this.context.registerInteractiveComponent(this, {
+                    el: rootEl,
+                });
+            }
+            else {
+                this.context.unregisterInteractiveComponent(this);
+            }
+        };
+    }
+    render() {
+        let { props, context } = this;
+        let { dayDates, dayRanges } = this.computeDateVars(props.dateProfile);
+        let eventSegs = this.eventStoreToSegs(props.eventStore, props.eventUiBases, dayRanges);
+        return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.cq, { elRef: this.setRootEl, elClasses: [
+                'fc-list',
+                context.theme.getClass('table'),
+                context.options.stickyHeaderDates !== false ?
+                    'fc-list-sticky' :
+                    '',
+            ], viewSpec: context.viewSpec },
+            (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.cb, { liquid: !props.isHeightAuto, overflowX: props.isHeightAuto ? 'visible' : 'hidden', overflowY: props.isHeightAuto ? 'visible' : 'auto' }, eventSegs.length > 0 ?
+                this.renderSegList(eventSegs, dayDates) :
+                this.renderEmptyMessage())));
+    }
+    renderEmptyMessage() {
+        let { options, viewApi } = this.context;
+        let renderProps = {
+            text: options.noEventsText,
+            view: viewApi,
+        };
+        return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.C, { elTag: "div", elClasses: ['fc-list-empty'], renderProps: renderProps, generatorName: "noEventsContent", customGenerator: options.noEventsContent, defaultGenerator: renderNoEventsInner, classNameGenerator: options.noEventsClassNames, didMount: options.noEventsDidMount, willUnmount: options.noEventsWillUnmount }, (InnerContent) => ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(InnerContent, { elTag: "div", elClasses: ['fc-list-empty-cushion'] }))));
+    }
+    renderSegList(allSegs, dayDates) {
+        let { theme, options } = this.context;
+        let { timeHeaderId, eventHeaderId, dateHeaderIdRoot } = this.state;
+        let segsByDay = groupSegsByDay(allSegs); // sparse array
+        return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.a6, { unit: "day" }, (nowDate, todayRange) => {
+            let innerNodes = [];
+            for (let dayIndex = 0; dayIndex < segsByDay.length; dayIndex += 1) {
+                let daySegs = segsByDay[dayIndex];
+                if (daySegs) { // sparse array, so might be undefined
+                    let dayStr = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bt)(dayDates[dayIndex]);
+                    let dateHeaderId = dateHeaderIdRoot + '-' + dayStr;
+                    // append a day header
+                    innerNodes.push((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(ListViewHeaderRow, { key: dayStr, cellId: dateHeaderId, dayDate: dayDates[dayIndex], todayRange: todayRange }));
+                    daySegs = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bP)(daySegs, options.eventOrder);
+                    for (let seg of daySegs) {
+                        innerNodes.push((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)(ListViewEventRow, Object.assign({ key: dayStr + ':' + seg.eventRange.instance.instanceId /* are multiple segs for an instanceId */, seg: seg, isDragging: false, isResizing: false, isDateSelecting: false, isSelected: false, timeHeaderId: timeHeaderId, eventHeaderId: eventHeaderId, dateHeaderId: dateHeaderId }, (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.bQ)(seg, todayRange, nowDate))));
+                    }
+                }
+            }
+            return ((0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("table", { className: 'fc-list-table ' + theme.getClass('table') },
+                (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("thead", null,
+                    (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("tr", null,
+                        (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("th", { scope: "col", id: timeHeaderId }, options.timeHint),
+                        (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("th", { scope: "col", "aria-hidden": true }),
+                        (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("th", { scope: "col", id: eventHeaderId }, options.eventHint))),
+                (0,_fullcalendar_core_preact_js__WEBPACK_IMPORTED_MODULE_1__.createElement)("tbody", null, innerNodes)));
+        }));
+    }
+    _eventStoreToSegs(eventStore, eventUiBases, dayRanges) {
+        return this.eventRangesToSegs((0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.ad)(eventStore, eventUiBases, this.props.dateProfile.activeRange, this.context.options.nextDayThreshold).fg, dayRanges);
+    }
+    eventRangesToSegs(eventRanges, dayRanges) {
+        let segs = [];
+        for (let eventRange of eventRanges) {
+            segs.push(...this.eventRangeToSegs(eventRange, dayRanges));
+        }
+        return segs;
+    }
+    eventRangeToSegs(eventRange, dayRanges) {
+        let { dateEnv } = this.context;
+        let { nextDayThreshold } = this.context.options;
+        let range = eventRange.range;
+        let allDay = eventRange.def.allDay;
+        let dayIndex;
+        let segRange;
+        let seg;
+        let segs = [];
+        for (dayIndex = 0; dayIndex < dayRanges.length; dayIndex += 1) {
+            segRange = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.o)(range, dayRanges[dayIndex]);
+            if (segRange) {
+                seg = {
+                    component: this,
+                    eventRange,
+                    start: segRange.start,
+                    end: segRange.end,
+                    isStart: eventRange.isStart && segRange.start.valueOf() === range.start.valueOf(),
+                    isEnd: eventRange.isEnd && segRange.end.valueOf() === range.end.valueOf(),
+                    dayIndex,
+                };
+                segs.push(seg);
+                // detect when range won't go fully into the next day,
+                // and mutate the latest seg to the be the end.
+                if (!seg.isEnd && !allDay &&
+                    dayIndex + 1 < dayRanges.length &&
+                    range.end <
+                        dateEnv.add(dayRanges[dayIndex + 1].start, nextDayThreshold)) {
+                    seg.end = range.end;
+                    seg.isEnd = true;
+                    break;
+                }
+            }
+        }
+        return segs;
+    }
+}
+function renderNoEventsInner(renderProps) {
+    return renderProps.text;
+}
+function computeDateVars(dateProfile) {
+    let dayStart = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.q)(dateProfile.renderRange.start);
+    let viewEnd = dateProfile.renderRange.end;
+    let dayDates = [];
+    let dayRanges = [];
+    while (dayStart < viewEnd) {
+        dayDates.push(dayStart);
+        dayRanges.push({
+            start: dayStart,
+            end: (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.t)(dayStart, 1),
+        });
+        dayStart = (0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.t)(dayStart, 1);
+    }
+    return { dayDates, dayRanges };
+}
+// Returns a sparse array of arrays, segs grouped by their dayIndex
+function groupSegsByDay(segs) {
+    let segsByDay = []; // sparse array
+    let i;
+    let seg;
+    for (i = 0; i < segs.length; i += 1) {
+        seg = segs[i];
+        (segsByDay[seg.dayIndex] || (segsByDay[seg.dayIndex] = []))
+            .push(seg);
+    }
+    return segsByDay;
+}
+
+var css_248z = ":root{--fc-list-event-dot-width:10px;--fc-list-event-hover-bg-color:#f5f5f5}.fc-theme-standard .fc-list{border:1px solid var(--fc-border-color)}.fc .fc-list-empty{align-items:center;background-color:var(--fc-neutral-bg-color);display:flex;height:100%;justify-content:center}.fc .fc-list-empty-cushion{margin:5em 0}.fc .fc-list-table{border-style:hidden;width:100%}.fc .fc-list-table tr>*{border-left:0;border-right:0}.fc .fc-list-sticky .fc-list-day>*{background:var(--fc-page-bg-color);position:sticky;top:0}.fc .fc-list-table thead{left:-10000px;position:absolute}.fc .fc-list-table tbody>tr:first-child th{border-top:0}.fc .fc-list-table th{padding:0}.fc .fc-list-day-cushion,.fc .fc-list-table td{padding:8px 14px}.fc .fc-list-day-cushion:after{clear:both;content:\"\";display:table}.fc-theme-standard .fc-list-day-cushion{background-color:var(--fc-neutral-bg-color)}.fc-direction-ltr .fc-list-day-text,.fc-direction-rtl .fc-list-day-side-text{float:left}.fc-direction-ltr .fc-list-day-side-text,.fc-direction-rtl .fc-list-day-text{float:right}.fc-direction-ltr .fc-list-table .fc-list-event-graphic{padding-right:0}.fc-direction-rtl .fc-list-table .fc-list-event-graphic{padding-left:0}.fc .fc-list-event.fc-event-forced-url{cursor:pointer}.fc .fc-list-event:hover td{background-color:var(--fc-list-event-hover-bg-color)}.fc .fc-list-event-graphic,.fc .fc-list-event-time{white-space:nowrap;width:1px}.fc .fc-list-event-dot{border:calc(var(--fc-list-event-dot-width)/2) solid var(--fc-event-border-color);border-radius:calc(var(--fc-list-event-dot-width)/2);box-sizing:content-box;display:inline-block;height:0;width:0}.fc .fc-list-event-title a{color:inherit;text-decoration:none}.fc .fc-list-event.fc-event-forced-url:hover a{text-decoration:underline}";
+(0,_fullcalendar_core_internal_js__WEBPACK_IMPORTED_MODULE_0__.ct)(css_248z);
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@fullcalendar/react/dist/index.js":
 /*!********************************************************!*\
   !*** ./node_modules/@fullcalendar/react/dist/index.js ***!
@@ -20113,7 +20467,7 @@ function AccountSettings({
       children: "Profile"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
       className: "Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant",
-      children: "Supporting line text lorem ipsum dolor sit amet, consectetur"
+      children: "View your profile details and make changes when needed."
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "flex items-center gap-4 mb-8",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
@@ -20435,7 +20789,7 @@ function ArticlePage({
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("aside", {
             className: "w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
-              className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-4",
+              className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2",
               children: "Related Content"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "rounded-lg flex items-stretch justify-center",
@@ -21350,103 +21704,6 @@ function ContentCard({
 
 /***/ }),
 
-/***/ "./src/scripts/DateDropdown.js":
-/*!*************************************!*\
-  !*** ./src/scripts/DateDropdown.js ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DateDropdown: () => (/* binding */ DateDropdown)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function DateDropdown({
-  onMonthChange
-}) {
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [months, setMonths] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const now = new Date();
-  const [selectedMonth, setSelectedMonth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(now);
-
-  // Helper: format YYYY-MM-DD
-  // const formatDate = (date) => {
-  //     return date.toISOString().split("T")[0];
-  // };
-  // Format YYYY-MM-DD
-  const formatDate = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-
-  // Generate months: current + next 11
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const now = new Date();
-    const list = [];
-    for (let i = 0; i < 12; i++) {
-      const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
-      list.push(d);
-    }
-    setMonths(list);
-    setSelectedMonth(list[0]); // default: current month
-
-    // Fire callback for current month
-    const first = new Date(list[0].getFullYear(), list[0].getMonth(), 1);
-    const last = new Date(list[0].getFullYear(), list[0].getMonth() + 1, 0);
-
-    // onMonthChange(formatDate(first), formatDate(last));
-  }, []);
-  const handleSelect = date => {
-    setSelectedMonth(date);
-    setIsOpen(false);
-    const first = new Date(date.getFullYear(), date.getMonth(), 1);
-    const last = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    onMonthChange(formatDate(first), formatDate(last));
-  };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "relative flex justify-between gap-0.5",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
-      onClick: () => setIsOpen(!isOpen),
-      className: "flex items-center px-4 py-2 bg-blue-700 text-white rounded-l-full rounded-r-none",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-        xmlns: "http://www.w3.org/2000/svg",
-        className: "h-5 w-5 mr-2",
-        fill: "none",
-        viewBox: "0 0 24 24",
-        stroke: "currentColor",
-        strokeWidth: 2,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          d: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-        })
-      }), selectedMonth?.toLocaleString("default", {
-        month: "short",
-        year: "numeric"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-      onClick: () => setIsOpen(!isOpen),
-      className: "px-3 py-2 bg-blue-700 text-white rounded-r-full",
-      children: "\u25BC"
-    }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
-      className: "absolute mt-2 w-full bg-white border rounded shadow-lg z-10",
-      children: months.map((m, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-        onClick: () => handleSelect(m),
-        className: "px-4 py-2 cursor-pointer hover:bg-blue-100",
-        children: m.toLocaleString("default", {
-          month: "short",
-          year: "numeric"
-        })
-      }, idx))
-    })]
-  });
-}
-
-/***/ }),
-
 /***/ "./src/scripts/DetailedCard.js":
 /*!*************************************!*\
   !*** ./src/scripts/DetailedCard.js ***!
@@ -21608,7 +21865,12 @@ function EventPage({
           className: "flex flex-col lg:flex-row gap-8 lg:gap-12",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "flex-3 min-w-0 space-y-8 lg:space-y-10",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("header", {
+            children: [tags.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+              className: "flex flex-wrap gap-2",
+              children: tags?.map(t => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_3__.Tag, {
+                tagName: t
+              }, t))
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("header", {
               className: "space-y-2",
               children: [dateLine && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "Blueprint-label-large text-schemesOnSurfaceVariant",
@@ -21627,6 +21889,17 @@ function EventPage({
                   backgroundColor: "schemesPrimaryContainer"
                 })
               })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("section", {
+              className: "space-y-6 lg:space-y-7 max-w-3xl",
+              children: sections.length > 0 ? sections.map((s, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+                className: "break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline",
+                dangerouslySetInnerHTML: {
+                  __html: s.text
+                }
+              }, i)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+                className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+                children: "Details coming soon."
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
               className: "flex flex-wrap items-center gap-3",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
@@ -21667,21 +21940,10 @@ function EventPage({
                 className: "w-full h-auto block max-h-175 object-cover",
                 loading: "lazy"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("section", {
-              className: "space-y-6 lg:space-y-7 max-w-3xl",
-              children: sections.length > 0 ? sections.map((s, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                className: "break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline",
-                dangerouslySetInnerHTML: {
-                  __html: s.text
-                }
-              }, i)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
-                className: "Blueprint-body-large text-schemesOnSurfaceVariant",
-                children: "Details coming soon."
-              })
             }), tags?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
               className: "pt-2",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                className: "Blueprint-headline-small-emphasized mb-2",
+                className: "Blueprint-headline-small-emphasized mb-4",
                 children: "Keep exploring"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "flex flex-wrap gap-2",
@@ -21693,9 +21955,9 @@ function EventPage({
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("aside", {
             className: "w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-              className: "space-y-4 lg:sticky lg:top-[88px]",
+              className: "space-y-2 lg:sticky lg:top-[88px]",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
-                className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-4",
+                className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2",
                 children: "Related Content"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
                 className: "flex flex-col gap-2",
@@ -21708,14 +21970,14 @@ function EventPage({
                   children: "No related content available."
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
                   href: "/events",
-                  className: "mt-1",
+                  className: "mt-1 p-2",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                     className: "Blueprint-label-large underline text-schemesPrimary",
                     children: "Browse all events"
                   })
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-                className: "space-y-2",
+                className: "space-y-4 p-2",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
                   className: "Blueprint-title-medium-emphasized text-schemesOnSurfaceVariant",
                   children: "Trending Topics"
@@ -21789,15 +22051,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
-/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
+/* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
+/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
+/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/index.js");
 /* harmony import */ var _EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EventsCalendarFilterGroup */ "./src/scripts/EventsCalendarFilterGroup.js");
-/* harmony import */ var _DateDropdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DateDropdown */ "./src/scripts/DateDropdown.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
 
 
- // a plugin!
+
 
 
 
@@ -21807,11 +22069,11 @@ function EventsCalendar({
   audiences,
   locations
 }) {
-  const [keyword, setKeyword] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-  const [debouncedKeywordValue, setDebouncedKeywordValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [keyword, setKeyword] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+  const [debouncedKeywordValue, setDebouncedKeywordValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [dateRange, setDateRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    start: '',
-    end: ''
+    start: "",
+    end: ""
   });
   const [requestParams, setRequestParams] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     per_page: 100
@@ -21821,133 +22083,74 @@ function EventsCalendar({
   const [selectedAudiences, setSelectedAudiences] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedLocations, setSelectedLocations] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
   const calendarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    // console.log(types, topics, audiences, locations)
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const handler = setTimeout(() => {
-      setDebouncedKeywordValue(keyword);
-    }, 1000); // 500ms delay
+  const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
 
-    return () => {
-      clearTimeout(handler);
-    };
+  // debounce search
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
+    return () => clearTimeout(t);
   }, [keyword]);
-  const handlePrevClick = () => {
-    const calendarAPI = calendarRef.current.getApi();
-    calendarAPI.prev();
-  };
-  const handleNextClick = () => {
-    const calendarAPI = calendarRef.current.getApi();
-    calendarAPI.next();
-  };
-  const clearEvents = () => {
-    const calendarApi = calendarRef.current.getApi(); // Get the Calendar API
-    calendarApi.removeAllEvents();
-  };
-  const handleTypeChange = event => {
-    const {
-      value,
-      checked
-    } = event.target;
-    if (checked) {
-      setSelectedTypes([...selectedTypes, value]);
-    } else {
-      setSelectedTypes(selectedTypes.filter(option => option !== value));
-    }
-  };
-  const handleTopicChange = event => {
-    const {
-      value,
-      checked
-    } = event.target;
-    if (checked) {
-      setSelectedTopics([...selectedTopics, value]);
-    } else {
-      setSelectedTopics(selectedTopics.filter(option => option !== value));
-    }
-  };
-  const handleAudienceChange = event => {
-    const {
-      value,
-      checked
-    } = event.target;
-    if (checked) {
-      setSelectedAudiences([...selectedAudiences, value]);
-    } else {
-      setSelectedAudiences(selectedAudiences.filter(option => option !== value));
-    }
-  };
-  const handleLocationChange = event => {
-    const {
-      value,
-      checked
-    } = event.target;
-    if (checked) {
-      setSelectedLocations([...selectedLocations, value]);
-    } else {
-      setSelectedLocations(selectedLocations.filter(option => option !== value));
-    }
-  };
-  const dateChanged = dateInfo => {
-    const startParts = dateInfo.startStr.split('T');
-    const startDate = startParts[0]; // "2025-08-10"
-
-    const endParts = dateInfo.endStr.split('T');
-    const endDate = endParts[0]; // "2025-08-10"
-
+  const handlePrevClick = () => calendarRef.current.getApi().prev();
+  const handleNextClick = () => calendarRef.current.getApi().next();
+  const clearEvents = () => calendarRef.current.getApi().removeAllEvents();
+  const onType = e => setSelectedTypes(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
+  const onTopic = e => setSelectedTopics(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
+  const onAudience = e => setSelectedAudiences(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
+  const onLocation = e => setSelectedLocations(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
+  const datesSet = info => {
+    const start = info.startStr.split("T")[0];
+    const end = info.endStr.split("T")[0];
     setDateRange({
-      start: startDate,
-      end: endDate
+      start,
+      end
     });
   };
+
+  // fetch events when requestParams change
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFirstDatesSet.current) {
       isFirstDatesSet.current = false;
-      return; // skip first call
+      return;
     }
+    let cancelled = false;
     setIsLoading(true);
-    const fetchData = async () => {
+    (async () => {
       try {
-        const url = '/wp-json/sbp/v1/events';
-        const queryString = new URLSearchParams(requestParams).toString();
-        const finalUrl = queryString ? `${url}?${queryString}` : url;
-        const response = await fetch(finalUrl, {
-          method: 'GET',
+        const qs = new URLSearchParams(requestParams).toString();
+        const res = await fetch(`/wp-json/sbp/v1/events${qs ? "?" + qs : ""}`, {
           headers: {
-            'Accept': 'application/json'
+            Accept: "application/json"
           }
         });
-        const result = await response.json();
+        const json = await res.json();
+        if (cancelled) return;
         clearEvents();
-        const calendarApi = calendarRef.current.getApi();
-        if (result.events) {
-          for (const event of result.events) {
-            calendarApi.addEvent({
-              id: event.id,
-              title: event.title || 'No title found',
-              start: event.start,
-              end: event.end,
-              url: event.url
-            });
-          }
-        }
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
+        const api = calendarRef.current.getApi();
+        (json.events || []).forEach(ev => {
+          api.addEvent({
+            id: ev.id,
+            title: ev.title || "Untitled",
+            start: ev.start,
+            end: ev.end,
+            url: ev.url
+          });
+        });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        if (!cancelled) setIsLoading(false);
       }
+    })();
+    return () => {
+      cancelled = true;
     };
-    fetchData();
   }, [requestParams]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {}, [debouncedKeywordValue]);
+
+  // rebuild request on any filter/date/search change
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    // Update request params
     setRequestParams(prev => ({
       ...prev,
-      // keep existing properties
       start_date: dateRange.start,
       end_date: dateRange.end,
       types: selectedTypes.toString(),
@@ -21957,124 +22160,143 @@ function EventsCalendar({
       s: debouncedKeywordValue
     }));
   }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, debouncedKeywordValue]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: `flex flex-grow ${isLoading ? 'cursor-wait' : ''}`,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: `calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "relative flex items-center mb-6 filters-search",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+
+  // switch view at Tailwind's md breakpoint (768px)
+  const applyResponsiveView = api => {
+    if (!api || typeof window === "undefined") return;
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const desired = mobile ? "listMonth" : "dayGridMonth";
+    if (api.view?.type !== desired) api.changeView(desired);
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const api = calendarRef.current?.getApi();
+    if (!api) return;
+
+    // initial
+    applyResponsiveView(api);
+
+    // watch viewport changes
+    const mql = window.matchMedia("(max-width: 767px)");
+    const onChange = () => applyResponsiveView(api);
+    if (mql.addEventListener) mql.addEventListener("change", onChange);else mql.addListener(onChange);
+    return () => {
+      if (mql.removeEventListener) mql.removeEventListener("change", onChange);else mql.removeListener(onChange);
+    };
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "bg-schemesSurface",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "bg-schemesPrimaryFixed",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "max-w-[1600px]",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: "px-16 py-16 flex flex-col justify-end items-start gap-2 max-w-3xl",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "py-4 px-1.5 Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large",
+            children: "Upcoming Community Events"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small text-schemesOnPrimaryFixedVariant",
+            children: "Stay informed and connected. Find community jobs, volunteer opportunities, local notices, and informal support through our active message boards and groups."
+          })]
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: `mx-auto py-8 px-16 flex max-w-[1600px] flex-grow ${isLoading ? "cursor-wait" : ""}`,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("aside", {
+        className: `calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: "relative flex items-center mb-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
             type: "text",
             placeholder: "Search...",
             onChange: e => setKeyword(e.target.value),
-            className: "w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-            className: "absolute right-3 text-gray-400 w-5 h-5",
-            fill: "none",
-            stroke: "currentColor",
+            className: "w-full pl-3 pr-10 py-2 rounded-md border border-[var(--schemesOutlineVariant)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
+            className: "absolute right-3 text-[var(--schemesOnSurfaceVariant)] w-5 h-5",
             viewBox: "0 0 24 24",
-            xmlns: "http://www.w3.org/2000/svg",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              "stroke-width": "2",
-              d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            fill: "none",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+              d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+              stroke: "currentColor",
+              strokeWidth: "2",
+              strokeLinecap: "round",
+              strokeLinejoin: "round"
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-          className: "text-lg mb-4",
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+          className: "Blueprint-title-small mb-4",
           children: "Filters"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
-          title: 'Type',
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+          title: "Type",
           options: types,
           selected: selectedTypes,
-          onChangeHandler: handleTypeChange
-        }, 'filter-group-types'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
-          title: 'Topic',
+          onChangeHandler: onType
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+          title: "Topic",
           options: topics,
           selected: selectedTopics,
-          onChangeHandler: handleTopicChange
-        }, 'filter-group-topics'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
-          title: 'Audience',
+          onChangeHandler: onTopic
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+          title: "Audience",
           options: audiences,
           selected: selectedAudiences,
-          onChangeHandler: handleAudienceChange
-        }, 'filter-group-audience'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
-          title: 'Location',
+          onChangeHandler: onAudience
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+          title: "Location",
           options: locations,
           selected: selectedLocations,
-          onChangeHandler: handleLocationChange
-        }, 'filter-group-audience')]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: `flex-1 min-w-0 transition duration-100 px-6 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "flex justify-between flex-row gap-2 mb-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "flex items-center month-selector",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_DateDropdown__WEBPACK_IMPORTED_MODULE_2__.DateDropdown, {
-              onMonthChange: (first, last) => {
-                const calendarAPI = calendarRef.current.getApi();
-                calendarAPI.gotoDate(first); // This will trigger month change, which will trigger datesSet, which will then trigger dateChanged, which will then trigger useEffect catching change in dateRange
+          onChangeHandler: onLocation
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
+        className: `flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""} max-w-7xl`,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "flex items-center justify-end gap-2 w-full",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+              onClick: handlePrevClick,
+              className: "btn-nav",
+              children: "\u2190 Previous Month"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+              onClick: handleNextClick,
+              className: "btn-nav",
+              children: "Next Month \u2192"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "px-3 sm:px-4 md:px-6 lg:px-8 pb-3 rounded-b-2xl",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "bg-[var(--schemesSurface)] rounded-2xl overflow-hidden",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              ref: calendarRef,
+              plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_4__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_5__["default"]] // ← include list
+              ,
+              initialView: "dayGridMonth" // will be swapped by applyResponsiveView()
+              ,
+              headerToolbar: false,
+              height: "auto",
+              fixedWeekCount: false,
+              dayMaxEvents: 4,
+              dayMaxEventRows: 3,
+              eventDisplay: "block",
+              datesSet: datesSet,
+              views: {
+                dayGridMonth: {
+                  showNonCurrentDates: false,
+                  displayEventTime: false,
+                  dayHeaderFormat: {
+                    weekday: "short"
+                  }
+                },
+                listMonth: {
+                  noEventsContent: "No events this month"
+                }
               }
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "flex items-center justify-between month-navigator",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-              onClick: handlePrevClick,
-              className: "flex items-center px-2 py-0.5 mr-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-                className: "w-4 h-4 mr-2",
-                fill: "none",
-                stroke: "currentColor",
-                viewBox: "0 0 24 24",
-                xmlns: "http://www.w3.org/2000/svg",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  "stroke-width": "2",
-                  d: "M15 19l-7-7 7-7"
-                })
-              }), "Previous"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-              onClick: handleNextClick,
-              className: "flex items-center px-2 py-0.5 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75",
-              children: ["Next", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-                className: "w-4 h-4 ml-2",
-                fill: "none",
-                stroke: "currentColor",
-                viewBox: "0 0 24 24",
-                xmlns: "http://www.w3.org/2000/svg",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  "stroke-width": "2",
-                  d: "M9 5l7 7-7 7"
-                })
-              })]
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          ref: calendarRef,
-          plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_5__["default"]],
-          initialView: "dayGridMonth",
-          headerToolbar: false,
-          datesSet: dateChanged,
-          views: {
-            dayGridMonth: {
-              eventTimeFormat: {
-                hour: '2-digit',
-                minute: '2-digit',
-                meridiem: 'short',
-                hour12: true
-              },
-              showNonCurrentDates: false,
-              displayEventTime: false
-            }
-          }
+          })
         })]
       })]
-    })
+    })]
   });
 }
 
@@ -22110,7 +22332,7 @@ function EventsCalendarFilterGroup({
   const showingAll = visibleCount >= options.length;
   const handleToggle = () => {
     if (showingAll) {
-      setVisibleCount(5); // collapse back
+      setVisibleCount(5);
     } else {
       setVisibleCount(prev => prev + 5);
     }
@@ -22745,15 +22967,14 @@ function FrontPage() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_2__.SearchBar, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "flex flex-wrap items-center justify-center gap-3",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "text-sm text-gray-600",
+            className: "lg:Blueprint-label-large md:Blueprint-label-medium Blueprint-label-small text-schemesOnSurfaceVariant",
             children: "Trending Searches:"
-          }), ['Jewish Podcasts', 'mental health help', 'family-friendly events', 'kosher recipes'].map(tag => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-            className: "bg-schemesPrimaryFixedDim px-3 py-1 rounded-md Blueprint-label-large text-schemesOnPrimaryFixed hover:bg-white shadow-sm",
-            onClick: () => {
-              setQuery(tag);
-              window.location.href = `/?s=${encodeURIComponent(tag)}`;
-            },
-            children: tag
+          }), ['Jewish Podcasts', 'mental health help', 'family-friendly events', 'kosher recipes'].map(tag => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+            href: `/search/${tag}`,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              className: "bg-schemesPrimaryFixedDim px-3 py-1 rounded-md Blueprint-label-large text-schemesOnPrimaryFixed hover:bg-white shadow-sm hover:cursor-pointer",
+              children: tag
+            }, tag)
           }, tag))]
         })]
       })]
@@ -23459,7 +23680,7 @@ const NewsletterBanner = () => {
   };
   if (submitted) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
+      className: "flex flex-col justify-center h-70 bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
         className: "Blueprint-headline-medium mb-4 font-bold",
         children: "Thanks for subscribing!"
@@ -23471,7 +23692,7 @@ const NewsletterBanner = () => {
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
     onSubmit: handleSubmit,
-    className: "bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
+    className: "h-70 bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
       className: "Blueprint-headline-medium mb-4 font-bold",
       children: "Stay connected to the Melbourne Jewish community"
@@ -23776,7 +23997,7 @@ function PodcastPage({
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("aside", {
             className: "w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1 min-w-70 mt-10 lg:mt-0",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
-              className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-4",
+              className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2",
               children: "Related Content"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "rounded-lg flex items-stretch justify-center",
@@ -23793,7 +24014,7 @@ function PodcastPage({
                   href: "/topics",
                   className: "mt-1",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                    className: "Blueprint-label-large underline text-schemesPrimary",
+                    className: "Blueprint-label-large underline text-schemesPrimary p-2",
                     children: "Explore all topics"
                   })
                 })]
@@ -24440,10 +24661,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SearchBar = () => {
-  const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
   const {
     t
   } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_1__.useTranslation)();
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('s');
+    if (searchQuery) {
+      setQuery(searchQuery);
+    }
+  }, []);
   const handleSubmit = e => {
     e.preventDefault();
     if (!query.trim()) return;
@@ -24473,7 +24701,8 @@ const SearchBar = () => {
         className: "block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-blue-500 focus:border-blue-500",
         placeholder: "Search podcasts, events, resources...",
         onChange: e => setQuery(e.target.value),
-        required: true
+        required: true,
+        value: query || ''
       })]
     })]
   });
@@ -24547,8 +24776,8 @@ function SearchPage({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-          className: "Blueprint-display-small-emphasized mb-3 text-schemesOnSurface",
-          children: "Search results"
+          className: "Blueprint-display-small-emphasized mb-4 text-schemesOnSurface",
+          children: `Search results '${query}'`
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_2__.SearchBar, {
           defaultValue: query
         })]
@@ -26560,14 +26789,7 @@ if (el21) {
 }
 const el22 = document.getElementById('stories-and-interviews-root');
 if (el22) {
-  const props = {
-    everyBodyHasAStory: JSON.parse(el22.dataset.everyBodyHasAStory || '[]'),
-    featured: JSON.parse(el22.dataset.featured || '[]'),
-    eventsThisWeek: JSON.parse(el22.dataset.eventsThisWeek || '[]'),
-    candidConversations: JSON.parse(el22.dataset.candidConversations || '[]'),
-    blueprintStories: JSON.parse(el22.dataset.blueprintStories || '[]'),
-    holocaustStories: JSON.parse(el22.dataset.holocaustStories || '[]')
-  };
+  const props = JSON.parse(el22.dataset.props || '{}');
   react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el22).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_scripts_StoriesAndInterviews__WEBPACK_IMPORTED_MODULE_25__.StoriesAndInterviews, {
     ...props
   }));

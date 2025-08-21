@@ -14,19 +14,17 @@ export default function FrontPage() {
           </h2>
           <SearchBar />
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="text-sm text-gray-600">Trending Searches:</span>
+            <span className="lg:Blueprint-label-large md:Blueprint-label-medium Blueprint-label-small text-schemesOnSurfaceVariant">Trending Searches:</span>
             {['Jewish Podcasts', 'mental health help', 'family-friendly events', 'kosher recipes'].map(
               (tag) => (
-                <button
-                  key={tag}
-                  className="bg-schemesPrimaryFixedDim px-3 py-1 rounded-md Blueprint-label-large text-schemesOnPrimaryFixed hover:bg-white shadow-sm"
-                  onClick={() => {
-                    setQuery(tag);
-                    window.location.href = `/?s=${encodeURIComponent(tag)}`;
-                  }}
-                >
-                  {tag}
-                </button>
+                <a href={`/search/${tag}`} key={tag}>
+                  <button
+                    key={tag}
+                    className="bg-schemesPrimaryFixedDim px-3 py-1 rounded-md Blueprint-label-large text-schemesOnPrimaryFixed hover:bg-white shadow-sm hover:cursor-pointer"
+                  >
+                    {tag}
+                  </button>
+                </a>
               )
             )}
           </div>

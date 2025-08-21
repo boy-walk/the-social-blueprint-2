@@ -108,7 +108,7 @@ export function ArticlePage({
 
             {/* Sidebar */}
             <aside className="w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1">
-              <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-4">
+              <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2">
                 Related Content
               </h2>
 

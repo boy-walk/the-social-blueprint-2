@@ -29,7 +29,7 @@ export function AccountSettings({ profile }) {
   return (
     <div className="max-w-2xl mx-auto px-4 lg:px-0">
       <h2 className="Blueprint-headline-small-emphasized mb-1">Profile</h2>
-      <p className="Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant">Supporting line text lorem ipsum dolor sit amet, consectetur</p>
+      <p className="Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant">View your profile details and make changes when needed.</p>
 
       <div className="flex items-center gap-4 mb-8">
         <img

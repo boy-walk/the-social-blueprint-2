@@ -77,7 +77,6 @@ foreach ($terms as $term) {
 
 <div
     id="events-fullcalendar"
-    class="mx-auto max-w-screen-xl px-4 py-16"
     data-types="<?= esc_attr(wp_json_encode($types)) ?>"
     data-topics="<?= esc_attr(wp_json_encode($topics)) ?>"
     data-audiences="<?= esc_attr(wp_json_encode($audiences)) ?>"

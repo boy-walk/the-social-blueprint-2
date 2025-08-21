@@ -206,14 +206,7 @@ if (el21) {
 
 const el22 = document.getElementById('stories-and-interviews-root');
 if (el22) {
-  const props = {
-    everyBodyHasAStory: JSON.parse(el22.dataset.everyBodyHasAStory || '[]'),
-    featured: JSON.parse(el22.dataset.featured || '[]'),
-    eventsThisWeek: JSON.parse(el22.dataset.eventsThisWeek || '[]'),
-    candidConversations: JSON.parse(el22.dataset.candidConversations || '[]'),
-    blueprintStories: JSON.parse(el22.dataset.blueprintStories || '[]'),
-    holocaustStories: JSON.parse(el22.dataset.holocaustStories || '[]'),
-  };
+  const props = JSON.parse(el22.dataset.props || '{}');
   ReactDOM.createRoot(el22).render(<StoriesAndInterviews {...props} />);
 }
 
