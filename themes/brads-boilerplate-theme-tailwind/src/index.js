@@ -25,6 +25,7 @@ import { ArticlePage } from './scripts/ArticlePage';
 import { EventPage } from './scripts/EventPage';
 import { EventsHubPage } from './scripts/EventsHubPage';
 import { StoriesAndInterviews } from './scripts/StoriesAndInterviews';
+import { EventsCalendar } from './scripts/EventsCalendar';
 
 
 if (document.querySelector('#front-page')) {
@@ -219,10 +220,10 @@ if (el22) {
 const el23 = document.getElementById('events-fullcalendar');
 if (el23) {
   const props = {
-    types: JSON.parse(el20.dataset.types),
-    topics: JSON.parse(el20.dataset.topics),
-    audiences: JSON.parse(el20.dataset.audiences),
-    locations: JSON.parse(el20.dataset.locations)
+    types: JSON.parse(el23.dataset.types),
+    topics: JSON.parse(el23.dataset.topics),
+    audiences: JSON.parse(el23.dataset.audiences),
+    locations: JSON.parse(el23.dataset.locations)
   }
-  ReactDOM.createRoot(el20).render(<EventsCalendar {...props} />)
+  ReactDOM.createRoot(el23).render(<EventsCalendar {...props} />)
 }
