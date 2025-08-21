@@ -1,20 +1,13 @@
-import React, { useState, useMemo } from "react";
-import { ContentCard } from "./ContentCard";
-import { Card } from "./Card";
+import React from "react";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
-import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
-import { MessageBoardSlider } from "./MessageBoardSlider";
 import { NewsletterBanner } from "./NewsletterBanner";
 import { PostsSlider } from "./PostsSlider";
-import FeaturedPostLayout from "./FeaturedPostLayout";
-import { useTranslation } from "react-i18next";
 import CommunityConnectionHubIcon from "../../assets/community-connection-hub.svg";
 import BrowseAll from "./BrowseAll";
 
 export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, blueprintStories, holocaustStories }) {
-  console.log(everyBodyHasAStory)
   return (
     <div>
       <div className="bg-schemesPrimaryFixed">
@@ -33,15 +26,17 @@ export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, 
         </div>
       </div>
 
-      <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-24 lg:gap-32">
-        <div>
-          <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface py-3 mb-4">
-            Everybody Has A Story
-          </h2>
-          <PostsSlider events={everyBodyHasAStory || []} />
+      <div className="bg-schemesSurfaceBright">
+        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-24 lg:gap-32">
+          <div>
+            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface py-3 mb-4">
+              Everybody Has A Story
+            </h2>
+            <PostsSlider events={everyBodyHasAStory || []} />
+          </div>
         </div>
       </div>
-      <div className="bg-schemesSecondaryFixed">
+      <div className="bg-schemesSurfaceContainerLow">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
           <div className="flex items-center gap-2 mb-6">
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Candid Conversations</h2>
@@ -50,7 +45,7 @@ export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, 
           <PostsSlider events={candidConversations || []} />
         </div>
       </div>
-      <div className="bg-schemesSecondaryFixed">
+      <div className="bg-schemesSurfaceBright">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
           <div className="flex items-center gap-2 mb-6">
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Blueprint Stories</h2>
