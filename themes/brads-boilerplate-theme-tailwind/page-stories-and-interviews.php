@@ -5,7 +5,7 @@
 
 get_header();
 
-$everybody_has_a_story_args = [
+$everybody_has_a_story_args = new WP_Query([
   'post_type' => 'podcast',
   'posts_per_page' => 15,
   'orderby' => 'date',
@@ -17,8 +17,8 @@ $everybody_has_a_story_args = [
       'terms' => 'everybody-has-a-story',
     ]
   ],
-];
-$everyBodyHasAStory = get_posts($everybody_has_a_story_args);
+]);
+$everyBodyHasAStory = $everybody_has_a_story_args->posts;
 
 $candid_conversations_args = new WP_Query([
   'post_type' => 'podcast',

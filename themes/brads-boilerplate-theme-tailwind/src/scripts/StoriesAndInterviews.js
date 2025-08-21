@@ -14,6 +14,7 @@ import CommunityConnectionHubIcon from "../../assets/community-connection-hub.sv
 import BrowseAll from "./BrowseAll";
 
 export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, blueprintStories, holocaustStories }) {
+  console.log(everyBodyHasAStory)
   return (
     <div>
       <div className="bg-schemesPrimaryFixed">
@@ -37,7 +38,7 @@ export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, 
           <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface py-3 mb-4">
             Everybody Has A Story
           </h2>
-          <PostsSlider posts={everyBodyHasAStory || []} />
+          <PostsSlider events={everyBodyHasAStory || []} />
         </div>
       </div>
       <div className="bg-schemesSecondaryFixed">

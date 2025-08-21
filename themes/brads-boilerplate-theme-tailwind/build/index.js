@@ -25786,6 +25786,7 @@ function StoriesAndInterviews({
   blueprintStories,
   holocaustStories
 }) {
+  console.log(everyBodyHasAStory);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
       className: "bg-schemesPrimaryFixed",
@@ -25816,7 +25817,7 @@ function StoriesAndInterviews({
           className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface py-3 mb-4",
           children: "Everybody Has A Story"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_PostsSlider__WEBPACK_IMPORTED_MODULE_8__.PostsSlider, {
-          posts: everyBodyHasAStory || []
+          events: everyBodyHasAStory || []
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
