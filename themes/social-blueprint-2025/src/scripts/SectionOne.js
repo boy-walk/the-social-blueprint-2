@@ -12,7 +12,7 @@ import { SponsorshipBanner } from './Sponsorship';
 
 export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, historicalPhotos, sponsorshipBanner }) => {
   return (
-    <div>
+    <div className="bg-schemesSurface">
       <div className="max-w-[1600px] mx-auto">
         <div className="flex flex-col justify-center items-center gap-12 w-full px-4 px-6 lg:px-32 py-12">
           <div className="flex gap-3 justify-center items-center">

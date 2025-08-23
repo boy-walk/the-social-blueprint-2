@@ -15,7 +15,7 @@ import BrowseAll from "./BrowseAll";
 export function CommunityHubPage({ featured, messageBoard, events }) {
   const { t } = useTranslation();
   return (
-    <div>
+    <div className="bg-schemesSurface">
       <div className="bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex p-4 pt-12 md:p-8 lg:px-16 lg:py-8 items-center justify-between">
@@ -130,7 +130,7 @@ export function CommunityHubPage({ featured, messageBoard, events }) {
           title="Browse all community"
           endpoint="/wp-json/tsb/v1/browse"
           baseQuery={{
-            post_type: ['tribe_events', 'podcast', 'article', 'directory', 'resource', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'],
+            post_type: ['tribe_events', 'podcast', 'article', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'],
             per_page: 10,
             orderby: 'date',
             order: 'DESC',

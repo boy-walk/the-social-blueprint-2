@@ -8,11 +8,12 @@ import CommunityConnectionHubIcon from "../../assets/community-connection-hub.sv
 import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
+import FeaturedPostLayout from "./FeaturedPostLayout";
 
 export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving }) => {
   console.log("LearningAndGrowthHub", { featured, podcasts, events, costOfLiving });
   return (
-    <div>
+    <div className="bg-schemesSurface">
       <div className="bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex p-4 pt-12 md:p-8 lg:px-16 lg:py-8 items-center justify-between">
@@ -58,7 +59,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CalendarDotIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Cost of Living  s</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Cost of Living</div>
                       </div>
                     </Card>
                   </div>
@@ -88,13 +89,37 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
           </div>
         </div>
       </div>
-      <div className="bg-schemesSurfaceContainerLow">
+      <div>
+        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
+          <h2 className="py-3 Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Featured in Learning and Growth</h2>
+          <FeaturedPostLayout posts={featured} />
+        </div>
+      </div>
+      <div>
+        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
+          <div className="flex items-center gap-2 mb-6">
+            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Educational Podcasts</h2>
+            <ArrowIcon className="text-schemesOnSecondaryFixed" />
+          </div>
+          <PostsSlider events={podcasts || []} />
+        </div>
+      </div>
+      <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
           <div className="flex items-center gap-2 mb-6">
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Educational Events</h2>
             <ArrowIcon className="text-schemesOnSecondaryFixed" />
           </div>
-          <PostsSlider events={featured || []} />
+          <PostsSlider events={events || []} />
+        </div>
+      </div>
+      <div>
+        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
+          <div className="flex items-center gap-2 mb-6">
+            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Cost of Living</h2>
+            <ArrowIcon className="text-schemesOnSecondaryFixed" />
+          </div>
+          <PostsSlider events={costOfLiving || []} />
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto">
@@ -102,6 +127,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
           title="Browse all Learning and Growth"
           endpoint="/wp-json/tsb/v1/browse"
           baseQuery={{
+            post_type: ['tribe_events', 'podcast', 'article', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'],
             per_page: 10,
             order: "DESC",
             orderby: "date",

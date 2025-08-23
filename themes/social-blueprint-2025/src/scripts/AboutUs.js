@@ -28,7 +28,7 @@ export function AboutUs(props) {
   }, [featuredVideo])
 
   return (
-    <section className="w-full space-y-8 lg:space-y-16">
+    <section className="bg-schemesSurface w-full space-y-8 lg:space-y-16">
       <div className="w-full bg-palettesPrimary95">
         <div className="max-w-[1600px] mx-auto p-6 md:p-16 flex gap-6 flex-col justify-start items-start md:justify-center md:items-center">
           <div className="bg-schemesPrimaryFixedDim rounded-xl py-1 px-3">
