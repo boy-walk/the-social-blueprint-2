@@ -213,12 +213,6 @@ add_action('init', function () {
     'show_in_rest' => true,            // visible in block editor / REST
     'show_ui'      => true,
     // Block adding/editing/deleting terms; allow assigning only.
-    'capabilities' => [
-      'manage_terms' => 'do_not_allow',
-      'edit_terms'   => 'do_not_allow',
-      'delete_terms' => 'do_not_allow',
-      'assign_terms' => 'edit_posts',
-    ],
   ]);
 
   // Other tag-like taxonomies (unchanged)
