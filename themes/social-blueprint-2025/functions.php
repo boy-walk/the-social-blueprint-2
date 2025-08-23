@@ -193,15 +193,42 @@ add_action('init', function () {
     'gd_photo_gallery', 'gd_cost_of_living'
   ];
 
-  $taxonomies = [
-    'theme'        => 'Theme',
+  // Register THEME (multi-select, tag-like), but lock creation/deletion of new terms.
+  register_taxonomy('theme', $post_types, [
+    'label'        => 'Theme',
+    'labels'       => [
+      'name'          => 'Themes',
+      'singular_name' => 'Theme',
+      'menu_name'     => 'Themes',
+      'search_items'  => 'Search Themes',
+      'all_items'     => 'All Themes',
+      'edit_item'     => 'Edit Theme',
+      'update_item'   => 'Update Theme',
+      'add_new_item'  => 'Add New Theme',
+      'new_item_name' => 'New Theme',
+    ],
+    'hierarchical' => true,           // tag-like (multi by default)
+    'public'       => true,
+    'rewrite'      => ['slug' => 'theme'],
+    'show_in_rest' => true,            // visible in block editor / REST
+    'show_ui'      => true,
+    // Block adding/editing/deleting terms; allow assigning only.
+    'capabilities' => [
+      'manage_terms' => 'do_not_allow',
+      'edit_terms'   => 'do_not_allow',
+      'delete_terms' => 'do_not_allow',
+      'assign_terms' => 'edit_posts',
+    ],
+  ]);
+
+  // Other tag-like taxonomies (unchanged)
+  $other_tax = [
     'topic_tag'    => 'Topic',
     'audience_tag' => 'Audience',
     'location_tag' => 'Location',
     'people_tag'   => 'People',
   ];
-
-  foreach ($taxonomies as $slug => $name) {
+  foreach ($other_tax as $slug => $name) {
     register_taxonomy($slug, $post_types, [
       'label'        => $name . ' Tags',
       'hierarchical' => false,
@@ -211,6 +238,21 @@ add_action('init', function () {
     ]);
   }
 
+  // Seed the fixed Theme terms (safe to run on every init — checks existence)
+  $themes = [
+    'community-and-connection' => 'Community and Connection',
+    'learning-and-growth'      => 'Learning and Growth',
+    'events-and-experiences'   => 'Events and Experiences',
+    'support-and-services'     => 'Support and Services',
+    'culture-and-identity'     => 'Culture and Identity',
+  ];
+  foreach ($themes as $slug => $name) {
+    if (!term_exists($slug, 'theme')) {
+      wp_insert_term($name, 'theme', ['slug' => $slug]);
+    }
+  }
+
+  // Register flags in REST (unchanged)
   foreach ($post_types as $pt) {
     register_post_meta($pt, 'is_featured', [
       'type'              => 'boolean',
@@ -220,7 +262,6 @@ add_action('init', function () {
       'sanitize_callback' => 'rest_sanitize_boolean',
       'auth_callback'     => function () { return current_user_can('edit_posts'); },
     ]);
-
     register_post_meta($pt, 'is_sponsored', [
       'type'              => 'boolean',
       'single'            => true,
@@ -230,7 +271,7 @@ add_action('init', function () {
       'auth_callback'     => function () { return current_user_can('edit_posts'); },
     ]);
   }
-});
+}, 10);
 
 add_filter('acf/settings/save_json', function ($path) {
   return get_stylesheet_directory() . '/acf-json';

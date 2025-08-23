@@ -440,3 +440,9 @@
     border-color: var(--schemesOutlineVariant);
   }
 }
+
+@layer components {
+  .tsb-container {
+    @apply max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16;
+  }
+}
