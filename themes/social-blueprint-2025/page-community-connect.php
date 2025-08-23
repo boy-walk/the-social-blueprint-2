@@ -13,7 +13,7 @@ $featured_args = new WP_Query([
     [
       'taxonomy' => 'theme',
       'field' => 'slug',
-      'terms' => 'community-connection',
+      'terms' => 'community-and-connection',
     ]
   ],
   'meta_key'       => 'is_featured',
@@ -31,7 +31,7 @@ $message_board_args = [
     [
       'taxonomy' => 'theme',
       'field' => 'slug',
-      'terms' => 'community-connection',
+      'terms' => 'community-and-connection',
     ]
   ],
 ];
@@ -47,7 +47,7 @@ $event_posts = tribe_get_events([
     [
       'taxonomy' => 'theme',
       'field' => 'slug',
-      'terms' => 'community-connection',
+      'terms' => 'community-and-connection',
     ]
   ],
 ]);

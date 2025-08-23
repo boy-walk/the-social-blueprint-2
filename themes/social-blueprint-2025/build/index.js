@@ -21420,7 +21420,7 @@ function CommunityHubPage({
           tax: [{
             taxonomy: 'theme',
             field: 'slug',
-            terms: ['community-connection']
+            terms: ['community-and-connection']
           }]
         },
         filters: [{

@@ -134,7 +134,7 @@ export function CommunityHubPage({ featured, messageBoard, events }) {
             per_page: 10,
             orderby: 'date',
             order: 'DESC',
-            tax: [{ taxonomy: 'theme', field: 'slug', terms: ['community-connection'] }],
+            tax: [{ taxonomy: 'theme', field: 'slug', terms: ['community-and-connection'] }],
           }}
           filters={[
             { label: "Community jobs", tax: { taxonomy: "topic_tag", terms: ["community-jobs"] } },
