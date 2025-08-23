@@ -12,7 +12,7 @@ plugins/*
 themes/*
 
 # ...except your custom theme
-!themes/brads-boilerplate-theme-tailwind/
+!themes/social-blueprint-2025/
 !themes/csp-social-blueprint-australia/
 !themes/twentytwentyfive
 

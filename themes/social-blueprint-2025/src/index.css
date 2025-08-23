@@ -1,0 +1,442 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=IBM+Plex+Sans+Condensed:wght@100;200;300;400;500;600;700&display=swap");
+
+/* Tailwind (must come before our utility overrides) */
+@import "tailwindcss";
+
+/* Design-token utilities */
+@import "./colour-classes.css";
+@import "./font-classes.css";
+@import "./responsive-font-classes.css";
+
+
+/* --------------------------------------------------
+   Blueprint JSON colour tokens â†’ CSS custom props (full list)
+-------------------------------------------------- */
+
+:root {
+  --schemesPrimary: #1e6586;
+  --schemesSurfaceTint: #00658c;
+  --schemesOnPrimary: #ffffff;
+  --schemesPrimaryContainer: #007dab;
+  --schemesOnPrimaryContainer: #ffffff;
+  --schemesSecondary: #4559a9;
+  --schemesOnSecondary: #ffffff;
+  --schemesSecondaryContainer: #a3b4ff;
+  --schemesOnSecondaryContainer: #052273;
+  --schemesTertiary: #0f6b58;
+  --schemesOnTertiary: #ffffff;
+  --schemesTertiaryContainer: #a6f6de;
+  --schemesOnTertiaryContainer: #005545;
+  --schemesError: #ba1a1a;
+  --schemesOnError: #ffffff;
+  --schemesErrorContainer: #ffdad6;
+  --schemesOnErrorContainer: #410002;
+  --schemesBackground: #f6fafe;
+  --schemesOnBackground: #171c20;
+  --schemesSurface: #fdf8f6;
+  --schemesOnSurface: #1c1b1a;
+  --schemesSurfaceVariant: #e5e2d9;
+  --schemesOnSurfaceVariant: #474740;
+  --schemesOutline: #78776f;
+  --schemesOutlineVariant: #c9c7bd;
+  --schemesShadow: #000000;
+  --schemesScrim: #000000;
+  --schemesInverseSurface: #31302f;
+  --schemesInverseOnSurface: #f4f0ed;
+  --schemesInversePrimary: #7fd0ff;
+  --schemesPrimaryFixed: #c5e7ff;
+  --schemesOnPrimaryFixed: #001e2d;
+  --schemesPrimaryFixedDim: #7fd0ff;
+  --schemesOnPrimaryFixedVariant: #004c6a;
+  --schemesSecondaryFixed: #dde1ff;
+  --schemesOnSecondaryFixed: #001453;
+  --schemesSecondaryFixedDim: #b7c4ff;
+  --schemesOnSecondaryFixedVariant: #2b418f;
+  --schemesTertiaryFixed: #a2f2da;
+  --schemesOnTertiaryFixed: #002019;
+  --schemesTertiaryFixedDim: #86d6be;
+  --schemesOnTertiaryFixedVariant: #005142;
+  --schemesSurfaceDim: #ddd9d7;
+  --schemesSurfaceBright: #fdf8f6;
+  --schemesSurfaceContainerLowest: #ffffff;
+  --schemesSurfaceContainerLow: #f7f3f0;
+  --schemesSurfaceContainer: #f1edeb;
+  --schemesSurfaceContainerHigh: #ebe7e5;
+  --schemesSurfaceContainerHighest: #e6e2df;
+  --stateLayersPrimaryOpacity08: #6750a414;
+  --stateLayersPrimaryOpacity10: #6750a419;
+  --stateLayersPrimaryOpacity16: #6750a428;
+  --stateLayersOnPrimaryOpacity08: #ffffff14;
+  --stateLayersOnPrimaryOpacity10: #ffffff19;
+  --stateLayersOnPrimaryOpacity16: #ffffff28;
+  --stateLayersPrimaryContainerOpacity08: #eaddff14;
+  --stateLayersPrimaryContainerOpacity10: #eaddff19;
+  --stateLayersPrimaryContainerOpacity16: #eaddff28;
+  --stateLayersOnPrimaryContainerOpacity08: #4f378a14;
+  --stateLayersOnPrimaryContainerOpacity10: #4f378a19;
+  --stateLayersOnPrimaryContainerOpacity16: #4f378a28;
+  --stateLayersPrimaryFixedOpacity08: #eaddff14;
+  --stateLayersPrimaryFixedOpacity10: #eaddff19;
+  --stateLayersPrimaryFixedOpacity16: #eaddff28;
+  --stateLayersOnPrimaryFixedOpacity08: #21005d14;
+  --stateLayersOnPrimaryFixedOpacity10: #21005d19;
+  --stateLayersOnPrimaryFixedOpacity16: #21005d28;
+  --stateLayersPrimaryFixedDimOpacity08: #d0bcff14;
+  --stateLayersPrimaryFixedDimOpacity10: #d0bcff19;
+  --stateLayersPrimaryFixedDimOpacity16: #d0bcff28;
+  --stateLayersOnPrimaryFixedVariantOpacity08: #4f378b14;
+  --stateLayersOnPrimaryFixedVariantOpacity10: #4f378b19;
+  --stateLayersOnPrimaryFixedVariantOpacity16: #4f378b28;
+  --stateLayersSecondaryOpacity08: #625b7114;
+  --stateLayersSecondaryOpacity10: #625b7119;
+  --stateLayersSecondaryOpacity16: #625b7128;
+  --stateLayersOnSecondaryOpacity08: #ffffff14;
+  --stateLayersOnSecondaryOpacity10: #ffffff19;
+  --stateLayersOnSecondaryOpacity16: #ffffff28;
+  --stateLayersSecondaryContainerOpacity08: #e8def814;
+  --stateLayersSecondaryContainerOpacity10: #e8def819;
+  --stateLayersSecondaryContainerOpacity16: #e8def828;
+  --stateLayersOnSecondaryContainerOpacity08: #4a445914;
+  --stateLayersOnSecondaryContainerOpacity10: #4a445919;
+  --stateLayersOnSecondaryContainerOpacity16: #4a445928;
+  --stateLayersSecondaryFixedOpacity08: #e8def814;
+  --stateLayersSecondaryFixedOpacity10: #e8def819;
+  --stateLayersSecondaryFixedOpacity16: #e8def828;
+  --stateLayersOnSecondaryFixedOpacity08: #1d192b14;
+  --stateLayersOnSecondaryFixedOpacity10: #1d192b19;
+  --stateLayersOnSecondaryFixedOpacity16: #1d192b28;
+  --stateLayersSecondaryFixedDimOpacity08: #ccc2dc14;
+  --stateLayersSecondaryFixedDimOpacity10: #ccc2dc19;
+  --stateLayersSecondaryFixedDimOpacity16: #ccc2dc28;
+  --stateLayersOnSecondaryFixedVariantOpacity08: #4a445814;
+  --stateLayersOnSecondaryFixedVariantOpacity10: #4a445819;
+  --stateLayersOnSecondaryFixedVariantOpacity16: #4a445828;
+  --stateLayersTertiaryOpacity08: #7d526014;
+  --stateLayersTertiaryOpacity10: #7d526019;
+  --stateLayersTertiaryOpacity16: #7d526028;
+  --stateLayersOnTertiaryOpacity08: #ffffff14;
+  --stateLayersOnTertiaryOpacity10: #ffffff19;
+  --stateLayersOnTertiaryOpacity16: #ffffff28;
+  --stateLayersTertiaryContainerOpacity08: #ffd8e414;
+  --stateLayersTertiaryContainerOpacity10: #ffd8e419;
+  --stateLayersTertiaryContainerOpacity16: #ffd8e428;
+  --stateLayersOnTertiaryContainerOpacity08: #633b4814;
+  --stateLayersOnTertiaryContainerOpacity10: #633b4819;
+  --stateLayersOnTertiaryContainerOpacity16: #633b4828;
+  --stateLayersTertiaryFixedOpacity08: #ffd8e414;
+  --stateLayersTertiaryFixedOpacity10: #ffd8e419;
+  --stateLayersTertiaryFixedOpacity16: #ffd8e428;
+  --stateLayersOnTertiaryFixedOpacity08: #31111d14;
+  --stateLayersOnTertiaryFixedOpacity10: #31111d19;
+  --stateLayersOnTertiaryFixedOpacity16: #31111d28;
+  --stateLayersTertiaryFixedDimOpacity08: #efb8c814;
+  --stateLayersTertiaryFixedDimOpacity10: #efb8c819;
+  --stateLayersTertiaryFixedDimOpacity16: #efb8c828;
+  --stateLayersOnTertiaryFixedVariantOpacity08: #633b4814;
+  --stateLayersOnTertiaryFixedVariantOpacity10: #633b4819;
+  --stateLayersOnTertiaryFixedVariantOpacity16: #633b4828;
+  --stateLayersErrorOpacity08: #b3261e14;
+  --stateLayersErrorOpacity10: #b3261e19;
+  --stateLayersErrorOpacity16: #b3261e28;
+  --stateLayersOnErrorOpacity08: #ffffff14;
+  --stateLayersOnErrorOpacity10: #ffffff19;
+  --stateLayersOnErrorOpacity16: #ffffff28;
+  --stateLayersErrorContainerOpacity08: #f9dedc14;
+  --stateLayersErrorContainerOpacity10: #f9dedc19;
+  --stateLayersErrorContainerOpacity16: #f9dedc28;
+  --stateLayersOnErrorContainerOpacity08: #85222114;
+  --stateLayersOnErrorContainerOpacity10: #85222119;
+  --stateLayersOnErrorContainerOpacity16: #85222128;
+  --stateLayersOutlineOpacity08: #79747e14;
+  --stateLayersOutlineOpacity10: #79747e19;
+  --stateLayersOutlineOpacity16: #79747e28;
+  --stateLayersBackgroundOpacity08: #fef7ff14;
+  --stateLayersBackgroundOpacity10: #fef7ff19;
+  --stateLayersBackgroundOpacity16: #fef7ff28;
+  --stateLayersOnBackgroundOpacity08: #1d1b2014;
+  --stateLayersOnBackgroundOpacity10: #1d1b2019;
+  --stateLayersOnBackgroundOpacity16: #1d1b2028;
+  --stateLayersSurfaceOpacity08: #fef7ff14;
+  --stateLayersSurfaceOpacity10: #fef7ff19;
+  --stateLayersSurfaceOpacity16: #fef7ff28;
+  --stateLayersOnSurfaceOpacity08: #1d1b2014;
+  --stateLayersOnSurfaceOpacity10: #1d1b2019;
+  --stateLayersOnSurfaceOpacity16: #1d1b2028;
+  --stateLayersSurfaceVariantOpacity08: #e7e0ec14;
+  --stateLayersSurfaceVariantOpacity10: #e7e0ec19;
+  --stateLayersSurfaceVariantOpacity16: #e7e0ec28;
+  --stateLayersOnSurfaceVariantOpacity08: #49454f14;
+  --stateLayersOnSurfaceVariantOpacity10: #49454f19;
+  --stateLayersOnSurfaceVariantOpacity16: #49454f28;
+  --stateLayersInverseSurfaceOpacity08: #322f3514;
+  --stateLayersInverseSurfaceOpacity10: #322f3519;
+  --stateLayersInverseSurfaceOpacity16: #322f3528;
+  --stateLayersInverseOnSurfaceOpacity08: #f5eff714;
+  --stateLayersInverseOnSurfaceOpacity10: #f5eff719;
+  --stateLayersInverseOnSurfaceOpacity16: #f5eff728;
+  --stateLayersInversePrimaryOpacity08: #d0bcff14;
+  --stateLayersInversePrimaryOpacity10: #d0bcff19;
+  --stateLayersInversePrimaryOpacity16: #d0bcff28;
+  --stateLayersShadowOpacity08: #00000014;
+  --stateLayersShadowOpacity10: #00000019;
+  --stateLayersShadowOpacity16: #00000028;
+  --stateLayersSurfaceTintOpacity08: #6750a414;
+  --stateLayersSurfaceTintOpacity10: #6750a419;
+  --stateLayersSurfaceTintOpacity16: #6750a428;
+  --stateLayersOutlineVariantOpacity08: #cac4d014;
+  --stateLayersOutlineVariantOpacity10: #cac4d019;
+  --stateLayersOutlineVariantOpacity16: #cac4d028;
+  --stateLayersScrimOpacity08: #00000014;
+  --stateLayersScrimOpacity10: #00000019;
+  --stateLayersScrimOpacity16: #00000028;
+  --stateLayersSurfaceContainerHighestOpacity08: #e6e0e914;
+  --stateLayersSurfaceContainerHighestOpacity10: #e6e0e919;
+  --stateLayersSurfaceContainerHighestOpacity16: #e6e0e928;
+  --stateLayersSurfaceContainerHighOpacity08: #ece6f014;
+  --stateLayersSurfaceContainerHighOpacity10: #ece6f019;
+  --stateLayersSurfaceContainerHighOpacity16: #ece6f028;
+  --stateLayersSurfaceContainerOpacity08: #f3edf714;
+  --stateLayersSurfaceContainerOpacity10: #f3edf719;
+  --stateLayersSurfaceContainerOpacity16: #f3edf728;
+  --stateLayersSurfaceContainerLowOpacity08: #f7f2fa14;
+  --stateLayersSurfaceContainerLowOpacity10: #f7f2fa19;
+  --stateLayersSurfaceContainerLowOpacity16: #f7f2fa28;
+  --stateLayersSurfaceContainerLowestOpacity08: #ffffff14;
+  --stateLayersSurfaceContainerLowestOpacity10: #ffffff19;
+  --stateLayersSurfaceContainerLowestOpacity16: #ffffff28;
+  --stateLayersSurfaceBrightOpacity08: #fef7ff14;
+  --stateLayersSurfaceBrightOpacity10: #fef7ff19;
+  --stateLayersSurfaceBrightOpacity16: #fef7ff28;
+  --stateLayersSurfaceDimOpacity08: #ded8e114;
+  --stateLayersSurfaceDimOpacity10: #ded8e119;
+  --stateLayersSurfaceDimOpacity16: #ded8e128;
+  --addOnsSectionBackground: #f5f5f5;
+  --surfacesSurfaceTint5: #00658c0c;
+  --surfacesSurfaceTint8: #00658c14;
+  --surfacesSurfaceTint11: #00658c1c;
+  --surfacesSurfaceTint12: #00658c1e;
+  --surfacesSurfaceTint14: #00658c23;
+  --palettesPrimary100: #ffffff;
+  --palettesPrimary99: #fbfcff;
+  --palettesPrimary98: #f5faff;
+  --palettesPrimary95: #e4f3ff;
+  --palettesPrimary90: #c5e7ff;
+  --palettesPrimary80: #7fd0ff;
+  --palettesPrimary70: #43b6ee;
+  --palettesPrimary60: #0f9bd2;
+  --palettesPrimary50: #0080af;
+  --palettesPrimary40: #00658c;
+  --palettesPrimary35: #00597b;
+  --palettesPrimary30: #004c6a;
+  --palettesPrimary25: #00405a;
+  --palettesPrimary20: #00344a;
+  --palettesPrimary15: #00293b;
+  --palettesPrimary10: #001e2d;
+  --palettesPrimary5: #00131e;
+  --palettesPrimary0: #000000;
+  --palettesSecondary100: #ffffff;
+  --palettesSecondary99: #fefbff;
+  --palettesSecondary98: #fbf8ff;
+  --palettesSecondary95: #efefff;
+  --palettesSecondary90: #dde1ff;
+  --palettesSecondary80: #b7c4ff;
+  --palettesSecondary70: #93a7fc;
+  --palettesSecondary60: #788ce0;
+  --palettesSecondary50: #5e72c4;
+  --palettesSecondary40: #4559a9;
+  --palettesSecondary35: #384d9c;
+  --palettesSecondary30: #2b418f;
+  --palettesSecondary25: #1e3483;
+  --palettesSecondary20: #0e2878;
+  --palettesSecondary15: #001d6b;
+  --palettesSecondary10: #001453;
+  --palettesSecondary5: #000b3a;
+  --palettesSecondary0: #000000;
+  --palettesTertiary100: #ffffff;
+  --palettesTertiary99: #f3fff9;
+  --palettesTertiary98: #e6fff5;
+  --palettesTertiary95: #b8ffe9;
+  --palettesTertiary90: #a2f2da;
+  --palettesTertiary80: #86d6be;
+  --palettesTertiary70: #6bbaa4;
+  --palettesTertiary60: #509e8a;
+  --palettesTertiary50: #338470;
+  --palettesTertiary40: #0f6b58;
+  --palettesTertiary35: #005e4d;
+  --palettesTertiary30: #005142;
+  --palettesTertiary25: #004437;
+  --palettesTertiary20: #00382d;
+  --palettesTertiary15: #002c23;
+  --palettesTertiary10: #002019;
+  --palettesTertiary5: #00150f;
+  --palettesTertiary0: #000000;
+  --palettesError100: #ffffff;
+  --palettesError99: #fffbff;
+  --palettesError98: #fff8f7;
+  --palettesError95: #ffedea;
+  --palettesError90: #ffdad6;
+  --palettesError80: #ffb4ab;
+  --palettesError70: #ff897d;
+  --palettesError60: #ff5449;
+  --palettesError50: #de3730;
+  --palettesError40: #ba1a1a;
+  --palettesError35: #a80710;
+  --palettesError30: #93000a;
+  --palettesError25: #7e0007;
+  --palettesError20: #690005;
+  --palettesError15: #540003;
+  --palettesError10: #410002;
+  --palettesError5: #2d0001;
+  --palettesError0: #000000;
+  --palettesNeutral100: #ffffff;
+  --palettesNeutral99: #fffbff;
+  --palettesNeutral98: #fdf8f7;
+  --palettesNeutral95: #f4f0ee;
+  --palettesNeutral90: #e6e2e0;
+  --palettesNeutral80: #c9c6c4;
+  --palettesNeutral70: #aeaaa9;
+  --palettesNeutral60: #93908f;
+  --palettesNeutral50: #797775;
+  --palettesNeutral40: #605e5d;
+  --palettesNeutral35: #545251;
+  --palettesNeutral30: #484645;
+  --palettesNeutral25: #3c3b3a;
+  --palettesNeutral20: #31302f;
+  --palettesNeutral15: #262625;
+  --palettesNeutral10: #1c1b1b;
+  --palettesNeutral5: #111110;
+  --palettesNeutral0: #000000;
+  --palettesNeutralVariant100: #ffffff;
+  --palettesNeutralVariant99: #fefbfb;
+  --palettesNeutralVariant98: #fbf9f9;
+  --palettesNeutralVariant95: #f3f0f0;
+  --palettesNeutralVariant90: #e4e2e2;
+  --palettesNeutralVariant80: #c8c6c6;
+  --palettesNeutralVariant70: #acabab;
+  --palettesNeutralVariant60: #929090;
+  --palettesNeutralVariant50: #787777;
+  --palettesNeutralVariant40: #5f5e5e;
+  --palettesNeutralVariant35: #535252;
+  --palettesNeutralVariant30: #474747;
+  --palettesNeutralVariant25: #3b3b3c;
+  --palettesNeutralVariant20: #303031;
+  --palettesNeutralVariant15: #262626;
+  --palettesNeutralVariant10: #1b1c1c;
+  --palettesNeutralVariant5: #111111;
+  --palettesNeutralVariant0: #000000;
+  --extendedColorsCustomColor: #005677;
+  --extendedColorsOnCustomColor: #ffffff;
+  --extendedColorsCustomColorContainer: #007dab;
+  --extendedColorsOnCustomColorContainer: #ffffff;
+  --shadow-3x1: 7px 6px 1px 0 rgba(0, 0, 0, 0.20);
+  --shadow-3x2: 5px 4px 1px var(--schemesOutlineVariant, #C9C7BD);
+  --shadow-3x3: 4px 4px 1px 0 rgba(71, 71, 64, 0.16);
+  --font-ibmCondensed: 'IBM Plex Sans Condensed', sans-serif;
+  --font-heebo: 'Heebo', sans-serif;
+  --breakpoint-sm: 567px;
+  --breakpoint-md: 568px;
+  --breakpoint-lg: 1071px;
+}
+
+.shadow-3x2 {
+  box-shadow: var(--shadow-3x2);
+}
+
+.shadow-3x3 {
+  box-shadow: var(--shadow-3x3);
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For IE and Edge */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+  /* For Chrome, Safari, and Opera */
+}
+
+.tsb-events-sidebar {
+  min-height: 320px;
+}
+
+.fc-theme-standard table {
+  border-radius: 16px;
+}
+
+.fc-theme-standard .fc-col-header-cell {
+  text-align: right;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: var(--schemesOutlineVariant);
+}
+
+/* Nav buttons used above */
+.btn-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .375rem .75rem;
+  border-radius: .5rem;
+  font-weight: 600;
+  background: var(--schemesSurface);
+  color: var(--schemesOnSurface);
+  border: 1px solid var(--schemesOutlineVariant);
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.btn-nav:hover {
+  background: var(--schemesSurfaceContainer);
+}
+
+/* Pill for grid view events */
+.tsb-event-pill {
+  display: inline-block;
+  max-width: 100%;
+  padding: .25rem .5rem;
+  border-radius: 9999px;
+  background: var(--schemesPrimaryContainer);
+  color: var(--schemesOnPrimaryContainer);
+  font-size: .75rem;
+  line-height: 1rem;
+}
+
+/* Day grid tweaks */
+.fc .fc-daygrid-day-number {
+  color: var(--schemesOnSurfaceVariant);
+  font-weight: 600;
+  padding: .35rem .5rem .15rem .5rem;
+}
+
+.fc .fc-daygrid-event {
+  margin: 2px 4px;
+}
+
+/* Compact list view on mobile */
+@media (max-width: 767px) {
+  .fc .fc-list {
+    font-size: .95rem;
+  }
+
+  .fc .fc-list-day-cushion {
+    padding: .5rem .75rem;
+  }
+
+  .fc .fc-list-event-title {
+    font-weight: 600;
+  }
+
+  .fc .fc-list-event-dot,
+  .fc .fc-list-event-graphic {
+    display: none;
+  }
+
+  /* cleaner, text-only list */
+  .fc .fc-list-table tbody tr {
+    border-color: var(--schemesOutlineVariant);
+  }
+}
