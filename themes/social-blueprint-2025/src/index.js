@@ -29,6 +29,7 @@ import { EventsCalendar } from './scripts/EventsCalendar';
 import { LearningAndGrowthHub } from './scripts/LearningAndGrowthHub';
 import { CultureAndIdentityHub } from './scripts/CultureAndIdentityHub';
 import { SupportAndServicesHub } from './scripts/SupportAndServicesHub';
+import { DirectoryHub } from './scripts/DirectoryHub';
 
 
 if (document.querySelector('#front-page')) {
@@ -240,4 +241,10 @@ const el26 = document.getElementById('support-and-services-hub-root');
 if (el26) {
   const props = JSON.parse(el26.dataset.props || '{}');
   ReactDOM.createRoot(el26).render(<SupportAndServicesHub {...props} />);
+}
+
+const el27 = document.getElementById('directory-hub-root');
+if (el27) {
+  const props = JSON.parse(el27.dataset.props || '{}');
+  ReactDOM.createRoot(el27).render(<DirectoryHub {...props} />);
 }
