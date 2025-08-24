@@ -28,6 +28,7 @@ import { StoriesAndInterviews } from './scripts/StoriesAndInterviews';
 import { EventsCalendar } from './scripts/EventsCalendar';
 import { LearningAndGrowthHub } from './scripts/LearningAndGrowthHub';
 import { CultureAndIdentityHub } from './scripts/CultureAndIdentityHub';
+import { SupportAndServicesHub } from './scripts/SupportAndServicesHub';
 
 
 if (document.querySelector('#front-page')) {
@@ -233,4 +234,10 @@ const el25 = document.getElementById('culture-and-identity-hub-root');
 if (el25) {
   const props = JSON.parse(el25.dataset.props || '{}');
   ReactDOM.createRoot(el25).render(<CultureAndIdentityHub {...props} />);
+}
+
+const el26 = document.getElementById('support-and-services-hub-root');
+if (el26) {
+  const props = JSON.parse(el26.dataset.props || '{}');
+  ReactDOM.createRoot(el26).render(<SupportAndServicesHub {...props} />);
 }
