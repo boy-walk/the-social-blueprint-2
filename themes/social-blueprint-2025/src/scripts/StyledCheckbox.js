@@ -11,10 +11,10 @@ export function StyledCheckbox({ id, label, onChangeHandler, checked }) {
       />
       <label
         htmlFor={`filter-${id}`}
-        className="cursor-pointer px-3 py-1 rounded-full border text-sm
+        className="cursor-pointer px-3 py-2 rounded-md Blueprint-label-small
                   transition-colors duration-200
-                  peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600
-                  peer-not-checked:bg-gray-100 peer-not-checked:text-gray-700 peer-not-checked:border-gray-300"
+                  peer-checked:bg-gray-500 peer-checked:text-white peer-checked:border-grey-700
+                  peer-not-checked:bg-[var(--schemesSurfaceContainer)] peer-not-checked:text-gray-700 peer-not-checked:border-gray-300"
       >
         {label}
       </label>

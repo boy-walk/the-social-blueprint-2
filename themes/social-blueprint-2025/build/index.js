@@ -22843,12 +22843,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
-/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
-/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/index.js");
+/* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
+/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
+/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/index.js");
 /* harmony import */ var _EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EventsCalendarFilterGroup */ "./src/scripts/EventsCalendarFilterGroup.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowRight.es.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
 
 
 
@@ -22975,39 +22980,39 @@ function EventsCalendar({
       if (mql.removeEventListener) mql.removeEventListener("change", onChange);else mql.removeListener(onChange);
     };
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "bg-schemesSurface",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "bg-schemesPrimaryFixed",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "tsb-container",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "py-16 flex flex-col justify-end items-start gap-2 max-w-3xl",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "py-4 px-1.5 Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large",
             children: "Upcoming Community Events"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small text-schemesOnPrimaryFixedVariant",
             children: "Stay informed and connected. Find community jobs, volunteer opportunities, local notices, and informal support through our active message boards and groups."
           })]
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: `tsb-container py-8 flex flex-grow ${isLoading ? "cursor-wait" : ""}`,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("aside", {
-        className: `calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("aside", {
+        className: `hidden md:hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "relative flex items-center mb-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
-            placeholder: "Search...",
+            placeholder: "Search by keyword",
             onChange: e => setKeyword(e.target.value),
-            className: "w-full pl-3 pr-10 py-2 rounded-md border border-[var(--schemesOutlineVariant)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
+            className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
             className: "absolute right-3 text-[var(--schemesOnSurfaceVariant)] w-5 h-5",
             viewBox: "0 0 24 24",
             fill: "none",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
               d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
               stroke: "currentColor",
               strokeWidth: "2",
@@ -23015,58 +23020,61 @@ function EventsCalendar({
               strokeLinejoin: "round"
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
-          className: "Blueprint-title-small mb-4",
-          children: "Filters"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
-          title: "Theme",
-          options: types,
-          selected: selectedTypes,
-          onChangeHandler: onType
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
-          title: "Topic",
-          options: topics,
-          selected: selectedTopics,
-          onChangeHandler: onTopic
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
-          title: "Audience",
-          options: audiences,
-          selected: selectedAudiences,
-          onChangeHandler: onAudience
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
-          title: "Location",
-          options: locations,
-          selected: selectedLocations,
-          onChangeHandler: onLocation
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex flex-col gap-4 px-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant",
+            children: "Filters"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+            title: "Theme",
+            options: types,
+            selected: selectedTypes,
+            onChangeHandler: onType
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+            title: "Topic",
+            options: topics,
+            selected: selectedTopics,
+            onChangeHandler: onTopic
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+            title: "Audience",
+            options: audiences,
+            selected: selectedAudiences,
+            onChangeHandler: onAudience
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+            title: "Location",
+            options: locations,
+            selected: selectedLocations,
+            onChangeHandler: onLocation
+          })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
         className: `flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14 mb-6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "flex items-center justify-end gap-2 w-full",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               onClick: handlePrevClick,
-              className: "btn-nav",
-              children: "\u2190 Previous Month"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.ArrowLeftIcon, {}),
+              label: "Previous Month"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               onClick: handleNextClick,
-              className: "btn-nav",
-              children: "Next Month \u2192"
+              label: "Next Month",
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.ArrowRightIcon, {})
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "px-3 sm:px-4 md:px-6 lg:px-8 pb-3 rounded-b-2xl",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "bg-[var(--schemesSurface)] rounded-2xl overflow-hidden",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
               ref: calendarRef,
-              plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_4__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_5__["default"]] // ← include list
+              plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_7__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_8__["default"]] // ← include list
               ,
               initialView: "dayGridMonth" // will be swapped by applyResponsiveView()
               ,
               headerToolbar: false,
-              height: "auto",
+              height: 800,
               fixedWeekCount: false,
               dayMaxEvents: 4,
               dayMaxEventRows: 3,
@@ -23132,10 +23140,10 @@ function EventsCalendarFilterGroup({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "mb-4",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-      className: "mb-2",
+      className: "Blueprint-title-small mb-8",
       children: title
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "flex flex-wrap gap-2",
+      className: "flex flex-wrap gap-5",
       children: options.slice(0, visibleCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
         id: option.id,
         label: option.name,
@@ -23145,7 +23153,7 @@ function EventsCalendarFilterGroup({
     }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
       type: "button",
       onClick: handleToggle,
-      className: "mt-2 text-blue-600 font-semibold hover:underline",
+      className: "mt-4 text-schemesPrimary Blueprint-label-large hover:underline",
       children: showingAll ? "Show less" : "Show more"
     })]
   });
@@ -25801,7 +25809,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const CHIP_OPTIONS = [{
   label: "All",
-  types: ['tribe_events', 'article', 'podcast', 'directory', 'resource', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living']
+  types: ['tribe_events', 'article', 'podcast', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living']
 }, {
   label: "Articles",
   types: ['article']
@@ -25814,9 +25822,6 @@ const CHIP_OPTIONS = [{
 }, {
   label: "Directory",
   types: ['directory']
-}, {
-  label: "Resources",
-  types: ['resource']
 }, {
   label: "Message board",
   types: ['gd_discount']
@@ -26995,7 +27000,7 @@ function StyledCheckbox({
       onChange: onChangeHandler
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
       htmlFor: `filter-${id}`,
-      className: "cursor-pointer px-3 py-1 rounded-full border text-sm transition-colors duration-200 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 peer-not-checked:bg-gray-100 peer-not-checked:text-gray-700 peer-not-checked:border-gray-300",
+      className: "cursor-pointer px-3 py-2 rounded-md Blueprint-label-small transition-colors duration-200 peer-checked:bg-gray-500 peer-checked:text-white peer-checked:border-grey-700 peer-not-checked:bg-[var(--schemesSurfaceContainer)] peer-not-checked:text-gray-700 peer-not-checked:border-gray-300",
       children: label
     })]
   }, id);

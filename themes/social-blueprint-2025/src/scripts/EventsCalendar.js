@@ -3,6 +3,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
 import { EventsCalendarFilterGroup } from "./EventsCalendarFilterGroup";
+import { Button } from "./Button";
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 export function EventsCalendar({ types, topics, audiences, locations }) {
   const [keyword, setKeyword] = useState("");
@@ -140,32 +142,33 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
         </div>
       </div>
       <div className={`tsb-container py-8 flex flex-grow ${isLoading ? "cursor-wait" : ""}`}>
-        <aside className={`calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
+        <aside className={`hidden md:hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
           <div className="relative flex items-center mb-6">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search by keyword"
               onChange={(e) => setKeyword(e.target.value)}
-              className="w-full pl-3 pr-10 py-2 rounded-md border border-[var(--schemesOutlineVariant)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+              className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
             />
             <svg className="absolute right-3 text-[var(--schemesOnSurfaceVariant)] w-5 h-5" viewBox="0 0 24 24" fill="none">
               <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
 
-          <h2 className="Blueprint-title-small mb-4">Filters</h2>
-
-          <EventsCalendarFilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
-          <EventsCalendarFilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
-          <EventsCalendarFilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
-          <EventsCalendarFilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
+          <div className="flex flex-col gap-4 px-4">
+            <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant">Filters</h2>
+            <EventsCalendarFilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
+            <EventsCalendarFilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
+            <EventsCalendarFilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
+            <EventsCalendarFilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
+          </div>
         </aside>
         {/* RIGHT: calendar */}
         <section className={`flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
-          <div className="flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14">
+          <div className="flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14 mb-6">
             <div className="flex items-center justify-end gap-2 w-full">
-              <button onClick={handlePrevClick} className="btn-nav">← Previous Month</button>
-              <button onClick={handleNextClick} className="btn-nav">Next Month →</button>
+              <Button onClick={handlePrevClick} icon={<ArrowLeftIcon />} label="Previous Month" />
+              <Button onClick={handleNextClick} label="Next Month" icon={<ArrowRightIcon />} />
             </div>
           </div>
 
@@ -176,7 +179,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
                 plugins={[dayGridPlugin, listPlugin]}   // ← include list
                 initialView="dayGridMonth"              // will be swapped by applyResponsiveView()
                 headerToolbar={false}
-                height="auto"
+                height={800}
                 fixedWeekCount={false}
                 dayMaxEvents={4}
                 dayMaxEventRows={3}

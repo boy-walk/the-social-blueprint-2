@@ -17,8 +17,8 @@ export function EventsCalendarFilterGroup({ title, options, selected, onChangeHa
 
   return (
     <div className="mb-4">
-      <h3 className="mb-2">{title}</h3>
-      <div className="flex flex-wrap gap-2">
+      <h3 className="Blueprint-title-small mb-8">{title}</h3>
+      <div className="flex flex-wrap gap-5">
         {options.slice(0, visibleCount).map((option) => (
           <StyledCheckbox
             key={option.id}
@@ -34,7 +34,7 @@ export function EventsCalendarFilterGroup({ title, options, selected, onChangeHa
         <button
           type="button"
           onClick={handleToggle}
-          className="mt-2 text-blue-600 font-semibold hover:underline"
+          className="mt-4 text-schemesPrimary Blueprint-label-large hover:underline"
         >
           {showingAll ? "Show less" : "Show more"}
         </button>

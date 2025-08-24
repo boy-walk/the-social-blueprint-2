@@ -4,12 +4,11 @@ import { SearchBar } from "./SearchBar";
 
 // Post-type chips. "All" aggregates everything you want searchable.
 const CHIP_OPTIONS = [
-  { label: "All", types: ['tribe_events', 'article', 'podcast', 'directory', 'resource', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'] },
+  { label: "All", types: ['tribe_events', 'article', 'podcast', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'] },
   { label: "Articles", types: ['article'] },
   { label: "Podcasts", types: ['podcast'] },
   { label: "Events", types: ['tribe_events'] },
   { label: "Directory", types: ['directory'] },
-  { label: "Resources", types: ['resource'] },
   { label: "Message board", types: ['gd_discount'] }, // optional, keep/remove as needed
 ];
 
