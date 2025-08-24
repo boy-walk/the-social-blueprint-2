@@ -8,9 +8,9 @@ import CommunityConnectionHubIcon from "../../assets/community-connection-hub.sv
 import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
-import FeaturedPostLayout from "./FeaturedPostLayout";
+import { ListingCallout } from "./ListingCallout";
 
-export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving }) => {
+export const CultureAndIdentityHub = ({ podcasts, events }) => {
   return (
     <div className="bg-schemesSurface">
       <div className="bg-schemesPrimaryFixed">
@@ -18,10 +18,10 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
           <div className="flex p-4 pt-12 md:p-8 lg:px-16 lg:py-8 items-center justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3">
-                Learning & Growth
+                Culture, Heritage & Jewish Life
               </h1>
               <p className="text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl">
-                Educational resources and inspiring stories to support your personal growth.
+                Highlighting the rich cultural tapestry of Melbourne's Jewish community.
               </p>
             </div>
             <img src={CommunityConnectionHubIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />
@@ -38,7 +38,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <MailboxIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Educational Podcasts</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Cultural Events & Festivals</div>
                       </div>
                     </Card>
                   </div>
@@ -48,7 +48,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CellTowerIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Educational Articles</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Heritage and<br />Historical Stories</div>
                       </div>
                     </Card>
                   </div>
@@ -58,7 +58,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CalendarDotIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Cost of Living</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Advocacy & Community Action</div>
                       </div>
                     </Card>
                   </div>
@@ -68,7 +68,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Reports and Surveys</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Israel &<br />Global Jewish Affairs</div>
                       </div>
                     </Card>
                   </div>
@@ -78,7 +78,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <StarIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Israel &<br />Jewish Global Affairs</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Holocaust & Remembrance</div>
                       </div>
                     </Card>
                   </div>
@@ -90,49 +90,37 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
       </div>
       <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <h2 className="py-3 Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Featured in Learning and Growth</h2>
-          <FeaturedPostLayout posts={featured} />
-        </div>
-      </div>
-      <div>
-        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
           <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Educational Podcasts</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={podcasts || []} />
-        </div>
-      </div>
-      <div>
-        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Educational Events</h2>
+            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Cultural Events</h2>
             <ArrowIcon className="text-schemesOnSecondaryFixed" />
           </div>
           <PostsSlider events={events || []} />
         </div>
       </div>
-      <div>
+      <div className="bg-schemesSecondaryFixed">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
           <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Cost of Living</h2>
+            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Recent Podcasts</h2>
             <ArrowIcon className="text-schemesOnSecondaryFixed" />
           </div>
-          <PostsSlider events={costOfLiving || []} />
+          <PostsSlider events={podcasts || []} />
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto">
         <BrowseAll
-          title="Browse all Learning and Growth"
+          title="Browse all Culture and Identity"
           endpoint="/wp-json/tsb/v1/browse"
           baseQuery={{
             post_type: ['tribe_events', 'podcast', 'article', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'],
             per_page: 10,
             order: "DESC",
             orderby: "date",
-            tax: [{ taxonomy: 'theme', field: 'slug', terms: ['learning-and-growth'] }],
+            tax: [{ taxonomy: 'theme', field: 'slug', terms: ['culture-and-identity'] }],
           }}
         />
+        <div className="py-16 px-4 sm:px-8 lg:px-16">
+          <ListingCallout />
+        </div>
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <NewsletterBanner />
         </div>

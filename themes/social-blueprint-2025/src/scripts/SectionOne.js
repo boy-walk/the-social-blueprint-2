@@ -25,7 +25,7 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, 
             From support services to creative culture, start where you're curious.
           </div>
           <div className="w-full flex justify-center pb-8">
-            <div className="px-12 lg:px-0 w-full">
+            <div className="lg:px-0 w-full">
               <ExploreByTheme />
             </div>
           </div>

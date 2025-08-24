@@ -3,6 +3,7 @@ import { Button } from "./Button";
 
 export const NewsletterBanner = () => {
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -22,7 +23,7 @@ export const NewsletterBanner = () => {
 
   if (submitted) {
     return (
-      <div className="flex flex-col justify-center h-70 bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full">
+      <div className="flex flex-col justify-center bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full">
         <h2 className="Blueprint-headline-medium mb-4 font-bold">
           Thanks for subscribing!
         </h2>
@@ -36,7 +37,7 @@ export const NewsletterBanner = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="h-70 bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full"
+      className="bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full"
     >
       <h2 className="Blueprint-headline-medium mb-4 font-bold">
         Stay connected to the Melbourne Jewish community
@@ -46,7 +47,7 @@ export const NewsletterBanner = () => {
         It's like no other newsletter! No spam, just good stuff.
       </p>
 
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-2xl mx-auto mb-4">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-2 max-w-2xl mx-auto mb-4">
         {/* Required by Flodesk */}
         <input
           type="hidden"
@@ -65,17 +66,21 @@ export const NewsletterBanner = () => {
           name="email"
           required
           placeholder="Email"
-          className="w-full sm:flex-1 px-4 py-3 rounded-xl border-none outline-none text-black bg-[color:var(--schemesSurface,#F8F2EF)]"
+          className="h-full Blueprint-label-large w-full sm:flex-1 px-4 py-3 rounded-xl border-none outline-none text-schemesOnSurfaceVariant bg-[color:var(--schemesSurface,#F8F2EF)]"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {/* Phone number field */}
+        <input
+          type="tel"
+          name="phone_number"
+          placeholder="Phone Number"
+          className="h-full Blueprint-label-large w-full sm:flex-1 px-4 py-3 rounded-xl border-none outline-none text-schemesOnSurfaceVariant bg-[color:var(--schemesSurface,#F8F2EF)]"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
 
-        <button
-          type="submit"
-          className="bg-[#0799D0] text-white px-6 py-3 rounded-xl hover:bg-[#0678B0] transition-colors duration-200"
-        >
-          Subscribe
-        </button>
+        <Button label="Subscribe" type="submit" variant="tonal" size="lg" />
       </div>
       <p className="text-sm text-white opacity-80">
         We respect your inbox. Unsubscribe anytime.

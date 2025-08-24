@@ -40,7 +40,7 @@ export const ExploreByTheme = () => {
         <Card
           key={index}
           href={`/${item.key}`}
-          styles="group min-h-[9rem] md:min-h-[16rem] h-full lg:max-w-[260px] w-full border-1 border-background-light pt-4 rounded-xl"
+          styles="group min-h-[9rem] md:min-h-[16rem] h-full max-w-full md:max-w-[260px] w-full border-1 border-background-light pt-4 rounded-xl"
         >
           <div className="flex flex-row-reverse md:flex-col justify-between h-full w-full">
             <div className="flex flex-col items-end h-full lg:h-auto gap-5">

@@ -10,6 +10,7 @@ export function Button({
   icon,
   disabled = false,
   onClick = () => { },
+  type = 'button',
 }) {
   const sizeStyles = {
     xs: 'px-3 py-1.5 Blueprint-label-large',
@@ -38,7 +39,7 @@ export function Button({
 
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       disabled={disabled}
       aria-disabled={disabled}

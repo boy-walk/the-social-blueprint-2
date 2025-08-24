@@ -21098,7 +21098,8 @@ function Button({
   shape = 'square',
   icon,
   disabled = false,
-  onClick = () => {}
+  onClick = () => {},
+  type = 'button'
 }) {
   const sizeStyles = {
     xs: 'px-3 py-1.5 Blueprint-label-large',
@@ -21135,7 +21136,7 @@ function Button({
   const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
   const baseCursor = disabled ? '' : 'cursor-pointer';
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-    type: "button",
+    type: type,
     onClick: onClick,
     disabled: disabled,
     "aria-disabled": disabled,
@@ -21707,6 +21708,251 @@ function ContentCard({
     })
   });
 }
+
+/***/ }),
+
+/***/ "./src/scripts/CultureAndIdentityHub.js":
+/*!**********************************************!*\
+  !*** ./src/scripts/CultureAndIdentityHub.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CultureAndIdentityHub: () => (/* binding */ CultureAndIdentityHub)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_icons_arrow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/icons/arrow */ "./assets/icons/arrow.js");
+/* harmony import */ var _ExploreByTheme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ExploreByTheme */ "./src/scripts/ExploreByTheme.js");
+/* harmony import */ var _PillTag__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PillTag */ "./src/scripts/PillTag.js");
+/* harmony import */ var _NewsletterBanner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NewsletterBanner */ "./src/scripts/NewsletterBanner.js");
+/* harmony import */ var _PostsSlider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PostsSlider */ "./src/scripts/PostsSlider.js");
+/* harmony import */ var _assets_community_connection_hub_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../assets/community-connection-hub.svg */ "./assets/community-connection-hub.svg");
+/* harmony import */ var _BrowseAll__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./BrowseAll */ "./src/scripts/BrowseAll.js");
+/* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Mailbox.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CellTower.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CalendarDot.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TrendUp.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Star.es.js");
+/* harmony import */ var _ListingCallout__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ListingCallout */ "./src/scripts/ListingCallout.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__);
+
+
+
+
+
+
+
+
+
+
+
+
+const CultureAndIdentityHub = ({
+  podcasts,
+  events
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+    className: "bg-schemesSurface",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      className: "bg-schemesPrimaryFixed",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: "max-w-[1600px] mx-auto",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "flex p-4 pt-12 md:p-8 lg:px-16 lg:py-8 items-center justify-between",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "flex flex-col gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h1", {
+              className: "lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3",
+              children: "Culture, Heritage & Jewish Life"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+              className: "text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl",
+              children: "Highlighting the rich cultural tapestry of Melbourne's Jewish community."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
+            src: _assets_community_connection_hub_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
+            alt: "Community Connection Hub",
+            className: "lg:block hidden translate-y-10 -translate-x-20"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "p-4 md:pb-8 lg:px-16",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h2", {
+            className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4",
+            children: "Quick Links"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "mt-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+              className: "mt-6",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                className: "flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_8__.Card, {
+                    href: "/message-board",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.MailboxIcon, {
+                          size: 22
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
+                        children: "Cultural Events & Festivals"
+                      })]
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_8__.Card, {
+                    href: "/stories-and-interviews",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.CellTowerIcon, {
+                          size: 22
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
+                        children: ["Heritage and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("br", {}), "Historical Stories"]
+                      })]
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_8__.Card, {
+                    href: "/categories/cost-of-living",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.CalendarDotIcon, {
+                          size: 22
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
+                        children: "Advocacy & Community Action"
+                      })]
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_8__.Card, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__.TrendUpIcon, {
+                          size: 22
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
+                        children: ["Israel &", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("br", {}), "Global Jewish Affairs"]
+                      })]
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_8__.Card, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__.StarIcon, {
+                          size: 22
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
+                        children: "Holocaust & Remembrance"
+                      })]
+                    })
+                  })
+                })]
+              })
+            })
+          })]
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: "flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "flex items-center gap-2 mb-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h2", {
+            className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed",
+            children: "Cultural Events"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_1__.ArrowIcon, {
+            className: "text-schemesOnSecondaryFixed"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PostsSlider__WEBPACK_IMPORTED_MODULE_5__.PostsSlider, {
+          events: events || []
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      className: "bg-schemesSecondaryFixed",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: "flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "flex items-center gap-2 mb-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h2", {
+            className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed",
+            children: "Recent Podcasts"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_1__.ArrowIcon, {
+            className: "text-schemesOnSecondaryFixed"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PostsSlider__WEBPACK_IMPORTED_MODULE_5__.PostsSlider, {
+          events: podcasts || []
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      className: "max-w-[1600px] mx-auto",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_BrowseAll__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        title: "Browse all Culture and Identity",
+        endpoint: "/wp-json/tsb/v1/browse",
+        baseQuery: {
+          post_type: ['tribe_events', 'podcast', 'article', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'],
+          per_page: 10,
+          order: "DESC",
+          orderby: "date",
+          tax: [{
+            taxonomy: 'theme',
+            field: 'slug',
+            terms: ['culture-and-identity']
+          }]
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        className: "py-16 px-4 sm:px-8 lg:px-16",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ListingCallout__WEBPACK_IMPORTED_MODULE_9__.ListingCallout, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        className: "py-16 px-4 sm:px-8 lg:px-16",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_4__.NewsletterBanner, {})
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      className: "bg-schemesPrimaryFixed flex flex-col gap-4",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: "max-w-[1600px] mx-auto py-16 px-4 sm:px-8 lg:px-16",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "flex gap-2 md:gap-4 items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized italic py-6",
+            children: "Explore more by"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            label: "Theme",
+            backgroundColor: "schemesPrimaryContainer"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          className: "Blueprint-title-small md:Blueprint-title-medium lg:Blueprint-title-large mb-12 text-schemesOnSurface",
+          children: "From support services to creative culture, start where you're curious."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_2__.ExploreByTheme, {})]
+      })
+    })]
+  });
+};
 
 /***/ }),
 
@@ -22676,7 +22922,7 @@ const ExploreByTheme = () => {
     className: "grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-4 w-full justify-items-stretch",
     children: keys.map((item, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_0__.Card, {
       href: `/${item.key}`,
-      styles: "group min-h-[9rem] md:min-h-[16rem] h-full lg:max-w-[260px] w-full border-1 border-background-light pt-4 rounded-xl",
+      styles: "group min-h-[9rem] md:min-h-[16rem] h-full max-w-full md:max-w-[260px] w-full border-1 border-background-light pt-4 rounded-xl",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "flex flex-row-reverse md:flex-col justify-between h-full w-full",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -23347,12 +23593,6 @@ const LearningAndGrowthHub = ({
   events,
   costOfLiving
 }) => {
-  console.log("LearningAndGrowthHub", {
-    featured,
-    podcasts,
-    events,
-    costOfLiving
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
     className: "bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -23423,7 +23663,7 @@ const LearningAndGrowthHub = ({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_8__.Card, {
-                    href: "/events",
+                    href: "/categories/cost-of-living",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -23942,6 +24182,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const NewsletterBanner = () => {
   const [email, setEmail] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+  const [phoneNumber, setPhoneNumber] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [submitted, setSubmitted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const handleSubmit = async e => {
     e.preventDefault();
@@ -23957,7 +24198,7 @@ const NewsletterBanner = () => {
   };
   if (submitted) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "flex flex-col justify-center h-70 bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
+      className: "flex flex-col justify-center bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
         className: "Blueprint-headline-medium mb-4 font-bold",
         children: "Thanks for subscribing!"
@@ -23969,7 +24210,7 @@ const NewsletterBanner = () => {
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
     onSubmit: handleSubmit,
-    className: "h-70 bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
+    className: "bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
       className: "Blueprint-headline-medium mb-4 font-bold",
       children: "Stay connected to the Melbourne Jewish community"
@@ -23977,7 +24218,7 @@ const NewsletterBanner = () => {
       className: "mb-6 Blueprint-body-large sm:Blueprint-body-medium",
       children: "Receive our newsletter every Friday morning with the latest updates. It's like no other newsletter! No spam, just good stuff."
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "flex flex-col sm:flex-row justify-center items-center gap-4 max-w-2xl mx-auto mb-4",
+      className: "flex flex-col md:flex-row justify-center items-center gap-2 max-w-2xl mx-auto mb-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
         type: "hidden",
         name: "csrf",
@@ -24015,13 +24256,21 @@ const NewsletterBanner = () => {
         name: "email",
         required: true,
         placeholder: "Email",
-        className: "w-full sm:flex-1 px-4 py-3 rounded-xl border-none outline-none text-black bg-[color:var(--schemesSurface,#F8F2EF)]",
+        className: "h-full Blueprint-label-large w-full sm:flex-1 px-4 py-3 rounded-xl border-none outline-none text-schemesOnSurfaceVariant bg-[color:var(--schemesSurface,#F8F2EF)]",
         value: email,
         onChange: e => setEmail(e.target.value)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+        type: "tel",
+        name: "phone_number",
+        placeholder: "Phone Number",
+        className: "h-full Blueprint-label-large w-full sm:flex-1 px-4 py-3 rounded-xl border-none outline-none text-schemesOnSurfaceVariant bg-[color:var(--schemesSurface,#F8F2EF)]",
+        value: phoneNumber,
+        onChange: e => setPhoneNumber(e.target.value)
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+        label: "Subscribe",
         type: "submit",
-        className: "bg-[#0799D0] text-white px-6 py-3 rounded-xl hover:bg-[#0678B0] transition-colors duration-200",
-        children: "Subscribe"
+        variant: "tonal",
+        size: "lg"
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
       className: "text-sm text-white opacity-80",
@@ -25137,7 +25386,7 @@ const SectionOne = ({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "w-full flex justify-center pb-8",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-            className: "px-12 lg:px-0 w-full",
+            className: "lg:px-0 w-full",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_3__.ExploreByTheme, {})
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -26848,8 +27097,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_StoriesAndInterviews__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./scripts/StoriesAndInterviews */ "./src/scripts/StoriesAndInterviews.js");
 /* harmony import */ var _scripts_EventsCalendar__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./scripts/EventsCalendar */ "./src/scripts/EventsCalendar.js");
 /* harmony import */ var _scripts_LearningAndGrowthHub__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./scripts/LearningAndGrowthHub */ "./src/scripts/LearningAndGrowthHub.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var _scripts_CultureAndIdentityHub__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./scripts/CultureAndIdentityHub */ "./src/scripts/CultureAndIdentityHub.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__);
+
 
 
 
@@ -26882,12 +27133,12 @@ __webpack_require__.r(__webpack_exports__);
 
 if (document.querySelector('#front-page')) {
   const root = react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(document.querySelector('#front-page'));
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_FrontPage__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
+  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_FrontPage__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
 }
 const header = document.getElementById('header');
 if (header) {
   const isUserLoggedIn = header.getAttribute('isUserLoggedIn') === 'true';
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(header).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(header).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
     isUserLoggedIn: isUserLoggedIn
   }));
 }
@@ -26899,7 +27150,7 @@ if (el1) {
   const dynamicProps = JSON.parse(el1.dataset.dynamicProps || '{}');
   const historicalPhotos = JSON.parse(el1.dataset.historicalPhotos || '[]');
   const sponsorshipBanner = JSON.parse(el1.dataset.sponsorshipBanner || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el1).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_SectionOne__WEBPACK_IMPORTED_MODULE_5__.SectionOne, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el1).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_SectionOne__WEBPACK_IMPORTED_MODULE_5__.SectionOne, {
     events: events,
     podcasts: podcasts,
     messageBoardPosts: messageBoardPosts,
@@ -26911,7 +27162,7 @@ if (el1) {
 const el2 = document.getElementById('sponsorship-banner');
 if (el2) {
   const data = JSON.parse(el2.dataset.banner);
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el2).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_Sponsorship__WEBPACK_IMPORTED_MODULE_6__.SponsorshipBanner, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el2).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_Sponsorship__WEBPACK_IMPORTED_MODULE_6__.SponsorshipBanner, {
     ...data
   }));
 }
@@ -26919,37 +27170,37 @@ const el3 = document.getElementById('single-event-page');
 if (el3) {
   const data = JSON.parse(el3.dataset.event);
   console.log("Hellooooo");
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el3).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_SingleEvent__WEBPACK_IMPORTED_MODULE_7__.SingleEventPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el3).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_SingleEvent__WEBPACK_IMPORTED_MODULE_7__.SingleEventPage, {
     ...data
   }));
 }
 const el4 = document.getElementById('register-individual');
 if (el4) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el4).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_RegisterIndividual__WEBPACK_IMPORTED_MODULE_8__.RegisterIndividual, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el4).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_RegisterIndividual__WEBPACK_IMPORTED_MODULE_8__.RegisterIndividual, {}));
 }
 const el5 = document.getElementById('footer');
 if (el5) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el5).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_Footer__WEBPACK_IMPORTED_MODULE_9__.Footer, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el5).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_Footer__WEBPACK_IMPORTED_MODULE_9__.Footer, {}));
 }
 const el6 = document.getElementById('login-form');
 if (el6) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el6).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_LoginForm__WEBPACK_IMPORTED_MODULE_10__.LoginForm, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el6).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_LoginForm__WEBPACK_IMPORTED_MODULE_10__.LoginForm, {}));
 }
 const el7 = document.getElementById('terms-and-conditions');
 if (el7) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el7).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_TermsAndConditions__WEBPACK_IMPORTED_MODULE_11__.TermsAndConditions, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el7).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_TermsAndConditions__WEBPACK_IMPORTED_MODULE_11__.TermsAndConditions, {}));
 }
 const el8 = document.getElementById('contact-us');
 if (el8) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el8).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_ContactUs__WEBPACK_IMPORTED_MODULE_12__.ContactForm, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el8).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_ContactUs__WEBPACK_IMPORTED_MODULE_12__.ContactForm, {}));
 }
 const el9 = document.getElementById('404');
 if (el9) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el9).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_Page404__WEBPACK_IMPORTED_MODULE_13__.Page404, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el9).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_Page404__WEBPACK_IMPORTED_MODULE_13__.Page404, {}));
 }
 const el10 = document.getElementById('register-organisation');
 if (el10) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el10).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_RegisterOrganisation__WEBPACK_IMPORTED_MODULE_14__.RegisterOrganisation, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el10).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_RegisterOrganisation__WEBPACK_IMPORTED_MODULE_14__.RegisterOrganisation, {}));
 }
 const el11 = document.getElementById('podcast-root');
 if (el11) {
@@ -26965,7 +27216,7 @@ if (el11) {
     taxonomies: JSON.parse(el11.dataset.taxonomies || '{}'),
     relatedContent: JSON.parse(el11.dataset.relatedContent || '[]')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el11).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_PodcastPage__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el11).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_PodcastPage__WEBPACK_IMPORTED_MODULE_15__["default"], {
     ...props
   }));
 }
@@ -26973,7 +27224,7 @@ const el12 = document.getElementById('search-root');
 if (el12) {
   const query = el12.getAttribute("data-query") || '';
   const results = JSON.parse(el12.getAttribute("data-results"));
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el12).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_SearchPage__WEBPACK_IMPORTED_MODULE_16__.SearchPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el12).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_SearchPage__WEBPACK_IMPORTED_MODULE_16__.SearchPage, {
     query: query,
     results: results
   }));
@@ -26981,7 +27232,7 @@ if (el12) {
 const el13 = document.getElementById('community-hub-root');
 if (el13) {
   const props = window.__COMMUNITY_HUB_PROPS__ || {};
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el13).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_CommunityHubPage__WEBPACK_IMPORTED_MODULE_17__.CommunityHubPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el13).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_CommunityHubPage__WEBPACK_IMPORTED_MODULE_17__.CommunityHubPage, {
     ...props
   }));
 }
@@ -26989,14 +27240,14 @@ const el14 = document.getElementById('account-dashboard-root');
 if (el14) {
   const userData = JSON.parse(el14.dataset.user);
   const eventsData = JSON.parse(el14.dataset.events || '[]');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el14).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_AccountDashboard__WEBPACK_IMPORTED_MODULE_18__.AccountDashboard, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el14).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_AccountDashboard__WEBPACK_IMPORTED_MODULE_18__.AccountDashboard, {
     user: userData,
     events: eventsData
   }));
 }
 const el15 = document.getElementById('newsletter-banner');
 if (el15) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el15).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_NewsletterBanner__WEBPACK_IMPORTED_MODULE_19__.NewsletterBanner, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el15).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_NewsletterBanner__WEBPACK_IMPORTED_MODULE_19__.NewsletterBanner, {}));
 }
 const el16 = document.getElementById('account-settings-root');
 if (el16) {
@@ -27005,7 +27256,7 @@ if (el16) {
     user: JSON.parse(el16.dataset.user || '{}'),
     profile: JSON.parse(el16.dataset.profile || '{}')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el16).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountEditProfilePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el16).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountEditProfilePage, {
     ...props
   }));
 }
@@ -27016,14 +27267,14 @@ if (el17) {
     user: JSON.parse(el17.dataset.user || '{}'),
     profile: JSON.parse(el17.dataset.profile || '{}')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el17).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountChangePasswordPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el17).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountChangePasswordPage, {
     ...props
   }));
 }
 const el18 = document.getElementById("OurMissionPage");
 if (el18) {
   const props = JSON.parse(el18.getAttribute("data-props") || "{}");
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el18).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_AboutUs__WEBPACK_IMPORTED_MODULE_21__.AboutUs, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el18).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_AboutUs__WEBPACK_IMPORTED_MODULE_21__.AboutUs, {
     ...props
   }));
 }
@@ -27041,28 +27292,28 @@ if (el19) {
     author: JSON.parse(el19.dataset.authorObj || '{}'),
     moreByAuthor: JSON.parse(el19.dataset.moreByAuthor || '[]')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el19).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_ArticlePage__WEBPACK_IMPORTED_MODULE_22__.ArticlePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el19).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_ArticlePage__WEBPACK_IMPORTED_MODULE_22__.ArticlePage, {
     ...props
   }));
 }
 const el20 = document.getElementById("tsb-event-root");
 if (el20) {
   const props = JSON.parse(el20.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el20).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_EventPage__WEBPACK_IMPORTED_MODULE_23__.EventPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el20).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_EventPage__WEBPACK_IMPORTED_MODULE_23__.EventPage, {
     ...props
   }));
 }
 const el21 = document.getElementById('events-hub-root');
 if (el21) {
   const props = JSON.parse(el21.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el21).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_EventsHubPage__WEBPACK_IMPORTED_MODULE_24__.EventsHubPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el21).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_EventsHubPage__WEBPACK_IMPORTED_MODULE_24__.EventsHubPage, {
     ...props
   }));
 }
 const el22 = document.getElementById('stories-and-interviews-root');
 if (el22) {
   const props = JSON.parse(el22.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el22).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_StoriesAndInterviews__WEBPACK_IMPORTED_MODULE_25__.StoriesAndInterviews, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el22).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_StoriesAndInterviews__WEBPACK_IMPORTED_MODULE_25__.StoriesAndInterviews, {
     ...props
   }));
 }
@@ -27074,14 +27325,21 @@ if (el23) {
     audiences: JSON.parse(el23.dataset.audiences),
     locations: JSON.parse(el23.dataset.locations)
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el23).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_EventsCalendar__WEBPACK_IMPORTED_MODULE_26__.EventsCalendar, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el23).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_EventsCalendar__WEBPACK_IMPORTED_MODULE_26__.EventsCalendar, {
     ...props
   }));
 }
 const el24 = document.getElementById('learning-and-growth-hub-root');
 if (el24) {
   const props = JSON.parse(el24.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el24).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_scripts_LearningAndGrowthHub__WEBPACK_IMPORTED_MODULE_27__.LearningAndGrowthHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el24).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_LearningAndGrowthHub__WEBPACK_IMPORTED_MODULE_27__.LearningAndGrowthHub, {
+    ...props
+  }));
+}
+const el25 = document.getElementById('culture-and-identity-hub-root');
+if (el25) {
+  const props = JSON.parse(el25.dataset.props || '{}');
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el25).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_scripts_CultureAndIdentityHub__WEBPACK_IMPORTED_MODULE_28__.CultureAndIdentityHub, {
     ...props
   }));
 }
