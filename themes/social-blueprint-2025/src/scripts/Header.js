@@ -161,14 +161,15 @@ export default function Header({ isUserLoggedIn = false }) {
   const NavBtn = ({ id, label, href }) => {
     const active = open === id;
     return (
-      <button
-        type="button"
-        aria-expanded={active}
-        className="relative inline-flex items-center gap-1 text-white hover:opacity-90"
-        onClick={() => (id ? toggle(id) : (window.location.href = href))}
-      >
-        {label}
-      </button>
+      <>
+        <Button
+          label={label}
+          aria-expanded={active}
+          className="text-white"
+          size="lg" variant="text"
+          onClick={() => (id ? toggle(id) : (window.location.href = href))}
+        />
+      </>
     );
   };
 

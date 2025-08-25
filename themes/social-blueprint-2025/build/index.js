@@ -24117,12 +24117,15 @@ function Header({
     href
   }) => {
     const active = open === id;
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-      type: "button",
-      "aria-expanded": active,
-      className: "relative inline-flex items-center gap-1 text-white hover:opacity-90",
-      onClick: () => id ? toggle(id) : window.location.href = href,
-      children: label
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+        label: label,
+        "aria-expanded": active,
+        className: "text-white",
+        size: "lg",
+        variant: "text",
+        onClick: () => id ? toggle(id) : window.location.href = href
+      })
     });
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("header", {
