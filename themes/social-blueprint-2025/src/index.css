@@ -8,11 +8,6 @@
 @import "./font-classes.css";
 @import "./responsive-font-classes.css";
 
-
-/* --------------------------------------------------
-   Blueprint JSON colour tokens â†’ CSS custom props (full list)
--------------------------------------------------- */
-
 :root {
   --schemesPrimary: #1e6586;
   --schemesSurfaceTint: #00658c;

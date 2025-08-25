@@ -45,6 +45,51 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     setDateRange({ start, end });
   };
 
+  // helper: lightweight slugify (fallback when option.slug is missing)
+  const slugify = (s = "") =>
+    s
+      .toString()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  // --- RUNS ONCE ON MOUNT ---
+  const initFromURL = useRef(false);
+  useEffect(() => {
+    if (initFromURL.current) return;
+    initFromURL.current = true;
+
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get("audience");
+    if (!raw) return;
+
+    // supports ?audience=adults or ?audience=12 or ?audience=adults,youth
+    const requested = raw
+      .split(",")
+      .map((v) => v.trim().toLowerCase())
+      .filter(Boolean);
+
+    if (!requested.length) return;
+
+    const list = Array.isArray(audiences) ? audiences : [];
+    const matches = list.filter((opt) => {
+      const idStr = String(opt.id).toLowerCase();
+      const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
+      return requested.includes(idStr) || requested.includes(optSlug);
+    });
+
+    // Use your normal change handler so everything flows through one path
+    matches.forEach((opt) => {
+      onAudience({ target: { value: String(opt.id), checked: true } });
+    });
+    // (No deps → truly once on mount)
+  }, []);
+
+
   // fetch events when requestParams change
   useEffect(() => {
     if (isFirstDatesSet.current) {

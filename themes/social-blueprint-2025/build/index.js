@@ -22904,6 +22904,41 @@ function EventsCalendar({
     });
   };
 
+  // helper: lightweight slugify (fallback when option.slug is missing)
+  const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+  // --- RUNS ONCE ON MOUNT ---
+  const initFromURL = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (initFromURL.current) return;
+    initFromURL.current = true;
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get("audience");
+    if (!raw) return;
+
+    // supports ?audience=adults or ?audience=12 or ?audience=adults,youth
+    const requested = raw.split(",").map(v => v.trim().toLowerCase()).filter(Boolean);
+    if (!requested.length) return;
+    const list = Array.isArray(audiences) ? audiences : [];
+    const matches = list.filter(opt => {
+      const idStr = String(opt.id).toLowerCase();
+      const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
+      return requested.includes(idStr) || requested.includes(optSlug);
+    });
+
+    // Use your normal change handler so everything flows through one path
+    matches.forEach(opt => {
+      onAudience({
+        target: {
+          value: String(opt.id),
+          checked: true
+        }
+      });
+    });
+    // (No deps → truly once on mount)
+  }, []);
+
   // fetch events when requestParams change
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFirstDatesSet.current) {
@@ -23848,13 +23883,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/logo.svg */ "./assets/logo.svg");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icon */ "./src/scripts/Icon.js");
-/* harmony import */ var _LanguageSwitcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LanguageSwitcher */ "./src/scripts/LanguageSwitcher.js");
-/* harmony import */ var _node_modules_react_i18next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../node_modules/react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
-/* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
+/* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -23863,92 +23897,317 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+function LinkItem({
+  href = "#",
+  children
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+    href: href,
+    className: "Blueprint-body-medium block py-1.5 text-[var(--schemesOnSurface)] hover:text-[var(--schemesPrimary)]",
+    children: children
+  });
+}
+function Section({
+  title,
+  children
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    className: "min-w-0",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      className: "Blueprint-title-small text-[var(--schemesOnSurface)] mb-2",
+      children: title
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      className: "space-y-1",
+      children: children
+    })]
+  });
+}
 
+/* --- Mega panel --- */
+function MegaPanel({
+  open,
+  onClose,
+  anchorRef
+}) {
+  const panelRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!open) return;
+    const onDown = e => {
+      const p = panelRef.current;
+      const a = anchorRef.current;
+      if (!p || p.contains(e.target) || a?.contains(e.target)) return;
+      onClose();
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open, onClose, anchorRef]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!open) return;
+    const onKey = e => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+  if (!open) return null;
+  const content = {
+    "whats-on": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "Discover",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/events",
+          children: "Discover Events"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/events/calendar",
+          children: "View Calendar"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/events?featured=1",
+          children: "Featured Events"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/submit-event",
+          children: "Submit an Event"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "Browse by Audience",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/events?audience=families",
+          children: "For Families"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/events?audience=adults",
+          children: "For Adults"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/events?audience=groups",
+          children: "Community Groups"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/events?audience=seniors",
+          children: "For Seniors"
+        })]
+      })]
+    }),
+    directory: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "Browse",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/directory",
+          children: "All Listings"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/directory?featured=1",
+          children: "Featured Listings"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/directory?type=service",
+          children: "Support Services"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "Contribute",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/add-listing",
+          children: "Add a Listing"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/contact",
+          children: "Contact & Support"
+        })]
+      })]
+    }),
+    "blueprint-stories": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "Read & Listen",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/articles",
+          children: "Articles and blogs"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/podcasts",
+          children: "Podcasts"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/podcasts/interviews",
+          children: "Blueprint interviews"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/podcasts/candid-conversations",
+          children: "Candid conversations"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "Categories",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/stories?theme=community-and-connection",
+          children: "Community & Connection"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/stories?theme=culture-and-identity",
+          children: "Culture & Identity"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/stories?theme=learning-and-growth",
+          children: "Learning & Growth"
+        })]
+      })]
+    }),
+    "about-us": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "About Us",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/about-us/our-mission",
+          children: "Our Mission"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/contact",
+          children: "Contact & Support"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/faqs",
+          children: "FAQs"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/terms",
+          children: "Terms and conditions"
+        })]
+      })
+    }),
+    "message-board": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "Message Board",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/message-boards",
+          children: "Browse Message board"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/message-boards?post=1",
+          children: "Post a notice"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
+        title: "Browse by category",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/message-boards?cat=jobs",
+          children: "Jobs"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/message-boards?cat=volunteering",
+          children: "Volunteering"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/message-boards?cat=local-notices",
+          children: "Local notices"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
+          href: "/message-boards?cat=support",
+          children: "Informal support"
+        })]
+      })]
+    })
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    ref: panelRef,
+    role: "dialog",
+    "aria-label": "Site section",
+    className: " absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[0_12px_24px_rgba(0,0,0,0.18)] z-[60] ",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      className: "mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "grid grid-cols-2 lg:grid-cols-3 gap-8 items-start",
+        children: content[open]
+      })
+    })
+  });
+}
 function Header({
   isUserLoggedIn = false
 }) {
   const {
     t
-  } = (0,_node_modules_react_i18next__WEBPACK_IMPORTED_MODULE_5__.useTranslation)();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("header", {
-    className: " relative bg-[var(--schemesPrimaryContainer)] text-[var(--schemesOnPrimaryContainer)] w-full p-4 lg:px-16 lg:py-6 flex items-center justify-between z-50 shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] mix-blend-multiply ",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_4__.useTranslation)();
+  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null); // null | 'whats-on' | 'directory' | 'blueprint-stories' | 'about-us' | 'message-board'
+  const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const toggle = key => setOpen(cur => cur === key ? null : key);
+  const close = () => setOpen(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const onHash = () => setOpen(null);
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+  const NavBtn = ({
+    id,
+    label,
+    href
+  }) => {
+    const active = open === id;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+      type: "button",
+      "aria-expanded": active,
+      className: "relative inline-flex items-center gap-1 text-white hover:opacity-90",
+      onClick: () => id ? toggle(id) : window.location.href = href,
+      children: label
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("header", {
+    ref: headerRef,
+    className: `
+        relative w-full z-50
+        bg-[var(--schemesPrimaryContainer)]
+        text-[var(--schemesOnPrimaryContainer)]
+        p-4 lg:px-16 lg:py-6
+        flex items-center justify-between
+        shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]
+        ${open ? "mix-blend-normal" : "mix-blend-multiply"}
+      `,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
       href: "/",
       className: "flex items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
         src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
         alt: "The Social Blueprint",
         className: "h-15 lg:h-20"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "hidden lg:flex flex-col items-end gap-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_6__.Socials, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_5__.Socials, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "hidden lg:flex items-center gap-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("nav", {
-          className: "hidden lg:flex items-center gap-3 Blueprint-body-medium",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: t('whats_on'),
-            className: "text-white",
-            size: "lg",
-            variant: "text",
-            onClick: () => window.location.href = '/events'
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: t('directory'),
-            className: "text-white",
-            size: "lg",
-            variant: "text",
-            onClick: () => window.location.href = '/directory'
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: t('blueprint_stories'),
-            className: "text-white",
-            size: "lg",
-            variant: "text",
-            onClick: () => window.location.href = '/stories'
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: t('about_us'),
-            className: "text-white",
-            size: "lg",
-            variant: "text",
-            onClick: () => window.location.href = '/about-us'
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: t('message_board'),
-            className: "text-white",
-            size: "lg",
-            variant: "text",
-            onClick: () => window.location.href = '/message-boards'
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("nav", {
+          className: "hidden lg:flex items-center gap-6 Blueprint-body-medium",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            id: "whats-on",
+            label: t("whats_on")
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            id: "directory",
+            label: t("directory")
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            id: "blueprint-stories",
+            label: t("blueprint_stories")
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            id: "about-us",
+            label: t("about_us")
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            id: "message-board",
+            label: t("message_board")
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "flex gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: t('Subscribe'),
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            label: t("Subscribe"),
             variant: "filled",
             shape: "square",
             size: "lg",
-            onClick: () => console.log('Subscribe')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: isUserLoggedIn ? t("account_dasboard") : t('log_in'),
+            onClick: () => window.location.href = "/subscribe"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            label: isUserLoggedIn ? t("account_dasboard") : t("log_in"),
             variant: "tonal",
             shape: "square",
             size: "lg",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.SmileyIcon, {
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.SmileyIcon, {
               size: 22,
               weight: "bold"
             }),
-            onClick: () => isUserLoggedIn ? window.location.href = '/account-dashboard' : window.location.href = '/login'
+            onClick: () => window.location.href = isUserLoggedIn ? "/account-dashboard" : "/login"
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "lg:hidden items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.ListIcon, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.ListIcon, {
           size: 22,
           weight: "bold"
         }),
         style: "tonal",
         size: "sm",
-        onClick: () => console.log('Menu clicked'),
-        "aria-label": t('menu')
+        onClick: () => console.log("Menu clicked"),
+        "aria-label": t("menu")
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(MegaPanel, {
+      open: open,
+      onClose: close,
+      anchorRef: headerRef
+    }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      "aria-hidden": "true",
+      className: "pointer-events-none absolute left-0 right-0 top-full mt-[-8] z-[70]",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "w-full h-2 bg-transparent shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]"
       })
     })]
   });
@@ -24050,46 +24309,6 @@ const ICONS = {
   'presentation': _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.PresentationIcon,
   'building-office': _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.BuildingOfficeIcon,
   'books': _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.BooksIcon
-};
-
-/***/ }),
-
-/***/ "./src/scripts/LanguageSwitcher.js":
-/*!*****************************************!*\
-  !*** ./src/scripts/LanguageSwitcher.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   LanguageSwitcher: () => (/* binding */ LanguageSwitcher)
-/* harmony export */ });
-/* harmony import */ var i18next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! i18next */ "./node_modules/i18next/dist/esm/i18next.js");
-/* harmony import */ var _node_modules_react_i18next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-const LanguageSwitcher = () => {
-  const {
-    t
-  } = (0,_node_modules_react_i18next__WEBPACK_IMPORTED_MODULE_1__.useTranslation)();
-  const switchLanguage = lng => {
-    i18next__WEBPACK_IMPORTED_MODULE_0__["default"].changeLanguage(lng);
-    localStorage.setItem('lang', lng);
-  };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "flex gap-2",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-      onClick: () => switchLanguage('en'),
-      children: ["\uD83C\uDDEC\uD83C\uDDE7 ", t('language.english')]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-      onClick: () => switchLanguage('he'),
-      children: ["\uD83C\uDDEE\uD83C\uDDF1 ", t('language.hebrew')]
-    })]
-  });
 };
 
 /***/ }),
