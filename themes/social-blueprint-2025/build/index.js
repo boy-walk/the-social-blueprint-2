@@ -22883,6 +22883,15 @@ function EventsCalendar({
   const calendarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
 
+  // ---- TOOLTIP STATE ----
+  const [tip, setTip] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    visible: false,
+    x: 0,
+    y: 0,
+    html: ""
+  });
+  const moveHandlerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
   // debounce search
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
@@ -22903,43 +22912,25 @@ function EventsCalendar({
       end
     });
   };
-
-  // helper: lightweight slugify (fallback when option.slug is missing)
   const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-  // --- RUNS ONCE ON MOUNT ---
-  const initFromURL = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  // Preselect audience from URL once
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (initFromURL.current) return;
-    initFromURL.current = true;
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    const raw = params.get("audience");
-    if (!raw) return;
-
-    // supports ?audience=adults or ?audience=12 or ?audience=adults,youth
-    const requested = raw.split(",").map(v => v.trim().toLowerCase()).filter(Boolean);
+    const audienceParam = params.get("audience");
+    if (!audienceParam) return;
+    const requested = audienceParam.split(",").map(v => v.trim().toLowerCase()).filter(Boolean);
     if (!requested.length) return;
-    const list = Array.isArray(audiences) ? audiences : [];
-    const matches = list.filter(opt => {
-      const idStr = String(opt.id).toLowerCase();
+    const matchedIds = (audiences || []).filter(opt => {
+      const idStr = String(opt.id);
       const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
       return requested.includes(idStr) || requested.includes(optSlug);
-    });
+    }).map(opt => String(opt.id));
+    if (matchedIds.length) setSelectedAudiences(matchedIds);
+  }, [audiences]);
 
-    // Use your normal change handler so everything flows through one path
-    matches.forEach(opt => {
-      onAudience({
-        target: {
-          value: String(opt.id),
-          checked: true
-        }
-      });
-    });
-    // (No deps → truly once on mount)
-  }, []);
-
-  // fetch events when requestParams change
+  // Fetch when request changes
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFirstDatesSet.current) {
       isFirstDatesSet.current = false;
@@ -22960,12 +22951,20 @@ function EventsCalendar({
         clearEvents();
         const api = calendarRef.current.getApi();
         (json.events || []).forEach(ev => {
+          console.log(ev);
           api.addEvent({
             id: ev.id,
             title: ev.title || "Untitled",
             start: ev.start,
             end: ev.end,
-            url: ev.url
+            url: ev.url,
+            // Pass extras for tooltip (when available)
+            extendedProps: {
+              image: ev.image || null,
+              description: ev.description || "",
+              venue: ev.venue || "",
+              location: ev.location || ""
+            }
           });
         });
       } catch (e) {
@@ -22979,7 +22978,7 @@ function EventsCalendar({
     };
   }, [requestParams]);
 
-  // rebuild request on any filter/date/search change
+  // Rebuild request on filter/date/search change
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     setRequestParams(prev => ({
       ...prev,
@@ -22993,7 +22992,7 @@ function EventsCalendar({
     }));
   }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, debouncedKeywordValue]);
 
-  // switch view at Tailwind's md breakpoint (768px)
+  // Switch view at md breakpoint
   const applyResponsiveView = api => {
     if (!api || typeof window === "undefined") return;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
@@ -23003,18 +23002,96 @@ function EventsCalendar({
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const api = calendarRef.current?.getApi();
     if (!api) return;
-
-    // initial
     applyResponsiveView(api);
-
-    // watch viewport changes
     const mql = window.matchMedia("(max-width: 767px)");
     const onChange = () => applyResponsiveView(api);
     if (mql.addEventListener) mql.addEventListener("change", onChange);else mql.addListener(onChange);
+    const hideTip = () => setTip(t => ({
+      ...t,
+      visible: false
+    }));
+    window.addEventListener("scroll", hideTip, true);
+    window.addEventListener("resize", hideTip);
     return () => {
       if (mql.removeEventListener) mql.removeEventListener("change", onChange);else mql.removeListener(onChange);
+      window.removeEventListener("scroll", hideTip, true);
+      window.removeEventListener("resize", hideTip);
     };
   }, []);
+
+  // ---- Tooltip helpers ----
+  const fmtRange = event => {
+    const s = event.start,
+      e = event.end;
+    if (!s) return "";
+    const dOpts = {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    };
+    const tOpts = {
+      hour: "2-digit",
+      minute: "2-digit"
+    };
+    const sD = s.toLocaleDateString(undefined, dOpts);
+    const sT = event.allDay ? "" : s.toLocaleTimeString(undefined, tOpts);
+    if (!e || s.toDateString() === e.toDateString()) {
+      return event.allDay ? sD : `${sD} • ${sT}`;
+    }
+    const eD = e.toLocaleDateString(undefined, dOpts);
+    const eT = event.allDay ? "" : e.toLocaleTimeString(undefined, tOpts);
+    return event.allDay ? `${sD} → ${eD}` : `${sD} ${sT} → ${eD} ${eT}`;
+  };
+  const showTooltip = info => {
+    const {
+      event,
+      jsEvent
+    } = info;
+    const {
+      image,
+      description,
+      venue,
+      location
+    } = event.extendedProps || {};
+    const when = fmtRange(event);
+    const where = [venue, location].filter(Boolean).join(" • ");
+    const html = `
+      <div class="space-y-2">
+        <div class="Blueprint-title-small-emphasized">${event.title || "Untitled event"}</div>
+        ${when ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${when}</div>` : ""}
+        ${where ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${where}</div>` : ""}
+        ${image ? `<img src="${image}" alt="" class="w-full h-28 object-cover rounded-lg" />` : ""}
+        ${description ? `<div class="Blueprint-body-small line-clamp-4">${description}</div>` : ""}
+      </div>
+    `;
+    setTip({
+      visible: true,
+      x: jsEvent.clientX,
+      y: jsEvent.clientY,
+      html
+    });
+
+    // follow the cursor
+    const onMove = e => setTip(t => ({
+      ...t,
+      x: e.clientX,
+      y: e.clientY
+    }));
+    moveHandlerRef.current = onMove;
+    document.addEventListener("mousemove", onMove);
+  };
+  const hideTooltip = () => {
+    setTip(t => ({
+      ...t,
+      visible: false
+    }));
+    if (moveHandlerRef.current) {
+      document.removeEventListener("mousemove", moveHandlerRef.current);
+      moveHandlerRef.current = null;
+    }
+  };
+
+  // ---- Render ----
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -23104,17 +23181,19 @@ function EventsCalendar({
             className: "bg-[var(--schemesSurface)] rounded-2xl overflow-hidden",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
               ref: calendarRef,
-              plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_7__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_8__["default"]] // ← include list
-              ,
-              initialView: "dayGridMonth" // will be swapped by applyResponsiveView()
-              ,
+              plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_7__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_8__["default"]],
+              initialView: "dayGridMonth",
               headerToolbar: false,
               height: 800,
               fixedWeekCount: false,
               dayMaxEvents: 4,
               dayMaxEventRows: 3,
               eventDisplay: "block",
-              datesSet: datesSet,
+              datesSet: datesSet
+              // 👇 TOOLTIP HOOKS
+              ,
+              eventMouseEnter: showTooltip,
+              eventMouseLeave: hideTooltip,
               views: {
                 dayGridMonth: {
                   showNonCurrentDates: false,
@@ -23131,6 +23210,17 @@ function EventsCalendar({
           })
         })]
       })]
+    }), tip.visible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: " pointer-events-none fixed z-[9999] max-w-[22rem] rounded-xl border bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)] shadow-[0_12px_24px_rgba(0,0,0,0.18)] px-4 py-3 ",
+      style: {
+        left: Math.min(window.innerWidth - 16, tip.x + 12),
+        top: Math.min(window.innerHeight - 16, tip.y + 12)
+      }
+      // Render string HTML produced above (safe: we control content; URLs/images come from your API)
+      ,
+      dangerouslySetInnerHTML: {
+        __html: tip.html
+      }
     })]
   });
 }
@@ -23922,12 +24012,12 @@ function Section({
     })]
   });
 }
-
-/* --- Mega panel --- */
 function MegaPanel({
   open,
   onClose,
-  anchorRef
+  anchorRef,
+  onPanelEnter,
+  onPanelLeave
 }) {
   const panelRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -24010,28 +24100,28 @@ function MegaPanel({
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
         title: "Read & Listen",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/articles",
+          href: "/stories-and-interviews?type=article",
           children: "Articles and blogs"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/podcasts",
+          href: "/stories-and-interviews?type=podcast",
           children: "Podcasts"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/podcasts/interviews",
+          href: "/stories-and-interviews/interviews",
           children: "Blueprint interviews"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/podcasts/candid-conversations",
+          href: "/stories-and-interviews/candid-conversations",
           children: "Candid conversations"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
         title: "Categories",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories?theme=community-and-connection",
+          href: "/stories-and-interviews?theme=community-and-connection",
           children: "Community & Connection"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories?theme=culture-and-identity",
+          href: "/stories-and-interviews?theme=culture-and-identity",
           children: "Culture & Identity"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories?theme=learning-and-growth",
+          href: "/stories-and-interviews?theme=learning-and-growth",
           children: "Learning & Growth"
         })]
       })]
@@ -24086,7 +24176,9 @@ function MegaPanel({
     ref: panelRef,
     role: "dialog",
     "aria-label": "Site section",
-    className: " absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[0_12px_24px_rgba(0,0,0,0.18)] z-[60] ",
+    onMouseEnter: onPanelEnter,
+    onMouseLeave: onPanelLeave,
+    className: " absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] z-[60] h-60 ",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -24102,34 +24194,55 @@ function Header({
   const {
     t
   } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_4__.useTranslation)();
-  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null); // null | 'whats-on' | 'directory' | 'blueprint-stories' | 'about-us' | 'message-board'
+  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [isDesktop, setIsDesktop] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const hoverTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const toggle = key => setOpen(cur => cur === key ? null : key);
-  const close = () => setOpen(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const onHash = () => setOpen(null);
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mql.matches);
+    update();
+    if (mql.addEventListener) mql.addEventListener("change", update);else mql.addListener(update);
+    return () => {
+      if (mql.removeEventListener) mql.removeEventListener("change", update);else mql.removeListener(update);
+    };
   }, []);
+  const openPanel = key => {
+    if (!isDesktop) return;
+    clearTimeout(hoverTimer.current);
+    setOpen(key);
+  };
+  const scheduleClose = () => {
+    if (!isDesktop) return;
+    clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setOpen(null), 80);
+  };
+  const cancelClose = () => {
+    clearTimeout(hoverTimer.current);
+  };
+  const goto = href => {
+    window.location.href = href;
+  };
   const NavBtn = ({
     id,
     label,
     href
-  }) => {
-    const active = open === id;
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-        label: label,
-        "aria-expanded": active,
-        className: "text-white",
-        size: "lg",
-        variant: "text",
-        onClick: () => id ? toggle(id) : window.location.href = href
-      })
-    });
-  };
+  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    onMouseEnter: () => openPanel(id),
+    onFocus: () => setOpen(id),
+    className: "inline-block",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      label: label,
+      className: "text-white",
+      size: "lg",
+      variant: "text",
+      onClick: () => goto(href)
+    })
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("header", {
     ref: headerRef,
+    onMouseLeave: scheduleClose,
+    onMouseEnter: cancelClose,
     className: `
         relative w-full z-50
         bg-[var(--schemesPrimaryContainer)]
@@ -24155,19 +24268,24 @@ function Header({
           className: "hidden lg:flex items-center gap-6 Blueprint-body-medium",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
             id: "whats-on",
-            label: t("whats_on")
+            label: t("whats_on"),
+            href: "/events"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
             id: "directory",
-            label: t("directory")
+            label: t("directory"),
+            href: "/directory"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
             id: "blueprint-stories",
-            label: t("blueprint_stories")
+            label: t("blueprint_stories"),
+            href: "/stories-and-interviews"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
             id: "about-us",
-            label: t("about_us")
+            label: t("about_us"),
+            href: "/about-us"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
             id: "message-board",
-            label: t("message_board")
+            label: t("message_board"),
+            href: "/message-board"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "flex gap-4",
@@ -24176,7 +24294,7 @@ function Header({
             variant: "filled",
             shape: "square",
             size: "lg",
-            onClick: () => window.location.href = "/subscribe"
+            onClick: () => goto("/subscribe")
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             label: isUserLoggedIn ? t("account_dasboard") : t("log_in"),
             variant: "tonal",
@@ -24186,7 +24304,7 @@ function Header({
               size: 22,
               weight: "bold"
             }),
-            onClick: () => window.location.href = isUserLoggedIn ? "/account-dashboard" : "/login"
+            onClick: () => goto(isUserLoggedIn ? "/account-dashboard" : "/login")
           })]
         })]
       })]
@@ -24204,13 +24322,15 @@ function Header({
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(MegaPanel, {
       open: open,
-      onClose: close,
-      anchorRef: headerRef
+      onClose: () => setOpen(null),
+      anchorRef: headerRef,
+      onPanelEnter: cancelClose,
+      onPanelLeave: scheduleClose
     }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       "aria-hidden": "true",
-      className: "pointer-events-none absolute left-0 right-0 top-full mt-[-8] z-[70]",
+      className: "pointer-events-none absolute left-0 right-0 top-full z-[70]",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "w-full h-2 bg-transparent shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]"
+        className: "w-full h-2 mt-[-8] bg-transparent shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]"
       })
     })]
   });

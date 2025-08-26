@@ -26,8 +26,7 @@ function Section({ title, children }) {
   );
 }
 
-/* --- Mega panel --- */
-function MegaPanel({ open, onClose, anchorRef }) {
+function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
   const panelRef = useRef(null);
 
   useEffect(() => {
@@ -84,15 +83,15 @@ function MegaPanel({ open, onClose, anchorRef }) {
     "blueprint-stories": (
       <>
         <Section title="Read & Listen">
-          <LinkItem href="/articles">Articles and blogs</LinkItem>
-          <LinkItem href="/podcasts">Podcasts</LinkItem>
-          <LinkItem href="/podcasts/interviews">Blueprint interviews</LinkItem>
-          <LinkItem href="/podcasts/candid-conversations">Candid conversations</LinkItem>
+          <LinkItem href="/stories-and-interviews?type=article">Articles and blogs</LinkItem>
+          <LinkItem href="/stories-and-interviews?type=podcast">Podcasts</LinkItem>
+          <LinkItem href="/stories-and-interviews/interviews">Blueprint interviews</LinkItem>
+          <LinkItem href="/stories-and-interviews/candid-conversations">Candid conversations</LinkItem>
         </Section>
         <Section title="Categories">
-          <LinkItem href="/stories?theme=community-and-connection">Community & Connection</LinkItem>
-          <LinkItem href="/stories?theme=culture-and-identity">Culture & Identity</LinkItem>
-          <LinkItem href="/stories?theme=learning-and-growth">Learning & Growth</LinkItem>
+          <LinkItem href="/stories-and-interviews?theme=community-and-connection">Community & Connection</LinkItem>
+          <LinkItem href="/stories-and-interviews?theme=culture-and-identity">Culture & Identity</LinkItem>
+          <LinkItem href="/stories-and-interviews?theme=learning-and-growth">Learning & Growth</LinkItem>
         </Section>
       </>
     ),
@@ -127,12 +126,15 @@ function MegaPanel({ open, onClose, anchorRef }) {
       ref={panelRef}
       role="dialog"
       aria-label="Site section"
+      onMouseEnter={onPanelEnter}
+      onMouseLeave={onPanelLeave}
       className="
         absolute left-0 right-0 top-full
         bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
         border-t border-[var(--schemesOutlineVariant)]
-        shadow-[0_12px_24px_rgba(0,0,0,0.18)]
+        shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]
         z-[60]
+        h-60
       "
     >
       <div className="mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8">
@@ -146,36 +148,62 @@ function MegaPanel({ open, onClose, anchorRef }) {
 
 export default function Header({ isUserLoggedIn = false }) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(null); // null | 'whats-on' | 'directory' | 'blueprint-stories' | 'about-us' | 'message-board'
+  const [open, setOpen] = useState(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const hoverTimer = useRef(null);
   const headerRef = useRef(null);
 
-  const toggle = (key) => setOpen((cur) => (cur === key ? null : key));
-  const close = () => setOpen(null);
-
   useEffect(() => {
-    const onHash = () => setOpen(null);
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mql.matches);
+    update();
+    if (mql.addEventListener) mql.addEventListener("change", update);
+    else mql.addListener(update);
+    return () => {
+      if (mql.removeEventListener) mql.removeEventListener("change", update);
+      else mql.removeListener(update);
+    };
   }, []);
 
-  const NavBtn = ({ id, label, href }) => {
-    const active = open === id;
-    return (
-      <>
-        <Button
-          label={label}
-          aria-expanded={active}
-          className="text-white"
-          size="lg" variant="text"
-          onClick={() => (id ? toggle(id) : (window.location.href = href))}
-        />
-      </>
-    );
+  const openPanel = (key) => {
+    if (!isDesktop) return;
+    clearTimeout(hoverTimer.current);
+    setOpen(key);
   };
+  const scheduleClose = () => {
+    if (!isDesktop) return;
+    clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setOpen(null), 80);
+  };
+  const cancelClose = () => {
+    clearTimeout(hoverTimer.current);
+  };
+
+  const goto = (href) => {
+    window.location.href = href;
+  };
+
+  const NavBtn = ({ id, label, href }) => (
+    <div
+      onMouseEnter={() => openPanel(id)}
+      onFocus={() => setOpen(id)}
+      className="inline-block"
+    >
+      <Button
+        label={label}
+        className="text-white"
+        size="lg"
+        variant="text"
+        onClick={() => goto(href)}
+      />
+    </div>
+  );
 
   return (
     <header
       ref={headerRef}
+      onMouseLeave={scheduleClose}
+      onMouseEnter={cancelClose}
       className={`
         relative w-full z-50
         bg-[var(--schemesPrimaryContainer)]
@@ -190,16 +218,15 @@ export default function Header({ isUserLoggedIn = false }) {
         <img src={Logo} alt="The Social Blueprint" className="h-15 lg:h-20" />
       </a>
 
-      {/* Desktop */}
       <div className="hidden lg:flex flex-col items-end gap-6">
         <Socials />
         <div className="hidden lg:flex items-center gap-6">
           <nav className="hidden lg:flex items-center gap-6 Blueprint-body-medium">
-            <NavBtn id="whats-on" label={t("whats_on")} />
-            <NavBtn id="directory" label={t("directory")} />
-            <NavBtn id="blueprint-stories" label={t("blueprint_stories")} />
-            <NavBtn id="about-us" label={t("about_us")} />
-            <NavBtn id="message-board" label={t("message_board")} />
+            <NavBtn id="whats-on" label={t("whats_on")} href="/events" />
+            <NavBtn id="directory" label={t("directory")} href="/directory" />
+            <NavBtn id="blueprint-stories" label={t("blueprint_stories")} href="/stories-and-interviews" />
+            <NavBtn id="about-us" label={t("about_us")} href="/about-us" />
+            <NavBtn id="message-board" label={t("message_board")} href="/message-board" />
           </nav>
           <div className="flex gap-4">
             <Button
@@ -207,7 +234,7 @@ export default function Header({ isUserLoggedIn = false }) {
               variant="filled"
               shape="square"
               size="lg"
-              onClick={() => (window.location.href = "/subscribe")}
+              onClick={() => goto("/subscribe")}
             />
             <Button
               label={isUserLoggedIn ? t("account_dasboard") : t("log_in")}
@@ -215,15 +242,12 @@ export default function Header({ isUserLoggedIn = false }) {
               shape="square"
               size="lg"
               icon={<SmileyIcon size={22} weight="bold" />}
-              onClick={() =>
-                (window.location.href = isUserLoggedIn ? "/account-dashboard" : "/login")
-              }
+              onClick={() => goto(isUserLoggedIn ? "/account-dashboard" : "/login")}
             />
           </div>
         </div>
       </div>
 
-      {/* Mobile */}
       <div className="lg:hidden items-center">
         <IconButton
           icon={<ListIcon size={22} weight="bold" />}
@@ -234,16 +258,17 @@ export default function Header({ isUserLoggedIn = false }) {
         />
       </div>
 
-      {/* Panel */}
-      <MegaPanel open={open} onClose={close} anchorRef={headerRef} />
+      <MegaPanel
+        open={open}
+        onClose={() => setOpen(null)}
+        anchorRef={headerRef}
+        onPanelEnter={cancelClose}
+        onPanelLeave={scheduleClose}
+      />
 
-      {/* Edge shadow sitting ABOVE the panel */}
       {open && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-0 right-0 top-full mt-[-8] z-[70]"
-        >
-          <div className="w-full h-2 bg-transparent shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]" />
+        <div aria-hidden="true" className="pointer-events-none absolute left-0 right-0 top-full z-[70]">
+          <div className="w-full h-2 mt-[-8] bg-transparent shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]" />
         </div>
       )}
     </header>

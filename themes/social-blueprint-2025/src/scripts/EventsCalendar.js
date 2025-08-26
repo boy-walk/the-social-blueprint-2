@@ -20,6 +20,10 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
   const calendarRef = useRef(null);
   const isFirstDatesSet = useRef(true);
 
+  // ---- TOOLTIP STATE ----
+  const [tip, setTip] = useState({ visible: false, x: 0, y: 0, html: "" });
+  const moveHandlerRef = useRef(null);
+
   // debounce search
   useEffect(() => {
     const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
@@ -45,52 +49,32 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     setDateRange({ start, end });
   };
 
-  // helper: lightweight slugify (fallback when option.slug is missing)
   const slugify = (s = "") =>
-    s
-      .toString()
-      .normalize("NFKD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
+    s.toString().normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-  // --- RUNS ONCE ON MOUNT ---
-  const initFromURL = useRef(false);
+  // Preselect audience from URL once
   useEffect(() => {
-    if (initFromURL.current) return;
-    initFromURL.current = true;
-
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    const raw = params.get("audience");
-    if (!raw) return;
+    const audienceParam = params.get("audience");
+    if (!audienceParam) return;
 
-    // supports ?audience=adults or ?audience=12 or ?audience=adults,youth
-    const requested = raw
-      .split(",")
-      .map((v) => v.trim().toLowerCase())
-      .filter(Boolean);
-
+    const requested = audienceParam.split(",").map(v => v.trim().toLowerCase()).filter(Boolean);
     if (!requested.length) return;
 
-    const list = Array.isArray(audiences) ? audiences : [];
-    const matches = list.filter((opt) => {
-      const idStr = String(opt.id).toLowerCase();
-      const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
-      return requested.includes(idStr) || requested.includes(optSlug);
-    });
+    const matchedIds = (audiences || [])
+      .filter(opt => {
+        const idStr = String(opt.id);
+        const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
+        return requested.includes(idStr) || requested.includes(optSlug);
+      })
+      .map(opt => String(opt.id));
 
-    // Use your normal change handler so everything flows through one path
-    matches.forEach((opt) => {
-      onAudience({ target: { value: String(opt.id), checked: true } });
-    });
-    // (No deps → truly once on mount)
-  }, []);
+    if (matchedIds.length) setSelectedAudiences(matchedIds);
+  }, [audiences]);
 
-
-  // fetch events when requestParams change
+  // Fetch when request changes
   useEffect(() => {
     if (isFirstDatesSet.current) {
       isFirstDatesSet.current = false;
@@ -102,21 +86,27 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     (async () => {
       try {
         const qs = new URLSearchParams(requestParams).toString();
-        const res = await fetch(`/wp-json/sbp/v1/events${qs ? "?" + qs : ""}`, {
-          headers: { Accept: "application/json" },
-        });
+        const res = await fetch(`/wp-json/sbp/v1/events${qs ? "?" + qs : ""}`, { headers: { Accept: "application/json" } });
         const json = await res.json();
         if (cancelled) return;
 
         clearEvents();
         const api = calendarRef.current.getApi();
         (json.events || []).forEach((ev) => {
+          console.log(ev);
           api.addEvent({
             id: ev.id,
             title: ev.title || "Untitled",
             start: ev.start,
             end: ev.end,
             url: ev.url,
+            // Pass extras for tooltip (when available)
+            extendedProps: {
+              image: ev.image || null,
+              description: ev.description || "",
+              venue: ev.venue || "",
+              location: ev.location || "",
+            },
           });
         });
       } catch (e) {
@@ -126,14 +116,12 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       }
     })();
 
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [requestParams]);
 
-  // rebuild request on any filter/date/search change
+  // Rebuild request on filter/date/search change
   useEffect(() => {
-    setRequestParams((prev) => ({
+    setRequestParams(prev => ({
       ...prev,
       start_date: dateRange.start,
       end_date: dateRange.end,
@@ -145,7 +133,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     }));
   }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, debouncedKeywordValue]);
 
-  // switch view at Tailwind's md breakpoint (768px)
+  // Switch view at md breakpoint
   const applyResponsiveView = (api) => {
     if (!api || typeof window === "undefined") return;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
@@ -156,22 +144,76 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
   useEffect(() => {
     const api = calendarRef.current?.getApi();
     if (!api) return;
-
-    // initial
     applyResponsiveView(api);
 
-    // watch viewport changes
     const mql = window.matchMedia("(max-width: 767px)");
     const onChange = () => applyResponsiveView(api);
     if (mql.addEventListener) mql.addEventListener("change", onChange);
     else mql.addListener(onChange);
 
+    const hideTip = () => setTip(t => ({ ...t, visible: false }));
+    window.addEventListener("scroll", hideTip, true);
+    window.addEventListener("resize", hideTip);
+
     return () => {
       if (mql.removeEventListener) mql.removeEventListener("change", onChange);
       else mql.removeListener(onChange);
+      window.removeEventListener("scroll", hideTip, true);
+      window.removeEventListener("resize", hideTip);
     };
   }, []);
 
+  // ---- Tooltip helpers ----
+  const fmtRange = (event) => {
+    const s = event.start, e = event.end;
+    if (!s) return "";
+    const dOpts = { year: "numeric", month: "short", day: "numeric" };
+    const tOpts = { hour: "2-digit", minute: "2-digit" };
+
+    const sD = s.toLocaleDateString(undefined, dOpts);
+    const sT = event.allDay ? "" : s.toLocaleTimeString(undefined, tOpts);
+
+    if (!e || s.toDateString() === e.toDateString()) {
+      return event.allDay ? sD : `${sD} • ${sT}`;
+    }
+    const eD = e.toLocaleDateString(undefined, dOpts);
+    const eT = event.allDay ? "" : e.toLocaleTimeString(undefined, tOpts);
+    return event.allDay ? `${sD} → ${eD}` : `${sD} ${sT} → ${eD} ${eT}`;
+  };
+
+  const showTooltip = (info) => {
+    const { event, jsEvent } = info;
+    const { image, description, venue, location } = event.extendedProps || {};
+    const when = fmtRange(event);
+    const where = [venue, location].filter(Boolean).join(" • ");
+
+    const html = `
+      <div class="space-y-2">
+        <div class="Blueprint-title-small-emphasized">${event.title || "Untitled event"}</div>
+        ${when ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${when}</div>` : ""}
+        ${where ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${where}</div>` : ""}
+        ${image ? `<img src="${image}" alt="" class="w-full h-28 object-cover rounded-lg" />` : ""}
+        ${description ? `<div class="Blueprint-body-small line-clamp-4">${description}</div>` : ""}
+      </div>
+    `;
+
+    setTip({ visible: true, x: jsEvent.clientX, y: jsEvent.clientY, html });
+
+    // follow the cursor
+    const onMove = (e) => setTip(t => ({ ...t, x: e.clientX, y: e.clientY }));
+    moveHandlerRef.current = onMove;
+    document.addEventListener("mousemove", onMove);
+  };
+
+  const hideTooltip = () => {
+    setTip(t => ({ ...t, visible: false }));
+    if (moveHandlerRef.current) {
+      document.removeEventListener("mousemove", moveHandlerRef.current);
+      moveHandlerRef.current = null;
+    }
+  };
+
+  // ---- Render ----
   return (
     <div className="bg-schemesSurface">
       <div className="bg-schemesPrimaryFixed">
@@ -186,7 +228,9 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
           </div>
         </div>
       </div>
+
       <div className={`tsb-container py-8 flex flex-grow ${isLoading ? "cursor-wait" : ""}`}>
+        {/* Filters */}
         <aside className={`hidden md:hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
           <div className="relative flex items-center mb-6">
             <input
@@ -208,7 +252,8 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             <EventsCalendarFilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
           </div>
         </aside>
-        {/* RIGHT: calendar */}
+
+        {/* Calendar */}
         <section className={`flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
           <div className="flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14 mb-6">
             <div className="flex items-center justify-end gap-2 w-full">
@@ -221,8 +266,8 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             <div className="bg-[var(--schemesSurface)] rounded-2xl overflow-hidden">
               <FullCalendar
                 ref={calendarRef}
-                plugins={[dayGridPlugin, listPlugin]}   // ← include list
-                initialView="dayGridMonth"              // will be swapped by applyResponsiveView()
+                plugins={[dayGridPlugin, listPlugin]}
+                initialView="dayGridMonth"
                 headerToolbar={false}
                 height={800}
                 fixedWeekCount={false}
@@ -230,6 +275,9 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
                 dayMaxEventRows={3}
                 eventDisplay="block"
                 datesSet={datesSet}
+                // 👇 TOOLTIP HOOKS
+                eventMouseEnter={showTooltip}
+                eventMouseLeave={hideTooltip}
                 views={{
                   dayGridMonth: {
                     showNonCurrentDates: false,
@@ -245,7 +293,26 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
           </div>
         </section>
       </div>
-    </div>
 
+      {/* Tooltip layer */}
+      {tip.visible && (
+        <div
+          className="
+            pointer-events-none fixed z-[9999]
+            max-w-[22rem] rounded-xl border
+            bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
+            border-[var(--schemesOutlineVariant)]
+            shadow-[0_12px_24px_rgba(0,0,0,0.18)]
+            px-4 py-3
+          "
+          style={{
+            left: Math.min(window.innerWidth - 16, tip.x + 12),
+            top: Math.min(window.innerHeight - 16, tip.y + 12),
+          }}
+          // Render string HTML produced above (safe: we control content; URLs/images come from your API)
+          dangerouslySetInnerHTML={{ __html: tip.html }}
+        />
+      )}
+    </div>
   );
 }

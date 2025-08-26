@@ -83,7 +83,9 @@ function sbp_rest_get_events(WP_REST_Request $request) {
             'title' => $event->post_title,
             'start' => tribe_get_start_date($event, true, 'Y-m-d H:i:s'),
             'end' => tribe_get_end_date($event, true, 'Y-m-d H:i:s'),
-            'url' => tribe_get_event_link($event)
+            'url' => tribe_get_event_link($event),
+            'description' => tribe_events_get_the_excerpt( $event ),
+            'image' => get_the_post_thumbnail_url($event, 'medium'),
         ];
     }
 
