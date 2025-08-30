@@ -262,3 +262,9 @@ if (el29) {
   const props = JSON.parse(el29.getAttribute('data-props') || '{}');
   ReactDOM.createRoot(el29).render(<GenericArchivePage {...props} />);
 }
+
+const el30 = document.getElementById('taxonomy-root');
+if (el30) {
+  const props = JSON.parse(el30.getAttribute('data-props') || '{}');
+  ReactDOM.createRoot(el30).render(<GenericArchivePage {...props} />);
+}

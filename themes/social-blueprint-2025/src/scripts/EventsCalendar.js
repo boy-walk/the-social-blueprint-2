@@ -193,7 +193,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
         ${when ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${when}</div>` : ""}
         ${where ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${where}</div>` : ""}
         ${image ? `<img src="${image}" alt="" class="w-full h-28 object-cover rounded-lg" />` : ""}
-        ${description ? `<div class="Blueprint-body-small line-clamp-4">${description}</div>` : ""}
+        ${description ? `<div class="Blueprint-body-small line-clamp-7">${description}</div>` : ""}
       </div>
     `;
 

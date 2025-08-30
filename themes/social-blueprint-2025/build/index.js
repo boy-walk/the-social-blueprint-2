@@ -23664,7 +23664,7 @@ function EventsCalendar({
         ${when ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${when}</div>` : ""}
         ${where ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${where}</div>` : ""}
         ${image ? `<img src="${image}" alt="" class="w-full h-28 object-cover rounded-lg" />` : ""}
-        ${description ? `<div class="Blueprint-body-small line-clamp-4">${description}</div>` : ""}
+        ${description ? `<div class="Blueprint-body-small line-clamp-7">${description}</div>` : ""}
       </div>
     `;
     setTip({
@@ -24584,6 +24584,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * GenericArchivePage
  *
@@ -24608,12 +24609,14 @@ function GenericArchivePage(props) {
     title,
     subtitle
   } = props;
+  console.log(props);
 
   // UI state
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
   const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy_key: [term_id,...] }
   const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [totalPages, setTotalPages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
+  const [total, setTotal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
 
@@ -24622,6 +24625,9 @@ function GenericArchivePage(props) {
 
   // Map of rest_base (or taxonomy name) -> taxonomy name used by WP_Query
   const [taxNameMap, setTaxNameMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+
+  // retry tick to force refetch on demand
+  const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
   const isGD = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => typeof postType === "string" && postType.startsWith("gd_"), [postType]);
 
   // e.g. gd_aid_listing -> aid_listing
@@ -24773,6 +24779,7 @@ function GenericArchivePage(props) {
         if (!cancelled) {
           setItems(json.items || []);
           setTotalPages(json.total_pages || 1);
+          setTotal(typeof json.total === "number" ? json.total : undefined);
         }
       } catch (err) {
         if (!cancelled) setError(err.message || "Failed to load data");
@@ -24783,7 +24790,48 @@ function GenericArchivePage(props) {
     return () => {
       cancelled = true;
     };
-  }, [baseQuery, endpoint, page, selectedTerms, resolveTaxonomyName]);
+  }, [baseQuery, endpoint, page, selectedTerms, resolveTaxonomyName, retryTick]);
+
+  // ---- Derived UI helpers ----
+  const hasActiveFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.values(selectedTerms).some(arr => (arr || []).length > 0), [selectedTerms]);
+  const clearAllFilters = () => {
+    setSelectedTerms({});
+    setPage(1);
+  };
+  const activeChips = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const chips = [];
+    for (const [taxKey, ids] of Object.entries(selectedTerms)) {
+      const opts = termsOptions[taxKey] || [];
+      ids.forEach(id => {
+        const found = opts.find(o => String(o.id) === String(id));
+        chips.push({
+          taxKey,
+          id: String(id),
+          label: found?.name || id
+        });
+      });
+    }
+    return chips;
+  }, [selectedTerms, termsOptions]);
+
+  // ---- Skeletons ----
+  const skeletonCards = Array.from({
+    length: 8
+  }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "w-full aspect-[1.6] bg-[var(--schemesSurfaceContainerHighest)] animate-pulse"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "p-4 space-y-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "h-4 w-3/4 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "h-3 w-1/2 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "h-3 w-2/3 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+      })]
+    })]
+  }, `sk-${i}`));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "archive-container bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -24805,6 +24853,17 @@ function GenericArchivePage(props) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
           className: "Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant",
           children: "Filters"
+        }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "mb-4",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "mt-3",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              size: "sm",
+              variant: "tonal",
+              onClick: clearAllFilters,
+              label: "Clear filters"
+            })
+          })
         }), effectiveFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "mb-4",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_2__.EventsCalendarFilterGroup, {
@@ -24828,24 +24887,75 @@ function GenericArchivePage(props) {
         }, f.taxonomy))]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
         className: "flex-1",
-        children: [loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          children: "Loading..."
-        }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          className: "text-red-500",
-          children: error
-        }), !loading && !items.length && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          children: "No results found."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        children: [error && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]",
+            children: "Something went wrong"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-4",
+            children: error
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "flex gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              variant: "filled",
+              label: "Try again",
+              onClick: () => setRetryTick(n => n + 1)
+            }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              variant: "tonal",
+              label: "Clear filters",
+              onClick: clearAllFilters
+            })]
+          })]
+        }), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8",
-          children: items.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
-            image: item.thumbnail,
-            title: item.title,
-            subtitle: item.date,
-            badge: item.post_type === "tribe_events" ? "Event" : null,
-            href: item.permalink
-          }, item.id))
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "flex justify-center items-center space-x-2",
+          "aria-hidden": "true",
+          children: skeletonCards
+        }), !loading && !error && items.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "Blueprint-headline-small mb-2",
+            children: "No results found"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-6",
+            children: "Try adjusting or clearing your filters to see more results."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "flex justify-center gap-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              variant: "filled",
+              label: "Clear all filters",
+              onClick: clearAllFilters
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              variant: "tonal",
+              label: "Reload",
+              onClick: () => setRetryTick(n => n + 1)
+            })]
+          })]
+        }), !loading && !error && items.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "flex items-center justify-between mb-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-[var(--schemesOnSurfaceVariant)]",
+              "aria-live": "polite",
+              children: typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null
+            }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              size: "sm",
+              variant: "tonal",
+              label: "Clear filters",
+              onClick: clearAllFilters
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8",
+            children: items.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
+              image: item.thumbnail,
+              title: item.title,
+              subtitle: item.date,
+              badge: item.post_type === "tribe_events" ? "Event" : null,
+              href: item.permalink
+            }, item.id))
+          })]
+        }), !loading && !error && totalPages > 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "flex justify-center items-center gap-3 mt-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
             size: "base",
             variant: "tonal",
@@ -24853,7 +24963,7 @@ function GenericArchivePage(props) {
             onClick: () => setPage(p => Math.max(1, p - 1)),
             label: "Prev"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-            className: "text-schemesOnSurfaceVariant",
+            className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
             children: [page, " / ", totalPages]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
             size: "base",
@@ -29422,6 +29532,13 @@ const el29 = document.getElementById('generic-archive-root');
 if (el29) {
   const props = JSON.parse(el29.getAttribute('data-props') || '{}');
   react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el29).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
+    ...props
+  }));
+}
+const el30 = document.getElementById('taxonomy-root');
+if (el30) {
+  const props = JSON.parse(el30.getAttribute('data-props') || '{}');
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el30).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
     ...props
   }));
 }
