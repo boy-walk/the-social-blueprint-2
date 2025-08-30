@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
-import { EventsCalendarFilterGroup } from "./EventsCalendarFilterGroup";
+import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
@@ -246,10 +246,10 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
 
           <div className="flex flex-col gap-4 px-4">
             <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant">Filters</h2>
-            <EventsCalendarFilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
-            <EventsCalendarFilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
-            <EventsCalendarFilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
-            <EventsCalendarFilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
+            <FilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
+            <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
+            <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
+            <FilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
           </div>
         </aside>
 

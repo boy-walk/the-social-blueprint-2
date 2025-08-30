@@ -23449,7 +23449,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
 /* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
 /* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/index.js");
-/* harmony import */ var _EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EventsCalendarFilterGroup */ "./src/scripts/EventsCalendarFilterGroup.js");
+/* harmony import */ var _FilterGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterGroup */ "./src/scripts/FilterGroup.js");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowRight.es.js");
@@ -23740,22 +23740,22 @@ function EventsCalendar({
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
             className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant",
             children: "Filters"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Theme",
             options: types,
             selected: selectedTypes,
             onChangeHandler: onType
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Topic",
             options: topics,
             selected: selectedTopics,
             onChangeHandler: onTopic
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Audience",
             options: audiences,
             selected: selectedAudiences,
             onChangeHandler: onAudience
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_1__.EventsCalendarFilterGroup, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Location",
             options: locations,
             selected: selectedLocations,
@@ -23824,65 +23824,6 @@ function EventsCalendar({
       dangerouslySetInnerHTML: {
         __html: tip.html
       }
-    })]
-  });
-}
-
-/***/ }),
-
-/***/ "./src/scripts/EventsCalendarFilterGroup.js":
-/*!**************************************************!*\
-  !*** ./src/scripts/EventsCalendarFilterGroup.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   EventsCalendarFilterGroup: () => (/* binding */ EventsCalendarFilterGroup)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StyledCheckbox */ "./src/scripts/StyledCheckbox.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-function EventsCalendarFilterGroup({
-  title,
-  options,
-  selected,
-  onChangeHandler
-}) {
-  const [visibleCount, setVisibleCount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5);
-  const hasMore = options.length > 5;
-  const showingAll = visibleCount >= options.length;
-  const handleToggle = () => {
-    if (showingAll) {
-      setVisibleCount(5);
-    } else {
-      setVisibleCount(prev => prev + 5);
-    }
-  };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "mb-4",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-      className: "Blueprint-title-small mb-8",
-      children: title
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "flex flex-wrap gap-5",
-      children: options.slice(0, visibleCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
-        id: option.id,
-        label: option.name,
-        checked: selected.includes(String(option.id)),
-        onChangeHandler: onChangeHandler
-      }, option.id))
-    }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-      type: "button",
-      onClick: handleToggle,
-      className: "mt-4 text-schemesPrimary Blueprint-label-large hover:underline",
-      children: showingAll ? "Show less" : "Show more"
     })]
   });
 }
@@ -24334,6 +24275,188 @@ function FeaturedPostLayout({
 
 /***/ }),
 
+/***/ "./src/scripts/FilterGroup.js":
+/*!************************************!*\
+  !*** ./src/scripts/FilterGroup.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FilterGroup: () => (/* binding */ FilterGroup)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StyledCheckbox */ "./src/scripts/StyledCheckbox.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+function FilterGroup({
+  title,
+  options,
+  selected,
+  onChangeHandler
+}) {
+  const [visibleCount, setVisibleCount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5);
+  const isNested = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(options) && options.some(o => Array.isArray(o.children) && o.children.length > 0), [options]);
+  const parents = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => isNested ? options : options, [isNested, options]);
+  const hasMore = isNested ? parents.length > 5 : options.length > 5;
+  const showingAll = visibleCount >= (isNested ? parents.length : options.length);
+  const handleToggleShowMore = () => {
+    if (showingAll) setVisibleCount(5);else setVisibleCount(prev => prev + 5);
+  };
+  const isChecked = id => selected.includes(String(id));
+  const collectDescendantIds = (node, bag = []) => {
+    (node.children || []).forEach(c => {
+      bag.push(String(c.id));
+      collectDescendantIds(c, bag);
+    });
+    return bag;
+  };
+  const anyChildSelected = node => {
+    const kids = collectDescendantIds(node, []);
+    return kids.some(id => isChecked(id));
+  };
+  const fireChange = (id, checked) => {
+    onChangeHandler({
+      target: {
+        value: String(id),
+        checked: !!checked
+      }
+    });
+  };
+  const onParentChange = (node, checked) => {
+    if (checked) {
+      fireChange(node.id, true);
+      return;
+    }
+    fireChange(node.id, false);
+    const kids = collectDescendantIds(node, []);
+    kids.forEach(id => {
+      if (isChecked(id)) fireChange(id, false);
+    });
+  };
+  const onChildChange = (parentNode, childNode, checked) => {
+    fireChange(childNode.id, checked);
+    if (checked && isChecked(parentNode.id)) {
+      fireChange(parentNode.id, false);
+    }
+  };
+
+  // one row of a child with connector lines
+  const ChildRow = ({
+    parentNode,
+    childNode,
+    isLast,
+    depth = 0
+  }) => {
+    const show = isChecked(parentNode.id) || anyChildSelected(parentNode);
+    if (!show) return null;
+    const hasKids = Array.isArray(childNode.children) && childNode.children.length > 0;
+    const checked = isChecked(childNode.id);
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "w-full",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "flex items-start relative",
+        style: {
+          marginLeft: depth * 16
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "flex-1 pt-1",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
+            id: childNode.id,
+            label: childNode.name,
+            checked: checked,
+            onChangeHandler: e => onChildChange(parentNode, childNode, e.target.checked)
+          })
+        })
+      }), hasKids && childNode.children.map((g, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
+        parentNode: parentNode // keep same top-level parent to control visibility
+        ,
+        childNode: g,
+        isLast: idx === childNode.children.length - 1,
+        depth: depth + 1
+      }, `c-${childNode.id}-${g.id}`))]
+    }, `c-${childNode.id}`);
+  };
+  const renderParent = node => {
+    const checked = isChecked(node.id);
+    const expanded = checked || anyChildSelected(node);
+    const hasChildren = Array.isArray(node.children) && node.children.length > 0;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "w-full",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "flex items-center my-1",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
+          id: node.id,
+          label: node.name,
+          checked: checked,
+          onChangeHandler: e => onParentChange(node, e.target.checked)
+        })
+      }), hasChildren && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "relative mt-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "absolute left-3 -top-1 bottom-0 border-l border-schemesOutlineVariant"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "pl-6 py-3 space-y-4",
+          children: node.children.map((child, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
+            parentNode: node,
+            childNode: child,
+            isLast: idx === node.children.length - 1,
+            depth: 0
+          }, `c-${child.id}`))
+        })]
+      })]
+    }, `p-${node.id}`);
+  };
+
+  // FLAT
+  if (!isNested) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "mb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+        className: "Blueprint-title-small mb-8",
+        children: title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "flex flex-wrap gap-5",
+        children: options.slice(0, visibleCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
+          id: option.id,
+          label: option.name,
+          checked: selected.includes(String(option.id)),
+          onChangeHandler: onChangeHandler
+        }, option.id))
+      }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        type: "button",
+        onClick: handleToggleShowMore,
+        className: "mt-4 text-schemesPrimary Blueprint-label-large hover:underline",
+        children: showingAll ? "Show less" : "Show more"
+      })]
+    });
+  }
+
+  // NESTED
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "mb-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+      className: "Blueprint-title-small mb-8",
+      children: title
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "flex flex-col gap-3",
+      children: (parents || []).slice(0, visibleCount).map(renderParent)
+    }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      type: "button",
+      onClick: handleToggleShowMore,
+      className: "mt-4 text-schemesPrimary Blueprint-label-large hover:underline",
+      children: showingAll ? "Show less" : "Show more"
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./src/scripts/Footer.js":
 /*!*******************************!*\
   !*** ./src/scripts/Footer.js ***!
@@ -24575,11 +24698,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ContentCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContentCard */ "./src/scripts/ContentCard.js");
-/* harmony import */ var _EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EventsCalendarFilterGroup */ "./src/scripts/EventsCalendarFilterGroup.js");
+/* harmony import */ var _FilterGroup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FilterGroup */ "./src/scripts/FilterGroup.js");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
-
 
 
 
@@ -24590,7 +24712,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * Props:
  * - postType: string (e.g. 'article' or 'tribe_events' or 'gd_aid_listing')
- * - taxonomy: string (if this is a taxonomy archive)   // not used for fetching filters here
+ * - taxonomy: string (if this is a taxonomy archive)
  * - filters: array of { taxonomy: 'topic_tag', label: 'Topic' } // optional; used for non-GD
  * - endpoint: string (e.g. '/wp-json/tsb/v1/browse')
  * - baseQuery: object (initial POST payload to API)
@@ -24609,7 +24731,6 @@ function GenericArchivePage(props) {
     title,
     subtitle
   } = props;
-  console.log(props);
 
   // UI state
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
@@ -24620,8 +24741,14 @@ function GenericArchivePage(props) {
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
 
-  // Fetched options for each filter group
-  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy_key: [ {id,name,slug}, ... ] }
+  // Fetched options for each filter group (what we render)
+  // For hierarchical groups we store a TREE (roots with children[]).
+  // For flat groups we store a flat array (no children).
+  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy_key: TreeNode[] | Flat[] }
+
+  // For hierarchical taxonomies: descendants lookup so we can expand parents in queries
+  // { taxonomy_key: { termId: [descendantIds...] } }
+  const [descendantsMap, setDescendantsMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
 
   // Map of rest_base (or taxonomy name) -> taxonomy name used by WP_Query
   const [taxNameMap, setTaxNameMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
@@ -24640,12 +24767,14 @@ function GenericArchivePage(props) {
         taxonomy: `${gdBase}/categories`,
         label: "Categories",
         _source: "geodir",
-        _segment: "categories"
+        _segment: "categories",
+        _hierarchical: true
       }, {
         taxonomy: `${gdBase}/tags`,
         label: "Tags",
         _source: "geodir",
-        _segment: "tags"
+        _segment: "tags",
+        _hierarchical: false
       }];
     }
     return filters || [];
@@ -24680,7 +24809,53 @@ function GenericArchivePage(props) {
   }, []);
   const resolveTaxonomyName = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(key => taxNameMap[key] || key, [taxNameMap]);
 
-  // Fetch term options for each filter group
+  // --------- helpers to build TREE + descendants ----------
+  // rows: [{id, name, slug, parent}]
+  const buildTreeAndDescendants = rows => {
+    const byId = {};
+    rows.forEach(r => {
+      const id = String(r.id);
+      byId[id] = {
+        id,
+        name: r.name,
+        slug: r.slug,
+        children: []
+      };
+    });
+    const roots = [];
+    rows.forEach(r => {
+      const id = String(r.id);
+      const parent = String(r.parent || "0");
+      if (parent !== "0" && byId[parent]) {
+        byId[parent].children.push(byId[id]);
+      } else {
+        roots.push(byId[id]);
+      }
+    });
+    const descendants = {}; // id -> [descendantIds]
+    const collect = node => {
+      let acc = [];
+      node.children.forEach(c => {
+        acc.push(String(c.id), ...collect(c));
+      });
+      descendants[String(node.id)] = acc;
+      return acc;
+    };
+    roots.forEach(n => collect(n));
+
+    // sort alphabetically at each level for stable UI
+    const sortTree = nodes => {
+      nodes.sort((a, b) => a.name.localeCompare(b.name));
+      nodes.forEach(n => sortTree(n.children));
+    };
+    sortTree(roots);
+    return {
+      tree: roots,
+      descendants
+    };
+  };
+
+  // --------- Fetch term options for each filter group ----------
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
 
@@ -24700,17 +24875,39 @@ function GenericArchivePage(props) {
       throw new Error(`No GD endpoint found for ${segment}`);
     };
     (async () => {
-      const next = {};
+      const nextOptions = {};
+      const nextDesc = {};
       for (const f of effectiveFilters) {
         try {
           if (isGD && f._source === "geodir") {
             const segment = f._segment === "tags" ? "tags" : "categories";
             const json = await fetchGDTerms(segment);
-            next[f.taxonomy] = (Array.isArray(json) ? json : []).map(t => ({
+
+            // expect objects with id, name, slug, parent
+            const rows = (Array.isArray(json) ? json : []).map(t => ({
               id: String(t.id),
               name: t.name,
-              slug: t.slug
+              slug: t.slug,
+              parent: String(t.parent || "0")
             }));
+            if (f._hierarchical) {
+              const {
+                tree,
+                descendants
+              } = buildTreeAndDescendants(rows);
+              nextOptions[f.taxonomy] = tree; // TREE for FilterGroup
+              nextDesc[f.taxonomy] = descendants; // expansion for querying
+            } else {
+              nextOptions[f.taxonomy] = rows.map(({
+                id,
+                name,
+                slug
+              }) => ({
+                id,
+                name,
+                slug
+              }));
+            }
           } else {
             const res = await fetch(`/wp-json/wp/v2/${f.taxonomy}?per_page=100`, {
               headers: {
@@ -24719,24 +24916,63 @@ function GenericArchivePage(props) {
             });
             if (!res.ok) throw new Error(`WP tax ${f.taxonomy} HTTP ${res.status}`);
             const json = await res.json();
-            next[f.taxonomy] = (Array.isArray(json) ? json : []).map(t => ({
+            const rows = (Array.isArray(json) ? json : []).map(t => ({
               id: String(t.id),
               name: t.name,
-              slug: t.slug
+              slug: t.slug,
+              parent: String(t.parent || "0")
             }));
+
+            // If WP taxonomy is hierarchical, build a TREE; else flat.
+            const isHier = rows.some(r => r.parent !== "0");
+            if (isHier) {
+              const {
+                tree,
+                descendants
+              } = buildTreeAndDescendants(rows);
+              nextOptions[f.taxonomy] = tree; // TREE
+              nextDesc[f.taxonomy] = descendants; // for expansion
+            } else {
+              nextOptions[f.taxonomy] = rows.map(({
+                id,
+                name,
+                slug
+              }) => ({
+                id,
+                name,
+                slug
+              }));
+            }
           }
         } catch {
-          next[f.taxonomy] = [];
+          nextOptions[f.taxonomy] = [];
         }
       }
-      if (!cancelled) setTermsOptions(next);
+      if (!cancelled) {
+        setTermsOptions(nextOptions);
+        setDescendantsMap(nextDesc);
+      }
     })();
     return () => {
       cancelled = true;
     };
   }, [effectiveFilters, isGD, gdBase]);
 
-  // Fetch items whenever page or selected terms change
+  // Expand selected IDs with descendants if taxonomy is hierarchical (for queries)
+  const expandWithDescendants = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((taxKey, ids) => {
+    const desc = descendantsMap[taxKey];
+    if (!desc) return ids; // not hierarchical or no data
+    const out = new Set();
+    ids.forEach(id => {
+      const s = String(id);
+      out.add(s);
+      const kids = desc[s] || [];
+      kids.forEach(kid => out.add(String(kid)));
+    });
+    return Array.from(out);
+  }, [descendantsMap]);
+
+  // --------- Fetch items whenever page or selected terms change ----------
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
     (async () => {
@@ -24751,16 +24987,18 @@ function GenericArchivePage(props) {
         // Start with any tax filters already provided in baseQuery
         const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // Add UI-selected filters (translate to real taxonomy names)
+        // Add UI-selected filters (translate to real taxonomy names; expand parents)
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
+            const expanded = expandWithDescendants(taxKey, termIds);
             uiTax.push({
               taxonomy: resolveTaxonomyName(taxKey),
-              // e.g. "gd_aid_listing_category"
+              // e.g. "gd_aid_listing_category" or pass-through key your API maps
               field: "term_id",
-              terms: termIds.map(id => parseInt(id, 10)).filter(n => Number.isFinite(n)),
-              operator: "IN"
+              terms: expanded.map(id => parseInt(id, 10)).filter(n => Number.isFinite(n)),
+              operator: "IN",
+              include_children: true // hint; safe to include
             });
           }
         }
@@ -24790,7 +25028,7 @@ function GenericArchivePage(props) {
     return () => {
       cancelled = true;
     };
-  }, [baseQuery, endpoint, page, selectedTerms, resolveTaxonomyName, retryTick]);
+  }, [baseQuery, endpoint, page, selectedTerms, resolveTaxonomyName, expandWithDescendants, retryTick]);
 
   // ---- Derived UI helpers ----
   const hasActiveFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.values(selectedTerms).some(arr => (arr || []).length > 0), [selectedTerms]);
@@ -24798,21 +25036,6 @@ function GenericArchivePage(props) {
     setSelectedTerms({});
     setPage(1);
   };
-  const activeChips = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    const chips = [];
-    for (const [taxKey, ids] of Object.entries(selectedTerms)) {
-      const opts = termsOptions[taxKey] || [];
-      ids.forEach(id => {
-        const found = opts.find(o => String(o.id) === String(id));
-        chips.push({
-          taxKey,
-          id: String(id),
-          label: found?.name || id
-        });
-      });
-    }
-    return chips;
-  }, [selectedTerms, termsOptions]);
 
   // ---- Skeletons ----
   const skeletonCards = Array.from({
@@ -24866,9 +25089,10 @@ function GenericArchivePage(props) {
           })
         }), effectiveFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "mb-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_EventsCalendarFilterGroup__WEBPACK_IMPORTED_MODULE_2__.EventsCalendarFilterGroup, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
             title: f.label || f.taxonomy,
-            options: termsOptions[f.taxonomy] || [],
+            options: termsOptions[f.taxonomy] || [] // TREE for hierarchical; flat for non-hier
+            ,
             selected: selectedTerms[f.taxonomy] || [],
             onChangeHandler: e => {
               const id = String(e.target.value);
