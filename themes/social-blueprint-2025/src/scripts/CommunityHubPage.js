@@ -141,6 +141,7 @@ export function CommunityHubPage({ featured, messageBoard, events }) {
             { label: "Activities & Programs", tax: { taxonomy: "topic_tag", terms: ["activities-programs"] } },
             { label: "Volunteering & Getting Involved", tax: { taxonomy: "topic_tag", terms: ["volunteering-getting-involved"] } },
           ]}
+          className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
         />
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <NewsletterBanner />

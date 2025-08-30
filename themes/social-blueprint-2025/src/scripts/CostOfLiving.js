@@ -1,84 +1,96 @@
 import React from "react";
-import { ArrowIcon } from "../../assets/icons/arrow";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { NewsletterBanner } from "./NewsletterBanner";
-import { PostsSlider } from "./PostsSlider";
 import CommunityConnectionHubIcon from "../../assets/community-connection-hub.svg";
 import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
-import { FirstAidIcon, HeadCircuitIcon, ButterflyIcon, TrendUpIcon, AppWindowIcon } from "@phosphor-icons/react";
-import { ListingCallout } from "./ListingCallout";
+import { BowlFoodIcon, CarIcon, HeartHalfIcon, MicrophoneStageIcon, MoneyWavyIcon, StarOfDavidIcon } from "@phosphor-icons/react";
 
-export const SupportAndServicesHub = ({ podcasts, articles }) => {
+export function CostOfLiving({ sections }) {
+  console.log(sections);
   return (
-    <div className="bg-schemesSurface">
-      <div className="bg-schemesPrimaryFixed">
+    <div>
+      <div className="hidden md:block bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
-          <div className="flex p-4 pt-12 md:p-8 lg:px-16 lg:py-8 items-center justify-between">
+          <div className="flex p-4 md:p-8 lg:px-16 lg:pt-16 items-end justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3">
-                Get the Support You Need
+                Cost of Living Resources
               </h1>
               <p className="text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl">
-                We've gathered practical resources to help you through tough times, from mental health support to community aid services.
+                Access financial resources, interest-free loans, utility support, and community programs to help manage daily expenses.
               </p>
             </div>
-            <img src={CommunityConnectionHubIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />
           </div>
           <div className="p-4 md:pb-8 lg:px-16">
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4">Quick Links</h2>
             <div className="mt-6">
               <div className="mt-6">
                 <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory
-                md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
+                md:grid md:grid-cols-6 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
                     <Card href="/message-board">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
-                        <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
-                          <HeadCircuitIcon size={22} />
+                        <div className="bg-[#6ED4BE] rounded-[12px] p-1">
+                          <MoneyWavyIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Mental Health Resources</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Financial Health</div>
                       </div>
                     </Card>
                   </div>
+
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
                     <Card href="/stories-and-interviews">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
-                        <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
-                          <FirstAidIcon size={22} />
+                        <div className="bg-[#A3B4FF] rounded-[12px] p-1">
+                          <BowlFoodIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Aid and Financial Support</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Food Support</div>
                       </div>
                     </Card>
                   </div>
+
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/categories/cost-of-living">
+                    <Card href="/events">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
-                        <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
-                          <ButterflyIcon size={22} />
+                        <div className="bg-[#FF9388] rounded-[12px] p-1">
+                          <HeartHalfIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Free Community Services</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Education & Learning</div>
                       </div>
                     </Card>
                   </div>
-                  <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
-                      <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
-                        <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
-                          <TrendUpIcon size={22} />
-                        </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Mental Health & Wellbeing</div>
-                      </div>
-                    </Card>
-                  </div>
+
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
                     <Card>
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
-                        <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
-                          <AppWindowIcon size={22} />
+                        <div className="bg-[#F7D471] rounded-[12px] p-1">
+                          <MicrophoneStageIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Jeap App</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Housing & Utility</div>
+                      </div>
+                    </Card>
+                  </div>
+
+                  <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
+                    <Card>
+                      <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
+                        <div className="bg-[#7FD0FF] rounded-[12px] p-1">
+                          <StarOfDavidIcon size={22} />
+                        </div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Grants & Awards</div>
+                      </div>
+                    </Card>
+                  </div>
+
+                  <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
+                    <Card>
+                      <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
+                        <div className="bg-[#C7A9EA] rounded-[12px] p-1">
+                          <CarIcon size={22} />
+                        </div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Transport</div>
                       </div>
                     </Card>
                   </div>
@@ -88,36 +100,19 @@ export const SupportAndServicesHub = ({ podcasts, articles }) => {
           </div>
         </div>
       </div>
-      <div>
-        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Recent Podcasts</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={podcasts || []} />
-        </div>
-      </div>
-      <div className="bg-schemesSecondaryFixed">
-        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Mental Health & Inspriting Stories</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={articles || []} />
-        </div>
-      </div>
       <div className="max-w-[1600px] mx-auto">
         <BrowseAll
-          title="Browse all Support & Services"
+          title="Browse all cost of living"
           endpoint="/wp-json/tsb/v1/browse"
           baseQuery={{
-            post_type: ['tribe_events', 'podcast', 'article', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'],
             per_page: 10,
-            order: "DESC",
-            orderby: "date",
-            tax: [{ taxonomy: 'theme', field: 'slug', terms: ['support-and-services'] }],
+            hide_recurring: true,
+            post_type: ['gd_cost_of_living']
           }}
-          className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
+          filters={[
+            { label: "Community jobs", tax: { taxonomy: "gd_cost_of_livingcategory", terms: ["education"] } },
+          ]}
+          className="p-6 md:p-8 lg:p-16"
         />
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <NewsletterBanner />

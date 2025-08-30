@@ -30,6 +30,8 @@ import { LearningAndGrowthHub } from './scripts/LearningAndGrowthHub';
 import { CultureAndIdentityHub } from './scripts/CultureAndIdentityHub';
 import { SupportAndServicesHub } from './scripts/SupportAndServicesHub';
 import { DirectoryHub } from './scripts/DirectoryHub';
+import { CostOfLiving } from './scripts/CostOfLiving';
+import { GenericArchivePage } from './scripts/GenericArchivePage';
 
 
 if (document.querySelector('#front-page')) {
@@ -247,4 +249,16 @@ const el27 = document.getElementById('directory-hub-root');
 if (el27) {
   const props = JSON.parse(el27.dataset.props || '{}');
   ReactDOM.createRoot(el27).render(<DirectoryHub {...props} />);
+}
+
+const el28 = document.getElementById('cost-of-living-root');
+if (el28) {
+  const props = JSON.parse(el28.getAttribute('data-props') || '{}');
+  ReactDOM.createRoot(el28).render(<CostOfLiving {...props} />);
+}
+
+const el29 = document.getElementById('generic-archive-root');
+if (el29) {
+  const props = JSON.parse(el29.getAttribute('data-props') || '{}');
+  ReactDOM.createRoot(el29).render(<GenericArchivePage {...props} />);
 }

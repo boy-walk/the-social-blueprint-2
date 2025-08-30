@@ -62,7 +62,6 @@ export function ContentCard({
             <div
               className="
                 pointer-events-none absolute inset-x-0 bottom-0 h-8
-                bg-gradient-to-t from-[var(--schemesSurface)] to-transparent
                 opacity-100 transition-opacity duration-200
                 group-hover:opacity-0
               "

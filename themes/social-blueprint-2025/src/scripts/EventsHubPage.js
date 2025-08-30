@@ -124,6 +124,7 @@ export function EventsHubPage({ featured, eventsThisWeek, browseAll }) {
             { label: "Festivals", tax: { taxonomy: "tribe_events_cat", terms: ["festivals"] } },
             { label: "Education", tax: { taxonomy: "tribe_events_cat", terms: ["education"] } },
           ]}
+          className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
         />
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <NewsletterBanner />

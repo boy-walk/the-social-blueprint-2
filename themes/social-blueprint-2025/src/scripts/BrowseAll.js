@@ -24,6 +24,7 @@ export default function BrowseAll({
   filters = EMPTY,                 // <-- stable, not recreated each render
   initialFilter = "All",
   gridHeights = DEFAULT_GRID_HEIGHTS,
+  className = "",
 }) {
   const [active, setActive] = useState(initialFilter);
   const [page, setPage] = useState(1);
@@ -121,7 +122,7 @@ export default function BrowseAll({
   ));
 
   return (
-    <section className="py-16 px-4 sm:px-8 lg:px-16 mx-auto">
+    <section className={className}>
       <h2 className="Blueprint-headline-medium mb-6">{title}</h2>
 
       {filters.length > 0 && (
@@ -143,7 +144,7 @@ export default function BrowseAll({
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-stretch">
         {loading
           ? skeletons
           : data.items.map((post) => (

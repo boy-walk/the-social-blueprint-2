@@ -132,6 +132,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving 
             orderby: "date",
             tax: [{ taxonomy: 'theme', field: 'slug', terms: ['learning-and-growth'] }],
           }}
+          className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
         />
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <NewsletterBanner />

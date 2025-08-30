@@ -117,6 +117,7 @@ export const CultureAndIdentityHub = ({ podcasts, events }) => {
             orderby: "date",
             tax: [{ taxonomy: 'theme', field: 'slug', terms: ['culture-and-identity'] }],
           }}
+          className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
         />
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <ListingCallout />

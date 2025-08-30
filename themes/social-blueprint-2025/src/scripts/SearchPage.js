@@ -39,6 +39,7 @@ export function SearchPage({ query = "" }) {
         endpoint="/wp-json/tsb/v1/browse"
         baseQuery={baseQuery}
         filters={[]}
+        className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
       />
     </>
   );

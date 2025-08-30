@@ -1,5 +1,79 @@
 <?php
-// archive.php
+/**
+ * Generalized archive template for CPTs and taxonomies.
+ * Passes post_type/taxonomy and filter definitions to a React component.
+ * Save this as archive.php in your theme or place inside templates/archive and use a template_include filter.
+ */
+
+get_header();
+
+// Determine if this is a CPT archive or a taxonomy archive.
+$queried_object = get_queried_object();
+$post_type      = null;
+$taxonomy       = null;
+$current_term   = null;
+
+// CPT archive (e.g. /directory/)
+if ( is_post_type_archive() ) {
+    $post_type = get_post_type(); // e.g. 'gd_discount' or 'podcast'
+}
+// Taxonomy archive (e.g. /topic_tag/community-connection/)
+elseif ( is_category() || is_tag() || is_tax() ) {
+    if ( isset( $queried_object->taxonomy ) ) {
+        $taxonomy   = $queried_object->taxonomy; // e.g. 'topic_tag' or 'theme'
+        $current_term = $queried_object->slug;   // slug of the current term
+        // Identify which post types are associated with this taxonomy.  If more than one, pick the first.
+        $tax_object = get_taxonomy( $taxonomy );
+        if ( isset( $tax_object->object_type ) && count( $tax_object->object_type ) > 0 ) {
+            $post_type = $tax_object->object_type[0];
+        }
+    }
+}
+
+// Fall back to 'post' if nothing determined.
+$post_type = $post_type ?: 'post';
+
+// Build list of taxonomies associated with the current post type.
+
+$all_taxonomies = get_object_taxonomies( $post_type, 'objects' );
+$taxonomies = array_filter( $all_taxonomies, function( $tax ) {
+    return ! in_array( $tax->name, [ 'theme', 'location_tag', 'people_tag' ], true );
+} );
+$filters = [];
+foreach ( $taxonomies as $slug => $tax_obj ) {
+    // Hide WordPress defaults like post_tag and category unless they are your custom filters
+    if ( in_array( $slug, [ 'post_tag', 'category' ], true ) ) continue;
+    $filters[] = [
+        'taxonomy'   => $slug,
+        'label'      => $tax_obj->labels->singular_name,
+    ];
+}
+
+// Build a base query that the React component will post to your API.
+// For example, your custom API /wp-json/tsb/v1/browse can accept post_type and tax filters.
+$base_query = [
+    'post_type'   => [$post_type],
+    'per_page'    => 12,
+    'order'       => 'DESC',
+    'orderby'     => 'date',
+];
+// If the user is viewing a taxonomy archive, pre‑filter results by the current term.
+if ( $taxonomy && $current_term ) {
+    $base_query['tax'] = [
+        [
+            'taxonomy' => $taxonomy,
+            'field'    => 'slug',
+            'terms'    => [ $current_term ],
+        ],
+    ];
+}
+
+// Choose the API endpoint.  Use your existing browse endpoint or special events endpoint for tribe_events.
+$endpoint = '/wp-json/tsb/v1/browse';
+if ( $post_type === 'tribe_events' ) {
+    $endpoint = '/wp-json/tsb/v1/events';
+}
+
 if (!function_exists('tsb_clean_archive_title')) {
   function tsb_clean_archive_title(): string {
     if (is_category())            return single_cat_title('', false);
@@ -15,60 +89,22 @@ if (!function_exists('tsb_clean_archive_title')) {
   }
 }
 
-get_header(); ?>
+// Props for the React component.  You can add more fields as needed.
+$props = [
+    'postType' => $post_type,
+    'taxonomy' => $taxonomy ?: '',
+    'filters'  => $filters,
+    'endpoint' => $endpoint,
+    'baseQuery'=> $base_query,
+    'title'    => tsb_clean_archive_title(),
+];
 
-<main class="bg-schemesSurface text-schemesOnSurface">
-  <div class="p-6 md:p-8 lg:p-12">
-    <div class="mx-auto lg:max-w-[1600px] px-0 lg:px-16">
-      <header class="mb-6 md:mb-8">
-        <h1 class="Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large">
-          <?php echo esc_html( tsb_clean_archive_title() ); ?>
-        </h1>
-        <?php if ( get_the_archive_description() ) : ?>
-          <div class="Blueprint-body-large text-schemesOnSurfaceVariant mt-2">
-            <?php echo get_the_archive_description(); ?>
-          </div>
-        <?php endif; ?>
-      </header>
-
-      <?php if ( have_posts() ) : ?>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <?php while ( have_posts() ) : the_post(); ?>
-            <article class="rounded-xl overflow-hidden border border-schemesOutlineVariant">
-              <a href="<?php the_permalink(); ?>" class="block">
-                <?php if ( has_post_thumbnail() ) : ?>
-                  <div class="aspect-[16/9] overflow-hidden">
-                    <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover']); ?>
-                  </div>
-                <?php endif; ?>
-
-                <div class="p-4 space-y-2">
-                  <div class="Blueprint-label-large text-schemesOnSurfaceVariant">
-                    <?php echo get_the_date(); ?>
-                  </div>
-                  <h2 class="Blueprint-title-large-emphasized">
-                    <?php the_title(); ?>
-                  </h2>
-                  <p class="Blueprint-body-medium text-schemesOnSurfaceVariant">
-                    <?php echo wp_trim_words( get_the_excerpt(), 26 ); ?>
-                  </p>
-                </div>
-              </a>
-            </article>
-          <?php endwhile; ?>
-        </div>
-
-        <div class="mt-8">
-          <?php the_posts_pagination([
-            'prev_text' => '&larr;',
-            'next_text' => '&rarr;',
-          ]); ?>
-        </div>
-      <?php else : ?>
-        <p class="Blueprint-body-large text-schemesOnSurfaceVariant">No results found.</p>
-      <?php endif; ?>
-    </div>
+?>
+<main id="content" class="generic-archive">
+  <div
+    id="generic-archive-root"
+    data-component="GenericArchivePage"
+    data-props='<?php echo esc_attr( wp_json_encode( $props, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) ); ?>'>
   </div>
 </main>
-
-<?php get_footer();
+<?php get_footer(); ?>

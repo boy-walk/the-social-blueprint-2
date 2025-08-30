@@ -72,6 +72,7 @@ export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, 
             hide_recurring: true,
             post_type: ['podcast', 'article']
           }}
+          className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
         />
         <div className="py-16 px-4 sm:px-8 lg:px-16">
           <NewsletterBanner />
