@@ -33,7 +33,7 @@ export const SupportAndServicesHub = ({ podcasts, articles }) => {
                 <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/message-board">
+                    <Card href="/aid_listing.health_listing/?topic_tag=mental-health">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <HeadCircuitIcon size={22} />
@@ -48,7 +48,7 @@ export const SupportAndServicesHub = ({ podcasts, articles }) => {
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <FirstAidIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Aid and Financial Support</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Aid and Support</div>
                       </div>
                     </Card>
                   </div>

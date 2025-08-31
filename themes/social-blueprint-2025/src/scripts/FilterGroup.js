@@ -71,7 +71,6 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
           className="flex items-start relative"
           style={{ marginLeft: depth * 16 }}
         >
-          {/* checkbox */}
           <div className="flex-1 pt-1">
             <StyledCheckbox
               id={childNode.id}
@@ -81,8 +80,6 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
             />
           </div>
         </div>
-
-        {/* recurse */}
         {hasKids &&
           childNode.children.map((g, idx) => (
             <ChildRow
@@ -116,7 +113,7 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
         {hasChildren && expanded && (
           <div className="relative mt-2">
             {/* trunk under parent */}
-            <div className="absolute left-3 -top-1 bottom-0 border-l border-schemesOutlineVariant" />
+            <div className="absolute left-3 -top-0 bottom-0 border-l border-schemesOutlineVariant" />
 
             <div className="pl-6 py-3 space-y-4">
               {node.children.map((child, idx) => (

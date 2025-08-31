@@ -32,6 +32,7 @@ import { SupportAndServicesHub } from './scripts/SupportAndServicesHub';
 import { DirectoryHub } from './scripts/DirectoryHub';
 import { CostOfLiving } from './scripts/CostOfLiving';
 import { GenericArchivePage } from './scripts/GenericArchivePage';
+import MessageBoardArchivePage from './scripts/MessageBoardArchivePage';
 
 
 if (document.querySelector('#front-page')) {
@@ -267,4 +268,10 @@ const el30 = document.getElementById('taxonomy-root');
 if (el30) {
   const props = JSON.parse(el30.getAttribute('data-props') || '{}');
   ReactDOM.createRoot(el30).render(<GenericArchivePage {...props} />);
+}
+
+const el31 = document.getElementById('messageboard-archive-root');
+if (el31) {
+  const props = JSON.parse(el31.getAttribute('data-props') || '{}');
+  ReactDOM.createRoot(el31).render(<MessageBoardArchivePage {...props} />);
 }

@@ -1,25 +1,15 @@
 import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
-import { ContentCard } from "./ContentCard";
 import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
-import { getBadge } from "./getBadge";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 /**
- * GenericArchivePage (GD-agnostic)
- *
- * Props:
- * - postType: string | string[]
- * - taxonomy: string
- * - currentTerm: { id:number, slug:string, taxonomy:string } | null
- * - filters: array of { taxonomy: string, label: string }
- * - endpoint: string
- * - baseQuery: object
- * - title: string
- * - subtitle?: string
- * - disableGDAutoFilters?: boolean  // ignored in this GD-agnostic version
+ * MessageBoardArchivePage (gd_discount)
+ * - List style results with full category chip set per row.
+ * - Uses WP terms (with /tsb/v1/terms fallback) for filters.
+ * - Client-side keyword search over returned items.
  */
-export function GenericArchivePage(props) {
+export default function MessageBoardArchivePage(props) {
   const {
     postType,
     taxonomy,
@@ -31,17 +21,14 @@ export function GenericArchivePage(props) {
     subtitle,
   } = props;
 
-  // Detect single vs multi CPT (display only; no GeoDirectory branching here)
-  const postTypes = useMemo(() => (Array.isArray(postType) ? postType : [postType]), [postType]);
+  const CPT = useMemo(() => (Array.isArray(postType) ? postType[0] : postType) || "gd_discount", [postType]);
 
-  // ---------------- UI state ----------------
+  // ---------------- State ----------------
   const [page, setPage] = useState(1);
 
-  // Seed selectedTerms ONCE from the archive context to avoid a second fetch later
+  // Seed from archive context ONCE to avoid post-mount preselect flicker
   const [selectedTerms, setSelectedTerms] = useState(() => {
-    if (taxonomy && currentTerm?.id) {
-      return { [taxonomy]: [String(currentTerm.id)] };
-    }
+    if (taxonomy && currentTerm?.id) return { [taxonomy]: [String(currentTerm.id)] };
     return {};
   });
 
@@ -51,20 +38,20 @@ export function GenericArchivePage(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Filters / terms
+  const [termsOptions, setTermsOptions] = useState({});     // taxonomyName -> Tree[] | Flat[]
+  const [descendantsMap, setDescendantsMap] = useState({}); // taxonomyName -> { termId: [descIds...] }
+  const [taxRestBaseMap, setTaxRestBaseMap] = useState({}); // taxonomyName -> rest_base
   const [retryTick, setRetryTick] = useState(0);
 
-  // Filter options stores
-  const [termsOptions, setTermsOptions] = useState({});     // { taxonomy: Tree[] | Flat[] }
-  const [descendantsMap, setDescendantsMap] = useState({}); // { taxonomy: { id: [descIds...] } }
-  const [taxRestBaseMap, setTaxRestBaseMap] = useState({}); // { taxonomyName: rest_base }
-
-  // Hide the filter group for the taxonomy page we’re already on
+  // Hide the filter group for the taxonomy the page is already scoped to (taxonomy archive)
   const displayedFilters = useMemo(() => {
     if (!taxonomy) return filters;
     return (filters || []).filter((f) => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
 
-  // ---------------- Load WP taxonomies (for rest_base) ----------------
+  // ---------------- Discover rest_base for WP terms ----------------
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -86,14 +73,13 @@ export function GenericArchivePage(props) {
     return () => { cancelled = true; };
   }, []);
 
-  // ---------------- Tree helpers ----------------
+  // ---------------- Helpers: build tree for hierarchical terms ----------------
   const buildTreeAndDescendants = (rows) => {
     const byId = {};
     rows.forEach((r) => {
       const id = String(r.id);
       byId[id] = { id, name: r.name, slug: r.slug, children: [] };
     });
-
     const roots = [];
     rows.forEach((r) => {
       const id = String(r.id);
@@ -101,7 +87,6 @@ export function GenericArchivePage(props) {
       if (p !== "0" && byId[p]) byId[p].children.push(byId[id]);
       else roots.push(byId[id]);
     });
-
     const descendants = {};
     const collect = (n) => {
       let acc = [];
@@ -110,23 +95,12 @@ export function GenericArchivePage(props) {
       return acc;
     };
     roots.forEach(collect);
-
     const sortTree = (nodes) => {
       nodes.sort((a, b) => a.name.localeCompare(b.name));
       nodes.forEach((n) => sortTree(n.children));
     };
     sortTree(roots);
-
     return { tree: roots, descendants };
-  };
-
-  const findInTreeById = (nodes, targetId) => {
-    for (const n of nodes) {
-      if (String(n.id) === String(targetId)) return n;
-      const hit = findInTreeById(n.children || [], targetId);
-      if (hit) return hit;
-    }
-    return null;
   };
 
   // ---------------- Load term options for each filter taxonomy ----------------
@@ -140,16 +114,12 @@ export function GenericArchivePage(props) {
     let cancelled = false;
 
     const fetchTerms = async (taxName) => {
-      // Try WP REST if available
-      const restBase = taxRestBaseMap[taxName] || taxName;
-      let wp;
-      try {
-        wp = await fetch(`/wp-json/wp/v2/${restBase}?per_page=100`, { headers: { Accept: "application/json" } });
-      } catch {
-        wp = null;
-      }
-      if (wp && wp.ok) {
-        try { return await wp.json(); } catch { }
+      const restBase = taxRestBaseMap[taxName];
+      if (restBase) {
+        const wp = await fetch(`/wp-json/wp/v2/${restBase}?per_page=100`, { headers: { Accept: "application/json" } });
+        if (wp.ok) {
+          try { return await wp.json(); } catch (_) { }
+        }
       }
       // Fallback: custom endpoint that works even if !show_in_rest
       const tsb = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(taxName)}&per_page=100`, { headers: { Accept: "application/json" } });
@@ -193,7 +163,7 @@ export function GenericArchivePage(props) {
     return () => { cancelled = true; };
   }, [displayedFilters, taxRestBaseMap]);
 
-  // ---------------- Scope the visible branch for taxonomy archives (UI-only) ----------------
+  // ---------------- Scope filter UI for taxonomy archives (UI-only, no refetch) ----------------
   const didScopeRef = useRef(false);
   useEffect(() => {
     if (didScopeRef.current) return;
@@ -201,10 +171,16 @@ export function GenericArchivePage(props) {
     const opts = termsOptions[taxonomy];
     if (!opts || !opts.length) return;
 
-    // Only reduce the *options shown*; do not change selectedTerms (already seeded)
     const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
     if (isTree) {
-      const node = findInTreeById(opts, String(currentTerm.id));
+      // show only the current term branch
+      const stack = [...opts];
+      let node = null;
+      while (stack.length) {
+        const n = stack.pop();
+        if (String(n.id) === String(currentTerm.id)) { node = n; break; }
+        (n.children || []).forEach(c => stack.push(c));
+      }
       if (node) {
         setTermsOptions((prev) => ({ ...prev, [taxonomy]: [node] }));
         didScopeRef.current = true;
@@ -218,22 +194,13 @@ export function GenericArchivePage(props) {
     }
   }, [termsOptions, taxonomy, currentTerm]);
 
-  // ---------------- Expand with descendants ----------------
-  const expandWithDescendants = useCallback((taxKey, ids) => {
-    const desc = descendantsMap[taxKey];
-    if (!desc) return ids;
-    const out = new Set();
-    ids.forEach((id) => {
-      const s = String(id);
-      out.add(s);
-      (desc[s] || []).forEach((kid) => out.add(String(kid)));
-    });
-    return Array.from(out);
-  }, [descendantsMap]);
+  // ---------------- Fetch posts (no dependency on descendants/tax metadata) ----------------
+  const fetchSeq = useRef(0);
 
-  // ---------------- Fetch items (no dependency on taxonomy metadata funcs) ----------------
   useEffect(() => {
     let cancelled = false;
+    const seq = ++fetchSeq.current;
+
     (async () => {
       setLoading(true);
       setError("");
@@ -245,17 +212,16 @@ export function GenericArchivePage(props) {
           ? baseQuery.tax.slice()
           : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // UI-selected tax filters
+        // UI-selected tax filters (no client-side descendant expansion; rely on include_children)
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
-            const expanded = expandWithDescendants(taxKey, termIds);
             uiTax.push({
-              taxonomy: taxKey, // already a taxonomy name from `filters`
+              taxonomy: taxKey,        // taxonomy name
               field: "term_id",
-              terms: expanded.map((id) => parseInt(id, 10)).filter((n) => Number.isFinite(n)),
+              terms: termIds.map((id) => parseInt(id, 10)).filter(Number.isFinite),
               operator: "IN",
-              include_children: true,
+              include_children: true,  // WP will include descendants
             });
           }
         }
@@ -274,21 +240,24 @@ export function GenericArchivePage(props) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
 
-        if (!cancelled) {
+        if (!cancelled && seq === fetchSeq.current) {
           setItems(json.items || []);
           setTotalPages(json.total_pages || 1);
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
       } catch (err) {
-        if (!cancelled) setError(err.message || "Failed to load data");
+        if (!cancelled && seq === fetchSeq.current) {
+          setError(err.message || "Failed to load data");
+        }
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled && seq === fetchSeq.current) {
+          setLoading(false);
+        }
       }
     })();
 
-    // NOTE: intentionally NOT depending on taxRestBaseMap or any function
-    // tied to taxonomy metadata to avoid refetch flicker.
-  }, [baseQuery, endpoint, page, selectedTerms, expandWithDescendants, retryTick]);
+    return () => { cancelled = true; };
+  }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
   // ---------------- Client-side search over returned items ----------------
   const searchIndex = useMemo(() => {
@@ -327,6 +296,7 @@ export function GenericArchivePage(props) {
   }, [items, searchQuery, searchIndex]);
 
   const searching = searchQuery.trim().length > 0;
+
   const hasActiveFilters = useMemo(
     () => Object.values(selectedTerms).some((arr) => (arr || []).length > 0),
     [selectedTerms]
@@ -337,14 +307,117 @@ export function GenericArchivePage(props) {
     setPage(1);
   };
 
-  // ---------------- Skeletons ----------------
-  const skeletonCards = Array.from({ length: 8 }).map((_, i) => (
-    <div key={`sk-${i}`} className="rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden">
-      <div className="w-full aspect-[1.6] bg-[var(--schemesSurfaceContainerHighest)] animate-pulse" />
-      <div className="p-4 space-y-2">
-        <div className="h-4 w-3/4 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded" />
-        <div className="h-3 w-1/2 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded" />
-        <div className="h-3 w-2/3 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded" />
+  // ---------------- Helpers for row rendering ----------------
+  const stripTags = (html) => {
+    if (typeof html !== "string") return "";
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    return (tmp.textContent || tmp.innerText || "").trim();
+  };
+
+  // categories-only chip extraction
+  const extractCategoryLabels = (item) => {
+    const labels = [];
+    const seen = new Set();
+    const push = (val) => {
+      const name = typeof val === "string" ? val : (val?.name || val?.title || "");
+      const text = (name || "").toString().trim();
+      if (!text) return;
+      const key = text.toLowerCase();
+      if (seen.has(key)) return;
+      seen.add(key);
+      labels.push(text);
+    };
+
+    if (Array.isArray(item?.categories)) item.categories.forEach(push);
+
+    if (item?.taxonomies && typeof item.taxonomies === "object") {
+      Object.entries(item.taxonomies).forEach(([tx, arr]) => {
+        if (!Array.isArray(arr)) return;
+        if (/_category$/.test(tx) || /categories?$/.test(tx) || /cat$/.test(tx)) {
+          arr.forEach(push);
+        }
+      });
+    }
+
+    Object.keys(item || {}).forEach((k) => {
+      if (!/_category$/.test(k) && !/categories?$/.test(k) && !/cat$/.test(k)) return;
+      const v = item[k];
+      if (Array.isArray(v)) v.forEach(push);
+    });
+
+    return labels;
+  };
+
+  const LeadingIcon = ({ item }) => {
+    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
+    return (
+      <div className="w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0">
+        <span className="Blueprint-headline-medium text-[var(--schemesOnSecondaryContainer)]">
+          {letter}
+        </span>
+      </div>
+    );
+  };
+
+  const MessageRow = ({ item }) => {
+    const href = item?.permalink || "#";
+    const categories = extractCategoryLabels(item);
+
+    return (
+      <a
+        href={href}
+        className="block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] hover:bg-[var(--schemesSurfaceContainerLowest)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition"
+      >
+        <div className="flex gap-4 p-4">
+          <LeadingIcon item={item} />
+          <div className="flex-1">
+            {categories.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                {categories.map((label, idx) => (
+                  <span
+                    key={`${item.id}-cat-${idx}`}
+                    className="px-3 py-2 rounded-lg bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small"
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <div className="Blueprint-title-small-emphasized text-[var(--schemesOnSurface)] mb-1">
+              {item?.title}
+            </div>
+
+            {item?.excerpt && (
+              <p
+                className="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]"
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
+                {stripTags(item.excerpt)}
+              </p>
+            )}
+          </div>
+        </div>
+      </a>
+    );
+  };
+
+  // ---------------- Skeletons (list layout) ----------------
+  const skeletonRows = Array.from({ length: 8 }).map((_, i) => (
+    <div key={`sk-${i}`} className="rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden bg-[var(--schemesSurface)]">
+      <div className="flex gap-4 p-4">
+        <div className="w-16 h-16 rounded-xl bg-[var(--schemesSurfaceContainerHighest)] animate-pulse" />
+        <div className="flex-1 space-y-2">
+          <div className="h-5 w-3/5 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded" />
+          <div className="h-4 w-4/5 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded" />
+          <div className="h-4 w-2/3 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded" />
+        </div>
       </div>
     </div>
   ));
@@ -367,7 +440,6 @@ export function GenericArchivePage(props) {
         {/* Filters */}
         {displayedFilters.length > 0 && (
           <aside className="hidden lg:block lg:w-64 xl:w-72">
-            {/* SEARCH BAR */}
             <div className="mb-6">
               <label htmlFor="archive-search" className="sr-only">Search by keyword</label>
               <div className="flex items-center gap-2">
@@ -389,12 +461,12 @@ export function GenericArchivePage(props) {
 
             <h2 className="Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant">Filters</h2>
 
-            {(hasActiveFilters || searching) && (
+            {(hasActiveFilters || searchQuery) && (
               <div className="mb-4 flex gap-2">
                 {hasActiveFilters && (
                   <Button size="sm" variant="tonal" onClick={clearAllFilters} label="Clear filters" />
                 )}
-                {searching && (
+                {searchQuery && (
                   <Button size="sm" variant="tonal" onClick={() => setSearchQuery("")} label="Clear search" />
                 )}
               </div>
@@ -408,7 +480,7 @@ export function GenericArchivePage(props) {
                   selected={selectedTerms[f.taxonomy] || []}
                   onChangeHandler={(e) => {
                     const id = String(e.target.value);
-                    const checked = !!e.target.checked;
+                    const checked = !!(e.target.checked);
                     setSelectedTerms((prev) => {
                       const current = prev[f.taxonomy] || [];
                       const next = checked ? [...current, id] : current.filter((x) => x !== id);
@@ -438,8 +510,8 @@ export function GenericArchivePage(props) {
 
           {/* Loading skeleton */}
           {loading && (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8" aria-hidden="true">
-              {skeletonCards}
+            <div className="space-y-4 mb-8" aria-hidden="true">
+              {skeletonRows}
             </div>
           )}
 
@@ -448,10 +520,10 @@ export function GenericArchivePage(props) {
             <div className="rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8">
               <div className="Blueprint-headline-small mb-2">No results found</div>
               <p className="Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-6">
-                {searching ? "Try a different keyword or clear search." : "Try adjusting or clearing your filters to see more results."}
+                {searchQuery ? "Try a different keyword or clear search." : "Try adjusting or clearing your filters to see more results."}
               </p>
               <div className="flex justify-center gap-3">
-                {searching
+                {searchQuery
                   ? <Button variant="filled" label="Clear search" onClick={() => setSearchQuery("")} />
                   : <Button variant="filled" label="Clear all filters" onClick={clearAllFilters} />
                 }
@@ -460,44 +532,45 @@ export function GenericArchivePage(props) {
             </div>
           )}
 
-          {/* Results grid */}
+          {/* Results list */}
           {!loading && !error && filteredItems.length > 0 && (
             <>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-[var(--schemesOnSurfaceVariant)]" aria-live="polite">
-                  {searching
-                    ? `${filteredItems.length} match${filteredItems.length === 1 ? "" : "es"} on this page`
+                  {searchQuery
+                    ? `${filteredItems.length} match${filteredItems.length === 1 ? "" : "s"} on this page`
                     : (typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null)}
                 </div>
-                {(hasActiveFilters || searching) && (
-                  <div className="flex gap-2">
-                    {hasActiveFilters && <Button size="sm" variant="tonal" label="Clear filters" onClick={clearAllFilters} />}
-                    {searching && <Button size="sm" variant="tonal" label="Clear search" onClick={() => setSearchQuery("")} />}
-                  </div>
-                )}
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
+              <div className="space-y-4 mb-8">
                 {filteredItems.map((item) => (
-                  <ContentCard
-                    key={item.id}
-                    image={item.thumbnail}
-                    title={item.title}
-                    subtitle={item.date}
-                    badge={getBadge(item.post_type)}
-                    href={item.permalink}
-                  />
+                  <MessageRow key={item.id} item={item} />
                 ))}
               </div>
             </>
           )}
 
-          {/* Pagination (hide while searching) */}
+          {/* Pagination */}
           {!loading && !error && totalPages > 1 && !searching && (
             <div className="flex justify-center items-center gap-3 mt-2">
-              <Button size="base" variant="tonal" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} label="Prev" />
-              <span className="Blueprint-body-medium text-schemesOnSurfaceVariant">{page} / {totalPages}</span>
-              <Button size="base" variant="tonal" disabled={page >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} label="Next" />
+              <Button
+                size="base"
+                variant="tonal"
+                disabled={page <= 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                label="Prev"
+              />
+              <span className="Blueprint-body-medium text-schemesOnSurfaceVariant">
+                {page} / {totalPages}
+              </span>
+              <Button
+                size="base"
+                variant="tonal"
+                disabled={page >= totalPages}
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                label="Next"
+              />
             </div>
           )}
         </section>

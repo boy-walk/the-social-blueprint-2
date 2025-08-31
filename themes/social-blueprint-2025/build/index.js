@@ -22413,18 +22413,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ExploreByTheme__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExploreByTheme */ "./src/scripts/ExploreByTheme.js");
 /* harmony import */ var _PillTag__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PillTag */ "./src/scripts/PillTag.js");
 /* harmony import */ var _NewsletterBanner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NewsletterBanner */ "./src/scripts/NewsletterBanner.js");
-/* harmony import */ var _assets_community_connection_hub_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/community-connection-hub.svg */ "./assets/community-connection-hub.svg");
-/* harmony import */ var _BrowseAll__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./BrowseAll */ "./src/scripts/BrowseAll.js");
-/* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MoneyWavy.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/BowlFood.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/HeartHalf.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MicrophoneStage.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/StarOfDavid.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Car.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
-
+/* harmony import */ var _BrowseAll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./BrowseAll */ "./src/scripts/BrowseAll.js");
+/* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MoneyWavy.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/BowlFood.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/HeartHalf.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MicrophoneStage.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/StarOfDavid.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Car.es.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -22436,129 +22434,128 @@ __webpack_require__.r(__webpack_exports__);
 function CostOfLiving({
   sections
 }) {
-  console.log(sections);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "hidden md:block bg-schemesPrimaryFixed",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "max-w-[1600px] mx-auto",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: "flex p-4 md:p-8 lg:px-16 lg:pt-16 items-end justify-between",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "flex flex-col gap-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
               className: "lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3",
               children: "Cost of Living Resources"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
               className: "text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl",
               children: "Access financial resources, interest-free loans, utility support, and community programs to help manage daily expenses."
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "p-4 md:pb-8 lg:px-16",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
             className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4",
             children: "Quick Links"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "mt-6",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
               className: "mt-6",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                 className: "flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory md:grid md:grid-cols-6 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_6__.Card, {
-                    href: "/message-board",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
+                    href: "/cost_of_living/category/finance-101",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "bg-[#6ED4BE] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.MoneyWavyIcon, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MoneyWavyIcon, {
                           size: 22
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
                         children: "Financial Health"
                       })]
                     })
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_6__.Card, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
                     href: "/stories-and-interviews",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "bg-[#A3B4FF] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.BowlFoodIcon, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.BowlFoodIcon, {
                           size: 22
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
                         children: "Food Support"
                       })]
                     })
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_6__.Card, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
                     href: "/events",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "bg-[#FF9388] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.HeartHalfIcon, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.HeartHalfIcon, {
                           size: 22
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
                         children: "Education & Learning"
                       })]
                     })
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_6__.Card, {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "bg-[#F7D471] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.MicrophoneStageIcon, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.MicrophoneStageIcon, {
                           size: 22
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
                         children: "Housing & Utility"
                       })]
                     })
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_6__.Card, {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "bg-[#7FD0FF] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.StarOfDavidIcon, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.StarOfDavidIcon, {
                           size: 22
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
                         children: "Grants & Awards"
                       })]
                     })
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_6__.Card, {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "bg-[#C7A9EA] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.CarIcon, {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.CarIcon, {
                           size: 22
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
                         children: "Transport"
                       })]
@@ -22570,9 +22567,9 @@ function CostOfLiving({
           })]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "max-w-[1600px] mx-auto",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_BrowseAll__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_BrowseAll__WEBPACK_IMPORTED_MODULE_4__["default"], {
         title: "Browse all cost of living",
         endpoint: "/wp-json/tsb/v1/browse",
         baseQuery: {
@@ -22588,27 +22585,27 @@ function CostOfLiving({
           }
         }],
         className: "p-6 md:p-8 lg:p-16"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "py-16 px-4 sm:px-8 lg:px-16",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_3__.NewsletterBanner, {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_3__.NewsletterBanner, {})
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "bg-schemesPrimaryFixed flex flex-col gap-4",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "max-w-[1600px] mx-auto py-16 px-4 sm:px-8 lg:px-16",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "flex gap-2 md:gap-4 items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized italic py-6",
             children: "Explore more by"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
             label: "Theme",
             backgroundColor: "schemesPrimaryContainer"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: "Blueprint-title-small md:Blueprint-title-medium lg:Blueprint-title-large mb-12 text-schemesOnSurface",
           children: "From support services to creative culture, start where you're curious."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_1__.ExploreByTheme, {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_1__.ExploreByTheme, {})]
       })
     })]
   });
@@ -24399,7 +24396,7 @@ function FilterGroup({
       }), hasChildren && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "relative mt-2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "absolute left-3 -top-1 bottom-0 border-l border-schemesOutlineVariant"
+          className: "absolute left-3 -top-0 bottom-0 border-l border-schemesOutlineVariant"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "pl-6 py-3 space-y-4",
           children: node.children.map((child, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
@@ -24494,7 +24491,7 @@ function Footer({
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "grid gap-4 lg:gap-12 md:grid-cols-[minmax(0,3fr)_repeat(3,minmax(0,1fr))]",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "flex flex-col items-start gap-6 ",
+          className: "flex flex-col items-start gap-6 max-w-lg",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
             src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
             alt: "The Social Blueprint",
@@ -24505,13 +24502,49 @@ function Footer({
           })]
         }), [{
           heading: 'Explore',
-          links: ['What’s on', 'Directory', 'Stories', 'Get involved']
+          links: [{
+            title: 'What’s on',
+            href: '/events'
+          }, {
+            title: 'Blueprint Stories',
+            href: '/stories-and-interview'
+          }, {
+            title: 'By Topic',
+            href: '/topics'
+          }, {
+            title: 'By Audience',
+            href: '/audience_tag'
+          }]
+        }, {
+          heading: 'Engage',
+          links: [{
+            title: 'Message Board',
+            href: '/message-boards'
+          }, {
+            title: 'Cost of Living',
+            href: '/cost-of-living'
+          }, {
+            title: 'Directory',
+            href: '/directory'
+          }, {
+            title: 'Post a notice',
+            href: '/post-a-notice'
+          }]
         }, {
           heading: 'About',
-          links: ['About us', 'Our Mission', 'Contact us', 'FAQs']
-        }, {
-          heading: 'Community',
-          links: ['Post a notice', 'Join a group', 'Message board']
+          links: [{
+            title: 'Our mission',
+            href: '/about-us'
+          }, {
+            title: 'Contact us',
+            href: '/contact-us'
+          }, {
+            title: 'FAQs',
+            href: '/faqs'
+          }, {
+            title: 'Terms of Use',
+            href: '/terms-of-use'
+          }]
         }].map(({
           heading,
           links
@@ -24524,37 +24557,16 @@ function Footer({
             className: "hidden lg:flex flex-col gap-2",
             children: links.map(txt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-                href: "#",
+                href: txt.href,
                 className: "Blueprint-body-medium hover:underline focus-visible:underline",
-                children: txt
+                children: txt.title
               })
-            }, txt))
+            }, txt.title))
           })]
         }, heading))]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "flex flex-col gap-8 md:gap-12",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "flex flex-col md:flex-row md:items-center md:justify-between gap-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            className: "Blueprint-body-small",
-            children: "The Social Blueprint Inc. ABN 71 688 744 769. All Rights Reserved."
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("ul", {
-            className: "flex gap-6",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-                href: "#",
-                className: "Blueprint-body-small hover:underline focus-visible:underline",
-                children: "Privacy policy"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-                href: "#",
-                className: "Blueprint-body-small hover:underline focus-visible:underline",
-                children: "Terms of use"
-              })
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "flex flex-col items-start lg:flex-row lg:items-center gap-4",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "flex gap-2",
@@ -24571,7 +24583,13 @@ function Footer({
             className: "Blueprint-body-small",
             children: "We'd like to acknowledge the Traditional Custodians of the land we live and work on. We're grateful for their care of Country and pay our respects to Elders past and present. We recognise and honour their ongoing connection to land, water, and community."
           })]
-        })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "flex flex-col md:flex-row md:items-center md:justify-center gap-6",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "Blueprint-body-small",
+          children: "The Social Blueprint Inc. ABN 71 688 744 769. All Rights Reserved."
+        })
       })]
     })
   });
@@ -24700,31 +24718,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ContentCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContentCard */ "./src/scripts/ContentCard.js");
 /* harmony import */ var _FilterGroup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FilterGroup */ "./src/scripts/FilterGroup.js");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _getBadge__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getBadge */ "./src/scripts/getBadge.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
 
 
 
 
 
 /**
- * GenericArchivePage
+ * GenericArchivePage (GD-agnostic)
  *
  * Props:
- * - postType: string (e.g. 'article' or 'tribe_events' or 'gd_aid_listing')
- * - taxonomy: string (if this is a taxonomy archive)
- * - filters: array of { taxonomy: 'topic_tag', label: 'Topic' } // optional; used for non-GD
- * - endpoint: string (e.g. '/wp-json/tsb/v1/browse')
- * - baseQuery: object (initial POST payload to API)
+ * - postType: string | string[]
+ * - taxonomy: string
+ * - currentTerm: { id:number, slug:string, taxonomy:string } | null
+ * - filters: array of { taxonomy: string, label: string }
+ * - endpoint: string
+ * - baseQuery: object
  * - title: string
- * - subtitle: string
+ * - subtitle?: string
+ * - disableGDAutoFilters?: boolean  // ignored in this GD-agnostic version
  */
 
 function GenericArchivePage(props) {
   const {
     postType,
     taxonomy,
-    // not used directly here
+    currentTerm,
     filters = [],
     endpoint,
     baseQuery = {},
@@ -24732,55 +24756,41 @@ function GenericArchivePage(props) {
     subtitle
   } = props;
 
-  // UI state
+  // Detect single vs multi CPT (display only; no GeoDirectory branching here)
+  const postTypes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(postType) ? postType : [postType], [postType]);
+
+  // ---------------- UI state ----------------
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
-  const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy_key: [term_id,...] }
+
+  // Seed selectedTerms ONCE from the archive context to avoid a second fetch later
+  const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
+    if (taxonomy && currentTerm?.id) {
+      return {
+        [taxonomy]: [String(currentTerm.id)]
+      };
+    }
+    return {};
+  });
   const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [totalPages, setTotalPages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
   const [total, setTotal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
-
-  // Fetched options for each filter group (what we render)
-  // For hierarchical groups we store a TREE (roots with children[]).
-  // For flat groups we store a flat array (no children).
-  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy_key: TreeNode[] | Flat[] }
-
-  // For hierarchical taxonomies: descendants lookup so we can expand parents in queries
-  // { taxonomy_key: { termId: [descendantIds...] } }
-  const [descendantsMap, setDescendantsMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
-
-  // Map of rest_base (or taxonomy name) -> taxonomy name used by WP_Query
-  const [taxNameMap, setTaxNameMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
-
-  // retry tick to force refetch on demand
+  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  const isGD = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => typeof postType === "string" && postType.startsWith("gd_"), [postType]);
 
-  // e.g. gd_aid_listing -> aid_listing
-  const gdBase = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => isGD ? postType.replace(/^gd_/, "") : "", [isGD, postType]);
+  // Filter options stores
+  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy: Tree[] | Flat[] }
+  const [descendantsMap, setDescendantsMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy: { id: [descIds...] } }
+  const [taxRestBaseMap, setTaxRestBaseMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomyName: rest_base }
 
-  // Which filters to render: for GD we auto-provide Categories/Tags via GeoDirectory
-  const effectiveFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    if (isGD) {
-      return [{
-        taxonomy: `${gdBase}/categories`,
-        label: "Categories",
-        _source: "geodir",
-        _segment: "categories",
-        _hierarchical: true
-      }, {
-        taxonomy: `${gdBase}/tags`,
-        label: "Tags",
-        _source: "geodir",
-        _segment: "tags",
-        _hierarchical: false
-      }];
-    }
-    return filters || [];
-  }, [isGD, gdBase, filters]);
+  // Hide the filter group for the taxonomy page we’re already on
+  const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!taxonomy) return filters;
+    return (filters || []).filter(f => f.taxonomy !== taxonomy);
+  }, [filters, taxonomy]);
 
-  // Load WP taxonomies once to translate rest_base -> real taxonomy name for WP_Query
+  // ---------------- Load WP taxonomies (for rest_base) ----------------
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
     (async () => {
@@ -24791,26 +24801,23 @@ function GenericArchivePage(props) {
           }
         });
         if (!res.ok) throw new Error(`taxonomies HTTP ${res.status}`);
-        const json = await res.json(); // object keyed by taxonomy name
+        const json = await res.json();
         if (cancelled) return;
-        const map = {};
+        const restMap = {};
         Object.entries(json || {}).forEach(([taxonomyName, obj]) => {
-          map[taxonomyName] = taxonomyName; // direct name lookup
-          if (obj?.rest_base) map[obj.rest_base] = taxonomyName; // rest_base lookup
+          restMap[taxonomyName] = obj?.rest_base || taxonomyName;
         });
-        setTaxNameMap(map);
+        setTaxRestBaseMap(restMap);
       } catch {
-        setTaxNameMap({}); // fall back to sending keys as-is
+        setTaxRestBaseMap({});
       }
     })();
     return () => {
       cancelled = true;
     };
   }, []);
-  const resolveTaxonomyName = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(key => taxNameMap[key] || key, [taxNameMap]);
 
-  // --------- helpers to build TREE + descendants ----------
-  // rows: [{id, name, slug, parent}]
+  // ---------------- Tree helpers ----------------
   const buildTreeAndDescendants = rows => {
     const byId = {};
     rows.forEach(r => {
@@ -24825,25 +24832,19 @@ function GenericArchivePage(props) {
     const roots = [];
     rows.forEach(r => {
       const id = String(r.id);
-      const parent = String(r.parent || "0");
-      if (parent !== "0" && byId[parent]) {
-        byId[parent].children.push(byId[id]);
-      } else {
-        roots.push(byId[id]);
-      }
+      const p = String(r.parent || "0");
+      if (p !== "0" && byId[p]) byId[p].children.push(byId[id]);else roots.push(byId[id]);
     });
-    const descendants = {}; // id -> [descendantIds]
-    const collect = node => {
+    const descendants = {};
+    const collect = n => {
       let acc = [];
-      node.children.forEach(c => {
+      n.children.forEach(c => {
         acc.push(String(c.id), ...collect(c));
       });
-      descendants[String(node.id)] = acc;
+      descendants[String(n.id)] = acc;
       return acc;
     };
-    roots.forEach(n => collect(n));
-
-    // sort alphabetically at each level for stable UI
+    roots.forEach(collect);
     const sortTree = nodes => {
       nodes.sort((a, b) => a.name.localeCompare(b.name));
       nodes.forEach(n => sortTree(n.children));
@@ -24854,95 +24855,83 @@ function GenericArchivePage(props) {
       descendants
     };
   };
+  const findInTreeById = (nodes, targetId) => {
+    for (const n of nodes) {
+      if (String(n.id) === String(targetId)) return n;
+      const hit = findInTreeById(n.children || [], targetId);
+      if (hit) return hit;
+    }
+    return null;
+  };
 
-  // --------- Fetch term options for each filter group ----------
+  // ---------------- Load term options for each filter taxonomy ----------------
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!displayedFilters.length) {
+      setTermsOptions({});
+      setDescendantsMap({});
+      return;
+    }
     let cancelled = false;
-
-    // Try kebab first, then underscore fallback
-    const fetchGDTerms = async segment => {
-      const baseUnderscore = gdBase; // e.g. "aid_listing"
-      const baseKebab = gdBase.replace(/_/g, "-"); // e.g. "aid-listing"
-      const candidates = [`/wp-json/geodir/v2/${baseKebab}/${segment}?per_page=100`, `/wp-json/geodir/v2/${baseUnderscore}/${segment}?per_page=100`];
-      for (const url of candidates) {
-        const res = await fetch(url, {
+    const fetchTerms = async taxName => {
+      // Try WP REST if available
+      const restBase = taxRestBaseMap[taxName] || taxName;
+      let wp;
+      try {
+        wp = await fetch(`/wp-json/wp/v2/${restBase}?per_page=100`, {
           headers: {
             Accept: "application/json"
           }
         });
-        if (res.ok) return res.json();
+      } catch {
+        wp = null;
       }
-      throw new Error(`No GD endpoint found for ${segment}`);
+      if (wp && wp.ok) {
+        try {
+          return await wp.json();
+        } catch {}
+      }
+      // Fallback: custom endpoint that works even if !show_in_rest
+      const tsb = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(taxName)}&per_page=100`, {
+        headers: {
+          Accept: "application/json"
+        }
+      });
+      if (!tsb.ok) throw new Error(`Terms fetch failed for ${taxName} (HTTP ${tsb.status})`);
+      return tsb.json();
     };
     (async () => {
       const nextOptions = {};
       const nextDesc = {};
-      for (const f of effectiveFilters) {
+      for (const f of displayedFilters) {
         try {
-          if (isGD && f._source === "geodir") {
-            const segment = f._segment === "tags" ? "tags" : "categories";
-            const json = await fetchGDTerms(segment);
-
-            // expect objects with id, name, slug, parent
-            const rows = (Array.isArray(json) ? json : []).map(t => ({
+          const json = await fetchTerms(f.taxonomy);
+          const rows = (Array.isArray(json) ? json : []).map(t => {
+            var _t$parent;
+            return {
               id: String(t.id),
               name: t.name,
               slug: t.slug,
-              parent: String(t.parent || "0")
-            }));
-            if (f._hierarchical) {
-              const {
-                tree,
-                descendants
-              } = buildTreeAndDescendants(rows);
-              nextOptions[f.taxonomy] = tree; // TREE for FilterGroup
-              nextDesc[f.taxonomy] = descendants; // expansion for querying
-            } else {
-              nextOptions[f.taxonomy] = rows.map(({
-                id,
-                name,
-                slug
-              }) => ({
-                id,
-                name,
-                slug
-              }));
-            }
+              parent: String(((_t$parent = t.parent) !== null && _t$parent !== void 0 ? _t$parent : 0) || "0")
+            };
+          });
+          const isHier = rows.some(r => r.parent !== "0");
+          if (isHier) {
+            const {
+              tree,
+              descendants
+            } = buildTreeAndDescendants(rows);
+            nextOptions[f.taxonomy] = tree;
+            nextDesc[f.taxonomy] = descendants;
           } else {
-            const res = await fetch(`/wp-json/wp/v2/${f.taxonomy}?per_page=100`, {
-              headers: {
-                Accept: "application/json"
-              }
-            });
-            if (!res.ok) throw new Error(`WP tax ${f.taxonomy} HTTP ${res.status}`);
-            const json = await res.json();
-            const rows = (Array.isArray(json) ? json : []).map(t => ({
-              id: String(t.id),
-              name: t.name,
-              slug: t.slug,
-              parent: String(t.parent || "0")
+            nextOptions[f.taxonomy] = rows.map(({
+              id,
+              name,
+              slug
+            }) => ({
+              id,
+              name,
+              slug
             }));
-
-            // If WP taxonomy is hierarchical, build a TREE; else flat.
-            const isHier = rows.some(r => r.parent !== "0");
-            if (isHier) {
-              const {
-                tree,
-                descendants
-              } = buildTreeAndDescendants(rows);
-              nextOptions[f.taxonomy] = tree; // TREE
-              nextDesc[f.taxonomy] = descendants; // for expansion
-            } else {
-              nextOptions[f.taxonomy] = rows.map(({
-                id,
-                name,
-                slug
-              }) => ({
-                id,
-                name,
-                slug
-              }));
-            }
           }
         } catch {
           nextOptions[f.taxonomy] = [];
@@ -24956,23 +24945,50 @@ function GenericArchivePage(props) {
     return () => {
       cancelled = true;
     };
-  }, [effectiveFilters, isGD, gdBase]);
+  }, [displayedFilters, taxRestBaseMap]);
 
-  // Expand selected IDs with descendants if taxonomy is hierarchical (for queries)
+  // ---------------- Scope the visible branch for taxonomy archives (UI-only) ----------------
+  const didScopeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (didScopeRef.current) return;
+    if (!taxonomy || !currentTerm?.id) return;
+    const opts = termsOptions[taxonomy];
+    if (!opts || !opts.length) return;
+
+    // Only reduce the *options shown*; do not change selectedTerms (already seeded)
+    const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
+    if (isTree) {
+      const node = findInTreeById(opts, String(currentTerm.id));
+      if (node) {
+        setTermsOptions(prev => ({
+          ...prev,
+          [taxonomy]: [node]
+        }));
+        didScopeRef.current = true;
+      }
+    } else {
+      setTermsOptions(prev => ({
+        ...prev,
+        [taxonomy]: (prev[taxonomy] || []).filter(o => String(o.id) === String(currentTerm.id))
+      }));
+      didScopeRef.current = true;
+    }
+  }, [termsOptions, taxonomy, currentTerm]);
+
+  // ---------------- Expand with descendants ----------------
   const expandWithDescendants = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((taxKey, ids) => {
     const desc = descendantsMap[taxKey];
-    if (!desc) return ids; // not hierarchical or no data
+    if (!desc) return ids;
     const out = new Set();
     ids.forEach(id => {
       const s = String(id);
       out.add(s);
-      const kids = desc[s] || [];
-      kids.forEach(kid => out.add(String(kid)));
+      (desc[s] || []).forEach(kid => out.add(String(kid)));
     });
     return Array.from(out);
   }, [descendantsMap]);
 
-  // --------- Fetch items whenever page or selected terms change ----------
+  // ---------------- Fetch items (no dependency on taxonomy metadata funcs) ----------------
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
     (async () => {
@@ -24984,27 +25000,29 @@ function GenericArchivePage(props) {
           page
         };
 
-        // Start with any tax filters already provided in baseQuery
+        // Base tax (from server-provided baseQuery)
         const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // Add UI-selected filters (translate to real taxonomy names; expand parents)
+        // UI-selected tax filters
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
             const expanded = expandWithDescendants(taxKey, termIds);
             uiTax.push({
-              taxonomy: resolveTaxonomyName(taxKey),
-              // e.g. "gd_aid_listing_category" or pass-through key your API maps
+              taxonomy: taxKey,
+              // already a taxonomy name from `filters`
               field: "term_id",
               terms: expanded.map(id => parseInt(id, 10)).filter(n => Number.isFinite(n)),
               operator: "IN",
-              include_children: true // hint; safe to include
+              include_children: true
             });
           }
         }
         const finalTax = [...baseTax, ...uiTax];
-        if (finalTax.length) payload.tax = finalTax;
-        if (baseQuery.tax_relation) payload.tax_relation = baseQuery.tax_relation;
+        if (finalTax.length) {
+          payload.tax = finalTax;
+          if (baseQuery.tax_relation) payload.tax_relation = baseQuery.tax_relation;
+        }
         const res = await fetch(endpoint, {
           method: "POST",
           headers: {
@@ -25025,74 +25043,132 @@ function GenericArchivePage(props) {
         if (!cancelled) setLoading(false);
       }
     })();
-    return () => {
-      cancelled = true;
-    };
-  }, [baseQuery, endpoint, page, selectedTerms, resolveTaxonomyName, expandWithDescendants, retryTick]);
 
-  // ---- Derived UI helpers ----
+    // NOTE: intentionally NOT depending on taxRestBaseMap or any function
+    // tied to taxonomy metadata to avoid refetch flicker.
+  }, [baseQuery, endpoint, page, selectedTerms, expandWithDescendants, retryTick]);
+
+  // ---------------- Client-side search over returned items ----------------
+  const searchIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const idx = new Map();
+    const collect = (val, bag) => {
+      if (!val) return;
+      if (Array.isArray(val)) val.forEach(v => collect(v, bag));else if (typeof val === "object") {
+        if (typeof val.name === "string") bag.push(val.name);
+        if (typeof val.slug === "string") bag.push(val.slug.replace(/-/g, " "));
+        Object.values(val).forEach(v => collect(v, bag));
+      } else if (typeof val === "string") bag.push(val);
+    };
+    (items || []).forEach(item => {
+      const bag = [];
+      collect(item.title, bag);
+      collect(item.subtitle, bag);
+      collect(item.excerpt, bag);
+      collect(item.categories, bag);
+      collect(item.tags, bag);
+      collect(item.terms, bag);
+      collect(item.taxonomies, bag);
+      idx.set(item.id, bag.join(" ").toLowerCase());
+    });
+    return idx;
+  }, [items]);
+  const filteredItems = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return items;
+    const words = q.split(/\s+/).filter(Boolean);
+    return items.filter(it => {
+      const hay = searchIndex.get(it.id) || "";
+      return words.every(w => hay.includes(w));
+    });
+  }, [items, searchQuery, searchIndex]);
+  const searching = searchQuery.trim().length > 0;
   const hasActiveFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.values(selectedTerms).some(arr => (arr || []).length > 0), [selectedTerms]);
   const clearAllFilters = () => {
     setSelectedTerms({});
     setPage(1);
   };
 
-  // ---- Skeletons ----
+  // ---------------- Skeletons ----------------
   const skeletonCards = Array.from({
     length: 8
-  }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "w-full aspect-[1.6] bg-[var(--schemesSurfaceContainerHighest)] animate-pulse"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "p-4 space-y-2",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "h-4 w-3/4 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "h-3 w-1/2 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "h-3 w-2/3 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
       })]
     })]
   }, `sk-${i}`));
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "archive-container bg-schemesSurface",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "bg-schemesPrimaryFixed py-8",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "tsb-container",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
           className: "Blueprint-headline-large text-schemesOnSurface mb-1",
           children: title
-        }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "Blueprint-body-medium text-schemesOnPrimaryFixedVariant",
           children: subtitle
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "tsb-container flex flex-col lg:flex-row py-8 gap-8",
-      children: [effectiveFilters.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("aside", {
+      children: [displayedFilters.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("aside", {
         className: "hidden lg:block lg:w-64 xl:w-72",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "mb-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+            htmlFor: "archive-search",
+            className: "sr-only",
+            children: "Search by keyword"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "flex items-center gap-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "bg-schemesSurfaceContainer flex-1 flex items-center gap-2 rounded-full px-4 py-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                id: "archive-search",
+                type: "search",
+                value: searchQuery,
+                onChange: e => setSearchQuery(e.target.value),
+                placeholder: "Search by keyword",
+                className: "w-full outline-none Blueprint-body-medium text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant"
+              }), !searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.MagnifyingGlassIcon, {
+                size: 20,
+                className: "text-schemesOnSurfaceVariant",
+                weight: "bold"
+              })]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
           className: "Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant",
           children: "Filters"
-        }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "mb-4 flex gap-2",
+          children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            size: "sm",
+            variant: "tonal",
+            onClick: clearAllFilters,
+            label: "Clear filters"
+          }), searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            size: "sm",
+            variant: "tonal",
+            onClick: () => setSearchQuery(""),
+            label: "Clear search"
+          })]
+        }), displayedFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "mb-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "mt-3",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-              size: "sm",
-              variant: "tonal",
-              onClick: clearAllFilters,
-              label: "Clear filters"
-            })
-          })
-        }), effectiveFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "mb-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
             title: f.label || f.taxonomy,
-            options: termsOptions[f.taxonomy] || [] // TREE for hierarchical; flat for non-hier
-            ,
+            options: termsOptions[f.taxonomy] || [],
             selected: selectedTerms[f.taxonomy] || [],
             onChangeHandler: e => {
               const id = String(e.target.value);
@@ -25109,87 +25185,99 @@ function GenericArchivePage(props) {
             }
           })
         }, f.taxonomy))]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("section", {
         className: "flex-1",
-        children: [error && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [error && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]",
             children: "Something went wrong"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-4",
             children: error
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "flex gap-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
               variant: "filled",
               label: "Try again",
               onClick: () => setRetryTick(n => n + 1)
-            }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
               variant: "tonal",
               label: "Clear filters",
               onClick: clearAllFilters
             })]
           })]
-        }), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8",
           "aria-hidden": "true",
           children: skeletonCards
-        }), !loading && !error && items.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), !loading && !error && filteredItems.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "Blueprint-headline-small mb-2",
             children: "No results found"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-6",
-            children: "Try adjusting or clearing your filters to see more results."
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            children: searching ? "Try a different keyword or clear search." : "Try adjusting or clearing your filters to see more results."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "flex justify-center gap-3",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            children: [searching ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              variant: "filled",
+              label: "Clear search",
+              onClick: () => setSearchQuery("")
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
               variant: "filled",
               label: "Clear all filters",
               onClick: clearAllFilters
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
               variant: "tonal",
               label: "Reload",
               onClick: () => setRetryTick(n => n + 1)
             })]
           })]
-        }), !loading && !error && items.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), !loading && !error && filteredItems.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "flex items-center justify-between mb-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
               className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-[var(--schemesOnSurfaceVariant)]",
               "aria-live": "polite",
-              children: typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null
-            }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-              size: "sm",
-              variant: "tonal",
-              label: "Clear filters",
-              onClick: clearAllFilters
+              children: searching ? `${filteredItems.length} match${filteredItems.length === 1 ? "" : "es"} on this page` : typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null
+            }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "flex gap-2",
+              children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                size: "sm",
+                variant: "tonal",
+                label: "Clear filters",
+                onClick: clearAllFilters
+              }), searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                size: "sm",
+                variant: "tonal",
+                label: "Clear search",
+                onClick: () => setSearchQuery("")
+              })]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8",
-            children: items.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
+            children: filteredItems.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
               image: item.thumbnail,
               title: item.title,
               subtitle: item.date,
-              badge: item.post_type === "tribe_events" ? "Event" : null,
+              badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_4__.getBadge)(item.post_type),
               href: item.permalink
             }, item.id))
           })]
-        }), !loading && !error && totalPages > 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), !loading && !error && totalPages > 1 && !searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "flex justify-center items-center gap-3 mt-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
             size: "base",
             variant: "tonal",
             disabled: page <= 1,
             onClick: () => setPage(p => Math.max(1, p - 1)),
             label: "Prev"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
             className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
             children: [page, " / ", totalPages]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
             size: "base",
             variant: "tonal",
             disabled: page >= totalPages,
@@ -25532,7 +25620,7 @@ function Header({
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
             id: "message-board",
             label: t("message_board"),
-            href: "/message-board"
+            href: "/message-boards"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "flex gap-4",
@@ -26114,6 +26202,641 @@ function LoginForm() {
 
 /***/ }),
 
+/***/ "./src/scripts/MessageBoardArchivePage.js":
+/*!************************************************!*\
+  !*** ./src/scripts/MessageBoardArchivePage.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MessageBoardArchivePage)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _FilterGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterGroup */ "./src/scripts/FilterGroup.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+/**
+ * MessageBoardArchivePage (gd_discount)
+ * - List style results with full category chip set per row.
+ * - Uses WP terms (with /tsb/v1/terms fallback) for filters.
+ * - Client-side keyword search over returned items.
+ */
+
+function MessageBoardArchivePage(props) {
+  const {
+    postType,
+    taxonomy,
+    currentTerm,
+    filters = [],
+    endpoint,
+    baseQuery = {},
+    title,
+    subtitle
+  } = props;
+  const CPT = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (Array.isArray(postType) ? postType[0] : postType) || "gd_discount", [postType]);
+
+  // ---------------- State ----------------
+  const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
+
+  // Seed from archive context ONCE to avoid post-mount preselect flicker
+  const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
+    if (taxonomy && currentTerm?.id) return {
+      [taxonomy]: [String(currentTerm.id)]
+    };
+    return {};
+  });
+  const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [totalPages, setTotalPages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
+  const [total, setTotal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+
+  // Filters / terms
+  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomyName -> Tree[] | Flat[]
+  const [descendantsMap, setDescendantsMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomyName -> { termId: [descIds...] }
+  const [taxRestBaseMap, setTaxRestBaseMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomyName -> rest_base
+  const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+
+  // Hide the filter group for the taxonomy the page is already scoped to (taxonomy archive)
+  const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!taxonomy) return filters;
+    return (filters || []).filter(f => f.taxonomy !== taxonomy);
+  }, [filters, taxonomy]);
+
+  // ---------------- Discover rest_base for WP terms ----------------
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/wp-json/wp/v2/taxonomies", {
+          headers: {
+            Accept: "application/json"
+          }
+        });
+        if (!res.ok) throw new Error(`taxonomies HTTP ${res.status}`);
+        const json = await res.json();
+        if (cancelled) return;
+        const restMap = {};
+        Object.entries(json || {}).forEach(([taxonomyName, obj]) => {
+          restMap[taxonomyName] = obj?.rest_base || taxonomyName;
+        });
+        setTaxRestBaseMap(restMap);
+      } catch {
+        setTaxRestBaseMap({});
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // ---------------- Helpers: build tree for hierarchical terms ----------------
+  const buildTreeAndDescendants = rows => {
+    const byId = {};
+    rows.forEach(r => {
+      const id = String(r.id);
+      byId[id] = {
+        id,
+        name: r.name,
+        slug: r.slug,
+        children: []
+      };
+    });
+    const roots = [];
+    rows.forEach(r => {
+      const id = String(r.id);
+      const p = String(r.parent || "0");
+      if (p !== "0" && byId[p]) byId[p].children.push(byId[id]);else roots.push(byId[id]);
+    });
+    const descendants = {};
+    const collect = n => {
+      let acc = [];
+      n.children.forEach(c => {
+        acc.push(String(c.id), ...collect(c));
+      });
+      descendants[String(n.id)] = acc;
+      return acc;
+    };
+    roots.forEach(collect);
+    const sortTree = nodes => {
+      nodes.sort((a, b) => a.name.localeCompare(b.name));
+      nodes.forEach(n => sortTree(n.children));
+    };
+    sortTree(roots);
+    return {
+      tree: roots,
+      descendants
+    };
+  };
+
+  // ---------------- Load term options for each filter taxonomy ----------------
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!displayedFilters.length) {
+      setTermsOptions({});
+      setDescendantsMap({});
+      return;
+    }
+    let cancelled = false;
+    const fetchTerms = async taxName => {
+      const restBase = taxRestBaseMap[taxName];
+      if (restBase) {
+        const wp = await fetch(`/wp-json/wp/v2/${restBase}?per_page=100`, {
+          headers: {
+            Accept: "application/json"
+          }
+        });
+        if (wp.ok) {
+          try {
+            return await wp.json();
+          } catch (_) {}
+        }
+      }
+      // Fallback: custom endpoint that works even if !show_in_rest
+      const tsb = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(taxName)}&per_page=100`, {
+        headers: {
+          Accept: "application/json"
+        }
+      });
+      if (!tsb.ok) throw new Error(`Terms fetch failed for ${taxName} (HTTP ${tsb.status})`);
+      return tsb.json();
+    };
+    (async () => {
+      const nextOptions = {};
+      const nextDesc = {};
+      for (const f of displayedFilters) {
+        try {
+          const json = await fetchTerms(f.taxonomy);
+          const rows = (Array.isArray(json) ? json : []).map(t => {
+            var _t$parent;
+            return {
+              id: String(t.id),
+              name: t.name,
+              slug: t.slug,
+              parent: String(((_t$parent = t.parent) !== null && _t$parent !== void 0 ? _t$parent : 0) || "0")
+            };
+          });
+          const isHier = rows.some(r => r.parent !== "0");
+          if (isHier) {
+            const {
+              tree,
+              descendants
+            } = buildTreeAndDescendants(rows);
+            nextOptions[f.taxonomy] = tree;
+            nextDesc[f.taxonomy] = descendants;
+          } else {
+            nextOptions[f.taxonomy] = rows.map(({
+              id,
+              name,
+              slug
+            }) => ({
+              id,
+              name,
+              slug
+            }));
+          }
+        } catch {
+          nextOptions[f.taxonomy] = [];
+        }
+      }
+      if (!cancelled) {
+        setTermsOptions(nextOptions);
+        setDescendantsMap(nextDesc);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [displayedFilters, taxRestBaseMap]);
+
+  // ---------------- Scope filter UI for taxonomy archives (UI-only, no refetch) ----------------
+  const didScopeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (didScopeRef.current) return;
+    if (!taxonomy || !currentTerm?.id) return;
+    const opts = termsOptions[taxonomy];
+    if (!opts || !opts.length) return;
+    const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
+    if (isTree) {
+      // show only the current term branch
+      const stack = [...opts];
+      let node = null;
+      while (stack.length) {
+        const n = stack.pop();
+        if (String(n.id) === String(currentTerm.id)) {
+          node = n;
+          break;
+        }
+        (n.children || []).forEach(c => stack.push(c));
+      }
+      if (node) {
+        setTermsOptions(prev => ({
+          ...prev,
+          [taxonomy]: [node]
+        }));
+        didScopeRef.current = true;
+      }
+    } else {
+      setTermsOptions(prev => ({
+        ...prev,
+        [taxonomy]: (prev[taxonomy] || []).filter(o => String(o.id) === String(currentTerm.id))
+      }));
+      didScopeRef.current = true;
+    }
+  }, [termsOptions, taxonomy, currentTerm]);
+
+  // ---------------- Fetch posts (no dependency on descendants/tax metadata) ----------------
+  const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    let cancelled = false;
+    const seq = ++fetchSeq.current;
+    (async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const payload = {
+          ...baseQuery,
+          page
+        };
+
+        // Base tax (from server-provided baseQuery)
+        const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
+
+        // UI-selected tax filters (no client-side descendant expansion; rely on include_children)
+        const uiTax = [];
+        for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
+          if (termIds && termIds.length) {
+            uiTax.push({
+              taxonomy: taxKey,
+              // taxonomy name
+              field: "term_id",
+              terms: termIds.map(id => parseInt(id, 10)).filter(Number.isFinite),
+              operator: "IN",
+              include_children: true // WP will include descendants
+            });
+          }
+        }
+        const finalTax = [...baseTax, ...uiTax];
+        if (finalTax.length) {
+          payload.tax = finalTax;
+          if (baseQuery.tax_relation) payload.tax_relation = baseQuery.tax_relation;
+        }
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        if (!cancelled && seq === fetchSeq.current) {
+          setItems(json.items || []);
+          setTotalPages(json.total_pages || 1);
+          setTotal(typeof json.total === "number" ? json.total : undefined);
+        }
+      } catch (err) {
+        if (!cancelled && seq === fetchSeq.current) {
+          setError(err.message || "Failed to load data");
+        }
+      } finally {
+        if (!cancelled && seq === fetchSeq.current) {
+          setLoading(false);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
+
+  // ---------------- Client-side search over returned items ----------------
+  const searchIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const idx = new Map();
+    const collect = (val, bag) => {
+      if (!val) return;
+      if (Array.isArray(val)) val.forEach(v => collect(v, bag));else if (typeof val === "object") {
+        if (typeof val.name === "string") bag.push(val.name);
+        if (typeof val.slug === "string") bag.push(val.slug.replace(/-/g, " "));
+        Object.values(val).forEach(v => collect(v, bag));
+      } else if (typeof val === "string") bag.push(val);
+    };
+    (items || []).forEach(item => {
+      const bag = [];
+      collect(item.title, bag);
+      collect(item.subtitle, bag);
+      collect(item.excerpt, bag);
+      collect(item.categories, bag);
+      collect(item.tags, bag);
+      collect(item.terms, bag);
+      collect(item.taxonomies, bag);
+      idx.set(item.id, bag.join(" ").toLowerCase());
+    });
+    return idx;
+  }, [items]);
+  const filteredItems = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return items;
+    const words = q.split(/\s+/).filter(Boolean);
+    return items.filter(it => {
+      const hay = searchIndex.get(it.id) || "";
+      return words.every(w => hay.includes(w));
+    });
+  }, [items, searchQuery, searchIndex]);
+  const searching = searchQuery.trim().length > 0;
+  const hasActiveFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.values(selectedTerms).some(arr => (arr || []).length > 0), [selectedTerms]);
+  const clearAllFilters = () => {
+    setSelectedTerms({});
+    setPage(1);
+  };
+
+  // ---------------- Helpers for row rendering ----------------
+  const stripTags = html => {
+    if (typeof html !== "string") return "";
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    return (tmp.textContent || tmp.innerText || "").trim();
+  };
+
+  // categories-only chip extraction
+  const extractCategoryLabels = item => {
+    const labels = [];
+    const seen = new Set();
+    const push = val => {
+      const name = typeof val === "string" ? val : val?.name || val?.title || "";
+      const text = (name || "").toString().trim();
+      if (!text) return;
+      const key = text.toLowerCase();
+      if (seen.has(key)) return;
+      seen.add(key);
+      labels.push(text);
+    };
+    if (Array.isArray(item?.categories)) item.categories.forEach(push);
+    if (item?.taxonomies && typeof item.taxonomies === "object") {
+      Object.entries(item.taxonomies).forEach(([tx, arr]) => {
+        if (!Array.isArray(arr)) return;
+        if (/_category$/.test(tx) || /categories?$/.test(tx) || /cat$/.test(tx)) {
+          arr.forEach(push);
+        }
+      });
+    }
+    Object.keys(item || {}).forEach(k => {
+      if (!/_category$/.test(k) && !/categories?$/.test(k) && !/cat$/.test(k)) return;
+      const v = item[k];
+      if (Array.isArray(v)) v.forEach(push);
+    });
+    return labels;
+  };
+  const LeadingIcon = ({
+    item
+  }) => {
+    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        className: "Blueprint-headline-medium text-[var(--schemesOnSecondaryContainer)]",
+        children: letter
+      })
+    });
+  };
+  const MessageRow = ({
+    item
+  }) => {
+    const href = item?.permalink || "#";
+    const categories = extractCategoryLabels(item);
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+      href: href,
+      className: "block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] hover:bg-[var(--schemesSurfaceContainerLowest)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex gap-4 p-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(LeadingIcon, {
+          item: item
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex-1",
+          children: [categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "flex flex-wrap gap-2 mb-2",
+            children: categories.map((label, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "px-3 py-2 rounded-lg bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small",
+              children: label
+            }, `${item.id}-cat-${idx}`))
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-title-small-emphasized text-[var(--schemesOnSurface)] mb-1",
+            children: item?.title
+          }), item?.excerpt && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]",
+            style: {
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden"
+            },
+            children: stripTags(item.excerpt)
+          })]
+        })]
+      })
+    });
+  };
+
+  // ---------------- Skeletons (list layout) ----------------
+  const skeletonRows = Array.from({
+    length: 8
+  }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden bg-[var(--schemesSurface)]",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "flex gap-4 p-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "w-16 h-16 rounded-xl bg-[var(--schemesSurfaceContainerHighest)] animate-pulse"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex-1 space-y-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-5 w-3/5 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-4 w-4/5 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-4 w-2/3 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+        })]
+      })]
+    })
+  }, `sk-${i}`));
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "archive-container bg-schemesSurface",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "bg-schemesPrimaryFixed py-8",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "tsb-container",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+          className: "Blueprint-headline-large text-schemesOnSurface mb-1",
+          children: title
+        }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "Blueprint-body-medium text-schemesOnPrimaryFixedVariant",
+          children: subtitle
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "tsb-container flex flex-col lg:flex-row py-8 gap-8",
+      children: [displayedFilters.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("aside", {
+        className: "hidden lg:block lg:w-64 xl:w-72",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "mb-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            htmlFor: "archive-search",
+            className: "sr-only",
+            children: "Search by keyword"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "flex items-center gap-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "bg-schemesSurfaceContainer flex-1 flex items-center gap-2 rounded-full px-4 py-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                id: "archive-search",
+                type: "search",
+                value: searchQuery,
+                onChange: e => setSearchQuery(e.target.value),
+                placeholder: "Search by keyword",
+                className: "w-full outline-none Blueprint-body-medium text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant"
+              }), !searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.MagnifyingGlassIcon, {
+                size: 20,
+                className: "text-schemesOnSurfaceVariant",
+                weight: "bold"
+              })]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+          className: "Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant",
+          children: "Filters"
+        }), (hasActiveFilters || searchQuery) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "mb-4 flex gap-2",
+          children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            size: "sm",
+            variant: "tonal",
+            onClick: clearAllFilters,
+            label: "Clear filters"
+          }), searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            size: "sm",
+            variant: "tonal",
+            onClick: () => setSearchQuery(""),
+            label: "Clear search"
+          })]
+        }), displayedFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "mb-4",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            title: f.label || f.taxonomy,
+            options: termsOptions[f.taxonomy] || [],
+            selected: selectedTerms[f.taxonomy] || [],
+            onChangeHandler: e => {
+              const id = String(e.target.value);
+              const checked = !!e.target.checked;
+              setSelectedTerms(prev => {
+                const current = prev[f.taxonomy] || [];
+                const next = checked ? [...current, id] : current.filter(x => x !== id);
+                return {
+                  ...prev,
+                  [f.taxonomy]: next
+                };
+              });
+              setPage(1);
+            }
+          })
+        }, f.taxonomy))]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
+        className: "flex-1",
+        children: [error && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]",
+            children: "Something went wrong"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-4",
+            children: error
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "flex gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+              variant: "filled",
+              label: "Try again",
+              onClick: () => setRetryTick(n => n + 1)
+            }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+              variant: "tonal",
+              label: "Clear filters",
+              onClick: clearAllFilters
+            })]
+          })]
+        }), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "space-y-4 mb-8",
+          "aria-hidden": "true",
+          children: skeletonRows
+        }), !loading && !error && filteredItems.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-headline-small mb-2",
+            children: "No results found"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-6",
+            children: searchQuery ? "Try a different keyword or clear search." : "Try adjusting or clearing your filters to see more results."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "flex justify-center gap-3",
+            children: [searchQuery ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+              variant: "filled",
+              label: "Clear search",
+              onClick: () => setSearchQuery("")
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+              variant: "filled",
+              label: "Clear all filters",
+              onClick: clearAllFilters
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+              variant: "tonal",
+              label: "Reload",
+              onClick: () => setRetryTick(n => n + 1)
+            })]
+          })]
+        }), !loading && !error && filteredItems.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "flex items-center justify-between mb-3",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-[var(--schemesOnSurfaceVariant)]",
+              "aria-live": "polite",
+              children: searchQuery ? `${filteredItems.length} match${filteredItems.length === 1 ? "" : "s"} on this page` : typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "space-y-4 mb-8",
+            children: filteredItems.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(MessageRow, {
+              item: item
+            }, item.id))
+          })]
+        }), !loading && !error && totalPages > 1 && !searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex justify-center items-center gap-3 mt-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            size: "base",
+            variant: "tonal",
+            disabled: page <= 1,
+            onClick: () => setPage(p => Math.max(1, p - 1)),
+            label: "Prev"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
+            children: [page, " / ", totalPages]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            size: "base",
+            variant: "tonal",
+            disabled: page >= totalPages,
+            onClick: () => setPage(p => Math.min(totalPages, p + 1)),
+            label: "Next"
+          })]
+        })]
+      })]
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./src/scripts/MessageBoardSlider.js":
 /*!*******************************************!*\
   !*** ./src/scripts/MessageBoardSlider.js ***!
@@ -26655,6 +27378,7 @@ function PodcastPage({
             }), tags?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "flex flex-wrap gap-2 pt-2",
               children: tags.map(tag => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_2__.Tag, {
+                href: tag,
                 tagName: tag
               }, tag))
             })]
@@ -28681,7 +29405,7 @@ const SupportAndServicesHub = ({
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_8__.Card, {
-                    href: "/message-board",
+                    href: "/aid_listing.health_listing/?topic_tag=mental-health",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -28708,7 +29432,7 @@ const SupportAndServicesHub = ({
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
-                        children: "Aid and Financial Support"
+                        children: "Aid and Support"
                       })]
                     })
                   })
@@ -28856,16 +29580,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _slugify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./slugify */ "./src/scripts/slugify.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 const Tag = ({
-  tagName
+  tagName,
+  href
 }) => {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+  return href ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+    href: `/${(0,_slugify__WEBPACK_IMPORTED_MODULE_1__.slugify)(href)}`,
+    className: "bg-schemesSurfaceContainer rounded-md flex items-center justify-center no-underline hover:underline",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "flex px-3 py-1.5 Blueprint-label-small text-schemesOnSurface",
+      children: tagName
+    })
+  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
     className: "bg-schemesSurfaceContainer rounded-md flex items-center justify-center",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "flex px-3 py-1.5 Blueprint-label-small text-schemesOnSurface",
       children: tagName
     })
@@ -29287,6 +30021,21 @@ const getBadge = type => {
 
 /***/ }),
 
+/***/ "./src/scripts/slugify.js":
+/*!********************************!*\
+  !*** ./src/scripts/slugify.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   slugify: () => (/* binding */ slugify)
+/* harmony export */ });
+const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+/***/ }),
+
 /***/ "./src/scripts/useBreakpoints.js":
 /*!***************************************!*\
   !*** ./src/scripts/useBreakpoints.js ***!
@@ -29482,8 +30231,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_DirectoryHub__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./scripts/DirectoryHub */ "./src/scripts/DirectoryHub.js");
 /* harmony import */ var _scripts_CostOfLiving__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./scripts/CostOfLiving */ "./src/scripts/CostOfLiving.js");
 /* harmony import */ var _scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./scripts/GenericArchivePage */ "./src/scripts/GenericArchivePage.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__);
+/* harmony import */ var _scripts_MessageBoardArchivePage__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./scripts/MessageBoardArchivePage */ "./src/scripts/MessageBoardArchivePage.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__);
+
 
 
 
@@ -29521,12 +30272,12 @@ __webpack_require__.r(__webpack_exports__);
 
 if (document.querySelector('#front-page')) {
   const root = react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(document.querySelector('#front-page'));
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_FrontPage__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
+  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_FrontPage__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
 }
 const header = document.getElementById('header');
 if (header) {
   const isUserLoggedIn = header.getAttribute('isUserLoggedIn') === 'true';
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(header).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(header).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
     isUserLoggedIn: isUserLoggedIn
   }));
 }
@@ -29538,7 +30289,7 @@ if (el1) {
   const dynamicProps = JSON.parse(el1.dataset.dynamicProps || '{}');
   const historicalPhotos = JSON.parse(el1.dataset.historicalPhotos || '[]');
   const sponsorshipBanner = JSON.parse(el1.dataset.sponsorshipBanner || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el1).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_SectionOne__WEBPACK_IMPORTED_MODULE_5__.SectionOne, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el1).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_SectionOne__WEBPACK_IMPORTED_MODULE_5__.SectionOne, {
     events: events,
     podcasts: podcasts,
     messageBoardPosts: messageBoardPosts,
@@ -29550,7 +30301,7 @@ if (el1) {
 const el2 = document.getElementById('sponsorship-banner');
 if (el2) {
   const data = JSON.parse(el2.dataset.banner);
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el2).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_Sponsorship__WEBPACK_IMPORTED_MODULE_6__.SponsorshipBanner, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el2).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_Sponsorship__WEBPACK_IMPORTED_MODULE_6__.SponsorshipBanner, {
     ...data
   }));
 }
@@ -29558,37 +30309,37 @@ const el3 = document.getElementById('single-event-page');
 if (el3) {
   const data = JSON.parse(el3.dataset.event);
   console.log("Hellooooo");
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el3).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_SingleEvent__WEBPACK_IMPORTED_MODULE_7__.SingleEventPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el3).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_SingleEvent__WEBPACK_IMPORTED_MODULE_7__.SingleEventPage, {
     ...data
   }));
 }
 const el4 = document.getElementById('register-individual');
 if (el4) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el4).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_RegisterIndividual__WEBPACK_IMPORTED_MODULE_8__.RegisterIndividual, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el4).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_RegisterIndividual__WEBPACK_IMPORTED_MODULE_8__.RegisterIndividual, {}));
 }
 const el5 = document.getElementById('footer');
 if (el5) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el5).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_Footer__WEBPACK_IMPORTED_MODULE_9__.Footer, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el5).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_Footer__WEBPACK_IMPORTED_MODULE_9__.Footer, {}));
 }
 const el6 = document.getElementById('login-form');
 if (el6) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el6).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_LoginForm__WEBPACK_IMPORTED_MODULE_10__.LoginForm, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el6).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_LoginForm__WEBPACK_IMPORTED_MODULE_10__.LoginForm, {}));
 }
 const el7 = document.getElementById('terms-and-conditions');
 if (el7) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el7).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_TermsAndConditions__WEBPACK_IMPORTED_MODULE_11__.TermsAndConditions, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el7).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_TermsAndConditions__WEBPACK_IMPORTED_MODULE_11__.TermsAndConditions, {}));
 }
 const el8 = document.getElementById('contact-us');
 if (el8) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el8).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_ContactUs__WEBPACK_IMPORTED_MODULE_12__.ContactForm, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el8).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_ContactUs__WEBPACK_IMPORTED_MODULE_12__.ContactForm, {}));
 }
 const el9 = document.getElementById('404');
 if (el9) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el9).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_Page404__WEBPACK_IMPORTED_MODULE_13__.Page404, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el9).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_Page404__WEBPACK_IMPORTED_MODULE_13__.Page404, {}));
 }
 const el10 = document.getElementById('register-organisation');
 if (el10) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el10).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_RegisterOrganisation__WEBPACK_IMPORTED_MODULE_14__.RegisterOrganisation, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el10).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_RegisterOrganisation__WEBPACK_IMPORTED_MODULE_14__.RegisterOrganisation, {}));
 }
 const el11 = document.getElementById('podcast-root');
 if (el11) {
@@ -29604,7 +30355,7 @@ if (el11) {
     taxonomies: JSON.parse(el11.dataset.taxonomies || '{}'),
     relatedContent: JSON.parse(el11.dataset.relatedContent || '[]')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el11).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_PodcastPage__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el11).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_PodcastPage__WEBPACK_IMPORTED_MODULE_15__["default"], {
     ...props
   }));
 }
@@ -29612,7 +30363,7 @@ const el12 = document.getElementById('search-root');
 if (el12) {
   const query = el12.getAttribute("data-query") || '';
   const results = JSON.parse(el12.getAttribute("data-results"));
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el12).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_SearchPage__WEBPACK_IMPORTED_MODULE_16__.SearchPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el12).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_SearchPage__WEBPACK_IMPORTED_MODULE_16__.SearchPage, {
     query: query,
     results: results
   }));
@@ -29620,7 +30371,7 @@ if (el12) {
 const el13 = document.getElementById('community-hub-root');
 if (el13) {
   const props = window.__COMMUNITY_HUB_PROPS__ || {};
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el13).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_CommunityHubPage__WEBPACK_IMPORTED_MODULE_17__.CommunityHubPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el13).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_CommunityHubPage__WEBPACK_IMPORTED_MODULE_17__.CommunityHubPage, {
     ...props
   }));
 }
@@ -29628,14 +30379,14 @@ const el14 = document.getElementById('account-dashboard-root');
 if (el14) {
   const userData = JSON.parse(el14.dataset.user);
   const eventsData = JSON.parse(el14.dataset.events || '[]');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el14).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_AccountDashboard__WEBPACK_IMPORTED_MODULE_18__.AccountDashboard, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el14).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_AccountDashboard__WEBPACK_IMPORTED_MODULE_18__.AccountDashboard, {
     user: userData,
     events: eventsData
   }));
 }
 const el15 = document.getElementById('newsletter-banner');
 if (el15) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el15).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_NewsletterBanner__WEBPACK_IMPORTED_MODULE_19__.NewsletterBanner, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el15).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_NewsletterBanner__WEBPACK_IMPORTED_MODULE_19__.NewsletterBanner, {}));
 }
 const el16 = document.getElementById('account-settings-root');
 if (el16) {
@@ -29644,7 +30395,7 @@ if (el16) {
     user: JSON.parse(el16.dataset.user || '{}'),
     profile: JSON.parse(el16.dataset.profile || '{}')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el16).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountEditProfilePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el16).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountEditProfilePage, {
     ...props
   }));
 }
@@ -29655,14 +30406,14 @@ if (el17) {
     user: JSON.parse(el17.dataset.user || '{}'),
     profile: JSON.parse(el17.dataset.profile || '{}')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el17).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountChangePasswordPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el17).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountChangePasswordPage, {
     ...props
   }));
 }
 const el18 = document.getElementById("OurMissionPage");
 if (el18) {
   const props = JSON.parse(el18.getAttribute("data-props") || "{}");
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el18).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_AboutUs__WEBPACK_IMPORTED_MODULE_21__.AboutUs, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el18).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_AboutUs__WEBPACK_IMPORTED_MODULE_21__.AboutUs, {
     ...props
   }));
 }
@@ -29680,28 +30431,28 @@ if (el19) {
     author: JSON.parse(el19.dataset.authorObj || '{}'),
     moreByAuthor: JSON.parse(el19.dataset.moreByAuthor || '[]')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el19).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_ArticlePage__WEBPACK_IMPORTED_MODULE_22__.ArticlePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el19).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_ArticlePage__WEBPACK_IMPORTED_MODULE_22__.ArticlePage, {
     ...props
   }));
 }
 const el20 = document.getElementById("tsb-event-root");
 if (el20) {
   const props = JSON.parse(el20.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el20).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_EventPage__WEBPACK_IMPORTED_MODULE_23__.EventPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el20).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_EventPage__WEBPACK_IMPORTED_MODULE_23__.EventPage, {
     ...props
   }));
 }
 const el21 = document.getElementById('events-hub-root');
 if (el21) {
   const props = JSON.parse(el21.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el21).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_EventsHubPage__WEBPACK_IMPORTED_MODULE_24__.EventsHubPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el21).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_EventsHubPage__WEBPACK_IMPORTED_MODULE_24__.EventsHubPage, {
     ...props
   }));
 }
 const el22 = document.getElementById('stories-and-interviews-root');
 if (el22) {
   const props = JSON.parse(el22.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el22).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_StoriesAndInterviews__WEBPACK_IMPORTED_MODULE_25__.StoriesAndInterviews, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el22).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_StoriesAndInterviews__WEBPACK_IMPORTED_MODULE_25__.StoriesAndInterviews, {
     ...props
   }));
 }
@@ -29713,56 +30464,63 @@ if (el23) {
     audiences: JSON.parse(el23.dataset.audiences),
     locations: JSON.parse(el23.dataset.locations)
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el23).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_EventsCalendar__WEBPACK_IMPORTED_MODULE_26__.EventsCalendar, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el23).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_EventsCalendar__WEBPACK_IMPORTED_MODULE_26__.EventsCalendar, {
     ...props
   }));
 }
 const el24 = document.getElementById('learning-and-growth-hub-root');
 if (el24) {
   const props = JSON.parse(el24.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el24).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_LearningAndGrowthHub__WEBPACK_IMPORTED_MODULE_27__.LearningAndGrowthHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el24).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_LearningAndGrowthHub__WEBPACK_IMPORTED_MODULE_27__.LearningAndGrowthHub, {
     ...props
   }));
 }
 const el25 = document.getElementById('culture-and-identity-hub-root');
 if (el25) {
   const props = JSON.parse(el25.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el25).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_CultureAndIdentityHub__WEBPACK_IMPORTED_MODULE_28__.CultureAndIdentityHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el25).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_CultureAndIdentityHub__WEBPACK_IMPORTED_MODULE_28__.CultureAndIdentityHub, {
     ...props
   }));
 }
 const el26 = document.getElementById('support-and-services-hub-root');
 if (el26) {
   const props = JSON.parse(el26.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el26).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_SupportAndServicesHub__WEBPACK_IMPORTED_MODULE_29__.SupportAndServicesHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el26).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_SupportAndServicesHub__WEBPACK_IMPORTED_MODULE_29__.SupportAndServicesHub, {
     ...props
   }));
 }
 const el27 = document.getElementById('directory-hub-root');
 if (el27) {
   const props = JSON.parse(el27.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el27).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_DirectoryHub__WEBPACK_IMPORTED_MODULE_30__.DirectoryHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el27).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_DirectoryHub__WEBPACK_IMPORTED_MODULE_30__.DirectoryHub, {
     ...props
   }));
 }
 const el28 = document.getElementById('cost-of-living-root');
 if (el28) {
   const props = JSON.parse(el28.getAttribute('data-props') || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el28).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_CostOfLiving__WEBPACK_IMPORTED_MODULE_31__.CostOfLiving, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el28).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_CostOfLiving__WEBPACK_IMPORTED_MODULE_31__.CostOfLiving, {
     ...props
   }));
 }
 const el29 = document.getElementById('generic-archive-root');
 if (el29) {
   const props = JSON.parse(el29.getAttribute('data-props') || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el29).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el29).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
     ...props
   }));
 }
 const el30 = document.getElementById('taxonomy-root');
 if (el30) {
   const props = JSON.parse(el30.getAttribute('data-props') || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el30).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el30).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
+    ...props
+  }));
+}
+const el31 = document.getElementById('messageboard-archive-root');
+if (el31) {
+  const props = JSON.parse(el31.getAttribute('data-props') || '{}');
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el31).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_MessageBoardArchivePage__WEBPACK_IMPORTED_MODULE_33__["default"], {
     ...props
   }));
 }

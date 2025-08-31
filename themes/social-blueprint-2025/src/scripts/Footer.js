@@ -17,7 +17,7 @@ export function Footer({ className = '' }) {
     >
       <div className="max-w-7xl mx-auto flex flex-col gap-12">
         <div className="grid gap-4 lg:gap-12 md:grid-cols-[minmax(0,3fr)_repeat(3,minmax(0,1fr))]">
-          <div className="flex flex-col items-start gap-6 ">
+          <div className="flex flex-col items-start gap-6 max-w-lg">
             <img src={Logo} alt="The Social Blueprint" className="h-20 w-auto" />
 
             <Socials />
@@ -29,31 +29,40 @@ export function Footer({ className = '' }) {
               individuals or organisations.
             </p>
           </div>
-          {/* Navigation */}
           {[
             {
               heading: 'Explore',
-              links: ['What’s on', 'Directory', 'Stories', 'Get involved'],
+              links: [{ title: 'What’s on', href: '/events' },
+              { title: 'Blueprint Stories', href: '/stories-and-interview' },
+              { title: 'By Topic', href: '/topics' },
+              { title: 'By Audience', href: '/audience_tag' },
+              ],
+            },
+            {
+              heading: 'Engage',
+              links: [{ title: 'Message Board', href: '/message-boards' },
+              { title: 'Cost of Living', href: '/cost-of-living' },
+              { title: 'Directory', href: '/directory' },
+              { title: 'Post a notice', href: '/post-a-notice' }],
             },
             {
               heading: 'About',
-              links: ['About us', 'Our Mission', 'Contact us', 'FAQs'],
-            },
-            {
-              heading: 'Community',
-              links: ['Post a notice', 'Join a group', 'Message board'],
+              links: [{ title: 'Our mission', href: '/about-us' },
+              { title: 'Contact us', href: '/contact-us' },
+              { title: 'FAQs', href: '/faqs' },
+              { title: 'Terms of Use', href: '/terms-of-use' }],
             },
           ].map(({ heading, links }) => (
             <nav key={heading} className="flex flex-col gap-0 lg:gap-4">
               <h3 className="Blueprint-label-large text-schemesInverseOnSurface">{heading}</h3>
               <ul className="hidden lg:flex flex-col gap-2">
                 {links.map((txt) => (
-                  <li key={txt}>
+                  <li key={txt.title}>
                     <a
-                      href="#"
+                      href={txt.href}
                       className="Blueprint-body-medium hover:underline focus-visible:underline"
                     >
-                      {txt}
+                      {txt.title}
                     </a>
                   </li>
                 ))}
@@ -62,23 +71,6 @@ export function Footer({ className = '' }) {
           ))}
         </div>
         <div className="flex flex-col gap-8 md:gap-12">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <p className="Blueprint-body-small">
-              The Social Blueprint Inc. ABN 71 688 744 769. All Rights Reserved.
-            </p>
-            <ul className="flex gap-6">
-              <li>
-                <a href="#" className="Blueprint-body-small hover:underline focus-visible:underline">
-                  Privacy policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="Blueprint-body-small hover:underline focus-visible:underline">
-                  Terms of use
-                </a>
-              </li>
-            </ul>
-          </div>
           <div className="flex flex-col items-start lg:flex-row lg:items-center gap-4">
             <div className="flex gap-2">
               <img
@@ -99,6 +91,11 @@ export function Footer({ className = '' }) {
               their ongoing connection to land, water, and community.
             </p>
           </div>
+        </div>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-6">
+          <p className="Blueprint-body-small">
+            The Social Blueprint Inc. ABN 71 688 744 769. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>

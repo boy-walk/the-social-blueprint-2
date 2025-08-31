@@ -2,13 +2,11 @@ import React from "react";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { NewsletterBanner } from "./NewsletterBanner";
-import CommunityConnectionHubIcon from "../../assets/community-connection-hub.svg";
 import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { BowlFoodIcon, CarIcon, HeartHalfIcon, MicrophoneStageIcon, MoneyWavyIcon, StarOfDavidIcon } from "@phosphor-icons/react";
 
 export function CostOfLiving({ sections }) {
-  console.log(sections);
   return (
     <div>
       <div className="hidden md:block bg-schemesPrimaryFixed">
@@ -30,7 +28,7 @@ export function CostOfLiving({ sections }) {
                 <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-6 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/message-board">
+                    <Card href="/cost_of_living/category/finance-101">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-[#6ED4BE] rounded-[12px] p-1">
                           <MoneyWavyIcon size={22} />

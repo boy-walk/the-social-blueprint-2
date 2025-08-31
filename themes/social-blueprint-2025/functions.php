@@ -454,3 +454,166 @@ add_action('save_post', function ($post_id) {
   update_post_meta($post_id, 'is_featured',  isset($_POST['is_featured'])  ? '1' : '0');
   update_post_meta($post_id, 'is_sponsored', isset($_POST['is_sponsored']) ? '1' : '0');
 });
+
+add_action('init', function () {
+  // Public query var that will hold "aid_listing.health_listing"
+  add_rewrite_tag('%tsb_multi_pt%', '([^&]+)');
+
+  // Match one-or-more underscore slugs separated by dots.
+  // Requires at least one "." so /aid_listing/ remains untouched.
+  add_rewrite_rule(
+    '^([a-z0-9_]+(?:\.[a-z0-9_]+)+)/?$',
+    'index.php?tsb_multi_pt=$matches[1]',
+    'top'
+  );
+});
+
+/**
+ * Force the archive template for our custom multi-CPT URL.
+ */
+add_filter('template_include', function ($template) {
+  if (get_query_var('tsb_multi_pt')) {
+    $candidate = locate_template('archive.php');
+    if (!empty($candidate)) return $candidate;
+  }
+  return $template;
+});
+
+/**
+ * Convert dot-joined slugs into real post types on the main query.
+ * Prevents 404 and produces a proper multi-CPT archive query.
+ */
+add_action('pre_get_posts', function ($q) {
+  if (is_admin() || !$q->is_main_query()) return;
+
+  $raw = get_query_var('tsb_multi_pt'); // e.g. "aid_listing.health_listing"
+  if (!$raw) return;
+
+  // Split on "." only (as requested)
+  $slugs = array_filter(array_map('trim', explode('.', $raw)));
+  if (!$slugs) return;
+
+  // Map a public slug to a registered CPT
+  $map_slug_to_cpt = function (string $slug): ?string {
+    $base = sanitize_key($slug);             // keep underscores
+    $gd   = 'gd_' . $base;                   // try GeoDirectory naming first
+    if (post_type_exists($gd))   return $gd;
+    if (post_type_exists($base)) return $base;
+    if (post_type_exists($slug)) return $slug; // last resort
+    return null;
+  };
+
+  $pts = array_values(array_unique(array_filter(array_map($map_slug_to_cpt, $slugs))));
+  if (!$pts) return;
+
+  // Configure main query as a normal archive across these CPTs
+  $q->set('post_type', $pts);
+  $q->set('paged', max(1, get_query_var('paged', 1)));
+  $q->is_archive = true;
+  $q->is_home    = false;
+  $q->is_404     = false;
+});
+
+add_action('rest_api_init', function () {
+  register_rest_route('tsb/v1', '/terms', [
+    'methods'  => 'GET',
+    'permission_callback' => '__return_true',
+    'callback' => function (WP_REST_Request $req) {
+      $taxonomy = sanitize_key($req->get_param('taxonomy'));
+      $per_page = max(1, min(200, (int)$req->get_param('per_page') ?: 100));
+      if (!$taxonomy || !taxonomy_exists($taxonomy)) {
+        return new WP_Error('tsb_invalid_taxonomy', 'Invalid taxonomy.', ['status' => 400]);
+      }
+      $terms = get_terms([
+        'taxonomy'   => $taxonomy,
+        'hide_empty' => false,
+        'number'     => $per_page,
+      ]);
+      if (is_wp_error($terms)) return $terms;
+      return array_map(function ($t) {
+        return ['id'=>(int)$t->term_id, 'name'=>$t->name, 'slug'=>$t->slug, 'parent'=>(int)$t->parent];
+      }, $terms);
+    },
+  ]);
+});
+
+/**
+ * Enrich /tsb/v1/browse results with terms for each returned post.
+ * - No extra client requests. Runs server-side after the browse callback.
+ * - Adds to each item:
+ *     item['taxonomies'] = { taxonomy => [ {id,name,slug,parent}, ... ], ... }
+ *     item['categories'] = [ "Education & Learning", "Health & Wellness", ... ] (flattened helpers)
+ */
+add_filter('rest_request_after_callbacks', function ($response, $handler, $request) {
+  // Only act on successful responses from our browse route
+  if (is_wp_error($response) || !($response instanceof WP_REST_Response)) return $response;
+  if ($request->get_route() !== '/tsb/v1/browse') return $response;   // match your route
+  if (strtoupper($request->get_method()) !== 'POST') return $response;
+
+  $data = $response->get_data();
+  if (!is_array($data) || empty($data['items']) || !is_array($data['items'])) return $response;
+
+  // Collect IDs and post types from the payload we already have
+  $ids = [];
+  $post_types = [];
+  foreach ($data['items'] as $it) {
+    if (!empty($it['id']))        $ids[] = (int) $it['id'];
+    if (!empty($it['post_type'])) $post_types[(string)$it['post_type']] = true;
+  }
+  $ids = array_values(array_unique(array_filter($ids)));
+  if (!$ids) return $response;
+
+  // Work out which taxonomies to fetch across the returned post types
+  $tax_names = [];
+  foreach (array_keys($post_types) as $pt) {
+    $tax_objs = get_object_taxonomies($pt, 'objects');
+    foreach ($tax_objs as $slug => $obj) {
+      if (empty($obj->public)) continue; // keep public ones (adjust if you want)
+      // Skip obvious site-wide ones if you never need them on chips:
+      // if (in_array($slug, ['theme','location_tag','people_tag'], true)) continue;
+      $tax_names[$slug] = $slug;
+    }
+  }
+  if (!$tax_names) return $response;
+
+  // Bulk fetch terms for all posts and taxonomies at once
+  $terms = wp_get_object_terms($ids, array_values($tax_names), [
+    'fields'                 => 'all_with_object_id', // includes ->object_id to map back
+    'update_term_meta_cache' => false,
+  ]);
+  if (is_wp_error($terms) || empty($terms)) return $response;
+
+  // Group terms by post and taxonomy
+  $by_post = [];
+  foreach ($terms as $t) {
+    $pid = (int) $t->object_id;
+    $tx  = (string) $t->taxonomy;
+    $by_post[$pid][$tx][] = [
+      'id'     => (int) $t->term_id,
+      'name'   => $t->name,
+      'slug'   => $t->slug,
+      'parent' => (int) $t->parent,
+    ];
+  }
+
+  // Attach to items; also create a flattened "categories" helper for convenience
+  foreach ($data['items'] as &$it) {
+    $pid = (int) ($it['id'] ?? 0);
+    $txs = $by_post[$pid] ?? [];
+    $it['taxonomies'] = $txs;
+
+    // Flatten any taxonomy that looks like a category into helper chips
+    $flat = [];
+    foreach ($txs as $tx => $list) {
+      if (preg_match('/category|categories|cat$/i', $tx)) {
+        foreach ($list as $row) $flat[] = $row['name'];
+      }
+    }
+    if ($flat) $it['categories'] = array_values(array_unique($flat));
+  }
+  unset($it);
+
+  $response->set_data($data);
+  return $response;
+}, 10, 3);
+

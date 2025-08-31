@@ -226,7 +226,7 @@ export default function Header({ isUserLoggedIn = false }) {
             <NavBtn id="directory" label={t("directory")} href="/directory" />
             <NavBtn id="blueprint-stories" label={t("blueprint_stories")} href="/stories-and-interviews" />
             <NavBtn id="about-us" label={t("about_us")} href="/about-us" />
-            <NavBtn id="message-board" label={t("message_board")} href="/message-board" />
+            <NavBtn id="message-board" label={t("message_board")} href="/message-boards" />
           </nav>
           <div className="flex gap-4">
             <Button
