@@ -23479,6 +23479,8 @@ function EventsCalendar({
   const [selectedTopics, setSelectedTopics] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedAudiences, setSelectedAudiences] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedLocations, setSelectedLocations] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [onlyFeatured, setOnlyFeatured] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // NEW
+
   const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const calendarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
@@ -23551,14 +23553,12 @@ function EventsCalendar({
         clearEvents();
         const api = calendarRef.current.getApi();
         (json.events || []).forEach(ev => {
-          console.log(ev);
           api.addEvent({
             id: ev.id,
             title: ev.title || "Untitled",
             start: ev.start,
             end: ev.end,
             url: ev.url,
-            // Pass extras for tooltip (when available)
             extendedProps: {
               image: ev.image || null,
               description: ev.description || "",
@@ -23588,9 +23588,11 @@ function EventsCalendar({
       topics: selectedTopics.toString(),
       audience: selectedAudiences.toString(),
       locations: selectedLocations.toString(),
+      is_featured: onlyFeatured ? "1" : "",
+      // NEW: truthy when checked
       s: debouncedKeywordValue
     }));
-  }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, debouncedKeywordValue]);
+  }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
 
   // Switch view at md breakpoint
   const applyResponsiveView = api => {
@@ -23738,6 +23740,13 @@ function EventsCalendar({
             className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant",
             children: "Filters"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            options: [{
+              id: "1",
+              name: "Featured only"
+            }],
+            selected: onlyFeatured ? ["1"] : [],
+            onChangeHandler: e => setOnlyFeatured(!!e.target.checked)
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Theme",
             options: types,
             selected: selectedTypes,
@@ -23789,9 +23798,7 @@ function EventsCalendar({
               dayMaxEvents: 4,
               dayMaxEventRows: 3,
               eventDisplay: "block",
-              datesSet: datesSet
-              // 👇 TOOLTIP HOOKS
-              ,
+              datesSet: datesSet,
               eventMouseEnter: showTooltip,
               eventMouseLeave: hideTooltip,
               views: {
@@ -23815,9 +23822,7 @@ function EventsCalendar({
       style: {
         left: Math.min(window.innerWidth - 16, tip.x + 12),
         top: Math.min(window.innerHeight - 16, tip.y + 12)
-      }
-      // Render string HTML produced above (safe: we control content; URLs/images come from your API)
-      ,
+      },
       dangerouslySetInnerHTML: {
         __html: tip.html
       }
@@ -24414,7 +24419,7 @@ function FilterGroup({
   if (!isNested) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "mb-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+      children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
         className: "Blueprint-title-small mb-8",
         children: title
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -24437,7 +24442,7 @@ function FilterGroup({
   // NESTED
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "mb-4",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+    children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
       className: "Blueprint-title-small mb-8",
       children: title
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -26616,7 +26621,7 @@ function MessageBoardArchivePage(props) {
     const categories = extractCategoryLabels(item);
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
       href: href,
-      className: "block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] hover:bg-[var(--schemesSurfaceContainerLowest)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition",
+      className: "block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] hover:bg-[var(--schemesSurfaceContainer)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "flex gap-4 p-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(LeadingIcon, {

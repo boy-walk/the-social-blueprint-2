@@ -367,7 +367,7 @@ export default function MessageBoardArchivePage(props) {
     return (
       <a
         href={href}
-        className="block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] hover:bg-[var(--schemesSurfaceContainerLowest)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition"
+        className="block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] hover:bg-[var(--schemesSurfaceContainer)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition"
       >
         <div className="flex gap-4 p-4">
           <LeadingIcon item={item} />

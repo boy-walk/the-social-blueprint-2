@@ -76,6 +76,46 @@ add_action('rest_api_init', function () {
         if ($search !== '') $args['s'] = $search;
         if ($tax_query)     $args['tax_query'] = $tax_query;
 
+        // Inside your events route callback, after you assemble $args for WP_Query:
+        $meta_query = isset($args['meta_query']) ? (array) $args['meta_query'] : [];
+
+        // Accept a few truthy values
+        $requested_featured = isset($_GET['is_featured']) ? $_GET['is_featured'] : '';
+        if ($requested_featured !== '') {
+            $truthy = in_array(strtolower((string)$requested_featured), ['1','true','yes','on'], true);
+            if ($truthy) {
+                // Many WP installs store boolean 'true' as '1' in postmeta
+                $meta_query[] = [
+                    'key'     => 'is_featured',
+                    'value'   => '1',
+                    'compare' => '='
+                ];
+                // If you also sometimes have real booleans stored, use this more permissive version:
+                // $meta_query[] = [
+                //   'relation' => 'OR',
+                //   [
+                //     'key' => 'is_featured',
+                //     'value' => '1',
+                //     'compare' => '='
+                //   ],
+                //   [
+                //     'key' => 'is_featured',
+                //     'value' => true,
+                //     'compare' => '='
+                //   ],
+                // ];
+            }
+        }
+
+        if ($meta_query) {
+            // Keep any existing meta conditions
+            $args['meta_query'] = $meta_query;
+            if (!isset($args['meta_query']['relation'])) {
+                $args['meta_query']['relation'] = 'AND';
+            }
+        }
+
+
         if (function_exists('tsb_debug')) tsb_debug('events:args', $args, 'events');
 
         // Ask TEC for a WP_Query (so we can log SQL + totals)

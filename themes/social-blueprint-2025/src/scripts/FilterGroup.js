@@ -136,7 +136,7 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
   if (!isNested) {
     return (
       <div className="mb-4">
-        <h3 className="Blueprint-title-small mb-8">{title}</h3>
+        {title && <h3 className="Blueprint-title-small mb-8">{title}</h3>}
         <div className="flex flex-wrap gap-5">
           {options.slice(0, visibleCount).map((option) => (
             <StyledCheckbox
@@ -165,7 +165,7 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
   // NESTED
   return (
     <div className="mb-4">
-      <h3 className="Blueprint-title-small mb-8">{title}</h3>
+      {title && <h3 className="Blueprint-title-small mb-8">{title}</h3>}
 
       <div className="flex flex-col gap-3">
         {(parents || []).slice(0, visibleCount).map(renderParent)}

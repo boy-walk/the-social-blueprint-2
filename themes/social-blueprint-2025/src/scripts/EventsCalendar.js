@@ -11,10 +11,13 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
   const [debouncedKeywordValue, setDebouncedKeywordValue] = useState("");
   const [dateRange, setDateRange] = useState({ start: "", end: "" });
   const [requestParams, setRequestParams] = useState({ per_page: 100 });
+
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedAudiences, setSelectedAudiences] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
+  const [onlyFeatured, setOnlyFeatured] = useState(false); // NEW
+
   const [isLoading, setIsLoading] = useState(false);
 
   const calendarRef = useRef(null);
@@ -93,14 +96,12 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
         clearEvents();
         const api = calendarRef.current.getApi();
         (json.events || []).forEach((ev) => {
-          console.log(ev);
           api.addEvent({
             id: ev.id,
             title: ev.title || "Untitled",
             start: ev.start,
             end: ev.end,
             url: ev.url,
-            // Pass extras for tooltip (when available)
             extendedProps: {
               image: ev.image || null,
               description: ev.description || "",
@@ -129,9 +130,10 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       topics: selectedTopics.toString(),
       audience: selectedAudiences.toString(),
       locations: selectedLocations.toString(),
+      is_featured: onlyFeatured ? "1" : "", // NEW: truthy when checked
       s: debouncedKeywordValue,
     }));
-  }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, debouncedKeywordValue]);
+  }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
 
   // Switch view at md breakpoint
   const applyResponsiveView = (api) => {
@@ -246,6 +248,13 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
 
           <div className="flex flex-col gap-4 px-4">
             <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant">Filters</h2>
+
+            <FilterGroup
+              options={[{ id: "1", name: "Featured only" }]}
+              selected={onlyFeatured ? ["1"] : []}
+              onChangeHandler={(e) => setOnlyFeatured(!!e.target.checked)}
+            />
+
             <FilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
             <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
             <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
@@ -275,7 +284,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
                 dayMaxEventRows={3}
                 eventDisplay="block"
                 datesSet={datesSet}
-                // 👇 TOOLTIP HOOKS
                 eventMouseEnter={showTooltip}
                 eventMouseLeave={hideTooltip}
                 views={{
@@ -309,7 +317,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             left: Math.min(window.innerWidth - 16, tip.x + 12),
             top: Math.min(window.innerHeight - 16, tip.y + 12),
           }}
-          // Render string HTML produced above (safe: we control content; URLs/images come from your API)
           dangerouslySetInnerHTML={{ __html: tip.html }}
         />
       )}
