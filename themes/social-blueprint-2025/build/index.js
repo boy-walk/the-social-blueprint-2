@@ -25541,7 +25541,7 @@ function MegaPanel({
     "aria-label": "Site section",
     onMouseEnter: onPanelEnter,
     onMouseLeave: onPanelLeave,
-    className: " absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)] z-[60] h-60 ",
+    className: " absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[7px_6px_1px_rgba(28,27,26,0.15)] z-[60] h-60 ",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -25559,8 +25559,11 @@ function Header({
   } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_4__.useTranslation)();
   const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [isDesktop, setIsDesktop] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // << NEW
   const hoverTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // Detect desktop for mega menu hover
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
     const update = () => setIsDesktop(mql.matches);
@@ -25569,6 +25572,32 @@ function Header({
     return () => {
       if (mql.removeEventListener) mql.removeEventListener("change", update);else mql.removeListener(update);
     };
+  }, []);
+
+  // Scroll-aware UI tweaks (fade socials, reduce padding, shrink logo)
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const threshold = 6;
+    let ticking = false;
+    const evaluate = () => {
+      const y = window.scrollY || window.pageYOffset || 0;
+      const atTop = y <= threshold;
+      setScrolled(prev => prev === !atTop ? prev : !atTop);
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        evaluate();
+        ticking = false;
+      });
+    };
+
+    // Run once on mount to set initial state
+    evaluate();
+    window.addEventListener("scroll", onScroll, {
+      passive: true
+    });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const openPanel = key => {
     if (!isDesktop) return;
@@ -25610,10 +25639,12 @@ function Header({
         relative w-full z-50
         bg-[var(--schemesPrimaryContainer)]
         text-[var(--schemesOnPrimaryContainer)]
-        p-4 lg:px-16 lg:py-6
         flex items-center justify-between
-        shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]
+        shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
         ${open ? "mix-blend-normal" : "mix-blend-multiply"}
+        px-4 lg:px-16
+        ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"}
+        transition-all duration-300
       `,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
       href: "/",
@@ -25621,11 +25652,20 @@ function Header({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
         src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
         alt: "The Social Blueprint",
-        className: "h-15 lg:h-20"
+        className: `
+            ${scrolled ? "h-12 lg:h-16" : "h-15 lg:h-20"}
+            transition-all duration-300
+          `
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "hidden lg:flex flex-col items-end gap-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_5__.Socials, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      className: `hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: `
+            transition-all duration-300 origin-top
+            ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
+          `,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_5__.Socials, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "hidden lg:flex items-center gap-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("nav", {
           className: "hidden lg:flex items-center gap-6 Blueprint-body-medium",
@@ -25693,7 +25733,7 @@ function Header({
       "aria-hidden": "true",
       className: "pointer-events-none absolute left-0 right-0 top-full z-[70]",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "w-full h-2 mt-[-8] bg-transparent shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]"
+        className: "w-full h-2 mt-[-8px] bg-transparent shadow-[7px_6px_1px_rgba(28,27,26,0.15)]"
       })
     })]
   });

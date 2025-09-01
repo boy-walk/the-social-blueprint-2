@@ -62,8 +62,6 @@ export function AccountDashboard({ user, events }) {
         </h2>
         <PostsSlider events={events} />
       </div>
-
-
       <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8 max-w-[1600px]">
         <NewsletterBanner />
       </div>

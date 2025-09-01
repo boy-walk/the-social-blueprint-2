@@ -132,7 +132,7 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
         absolute left-0 right-0 top-full
         bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
         border-t border-[var(--schemesOutlineVariant)]
-        shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]
+        shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
         z-[60]
         h-60
       "
@@ -150,9 +150,11 @@ export default function Header({ isUserLoggedIn = false }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [scrolled, setScrolled] = useState(false); // << NEW
   const hoverTimer = useRef(null);
   const headerRef = useRef(null);
 
+  // Detect desktop for mega menu hover
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
     const update = () => setIsDesktop(mql.matches);
@@ -163,6 +165,32 @@ export default function Header({ isUserLoggedIn = false }) {
       if (mql.removeEventListener) mql.removeEventListener("change", update);
       else mql.removeListener(update);
     };
+  }, []);
+
+  // Scroll-aware UI tweaks (fade socials, reduce padding, shrink logo)
+  useEffect(() => {
+    const threshold = 6;
+    let ticking = false;
+
+    const evaluate = () => {
+      const y = window.scrollY || window.pageYOffset || 0;
+      const atTop = y <= threshold;
+      setScrolled((prev) => (prev === !atTop ? prev : !atTop));
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        evaluate();
+        ticking = false;
+      });
+    };
+
+    // Run once on mount to set initial state
+    evaluate();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const openPanel = (key) => {
@@ -184,18 +212,8 @@ export default function Header({ isUserLoggedIn = false }) {
   };
 
   const NavBtn = ({ id, label, href }) => (
-    <div
-      onMouseEnter={() => openPanel(id)}
-      onFocus={() => setOpen(id)}
-      className="inline-block"
-    >
-      <Button
-        label={label}
-        className="text-white"
-        size="lg"
-        variant="text"
-        onClick={() => goto(href)}
-      />
+    <div onMouseEnter={() => openPanel(id)} onFocus={() => setOpen(id)} className="inline-block">
+      <Button label={label} className="text-white" size="lg" variant="text" onClick={() => goto(href)} />
     </div>
   );
 
@@ -208,18 +226,36 @@ export default function Header({ isUserLoggedIn = false }) {
         relative w-full z-50
         bg-[var(--schemesPrimaryContainer)]
         text-[var(--schemesOnPrimaryContainer)]
-        p-4 lg:px-16 lg:py-6
         flex items-center justify-between
-        shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]
+        shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
         ${open ? "mix-blend-normal" : "mix-blend-multiply"}
+        px-4 lg:px-16
+        ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"}
+        transition-all duration-300
       `}
     >
       <a href="/" className="flex items-center">
-        <img src={Logo} alt="The Social Blueprint" className="h-15 lg:h-20" />
+        <img
+          src={Logo}
+          alt="The Social Blueprint"
+          className={`
+            ${scrolled ? "h-12 lg:h-16" : "h-15 lg:h-20"}
+            transition-all duration-300
+          `}
+        />
       </a>
 
-      <div className="hidden lg:flex flex-col items-end gap-6">
-        <Socials />
+      <div className={`hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`}>
+        {/* Socials fade out on scroll */}
+        <div
+          className={`
+            transition-all duration-300 origin-top
+            ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
+          `}
+        >
+          <Socials />
+        </div>
+
         <div className="hidden lg:flex items-center gap-6">
           <nav className="hidden lg:flex items-center gap-6 Blueprint-body-medium">
             <NavBtn id="whats-on" label={t("whats_on")} href="/events" />
@@ -268,7 +304,7 @@ export default function Header({ isUserLoggedIn = false }) {
 
       {open && (
         <div aria-hidden="true" className="pointer-events-none absolute left-0 right-0 top-full z-[70]">
-          <div className="w-full h-2 mt-[-8] bg-transparent shadow-[7px_6px_1px_var(--schemesOutlineVariant,#C9C7BD)]" />
+          <div className="w-full h-2 mt-[-8px] bg-transparent shadow-[7px_6px_1px_rgba(28,27,26,0.15)]" />
         </div>
       )}
     </header>
