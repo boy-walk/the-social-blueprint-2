@@ -20922,68 +20922,71 @@ function AccountDashboard({
   } = (0,_node_modules_react_i18next__WEBPACK_IMPORTED_MODULE_4__.useTranslation)();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "min-h-screen",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "px-6 lg:px-16 py-8 bg-schemesPrimaryFixed ",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
-        className: "Blueprint-display-small-emphasized",
-        children: t('welcome', {
-          name: user?.first_name || "[FirstName]"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
-        className: "mt-3 Blueprint-title-large text-schemesOnPrimaryFixedVariant",
-        children: t('manageCommunity')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "flex flex-col gap-8 mt-8",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "Blueprint-headline-medium",
-          children: t('quickLinks')
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "bg-schemesPrimaryFixed",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "px-6 lg:px-16 py-8 max-w-[1600px] mx-auto",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+          className: "Blueprint-display-small-emphasized",
+          children: t('welcome', {
+            name: user?.first_name || "[FirstName]"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          className: "mt-3 Blueprint-title-large text-schemesOnPrimaryFixedVariant",
+          children: t('manageCommunity')
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "grid grid-cols-1 md:grid-cols-3 gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-              className: "flex flex-col gap-8 h-full justify-between items-start p-4 w-full",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.MailboxIcon, {
-                  size: 22
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                className: "Blueprint-title-medium",
-                children: t('manageEvents')
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-              className: "flex flex-col gap-8 h-full justify-between items-start p-4 w-full",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.UserCircleIcon, {
-                  size: 22
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                className: "Blueprint-title-medium",
-                children: t('activeListings')
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-            href: "/account-settings",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-              className: "flex flex-col gap-8 h-full justify-between items-start p-4 w-full",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.GearIcon, {
-                  size: 22
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                className: "Blueprint-title-medium",
-                children: t('accountSettings')
-              })]
-            })
+          className: "flex flex-col gap-8 mt-8",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "Blueprint-headline-medium",
+            children: t('quickLinks')
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "grid grid-cols-1 md:grid-cols-3 gap-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "flex flex-col gap-8 h-full justify-between items-start p-4 w-full",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.MailboxIcon, {
+                    size: 22
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "Blueprint-title-medium",
+                  children: t('manageEvents')
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "flex flex-col gap-8 h-full justify-between items-start p-4 w-full",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.UserCircleIcon, {
+                    size: 22
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "Blueprint-title-medium",
+                  children: t('activeListings')
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
+              href: "/account-settings",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "flex flex-col gap-8 h-full justify-between items-start p-4 w-full",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "bg-schemesPrimaryFixed rounded-[12px] p-1",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.GearIcon, {
+                    size: 22
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "Blueprint-title-medium",
+                  children: t('accountSettings')
+                })]
+              })
+            })]
           })]
         })]
-      })]
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "px-6 lg:px-16 py-8",
+      className: "px-6 lg:px-16 py-8 max-w-[1600px] mx-auto",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
         className: "Blueprint-headline-medium text-schemesOnSurface mb-6",
         children: "Your upcoming events"
@@ -20991,7 +20994,7 @@ function AccountDashboard({
         events: events
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "mx-auto px-4 sm:px-6 lg:px-16 py-8",
+      className: "mx-auto px-4 sm:px-6 lg:px-16 py-8 max-w-[1600px]",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_3__.NewsletterBanner, {})
     })]
   });
