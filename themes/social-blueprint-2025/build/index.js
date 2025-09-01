@@ -28370,9 +28370,9 @@ function SearchPage({
   }), [chip, query]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "bg-schemesPrimaryFixed py-8",
+      className: "bg-schemesPrimaryFixed",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16",
+        className: "max-w-[1600px] py-16 px-4 sm:px-8 lg:px-16 mx-auto",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
           className: "Blueprint-display-small-emphasized mb-4 text-schemesOnSurface",
           children: `Search results '${query}'`
@@ -28385,7 +28385,7 @@ function SearchPage({
       endpoint: "/wp-json/tsb/v1/browse",
       baseQuery: baseQuery,
       filters: [],
-      className: "py-16 px-4 sm:px-8 lg:px-16 mx-auto"
+      className: "py-16 px-4 sm:px-8 lg:px-16 mx-auto max-w-[1600px]"
     })]
   });
 }

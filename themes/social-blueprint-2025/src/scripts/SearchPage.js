@@ -28,8 +28,8 @@ export function SearchPage({ query = "" }) {
   return (
     <>
       {/* Header + search input */}
-      <div className="bg-schemesPrimaryFixed py-8">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16">
+      <div className="bg-schemesPrimaryFixed">
+        <div className="max-w-[1600px] py-16 px-4 sm:px-8 lg:px-16 mx-auto">
           <h1 className="Blueprint-display-small-emphasized mb-4 text-schemesOnSurface">{`Search results '${query}'`}</h1>
           <SearchBar defaultValue={query} />
         </div>
@@ -39,7 +39,7 @@ export function SearchPage({ query = "" }) {
         endpoint="/wp-json/tsb/v1/browse"
         baseQuery={baseQuery}
         filters={[]}
-        className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
+        className="py-16 px-4 sm:px-8 lg:px-16 mx-auto max-w-[1600px]"
       />
     </>
   );
