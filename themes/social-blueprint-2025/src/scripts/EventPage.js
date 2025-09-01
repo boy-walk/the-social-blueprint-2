@@ -6,6 +6,7 @@ import { RelatedContentCard } from "./RelatedContentCard";
 import { ExploreByTheme } from "./ExploreByTheme";
 import { Button } from "./Button";
 import { PostsSlider } from "./PostsSlider";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 function fmtEventDateRange({ startISO, endISO }) {
   if (!startISO) return "";
@@ -43,12 +44,14 @@ export function EventPage({
   moreThisWeek = [],
   calendarUrl = "#",
   bookingUrl = "#",
+  breadcrumbs = [],
 }) {
   const dateLine = fmtEventDateRange({ startISO, endISO });
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="py-8 sm:py-10 lg:py-12">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-16">
+          <Breadcrumbs items={breadcrumbs} />
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="flex-3 min-w-0 space-y-8 lg:space-y-10">
               {tags.length > 0 && (<div className="flex flex-wrap gap-2">

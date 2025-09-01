@@ -7,6 +7,8 @@ get_header();
 
 $post_id = get_the_ID();
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 // ACF fields you already use
 $image_url      = get_field('article_image', $post_id);
 $subtitle       = get_field('subtitle', $post_id);
@@ -113,6 +115,7 @@ if ($more_by_author->have_posts()) {
        ];
      }, $related_content)) ); ?>'
     data-more-by-author='<?php echo esc_attr( wp_json_encode($more_by_author_data) ); ?>'
+    data-breadcrumbs='<?php echo esc_attr( wp_json_encode($breadcrumbs) ); ?>'
 >
 </div>
 

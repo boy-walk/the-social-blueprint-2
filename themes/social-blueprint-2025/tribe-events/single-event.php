@@ -52,6 +52,7 @@ $content_html = apply_filters('the_content', get_post_field('post_content', $pos
 $sections = [['text' => $content_html]];
 
 $related = sb_get_related_by_topic_tags( $post_id, 3, true, ['tribe_events'] );
+$breadcrumbs = sbp_build_breadcrumbs();
 
 $more_week = [];
 $week_start = (new DateTime('monday this week'))->format('Y-m-d 00:00:00');
@@ -113,6 +114,7 @@ $props = [
   'moreThisWeek'   => $more_week,
   'calendarUrl'    => $ical_url,
   'bookingUrl'     => $event_site ?: get_permalink($post_id),
+  'breadcrumbs'   => $breadcrumbs,
 ];
 
 

@@ -66,6 +66,8 @@ $holocaust_stories_args = [
 
 $holocaust_stories = get_posts($holocaust_stories_args);
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 
 $props = [
   'everyBodyHasAStory' => array_map(function($post) {
@@ -107,6 +109,7 @@ $props = [
       'post_type' => get_post_type($post),
     ];
   }, $holocaust_stories),
+  'breadcrumbs'  => $breadcrumbs,
 ];
 
 ?>

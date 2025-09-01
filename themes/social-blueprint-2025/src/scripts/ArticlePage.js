@@ -6,6 +6,7 @@ import { ShareButton } from "./ShareButton";
 import { RelatedContentCard } from "./RelatedContentCard";
 import { PostsSlider } from "./PostsSlider";
 import { ArrowIcon } from "../../assets/icons/arrow";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 export function ArticlePage({
   title,
@@ -18,6 +19,7 @@ export function ArticlePage({
   relatedContent = [],
   moreByAuthor = [],
   moreArticles = [],
+  breadcrumbs = [],
 }) {
   const formattedDate = date
     ? new Date(date).toLocaleDateString("en-AU", {
@@ -31,6 +33,7 @@ export function ArticlePage({
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="p-6 md:p-8 lg:p-12">
         <div className="lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16">
+          <Breadcrumbs items={breadcrumbs} />
           <div className="flex flex-col md:flex-col lg:flex-row lg:gap-16">
             {/* Content */}
             <div className="flex-3 min-w-0 space-y-4">

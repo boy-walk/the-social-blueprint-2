@@ -247,6 +247,8 @@ $endpoint = (count($post_types) === 1 && $post_types[0] === 'tribe_events')
 /** ---------------- Title ---------------- */
 $title = (count($post_types) > 1) ? tsb_clean_archive_title_from_pts($post_types) : tsb_clean_archive_title();
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 /** ---------------- Props ---------------- */
 $props = [
   'postType'    => (count($post_types) === 1) ? $post_types[0] : $post_types, // string or array
@@ -260,6 +262,7 @@ $props = [
     'slug'     => $current_term_slug,
     'taxonomy' => $taxonomy,
   ] : null,
+  'breadcrumbs' => $breadcrumbs,
 ];
 
 ?>

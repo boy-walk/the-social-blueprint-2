@@ -5,6 +5,8 @@
 
 get_header();
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 // 1. Featured in Community — 3 posts tagged both 'Community Connection' and 'Featured'
 $featured_args = new WP_Query([
   'posts_per_page' => 3,
@@ -72,6 +74,7 @@ $props = [
   'featured' => array_map('map_post', $featured_posts),
   'messageBoard' => array_map('map_post', $message_board_posts),
   'events' => array_map('map_post', $event_posts),
+  'breadcrumbs' => $breadcrumbs,
 ];
 ?>
 

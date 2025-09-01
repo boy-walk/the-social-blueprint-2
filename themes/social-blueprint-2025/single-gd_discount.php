@@ -5,6 +5,7 @@
 get_header();
 
 $post_id = get_the_ID();
+$breadcrumbs = sbp_build_breadcrumbs();
 
 /** Detect “category-like” taxonomies for this CPT (robust to naming). */
 if ( ! function_exists('sbp_detect_category_taxes_for_cpt') ) {
@@ -145,5 +146,6 @@ if (taxonomy_exists('topic_tag')) {
      data-related-content='<?php echo esc_attr( wp_json_encode($related_content) ); ?>'
      data-recent-posts='<?php echo esc_attr( wp_json_encode($recent_posts) ); ?>'
      data-trending-topics='<?php echo esc_attr( wp_json_encode($trending) ); ?>'
+     data-breadcrumbs='<?php echo esc_attr( wp_json_encode($breadcrumbs) ); ?>'
 ></div>
 <?php get_footer(); ?>

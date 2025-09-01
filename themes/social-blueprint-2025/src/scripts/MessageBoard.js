@@ -5,6 +5,7 @@ import { PostsSlider } from "./PostsSlider";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { Tag } from "./Tag";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 /**
  * MessageBoardPage (single gd_discount)
@@ -31,8 +32,8 @@ export default function MessageBoardPage({
   relatedContent = [],
   recentPosts = [],
   trendingTopics = [],
+  breadcrumbs = [],
 }) {
-  console.log(relatedContent)
   const formattedDate = date
     ? new Date(date).toLocaleDateString("en-AU", {
       year: "numeric",
@@ -45,8 +46,8 @@ export default function MessageBoardPage({
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="p-6 md:p-8 lg:p-12">
         <div className="lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16">
+          <Breadcrumbs items={breadcrumbs} />
           <div className="flex flex-col md:flex-col lg:flex-row lg:gap-16">
-            {/* MAIN */}
             <div className="flex-3 min-w-0 space-y-4">
               {/* Header */}
               <header className="space-y-3">

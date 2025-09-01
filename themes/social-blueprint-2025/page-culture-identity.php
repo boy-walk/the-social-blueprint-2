@@ -5,6 +5,8 @@
 
 get_header();
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 $podcasts_args = new   WP_Query([
   'post_type' => 'podcast',
   'posts_per_page' => 16,
@@ -47,6 +49,7 @@ function map_post($post) {
 $props = [
   'podcasts' => array_map('map_post', $podcasts),
   'events' => array_map('map_post', $events),
+  'breadcrumbs'  => $breadcrumbs,
 ];
 ?>
 

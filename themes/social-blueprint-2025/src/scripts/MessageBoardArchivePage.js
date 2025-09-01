@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState, useRef } from "react";
 import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 export default function MessageBoardArchivePage(props) {
   const {
@@ -13,6 +14,7 @@ export default function MessageBoardArchivePage(props) {
     baseQuery = {},
     title,
     subtitle,
+    breadcrumbs = [],
   } = props;
 
   const CPT = useMemo(() => (Array.isArray(postType) ? postType[0] : postType) || "gd_discount", [postType]);
@@ -397,6 +399,7 @@ export default function MessageBoardArchivePage(props) {
       {/* Header band */}
       <div className="bg-schemesPrimaryFixed py-8">
         <div className="tsb-container">
+          <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
           <h1 className="Blueprint-headline-large text-schemesOnSurface mb-1">{title}</h1>
           {subtitle && (
             <p className="Blueprint-body-medium text-schemesOnPrimaryFixedVariant">

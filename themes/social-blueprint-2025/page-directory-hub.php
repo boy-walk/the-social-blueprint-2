@@ -5,6 +5,8 @@
 
 get_header();
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 $cost_of_living = new WP_Query([
   'post_type' => 'gd_cost_of_living',
   'posts_per_page' => 16,
@@ -36,6 +38,7 @@ function map_post($post) {
 $props = [
   'costOfLiving' => array_map('map_post', $cost_of_living_posts),
   'contactLists' => array_map('map_post', $contact_list_posts),
+  'breadcrumbs'  => $breadcrumbs
 ];
 ?>
 

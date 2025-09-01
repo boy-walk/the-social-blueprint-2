@@ -5,12 +5,16 @@ import { NewsletterBanner } from "./NewsletterBanner";
 import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { BowlFoodIcon, CarIcon, HeartHalfIcon, MicrophoneStageIcon, MoneyWavyIcon, StarOfDavidIcon } from "@phosphor-icons/react";
+import { Breadcrumbs } from "./Breadcrumbs";
 
-export function CostOfLiving({ sections }) {
+export function CostOfLiving({ sections, breadcrumbs = [] }) {
   return (
     <div>
       <div className="hidden md:block bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
+          <div className="md:px-8 md:pt-8 lg:px-16 lg:pt-8">
+            <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
+          </div>
           <div className="flex p-4 md:p-8 lg:px-16 lg:pt-16 items-end justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3">

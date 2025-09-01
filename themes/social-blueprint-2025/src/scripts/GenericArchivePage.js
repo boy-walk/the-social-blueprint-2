@@ -4,6 +4,7 @@ import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
 import { getBadge } from "./getBadge";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 /**
  * GenericArchivePage (lean)
@@ -20,6 +21,7 @@ export function GenericArchivePage(props) {
     baseQuery = {},
     title,
     subtitle,
+    breadcrumbs = [],
   } = props;
 
   // Just normalize for display context (no GD branching)
@@ -266,6 +268,7 @@ export function GenericArchivePage(props) {
       {/* Header band */}
       <div className="bg-schemesPrimaryFixed py-8">
         <div className="tsb-container">
+          <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
           <h1 className="Blueprint-headline-large text-schemesOnSurface mb-1">{title}</h1>
           {subtitle && <p className="Blueprint-body-medium text-schemesOnPrimaryFixedVariant">{subtitle}</p>}
         </div>

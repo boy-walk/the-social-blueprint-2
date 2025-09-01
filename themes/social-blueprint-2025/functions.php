@@ -2,6 +2,7 @@
 // functions.php
 require_once get_template_directory() . '/inc/related.php';
 require_once get_template_directory() . '/inc/api.php';
+require_once get_template_directory() . '/inc/breadcrumbs.php';
 
 function boilerplate_load_assets() {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);

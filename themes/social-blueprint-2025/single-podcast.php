@@ -7,6 +7,8 @@ get_header();
 
 $post_id = get_the_ID();
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 // ACF fields you already use
 $video_url      = get_field('podcast_video_url', $post_id);
 $subtitle       = get_field('podcast_subtitle', $post_id);
@@ -98,6 +100,7 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3 );
          'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
        ];
      }, $related_content)) ); ?>'
+     data-breadcrumbs='<?php echo esc_attr( wp_json_encode($breadcrumbs) ); ?>'
 >
 </div>
 

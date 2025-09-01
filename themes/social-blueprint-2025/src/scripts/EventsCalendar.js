@@ -61,6 +61,8 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     const audienceParam = params.get("audience");
+    const featuredParam = params.get("featured");
+    if (featuredParam === "1") setOnlyFeatured(true);
     if (!audienceParam) return;
 
     const requested = audienceParam.split(",").map(v => v.trim().toLowerCase()).filter(Boolean);

@@ -76,11 +76,14 @@ function map_post($post) {
   ];
 }
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 $props = [
   'featured' => array_map('map_post', $featured_posts),
   'podcasts' => array_map('map_post', $podcasts),
   'events' => array_map('map_post', $events),
   'costOfLiving' => array_map('map_post', $cost_of_living_posts),
+  'breadcrumbs'  => $breadcrumbs,
 ];
 ?>
 

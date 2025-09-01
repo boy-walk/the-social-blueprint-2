@@ -116,6 +116,8 @@ if ($tax_parts) {
   $base_query['tax_relation'] = 'AND';
 }
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 /** ---------- Props for React ---------- */
 $props = [
   'postType'    => $post_type,
@@ -129,6 +131,7 @@ $props = [
   'endpoint'    => '/wp-json/tsb/v1/browse',
   'baseQuery'   => $base_query,
   'title'       => tsb_mb_title(),
+  'breadcrumbs' => $breadcrumbs,
 ];
 
 ?>

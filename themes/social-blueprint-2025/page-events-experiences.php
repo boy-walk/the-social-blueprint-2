@@ -22,12 +22,7 @@ $events_this_week = tribe_get_events([
 ]);
 
 
-$browse_all_events = tribe_get_events([
-  'posts_per_page'      => -1,
-  'start_date'          => current_time('mysql'),
-  'tribeHideRecurrence' => true,
-  'eventDisplay'        => 'list',
-]);
+$breadcrumbs = sbp_build_breadcrumbs();
 
 
 
@@ -49,7 +44,7 @@ function map_post($post) {
 $props = [
   'featured' => array_map('map_post', $featured_events),
   'eventsThisWeek' => array_map('map_post', $events_this_week),
-  'browseAll' => array_map('map_post', $browse_all_events),
+  'breadcrumbs'  => $breadcrumbs,
 ];
 ?>
 

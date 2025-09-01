@@ -127,7 +127,8 @@ if (el11) {
     moreInterviews: JSON.parse(el11.dataset.moreInterviews) || [],
     author: JSON.parse(el11.dataset.authorObj),
     taxonomies: JSON.parse(el11.dataset.taxonomies || '{}'),
-    relatedContent: JSON.parse(el11.dataset.relatedContent || '[]')
+    relatedContent: JSON.parse(el11.dataset.relatedContent || '[]'),
+    breadcrumbs: JSON.parse(el11.dataset.breadcrumbs || '[]'),
   };
   ReactDOM.createRoot(el11).render(<PodcastPage {...props} />);
 }
@@ -196,6 +197,7 @@ if (el19) {
     tags: JSON.parse(el19.dataset.tags || '[]'),
     author: JSON.parse(el19.dataset.authorObj || '{}'),
     moreByAuthor: JSON.parse(el19.dataset.moreByAuthor || '[]'),
+    breadcrumbs: JSON.parse(el19.dataset.breadcrumbs || '[]'),
   };
   ReactDOM.createRoot(el19).render(<ArticlePage {...props} />);
 }
@@ -290,6 +292,7 @@ if (el32) {
     relatedContent: JSON.parse(ds.relatedContent || "[]"),
     recentPosts: JSON.parse(ds.recentPosts || "[]"),
     trendingTopics: JSON.parse(ds.trendingTopics || "[]"),
+    breadcrumbs: JSON.parse(ds.breadcrumbs || "[]"),
   };
   ReactDOM.createRoot(el32).render(<MessageBoardPage {...props} />);
 }

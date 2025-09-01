@@ -5,6 +5,8 @@
 
 get_header();
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 $post_id = get_the_ID();
 $rows    = get_field('post-sections', $post_id) ?: [];
 
@@ -34,7 +36,9 @@ foreach ($rows as $row) {
   ];
 }
 
-$props = ['sections' => $sections];
+$props = ['sections' => $sections,
+          'breadcrumbs' => $breadcrumbs,
+];
 ?>
 
 <div

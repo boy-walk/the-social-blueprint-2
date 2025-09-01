@@ -9,12 +9,16 @@ import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
 import { ListingCallout } from "./ListingCallout";
+import { Breadcrumbs } from "./Breadcrumbs";
 
-export const CultureAndIdentityHub = ({ podcasts, events }) => {
+export const CultureAndIdentityHub = ({ podcasts, events, breadcrumbs = [] }) => {
   return (
     <div className="bg-schemesSurface">
       <div className="bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
+          <div className="hidden md:block md:px-8 md:pt-8 lg:px-16 lg:pt-8">
+            <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
+          </div>
           <div className="flex p-4 pt-12 md:p-8 lg:px-16 lg:py-8 items-center justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3">
