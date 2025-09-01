@@ -80,7 +80,7 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, 
               <div className="flex flex-wrap gap-4 items-center">
                 <Button
                   label="View all"
-                  onClick={() => (window.location.href = '/submit-event')}
+                  onClick={() => (window.location.href = '/podcasts')}
                   size="base"
                   variant="filled"
                 />

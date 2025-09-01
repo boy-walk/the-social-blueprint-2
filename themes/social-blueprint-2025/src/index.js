@@ -33,6 +33,7 @@ import { DirectoryHub } from './scripts/DirectoryHub';
 import { CostOfLiving } from './scripts/CostOfLiving';
 import { GenericArchivePage } from './scripts/GenericArchivePage';
 import MessageBoardArchivePage from './scripts/MessageBoardArchivePage';
+import MessageBoardPage from './scripts/MessageBoard';
 
 
 if (document.querySelector('#front-page')) {
@@ -274,4 +275,21 @@ const el31 = document.getElementById('messageboard-archive-root');
 if (el31) {
   const props = JSON.parse(el31.getAttribute('data-props') || '{}');
   ReactDOM.createRoot(el31).render(<MessageBoardArchivePage {...props} />);
+}
+
+const el32 = document.getElementById('gd-discount-root');
+if (el32) {
+  const ds = el32.dataset;
+  const props = {
+    title: ds.title,
+    date: ds.date,
+    author: JSON.parse(ds.authorObj || "{}"),
+    categories: JSON.parse(ds.categories || "[]"),
+    featuredImage: ds.featuredImage || "",
+    contentHtml: ds.contentHtml || "",
+    relatedContent: JSON.parse(ds.relatedContent || "[]"),
+    recentPosts: JSON.parse(ds.recentPosts || "[]"),
+    trendingTopics: JSON.parse(ds.trendingTopics || "[]"),
+  };
+  ReactDOM.createRoot(el32).render(<MessageBoardPage {...props} />);
 }

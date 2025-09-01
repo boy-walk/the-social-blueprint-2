@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { ContentCard } from "./ContentCard";
 import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
@@ -6,18 +6,9 @@ import { getBadge } from "./getBadge";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 /**
- * GenericArchivePage (GD-agnostic)
- *
- * Props:
- * - postType: string | string[]
- * - taxonomy: string
- * - currentTerm: { id:number, slug:string, taxonomy:string } | null
- * - filters: array of { taxonomy: string, label: string }
- * - endpoint: string
- * - baseQuery: object
- * - title: string
- * - subtitle?: string
- * - disableGDAutoFilters?: boolean  // ignored in this GD-agnostic version
+ * GenericArchivePage (lean)
+ * - single fetch per taxonomy for term options (TSB endpoint)
+ * - items fetch does NOT depend on term metadata => no flicker when filters load
  */
 export function GenericArchivePage(props) {
   const {
@@ -31,17 +22,15 @@ export function GenericArchivePage(props) {
     subtitle,
   } = props;
 
-  // Detect single vs multi CPT (display only; no GeoDirectory branching here)
+  // Just normalize for display context (no GD branching)
   const postTypes = useMemo(() => (Array.isArray(postType) ? postType : [postType]), [postType]);
 
   // ---------------- UI state ----------------
   const [page, setPage] = useState(1);
 
-  // Seed selectedTerms ONCE from the archive context to avoid a second fetch later
+  // Seed once from archive context to avoid an extra fetch later
   const [selectedTerms, setSelectedTerms] = useState(() => {
-    if (taxonomy && currentTerm?.id) {
-      return { [taxonomy]: [String(currentTerm.id)] };
-    }
+    if (taxonomy && currentTerm?.id) return { [taxonomy]: [String(currentTerm.id)] };
     return {};
   });
 
@@ -53,117 +42,39 @@ export function GenericArchivePage(props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [retryTick, setRetryTick] = useState(0);
 
-  // Filter options stores
-  const [termsOptions, setTermsOptions] = useState({});     // { taxonomy: Tree[] | Flat[] }
-  const [descendantsMap, setDescendantsMap] = useState({}); // { taxonomy: { id: [descIds...] } }
-  const [taxRestBaseMap, setTaxRestBaseMap] = useState({}); // { taxonomyName: rest_base }
+  // Term options (per taxonomy)
+  const [termsOptions, setTermsOptions] = useState({}); // taxonomy -> Tree[] | Flat[]
+  const fetchedOnceRef = useRef(new Set());             // avoid duplicate term fetches this mount
 
-  // Hide the filter group for the taxonomy page we’re already on
+  // Hide the group we’re already scoped to
   const displayedFilters = useMemo(() => {
     if (!taxonomy) return filters;
     return (filters || []).filter((f) => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
 
-  // ---------------- Load WP taxonomies (for rest_base) ----------------
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/wp-json/wp/v2/taxonomies", { headers: { Accept: "application/json" } });
-        if (!res.ok) throw new Error(`taxonomies HTTP ${res.status}`);
-        const json = await res.json();
-        if (cancelled) return;
-
-        const restMap = {};
-        Object.entries(json || {}).forEach(([taxonomyName, obj]) => {
-          restMap[taxonomyName] = obj?.rest_base || taxonomyName;
-        });
-        setTaxRestBaseMap(restMap);
-      } catch {
-        setTaxRestBaseMap({});
-      }
-    })();
-    return () => { cancelled = true; };
-  }, []);
-
-  // ---------------- Tree helpers ----------------
-  const buildTreeAndDescendants = (rows) => {
-    const byId = {};
-    rows.forEach((r) => {
-      const id = String(r.id);
-      byId[id] = { id, name: r.name, slug: r.slug, children: [] };
-    });
-
-    const roots = [];
-    rows.forEach((r) => {
-      const id = String(r.id);
-      const p = String(r.parent || "0");
-      if (p !== "0" && byId[p]) byId[p].children.push(byId[id]);
-      else roots.push(byId[id]);
-    });
-
-    const descendants = {};
-    const collect = (n) => {
-      let acc = [];
-      n.children.forEach((c) => { acc.push(String(c.id), ...collect(c)); });
-      descendants[String(n.id)] = acc;
-      return acc;
-    };
-    roots.forEach(collect);
-
-    const sortTree = (nodes) => {
-      nodes.sort((a, b) => a.name.localeCompare(b.name));
-      nodes.forEach((n) => sortTree(n.children));
-    };
-    sortTree(roots);
-
-    return { tree: roots, descendants };
-  };
-
-  const findInTreeById = (nodes, targetId) => {
-    for (const n of nodes) {
-      if (String(n.id) === String(targetId)) return n;
-      const hit = findInTreeById(n.children || [], targetId);
-      if (hit) return hit;
-    }
-    return null;
-  };
-
-  // ---------------- Load term options for each filter taxonomy ----------------
+  // ---------------- Fetch terms (1 call per taxonomy via TSB endpoint) ----------------
   useEffect(() => {
     if (!displayedFilters.length) {
       setTermsOptions({});
-      setDescendantsMap({});
       return;
     }
 
     let cancelled = false;
 
-    const fetchTerms = async (taxName) => {
-      // Try WP REST if available
-      const restBase = taxRestBaseMap[taxName] || taxName;
-      let wp;
-      try {
-        wp = await fetch(`/wp-json/wp/v2/${restBase}?per_page=100`, { headers: { Accept: "application/json" } });
-      } catch {
-        wp = null;
-      }
-      if (wp && wp.ok) {
-        try { return await wp.json(); } catch { }
-      }
-      // Fallback: custom endpoint that works even if !show_in_rest
-      const tsb = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(taxName)}&per_page=100`, { headers: { Accept: "application/json" } });
-      if (!tsb.ok) throw new Error(`Terms fetch failed for ${taxName} (HTTP ${tsb.status})`);
-      return tsb.json();
-    };
-
     (async () => {
-      const nextOptions = {};
-      const nextDesc = {};
-
+      const next = {};
       for (const f of displayedFilters) {
+        const tax = f.taxonomy;
+        if (fetchedOnceRef.current.has(tax)) continue; // already fetched during this mount
+
         try {
-          const json = await fetchTerms(f.taxonomy);
+          const res = await fetch(
+            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`,
+            { headers: { Accept: "application/json" } }
+          );
+          if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
+          const json = await res.json();
+
           const rows = (Array.isArray(json) ? json : []).map((t) => ({
             id: String(t.id),
             name: t.name,
@@ -171,29 +82,35 @@ export function GenericArchivePage(props) {
             parent: String((t.parent ?? 0) || "0"),
           }));
 
+          // Build tree only if hierarchical
           const isHier = rows.some((r) => r.parent !== "0");
           if (isHier) {
-            const { tree, descendants } = buildTreeAndDescendants(rows);
-            nextOptions[f.taxonomy] = tree;
-            nextDesc[f.taxonomy] = descendants;
+            const byId = {};
+            rows.forEach((r) => (byId[r.id] = { ...r, children: [] }));
+            const roots = [];
+            rows.forEach((r) => (r.parent !== "0" && byId[r.parent]) ? byId[r.parent].children.push(byId[r.id]) : roots.push(byId[r.id]));
+            const sortTree = (nodes) => { nodes.sort((a, b) => a.name.localeCompare(b.name)); nodes.forEach(n => sortTree(n.children)); };
+            sortTree(roots);
+            next[tax] = roots;
           } else {
-            nextOptions[f.taxonomy] = rows.map(({ id, name, slug }) => ({ id, name, slug }));
+            next[tax] = rows.map(({ id, name, slug }) => ({ id, name, slug }));
           }
+
+          fetchedOnceRef.current.add(tax);
         } catch {
-          nextOptions[f.taxonomy] = [];
+          next[f.taxonomy] = [];
         }
       }
 
-      if (!cancelled) {
-        setTermsOptions(nextOptions);
-        setDescendantsMap(nextDesc);
+      if (!cancelled && Object.keys(next).length) {
+        setTermsOptions((prev) => ({ ...prev, ...next }));
       }
     })();
 
     return () => { cancelled = true; };
-  }, [displayedFilters, taxRestBaseMap]);
+  }, [displayedFilters]);
 
-  // ---------------- Scope the visible branch for taxonomy archives (UI-only) ----------------
+  // ---------------- Scope the visible branch on taxonomy archives (UI-only) ----------------
   const didScopeRef = useRef(false);
   useEffect(() => {
     if (didScopeRef.current) return;
@@ -201,10 +118,16 @@ export function GenericArchivePage(props) {
     const opts = termsOptions[taxonomy];
     if (!opts || !opts.length) return;
 
-    // Only reduce the *options shown*; do not change selectedTerms (already seeded)
     const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
     if (isTree) {
-      const node = findInTreeById(opts, String(currentTerm.id));
+      // find node by id and show only that branch
+      const stack = [...opts];
+      let node = null;
+      while (stack.length) {
+        const n = stack.pop();
+        if (String(n.id) === String(currentTerm.id)) { node = n; break; }
+        (n.children || []).forEach(c => stack.push(c));
+      }
       if (node) {
         setTermsOptions((prev) => ({ ...prev, [taxonomy]: [node] }));
         didScopeRef.current = true;
@@ -218,42 +141,32 @@ export function GenericArchivePage(props) {
     }
   }, [termsOptions, taxonomy, currentTerm]);
 
-  // ---------------- Expand with descendants ----------------
-  const expandWithDescendants = useCallback((taxKey, ids) => {
-    const desc = descendantsMap[taxKey];
-    if (!desc) return ids;
-    const out = new Set();
-    ids.forEach((id) => {
-      const s = String(id);
-      out.add(s);
-      (desc[s] || []).forEach((kid) => out.add(String(kid)));
-    });
-    return Array.from(out);
-  }, [descendantsMap]);
+  // ---------------- Fetch items (decoupled from term metadata => no flicker) ----------------
+  const fetchSeq = useRef(0);
 
-  // ---------------- Fetch items (no dependency on taxonomy metadata funcs) ----------------
   useEffect(() => {
     let cancelled = false;
+    const seq = ++fetchSeq.current;
+
     (async () => {
       setLoading(true);
       setError("");
       try {
         const payload = { ...baseQuery, page };
 
-        // Base tax (from server-provided baseQuery)
+        // Base tax from server
         const baseTax = Array.isArray(baseQuery.tax)
           ? baseQuery.tax.slice()
           : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // UI-selected tax filters
+        // UI selections (no client-side descendant expansion; server will include children)
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
-            const expanded = expandWithDescendants(taxKey, termIds);
             uiTax.push({
-              taxonomy: taxKey, // already a taxonomy name from `filters`
+              taxonomy: taxKey,
               field: "term_id",
-              terms: expanded.map((id) => parseInt(id, 10)).filter((n) => Number.isFinite(n)),
+              terms: termIds.map((id) => parseInt(id, 10)).filter(Number.isFinite),
               operator: "IN",
               include_children: true,
             });
@@ -274,23 +187,22 @@ export function GenericArchivePage(props) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
 
-        if (!cancelled) {
+        if (!cancelled && seq === fetchSeq.current) {
           setItems(json.items || []);
           setTotalPages(json.total_pages || 1);
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
       } catch (err) {
-        if (!cancelled) setError(err.message || "Failed to load data");
+        if (!cancelled && seq === fetchSeq.current) setError(err.message || "Failed to load data");
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled && seq === fetchSeq.current) setLoading(false);
       }
     })();
 
-    // NOTE: intentionally NOT depending on taxRestBaseMap or any function
-    // tied to taxonomy metadata to avoid refetch flicker.
-  }, [baseQuery, endpoint, page, selectedTerms, expandWithDescendants, retryTick]);
+    return () => { cancelled = true; };
+  }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
-  // ---------------- Client-side search over returned items ----------------
+  // ---------------- Client-side search ----------------
   const searchIndex = useMemo(() => {
     const idx = new Map();
     const collect = (val, bag) => {
@@ -355,11 +267,7 @@ export function GenericArchivePage(props) {
       <div className="bg-schemesPrimaryFixed py-8">
         <div className="tsb-container">
           <h1 className="Blueprint-headline-large text-schemesOnSurface mb-1">{title}</h1>
-          {subtitle && (
-            <p className="Blueprint-body-medium text-schemesOnPrimaryFixedVariant">
-              {subtitle}
-            </p>
-          )}
+          {subtitle && <p className="Blueprint-body-medium text-schemesOnPrimaryFixedVariant">{subtitle}</p>}
         </div>
       </div>
 
@@ -367,7 +275,7 @@ export function GenericArchivePage(props) {
         {/* Filters */}
         {displayedFilters.length > 0 && (
           <aside className="hidden lg:block lg:w-64 xl:w-72">
-            {/* SEARCH BAR */}
+            {/* Search bar */}
             <div className="mb-6">
               <label htmlFor="archive-search" className="sr-only">Search by keyword</label>
               <div className="flex items-center gap-2">
@@ -380,9 +288,7 @@ export function GenericArchivePage(props) {
                     placeholder="Search by keyword"
                     className="w-full outline-none Blueprint-body-medium text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant"
                   />
-                  {!searchQuery && (
-                    <MagnifyingGlassIcon size={20} className="text-schemesOnSurfaceVariant" weight="bold" />
-                  )}
+                  {!searchQuery && <MagnifyingGlassIcon size={20} className="text-schemesOnSurfaceVariant" weight="bold" />}
                 </div>
               </div>
             </div>
@@ -391,12 +297,8 @@ export function GenericArchivePage(props) {
 
             {(hasActiveFilters || searching) && (
               <div className="mb-4 flex gap-2">
-                {hasActiveFilters && (
-                  <Button size="sm" variant="tonal" onClick={clearAllFilters} label="Clear filters" />
-                )}
-                {searching && (
-                  <Button size="sm" variant="tonal" onClick={() => setSearchQuery("")} label="Clear search" />
-                )}
+                {hasActiveFilters && <Button size="sm" variant="tonal" onClick={clearAllFilters} label="Clear filters" />}
+                {searching && <Button size="sm" variant="tonal" onClick={() => setSearchQuery("")} label="Clear search" />}
               </div>
             )}
 
@@ -424,7 +326,7 @@ export function GenericArchivePage(props) {
 
         {/* Main content */}
         <section className="flex-1">
-          {/* Error state */}
+          {/* Error */}
           {error && !loading && (
             <div className="mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6">
               <div className="Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]">Something went wrong</div>
@@ -436,14 +338,14 @@ export function GenericArchivePage(props) {
             </div>
           )}
 
-          {/* Loading skeleton */}
+          {/* Loading skeleton (items only) */}
           {loading && (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8" aria-hidden="true">
               {skeletonCards}
             </div>
           )}
 
-          {/* Empty state */}
+          {/* Empty */}
           {!loading && !error && filteredItems.length === 0 && (
             <div className="rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8">
               <div className="Blueprint-headline-small mb-2">No results found</div>
@@ -460,7 +362,7 @@ export function GenericArchivePage(props) {
             </div>
           )}
 
-          {/* Results grid */}
+          {/* Results */}
           {!loading && !error && filteredItems.length > 0 && (
             <>
               <div className="flex items-center justify-between mb-4">
@@ -492,7 +394,7 @@ export function GenericArchivePage(props) {
             </>
           )}
 
-          {/* Pagination (hide while searching) */}
+          {/* Pagination */}
           {!loading && !error && totalPages > 1 && !searching && (
             <div className="flex justify-center items-center gap-3 mt-2">
               <Button size="base" variant="tonal" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} label="Prev" />

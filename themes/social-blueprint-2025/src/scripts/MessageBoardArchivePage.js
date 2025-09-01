@@ -1,14 +1,8 @@
-import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 
-/**
- * MessageBoardArchivePage (gd_discount)
- * - List style results with full category chip set per row.
- * - Uses WP terms (with /tsb/v1/terms fallback) for filters.
- * - Client-side keyword search over returned items.
- */
 export default function MessageBoardArchivePage(props) {
   const {
     postType,
@@ -26,7 +20,7 @@ export default function MessageBoardArchivePage(props) {
   // ---------------- State ----------------
   const [page, setPage] = useState(1);
 
-  // Seed from archive context ONCE to avoid post-mount preselect flicker
+  // Seed once to avoid mount flicker on taxonomy archives
   const [selectedTerms, setSelectedTerms] = useState(() => {
     if (taxonomy && currentTerm?.id) return { [taxonomy]: [String(currentTerm.id)] };
     return {};
@@ -42,38 +36,15 @@ export default function MessageBoardArchivePage(props) {
   // Filters / terms
   const [termsOptions, setTermsOptions] = useState({});     // taxonomyName -> Tree[] | Flat[]
   const [descendantsMap, setDescendantsMap] = useState({}); // taxonomyName -> { termId: [descIds...] }
-  const [taxRestBaseMap, setTaxRestBaseMap] = useState({}); // taxonomyName -> rest_base
   const [retryTick, setRetryTick] = useState(0);
 
-  // Hide the filter group for the taxonomy the page is already scoped to (taxonomy archive)
+  // Hide the filter group for the taxonomy the page is already scoped to
   const displayedFilters = useMemo(() => {
     if (!taxonomy) return filters;
     return (filters || []).filter((f) => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
 
-  // ---------------- Discover rest_base for WP terms ----------------
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/wp-json/wp/v2/taxonomies", { headers: { Accept: "application/json" } });
-        if (!res.ok) throw new Error(`taxonomies HTTP ${res.status}`);
-        const json = await res.json();
-        if (cancelled) return;
-
-        const restMap = {};
-        Object.entries(json || {}).forEach(([taxonomyName, obj]) => {
-          restMap[taxonomyName] = obj?.rest_base || taxonomyName;
-        });
-        setTaxRestBaseMap(restMap);
-      } catch {
-        setTaxRestBaseMap({});
-      }
-    })();
-    return () => { cancelled = true; };
-  }, []);
-
-  // ---------------- Helpers: build tree for hierarchical terms ----------------
+  // ---------------- Helpers ----------------
   const buildTreeAndDescendants = (rows) => {
     const byId = {};
     rows.forEach((r) => {
@@ -103,7 +74,9 @@ export default function MessageBoardArchivePage(props) {
     return { tree: roots, descendants };
   };
 
-  // ---------------- Load term options for each filter taxonomy ----------------
+  // ---------------- Load term options (TSB endpoint only; 1 call per taxonomy) ----------------
+  const fetchedOnceRef = useRef(new Set()); // keep track per taxonomy for this mount
+
   useEffect(() => {
     if (!displayedFilters.length) {
       setTermsOptions({});
@@ -113,27 +86,24 @@ export default function MessageBoardArchivePage(props) {
 
     let cancelled = false;
 
-    const fetchTerms = async (taxName) => {
-      const restBase = taxRestBaseMap[taxName];
-      if (restBase) {
-        const wp = await fetch(`/wp-json/wp/v2/${restBase}?per_page=100`, { headers: { Accept: "application/json" } });
-        if (wp.ok) {
-          try { return await wp.json(); } catch (_) { }
-        }
-      }
-      // Fallback: custom endpoint that works even if !show_in_rest
-      const tsb = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(taxName)}&per_page=100`, { headers: { Accept: "application/json" } });
-      if (!tsb.ok) throw new Error(`Terms fetch failed for ${taxName} (HTTP ${tsb.status})`);
-      return tsb.json();
-    };
-
     (async () => {
       const nextOptions = {};
       const nextDesc = {};
 
       for (const f of displayedFilters) {
+        const tax = f.taxonomy;
+        if (fetchedOnceRef.current.has(tax)) {
+          // we already fetched this taxonomy during this mount – reuse existing state
+          continue;
+        }
         try {
-          const json = await fetchTerms(f.taxonomy);
+          const res = await fetch(
+            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`,
+            { headers: { Accept: "application/json" } }
+          );
+          if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
+          const json = await res.json();
+
           const rows = (Array.isArray(json) ? json : []).map((t) => ({
             id: String(t.id),
             name: t.name,
@@ -144,26 +114,28 @@ export default function MessageBoardArchivePage(props) {
           const isHier = rows.some((r) => r.parent !== "0");
           if (isHier) {
             const { tree, descendants } = buildTreeAndDescendants(rows);
-            nextOptions[f.taxonomy] = tree;
-            nextDesc[f.taxonomy] = descendants;
+            nextOptions[tax] = tree;
+            nextDesc[tax] = descendants;
           } else {
-            nextOptions[f.taxonomy] = rows.map(({ id, name, slug }) => ({ id, name, slug }));
+            nextOptions[tax] = rows.map(({ id, name, slug }) => ({ id, name, slug }));
           }
+
+          fetchedOnceRef.current.add(tax);
         } catch {
           nextOptions[f.taxonomy] = [];
         }
       }
 
-      if (!cancelled) {
-        setTermsOptions(nextOptions);
-        setDescendantsMap(nextDesc);
+      if (!cancelled && (Object.keys(nextOptions).length || Object.keys(nextDesc).length)) {
+        setTermsOptions((prev) => ({ ...prev, ...nextOptions }));
+        setDescendantsMap((prev) => ({ ...prev, ...nextDesc }));
       }
     })();
 
     return () => { cancelled = true; };
-  }, [displayedFilters, taxRestBaseMap]);
+  }, [displayedFilters]);
 
-  // ---------------- Scope filter UI for taxonomy archives (UI-only, no refetch) ----------------
+  // ---------------- Scope filter UI for taxonomy archives (UI-only) ----------------
   const didScopeRef = useRef(false);
   useEffect(() => {
     if (didScopeRef.current) return;
@@ -173,7 +145,6 @@ export default function MessageBoardArchivePage(props) {
 
     const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
     if (isTree) {
-      // show only the current term branch
       const stack = [...opts];
       let node = null;
       while (stack.length) {
@@ -194,7 +165,7 @@ export default function MessageBoardArchivePage(props) {
     }
   }, [termsOptions, taxonomy, currentTerm]);
 
-  // ---------------- Fetch posts (no dependency on descendants/tax metadata) ----------------
+  // ---------------- Fetch posts ----------------
   const fetchSeq = useRef(0);
 
   useEffect(() => {
@@ -207,21 +178,21 @@ export default function MessageBoardArchivePage(props) {
       try {
         const payload = { ...baseQuery, page };
 
-        // Base tax (from server-provided baseQuery)
+        // Start from server-provided base tax
         const baseTax = Array.isArray(baseQuery.tax)
           ? baseQuery.tax.slice()
           : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // UI-selected tax filters (no client-side descendant expansion; rely on include_children)
+        // UI selections (no client-side descendant expansion; rely on include_children)
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
             uiTax.push({
-              taxonomy: taxKey,        // taxonomy name
+              taxonomy: taxKey,
               field: "term_id",
               terms: termIds.map((id) => parseInt(id, 10)).filter(Number.isFinite),
               operator: "IN",
-              include_children: true,  // WP will include descendants
+              include_children: true,
             });
           }
         }
@@ -259,7 +230,7 @@ export default function MessageBoardArchivePage(props) {
     return () => { cancelled = true; };
   }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
-  // ---------------- Client-side search over returned items ----------------
+  // ---------------- Client-side search ----------------
   const searchIndex = useMemo(() => {
     const idx = new Map();
     const collect = (val, bag) => {
@@ -307,7 +278,7 @@ export default function MessageBoardArchivePage(props) {
     setPage(1);
   };
 
-  // ---------------- Helpers for row rendering ----------------
+  // ---------------- Row rendering helpers ----------------
   const stripTags = (html) => {
     if (typeof html !== "string") return "";
     const tmp = document.createElement("div");
@@ -315,7 +286,6 @@ export default function MessageBoardArchivePage(props) {
     return (tmp.textContent || tmp.innerText || "").trim();
   };
 
-  // categories-only chip extraction
   const extractCategoryLabels = (item) => {
     const labels = [];
     const seen = new Set();
@@ -408,7 +378,7 @@ export default function MessageBoardArchivePage(props) {
     );
   };
 
-  // ---------------- Skeletons (list layout) ----------------
+  // ---------------- Skeletons ----------------
   const skeletonRows = Array.from({ length: 8 }).map((_, i) => (
     <div key={`sk-${i}`} className="rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden bg-[var(--schemesSurface)]">
       <div className="flex gap-4 p-4">

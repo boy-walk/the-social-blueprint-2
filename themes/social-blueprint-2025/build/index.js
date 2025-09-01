@@ -23246,7 +23246,6 @@ function EventPage({
     startISO,
     endISO
   });
-  console.log(relatedContent);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("main", {
     className: "bg-schemesSurface text-schemesOnSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
@@ -23260,7 +23259,8 @@ function EventPage({
             children: [tags.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "flex flex-wrap gap-2",
               children: tags?.map(t => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_3__.Tag, {
-                tagName: t
+                tagName: t,
+                href: `${t}`
               }, t))
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("header", {
               className: "space-y-2",
@@ -24735,18 +24735,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * GenericArchivePage (GD-agnostic)
- *
- * Props:
- * - postType: string | string[]
- * - taxonomy: string
- * - currentTerm: { id:number, slug:string, taxonomy:string } | null
- * - filters: array of { taxonomy: string, label: string }
- * - endpoint: string
- * - baseQuery: object
- * - title: string
- * - subtitle?: string
- * - disableGDAutoFilters?: boolean  // ignored in this GD-agnostic version
+ * GenericArchivePage (lean)
+ * - single fetch per taxonomy for term options (TSB endpoint)
+ * - items fetch does NOT depend on term metadata => no flicker when filters load
  */
 
 function GenericArchivePage(props) {
@@ -24761,19 +24752,17 @@ function GenericArchivePage(props) {
     subtitle
   } = props;
 
-  // Detect single vs multi CPT (display only; no GeoDirectory branching here)
+  // Just normalize for display context (no GD branching)
   const postTypes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(postType) ? postType : [postType], [postType]);
 
   // ---------------- UI state ----------------
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
 
-  // Seed selectedTerms ONCE from the archive context to avoid a second fetch later
+  // Seed once from archive context to avoid an extra fetch later
   const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
-    if (taxonomy && currentTerm?.id) {
-      return {
-        [taxonomy]: [String(currentTerm.id)]
-      };
-    }
+    if (taxonomy && currentTerm?.id) return {
+      [taxonomy]: [String(currentTerm.id)]
+    };
     return {};
   });
   const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
@@ -24784,132 +24773,37 @@ function GenericArchivePage(props) {
   const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
 
-  // Filter options stores
-  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy: Tree[] | Flat[] }
-  const [descendantsMap, setDescendantsMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomy: { id: [descIds...] } }
-  const [taxRestBaseMap, setTaxRestBaseMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // { taxonomyName: rest_base }
+  // Term options (per taxonomy)
+  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomy -> Tree[] | Flat[]
+  const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set()); // avoid duplicate term fetches this mount
 
-  // Hide the filter group for the taxonomy page we’re already on
+  // Hide the group we’re already scoped to
   const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     if (!taxonomy) return filters;
     return (filters || []).filter(f => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
 
-  // ---------------- Load WP taxonomies (for rest_base) ----------------
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/wp-json/wp/v2/taxonomies", {
-          headers: {
-            Accept: "application/json"
-          }
-        });
-        if (!res.ok) throw new Error(`taxonomies HTTP ${res.status}`);
-        const json = await res.json();
-        if (cancelled) return;
-        const restMap = {};
-        Object.entries(json || {}).forEach(([taxonomyName, obj]) => {
-          restMap[taxonomyName] = obj?.rest_base || taxonomyName;
-        });
-        setTaxRestBaseMap(restMap);
-      } catch {
-        setTaxRestBaseMap({});
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  // ---------------- Tree helpers ----------------
-  const buildTreeAndDescendants = rows => {
-    const byId = {};
-    rows.forEach(r => {
-      const id = String(r.id);
-      byId[id] = {
-        id,
-        name: r.name,
-        slug: r.slug,
-        children: []
-      };
-    });
-    const roots = [];
-    rows.forEach(r => {
-      const id = String(r.id);
-      const p = String(r.parent || "0");
-      if (p !== "0" && byId[p]) byId[p].children.push(byId[id]);else roots.push(byId[id]);
-    });
-    const descendants = {};
-    const collect = n => {
-      let acc = [];
-      n.children.forEach(c => {
-        acc.push(String(c.id), ...collect(c));
-      });
-      descendants[String(n.id)] = acc;
-      return acc;
-    };
-    roots.forEach(collect);
-    const sortTree = nodes => {
-      nodes.sort((a, b) => a.name.localeCompare(b.name));
-      nodes.forEach(n => sortTree(n.children));
-    };
-    sortTree(roots);
-    return {
-      tree: roots,
-      descendants
-    };
-  };
-  const findInTreeById = (nodes, targetId) => {
-    for (const n of nodes) {
-      if (String(n.id) === String(targetId)) return n;
-      const hit = findInTreeById(n.children || [], targetId);
-      if (hit) return hit;
-    }
-    return null;
-  };
-
-  // ---------------- Load term options for each filter taxonomy ----------------
+  // ---------------- Fetch terms (1 call per taxonomy via TSB endpoint) ----------------
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!displayedFilters.length) {
       setTermsOptions({});
-      setDescendantsMap({});
       return;
     }
     let cancelled = false;
-    const fetchTerms = async taxName => {
-      // Try WP REST if available
-      const restBase = taxRestBaseMap[taxName] || taxName;
-      let wp;
-      try {
-        wp = await fetch(`/wp-json/wp/v2/${restBase}?per_page=100`, {
-          headers: {
-            Accept: "application/json"
-          }
-        });
-      } catch {
-        wp = null;
-      }
-      if (wp && wp.ok) {
-        try {
-          return await wp.json();
-        } catch {}
-      }
-      // Fallback: custom endpoint that works even if !show_in_rest
-      const tsb = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(taxName)}&per_page=100`, {
-        headers: {
-          Accept: "application/json"
-        }
-      });
-      if (!tsb.ok) throw new Error(`Terms fetch failed for ${taxName} (HTTP ${tsb.status})`);
-      return tsb.json();
-    };
     (async () => {
-      const nextOptions = {};
-      const nextDesc = {};
+      const next = {};
       for (const f of displayedFilters) {
+        const tax = f.taxonomy;
+        if (fetchedOnceRef.current.has(tax)) continue; // already fetched during this mount
+
         try {
-          const json = await fetchTerms(f.taxonomy);
+          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`, {
+            headers: {
+              Accept: "application/json"
+            }
+          });
+          if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
+          const json = await res.json();
           const rows = (Array.isArray(json) ? json : []).map(t => {
             var _t$parent;
             return {
@@ -24919,16 +24813,25 @@ function GenericArchivePage(props) {
               parent: String(((_t$parent = t.parent) !== null && _t$parent !== void 0 ? _t$parent : 0) || "0")
             };
           });
+
+          // Build tree only if hierarchical
           const isHier = rows.some(r => r.parent !== "0");
           if (isHier) {
-            const {
-              tree,
-              descendants
-            } = buildTreeAndDescendants(rows);
-            nextOptions[f.taxonomy] = tree;
-            nextDesc[f.taxonomy] = descendants;
+            const byId = {};
+            rows.forEach(r => byId[r.id] = {
+              ...r,
+              children: []
+            });
+            const roots = [];
+            rows.forEach(r => r.parent !== "0" && byId[r.parent] ? byId[r.parent].children.push(byId[r.id]) : roots.push(byId[r.id]));
+            const sortTree = nodes => {
+              nodes.sort((a, b) => a.name.localeCompare(b.name));
+              nodes.forEach(n => sortTree(n.children));
+            };
+            sortTree(roots);
+            next[tax] = roots;
           } else {
-            nextOptions[f.taxonomy] = rows.map(({
+            next[tax] = rows.map(({
               id,
               name,
               slug
@@ -24938,32 +24841,43 @@ function GenericArchivePage(props) {
               slug
             }));
           }
+          fetchedOnceRef.current.add(tax);
         } catch {
-          nextOptions[f.taxonomy] = [];
+          next[f.taxonomy] = [];
         }
       }
-      if (!cancelled) {
-        setTermsOptions(nextOptions);
-        setDescendantsMap(nextDesc);
+      if (!cancelled && Object.keys(next).length) {
+        setTermsOptions(prev => ({
+          ...prev,
+          ...next
+        }));
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, [displayedFilters, taxRestBaseMap]);
+  }, [displayedFilters]);
 
-  // ---------------- Scope the visible branch for taxonomy archives (UI-only) ----------------
+  // ---------------- Scope the visible branch on taxonomy archives (UI-only) ----------------
   const didScopeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (didScopeRef.current) return;
     if (!taxonomy || !currentTerm?.id) return;
     const opts = termsOptions[taxonomy];
     if (!opts || !opts.length) return;
-
-    // Only reduce the *options shown*; do not change selectedTerms (already seeded)
     const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
     if (isTree) {
-      const node = findInTreeById(opts, String(currentTerm.id));
+      // find node by id and show only that branch
+      const stack = [...opts];
+      let node = null;
+      while (stack.length) {
+        const n = stack.pop();
+        if (String(n.id) === String(currentTerm.id)) {
+          node = n;
+          break;
+        }
+        (n.children || []).forEach(c => stack.push(c));
+      }
       if (node) {
         setTermsOptions(prev => ({
           ...prev,
@@ -24980,22 +24894,11 @@ function GenericArchivePage(props) {
     }
   }, [termsOptions, taxonomy, currentTerm]);
 
-  // ---------------- Expand with descendants ----------------
-  const expandWithDescendants = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((taxKey, ids) => {
-    const desc = descendantsMap[taxKey];
-    if (!desc) return ids;
-    const out = new Set();
-    ids.forEach(id => {
-      const s = String(id);
-      out.add(s);
-      (desc[s] || []).forEach(kid => out.add(String(kid)));
-    });
-    return Array.from(out);
-  }, [descendantsMap]);
-
-  // ---------------- Fetch items (no dependency on taxonomy metadata funcs) ----------------
+  // ---------------- Fetch items (decoupled from term metadata => no flicker) ----------------
+  const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
+    const seq = ++fetchSeq.current;
     (async () => {
       setLoading(true);
       setError("");
@@ -25005,19 +24908,17 @@ function GenericArchivePage(props) {
           page
         };
 
-        // Base tax (from server-provided baseQuery)
+        // Base tax from server
         const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // UI-selected tax filters
+        // UI selections (no client-side descendant expansion; server will include children)
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
-            const expanded = expandWithDescendants(taxKey, termIds);
             uiTax.push({
               taxonomy: taxKey,
-              // already a taxonomy name from `filters`
               field: "term_id",
-              terms: expanded.map(id => parseInt(id, 10)).filter(n => Number.isFinite(n)),
+              terms: termIds.map(id => parseInt(id, 10)).filter(Number.isFinite),
               operator: "IN",
               include_children: true
             });
@@ -25037,23 +24938,23 @@ function GenericArchivePage(props) {
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
-        if (!cancelled) {
+        if (!cancelled && seq === fetchSeq.current) {
           setItems(json.items || []);
           setTotalPages(json.total_pages || 1);
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
       } catch (err) {
-        if (!cancelled) setError(err.message || "Failed to load data");
+        if (!cancelled && seq === fetchSeq.current) setError(err.message || "Failed to load data");
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled && seq === fetchSeq.current) setLoading(false);
       }
     })();
+    return () => {
+      cancelled = true;
+    };
+  }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
-    // NOTE: intentionally NOT depending on taxRestBaseMap or any function
-    // tied to taxonomy metadata to avoid refetch flicker.
-  }, [baseQuery, endpoint, page, selectedTerms, expandWithDescendants, retryTick]);
-
-  // ---------------- Client-side search over returned items ----------------
+  // ---------------- Client-side search ----------------
   const searchIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     const idx = new Map();
     const collect = (val, bag) => {
@@ -26207,6 +26108,212 @@ function LoginForm() {
 
 /***/ }),
 
+/***/ "./src/scripts/MessageBoard.js":
+/*!*************************************!*\
+  !*** ./src/scripts/MessageBoard.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MessageBoardPage)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ShareButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShareButton */ "./src/scripts/ShareButton.js");
+/* harmony import */ var _RelatedContentCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RelatedContentCard */ "./src/scripts/RelatedContentCard.js");
+/* harmony import */ var _PostsSlider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PostsSlider */ "./src/scripts/PostsSlider.js");
+/* harmony import */ var _ExploreByTheme__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ExploreByTheme */ "./src/scripts/ExploreByTheme.js");
+/* harmony import */ var _PillTag__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PillTag */ "./src/scripts/PillTag.js");
+/* harmony import */ var _Tag__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Tag */ "./src/scripts/Tag.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+
+
+
+
+
+
+
+
+/**
+ * MessageBoardPage (single gd_discount)
+ * Reuses PodcastPage structure/components where possible.
+ *
+ * Props:
+ * - title: string
+ * - date: string (ISO or human)
+ * - author: { id, name, url, avatar }
+ * - categories: string[]            // chips row (gd_discount categories)
+ * - contentHtml: string             // full post content (rendered HTML)
+ * - featuredImage?: string
+ * - relatedContent: [{ id,title,href,thumbnail }]
+ * - recentPosts: [{ id,title,thumbnail,link,date,author,post_type }]
+ * - trendingTopics: [{ name, link }]
+ */
+
+function MessageBoardPage({
+  title,
+  date,
+  author,
+  categories = [],
+  contentHtml,
+  featuredImage,
+  relatedContent = [],
+  recentPosts = [],
+  trendingTopics = []
+}) {
+  console.log(relatedContent);
+  const formattedDate = date ? new Date(date).toLocaleDateString("en-AU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  }) : "";
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("main", {
+    className: "bg-schemesSurface text-schemesOnSurface",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "p-6 md:p-8 lg:p-12",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex flex-col md:flex-col lg:flex-row lg:gap-16",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "flex-3 min-w-0 space-y-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("header", {
+              className: "space-y-3",
+              children: [categories?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "flex flex-wrap gap-2",
+                children: categories.map((c, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                  className: "px-3 py-2 rounded-lg bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small",
+                  children: c
+                }, `${c}-${i}`))
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+                className: "Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight",
+                children: title
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                className: "flex flex-wrap items-start sm:items-center justify-between gap-4",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  className: "flex items-center gap-4",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                    src: author?.avatar || "/no_profile.png",
+                    alt: author?.name || "Author",
+                    className: "w-10 h-10 rounded-full"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "flex flex-col gap-0.5",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      className: "lg:Blueprint-title-medium",
+                      children: author?.name || "Author"
+                    }), formattedDate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      className: "Blueprint-label-large text-schemesOnSurfaceVariant",
+                      children: formattedDate
+                    })]
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ShareButton__WEBPACK_IMPORTED_MODULE_1__.ShareButton, {
+                  title: title,
+                  summary: "",
+                  url: typeof window !== "undefined" ? window.location.href : undefined
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
+              className: "space-y-6 lg:space-y-7 max-w-3xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto [&_img]:block [&_figure]:max-w-full [&_figure]:overflow-hidden",
+              dangerouslySetInnerHTML: {
+                __html: contentHtml
+              }
+            }), featuredImage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("figure", {
+              className: "rounded-2xl overflow-hidden shadow-md",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                src: featuredImage,
+                alt: "",
+                className: "w-full h-auto object-cover"
+              })
+            }), recentPosts?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "hidden md:block pt-6",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                className: "flex items-center gap-2 mb-2",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                  className: "Blueprint-headline-small-emphasized",
+                  children: "Recent message board posts"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                  className: "Blueprint-title-medium",
+                  children: "\uD83D\uDDDE\uFE0F"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PostsSlider__WEBPACK_IMPORTED_MODULE_3__.PostsSlider, {
+                events: recentPosts,
+                itemsToDisplay: 3
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("aside", {
+            className: "w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1 min-w-70 mt-10 lg:mt-0",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+              className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2",
+              children: "Related Content"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "rounded-lg flex items-stretch justify-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "flex flex-col gap-2 w-full",
+                children: relatedContent.length > 0 ? relatedContent.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_RelatedContentCard__WEBPACK_IMPORTED_MODULE_2__.RelatedContentCard, {
+                  image: item.thumbnail,
+                  title: item.title,
+                  href: item.href || item.link
+                }, item.id)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+                  className: "text-schemesOnSurfaceVariant",
+                  children: "No related content available."
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+              href: "/message-boards",
+              className: "",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "Blueprint-label-large underline text-schemesPrimary p-2",
+                children: "Browse all message board"
+              })
+            }), trendingTopics?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "rounded-xl p-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "Blueprint-title-small-emphasized mb-4",
+                children: "Trending Topics"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "flex flex-wrap gap-2",
+                children: trendingTopics.map((t, i) => t?.link ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                  href: t.link,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_6__.Tag, {
+                    href: t.link,
+                    tagName: t.name
+                  })
+                }, i) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_6__.Tag, {
+                  href: "#",
+                  tagName: t.name || String(t)
+                }, i))
+              })]
+            })]
+          })]
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "bg-schemesPrimaryFixed w-full",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "p-6 md:p-8 lg:p-16 flex flex-col max-w-[1600px] mx-auto gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex flex-wrap gap-3 items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "lg:Blueprint-headline-large-emphasized md:Blueprint-title-medium-emphasized Blueprint-title-small-emphasized italic",
+            children: "Explore more by"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            label: "Theme",
+            backgroundColor: "schemesPrimaryContainer"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface mb-8 lg:mb-12 max-w-[68ch]",
+          children: "From support services to creative culture, start where you're curious."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_4__.ExploreByTheme, {})]
+      })
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./src/scripts/MessageBoardArchivePage.js":
 /*!************************************************!*\
   !*** ./src/scripts/MessageBoardArchivePage.js ***!
@@ -26230,13 +26337,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/**
- * MessageBoardArchivePage (gd_discount)
- * - List style results with full category chip set per row.
- * - Uses WP terms (with /tsb/v1/terms fallback) for filters.
- * - Client-side keyword search over returned items.
- */
-
 function MessageBoardArchivePage(props) {
   const {
     postType,
@@ -26253,7 +26353,7 @@ function MessageBoardArchivePage(props) {
   // ---------------- State ----------------
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
 
-  // Seed from archive context ONCE to avoid post-mount preselect flicker
+  // Seed once to avoid mount flicker on taxonomy archives
   const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
     if (taxonomy && currentTerm?.id) return {
       [taxonomy]: [String(currentTerm.id)]
@@ -26270,43 +26370,15 @@ function MessageBoardArchivePage(props) {
   // Filters / terms
   const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomyName -> Tree[] | Flat[]
   const [descendantsMap, setDescendantsMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomyName -> { termId: [descIds...] }
-  const [taxRestBaseMap, setTaxRestBaseMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomyName -> rest_base
   const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
 
-  // Hide the filter group for the taxonomy the page is already scoped to (taxonomy archive)
+  // Hide the filter group for the taxonomy the page is already scoped to
   const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     if (!taxonomy) return filters;
     return (filters || []).filter(f => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
 
-  // ---------------- Discover rest_base for WP terms ----------------
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/wp-json/wp/v2/taxonomies", {
-          headers: {
-            Accept: "application/json"
-          }
-        });
-        if (!res.ok) throw new Error(`taxonomies HTTP ${res.status}`);
-        const json = await res.json();
-        if (cancelled) return;
-        const restMap = {};
-        Object.entries(json || {}).forEach(([taxonomyName, obj]) => {
-          restMap[taxonomyName] = obj?.rest_base || taxonomyName;
-        });
-        setTaxRestBaseMap(restMap);
-      } catch {
-        setTaxRestBaseMap({});
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  // ---------------- Helpers: build tree for hierarchical terms ----------------
+  // ---------------- Helpers ----------------
   const buildTreeAndDescendants = rows => {
     const byId = {};
     rows.forEach(r => {
@@ -26345,7 +26417,9 @@ function MessageBoardArchivePage(props) {
     };
   };
 
-  // ---------------- Load term options for each filter taxonomy ----------------
+  // ---------------- Load term options (TSB endpoint only; 1 call per taxonomy) ----------------
+  const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set()); // keep track per taxonomy for this mount
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!displayedFilters.length) {
       setTermsOptions({});
@@ -26353,35 +26427,23 @@ function MessageBoardArchivePage(props) {
       return;
     }
     let cancelled = false;
-    const fetchTerms = async taxName => {
-      const restBase = taxRestBaseMap[taxName];
-      if (restBase) {
-        const wp = await fetch(`/wp-json/wp/v2/${restBase}?per_page=100`, {
-          headers: {
-            Accept: "application/json"
-          }
-        });
-        if (wp.ok) {
-          try {
-            return await wp.json();
-          } catch (_) {}
-        }
-      }
-      // Fallback: custom endpoint that works even if !show_in_rest
-      const tsb = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(taxName)}&per_page=100`, {
-        headers: {
-          Accept: "application/json"
-        }
-      });
-      if (!tsb.ok) throw new Error(`Terms fetch failed for ${taxName} (HTTP ${tsb.status})`);
-      return tsb.json();
-    };
     (async () => {
       const nextOptions = {};
       const nextDesc = {};
       for (const f of displayedFilters) {
+        const tax = f.taxonomy;
+        if (fetchedOnceRef.current.has(tax)) {
+          // we already fetched this taxonomy during this mount – reuse existing state
+          continue;
+        }
         try {
-          const json = await fetchTerms(f.taxonomy);
+          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`, {
+            headers: {
+              Accept: "application/json"
+            }
+          });
+          if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
+          const json = await res.json();
           const rows = (Array.isArray(json) ? json : []).map(t => {
             var _t$parent;
             return {
@@ -26397,10 +26459,10 @@ function MessageBoardArchivePage(props) {
               tree,
               descendants
             } = buildTreeAndDescendants(rows);
-            nextOptions[f.taxonomy] = tree;
-            nextDesc[f.taxonomy] = descendants;
+            nextOptions[tax] = tree;
+            nextDesc[tax] = descendants;
           } else {
-            nextOptions[f.taxonomy] = rows.map(({
+            nextOptions[tax] = rows.map(({
               id,
               name,
               slug
@@ -26410,21 +26472,28 @@ function MessageBoardArchivePage(props) {
               slug
             }));
           }
+          fetchedOnceRef.current.add(tax);
         } catch {
           nextOptions[f.taxonomy] = [];
         }
       }
-      if (!cancelled) {
-        setTermsOptions(nextOptions);
-        setDescendantsMap(nextDesc);
+      if (!cancelled && (Object.keys(nextOptions).length || Object.keys(nextDesc).length)) {
+        setTermsOptions(prev => ({
+          ...prev,
+          ...nextOptions
+        }));
+        setDescendantsMap(prev => ({
+          ...prev,
+          ...nextDesc
+        }));
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, [displayedFilters, taxRestBaseMap]);
+  }, [displayedFilters]);
 
-  // ---------------- Scope filter UI for taxonomy archives (UI-only, no refetch) ----------------
+  // ---------------- Scope filter UI for taxonomy archives (UI-only) ----------------
   const didScopeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (didScopeRef.current) return;
@@ -26433,7 +26502,6 @@ function MessageBoardArchivePage(props) {
     if (!opts || !opts.length) return;
     const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
     if (isTree) {
-      // show only the current term branch
       const stack = [...opts];
       let node = null;
       while (stack.length) {
@@ -26460,7 +26528,7 @@ function MessageBoardArchivePage(props) {
     }
   }, [termsOptions, taxonomy, currentTerm]);
 
-  // ---------------- Fetch posts (no dependency on descendants/tax metadata) ----------------
+  // ---------------- Fetch posts ----------------
   const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
@@ -26474,20 +26542,19 @@ function MessageBoardArchivePage(props) {
           page
         };
 
-        // Base tax (from server-provided baseQuery)
+        // Start from server-provided base tax
         const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // UI-selected tax filters (no client-side descendant expansion; rely on include_children)
+        // UI selections (no client-side descendant expansion; rely on include_children)
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
             uiTax.push({
               taxonomy: taxKey,
-              // taxonomy name
               field: "term_id",
               terms: termIds.map(id => parseInt(id, 10)).filter(Number.isFinite),
               operator: "IN",
-              include_children: true // WP will include descendants
+              include_children: true
             });
           }
         }
@@ -26525,7 +26592,7 @@ function MessageBoardArchivePage(props) {
     };
   }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
-  // ---------------- Client-side search over returned items ----------------
+  // ---------------- Client-side search ----------------
   const searchIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     const idx = new Map();
     const collect = (val, bag) => {
@@ -26565,15 +26632,13 @@ function MessageBoardArchivePage(props) {
     setPage(1);
   };
 
-  // ---------------- Helpers for row rendering ----------------
+  // ---------------- Row rendering helpers ----------------
   const stripTags = html => {
     if (typeof html !== "string") return "";
     const tmp = document.createElement("div");
     tmp.innerHTML = html;
     return (tmp.textContent || tmp.innerText || "").trim();
   };
-
-  // categories-only chip extraction
   const extractCategoryLabels = item => {
     const labels = [];
     const seen = new Set();
@@ -26652,7 +26717,7 @@ function MessageBoardArchivePage(props) {
     });
   };
 
-  // ---------------- Skeletons (list layout) ----------------
+  // ---------------- Skeletons ----------------
   const skeletonRows = Array.from({
     length: 8
   }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -28332,7 +28397,7 @@ const SectionOne = ({
               className: "flex flex-wrap gap-4 items-center",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
                 label: "View all",
-                onClick: () => window.location.href = '/submit-event',
+                onClick: () => window.location.href = '/podcasts',
                 size: "base",
                 variant: "filled"
               })
@@ -30237,8 +30302,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_CostOfLiving__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./scripts/CostOfLiving */ "./src/scripts/CostOfLiving.js");
 /* harmony import */ var _scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./scripts/GenericArchivePage */ "./src/scripts/GenericArchivePage.js");
 /* harmony import */ var _scripts_MessageBoardArchivePage__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./scripts/MessageBoardArchivePage */ "./src/scripts/MessageBoardArchivePage.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__);
+/* harmony import */ var _scripts_MessageBoard__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./scripts/MessageBoard */ "./src/scripts/MessageBoard.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__);
+
 
 
 
@@ -30277,12 +30344,12 @@ __webpack_require__.r(__webpack_exports__);
 
 if (document.querySelector('#front-page')) {
   const root = react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(document.querySelector('#front-page'));
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_FrontPage__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
+  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_FrontPage__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
 }
 const header = document.getElementById('header');
 if (header) {
   const isUserLoggedIn = header.getAttribute('isUserLoggedIn') === 'true';
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(header).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(header).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
     isUserLoggedIn: isUserLoggedIn
   }));
 }
@@ -30294,7 +30361,7 @@ if (el1) {
   const dynamicProps = JSON.parse(el1.dataset.dynamicProps || '{}');
   const historicalPhotos = JSON.parse(el1.dataset.historicalPhotos || '[]');
   const sponsorshipBanner = JSON.parse(el1.dataset.sponsorshipBanner || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el1).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_SectionOne__WEBPACK_IMPORTED_MODULE_5__.SectionOne, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el1).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_SectionOne__WEBPACK_IMPORTED_MODULE_5__.SectionOne, {
     events: events,
     podcasts: podcasts,
     messageBoardPosts: messageBoardPosts,
@@ -30306,7 +30373,7 @@ if (el1) {
 const el2 = document.getElementById('sponsorship-banner');
 if (el2) {
   const data = JSON.parse(el2.dataset.banner);
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el2).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_Sponsorship__WEBPACK_IMPORTED_MODULE_6__.SponsorshipBanner, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el2).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_Sponsorship__WEBPACK_IMPORTED_MODULE_6__.SponsorshipBanner, {
     ...data
   }));
 }
@@ -30314,37 +30381,37 @@ const el3 = document.getElementById('single-event-page');
 if (el3) {
   const data = JSON.parse(el3.dataset.event);
   console.log("Hellooooo");
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el3).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_SingleEvent__WEBPACK_IMPORTED_MODULE_7__.SingleEventPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el3).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_SingleEvent__WEBPACK_IMPORTED_MODULE_7__.SingleEventPage, {
     ...data
   }));
 }
 const el4 = document.getElementById('register-individual');
 if (el4) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el4).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_RegisterIndividual__WEBPACK_IMPORTED_MODULE_8__.RegisterIndividual, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el4).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_RegisterIndividual__WEBPACK_IMPORTED_MODULE_8__.RegisterIndividual, {}));
 }
 const el5 = document.getElementById('footer');
 if (el5) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el5).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_Footer__WEBPACK_IMPORTED_MODULE_9__.Footer, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el5).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_Footer__WEBPACK_IMPORTED_MODULE_9__.Footer, {}));
 }
 const el6 = document.getElementById('login-form');
 if (el6) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el6).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_LoginForm__WEBPACK_IMPORTED_MODULE_10__.LoginForm, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el6).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_LoginForm__WEBPACK_IMPORTED_MODULE_10__.LoginForm, {}));
 }
 const el7 = document.getElementById('terms-and-conditions');
 if (el7) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el7).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_TermsAndConditions__WEBPACK_IMPORTED_MODULE_11__.TermsAndConditions, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el7).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_TermsAndConditions__WEBPACK_IMPORTED_MODULE_11__.TermsAndConditions, {}));
 }
 const el8 = document.getElementById('contact-us');
 if (el8) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el8).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_ContactUs__WEBPACK_IMPORTED_MODULE_12__.ContactForm, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el8).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_ContactUs__WEBPACK_IMPORTED_MODULE_12__.ContactForm, {}));
 }
 const el9 = document.getElementById('404');
 if (el9) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el9).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_Page404__WEBPACK_IMPORTED_MODULE_13__.Page404, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el9).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_Page404__WEBPACK_IMPORTED_MODULE_13__.Page404, {}));
 }
 const el10 = document.getElementById('register-organisation');
 if (el10) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el10).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_RegisterOrganisation__WEBPACK_IMPORTED_MODULE_14__.RegisterOrganisation, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el10).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_RegisterOrganisation__WEBPACK_IMPORTED_MODULE_14__.RegisterOrganisation, {}));
 }
 const el11 = document.getElementById('podcast-root');
 if (el11) {
@@ -30360,7 +30427,7 @@ if (el11) {
     taxonomies: JSON.parse(el11.dataset.taxonomies || '{}'),
     relatedContent: JSON.parse(el11.dataset.relatedContent || '[]')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el11).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_PodcastPage__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el11).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_PodcastPage__WEBPACK_IMPORTED_MODULE_15__["default"], {
     ...props
   }));
 }
@@ -30368,7 +30435,7 @@ const el12 = document.getElementById('search-root');
 if (el12) {
   const query = el12.getAttribute("data-query") || '';
   const results = JSON.parse(el12.getAttribute("data-results"));
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el12).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_SearchPage__WEBPACK_IMPORTED_MODULE_16__.SearchPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el12).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_SearchPage__WEBPACK_IMPORTED_MODULE_16__.SearchPage, {
     query: query,
     results: results
   }));
@@ -30376,7 +30443,7 @@ if (el12) {
 const el13 = document.getElementById('community-hub-root');
 if (el13) {
   const props = window.__COMMUNITY_HUB_PROPS__ || {};
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el13).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_CommunityHubPage__WEBPACK_IMPORTED_MODULE_17__.CommunityHubPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el13).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_CommunityHubPage__WEBPACK_IMPORTED_MODULE_17__.CommunityHubPage, {
     ...props
   }));
 }
@@ -30384,14 +30451,14 @@ const el14 = document.getElementById('account-dashboard-root');
 if (el14) {
   const userData = JSON.parse(el14.dataset.user);
   const eventsData = JSON.parse(el14.dataset.events || '[]');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el14).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_AccountDashboard__WEBPACK_IMPORTED_MODULE_18__.AccountDashboard, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el14).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_AccountDashboard__WEBPACK_IMPORTED_MODULE_18__.AccountDashboard, {
     user: userData,
     events: eventsData
   }));
 }
 const el15 = document.getElementById('newsletter-banner');
 if (el15) {
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el15).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_NewsletterBanner__WEBPACK_IMPORTED_MODULE_19__.NewsletterBanner, {}));
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el15).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_NewsletterBanner__WEBPACK_IMPORTED_MODULE_19__.NewsletterBanner, {}));
 }
 const el16 = document.getElementById('account-settings-root');
 if (el16) {
@@ -30400,7 +30467,7 @@ if (el16) {
     user: JSON.parse(el16.dataset.user || '{}'),
     profile: JSON.parse(el16.dataset.profile || '{}')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el16).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountEditProfilePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el16).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountEditProfilePage, {
     ...props
   }));
 }
@@ -30411,14 +30478,14 @@ if (el17) {
     user: JSON.parse(el17.dataset.user || '{}'),
     profile: JSON.parse(el17.dataset.profile || '{}')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el17).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountChangePasswordPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el17).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_AccountProfilePage__WEBPACK_IMPORTED_MODULE_20__.AccountChangePasswordPage, {
     ...props
   }));
 }
 const el18 = document.getElementById("OurMissionPage");
 if (el18) {
   const props = JSON.parse(el18.getAttribute("data-props") || "{}");
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el18).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_AboutUs__WEBPACK_IMPORTED_MODULE_21__.AboutUs, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el18).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_AboutUs__WEBPACK_IMPORTED_MODULE_21__.AboutUs, {
     ...props
   }));
 }
@@ -30436,28 +30503,28 @@ if (el19) {
     author: JSON.parse(el19.dataset.authorObj || '{}'),
     moreByAuthor: JSON.parse(el19.dataset.moreByAuthor || '[]')
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el19).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_ArticlePage__WEBPACK_IMPORTED_MODULE_22__.ArticlePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el19).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_ArticlePage__WEBPACK_IMPORTED_MODULE_22__.ArticlePage, {
     ...props
   }));
 }
 const el20 = document.getElementById("tsb-event-root");
 if (el20) {
   const props = JSON.parse(el20.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el20).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_EventPage__WEBPACK_IMPORTED_MODULE_23__.EventPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el20).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_EventPage__WEBPACK_IMPORTED_MODULE_23__.EventPage, {
     ...props
   }));
 }
 const el21 = document.getElementById('events-hub-root');
 if (el21) {
   const props = JSON.parse(el21.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el21).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_EventsHubPage__WEBPACK_IMPORTED_MODULE_24__.EventsHubPage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el21).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_EventsHubPage__WEBPACK_IMPORTED_MODULE_24__.EventsHubPage, {
     ...props
   }));
 }
 const el22 = document.getElementById('stories-and-interviews-root');
 if (el22) {
   const props = JSON.parse(el22.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el22).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_StoriesAndInterviews__WEBPACK_IMPORTED_MODULE_25__.StoriesAndInterviews, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el22).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_StoriesAndInterviews__WEBPACK_IMPORTED_MODULE_25__.StoriesAndInterviews, {
     ...props
   }));
 }
@@ -30469,63 +30536,81 @@ if (el23) {
     audiences: JSON.parse(el23.dataset.audiences),
     locations: JSON.parse(el23.dataset.locations)
   };
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el23).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_EventsCalendar__WEBPACK_IMPORTED_MODULE_26__.EventsCalendar, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el23).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_EventsCalendar__WEBPACK_IMPORTED_MODULE_26__.EventsCalendar, {
     ...props
   }));
 }
 const el24 = document.getElementById('learning-and-growth-hub-root');
 if (el24) {
   const props = JSON.parse(el24.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el24).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_LearningAndGrowthHub__WEBPACK_IMPORTED_MODULE_27__.LearningAndGrowthHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el24).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_LearningAndGrowthHub__WEBPACK_IMPORTED_MODULE_27__.LearningAndGrowthHub, {
     ...props
   }));
 }
 const el25 = document.getElementById('culture-and-identity-hub-root');
 if (el25) {
   const props = JSON.parse(el25.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el25).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_CultureAndIdentityHub__WEBPACK_IMPORTED_MODULE_28__.CultureAndIdentityHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el25).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_CultureAndIdentityHub__WEBPACK_IMPORTED_MODULE_28__.CultureAndIdentityHub, {
     ...props
   }));
 }
 const el26 = document.getElementById('support-and-services-hub-root');
 if (el26) {
   const props = JSON.parse(el26.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el26).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_SupportAndServicesHub__WEBPACK_IMPORTED_MODULE_29__.SupportAndServicesHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el26).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_SupportAndServicesHub__WEBPACK_IMPORTED_MODULE_29__.SupportAndServicesHub, {
     ...props
   }));
 }
 const el27 = document.getElementById('directory-hub-root');
 if (el27) {
   const props = JSON.parse(el27.dataset.props || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el27).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_DirectoryHub__WEBPACK_IMPORTED_MODULE_30__.DirectoryHub, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el27).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_DirectoryHub__WEBPACK_IMPORTED_MODULE_30__.DirectoryHub, {
     ...props
   }));
 }
 const el28 = document.getElementById('cost-of-living-root');
 if (el28) {
   const props = JSON.parse(el28.getAttribute('data-props') || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el28).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_CostOfLiving__WEBPACK_IMPORTED_MODULE_31__.CostOfLiving, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el28).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_CostOfLiving__WEBPACK_IMPORTED_MODULE_31__.CostOfLiving, {
     ...props
   }));
 }
 const el29 = document.getElementById('generic-archive-root');
 if (el29) {
   const props = JSON.parse(el29.getAttribute('data-props') || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el29).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el29).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
     ...props
   }));
 }
 const el30 = document.getElementById('taxonomy-root');
 if (el30) {
   const props = JSON.parse(el30.getAttribute('data-props') || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el30).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el30).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_GenericArchivePage__WEBPACK_IMPORTED_MODULE_32__.GenericArchivePage, {
     ...props
   }));
 }
 const el31 = document.getElementById('messageboard-archive-root');
 if (el31) {
   const props = JSON.parse(el31.getAttribute('data-props') || '{}');
-  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el31).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_34__.jsx)(_scripts_MessageBoardArchivePage__WEBPACK_IMPORTED_MODULE_33__["default"], {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el31).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_MessageBoardArchivePage__WEBPACK_IMPORTED_MODULE_33__["default"], {
+    ...props
+  }));
+}
+const el32 = document.getElementById('gd-discount-root');
+if (el32) {
+  const ds = el32.dataset;
+  const props = {
+    title: ds.title,
+    date: ds.date,
+    author: JSON.parse(ds.authorObj || "{}"),
+    categories: JSON.parse(ds.categories || "[]"),
+    featuredImage: ds.featuredImage || "",
+    contentHtml: ds.contentHtml || "",
+    relatedContent: JSON.parse(ds.relatedContent || "[]"),
+    recentPosts: JSON.parse(ds.recentPosts || "[]"),
+    trendingTopics: JSON.parse(ds.trendingTopics || "[]")
+  };
+  react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(el32).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_35__.jsx)(_scripts_MessageBoard__WEBPACK_IMPORTED_MODULE_34__["default"], {
     ...props
   }));
 }

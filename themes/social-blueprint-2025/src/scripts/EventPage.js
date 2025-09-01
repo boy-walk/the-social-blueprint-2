@@ -45,7 +45,6 @@ export function EventPage({
   bookingUrl = "#",
 }) {
   const dateLine = fmtEventDateRange({ startISO, endISO });
-  console.log(relatedContent)
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="py-8 sm:py-10 lg:py-12">
@@ -53,7 +52,7 @@ export function EventPage({
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="flex-3 min-w-0 space-y-8 lg:space-y-10">
               {tags.length > 0 && (<div className="flex flex-wrap gap-2">
-                {tags?.map((t) => <Tag key={t} tagName={t} />)}
+                {tags?.map((t) => <Tag key={t} tagName={t} href={`${t}`} />)}
               </div>)}
               <header className="space-y-2">
                 {dateLine && <div className="Blueprint-label-large text-schemesOnSurfaceVariant">{dateLine}</div>}
