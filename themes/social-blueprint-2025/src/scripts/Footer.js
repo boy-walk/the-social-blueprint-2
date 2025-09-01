@@ -11,11 +11,11 @@ export function Footer({ className = '' }) {
     <footer
       className={clsx(
         'bg-schemesInverseSurface text-schemesInverseOnSurface',
-        'px-6 py-12 md:py-16',
+        'w-full',
         className
       )}
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-12">
+      <div className="max-w-[1600px] mx-auto flex flex-col gap-12 py-16 px-4 sm:px-8 lg:px-16">
         <div className="grid gap-4 lg:gap-12 md:grid-cols-[minmax(0,3fr)_repeat(3,minmax(0,1fr))]">
           <div className="flex flex-col items-start gap-6 max-w-lg">
             <img src={Logo} alt="The Social Blueprint" className="h-20 w-auto" />

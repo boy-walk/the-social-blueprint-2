@@ -24603,9 +24603,9 @@ function Footer({
   className = ''
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("footer", {
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-schemesInverseSurface text-schemesInverseOnSurface', 'px-6 py-12 md:py-16', className),
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-schemesInverseSurface text-schemesInverseOnSurface', 'w-full', className),
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "max-w-7xl mx-auto flex flex-col gap-12",
+      className: "max-w-[1600px] mx-auto flex flex-col gap-12 py-16 px-4 sm:px-8 lg:px-16",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "grid gap-4 lg:gap-12 md:grid-cols-[minmax(0,3fr)_repeat(3,minmax(0,1fr))]",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
