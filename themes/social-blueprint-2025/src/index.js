@@ -34,6 +34,7 @@ import { CostOfLiving } from './scripts/CostOfLiving';
 import { GenericArchivePage } from './scripts/GenericArchivePage';
 import MessageBoardArchivePage from './scripts/MessageBoardArchivePage';
 import MessageBoardPage from './scripts/MessageBoard';
+import CostOfLivingPage from './scripts/CostOfLivingPage';
 
 
 if (document.querySelector('#front-page')) {
@@ -295,4 +296,20 @@ if (el32) {
     breadcrumbs: JSON.parse(ds.breadcrumbs || "[]"),
   };
   ReactDOM.createRoot(el32).render(<MessageBoardPage {...props} />);
+}
+
+const el33 = document.getElementById("gd-col-root");
+if (el33) {
+  const props = {
+    title: el33.dataset.title,
+    date: el33.dataset.date,
+    featuredImage: el33.dataset.featuredImage || null,
+    author: JSON.parse(el33.dataset.authorObj || "{}"),
+    categories: JSON.parse(el33.dataset.categories || "[]"),
+    contentHtml: el33.dataset.contentHtml || "",
+    relatedContent: JSON.parse(el33.dataset.relatedContent || "[]"),
+    recentPosts: JSON.parse(el33.dataset.recentPosts || "[]"),
+    pdfFile: el33.dataset.pdfFile || null,
+  };
+  ReactDOM.createRoot(el33).render(<CostOfLivingPage {...props} />);
 }

@@ -51,8 +51,10 @@ export function GenericArchivePage(props) {
   // Hide the group we’re already scoped to
   const displayedFilters = useMemo(() => {
     if (!taxonomy) return filters;
+
     return (filters || []).filter((f) => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
+
 
   // ---------------- Fetch terms (1 call per taxonomy via TSB endpoint) ----------------
   useEffect(() => {
@@ -305,7 +307,7 @@ export function GenericArchivePage(props) {
               </div>
             )}
 
-            {displayedFilters.map((f) => (
+            {displayedFilters.filter((f) => (termsOptions[f.taxonomy] || []).length > 0).map((f) => (
               <div key={f.taxonomy} className="mb-4">
                 <FilterGroup
                   title={f.label || f.taxonomy}
@@ -350,7 +352,7 @@ export function GenericArchivePage(props) {
 
           {/* Empty */}
           {!loading && !error && filteredItems.length === 0 && (
-            <div className="rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8">
+            <div className="rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] p-10 text-center mb-8">
               <div className="Blueprint-headline-small mb-2">No results found</div>
               <p className="Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-6">
                 {searching ? "Try a different keyword or clear search." : "Try adjusting or clearing your filters to see more results."}

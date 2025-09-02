@@ -80,7 +80,7 @@ if ($more_interviews->have_posts()) {
   $more_interviews_data = [];
 }
 
-$related_content = sb_get_related_by_topic_tags( get_the_ID(), 3 );
+$related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcast'] );
 ?>
 
 <div id="podcast-root"

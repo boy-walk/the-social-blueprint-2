@@ -3,7 +3,7 @@ import Logo from "../../assets/logo.svg";
 import { Button } from "./Button";
 import { IconButton } from "./Icon";
 import { useTranslation } from "react-i18next";
-import { ListIcon, SmileyIcon } from "@phosphor-icons/react";
+import { Link, ListIcon, SmileyIcon } from "@phosphor-icons/react";
 import { Socials } from "./Socials";
 
 function LinkItem({ href = "#", children }) {
@@ -116,6 +116,21 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
           <LinkItem href="/message-boards?cat=volunteering">Volunteering</LinkItem>
           <LinkItem href="/message-boards?cat=local-notices">Local notices</LinkItem>
           <LinkItem href="/message-boards?cat=support">Informal support</LinkItem>
+        </Section>
+      </>
+    ),
+    "explore-by": (
+      <>
+        <Section title="Explore by">
+          <LinkItem href="/topics">Topic</LinkItem>
+          <LinkItem href="/audience_tag">Audience</LinkItem>
+          <LinkItem href="/theme">Theme</LinkItem>
+        </Section>
+        <Section title="Content type">
+          <LinkItem href="/events">Events</LinkItem>
+          <LinkItem href="/podcasts">Podcasts</LinkItem>
+          <LinkItem href="/articles">Articles</LinkItem>
+          <LinkItem href="/message-boards">Message Board</LinkItem>
         </Section>
       </>
     ),
@@ -263,6 +278,7 @@ export default function Header({ isUserLoggedIn = false }) {
             <NavBtn id="blueprint-stories" label={t("blueprint_stories")} href="/stories-and-interviews" />
             <NavBtn id="about-us" label={t("about_us")} href="/about-us" />
             <NavBtn id="message-board" label={t("message_board")} href="/message-boards" />
+            <NavBtn id="explore-by" label={"Explore by"} />
           </nav>
           <div className="flex gap-4">
             <Button
