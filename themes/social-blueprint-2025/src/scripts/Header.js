@@ -175,6 +175,83 @@ const MENU_SECTIONS = {
   ],
 };
 
+function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
+  const panelRef = useRef(null);
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => {
+      const p = panelRef.current;
+      const a = anchorRef?.current;
+      if (!p) return;
+      if (p.contains(e.target) || a?.contains?.(e.target)) return;
+      onClose();
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open, onClose, anchorRef]);
+
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const groups = MENU_SECTIONS[open] || [];
+
+  return (
+    <div
+      ref={panelRef}
+      role="dialog"
+      aria-label="Site section"
+      onMouseEnter={onPanelEnter}
+      onMouseLeave={onPanelLeave}
+      className="
+        absolute left-0 right-0 top-full
+        bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
+        border-t border-[var(--schemesOutlineVariant)]
+        shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
+        z-[60]
+      "
+    >
+      <div className="mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8">
+        <div
+          className={`
+            grid gap-8 items-start
+            ${groups.length >= 3 ? "grid-cols-3" : "grid-cols-2"}
+          `}
+        >
+          {groups.map((section, i) => (
+            <div key={i} className="min-w-0">
+              <div className="Blueprint-title-small text-[var(--schemesOnSurface)] mb-2">
+                {section.title}
+              </div>
+              <ul className="space-y-1">
+                {section.items.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className="Blueprint-body-medium block py-1.5 text-[var(--schemesOnSurface)] hover:text-[var(--schemesPrimary)]"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 /* ---------- Mobile overlay menu ---------- */
 function MobileMenu({
   open,
@@ -460,7 +537,20 @@ export default function Header({ isUserLoggedIn = false }) {
           />
         </div>
 
-        {/* Desktop mega panel remains as you had it (not shown here for brevity) */}
+        <MegaPanel
+          open={open}                 // string key like "whats-on" | null
+          onClose={() => setOpen(null)}
+          anchorRef={headerRef}
+          onPanelEnter={cancelClose}
+          onPanelLeave={scheduleClose}
+        />
+
+        {open && (
+          <div aria-hidden="true" className="pointer-events-none absolute left-0 right-0 top-full z-[70]">
+            <div className="w-full h-2 mt-[-8px] bg-transparent shadow-[7px_6px_1px_rgba(28,27,26,0.15)]" />
+          </div>
+        )}
+
       </header>
 
       {/* Mobile overlay menu */}
