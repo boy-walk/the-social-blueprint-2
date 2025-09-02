@@ -1833,6 +1833,39 @@ var SvgTorresStraitFlag = function SvgTorresStraitFlag(props) {
 
 /***/ }),
 
+/***/ "./assets/logo-dark.svg":
+/*!******************************!*\
+  !*** ./assets/logo-dark.svg ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ReactComponent: () => (/* binding */ SvgLogoDark),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _path;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+
+var SvgLogoDark = function SvgLogoDark(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 150,
+    height: 63,
+    fill: "none"
+  }, props), _path || (_path = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: "#1E6586",
+    d: "M92.575.54v19.465h3.47v3.787h-7.273V.54zM79.783 23.792h-3.936c1.4-11.56 1.234-10.132 2.868-23.252h5.404c1.601 13.12 1.435 11.692 2.869 23.252h-3.97c-.266-2.591-.433-4.518-.6-6.345h-2.035c-.167 1.827-.333 3.754-.6 6.345m.934-9.866h1.4c-.2-2.259-.4-4.883-.7-8.836-.3 3.953-.533 6.577-.7 8.836M74.053 23.792h-3.802V.54h3.802zM64.667 3.927h-2.302v16.51h2.302v-2.093h3.802v2.092c0 2.624-2.468 3.72-4.97 3.72-2.468 0-4.937-1.096-4.937-3.72V3.927c0-2.624 2.469-3.72 4.937-3.72 2.502 0 4.97 1.096 4.97 3.72V6.02h-3.802zM52.979 3.927h-2.302v16.51h2.302zm-1.168 20.23c-2.468 0-4.937-1.097-4.937-3.72V3.926c0-2.624 2.469-3.72 4.937-3.72 2.502 0 4.97 1.096 4.97 3.72v16.51c0 2.623-2.468 3.72-4.97 3.72M40.773 20.005c1.868-6.943-8.906-9.467-3.135-19.465h6.838v3.82H40.24c-1.868 6.942 8.906 9.466 3.102 19.432h-6.805v-3.787zM22.756.54h7.272v3.82H26.56v5.912h3.47v3.82h-3.47v5.913h3.47v3.787h-7.273zM14.252.54v9.732h2.902V.54h3.803v23.252h-3.803v-9.7h-2.902v9.7H10.45V.54zM0 .54h8.673v3.82H6.238v19.432H2.402V4.36H0zM149.869 62.24h-5.581v-5.58h5.581zM128.645 27.923h12.728v5.63h-3.574v28.639h-5.63v-28.64h-3.524zM120.254 55.534l-.147-27.611h5.63v34.269h-8.176l-3.329-27.562v27.562h-5.581v-34.27h8.127zM105.713 62.192h-5.581v-34.27h5.581zM90.866 33.553h-3.378v9.938h3.378zm2.693 14.833 3.671 13.806h-6.07L87.929 49.12h-.44v13.07h-5.582V27.924h8.96c3.083 0 5.58 2.546 5.58 5.63v9.938a5.58 5.58 0 0 1-2.888 4.895M73.407 33.553h-3.378v9.938h3.378zM70.029 49.12v13.07h-5.581V27.924h8.959c3.084 0 5.58 2.546 5.58 5.63v9.938c0 3.084-2.496 5.63-5.58 5.63zM50.86 27.923h10.673v5.63H56.44v8.714h5.092v5.63H56.44v8.714h5.092v5.58H50.86zM42.36 33.406v-5.483h5.58v29.324c0 3.868-3.622 5.483-7.294 5.483-3.622 0-7.245-1.615-7.245-5.483V27.923h5.58v29.324h3.379zM25.394 27.923V56.61h5.092v5.58H19.814V27.924zM16.894 49.414v7.197a5.58 5.58 0 0 1-5.581 5.58H2.354V27.924h8.959c3.084 0 5.58 2.546 5.58 5.63v7.196c0 1.763-.782 3.28-2.055 4.308 1.273 1.077 2.056 2.595 2.056 4.357m-8.959-6.902h3.378v-8.96H7.935zm0 5.14v8.959h3.378v-8.959z"
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjYzIiB2aWV3Qm94PSIwIDAgMTUwIDYzIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNOTIuNTc1MiAwLjUzOTU1MVYyMC4wMDQ4SDk2LjA0NDNWMjMuNzkxNUM5My42MDkyIDIzLjc5MTUgOTEuMTc0MiAyMy43OTE1IDg4Ljc3MjUgMjMuNzkxNVYwLjUzOTU1MUg5Mi41NzUyWiIgZmlsbD0iIzFFNjU4NiIvPgo8cGF0aCBkPSJNNzkuNzgyOCAyMy43OTE1SDc1Ljg0NjdDNzcuMjQ3NyAxMi4yMzIgNzcuMDgwOSAxMy42NjAzIDc4LjcxNTQgMC41Mzk1NTFIODQuMTE5MkM4NS43MjAzIDEzLjY2MDMgODUuNTUzNSAxMi4yMzIgODYuOTg3OSAyMy43OTE1SDgzLjAxODRDODIuNzUxNiAyMS4yMDA2IDgyLjU4NDggMTkuMjc0IDgyLjQxOCAxNy40NDdIODAuMzgzMkM4MC4yMTY0IDE5LjI3NCA4MC4wNDk3IDIxLjIwMDYgNzkuNzgyOCAyMy43OTE1Wk04MC43MTY4IDEzLjkyNkg4Mi4xMTc4QzgxLjkxNzYgMTEuNjY3MyA4MS43MTc1IDkuMDQzMTIgODEuNDE3MyA1LjA5MDI5QzgxLjExNzEgOS4wNDMxMiA4MC44ODM2IDExLjY2NzMgODAuNzE2OCAxMy45MjZaIiBmaWxsPSIjMUU2NTg2Ii8+CjxwYXRoIGQ9Ik03NC4wNTMyIDIzLjc5MTVINzAuMjUwNVYwLjUzOTU1MUg3NC4wNTMyVjIzLjc5MTVaIiBmaWxsPSIjMUU2NTg2Ii8+CjxwYXRoIGQ9Ik02NC42NjY4IDMuOTI3MzRINjIuMzY1MlYyMC40MzYySDY0LjY2NjhWMTguMzQzNkg2OC40Njk1VjIwLjQzNjJDNjguNDY5NSAyMy4wNjA0IDY2LjAwMTEgMjQuMTU2NiA2My40OTkzIDI0LjE1NjZDNjEuMDMwOSAyNC4xNTY2IDU4LjU2MjUgMjMuMDYwNCA1OC41NjI1IDIwLjQzNjJWMy45MjczNEM1OC41NjI1IDEuMzAzMTkgNjEuMDMwOSAwLjIwNzAzMSA2My40OTkzIDAuMjA3MDMxQzY2LjAwMTEgMC4yMDcwMzEgNjguNDY5NSAxLjMwMzE5IDY4LjQ2OTUgMy45MjczNFY2LjAyMDAySDY0LjY2NjhWMy45MjczNFoiIGZpbGw9IiMxRTY1ODYiLz4KPHBhdGggZD0iTTUyLjk3ODggMy45MjczNEg1MC42NzcyVjIwLjQzNjJINTIuOTc4OFYzLjkyNzM0Wk01MS44MTEzIDI0LjE1NjZDNDkuMzQyOSAyNC4xNTY2IDQ2Ljg3NDUgMjMuMDYwNCA0Ni44NzQ1IDIwLjQzNjJWMy45MjczNEM0Ni44NzQ1IDEuMzAzMTkgNDkuMzQyOSAwLjIwNzAzMSA1MS44MTEzIDAuMjA3MDMxQzU0LjMxMzEgMC4yMDcwMzEgNTYuNzgxNSAxLjMwMzE5IDU2Ljc4MTUgMy45MjczNFYyMC40MzYyQzU2Ljc4MTUgMjMuMDYwNCA1NC4zMTMxIDI0LjE1NjYgNTEuODExMyAyNC4xNTY2WiIgZmlsbD0iIzFFNjU4NiIvPgo8cGF0aCBkPSJNNDAuNzczMyAyMC4wMDQ4QzQyLjY0MTMgMTMuMDYyNCAzMS44NjcgMTAuNTM3OSAzNy42Mzc3IDAuNTM5NTUxSDQ0LjQ3NTlWNC4zNTk1Mkg0MC4yMzk2QzM4LjM3MTYgMTEuMzAxOSA0OS4xNDU5IDEzLjgyNjQgNDMuMzQxOCAyMy43OTE1SDM2LjUzN1YyMC4wMDQ4SDQwLjc3MzNaIiBmaWxsPSIjMUU2NTg2Ii8+CjxwYXRoIGQ9Ik0yMi43NTYzIDAuNTM5NTUxSDMwLjAyODJWNC4zNTk1MkgyNi41NTlWMTAuMjcyMkgzMC4wMjgyVjE0LjA5MjFIMjYuNTU5VjIwLjAwNDhIMzAuMDI4MlYyMy43OTE1SDIyLjc1NjNWMC41Mzk1NTFaIiBmaWxsPSIjMUU2NTg2Ii8+CjxwYXRoIGQ9Ik0xNC4yNTI0IDAuNTM5NTUxVjEwLjI3MjJIMTcuMTU0NFYwLjUzOTU1MUgyMC45NTcxVjIzLjc5MTVIMTcuMTU0NFYxNC4wOTIxSDE0LjI1MjRWMjMuNzkxNUgxMC40NDk3VjAuNTM5NTUxSDE0LjI1MjRaIiBmaWxsPSIjMUU2NTg2Ii8+CjxwYXRoIGQ9Ik0wIDAuNTM5NTUxSDguNjcyNzlWNC4zNTk1Mkg2LjIzNzc0VjIzLjc5MTVIMi40MDE3VjQuMzU5NTJIMFYwLjUzOTU1MVoiIGZpbGw9IiMxRTY1ODYiLz4KPHBhdGggZD0iTTE0OS44NjkgNjIuMjQwNkgxNDQuMjg4VjU2LjY1OTdIMTQ5Ljg2OVY2Mi4yNDA2WiIgZmlsbD0iIzFFNjU4NiIvPgo8cGF0aCBkPSJNMTI4LjY0NSAyNy45MjI5SDE0MS4zNzNWMzMuNTUyOEgxMzcuNzk5VjYyLjE5MTlIMTMyLjE2OVYzMy41NTI4SDEyOC42NDVWMjcuOTIyOVoiIGZpbGw9IiMxRTY1ODYiLz4KPHBhdGggZD0iTTEyMC4yNTQgNTUuNTMzOUwxMjAuMTA3IDI3LjkyMjlIMTI1LjczN1Y2Mi4xOTE5SDExNy41NjFMMTE0LjIzMiAzNC42Mjk4VjYyLjE5MTlIMTA4LjY1MVYyNy45MjI5SDExNi43NzhMMTIwLjI1NCA1NS41MzM5WiIgZmlsbD0iIzFFNjU4NiIvPgo8cGF0aCBkPSJNMTA1LjcxMyA2Mi4xOTE5SDEwMC4xMzJWMjcuOTIyOUgxMDUuNzEzVjYyLjE5MTlaIiBmaWxsPSIjMUU2NTg2Ii8+CjxwYXRoIGQ9Ik05MC44NjYxIDMzLjU1MjhIODcuNDg4MlY0My40OTA4SDkwLjg2NjFWMzMuNTUyOFpNOTMuNTU4NyA0OC4zODY0TDk3LjIzMDQgNjIuMTkxOUg5MS4xNTk5TDg3LjkyODggNDkuMTIwN0g4Ny40ODgyVjYyLjE5MTlIODEuOTA3MlYyNy45MjI5SDkwLjg2NjFDOTMuOTUwMyAyNy45MjI5IDk2LjQ0NzEgMzAuNDY4NiA5Ni40NDcxIDMzLjU1MjhWNDMuNDkwOEM5Ni40NDcxIDQ1LjU5NTkgOTUuMjcyMiA0Ny40NTYyIDkzLjU1ODcgNDguMzg2NFoiIGZpbGw9IiMxRTY1ODYiLz4KPHBhdGggZD0iTTczLjQwNjcgMzMuNTUyOEg3MC4wMjg3VjQzLjQ5MDhINzMuNDA2N1YzMy41NTI4Wk03MC4wMjg3IDQ5LjEyMDdWNjIuMTkxOUg2NC40NDc4VjI3LjkyMjlINzMuNDA2N0M3Ni40OTA5IDI3LjkyMjkgNzguOTg3NiAzMC40Njg2IDc4Ljk4NzYgMzMuNTUyOFY0My40OTA4Qzc4Ljk4NzYgNDYuNTc1IDc2LjQ5MDkgNDkuMTIwNyA3My40MDY3IDQ5LjEyMDdINzAuMDI4N1oiIGZpbGw9IiMxRTY1ODYiLz4KPHBhdGggZD0iTTUwLjg2MDQgMjcuOTIyOUg2MS41MzI3VjMzLjU1MjhINTYuNDQxM1Y0Mi4yNjY5SDYxLjUzMjdWNDcuODk2OEg1Ni40NDEzVjU2LjYxMDlINjEuNTMyN1Y2Mi4xOTE5SDUwLjg2MDRWMjcuOTIyOVoiIGZpbGw9IiMxRTY1ODYiLz4KPHBhdGggZD0iTTQyLjM1OTggMzMuNDA1OVYyNy45MjI5SDQ3Ljk0MDdWNTcuMjQ3NEM0Ny45NDA3IDYxLjExNDkgNDQuMzE4IDYyLjczMDQgNDAuNjQ2MyA2Mi43MzA0QzM3LjAyMzYgNjIuNzMwNCAzMy40MDA5IDYxLjExNDkgMzMuNDAwOSA1Ny4yNDc0VjI3LjkyMjlIMzguOTgxOFY1Ny4yNDc0SDQyLjM1OThWMzMuNDA1OVoiIGZpbGw9IiMxRTY1ODYiLz4KPHBhdGggZD0iTTI1LjM5NDQgMjcuOTIyOVY1Ni42MTA5SDMwLjQ4NThWNjIuMTkxOUMyNi45MTIxIDYyLjE5MTkgMjMuMzM4MyA2Mi4xOTE5IDE5LjgxMzUgNjIuMTkxOVYyNy45MjI5SDI1LjM5NDRaIiBmaWxsPSIjMUU2NTg2Ii8+CjxwYXRoIGQ9Ik0xNi44OTM5IDQ5LjQxNDRWNTYuNjEwOUMxNi44OTM5IDU5LjY5NTIgMTQuMzk3MSA2Mi4xOTE5IDExLjMxMjkgNjIuMTkxOUgyLjM1NFYyNy45MjI5SDExLjMxMjlDMTQuMzk3MSAyNy45MjI5IDE2Ljg5MzkgMzAuNDY4NiAxNi44OTM5IDMzLjU1MjhWNDAuNzQ5M0MxNi44OTM5IDQyLjUxMTcgMTYuMTEwNiA0NC4wMjkzIDE0LjgzNzcgNDUuMDU3NEMxNi4xMTA2IDQ2LjEzNDQgMTYuODkzOSA0Ny42NTIgMTYuODkzOSA0OS40MTQ0Wk03LjkzNDk2IDQyLjUxMTdIMTEuMzEyOVYzMy41NTI4SDcuOTM0OTZWNDIuNTExN1pNNy45MzQ5NiA0Ny42NTJWNTYuNjEwOUgxMS4zMTI5VjQ3LjY1Mkg3LjkzNDk2WiIgZmlsbD0iIzFFNjU4NiIvPgo8L3N2Zz4K");
+
+/***/ }),
+
 /***/ "./assets/logo.svg":
 /*!*************************!*\
   !*** ./assets/logo.svg ***!
@@ -25703,17 +25736,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/logo.svg */ "./assets/logo.svg");
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icon */ "./src/scripts/Icon.js");
-/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Minus.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Plus.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
-/* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _assets_logo_dark_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/logo-dark.svg */ "./assets/logo-dark.svg");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Icon */ "./src/scripts/Icon.js");
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Minus.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Plus.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
+/* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -25953,29 +25988,29 @@ function MegaPanel({
   }, [open, onClose]);
   if (!open) return null;
   const groups = MENU_SECTIONS[open] || [];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     ref: panelRef,
     role: "dialog",
     "aria-label": "Site section",
     onMouseEnter: onPanelEnter,
     onMouseLeave: onPanelLeave,
     className: " absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[7px_6px_1px_rgba(28,27,26,0.15)] z-[60] ",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: `
             grid gap-8 items-start
             ${groups.length >= 3 ? "grid-cols-3" : "grid-cols-2"}
           `,
-        children: groups.map((section, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: groups.map((section, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "min-w-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "Blueprint-title-small text-[var(--schemesOnSurface)] mb-2",
             children: section.title
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
             className: "space-y-1",
-            children: section.items.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            children: section.items.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                 href: item.href,
                 className: "Blueprint-body-medium block py-1.5 text-[var(--schemesOnSurface)] hover:text-[var(--schemesPrimary)]",
                 children: item.label
@@ -25994,13 +26029,28 @@ function MobileMenu({
   onClose,
   isUserLoggedIn
 }) {
-  const [expanded, setExpanded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    "whats-on": true // first section open by default
-  });
+  const [expanded, setExpanded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [present, setPresent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(open);
+  const [entered, setEntered] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // <-- drives the opening animation
 
-  // Lock body scroll while open
+  // Stage enter/exit so opening doesn't snap
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!open) return;
+    if (open) {
+      setPresent(true); // mount
+      setEntered(false); // start from closed state
+      // double rAF ensures the initial closed styles paint before switching to open
+      const id = requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
+      return () => cancelAnimationFrame(id);
+    } else {
+      setEntered(false); // play exit animation
+      const t = setTimeout(() => setPresent(false), 300); // unmount after transition
+      return () => clearTimeout(t);
+    }
+  }, [open]);
+
+  // Lock body scroll while visible (including during exit animation)
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!present) return;
     const {
       overflow,
       paddingRight
@@ -26012,52 +26062,65 @@ function MobileMenu({
       document.body.style.overflow = overflow;
       document.body.style.paddingRight = paddingRight;
     };
-  }, [open]);
-  if (!open) return null;
+  }, [present]);
+  if (!present) return null;
   const goto = href => {
     window.location.href = href;
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    className: " fixed inset-0 z-[999] bg-black/40 lg:hidden ",
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    className: `
+        fixed inset-0 z-[999] lg:hidden
+        bg-black/40
+        transition-opacity duration-300
+        ${entered ? "opacity-100" : "opacity-0"}
+      `,
     "aria-modal": "true",
     role: "dialog",
     onClick: onClose,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("aside", {
-      className: " absolute inset-y-0 left-0 w-[92vw] max-w-[420px] bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] shadow-[0_12px_28px_rgba(0,0,0,.25)] p-5 pt-6 overflow-y-auto ",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("aside", {
+      className: `
+          absolute inset-y-0 left-0 w-[92vw] max-w-[420px]
+          bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
+          shadow-[0_12px_28px_rgba(0,0,0,.25)]
+          p-5 pt-6
+          overflow-y-auto
+          transform transition-transform duration-300 ease-out
+          ${entered ? "translate-x-0" : "-translate-x-full"}
+        `,
       onClick: e => e.stopPropagation(),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "flex items-center justify-between mb-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
           href: "/",
           className: "flex items-center",
           onClick: onClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
-            src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+            src: _assets_logo_dark_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
             alt: "The Social Blueprint",
-            className: "h-10"
+            className: "h-14"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
           onClick: onClose,
           className: "p-2 rounded-lg hover:bg-[var(--schemesSurfaceContainerHigh)]",
           "aria-label": "Close menu",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.X, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.X, {
             size: 28,
             weight: "bold"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("nav", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("nav", {
         children: Object.entries(MENU_SECTIONS).map(([key, groups], idx) => {
           const isOpen = !!expanded[key];
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: idx ? "border-t border-[var(--schemesOutlineVariant)]" : "",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
               className: " w-full flex items-center justify-between py-4 Blueprint-title-medium ",
               onClick: () => setExpanded(m => ({
                 ...m,
                 [key]: !m[key]
               })),
               "aria-expanded": isOpen,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                 children: {
                   "whats-on": "Whats on",
                   directory: "Directory",
@@ -26066,28 +26129,28 @@ function MobileMenu({
                   "message-board": "Messageboard",
                   "explore-by": "Explore by"
                 }[key]
-              }), isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.Minus, {
+              }), isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.Minus, {
                 size: 24,
                 className: "text-[var(--schemesPrimary)]",
                 weight: "bold"
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.Plus, {
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.Plus, {
                 size: 24,
                 className: "text-[var(--schemesPrimary)]",
                 weight: "bold"
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               className: `grid transition-[grid-template-rows,opacity] duration-200 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 className: "overflow-hidden",
-                children: groups.map((group, gi) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                children: groups.map((group, gi) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                   className: gi ? "my-3 pt-3 border-t border-[var(--schemesOutlineVariant)]" : "",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                     className: "Blueprint-title-small text-[var(--schemesOnSurfaceVariant)] mb-3",
                     children: group.title
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
                     className: "space-y-3",
-                    children: group.items.map(it => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                    children: group.items.map(it => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                         href: it.href,
                         className: "block Blueprint-body-large hover:text-[var(--schemesPrimary)]",
                         onClick: onClose,
@@ -26100,18 +26163,18 @@ function MobileMenu({
             })]
           }, key);
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "mt-8 grid grid-cols-2 gap-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
           label: "Subscribe",
           variant: "filled",
           size: "lg",
           onClick: () => goto("/subscribe")
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
           label: isUserLoggedIn ? "Account" : "Log in",
           variant: "tonal",
           size: "lg",
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.Smiley, {
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.Smiley, {
             size: 22,
             weight: "bold"
           }),
@@ -26128,7 +26191,7 @@ function Header({
 }) {
   const {
     t
-  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_4__.useTranslation)();
+  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_5__.useTranslation)();
   const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null); // desktop mega
   const [isDesktop, setIsDesktop] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -26185,11 +26248,11 @@ function Header({
     id,
     label,
     href
-  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     onMouseEnter: () => openPanel(id),
     onFocus: () => setOpen(id),
     className: "inline-block",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
       label: label,
       className: "text-white",
       size: "lg",
@@ -26197,8 +26260,9 @@ function Header({
       onClick: () => goto(href)
     })
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("header", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("header", {
+      id: "header",
       ref: headerRef,
       onMouseLeave: scheduleClose,
       onMouseEnter: cancelClose,
@@ -26213,65 +26277,65 @@ function Header({
           ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"}
           transition-all duration-300
         `,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
         href: "/",
         className: "flex items-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
           src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
           alt: "The Social Blueprint",
           className: `${scrolled ? "h-12 lg:h-16" : "h-15 lg:h-20"} transition-all duration-300`
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: `hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: `
               transition-all duration-300 origin-top
               ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
             `,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_5__.Socials, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_6__.Socials, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "hidden lg:flex items-center gap-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("nav", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("nav", {
             className: "hidden lg:flex items-center gap-6 Blueprint-body-medium",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
               id: "whats-on",
               label: t("whats_on"),
               href: "/events"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
               id: "directory",
               label: t("directory"),
               href: "/directory"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
               id: "blueprint-stories",
               label: t("blueprint_stories"),
               href: "/stories-and-interviews"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
               id: "about-us",
               label: t("about_us"),
               href: "/about-us"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
               id: "message-board",
               label: t("message_board"),
               href: "/message-boards"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
               id: "explore-by",
               label: "Explore by",
               href: "/topics"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: "flex gap-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
               label: t("Subscribe"),
               variant: "filled",
               shape: "square",
               size: "lg",
               onClick: () => goto("/subscribe")
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
               label: isUserLoggedIn ? t("account_dasboard") : t("log_in"),
               variant: "tonal",
               shape: "square",
               size: "lg",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.Smiley, {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.Smiley, {
                 size: 22,
                 weight: "bold"
               }),
@@ -26279,10 +26343,10 @@ function Header({
             })]
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "lg:hidden items-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.List, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_4__.IconButton, {
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.List, {
             size: 22,
             weight: "bold"
           }),
@@ -26291,21 +26355,21 @@ function Header({
           onClick: () => setMobileOpen(true),
           "aria-label": t("menu")
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(MegaPanel, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(MegaPanel, {
         open: open // string key like "whats-on" | null
         ,
         onClose: () => setOpen(null),
         anchorRef: headerRef,
         onPanelEnter: cancelClose,
         onPanelLeave: scheduleClose
-      }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         "aria-hidden": "true",
         className: "pointer-events-none absolute left-0 right-0 top-full z-[70]",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "w-full h-2 mt-[-8px] bg-transparent shadow-[7px_6px_1px_rgba(28,27,26,0.15)]"
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(MobileMenu, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(MobileMenu, {
       open: mobileOpen,
       onClose: () => setMobileOpen(false),
       isUserLoggedIn: isUserLoggedIn

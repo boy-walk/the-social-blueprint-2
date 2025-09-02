@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Logo from "../../assets/logo.svg";
+import LogoDark from "../../assets/logo-dark.svg";
 import { Button } from "./Button";
 import { IconButton } from "./Icon";
 import { useTranslation } from "react-i18next";
@@ -251,62 +252,78 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
   );
 }
 
-
 /* ---------- Mobile overlay menu ---------- */
 function MobileMenu({
   open,
   onClose,
   isUserLoggedIn,
 }) {
-  const [expanded, setExpanded] = useState({
-    "whats-on": true, // first section open by default
-  });
+  const [expanded, setExpanded] = useState({});
+  const [present, setPresent] = useState(open);
+  const [entered, setEntered] = useState(false); // <-- drives the opening animation
 
-  // Lock body scroll while open
+  // Stage enter/exit so opening doesn't snap
   useEffect(() => {
-    if (!open) return;
+    if (open) {
+      setPresent(true);       // mount
+      setEntered(false);      // start from closed state
+      // double rAF ensures the initial closed styles paint before switching to open
+      const id = requestAnimationFrame(() =>
+        requestAnimationFrame(() => setEntered(true))
+      );
+      return () => cancelAnimationFrame(id);
+    } else {
+      setEntered(false);      // play exit animation
+      const t = setTimeout(() => setPresent(false), 300); // unmount after transition
+      return () => clearTimeout(t);
+    }
+  }, [open]);
+
+  // Lock body scroll while visible (including during exit animation)
+  useEffect(() => {
+    if (!present) return;
     const { overflow, paddingRight } = document.body.style;
-    const scrollbar =
-      window.innerWidth - document.documentElement.clientWidth;
+    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
     if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
     return () => {
       document.body.style.overflow = overflow;
       document.body.style.paddingRight = paddingRight;
     };
-  }, [open]);
+  }, [present]);
 
-  if (!open) return null;
+  if (!present) return null;
 
-  const goto = (href) => {
-    window.location.href = href;
-  };
+  const goto = (href) => { window.location.href = href; };
 
   return (
     <div
-      className="
-        fixed inset-0 z-[999]
+      className={`
+        fixed inset-0 z-[999] lg:hidden
         bg-black/40
-        lg:hidden
-      "
+        transition-opacity duration-300
+        ${entered ? "opacity-100" : "opacity-0"}
+      `}
       aria-modal="true"
       role="dialog"
       onClick={onClose}
     >
       <aside
-        className="
+        className={`
           absolute inset-y-0 left-0 w-[92vw] max-w-[420px]
           bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
           shadow-[0_12px_28px_rgba(0,0,0,.25)]
           p-5 pt-6
           overflow-y-auto
-        "
+          transform transition-transform duration-300 ease-out
+          ${entered ? "translate-x-0" : "-translate-x-full"}
+        `}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header row */}
         <div className="flex items-center justify-between mb-6">
           <a href="/" className="flex items-center" onClick={onClose}>
-            <img src={Logo} alt="The Social Blueprint" className="h-10" />
+            <img src={LogoDark} alt="The Social Blueprint" className="h-14" />
           </a>
           <button
             onClick={onClose}
@@ -333,16 +350,14 @@ function MobileMenu({
                   aria-expanded={isOpen}
                 >
                   <span>
-                    {
-                      {
-                        "whats-on": "Whats on",
-                        directory: "Directory",
-                        "blueprint-stories": "Blueprint stories",
-                        "about-us": "About us",
-                        "message-board": "Messageboard",
-                        "explore-by": "Explore by",
-                      }[key]
-                    }
+                    {{
+                      "whats-on": "Whats on",
+                      directory: "Directory",
+                      "blueprint-stories": "Blueprint stories",
+                      "about-us": "About us",
+                      "message-board": "Messageboard",
+                      "explore-by": "Explore by",
+                    }[key]}
                   </span>
                   {isOpen ? (
                     <MinusIcon size={24} className="text-[var(--schemesPrimary)]" weight="bold" />
@@ -399,6 +414,7 @@ function MobileMenu({
     </div>
   );
 }
+
 
 /* -------------------------- Desktop header --------------------------- */
 export default function Header({ isUserLoggedIn = false }) {
@@ -469,6 +485,7 @@ export default function Header({ isUserLoggedIn = false }) {
   return (
     <>
       <header
+        id="header"
         ref={headerRef}
         onMouseLeave={scheduleClose}
         onMouseEnter={cancelClose}
@@ -553,7 +570,7 @@ export default function Header({ isUserLoggedIn = false }) {
 
       </header>
 
-      {/* Mobile overlay menu */}
+      {/* Mobile overlay menu with smooth animation */}
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} isUserLoggedIn={isUserLoggedIn} />
     </>
   );
