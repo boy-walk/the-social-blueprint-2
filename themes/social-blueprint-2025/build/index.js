@@ -26022,7 +26022,6 @@ function MegaPanel({
     })
   });
 }
-
 /* ---------- Mobile overlay menu ---------- */
 function MobileMenu({
   open,
@@ -26031,15 +26030,15 @@ function MobileMenu({
 }) {
   const [expanded, setExpanded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [present, setPresent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(open);
-  const [entered, setEntered] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // <-- drives the opening animation
+  const [entered, setEntered] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // drives the animation state
 
   // Stage enter/exit so opening doesn't snap
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (open) {
       setPresent(true); // mount
-      setEntered(false); // start from closed state
-      // double rAF ensures the initial closed styles paint before switching to open
-      const id = requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
+      setEntered(false); // start closed for first paint
+      const id = requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)) // then animate to open
+      );
       return () => cancelAnimationFrame(id);
     } else {
       setEntered(false); // play exit animation
@@ -26076,10 +26075,11 @@ function MobileMenu({
       `,
     "aria-modal": "true",
     role: "dialog",
+    id: "mobile-menu",
     onClick: onClose,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("aside", {
       className: `
-          absolute inset-y-0 left-0 w-[92vw] max-w-[420px]
+          absolute inset-y-0 left-0 w-[92vw] w-full
           bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
           shadow-[0_12px_28px_rgba(0,0,0,.25)]
           p-5 pt-6
@@ -26103,7 +26103,7 @@ function MobileMenu({
           onClick: onClose,
           className: "p-2 rounded-lg hover:bg-[var(--schemesSurfaceContainerHigh)]",
           "aria-label": "Close menu",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.X, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.XIcon, {
             size: 28,
             weight: "bold"
           })
@@ -26129,11 +26129,11 @@ function MobileMenu({
                   "message-board": "Messageboard",
                   "explore-by": "Explore by"
                 }[key]
-              }), isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.Minus, {
+              }), isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MinusIcon, {
                 size: 24,
                 className: "text-[var(--schemesPrimary)]",
                 weight: "bold"
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.Plus, {
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PlusIcon, {
                 size: 24,
                 className: "text-[var(--schemesPrimary)]",
                 weight: "bold"
@@ -26174,7 +26174,7 @@ function MobileMenu({
           label: isUserLoggedIn ? "Account" : "Log in",
           variant: "tonal",
           size: "lg",
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.Smiley, {
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.SmileyIcon, {
             size: 22,
             weight: "bold"
           }),
@@ -26262,7 +26262,6 @@ function Header({
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("header", {
-      id: "header",
       ref: headerRef,
       onMouseLeave: scheduleClose,
       onMouseEnter: cancelClose,
@@ -26335,7 +26334,7 @@ function Header({
               variant: "tonal",
               shape: "square",
               size: "lg",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.Smiley, {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.SmileyIcon, {
                 size: 22,
                 weight: "bold"
               }),
@@ -26346,12 +26345,13 @@ function Header({
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "lg:hidden items-center",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_4__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.List, {
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.ListIcon, {
             size: 22,
             weight: "bold"
           }),
           style: "tonal",
-          size: "sm",
+          size: "md",
+          shape: "pill",
           onClick: () => setMobileOpen(true),
           "aria-label": t("menu")
         })

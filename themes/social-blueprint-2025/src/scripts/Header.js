@@ -5,11 +5,11 @@ import { Button } from "./Button";
 import { IconButton } from "./Icon";
 import { useTranslation } from "react-i18next";
 import {
-  List as ListIcon,
-  X as XIcon,
-  Plus as PlusIcon,
-  Minus as MinusIcon,
-  Smiley as SmileyIcon,
+  ListIcon,
+  XIcon,
+  PlusIcon,
+  MinusIcon,
+  SmileyIcon,
 } from "@phosphor-icons/react";
 import { Socials } from "./Socials";
 
@@ -251,7 +251,6 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
     </div>
   );
 }
-
 /* ---------- Mobile overlay menu ---------- */
 function MobileMenu({
   open,
@@ -260,20 +259,19 @@ function MobileMenu({
 }) {
   const [expanded, setExpanded] = useState({});
   const [present, setPresent] = useState(open);
-  const [entered, setEntered] = useState(false); // <-- drives the opening animation
+  const [entered, setEntered] = useState(false); // drives the animation state
 
   // Stage enter/exit so opening doesn't snap
   useEffect(() => {
     if (open) {
-      setPresent(true);       // mount
-      setEntered(false);      // start from closed state
-      // double rAF ensures the initial closed styles paint before switching to open
+      setPresent(true);    // mount
+      setEntered(false);   // start closed for first paint
       const id = requestAnimationFrame(() =>
-        requestAnimationFrame(() => setEntered(true))
+        requestAnimationFrame(() => setEntered(true)) // then animate to open
       );
       return () => cancelAnimationFrame(id);
     } else {
-      setEntered(false);      // play exit animation
+      setEntered(false);   // play exit animation
       const t = setTimeout(() => setPresent(false), 300); // unmount after transition
       return () => clearTimeout(t);
     }
@@ -294,7 +292,9 @@ function MobileMenu({
 
   if (!present) return null;
 
-  const goto = (href) => { window.location.href = href; };
+  const goto = (href) => {
+    window.location.href = href;
+  };
 
   return (
     <div
@@ -306,11 +306,12 @@ function MobileMenu({
       `}
       aria-modal="true"
       role="dialog"
+      id="mobile-menu"
       onClick={onClose}
     >
       <aside
         className={`
-          absolute inset-y-0 left-0 w-[92vw] max-w-[420px]
+          absolute inset-y-0 left-0 w-[92vw] w-full
           bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
           shadow-[0_12px_28px_rgba(0,0,0,.25)]
           p-5 pt-6
@@ -415,7 +416,6 @@ function MobileMenu({
   );
 }
 
-
 /* -------------------------- Desktop header --------------------------- */
 export default function Header({ isUserLoggedIn = false }) {
   const { t } = useTranslation();
@@ -485,7 +485,6 @@ export default function Header({ isUserLoggedIn = false }) {
   return (
     <>
       <header
-        id="header"
         ref={headerRef}
         onMouseLeave={scheduleClose}
         onMouseEnter={cancelClose}
@@ -548,7 +547,8 @@ export default function Header({ isUserLoggedIn = false }) {
           <IconButton
             icon={<ListIcon size={22} weight="bold" />}
             style="tonal"
-            size="sm"
+            size="md"
+            shape="pill"
             onClick={() => setMobileOpen(true)}
             aria-label={t("menu")}
           />
@@ -570,7 +570,7 @@ export default function Header({ isUserLoggedIn = false }) {
 
       </header>
 
-      {/* Mobile overlay menu with smooth animation */}
+      {/* Mobile overlay menu */}
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} isUserLoggedIn={isUserLoggedIn} />
     </>
   );
