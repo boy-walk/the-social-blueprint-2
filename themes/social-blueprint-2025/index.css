@@ -62,3 +62,41 @@ h6 {
   font-family: var(--font-ibmCondensed);
   /* Headings default */
 }
+
+/* 1) Make the WP admin bar fixed (i.e., "sticky to the viewport") */
+#wpadminbar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  /* above everything */
+}
+
+/* 2) Remove WP’s default page push-down and use scroll padding for anchor jumps */
+html.admin-bar {
+  margin-top: 0 !important;
+  /* keep in-page anchors visible below the admin bar */
+  scroll-padding-top: var(--wp-admin--admin-bar--height, 0px);
+}
+
+/* 3) Ensure your sticky site header sits directly under the admin bar */
+.admin-bar #header {
+  top: var(--wp-admin--admin-bar--height, 0px) !important;
+  /* 32px desktop / 46px mobile (WP sets this var) */
+  z-index: 1000;
+  /* below the admin bar */
+}
+
+/* Optional hard fallback if your WP version doesn't expose the CSS var */
+@media (max-width: 782px) {
+  .admin-bar #header {
+    top: 46px !important;
+  }
+}
+
+@media (min-width: 783px) {
+  .admin-bar #header {
+    top: 32px !important;
+  }
+}

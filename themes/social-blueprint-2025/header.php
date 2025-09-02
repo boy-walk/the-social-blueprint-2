@@ -8,7 +8,8 @@
   <body <?php body_class(); ?>>
   <div
   id="header"
-  class="sticky top-0 z-[1000]"
+  class="sticky z-[1000]"
+  style="top: var(--wp-admin--admin-bar--height, 0px);"
   isUserLoggedIn="<?php echo is_user_logged_in() ? 'true' : 'false'; ?>"
 ></div>
     

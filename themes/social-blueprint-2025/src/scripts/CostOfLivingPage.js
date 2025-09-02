@@ -87,19 +87,6 @@ export default function CostOfLivingPage({
           <div className="flex flex-col lg:flex-row lg:gap-16">
             {/* Main */}
             <div className="flex-1 min-w-0 space-y-5 lg:space-y-6">
-              {/* Chips */}
-              {categories?.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((c, i) => (
-                    <a key={i} href={c.link || "#"} className="no-underline">
-                      <span className="px-3 py-1.5 rounded-full bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small">
-                        {c.name}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              )}
-
               <h1 className="Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight">
                 {title}
               </h1>
@@ -141,6 +128,18 @@ export default function CostOfLivingPage({
                 className="sbp-col-prose lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant"
                 dangerouslySetInnerHTML={{ __html: contentHtml || "" }}
               />
+              {/* Chips */}
+              {categories?.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((c, i) => (
+                    <a key={i} href={c.link || "#"} className="no-underline">
+                      <span className="px-3 py-1.5 rounded-full bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small">
+                        {c.name}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Rail */}

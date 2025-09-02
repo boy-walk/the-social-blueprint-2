@@ -13,7 +13,7 @@ export const ListingCallout = () => {
           The Social Blueprint?
         </h2>
         <a
-          href="/submit-listing"
+          href="/add-listing"
           className="font-body Blueprint-label-large inline-flex items-center gap-2 hover:opacity-80"
         >
           Add your listing. It's free!

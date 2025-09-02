@@ -14307,6 +14307,32 @@ const m = e;
 
 /***/ }),
 
+/***/ "./node_modules/@phosphor-icons/react/dist/csr/Minus.es.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/csr/Minus.es.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Minus: () => (/* binding */ m),
+/* harmony export */   MinusIcon: () => (/* binding */ e)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
+/* harmony import */ var _defs_Minus_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/Minus.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/Minus.es.js");
+
+
+
+const e = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((r, s) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: s, ...r, weights: _defs_Minus_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
+e.displayName = "MinusIcon";
+const m = e;
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@phosphor-icons/react/dist/csr/MoneyWavy.es.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/@phosphor-icons/react/dist/csr/MoneyWavy.es.js ***!
@@ -14380,6 +14406,32 @@ __webpack_require__.r(__webpack_exports__);
 const a = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((e, r) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: r, ...e, weights: _defs_Play_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
 a.displayName = "PlayIcon";
 const n = a;
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@phosphor-icons/react/dist/csr/Plus.es.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/csr/Plus.es.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Plus: () => (/* binding */ n),
+/* harmony export */   PlusIcon: () => (/* binding */ e)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
+/* harmony import */ var _defs_Plus_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/Plus.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/Plus.es.js");
+
+
+
+const e = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((r, s) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: s, ...r, weights: _defs_Plus_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
+e.displayName = "PlusIcon";
+const n = e;
 
 
 
@@ -16157,6 +16209,56 @@ const e = /* @__PURE__ */ new Map([
 
 /***/ }),
 
+/***/ "./node_modules/@phosphor-icons/react/dist/defs/Minus.es.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/defs/Minus.es.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ a)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+
+const a = /* @__PURE__ */ new Map([
+  [
+    "bold",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128Z" }))
+  ],
+  [
+    "duotone",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
+      "path",
+      {
+        d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
+        opacity: "0.2"
+      }
+    ), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z" }))
+  ],
+  [
+    "fill",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,136H72a8,8,0,0,1,0-16H184a8,8,0,0,1,0,16Z" }))
+  ],
+  [
+    "light",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128Z" }))
+  ],
+  [
+    "regular",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z" }))
+  ],
+  [
+    "thin",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H40a4,4,0,0,1,0-8H216A4,4,0,0,1,220,128Z" }))
+  ]
+]);
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@phosphor-icons/react/dist/defs/MoneyWavy.es.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/@phosphor-icons/react/dist/defs/MoneyWavy.es.js ***!
@@ -16294,6 +16396,56 @@ const a = /* @__PURE__ */ new Map([
   [
     "thin",
     /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M230.32,117.9,86.24,29.79a11.91,11.91,0,0,0-12.17-.23A11.71,11.71,0,0,0,68,39.89V216.11a11.71,11.71,0,0,0,6.07,10.33,11.91,11.91,0,0,0,12.17-.23L230.32,138.1a11.82,11.82,0,0,0,0-20.2Zm-4.18,13.37L82.06,219.39a4,4,0,0,1-4.07.07,3.77,3.77,0,0,1-2-3.35V39.89a3.77,3.77,0,0,1,2-3.35,4,4,0,0,1,4.07.07l144.08,88.12a3.8,3.8,0,0,1,0,6.54Z" }))
+  ]
+]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@phosphor-icons/react/dist/defs/Plus.es.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/defs/Plus.es.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ a)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+
+const a = /* @__PURE__ */ new Map([
+  [
+    "bold",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" }))
+  ],
+  [
+    "duotone",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
+      "path",
+      {
+        d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
+        opacity: "0.2"
+      }
+    ), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
+  ],
+  [
+    "fill",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,136H136v48a8,8,0,0,1-16,0V136H72a8,8,0,0,1,0-16h48V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z" }))
+  ],
+  [
+    "light",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z" }))
+  ],
+  [
+    "regular",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
+  ],
+  [
+    "thin",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H132v84a4,4,0,0,1-8,0V132H40a4,4,0,0,1,0-8h84V40a4,4,0,0,1,8,0v84h84A4,4,0,0,1,220,128Z" }))
   ]
 ]);
 
@@ -22813,17 +22965,7 @@ function CostOfLivingPage({
           className: "flex flex-col lg:flex-row lg:gap-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "flex-1 min-w-0 space-y-5 lg:space-y-6",
-            children: [categories?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "flex flex-wrap gap-2",
-              children: categories.map((c, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-                href: c.link || "#",
-                className: "no-underline",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                  className: "px-3 py-1.5 rounded-full bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small",
-                  children: c.name
-                })
-              }, i))
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
               className: "Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight",
               children: title
             }), pdfFile && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
@@ -22862,6 +23004,16 @@ function CostOfLivingPage({
               dangerouslySetInnerHTML: {
                 __html: contentHtml || ""
               }
+            }), categories?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "flex flex-wrap gap-2",
+              children: categories.map((c, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                href: c.link || "#",
+                className: "no-underline",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "px-3 py-1.5 rounded-full bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small",
+                  children: c.name
+                })
+              }, i))
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("aside", {
             className: "w-full lg:w-[360px] space-y-4 mt-10 lg:mt-0",
@@ -25554,8 +25706,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icon */ "./src/scripts/Icon.js");
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Minus.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Plus.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
 /* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
@@ -25567,250 +25722,354 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function LinkItem({
-  href = "#",
-  children
-}) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-    href: href,
-    className: "Blueprint-body-medium block py-1.5 text-[var(--schemesOnSurface)] hover:text-[var(--schemesPrimary)]",
-    children: children
-  });
+// 🔽 put near the top of your Header component file
+
+function useAdminBarOffset() {
+  const [offset, setOffset] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const root = document.getElementById("header");
+    if (!root) return;
+    const getBar = () => document.getElementById("wpadminbar");
+    const compute = () => {
+      const bar = getBar();
+      const h = bar ? Math.round(bar.getBoundingClientRect().height) : 0;
+      setOffset(h);
+
+      // Make sure the bar is fixed (WP usually does this already)
+      if (bar) {
+        bar.style.position = "fixed";
+        bar.style.top = "0";
+        bar.style.left = "0";
+        bar.style.right = "0";
+        bar.style.zIndex = "99999";
+      }
+
+      // Push the sticky header down exactly under the admin bar
+      root.style.position = "sticky";
+      root.style.top = `${h}px`; // overrides Tailwind top-0 on the same element
+      root.style.zIndex = "1000";
+    };
+    compute();
+
+    // Keep it in sync if the bar height changes (mobile vs desktop)
+    const ro = window.ResizeObserver && getBar() ? new ResizeObserver(compute) : null;
+    if (ro && getBar()) ro.observe(getBar());
+    window.addEventListener("resize", compute);
+    // WP swaps admin bar DOM on login/logout or customizers sometimes:
+    const id = setInterval(() => {
+      if (!getBar()) return;
+      compute();
+      clearInterval(id);
+    }, 200);
+    return () => {
+      window.removeEventListener("resize", compute);
+      if (ro) ro.disconnect();
+      clearInterval(id);
+    };
+  }, []);
+  return offset;
 }
-function Section({
-  title,
-  children
-}) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-    className: "min-w-0",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "Blueprint-title-small text-[var(--schemesOnSurface)] mb-2",
-      children: title
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "space-y-1",
-      children: children
-    })]
-  });
-}
-function MegaPanel({
+const MENU_SECTIONS = {
+  "whats-on": [{
+    title: "Discover",
+    items: [{
+      label: "Discover Events",
+      href: "/events"
+    }, {
+      label: "View Calendar",
+      href: "/events/calendar"
+    }, {
+      label: "Featured Events",
+      href: "/events?featured=1"
+    }, {
+      label: "Submit an event",
+      href: "/submit-event"
+    }]
+  }, {
+    title: "Browse by Audience",
+    items: [{
+      label: "For Families",
+      href: "/events?audience=families"
+    }, {
+      label: "For Adults",
+      href: "/events?audience=adults"
+    }, {
+      label: "Community Groups",
+      href: "/events?audience=groups"
+    }, {
+      label: "For Seniors",
+      href: "/events?audience=seniors"
+    }]
+  }],
+  directory: [{
+    title: "Browse",
+    items: [{
+      label: "All Listings",
+      href: "/directory"
+    }, {
+      label: "Featured Listings",
+      href: "/directory?featured=1"
+    }, {
+      label: "Support Services",
+      href: "/directory?type=service"
+    }]
+  }, {
+    title: "Contribute",
+    items: [{
+      label: "Add a Listing",
+      href: "/add-listing"
+    }, {
+      label: "Contact & Support",
+      href: "/contact"
+    }]
+  }],
+  "blueprint-stories": [{
+    title: "Read & Listen",
+    items: [{
+      label: "Articles and blogs",
+      href: "/stories-and-interviews?type=article"
+    }, {
+      label: "Podcasts",
+      href: "/stories-and-interviews?type=podcast"
+    }, {
+      label: "Blueprint interviews",
+      href: "/stories-and-interviews/interviews"
+    }, {
+      label: "Candid conversations",
+      href: "/stories-and-interviews/candid-conversations"
+    }]
+  }, {
+    title: "Categories",
+    items: [{
+      label: "Community & Connection",
+      href: "/stories-and-interviews?theme=community-and-connection"
+    }, {
+      label: "Culture & Identity",
+      href: "/stories-and-interviews?theme=culture-and-identity"
+    }, {
+      label: "Learning & Growth",
+      href: "/stories-and-interviews?theme=learning-and-growth"
+    }]
+  }],
+  "about-us": [{
+    title: "About Us",
+    items: [{
+      label: "Our Mission",
+      href: "/about-us/our-mission"
+    }, {
+      label: "Contact & Support",
+      href: "/contact"
+    }, {
+      label: "FAQs",
+      href: "/faqs"
+    }, {
+      label: "Terms and conditions",
+      href: "/terms"
+    }]
+  }],
+  "message-board": [{
+    title: "Message Board",
+    items: [{
+      label: "Browse Message board",
+      href: "/message-boards"
+    }, {
+      label: "Post a notice",
+      href: "/message-boards?post=1"
+    }]
+  }, {
+    title: "Browse by category",
+    items: [{
+      label: "Jobs",
+      href: "/message-boards?cat=jobs"
+    }, {
+      label: "Volunteering",
+      href: "/message-boards?cat=volunteering"
+    }, {
+      label: "Local notices",
+      href: "/message-boards?cat=local-notices"
+    }, {
+      label: "Informal support",
+      href: "/message-boards?cat=support"
+    }]
+  }],
+  "explore-by": [{
+    title: "Explore by",
+    items: [{
+      label: "Topic",
+      href: "/topics"
+    }, {
+      label: "Audience",
+      href: "/audience_tag"
+    }, {
+      label: "Theme",
+      href: "/theme"
+    }]
+  }, {
+    title: "Content type",
+    items: [{
+      label: "Events",
+      href: "/events"
+    }, {
+      label: "Podcasts",
+      href: "/podcasts"
+    }, {
+      label: "Articles",
+      href: "/articles"
+    }, {
+      label: "Message Board",
+      href: "/message-boards"
+    }]
+  }]
+};
+
+/* ---------- Mobile overlay menu ---------- */
+function MobileMenu({
   open,
   onClose,
-  anchorRef,
-  onPanelEnter,
-  onPanelLeave
+  isUserLoggedIn
 }) {
-  const panelRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const [expanded, setExpanded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    "whats-on": true // first section open by default
+  });
+
+  // Lock body scroll while open
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!open) return;
-    const onDown = e => {
-      const p = panelRef.current;
-      const a = anchorRef.current;
-      if (!p || p.contains(e.target) || a?.contains(e.target)) return;
-      onClose();
+    const {
+      overflow,
+      paddingRight
+    } = document.body.style;
+    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = "hidden";
+    if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
+    return () => {
+      document.body.style.overflow = overflow;
+      document.body.style.paddingRight = paddingRight;
     };
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, [open, onClose, anchorRef]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!open) return;
-    const onKey = e => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open]);
   if (!open) return null;
-  const content = {
-    "whats-on": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Discover",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/events",
-          children: "Discover Events"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/events/calendar",
-          children: "View Calendar"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/events?featured=1",
-          children: "Featured Events"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/submit-event",
-          children: "Submit an Event"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Browse by Audience",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/events?audience=families",
-          children: "For Families"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/events?audience=adults",
-          children: "For Adults"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/events?audience=groups",
-          children: "Community Groups"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/events?audience=seniors",
-          children: "For Seniors"
-        })]
-      })]
-    }),
-    directory: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Browse",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/directory",
-          children: "All Listings"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/directory?featured=1",
-          children: "Featured Listings"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/directory?type=service",
-          children: "Support Services"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Contribute",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/add-listing",
-          children: "Add a Listing"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/contact",
-          children: "Contact & Support"
-        })]
-      })]
-    }),
-    "blueprint-stories": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Read & Listen",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories-and-interviews?type=article",
-          children: "Articles and blogs"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories-and-interviews?type=podcast",
-          children: "Podcasts"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories-and-interviews/interviews",
-          children: "Blueprint interviews"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories-and-interviews/candid-conversations",
-          children: "Candid conversations"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Categories",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories-and-interviews?theme=community-and-connection",
-          children: "Community & Connection"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories-and-interviews?theme=culture-and-identity",
-          children: "Culture & Identity"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/stories-and-interviews?theme=learning-and-growth",
-          children: "Learning & Growth"
-        })]
-      })]
-    }),
-    "about-us": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "About Us",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/about-us/our-mission",
-          children: "Our Mission"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/contact",
-          children: "Contact & Support"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/faqs",
-          children: "FAQs"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/terms",
-          children: "Terms and conditions"
-        })]
-      })
-    }),
-    "message-board": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Message Board",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/message-boards",
-          children: "Browse Message board"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/message-boards?post=1",
-          children: "Post a notice"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Browse by category",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/message-boards?cat=jobs",
-          children: "Jobs"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/message-boards?cat=volunteering",
-          children: "Volunteering"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/message-boards?cat=local-notices",
-          children: "Local notices"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/message-boards?cat=support",
-          children: "Informal support"
-        })]
-      })]
-    }),
-    "explore-by": /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Explore by",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/topics",
-          children: "Topic"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/audience_tag",
-          children: "Audience"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/theme",
-          children: "Theme"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Section, {
-        title: "Content type",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/events",
-          children: "Events"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/podcasts",
-          children: "Podcasts"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/articles",
-          children: "Articles"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(LinkItem, {
-          href: "/message-boards",
-          children: "Message Board"
-        })]
-      })]
-    })
+  const goto = href => {
+    window.location.href = href;
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    ref: panelRef,
+    className: " fixed inset-0 z-[999] bg-black/40 lg:hidden ",
+    "aria-modal": "true",
     role: "dialog",
-    "aria-label": "Site section",
-    onMouseEnter: onPanelEnter,
-    onMouseLeave: onPanelLeave,
-    className: " absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[7px_6px_1px_rgba(28,27,26,0.15)] z-[60] h-60 ",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "grid grid-cols-2 lg:grid-cols-3 gap-8 items-start",
-        children: content[open]
-      })
+    onClick: onClose,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("aside", {
+      className: " absolute inset-y-0 left-0 w-[92vw] max-w-[420px] bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] shadow-[0_12px_28px_rgba(0,0,0,.25)] p-5 pt-6 overflow-y-auto ",
+      onClick: e => e.stopPropagation(),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "flex items-center justify-between mb-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+          href: "/",
+          className: "flex items-center",
+          onClick: onClose,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+            src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
+            alt: "The Social Blueprint",
+            className: "h-10"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+          onClick: onClose,
+          className: "p-2 rounded-lg hover:bg-[var(--schemesSurfaceContainerHigh)]",
+          "aria-label": "Close menu",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.X, {
+            size: 28,
+            weight: "bold"
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("nav", {
+        children: Object.entries(MENU_SECTIONS).map(([key, groups], idx) => {
+          const isOpen = !!expanded[key];
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: idx ? "border-t border-[var(--schemesOutlineVariant)]" : "",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+              className: " w-full flex items-center justify-between py-4 Blueprint-title-medium ",
+              onClick: () => setExpanded(m => ({
+                ...m,
+                [key]: !m[key]
+              })),
+              "aria-expanded": isOpen,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                children: {
+                  "whats-on": "Whats on",
+                  directory: "Directory",
+                  "blueprint-stories": "Blueprint stories",
+                  "about-us": "About us",
+                  "message-board": "Messageboard",
+                  "explore-by": "Explore by"
+                }[key]
+              }), isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.Minus, {
+                size: 24,
+                className: "text-[var(--schemesPrimary)]",
+                weight: "bold"
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.Plus, {
+                size: 24,
+                className: "text-[var(--schemesPrimary)]",
+                weight: "bold"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              className: `grid transition-[grid-template-rows,opacity] duration-200 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                className: "overflow-hidden",
+                children: groups.map((group, gi) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                  className: gi ? "my-3 pt-3 border-t border-[var(--schemesOutlineVariant)]" : "",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                    className: "Blueprint-title-small text-[var(--schemesOnSurfaceVariant)] mb-3",
+                    children: group.title
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
+                    className: "space-y-3",
+                    children: group.items.map(it => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                        href: it.href,
+                        className: "block Blueprint-body-large hover:text-[var(--schemesPrimary)]",
+                        onClick: onClose,
+                        children: it.label
+                      })
+                    }, it.href))
+                  })]
+                }, gi))
+              })
+            })]
+          }, key);
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "mt-8 grid grid-cols-2 gap-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Subscribe",
+          variant: "filled",
+          size: "lg",
+          onClick: () => goto("/subscribe")
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: isUserLoggedIn ? "Account" : "Log in",
+          variant: "tonal",
+          size: "lg",
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.Smiley, {
+            size: 22,
+            weight: "bold"
+          }),
+          onClick: () => goto(isUserLoggedIn ? "/account-dashboard" : "/login")
+        })]
+      })]
     })
   });
 }
+
+/* -------------------------- Desktop header --------------------------- */
 function Header({
   isUserLoggedIn = false
 }) {
   const {
     t
   } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_4__.useTranslation)();
-  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null); // desktop mega
   const [isDesktop, setIsDesktop] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // << NEW
+  const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [mobileOpen, setMobileOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // <-- NEW
   const hoverTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-
-  // Detect desktop for mega menu hover
+  useAdminBarOffset();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
     const update = () => setIsDesktop(mql.matches);
@@ -25820,8 +26079,6 @@ function Header({
       if (mql.removeEventListener) mql.removeEventListener("change", update);else mql.removeListener(update);
     };
   }, []);
-
-  // Scroll-aware UI tweaks (fade socials, reduce padding, shrink logo)
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const threshold = 6;
     let ticking = false;
@@ -25838,8 +26095,6 @@ function Header({
         ticking = false;
       });
     };
-
-    // Run once on mount to set initial state
     evaluate();
     window.addEventListener("scroll", onScroll, {
       passive: true
@@ -25848,20 +26103,18 @@ function Header({
   }, []);
   const openPanel = key => {
     if (!isDesktop) return;
-    clearTimeout(hoverTimer.current);
+    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
     setOpen(key);
   };
   const scheduleClose = () => {
     if (!isDesktop) return;
-    clearTimeout(hoverTimer.current);
-    hoverTimer.current = setTimeout(() => setOpen(null), 80);
+    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+    hoverTimer.current = window.setTimeout(() => setOpen(null), 80);
   };
   const cancelClose = () => {
-    clearTimeout(hoverTimer.current);
+    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
   };
-  const goto = href => {
-    window.location.href = href;
-  };
+  const goto = href => window.location.href = href;
   const NavBtn = ({
     id,
     label,
@@ -25878,113 +26131,105 @@ function Header({
       onClick: () => goto(href)
     })
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("header", {
-    ref: headerRef,
-    onMouseLeave: scheduleClose,
-    onMouseEnter: cancelClose,
-    className: `
-        relative w-full z-50
-        bg-[var(--schemesPrimaryContainer)]
-        text-[var(--schemesOnPrimaryContainer)]
-        flex items-center justify-between
-        shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
-        ${open ? "mix-blend-normal" : "mix-blend-multiply"}
-        px-4 lg:px-16
-        ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"}
-        transition-all duration-300
-      `,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-      href: "/",
-      className: "flex items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
-        src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
-        alt: "The Social Blueprint",
-        className: `
-            ${scrolled ? "h-12 lg:h-16" : "h-15 lg:h-20"}
-            transition-all duration-300
-          `
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: `hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: `
-            transition-all duration-300 origin-top
-            ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
-          `,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_5__.Socials, {})
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("header", {
+      ref: headerRef,
+      onMouseLeave: scheduleClose,
+      onMouseEnter: cancelClose,
+      className: `
+          relative w-full z-50
+          bg-[var(--schemesPrimaryContainer)]
+          text-[var(--schemesOnPrimaryContainer)]
+          flex items-center justify-between
+          shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
+          ${open ? "mix-blend-normal" : "mix-blend-multiply"}
+          px-4 lg:px-16
+          ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"}
+          transition-all duration-300
+        `,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+        href: "/",
+        className: "flex items-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+          src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
+          alt: "The Social Blueprint",
+          className: `${scrolled ? "h-12 lg:h-16" : "h-15 lg:h-20"} transition-all duration-300`
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "hidden lg:flex items-center gap-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("nav", {
-          className: "hidden lg:flex items-center gap-6 Blueprint-body-medium",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
-            id: "whats-on",
-            label: t("whats_on"),
-            href: "/events"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
-            id: "directory",
-            label: t("directory"),
-            href: "/directory"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
-            id: "blueprint-stories",
-            label: t("blueprint_stories"),
-            href: "/stories-and-interviews"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
-            id: "about-us",
-            label: t("about_us"),
-            href: "/about-us"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
-            id: "message-board",
-            label: t("message_board"),
-            href: "/message-boards"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
-            id: "explore-by",
-            label: "Explore by"
-          })]
+        className: `hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: `
+              transition-all duration-300 origin-top
+              ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
+            `,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_5__.Socials, {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "flex gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: t("Subscribe"),
-            variant: "filled",
-            shape: "square",
-            size: "lg",
-            onClick: () => goto("/subscribe")
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: isUserLoggedIn ? t("account_dasboard") : t("log_in"),
-            variant: "tonal",
-            shape: "square",
-            size: "lg",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.SmileyIcon, {
-              size: 22,
-              weight: "bold"
-            }),
-            onClick: () => goto(isUserLoggedIn ? "/account-dashboard" : "/login")
+          className: "hidden lg:flex items-center gap-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("nav", {
+            className: "hidden lg:flex items-center gap-6 Blueprint-body-medium",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+              id: "whats-on",
+              label: t("whats_on"),
+              href: "/events"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+              id: "directory",
+              label: t("directory"),
+              href: "/directory"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+              id: "blueprint-stories",
+              label: t("blueprint_stories"),
+              href: "/stories-and-interviews"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+              id: "about-us",
+              label: t("about_us"),
+              href: "/about-us"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+              id: "message-board",
+              label: t("message_board"),
+              href: "/message-boards"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
+              id: "explore-by",
+              label: "Explore by",
+              href: "/topics"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "flex gap-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+              label: t("Subscribe"),
+              variant: "filled",
+              shape: "square",
+              size: "lg",
+              onClick: () => goto("/subscribe")
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+              label: isUserLoggedIn ? t("account_dasboard") : t("log_in"),
+              variant: "tonal",
+              shape: "square",
+              size: "lg",
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.Smiley, {
+                size: 22,
+                weight: "bold"
+              }),
+              onClick: () => goto(isUserLoggedIn ? "/account-dashboard" : "/login")
+            })]
           })]
         })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "lg:hidden items-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.List, {
+            size: 22,
+            weight: "bold"
+          }),
+          style: "tonal",
+          size: "sm",
+          onClick: () => setMobileOpen(true),
+          "aria-label": t("menu")
+        })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "lg:hidden items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_3__.IconButton, {
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.ListIcon, {
-          size: 22,
-          weight: "bold"
-        }),
-        style: "tonal",
-        size: "sm",
-        onClick: () => console.log("Menu clicked"),
-        "aria-label": t("menu")
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(MegaPanel, {
-      open: open,
-      onClose: () => setOpen(null),
-      anchorRef: headerRef,
-      onPanelEnter: cancelClose,
-      onPanelLeave: scheduleClose
-    }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      "aria-hidden": "true",
-      className: "pointer-events-none absolute left-0 right-0 top-full z-[70]",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "w-full h-2 mt-[-8px] bg-transparent shadow-[7px_6px_1px_rgba(28,27,26,0.15)]"
-      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(MobileMenu, {
+      open: mobileOpen,
+      onClose: () => setMobileOpen(false),
+      isUserLoggedIn: isUserLoggedIn
     })]
   });
 }
@@ -26398,7 +26643,7 @@ const ListingCallout = () => {
         className: "Blueprint-headline-large-emphasized mb-4",
         children: ["Want to contribute", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "and have your listing on", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "The Social Blueprint?"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
-        href: "/submit-listing",
+        href: "/add-listing",
         className: "font-body Blueprint-label-large inline-flex items-center gap-2 hover:opacity-80",
         children: ["Add your listing. It's free!", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_1__.ArrowIcon, {
           className: "h-4"
