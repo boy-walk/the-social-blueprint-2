@@ -25202,25 +25202,30 @@ function ShabbatTicker({
 }) {
   const prefersReduced = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const items = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    var _times$shabbat, _src$candle_lighting, _src$havdalah;
     if (!times) return [];
-    const fmt = ts => new Date(ts * 1000).toLocaleString(undefined, {
+    const src = (_times$shabbat = times.shabbat) !== null && _times$shabbat !== void 0 ? _times$shabbat : times;
+    const c = (_src$candle_lighting = src.candle_lighting) !== null && _src$candle_lighting !== void 0 ? _src$candle_lighting : src.candleLighting;
+    const h = (_src$havdalah = src.havdalah) !== null && _src$havdalah !== void 0 ? _src$havdalah : src.Havdalah;
+    const fmtTs = ts => new Date(ts * 1000).toLocaleString(undefined, {
       weekday: "short",
       month: "short",
       day: "numeric",
       hour: "numeric",
       minute: "2-digit"
     });
+    const line = (ev, fallbackLabel) => {
+      if (!ev) return null;
+      const label = ev.title || fallbackLabel;
+      if (ev.date && ev.time) return `${ev.date} ${ev.time}`;
+      if (ev.timestamp) return `${label}: ${fmtTs(ev.timestamp)}`;
+      return null;
+    };
     const out = [];
-    if (times.candle_lighting?.timestamp || times.shabbat?.candleLighting?.timestamp) {
-      var _times$candle_lightin;
-      const t = (_times$candle_lightin = times.candle_lighting?.timestamp) !== null && _times$candle_lightin !== void 0 ? _times$candle_lightin : times.shabbat.candleLighting.timestamp;
-      out.push(`Candle lighting: ${fmt(t)}`);
-    }
-    if (times.havdalah?.timestamp || times.shabbat?.havdalah?.timestamp) {
-      var _times$havdalah$times;
-      const t = (_times$havdalah$times = times.havdalah?.timestamp) !== null && _times$havdalah$times !== void 0 ? _times$havdalah$times : times.shabbat.havdalah.timestamp;
-      out.push(`Havdalah: ${fmt(t)}`);
-    }
+    const cLine = line(c, "Candle lighting");
+    const hLine = line(h, "Havdalah");
+    if (cLine) out.push(cLine);
+    if (hLine) out.push(hLine);
     return out;
   }, [times]);
   if (!items.length) return null;

@@ -131,7 +131,6 @@ const QuickLinks = ({ links = [] }) => {
   );
 }
 
-
 function ShabbatTicker({ times, speed = 35 }) {
   const prefersReduced =
     typeof window !== "undefined" &&
@@ -140,7 +139,11 @@ function ShabbatTicker({ times, speed = 35 }) {
 
   const items = useMemo(() => {
     if (!times) return [];
-    const fmt = (ts) =>
+    const src = times.shabbat ?? times;
+    const c = src.candle_lighting ?? src.candleLighting;
+    const h = src.havdalah ?? src.Havdalah;
+
+    const fmtTs = (ts) =>
       new Date(ts * 1000).toLocaleString(undefined, {
         weekday: "short",
         month: "short",
@@ -148,15 +151,20 @@ function ShabbatTicker({ times, speed = 35 }) {
         hour: "numeric",
         minute: "2-digit",
       });
+
+    const line = (ev, fallbackLabel) => {
+      if (!ev) return null;
+      const label = ev.title || fallbackLabel;
+      if (ev.date && ev.time) return `${ev.date} ${ev.time}`;
+      if (ev.timestamp) return `${label}: ${fmtTs(ev.timestamp)}`;
+      return null;
+    };
+
     const out = [];
-    if (times.candle_lighting?.timestamp || times.shabbat?.candleLighting?.timestamp) {
-      const t = times.candle_lighting?.timestamp ?? times.shabbat.candleLighting.timestamp;
-      out.push(`Candle lighting: ${fmt(t)}`);
-    }
-    if (times.havdalah?.timestamp || times.shabbat?.havdalah?.timestamp) {
-      const t = times.havdalah?.timestamp ?? times.shabbat.havdalah.timestamp;
-      out.push(`Havdalah: ${fmt(t)}`);
-    }
+    const cLine = line(c, "Candle lighting");
+    const hLine = line(h, "Havdalah");
+    if (cLine) out.push(cLine);
+    if (hLine) out.push(hLine);
     return out;
   }, [times]);
 
@@ -178,10 +186,7 @@ function ShabbatTicker({ times, speed = 35 }) {
     >
       <div
         className="Blueprint-title-medium whitespace-nowrap"
-        style={{
-          padding: "18px 0",
-          position: "relative",
-        }}
+        style={{ padding: "18px 0", position: "relative" }}
       >
         <div
           className="flex gap-12"
