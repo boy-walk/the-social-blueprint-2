@@ -1,15 +1,13 @@
-import React, { useMemo, useState } from "react"
-import { CaretLeftIcon, CaretRightIcon, PlanetIcon, PlayIcon, StarOfDavidIcon, TagChevronIcon } from "@phosphor-icons/react"
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import { PlanetIcon, PlayIcon, StarOfDavidIcon } from "@phosphor-icons/react"
 import { Card } from "./Card"
 import { TestimonialSlider } from "./TestimonialSlider"
 import { ICONS } from "./IconPicker"
 import Megaphone from "../../assets/megaphone.svg"
-import { useBreakpoints } from "./useBreakpoints"
 
 export function AboutUs(props) {
   const { timeline = [], testimonials = [], featuredVideo = {} } = props
   const t = testimonials
-  const breakpoints = useBreakpoints()
 
   const videoNode = useMemo(() => {
     if (!featuredVideo?.url) return null
@@ -103,12 +101,47 @@ export function AboutUs(props) {
   )
 }
 
-const TimelineSection = ({ timeline = [], intro = "" }) => {
-  const { lg } = useBreakpoints();
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const set = () => setReduced(!!mq.matches);
+    set();
+    mq.addEventListener ? mq.addEventListener("change", set) : mq.addListener(set);
+    return () => {
+      mq.removeEventListener ? mq.removeEventListener("change", set) : mq.removeListener(set);
+    };
+  }, []);
+  return reduced;
+}
+
+function useInView(options) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (!ref.current || visible) return;
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        io.disconnect();
+      }
+    }, options);
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [options, visible]);
+  return [ref, visible];
+}
+
+export const TimelineSection = ({ timeline = [], intro = "" }) => {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <div className="flex flex-col md:flex-col lg:flex-row gap-8 lg:gap-16 self-stretch">
       <div className="flex flex-col gap-6">
-        <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface">{intro}</h2>
+        <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface">
+          {intro}
+        </h2>
         <p className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant lg:max-w-sm">
           A look at the key moments, launches, and collaborations that have shaped The Social Blueprint.
         </p>
@@ -118,23 +151,50 @@ const TimelineSection = ({ timeline = [], intro = "" }) => {
         {timeline.map((time, index) => {
           const Icon = ICONS[time.icon] || PlanetIcon;
           const isLast = index === timeline.length - 1;
+          const [ref, visible] = useInView({ rootMargin: "0px 0px -10% 0px", threshold: 0.2 });
+          const delay = `${index * 80}ms`;
+
+          const textStyle = reduced
+            ? undefined
+            : {
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateX(0)" : "translateX(24px)",
+              transition: `transform 500ms cubic-bezier(.2,.7,0,1) ${delay}, opacity 500ms ease ${delay}`,
+              willChange: "transform, opacity",
+            };
+
+          const iconStyle = reduced
+            ? undefined
+            : {
+              transform: visible ? "scale(1)" : "scale(0.92)",
+              transition: `transform 420ms cubic-bezier(.2,.8,0,1) ${delay}`,
+              willChange: "transform",
+            };
+
+          const stemStyle = reduced
+            ? undefined
+            : {
+              opacity: visible ? 1 : 0,
+              transition: `opacity 400ms ease ${delay}`,
+            };
 
           return (
-            <li key={index} className="flex gap-4 first:pt-0 last:pb-0">
+            <li key={index} ref={ref} className="flex gap-4 first:pt-0 last:pb-0">
               <div className="flex flex-col items-center w-10 shrink-0">
-                <div className="bg-schemesPrimaryFixed p-1.5 rounded-xl">
-                  <Icon size={20} fill="bold" className="text-schemesOnPrimaryFixed" />
+                <div className="bg-schemesPrimaryFixed p-1.5 rounded-xl" style={iconStyle}>
+                  <Icon size={20} className="text-schemesOnPrimaryFixed" />
                 </div>
-                {!isLast && <span className="flex-1 w-0.5 my-2 bg-schemesOutlineVariant" />}
+                {!isLast && <span className="flex-1 w-0.5 my-2 bg-schemesOutlineVariant" style={stemStyle} />}
               </div>
-              <div className="min-w-0">
+
+              <div className="min-w-0" style={textStyle}>
                 <time className="block mb-2 Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized uppercase text-schemesOnSurface">
                   {time.date}
                 </time>
                 <p className="mb-2 Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized text-schemesOnSurface">
                   {time.title}
                 </p>
-                <p className={`mb-6 Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface`}>
+                <p className="mb-6 Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface">
                   {time.description}
                 </p>
               </div>
