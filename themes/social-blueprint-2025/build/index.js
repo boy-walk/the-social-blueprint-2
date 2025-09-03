@@ -25067,6 +25067,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/* WordRotate: unchanged behavior, with responsive-safe inline styles */
+
 function WordRotate({
   words = [],
   stepMs = 220,
@@ -25074,42 +25076,42 @@ function WordRotate({
 }) {
   const i = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
   const [angle, setAngle] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(-6);
-  const [stage, setStage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('pauseTop'); // pauseTop → toBottom → bounceBottom1 → bounceBottom2 → pauseBottom → toTop → bounceTop1 → bounceTop2 → loop
+  const [stage, setStage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("pauseTop");
   const t = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduced = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (reduced) return;
-    if (stage === 'pauseTop' || stage === 'pauseBottom') {
+    if (stage === "pauseTop" || stage === "pauseBottom") {
       clearTimeout(t.current);
-      t.current = setTimeout(() => setStage(stage === 'pauseTop' ? 'toBottom' : 'toTop'), pauseMs);
+      t.current = setTimeout(() => setStage(stage === "pauseTop" ? "toBottom" : "toTop"), pauseMs);
     }
     return () => clearTimeout(t.current);
   }, [stage, pauseMs, reduced]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (reduced) return;
-    if (stage === 'toBottom') setAngle(6);
-    if (stage === 'bounceBottom1') setAngle(2);
-    if (stage === 'bounceBottom2') setAngle(4);
-    if (stage === 'toTop') setAngle(-6);
-    if (stage === 'bounceTop1') setAngle(-2);
-    if (stage === 'bounceTop2') setAngle(-4);
+    if (stage === "toBottom") setAngle(6);
+    if (stage === "bounceBottom1") setAngle(2);
+    if (stage === "bounceBottom2") setAngle(4);
+    if (stage === "toTop") setAngle(-6);
+    if (stage === "bounceTop1") setAngle(-2);
+    if (stage === "bounceTop2") setAngle(-4);
   }, [stage, reduced]);
   const onEnd = () => {
     if (reduced) return;
-    if (stage === 'toBottom') {
-      i.current = (i.current + 1) % words.length; // change as bounce starts
-      return setStage('bounceBottom1');
+    if (stage === "toBottom") {
+      i.current = (i.current + 1) % words.length;
+      return setStage("bounceBottom1");
     }
-    if (stage === 'bounceBottom1') return setStage('bounceBottom2');
-    if (stage === 'bounceBottom2') return setStage('pauseBottom');
-    if (stage === 'toTop') {
-      i.current = (i.current + 1) % words.length; // change as bounce starts
-      return setStage('bounceTop1');
+    if (stage === "bounceBottom1") return setStage("bounceBottom2");
+    if (stage === "bounceBottom2") return setStage("pauseBottom");
+    if (stage === "toTop") {
+      i.current = (i.current + 1) % words.length;
+      return setStage("bounceTop1");
     }
-    if (stage === 'bounceTop1') return setStage('bounceTop2');
-    if (stage === 'bounceTop2') return setStage('pauseTop');
+    if (stage === "bounceTop1") return setStage("bounceTop2");
+    if (stage === "bounceTop2") return setStage("pauseTop");
   };
-  const transition = stage === 'toBottom' || stage === 'toTop' ? `transform ${stepMs}ms cubic-bezier(.2,.8,0,1.1)` : stage.includes('bounce') ? `transform ${stepMs}ms cubic-bezier(.2,.7,0,1)` : 'none';
+  const transition = stage === "toBottom" || stage === "toTop" ? `transform ${stepMs}ms cubic-bezier(.2,.8,0,1.1)` : stage.includes("bounce") ? `transform ${stepMs}ms cubic-bezier(.2,.7,0,1)` : "none";
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
     className: "inline-flex align-middle items-center",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -25117,13 +25119,13 @@ function WordRotate({
       className: "inline-flex px-1 py-0.5 rounded-md bg-schemesPrimaryFixedDim text-schemesOnPrimaryFixedVariant Blueprint-body-large-emphasized",
       style: {
         transform: `rotate(${reduced ? 0 : angle}deg)`,
-        transformOrigin: '50% 60%',
+        transformOrigin: "50% 60%",
         transition,
-        willChange: 'transform',
-        backfaceVisibility: 'hidden',
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center"
       },
       "aria-live": "polite",
       children: words[i.current]
@@ -25133,45 +25135,49 @@ function WordRotate({
 function FrontPage({
   candleLightingTimes
 }) {
-  const words = ['creative', 'resilient', 'curious', 'connected'];
-  console.log(candleLightingTimes);
+  const words = ["creative", "resilient", "curious", "connected"];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
     className: "bg-schemesPrimaryFixed",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "max-w-[1600px] mx-auto p-16",
+      className: "max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "flex flex-row gap-8 w-full",
+        className: "flex flex-col md:flex-row md:items-start gap-8 md:gap-10 w-full",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "flex flex-col items-start justify-start gap-4",
+          className: "flex flex-col items-stretch md:items-start justify-start gap-4 md:gap-5 w-full",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "Blueprint-display-large-emphasized text-schemesOnPrimaryFixed max-w-2xl",
+            className: "Blueprint-display-large-emphasized text-schemesOnPrimaryFixed max-w-none md:max-w-2xl text-center md:text-left leading-tight",
             children: "Proudly celebrating our Melbourne Jewish community"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "Blueprint-body-large text-schemesOnPrimaryFixedVariant max-w-xl",
+            className: "Blueprint-body-large text-schemesOnPrimaryFixedVariant max-w-none md:max-w-xl text-center md:text-left",
             children: ["Helpful, friendly, and ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(WordRotate, {
               words: words
-            }), ". Find events, stories, podcasts, and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), "support."]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_1__.SearchBar, {
-            placeholder: "Search events, articles, podcasts..."
+            }), ". Find events, stories, podcasts, and", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {
+              className: "hidden md:block"
+            }), "support."]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "w-full md:max-w-xl",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_1__.SearchBar, {
+              placeholder: "Search events, articles, podcasts..."
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(QuickLinks, {
             links: [{
-              title: 'Events',
-              href: '/events'
+              title: "Events",
+              href: "/events"
             }, {
-              title: 'Podcasts',
-              href: '/podcasts'
+              title: "Podcasts",
+              href: "/podcasts"
             }, {
-              title: 'Stories',
-              href: '/articles'
+              title: "Stories",
+              href: "/articles"
             }, {
-              title: 'Aid',
-              href: '/aid_listing'
+              title: "Aid",
+              href: "/aid_listing"
             }, {
-              title: 'Directory',
-              href: '/directory'
+              title: "Directory",
+              href: "/directory"
             }]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "max-w-3xl",
+            className: "w-full md:max-w-3xl",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ShabbatTicker, {
               times: candleLightingTimes
             })
@@ -25181,16 +25187,18 @@ function FrontPage({
     })
   });
 }
+
+/* QuickLinks: responsive grid → row */
 const QuickLinks = ({
   links = []
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    className: "flex flex-row gap-4",
+    className: "grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-row gap-3 md:gap-4",
     children: links.map((link, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-      href: link.href || '#',
-      className: "flex-1 no-underline",
+      href: link.href || "#",
+      className: "no-underline md:flex-1",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "Blueprint-label-large px-4 py-1.5 rounded-lg bg-schemesOnPrimaryContainer text-schemesOnPrimaryFixed",
+        className: "w-full text-center Blueprint-label-large px-4 py-2 md:py-1.5 rounded-lg bg-schemesOnPrimaryContainer text-schemesOnPrimaryFixed",
         children: link.title
       })
     }, i))
@@ -25233,7 +25241,7 @@ function ShabbatTicker({
   const onEnter = () => setPaused(true);
   const onLeave = () => setPaused(false);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "mt-8 rounded-xl bg-schemesPrimaryFixedDim opacity-75 text-schemesOnSurface overflow-hidden",
+    className: "mt-6 md:mt-8 rounded-xl bg-schemesPrimaryFixedDim opacity-80 text-schemesOnSurface overflow-hidden",
     role: "region",
     "aria-label": "Shabbat times",
     onMouseEnter: onEnter,
@@ -25243,11 +25251,11 @@ function ShabbatTicker({
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "Blueprint-title-medium whitespace-nowrap",
       style: {
-        padding: "18px 0",
+        padding: "14px 0",
         position: "relative"
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex gap-12",
+        className: "flex gap-8 sm:gap-10 md:gap-12",
         style: {
           width: "200%",
           animation: prefersReduced ? "none" : "tsb-marquee linear infinite",
@@ -25257,12 +25265,12 @@ function ShabbatTicker({
           opacity: 1
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex gap-12 flex-none px-6",
+          className: "flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6",
           children: items.map((t, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
             children: t
           }, `a-${i}`))
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex gap-12 flex-none px-6",
+          className: "flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6",
           "aria-hidden": "true",
           children: items.map((t, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
             children: t

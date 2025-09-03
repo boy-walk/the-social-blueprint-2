@@ -1,23 +1,24 @@
 import React, { useMemo, useRef, useEffect, useState } from "react";
-import { SearchBar } from './SearchBar';
+import { SearchBar } from "./SearchBar";
 
+/* WordRotate: unchanged behavior, with responsive-safe inline styles */
 function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
   const i = useRef(0);
   const [angle, setAngle] = useState(-6);
-  const [stage, setStage] = useState('pauseTop'); // pauseTop → toBottom → bounceBottom1 → bounceBottom2 → pauseBottom → toTop → bounceTop1 → bounceTop2 → loop
+  const [stage, setStage] = useState("pauseTop");
   const t = useRef(null);
 
   const reduced =
-    typeof window !== 'undefined' &&
+    typeof window !== "undefined" &&
     window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
     if (reduced) return;
-    if (stage === 'pauseTop' || stage === 'pauseBottom') {
+    if (stage === "pauseTop" || stage === "pauseBottom") {
       clearTimeout(t.current);
       t.current = setTimeout(
-        () => setStage(stage === 'pauseTop' ? 'toBottom' : 'toTop'),
+        () => setStage(stage === "pauseTop" ? "toBottom" : "toTop"),
         pauseMs
       );
     }
@@ -26,36 +27,36 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
 
   useEffect(() => {
     if (reduced) return;
-    if (stage === 'toBottom') setAngle(6);
-    if (stage === 'bounceBottom1') setAngle(2);
-    if (stage === 'bounceBottom2') setAngle(4);
-    if (stage === 'toTop') setAngle(-6);
-    if (stage === 'bounceTop1') setAngle(-2);
-    if (stage === 'bounceTop2') setAngle(-4);
+    if (stage === "toBottom") setAngle(6);
+    if (stage === "bounceBottom1") setAngle(2);
+    if (stage === "bounceBottom2") setAngle(4);
+    if (stage === "toTop") setAngle(-6);
+    if (stage === "bounceTop1") setAngle(-2);
+    if (stage === "bounceTop2") setAngle(-4);
   }, [stage, reduced]);
 
   const onEnd = () => {
     if (reduced) return;
-    if (stage === 'toBottom') {
-      i.current = (i.current + 1) % words.length;      // change as bounce starts
-      return setStage('bounceBottom1');
+    if (stage === "toBottom") {
+      i.current = (i.current + 1) % words.length;
+      return setStage("bounceBottom1");
     }
-    if (stage === 'bounceBottom1') return setStage('bounceBottom2');
-    if (stage === 'bounceBottom2') return setStage('pauseBottom');
-    if (stage === 'toTop') {
-      i.current = (i.current + 1) % words.length;      // change as bounce starts
-      return setStage('bounceTop1');
+    if (stage === "bounceBottom1") return setStage("bounceBottom2");
+    if (stage === "bounceBottom2") return setStage("pauseBottom");
+    if (stage === "toTop") {
+      i.current = (i.current + 1) % words.length;
+      return setStage("bounceTop1");
     }
-    if (stage === 'bounceTop1') return setStage('bounceTop2');
-    if (stage === 'bounceTop2') return setStage('pauseTop');
+    if (stage === "bounceTop1") return setStage("bounceTop2");
+    if (stage === "bounceTop2") return setStage("pauseTop");
   };
 
   const transition =
-    stage === 'toBottom' || stage === 'toTop'
+    stage === "toBottom" || stage === "toTop"
       ? `transform ${stepMs}ms cubic-bezier(.2,.8,0,1.1)`
-      : stage.includes('bounce')
+      : stage.includes("bounce")
         ? `transform ${stepMs}ms cubic-bezier(.2,.7,0,1)`
-        : 'none';
+        : "none";
 
   return (
     <span className="inline-flex align-middle items-center">
@@ -64,13 +65,13 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
         className="inline-flex px-1 py-0.5 rounded-md bg-schemesPrimaryFixedDim text-schemesOnPrimaryFixedVariant Blueprint-body-large-emphasized"
         style={{
           transform: `rotate(${reduced ? 0 : angle}deg)`,
-          transformOrigin: '50% 60%',
+          transformOrigin: "50% 60%",
           transition,
-          willChange: 'transform',
-          backfaceVisibility: 'hidden',
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
         aria-live="polite"
       >
@@ -81,29 +82,41 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
 }
 
 export default function FrontPage({ candleLightingTimes }) {
-  const words = ['creative', 'resilient', 'curious', 'connected'];
-  console.log(candleLightingTimes)
+  const words = ["creative", "resilient", "curious", "connected"];
 
   return (
     <div className="bg-schemesPrimaryFixed">
-      <div className="max-w-[1600px] mx-auto p-16">
-        <div className="flex flex-row gap-8 w-full">
-          <div className="flex flex-col items-start justify-start gap-4">
-            <div className="Blueprint-display-large-emphasized text-schemesOnPrimaryFixed max-w-2xl">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16">
+        <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 w-full">
+          <div className="flex flex-col items-stretch md:items-start justify-start gap-4 md:gap-5 w-full">
+            <div className="Blueprint-display-large-emphasized text-schemesOnPrimaryFixed max-w-none md:max-w-2xl text-center md:text-left leading-tight">
               Proudly celebrating our Melbourne Jewish community
             </div>
-            <div className="Blueprint-body-large text-schemesOnPrimaryFixedVariant max-w-xl">
-              Helpful, friendly, and <WordRotate words={words} />. Find events, stories, podcasts, and<br />support.
+
+            <div className="Blueprint-body-large text-schemesOnPrimaryFixedVariant max-w-none md:max-w-xl text-center md:text-left">
+              Helpful, friendly, and <WordRotate words={words} />. Find events, stories, podcasts,
+              and<br className="hidden md:block" />
+              support.
             </div>
-            <SearchBar placeholder="Search events, articles, podcasts..." />
-            <QuickLinks links={[
-              { title: 'Events', href: '/events' },
-              { title: 'Podcasts', href: '/podcasts' },
-              { title: 'Stories', href: '/articles' },
-              { title: 'Aid', href: '/aid_listing' },
-              { title: 'Directory', href: '/directory' },
-            ]} />
-            <div className="max-w-3xl">
+
+            {/* Search: full-width on mobile, constrained on larger screens */}
+            <div className="w-full md:max-w-xl">
+              <SearchBar placeholder="Search events, articles, podcasts..." />
+            </div>
+
+            {/* Quick links: grid on mobile, row on md+; full-width tappable targets */}
+            <QuickLinks
+              links={[
+                { title: "Events", href: "/events" },
+                { title: "Podcasts", href: "/podcasts" },
+                { title: "Stories", href: "/articles" },
+                { title: "Aid", href: "/aid_listing" },
+                { title: "Directory", href: "/directory" },
+              ]}
+            />
+
+            {/* Shabbat ticker: full width on mobile; constrained on md+ */}
+            <div className="w-full md:max-w-3xl">
               <ShabbatTicker times={candleLightingTimes} />
             </div>
           </div>
@@ -113,23 +126,20 @@ export default function FrontPage({ candleLightingTimes }) {
   );
 }
 
+/* QuickLinks: responsive grid → row */
 const QuickLinks = ({ links = [] }) => {
   return (
-    <div className="flex flex-row gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-row gap-3 md:gap-4">
       {links.map((link, i) => (
-        <a
-          key={i}
-          href={link.href || '#'}
-          className="flex-1 no-underline"
-        >
-          <div className="Blueprint-label-large px-4 py-1.5 rounded-lg bg-schemesOnPrimaryContainer text-schemesOnPrimaryFixed">
+        <a key={i} href={link.href || "#"} className="no-underline md:flex-1">
+          <div className="w-full text-center Blueprint-label-large px-4 py-2 md:py-1.5 rounded-lg bg-schemesOnPrimaryContainer text-schemesOnPrimaryFixed">
             {link.title}
           </div>
         </a>
       ))}
     </div>
   );
-}
+};
 
 function ShabbatTicker({ times, speed = 35 }) {
   const prefersReduced =
@@ -176,7 +186,7 @@ function ShabbatTicker({ times, speed = 35 }) {
 
   return (
     <div
-      className="mt-8 rounded-xl bg-schemesPrimaryFixedDim opacity-75 text-schemesOnSurface overflow-hidden"
+      className="mt-6 md:mt-8 rounded-xl bg-schemesPrimaryFixedDim opacity-80 text-schemesOnSurface overflow-hidden"
       role="region"
       aria-label="Shabbat times"
       onMouseEnter={onEnter}
@@ -186,10 +196,10 @@ function ShabbatTicker({ times, speed = 35 }) {
     >
       <div
         className="Blueprint-title-medium whitespace-nowrap"
-        style={{ padding: "18px 0", position: "relative" }}
+        style={{ padding: "14px 0", position: "relative" }}
       >
         <div
-          className="flex gap-12"
+          className="flex gap-8 sm:gap-10 md:gap-12"
           style={{
             width: "200%",
             animation: prefersReduced ? "none" : "tsb-marquee linear infinite",
@@ -199,12 +209,12 @@ function ShabbatTicker({ times, speed = 35 }) {
             opacity: 1,
           }}
         >
-          <div className="flex gap-12 flex-none px-6">
+          <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6">
             {items.map((t, i) => (
               <span key={`a-${i}`}>{t}</span>
             ))}
           </div>
-          <div className="flex gap-12 flex-none px-6" aria-hidden="true">
+          <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6" aria-hidden="true">
             {items.map((t, i) => (
               <span key={`b-${i}`}>{t}</span>
             ))}
