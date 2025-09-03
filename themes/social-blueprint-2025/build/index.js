@@ -25323,27 +25323,27 @@ function FrontPage({
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "grid grid-cols-2 gap-4 h-full w-full max-w-xl",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+          children: [recentMessageBoardPost ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
             badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentMessageBoard.post_type),
             image: recentMessageBoard.thumbnail,
             href: recentMessageBoard.permalink,
             fullHeight: true
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {}), recentEvent ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
             badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentEvent.post_type),
             image: recentEvent.thumbnail,
             href: recentEvent.permalink,
             fullHeight: true
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {}), recentArticle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
             badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentArticle.post_type),
             image: recentArticle.thumbnail,
             href: recentArticle.permalink,
             fullHeight: true
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {}), recentPodcast ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
             badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentPodcast.post_type),
             image: recentPodcast.thumbnail,
             href: recentPodcast.permalink,
             fullHeight: true
-          })]
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {})]
         })]
       })
     })

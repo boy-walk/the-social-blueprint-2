@@ -124,30 +124,30 @@ export default function FrontPage({ candleLightingTimes, recentMessageBoard, rec
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4 h-full w-full max-w-xl">
-            <ContentCard
+            {recentMessageBoardPost ? <ContentCard
               badge={getBadge(recentMessageBoard.post_type)}
               image={recentMessageBoard.thumbnail}
               href={recentMessageBoard.permalink}
               fullHeight
-            />
-            <ContentCard
+            /> : <div></div>}
+            {recentEvent ? <ContentCard
               badge={getBadge(recentEvent.post_type)}
               image={recentEvent.thumbnail}
               href={recentEvent.permalink}
               fullHeight
-            />
-            <ContentCard
+            /> : <div></div>}
+            {recentArticle ? <ContentCard
               badge={getBadge(recentArticle.post_type)}
               image={recentArticle.thumbnail}
               href={recentArticle.permalink}
               fullHeight
-            />
-            <ContentCard
+            /> : <div></div>}
+            {recentPodcast ? <ContentCard
               badge={getBadge(recentPodcast.post_type)}
               image={recentPodcast.thumbnail}
               href={recentPodcast.permalink}
               fullHeight
-            />
+            /> : <div></div>}
           </div>
         </div>
       </div>
