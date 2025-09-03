@@ -25225,7 +25225,7 @@ function ShabbatTicker({
     const line = (ev, fallbackLabel) => {
       if (!ev) return null;
       const label = ev.title || fallbackLabel;
-      if (ev.date && ev.time) return `${ev.date} ${ev.time}`;
+      if (ev.date && ev.time) return `${label}: ${ev.date}`;
       if (ev.timestamp) return `${label}: ${fmtTs(ev.timestamp)}`;
       return null;
     };
