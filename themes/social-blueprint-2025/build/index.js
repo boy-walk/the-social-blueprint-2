@@ -24756,7 +24756,7 @@ const ExploreByTheme = () => {
     className: "grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-4 w-full justify-items-stretch",
     children: keys.map((item, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_0__.Card, {
       href: `/${item.key}`,
-      styles: "group min-h-[9rem] md:min-h-[16rem] h-full max-w-full md:max-w-[260px] w-full border-1 border-background-light pt-4 rounded-xl",
+      styles: "group min-h-[9rem] md:min-h-[16rem] h-full max-w-full md:max-w-[320px] w-full border-1 border-background-light pt-4 rounded-xl shadow-3x3",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "flex flex-row-reverse md:flex-col justify-between h-full w-full",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -24781,46 +24781,6 @@ const ExploreByTheme = () => {
         })]
       })
     }, index))
-  });
-  return /*#__PURE__*/_jsx("div", {
-    className: "grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-4 w-full justify-items-stretch",
-    children: [0, 1, 2, 3, 4].map(i => /*#__PURE__*/_jsx(Card, {
-      href: i === 0 ? "/community-connect" : `/explore/${i + 1}`,
-      styles: "group min-h-[9rem] md:min-h-[16rem] h-full lg:max-w-[260px] w-full border-1 border-background-light pt-4 rounded-xl",
-      children: /*#__PURE__*/_jsxs("div", {
-        className: "flex flex-row-reverse md:flex-col justify-between h-full w-full",
-        children: [/*#__PURE__*/_jsxs("div", {
-          className: "flex flex-col items-end h-full lg:h-auto gap-5",
-          children: [/*#__PURE__*/_jsx("div", {
-            className: "bg-schemesPrimaryFixed mx-4 mb-auto md:mb-0 rounded-xl p-1.5",
-            children: /*#__PURE__*/_jsx(ArrowUpRightIcon, {
-              size: 26,
-              weight: "bold"
-            })
-          }), /*#__PURE__*/_jsxs("div", {
-            className: "w-full text-right lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 transition-transform duration-600 ease-in-out group-hover:-translate-y-2 mb-12 md:mb-2",
-            children: [i === 0 && /*#__PURE__*/_jsx(_Fragment, {
-              children: "Community Connection"
-            }), i === 1 && /*#__PURE__*/_jsxs(_Fragment, {
-              children: ["Events and", /*#__PURE__*/_jsx("br", {}), "Experiences"]
-            }), i === 2 && /*#__PURE__*/_jsx(_Fragment, {
-              children: "Learning and Growth"
-            }), i === 3 && /*#__PURE__*/_jsx(_Fragment, {
-              children: "Support and Services"
-            }), i === 4 && /*#__PURE__*/_jsxs(_Fragment, {
-              children: ["Culture and", /*#__PURE__*/_jsx("br", {}), "Identity"]
-            })]
-          })]
-        }), /*#__PURE__*/_jsx("div", {
-          className: "flex md:justify-center justify-start",
-          children: /*#__PURE__*/_jsx("img", {
-            src: i === 0 ? ExploreThemeOne : i === 1 ? ExploreThemeTwo : i === 2 ? ExploreThemeThree : i === 3 ? ExploreThemeFour : ExploreThemeFive,
-            alt: "Theme Icon",
-            className: "object-contain mt-auto max-h-[8rem] w-full px-0 lg:px-4"
-          })
-        })]
-      })
-    }, i))
   });
 };
 
