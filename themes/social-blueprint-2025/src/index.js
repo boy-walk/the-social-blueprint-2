@@ -35,6 +35,7 @@ import { GenericArchivePage } from './scripts/GenericArchivePage';
 import MessageBoardArchivePage from './scripts/MessageBoardArchivePage';
 import MessageBoardPage from './scripts/MessageBoard';
 import CostOfLivingPage from './scripts/CostOfLivingPage';
+import { AddListing } from './scripts/AddListing';
 
 const frontPage = document.querySelector('#front-page')
 if (frontPage) {
@@ -313,4 +314,10 @@ if (el33) {
     pdfFile: el33.dataset.pdfFile || null,
   };
   ReactDOM.createRoot(el33).render(<CostOfLivingPage {...props} />);
+}
+
+const el34 = document.getElementById("add-listing-root");
+if (el34) {
+  const props = JSON.parse(el34.getAttribute('data-props') || '{}');
+  ReactDOM.createRoot(el34).render(<AddListing {...props} />);
 }

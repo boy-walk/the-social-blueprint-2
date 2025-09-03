@@ -102,7 +102,7 @@ const MENU_SECTIONS = {
     {
       title: "Contribute",
       items: [
-        { label: "Add a Listing", href: "/add-listing" },
+        { label: "Add a Listing", href: "/add-listing-hub" },
         { label: "Contact & Support", href: "/contact" },
       ],
     },
