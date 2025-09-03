@@ -17,16 +17,35 @@ $times = sb_shabbat_times_hebcal([
   'b'         => 18,
 ]);
 
-$front_props = [
-  'shabbat' => $times ? $times : null,
-];
+$recent_message_board = get_posts([
+  'post_type' => 'gd_discount',
+  'posts_per_page' => 1,
+  'orderby' => 'date',
+  'order' => 'DESC',
+]);
 
-?>
-<div
-  id="front-page"
-  data-props='<?php echo esc_attr( wp_json_encode( $front_props, JSON_UNESCAPED_SLASHES ) ); ?>'
-></div>
-  <?php
+$recent_podcast = get_posts([
+  'post_type' => 'podcast',
+  'posts_per_page' => 1,
+  'orderby' => 'date',
+  'order' => 'DESC',
+]);
+
+$recent_article = get_posts([
+  'post_type' => 'article',
+  'posts_per_page' => 1,
+  'orderby' => 'date',
+  'order' => 'DESC',
+]);
+
+$recent_event = tribe_get_events([
+  'posts_per_page' => 1,
+  'start_date' => current_time('Y-m-d H:i:s'),
+  'orderby' => 'meta_value',
+  'meta_key' => '_EventStartDate',
+  'order' => 'ASC',
+]);
+
 function map_post($post) {
   return [
     'id' => $post->ID,
@@ -39,6 +58,22 @@ function map_post($post) {
     'permalink' => get_permalink($post),
   ];
 }
+
+$front_props = [
+  'candleLightingTimes' => $times ? $times : null,
+  'recentMessageBoard' => !empty($recent_message_board) ? map_post($recent_message_board[0]) : null,
+  'recentPodcast' => !empty($recent_podcast) ? map_post($recent_podcast[0]) : null,
+  'recentArticle' => !empty($recent_article) ? map_post($recent_article[0]) : null,
+  'recentEvent' => !empty($recent_event) ? map_post($recent_event[0]) : null,
+];
+
+?>
+<div
+  id="front-page"
+  data-props='<?php echo esc_attr( wp_json_encode( $front_props, JSON_UNESCAPED_SLASHES ) ); ?>'
+></div>
+  <?php
+
 
 $event_posts = get_posts([
   'post_type' => 'tribe_events',

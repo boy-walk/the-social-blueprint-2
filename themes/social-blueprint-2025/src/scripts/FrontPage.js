@@ -1,5 +1,7 @@
 import React, { useMemo, useRef, useEffect, useState } from "react";
 import { SearchBar } from "./SearchBar";
+import { ContentCard } from "./ContentCard";
+import { getBadge } from "./getBadge";
 
 /* WordRotate: unchanged behavior, with responsive-safe inline styles */
 function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
@@ -81,8 +83,9 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
   );
 }
 
-export default function FrontPage({ candleLightingTimes }) {
+export default function FrontPage({ candleLightingTimes, recentMessageBoard, recentEvent, recentArticle, recentPodcast }) {
   const words = ["creative", "resilient", "curious", "connected"];
+  console.log({ candleLightingTimes });
 
   return (
     <div className="bg-schemesPrimaryFixed">
@@ -119,6 +122,32 @@ export default function FrontPage({ candleLightingTimes }) {
             <div className="w-full md:max-w-3xl">
               <ShabbatTicker times={candleLightingTimes} />
             </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 h-full w-full max-w-xl">
+            <ContentCard
+              badge={getBadge(recentMessageBoard.post_type)}
+              image={recentMessageBoard.thumbnail}
+              href={recentMessageBoard.permalink}
+              fullHeight
+            />
+            <ContentCard
+              badge={getBadge(recentEvent.post_type)}
+              image={recentEvent.thumbnail}
+              href={recentEvent.permalink}
+              fullHeight
+            />
+            <ContentCard
+              badge={getBadge(recentArticle.post_type)}
+              image={recentArticle.thumbnail}
+              href={recentArticle.permalink}
+              fullHeight
+            />
+            <ContentCard
+              badge={getBadge(recentPodcast.post_type)}
+              image={recentPodcast.thumbnail}
+              href={recentPodcast.permalink}
+              fullHeight
+            />
           </div>
         </div>
       </div>

@@ -37,11 +37,11 @@ import MessageBoardPage from './scripts/MessageBoard';
 import CostOfLivingPage from './scripts/CostOfLivingPage';
 import { AddListing } from './scripts/AddListing';
 
-const frontPage = document.querySelector('#front-page')
+const frontPage = document.getElementById('front-page');
 if (frontPage) {
-  const candleLightingTimes = JSON.parse(frontPage.getAttribute('data-props') || 'null');
+  const props = JSON.parse(frontPage.dataset.props);
   const root = ReactDOM.createRoot(frontPage);
-  root.render(<FrontPage candleLightingTimes={candleLightingTimes} />);
+  root.render(<FrontPage {...props} />);
 }
 
 const header = document.getElementById('header');
