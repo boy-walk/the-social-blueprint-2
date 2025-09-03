@@ -85,7 +85,6 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
 
 export default function FrontPage({ candleLightingTimes, recentMessageBoard, recentEvent, recentArticle, recentPodcast }) {
   const words = ["creative", "resilient", "curious", "connected"];
-  console.log({ candleLightingTimes });
 
   return (
     <div className="bg-schemesPrimaryFixed">
@@ -124,7 +123,7 @@ export default function FrontPage({ candleLightingTimes, recentMessageBoard, rec
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4 h-full w-full max-w-xl">
-            {recentMessageBoardPost ? <ContentCard
+            {recentMessageBoard ? <ContentCard
               badge={getBadge(recentMessageBoard.post_type)}
               image={recentMessageBoard.thumbnail}
               href={recentMessageBoard.permalink}

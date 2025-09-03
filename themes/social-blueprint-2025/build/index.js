@@ -25272,9 +25272,6 @@ function FrontPage({
   recentPodcast
 }) {
   const words = ["creative", "resilient", "curious", "connected"];
-  console.log({
-    candleLightingTimes
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "bg-schemesPrimaryFixed",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -25323,7 +25320,7 @@ function FrontPage({
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "grid grid-cols-2 gap-4 h-full w-full max-w-xl",
-          children: [recentMessageBoardPost ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+          children: [recentMessageBoard ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
             badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentMessageBoard.post_type),
             image: recentMessageBoard.thumbnail,
             href: recentMessageBoard.permalink,
