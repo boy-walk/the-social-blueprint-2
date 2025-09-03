@@ -25272,6 +25272,13 @@ function FrontPage({
   recentPodcast
 }) {
   const words = ["creative", "resilient", "curious", "connected"];
+  console.log({
+    candleLightingTimes,
+    recentMessageBoard,
+    recentEvent,
+    recentArticle,
+    recentPodcast
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "bg-schemesPrimaryFixed",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
