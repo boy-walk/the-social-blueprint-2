@@ -402,6 +402,7 @@
 
 /* Day grid tweaks */
 .fc .fc-daygrid-day-number {
+  background: var(--schemesSurfaceVariant);
   color: var(--schemesOnSurfaceVariant);
   font-weight: 600;
   padding: .35rem .5rem .15rem .5rem;

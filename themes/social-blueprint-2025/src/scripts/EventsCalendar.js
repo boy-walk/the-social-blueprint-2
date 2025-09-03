@@ -280,7 +280,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
                 plugins={[dayGridPlugin, listPlugin]}
                 initialView="dayGridMonth"
                 headerToolbar={false}
-                height={800}
                 fixedWeekCount={false}
                 dayMaxEvents={4}
                 dayMaxEventRows={3}

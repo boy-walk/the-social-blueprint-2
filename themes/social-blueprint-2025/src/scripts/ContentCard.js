@@ -11,10 +11,12 @@ export function ContentCard({
   author,
   fullHeight = false,
   fullWidth = false,
+  shadow = false,
 }) {
   const cardStyles = `
     group
     flex flex-col
+    ${shadow ? "shadow-3x3" : ""}
     ${fullHeight ? "h-full" : ""}
     ${fullWidth ? "w-full" : ""}
     p-2

@@ -256,7 +256,7 @@ export function GenericArchivePage(props) {
   // ---------------- Skeletons ----------------
   const skeletonCards = Array.from({ length: 8 }).map((_, i) => (
     <div key={`sk-${i}`} className="rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden">
-      <div className="w-full aspect-[1.6] bg-[var(--schemesSurfaceContainerHighest)] animate-pulse" />
+      <div className="w-full aspect-[1] bg-[var(--schemesSurfaceContainerHighest)] animate-pulse" />
       <div className="p-4 space-y-2">
         <div className="h-4 w-3/4 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded" />
         <div className="h-3 w-1/2 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded" />
@@ -384,7 +384,7 @@ export function GenericArchivePage(props) {
                 )}
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
                 {filteredItems.map((item) => (
                   <ContentCard
                     key={item.id}
@@ -393,6 +393,8 @@ export function GenericArchivePage(props) {
                     subtitle={item.date}
                     badge={getBadge(item.post_type)}
                     href={item.permalink}
+                    fullHeight
+                    shadow
                   />
                 ))}
               </div>

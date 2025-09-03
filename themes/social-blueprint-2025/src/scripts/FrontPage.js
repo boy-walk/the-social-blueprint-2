@@ -1,32 +1,107 @@
-import React from 'react';
-import { Card } from './Card';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { SearchBar } from './SearchBar';
-import CardText from "../../assets/card-text.svg";
+
+function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
+  const i = useRef(0);
+  const [angle, setAngle] = useState(-6);
+  const [stage, setStage] = useState('pauseTop'); // pauseTop → toBottom → bounceBottom1 → bounceBottom2 → pauseBottom → toTop → bounceTop1 → bounceTop2 → loop
+  const t = useRef(null);
+
+  const reduced =
+    typeof window !== 'undefined' &&
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  useEffect(() => {
+    if (reduced) return;
+    if (stage === 'pauseTop' || stage === 'pauseBottom') {
+      clearTimeout(t.current);
+      t.current = setTimeout(
+        () => setStage(stage === 'pauseTop' ? 'toBottom' : 'toTop'),
+        pauseMs
+      );
+    }
+    return () => clearTimeout(t.current);
+  }, [stage, pauseMs, reduced]);
+
+  useEffect(() => {
+    if (reduced) return;
+    if (stage === 'toBottom') setAngle(6);
+    if (stage === 'bounceBottom1') setAngle(2);
+    if (stage === 'bounceBottom2') setAngle(4);
+    if (stage === 'toTop') setAngle(-6);
+    if (stage === 'bounceTop1') setAngle(-2);
+    if (stage === 'bounceTop2') setAngle(-4);
+  }, [stage, reduced]);
+
+  const onEnd = () => {
+    if (reduced) return;
+    if (stage === 'toBottom') {
+      i.current = (i.current + 1) % words.length;      // change as bounce starts
+      return setStage('bounceBottom1');
+    }
+    if (stage === 'bounceBottom1') return setStage('bounceBottom2');
+    if (stage === 'bounceBottom2') return setStage('pauseBottom');
+    if (stage === 'toTop') {
+      i.current = (i.current + 1) % words.length;      // change as bounce starts
+      return setStage('bounceTop1');
+    }
+    if (stage === 'bounceTop1') return setStage('bounceTop2');
+    if (stage === 'bounceTop2') return setStage('pauseTop');
+  };
+
+  const transition =
+    stage === 'toBottom' || stage === 'toTop'
+      ? `transform ${stepMs}ms cubic-bezier(.2,.8,0,1.1)`
+      : stage.includes('bounce')
+        ? `transform ${stepMs}ms cubic-bezier(.2,.7,0,1)`
+        : 'none';
+
+  return (
+    <span className="inline-flex align-middle items-center">
+      <span
+        onTransitionEnd={onEnd}
+        className="inline-flex px-1 py-0.5 rounded-md bg-schemesPrimaryFixedDim text-schemesOnPrimaryFixedVariant Blueprint-body-large-emphasized"
+        style={{
+          transform: `rotate(${reduced ? 0 : angle}deg)`,
+          transformOrigin: '50% 60%',
+          transition,
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        aria-live="polite"
+      >
+        {words[i.current]}
+      </span>
+    </span>
+  );
+}
 
 export default function FrontPage() {
+  const words = ['creative', 'resilient', 'curious', 'connected'];
+
   return (
     <div className="bg-schemesPrimaryFixed">
-      <div className="max-w-[1600px] mx-auto">
-        <FrontPageGrid />
-        <div className="flex justify-center flex-col items-center mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-4">
-          <h2 className="Blueprint-display-small-emphasized text-schemesOnSurface text-center">
-            Search The Social Blueprint
-          </h2>
-          <SearchBar />
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="lg:Blueprint-label-large md:Blueprint-label-medium Blueprint-label-small text-schemesOnSurfaceVariant">Trending Searches:</span>
-            {['Jewish Podcasts', 'mental health help', 'family-friendly events', 'kosher recipes'].map(
-              (tag) => (
-                <a href={`/search/${tag}`} key={tag}>
-                  <button
-                    key={tag}
-                    className="bg-schemesPrimaryFixedDim px-3 py-1 rounded-md Blueprint-label-large text-schemesOnPrimaryFixed hover:bg-white shadow-sm hover:cursor-pointer"
-                  >
-                    {tag}
-                  </button>
-                </a>
-              )
-            )}
+      <div className="max-w-[1600px] mx-auto p-16">
+        <div className="flex flex-row gap-8 w-full">
+          <div className="flex flex-col items-start justify-start gap-4">
+            <div className="Blueprint-display-large-emphasized text-schemesOnPrimaryFixed max-w-2xl">
+              Proudly celebrating our Melbourne Jewish community
+            </div>
+            <div className="Blueprint-body-large text-schemesOnPrimaryFixedVariant max-w-xl">
+              Helpful, friendly, and <WordRotate words={words} />. Find events, stories, podcasts, and<br />support.
+            </div>
+            <SearchBar placeholder="Search events, articles, podcasts..." />
+            <QuickLinks links={[
+              { title: 'Events', href: '/events' },
+              { title: 'Podcasts', href: '/podcasts' },
+              { title: 'Stories', href: '/articles' },
+              { title: 'Aid', href: '/aid_listing' },
+              { title: 'Directory', href: '/directory' },
+            ]} />
           </div>
         </div>
       </div>
@@ -34,35 +109,20 @@ export default function FrontPage() {
   );
 }
 
-export const FrontPageGrid = () => {
+const QuickLinks = ({ links = [] }) => {
   return (
-    <div className="px-4 grid grid-cols-5 grid-rows-4 py-8 lg:px-16 gap-4 h-150">
-      <Card styles="col-span-1 row-span-2 p-2">
-        <div className="bg-green-100 rounded-md w-full h-full"></div>
-      </Card>
-      <Card styles="col-span-2 row-span-2 p-2">
-        <div className="bg-blue-100 rounded-md w-full h-full ">
-          <img src={CardText} alt="Card Text" className="w-full h-full object-cover rounded-lg" />
-        </div>
-      </Card>
-      <Card styles="col-span-1 row-span-3 p-2">
-        <div className="bg-indigo-200 rounded-md w-full h-full"></div>
-      </Card>
-      <Card styles="col-span-1 row-span-2 p-2">
-        <div className="bg-pink-200 rounded-md w-full h-full"></div>
-      </Card>
-      <Card styles="col-span-2 row-span-2 p-2">
-        <div className="bg-blue-800 rounded-md w-full h-full"></div>
-      </Card>
-      <Card styles="col-span-1 row-span-2 p-2">
-        <div className="bg-pink-200 rounded-md w-full h-full"></div>
-      </Card>
-      <Card styles="col-span-1 row-span-2 p-2">
-        <div className="bg-green-200 rounded-md w-full h-full"></div>
-      </Card>
-      <Card styles="col-span-1 row-span-1 p-2">
-        <div className="bg-cyan-800 rounded-md w-full h-full"></div>
-      </Card>
+    <div className="flex flex-row gap-4">
+      {links.map((link, i) => (
+        <a
+          key={i}
+          href={link.href || '#'}
+          className="flex-1 no-underline"
+        >
+          <div className="Blueprint-label-large px-4 py-1.5 rounded-lg bg-schemesOnPrimaryContainer text-schemesOnPrimaryFixed">
+            {link.title}
+          </div>
+        </a>
+      ))}
     </div>
   );
-};
+}

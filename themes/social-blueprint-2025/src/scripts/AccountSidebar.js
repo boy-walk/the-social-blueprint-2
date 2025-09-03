@@ -15,7 +15,7 @@ export function AccountSidebar({ active = "profile", links }) {
   );
 
   return (
-    <nav className="flex gap-3 overflow-x-auto lg:overflow-visible lg:flex-col lg:w-64 lg:shrink-0 lg:sticky lg:top-16 p-1 lg:mb-0 mb-4 scrollbar-hidden">
+    <nav className="flex gap-3 overflow-x-auto lg:overflow-visible w-auto lg:flex-col lg:w-64 lg:shrink-0 lg:sticky lg:top-16 p-1 lg:mb-0 mb-4 scrollbar-hidden justify-start">
       {items.map(({ key, label, href, Icon }) => {
         const isActive = active === key;
         return (
@@ -30,7 +30,7 @@ export function AccountSidebar({ active = "profile", links }) {
             size="xs"
             shape="pill"
             variant={isActive ? "tonal" : "text"}
-            className="w-full justify-start shrink-0"
+            className="justify-start shrink-0"
             onClick={(e) => {
               e.preventDefault();
               window.location.href = href;
