@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useMemo, useRef, useEffect, useState } from "react";
 import { SearchBar } from './SearchBar';
 
 function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
@@ -80,8 +80,9 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
   );
 }
 
-export default function FrontPage() {
+export default function FrontPage({ candleLightingTimes }) {
   const words = ['creative', 'resilient', 'curious', 'connected'];
+  console.log(candleLightingTimes)
 
   return (
     <div className="bg-schemesPrimaryFixed">
@@ -102,6 +103,9 @@ export default function FrontPage() {
               { title: 'Aid', href: '/aid_listing' },
               { title: 'Directory', href: '/directory' },
             ]} />
+            <div className="max-w-3xl">
+              <ShabbatTicker times={candleLightingTimes} />
+            </div>
           </div>
         </div>
       </div>
@@ -123,6 +127,92 @@ const QuickLinks = ({ links = [] }) => {
           </div>
         </a>
       ))}
+    </div>
+  );
+}
+
+
+function ShabbatTicker({ times, speed = 35 }) {
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const items = useMemo(() => {
+    if (!times) return [];
+    const fmt = (ts) =>
+      new Date(ts * 1000).toLocaleString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      });
+    const out = [];
+    if (times.candle_lighting?.timestamp || times.shabbat?.candleLighting?.timestamp) {
+      const t = times.candle_lighting?.timestamp ?? times.shabbat.candleLighting.timestamp;
+      out.push(`Candle lighting: ${fmt(t)}`);
+    }
+    if (times.havdalah?.timestamp || times.shabbat?.havdalah?.timestamp) {
+      const t = times.havdalah?.timestamp ?? times.shabbat.havdalah.timestamp;
+      out.push(`Havdalah: ${fmt(t)}`);
+    }
+    return out;
+  }, [times]);
+
+  if (!items.length) return null;
+
+  const [paused, setPaused] = useState(false);
+  const onEnter = () => setPaused(true);
+  const onLeave = () => setPaused(false);
+
+  return (
+    <div
+      className="mt-8 rounded-xl bg-schemesPrimaryFixedDim opacity-75 text-schemesOnSurface overflow-hidden"
+      role="region"
+      aria-label="Shabbat times"
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onFocus={onEnter}
+      onBlur={onLeave}
+    >
+      <div
+        className="Blueprint-title-medium whitespace-nowrap"
+        style={{
+          padding: "18px 0",
+          position: "relative",
+        }}
+      >
+        <div
+          className="flex gap-12"
+          style={{
+            width: "200%",
+            animation: prefersReduced ? "none" : "tsb-marquee linear infinite",
+            animationDuration: `${speed}s`,
+            animationPlayState: paused ? "paused" : "running",
+            willChange: "transform",
+            opacity: 1,
+          }}
+        >
+          <div className="flex gap-12 flex-none px-6">
+            {items.map((t, i) => (
+              <span key={`a-${i}`}>{t}</span>
+            ))}
+          </div>
+          <div className="flex gap-12 flex-none px-6" aria-hidden="true">
+            {items.map((t, i) => (
+              <span key={`b-${i}`}>{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes tsb-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   );
 }

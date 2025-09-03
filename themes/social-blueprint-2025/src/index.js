@@ -36,10 +36,11 @@ import MessageBoardArchivePage from './scripts/MessageBoardArchivePage';
 import MessageBoardPage from './scripts/MessageBoard';
 import CostOfLivingPage from './scripts/CostOfLivingPage';
 
-
-if (document.querySelector('#front-page')) {
-  const root = ReactDOM.createRoot(document.querySelector('#front-page'));
-  root.render(<FrontPage />);
+const frontPage = document.querySelector('#front-page')
+if (frontPage) {
+  const candleLightingTimes = JSON.parse(frontPage.getAttribute('data-props') || 'null');
+  const root = ReactDOM.createRoot(frontPage);
+  root.render(<FrontPage candleLightingTimes={candleLightingTimes} />);
 }
 
 const header = document.getElementById('header');

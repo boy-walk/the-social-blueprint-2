@@ -25130,8 +25130,11 @@ function WordRotate({
     })
   });
 }
-function FrontPage() {
+function FrontPage({
+  candleLightingTimes
+}) {
   const words = ['creative', 'resilient', 'curious', 'connected'];
+  console.log(candleLightingTimes);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
     className: "bg-schemesPrimaryFixed",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -25167,6 +25170,11 @@ function FrontPage() {
               title: 'Directory',
               href: '/directory'
             }]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "max-w-3xl",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ShabbatTicker, {
+              times: candleLightingTimes
+            })
           })]
         })
       })
@@ -25188,6 +25196,84 @@ const QuickLinks = ({
     }, i))
   });
 };
+function ShabbatTicker({
+  times,
+  speed = 35
+}) {
+  const prefersReduced = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const items = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!times) return [];
+    const fmt = ts => new Date(ts * 1000).toLocaleString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit"
+    });
+    const out = [];
+    if (times.candle_lighting?.timestamp || times.shabbat?.candleLighting?.timestamp) {
+      var _times$candle_lightin;
+      const t = (_times$candle_lightin = times.candle_lighting?.timestamp) !== null && _times$candle_lightin !== void 0 ? _times$candle_lightin : times.shabbat.candleLighting.timestamp;
+      out.push(`Candle lighting: ${fmt(t)}`);
+    }
+    if (times.havdalah?.timestamp || times.shabbat?.havdalah?.timestamp) {
+      var _times$havdalah$times;
+      const t = (_times$havdalah$times = times.havdalah?.timestamp) !== null && _times$havdalah$times !== void 0 ? _times$havdalah$times : times.shabbat.havdalah.timestamp;
+      out.push(`Havdalah: ${fmt(t)}`);
+    }
+    return out;
+  }, [times]);
+  if (!items.length) return null;
+  const [paused, setPaused] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const onEnter = () => setPaused(true);
+  const onLeave = () => setPaused(false);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "mt-8 rounded-xl bg-schemesPrimaryFixedDim opacity-75 text-schemesOnSurface overflow-hidden",
+    role: "region",
+    "aria-label": "Shabbat times",
+    onMouseEnter: onEnter,
+    onMouseLeave: onLeave,
+    onFocus: onEnter,
+    onBlur: onLeave,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "Blueprint-title-medium whitespace-nowrap",
+      style: {
+        padding: "18px 0",
+        position: "relative"
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "flex gap-12",
+        style: {
+          width: "200%",
+          animation: prefersReduced ? "none" : "tsb-marquee linear infinite",
+          animationDuration: `${speed}s`,
+          animationPlayState: paused ? "paused" : "running",
+          willChange: "transform",
+          opacity: 1
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "flex gap-12 flex-none px-6",
+          children: items.map((t, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+            children: t
+          }, `a-${i}`))
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "flex gap-12 flex-none px-6",
+          "aria-hidden": "true",
+          children: items.map((t, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+            children: t
+          }, `b-${i}`))
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("style", {
+      children: `
+        @keyframes tsb-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `
+    })]
+  });
+}
 
 /***/ }),
 
@@ -31152,9 +31238,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-if (document.querySelector('#front-page')) {
-  const root = react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(document.querySelector('#front-page'));
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_36__.jsx)(_scripts_FrontPage__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
+const frontPage = document.querySelector('#front-page');
+if (frontPage) {
+  const candleLightingTimes = JSON.parse(frontPage.getAttribute('data-props') || 'null');
+  const root = react_dom_client__WEBPACK_IMPORTED_MODULE_3__.createRoot(frontPage);
+  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_36__.jsx)(_scripts_FrontPage__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    candleLightingTimes: candleLightingTimes
+  }));
 }
 const header = document.getElementById('header');
 if (header) {

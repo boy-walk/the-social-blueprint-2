@@ -8,11 +8,48 @@
  * Place in your theme root.  WordPress loads this automatically
  * for the site root URL.
  */
-get_header(); ?>
+get_header(); 
 
-<main id="primary" class="site-main">
-<div>
-  <div id="front-page"></div>
+$times = sb_shabbat_times_hebcal([
+  'geonameid' => 3448439,
+  'M'         => 'on',
+  'b'         => 18,
+]);
+
+$shabbat = null;
+if (is_array($times)) {
+  $cTs = isset($times['candle_lighting']['timestamp']) ? (int)$times['candle_lighting']['timestamp'] : null;
+  $hTs = isset($times['havdalah']['timestamp']) ? (int)$times['havdalah']['timestamp'] : null;
+
+  $shabbat = [
+    'tz' => wp_timezone_string(),
+    'source' => $times['source'] ?? null,
+    'candleLighting' => $cTs ? [
+      'timestamp' => $cTs,
+      'iso'       => wp_date('c', $cTs),
+      'date'      => wp_date(get_option('date_format'), $cTs),
+      'time'      => wp_date(get_option('time_format'), $cTs),
+      'label'     => $times['candle_lighting']['title'] ?? 'Candle lighting',
+    ] : null,
+    'havdalah' => $hTs ? [
+      'timestamp' => $hTs,
+      'iso'       => wp_date('c', $hTs),
+      'date'      => wp_date(get_option('date_format'), $hTs),
+      'time'      => wp_date(get_option('time_format'), $hTs),
+      'label'     => $times['havdalah']['title'] ?? 'Havdalah',
+    ] : null,
+  ];
+}
+
+$front_props = [
+  'shabbat' => $shabbat,
+];
+
+?>
+<div
+  id="front-page"
+  data-props='<?php echo esc_attr( wp_json_encode( $front_props, JSON_UNESCAPED_SLASHES ) ); ?>'
+></div>
   <?php
 function map_post($post) {
   return [
