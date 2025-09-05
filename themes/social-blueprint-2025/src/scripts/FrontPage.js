@@ -97,7 +97,7 @@ export default function FrontPage({ candleLightingTimes, recentMessageBoard, rec
 
             <div className="Blueprint-body-large text-schemesOnPrimaryFixedVariant max-w-none md:max-w-xl text-center md:text-left">
               Helpful, friendly, and <WordRotate words={words} />. Find events, stories, podcasts,
-              and<br className="hidden md:block" />
+              and <br className="hidden md:block" />
               support.
             </div>
 

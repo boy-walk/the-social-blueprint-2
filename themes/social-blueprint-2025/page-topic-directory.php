@@ -10,42 +10,46 @@ get_header(); ?>
   <?php
   // Configure the groups you want to show: label => taxonomy slug
   $groups = [
-    [ 'label' => 'Topics',  'tax' => 'topic_tag' ],
+    [ 'label' => 'Topics',    'tax' => 'topic_tag' ],
     [ 'label' => 'Audiences', 'tax' => 'audience_tag' ],
     [ 'label' => 'Locations', 'tax' => 'location_tag' ],
-    [ 'label' => 'Theme', 'tax' => 'theme' ],
+    [ 'label' => 'Theme',     'tax' => 'theme' ],
   ];
 
-  // Recursive printer for hierarchical terms
-  function sb_render_term_branch( WP_Term $term, string $taxonomy ) {
-    $children = get_terms([
-      'taxonomy'   => $taxonomy,
-      'parent'     => $term->term_id,
-      'hide_empty' => true,
-    ]);
-    ?>
-    <li class="leading-7">
-      <a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="hover:underline">
-        <?php echo esc_html( $term->name ); ?>
-      </a>
-      <?php if ( ! empty( $children ) && ! is_wp_error( $children ) ) : ?>
-        <ul class="pl-4 mt-1 space-y-1">
-          <?php foreach ( $children as $child ) { sb_render_term_branch( $child, $taxonomy ); } ?>
-        </ul>
-      <?php endif; ?>
-    </li>
-    <?php
+  // Recursive printer for hierarchical terms – prints the node + its children
+  if ( ! function_exists('sb_render_term_branch') ) {
+    function sb_render_term_branch( WP_Term $term, string $taxonomy ) {
+      $children = get_terms([
+        'taxonomy'   => $taxonomy,
+        'parent'     => $term->term_id,
+        'hide_empty' => true,
+      ]);
+      ?>
+      <li class="leading-7">
+        <a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="hover:underline">
+          <?php echo esc_html( $term->name ); ?>
+        </a>
+        <?php if ( ! empty( $children ) && ! is_wp_error( $children ) ) : ?>
+          <ul class="pl-4 mt-1 space-y-1">
+            <?php foreach ( $children as $child ) { sb_render_term_branch( $child, $taxonomy ); } ?>
+          </ul>
+        <?php endif; ?>
+      </li>
+      <?php
+    }
   }
 
   foreach ( $groups as $group ) :
     $taxonomy = $group['tax'];
     $label    = $group['label'];
 
-    // top-level terms
+    // Top-level terms (roots)
     $roots = get_terms([
       'taxonomy'   => $taxonomy,
       'parent'     => 0,
       'hide_empty' => true,
+      'orderby'    => 'name',
+      'order'      => 'ASC',
     ]);
     ?>
     <section class="mb-12">
@@ -61,20 +65,19 @@ get_header(); ?>
                 </a>
               </h3>
               <?php
+              // List only the children under this root to avoid duplicating the root itself
               $children = get_terms([
                 'taxonomy'   => $taxonomy,
                 'parent'     => $root->term_id,
                 'hide_empty' => true,
+                'orderby'    => 'name',
+                'order'      => 'ASC',
               ]);
               if ( ! empty( $children ) && ! is_wp_error( $children ) ) : ?>
                 <ul class="space-y-1">
                   <?php foreach ( $children as $child ) { sb_render_term_branch( $child, $taxonomy ); } ?>
                 </ul>
-              <?php else : ?>
-                <ul class="space-y-1">
-                  <?php sb_render_term_branch( $root, $taxonomy ); /* show root if no children */ ?>
-                </ul>
-              <?php endif; ?>
+              <?php endif; /* no else — don’t print the root again */ ?>
             </div>
           <?php endforeach; ?>
         </div>

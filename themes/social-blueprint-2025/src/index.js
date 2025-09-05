@@ -36,6 +36,7 @@ import MessageBoardPage from './scripts/MessageBoard';
 import CostOfLivingPage from './scripts/CostOfLivingPage';
 import { AddListing } from './scripts/AddListing';
 import AidListingPage from './scripts/AidListingPage';
+import TopicDirectoryPage from './scripts/TopicDirectory';
 
 const frontPage = document.getElementById('front-page');
 if (frontPage) {
@@ -319,4 +320,10 @@ const el35 = document.getElementById("aid-listing-root");
 if (el35) {
   const props = JSON.parse(el35.getAttribute("data-props") || "{}");
   ReactDOM.createRoot(el35).render(<AidListingPage props={props} />);
+}
+
+const el36 = document.getElementById("topic-directory-root");
+if (el36) {
+  const props = JSON.parse(el36.getAttribute("data-props") || "{}");
+  ReactDOM.createRoot(el36).render(<TopicDirectoryPage {...props} />);
 }

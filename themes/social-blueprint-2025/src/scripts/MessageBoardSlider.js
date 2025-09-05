@@ -62,14 +62,14 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
                 style={{ width: `${100 / itemsPerView}%` }}
               >
                 <Card href={post.permalink} styles="h-full">
-                  <div className="flex gap-4">
+                  <div className="flex gap-2">
                     {/* Left tile */}
-                    <div className="flex-none rounded-xl w-20 h-20 md:w-28 md:h-28 overflow-hidden grid place-items-center p-2">
+                    <div className="flex-none w-27 h-36 overflow-hidden grid place-items-center p-2">
                       {post.thumbnail ? (
                         <img
                           src={post.thumbnail}
                           alt=""
-                          className="w-full h-full object-cover"
+                          className="aspect-[3/4] w-full h-full object-cover rounded-lg"
                           loading="lazy"
                         />
                       ) : (
@@ -82,21 +82,14 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
                     {/* Content */}
                     <div className="min-w-0 flex-1 p-4">
                       {/* Chips */}
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {cats.length > 0 && (
-                          <span
-                            key={`${cats[0].id}-cat`}
-                            className="rounded-md px-3 py-1.5 bg-schemesSurfaceContainer text-schemesOnSurface Blueprint-label-small"
-                          >
-                            {cats[0]}
-                          </span>
-                        )}
-                        {extra > 0 && (
-                          <span className="rounded-md px-3 py-1.5 bg-schemesSurfaceContainer text-schemesOnSurface Blueprint-label-small">
-                            +{extra}
-                          </span>
-                        )}
-                      </div>
+                      {cats.length > 0 && (<div className="flex flex-wrap gap-2 mb-2">
+                        <span
+                          key={`${cats[0].id}-cat`}
+                          className="rounded-md px-3 py-1.5 bg-schemesSurfaceContainer text-schemesOnSurface Blueprint-label-small"
+                        >
+                          {cats[0]}
+                        </span>
+                      </div>)}
 
                       <h3 className="Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized text-schemesOnSurface mb-1 md:mb-2 line-clamp-2">
                         {post.title}
