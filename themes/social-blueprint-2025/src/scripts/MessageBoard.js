@@ -6,6 +6,8 @@ import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { Tag } from "./Tag";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { ArrowIcon } from "../../assets/icons/arrow";
+import { MessageBoardSlider } from "./MessageBoardSlider";
 
 /**
  * MessageBoardPage (single gd_discount)
@@ -48,7 +50,7 @@ export default function MessageBoardPage({
         <div className="lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16">
           <Breadcrumbs items={breadcrumbs} />
           <div className="flex flex-col md:flex-col lg:flex-row lg:gap-16">
-            <div className="flex-3 min-w-0 space-y-4">
+            <div className="flex-3 min-w-0 space-y-6">
               {/* Header */}
               <header className="space-y-3">
                 {/* Category chips */}
@@ -116,17 +118,6 @@ export default function MessageBoardPage({
                 </figure>
               )}
               {/* Optional “Recent message board posts” */}
-              {recentPosts?.length > 0 && (
-                <div className="hidden md:block pt-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="Blueprint-headline-small-emphasized">
-                      Recent message board posts
-                    </div>
-                    <span className="Blueprint-title-medium">🗞️</span>
-                  </div>
-                  <PostsSlider events={recentPosts} itemsToDisplay={3} />
-                </div>
-              )}
             </div>
 
             {/* SIDEBAR */}
@@ -179,6 +170,17 @@ export default function MessageBoardPage({
               )}
             </aside>
           </div>
+          {recentPosts?.length > 0 && (
+            <div className="hidden md:block pt-6 lg:pt-12">
+              <div className="flex items-center gap-2 mb-8">
+                <div className="Blueprint-headline-small-emphasized">
+                  Recent message board posts
+                </div>
+                <ArrowIcon />
+              </div>
+              <MessageBoardSlider messageBoard={recentPosts} />
+            </div>
+          )}
         </div>
       </div>
 

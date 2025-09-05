@@ -102,17 +102,31 @@ $recent_q = new WP_Query([
   'no_found_rows'  => true,
   'ignore_sticky_posts' => true,
 ]);
+
 $recent_posts = [];
 if ($recent_q->have_posts()) {
   foreach ($recent_q->posts as $p) {
+    // Collect category-like terms for this post (names and slugs)
+    $cats = []; $cat_slugs = [];
+    foreach ($category_taxes as $tx) {
+      $names = wp_get_post_terms($p->ID, $tx, ['fields' => 'names']);
+      $slugs = wp_get_post_terms($p->ID, $tx, ['fields' => 'slugs']);
+      if (!is_wp_error($names) && $names) $cats = array_merge($cats, $names);
+      if (!is_wp_error($slugs) && $slugs) $cat_slugs = array_merge($cat_slugs, $slugs);
+    }
+    $cats = array_values(array_unique($cats));
+    $cat_slugs = array_values(array_unique($cat_slugs));
+
     $recent_posts[] = [
-      'id'        => $p->ID,
-      'title'     => get_the_title($p),
-      'link'      => get_permalink($p),
-      'thumbnail' => get_the_post_thumbnail_url($p, 'medium'),
-      'date'      => get_the_date('', $p),
-      'author'    => get_the_author_meta('display_name', $p->post_author),
-      'post_type' => get_post_type($p),
+      'id'         => $p->ID,
+      'title'      => get_the_title($p),
+      'permalink'  => get_permalink($p),
+      'thumbnail'  => get_the_post_thumbnail_url($p, 'medium'),
+      'date'       => get_the_date('', $p),
+      'author'     => get_the_author_meta('display_name', $p->post_author),
+      'post_type'  => get_post_type($p),
+      'categories' => $cats,        // human-readable category labels
+      'cat_slugs'  => $cat_slugs,   // optional: slugs if you need URLs/filters
     ];
   }
   wp_reset_postdata();
