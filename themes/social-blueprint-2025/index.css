@@ -62,3 +62,125 @@ h6 {
   font-family: var(--font-ibmCondensed);
   /* Headings default */
 }
+
+/* Scope to Aid Listing single only */
+.single-gd_aid_listing .sbp-gd-details {
+  color: var(--schemesOnSurface);
+}
+
+/* Card look for containers produced by the Details Page blocks */
+.single-gd_aid_listing .sbp-gd-details .wp-block-geodirectory-geodir-widget-post-images,
+.single-gd_aid_listing .sbp-gd-details .wp-block-geodirectory-geodir-widget-single-tabs {
+  border: 1px solid var(--schemesOutlineVariant);
+  border-radius: 12px;
+  background: var(--schemesSurface);
+  overflow: hidden;
+}
+
+/* Slider / media */
+.single-gd_aid_listing .sbp-gd-details .flexslider,
+.single-gd_aid_listing .sbp-gd-details .gd-slider {
+  margin: 0;
+}
+
+.single-gd_aid_listing .sbp-gd-details img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Taxonomy chips */
+.single-gd_aid_listing .sbp-gd-details .gd-single-taxonomies a {
+  display: inline-block;
+  margin: .25rem .35rem .25rem 0;
+  padding: .35rem .6rem;
+  border-radius: .5rem;
+  background: var(--schemesPrimaryContainer);
+  color: var(--schemesPrimary);
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+/* Tabs polish */
+.single-gd_aid_listing .gd-single-tabs .gd-tab-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .5rem;
+  border-bottom: 1px solid var(--schemesOutlineVariant);
+  padding: .25rem .75rem;
+}
+
+.single-gd_aid_listing .gd-single-tabs .gd-tab-head a,
+.single-gd_aid_listing .gd-single-tabs .gd-tab-head button {
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  background: transparent;
+  color: var(--schemesOnSurfaceVariant);
+  text-decoration: none;
+}
+
+.single-gd_aid_listing .gd-single-tabs .gd-tab-head .active,
+.single-gd_aid_listing .gd-single-tabs .gd-tab-head [aria-selected="true"] {
+  background: var(--schemesSurfaceVariant);
+  color: var(--schemesOnSurface);
+}
+
+.single-gd_aid_listing .gd-single-tabs .gd-tab-content {
+  padding: .75rem .75rem 1rem;
+}
+
+/* Checklist “tiles” for ULs inside tab content */
+.single-gd_aid_listing .gd-single-tabs .gd-tab-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .65rem .9rem;
+}
+
+@media (min-width:768px) {
+  .single-gd_aid_listing .gd-single-tabs .gd-tab-content ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width:1280px) {
+  .single-gd_aid_listing .gd-single-tabs .gd-tab-content ul {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.single-gd_aid_listing .gd-single-tabs .gd-tab-content ul>li {
+  position: relative;
+  padding: .7rem 1rem .7rem 3rem;
+  border-radius: .85rem;
+  background: var(--schemesSurfaceContainer);
+  color: var(--schemesOnSurface);
+}
+
+.single-gd_aid_listing .gd-single-tabs .gd-tab-content ul>li::before {
+  content: "✓";
+  position: absolute;
+  left: .75rem;
+  top: .7rem;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: .6rem;
+  display: grid;
+  place-items: center;
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--schemesOnSecondaryContainer);
+  background: var(--schemesSecondaryFixed);
+}
+
+/* Next/Prev buttons */
+.single-gd_aid_listing .wp-block-geodirectory-geodir-widget-single-next-prev a {
+  display: inline-block;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  background: var(--schemesPrimaryContainer);
+  color: var(--schemesPrimary);
+  text-decoration: none;
+}

@@ -165,7 +165,6 @@ export const ArrowIcon = () => (
 );
 
 const DynamicSection = ({ dynamicProps }) => {
-  console.log(dynamicProps)
   return (
     <div className="flex w-full gap-8 flex-col lg:flex-row h-150">
       <div className="flex flex-col flex-2 gap-8 justify-between">
