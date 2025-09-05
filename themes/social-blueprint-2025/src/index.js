@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom/client';
 import Header from './scripts/Header';
 import { SectionOne } from './scripts/SectionOne';
 import { SponsorshipBanner } from './scripts/Sponsorship';
-import { SingleEventPage } from './scripts/SingleEvent';
 import { RegisterIndividual } from './scripts/RegisterIndividual';
 import { Footer } from './scripts/Footer';
 import { LoginForm } from './scripts/LoginForm'
@@ -75,13 +74,6 @@ const el2 = document.getElementById('sponsorship-banner');
 if (el2) {
   const data = JSON.parse(el2.dataset.banner);
   ReactDOM.createRoot(el2).render(<SponsorshipBanner {...data} />);
-}
-
-const el3 = document.getElementById('single-event-page');
-if (el3) {
-  const data = JSON.parse(el3.dataset.event);
-  console.log("Hellooooo")
-  ReactDOM.createRoot(el3).render(<SingleEventPage {...data} />);
 }
 
 const el4 = document.getElementById('register-individual');

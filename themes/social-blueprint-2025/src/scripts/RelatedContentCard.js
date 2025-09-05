@@ -6,6 +6,7 @@ export const RelatedContentCard = ({
   location,
   image,
   href,
+  description,
 }) => {
   return (
     <Card href={href} styles="overflow-hidden shadow-3x2">
@@ -28,6 +29,11 @@ export const RelatedContentCard = ({
           <div className="Blueprint-title-medium font-bold mb-1 line-clamp-3">
             {title}
           </div>
+          {description && (
+            <div className="text-sm text-[var(--schemesOnSurfaceVariant)] mb-2 line-clamp-2">
+              {description}
+            </div>
+          )}
           {location && (
             <div className="text-sm text-[var(--schemesOnSurfaceVariant)]">
               {location}

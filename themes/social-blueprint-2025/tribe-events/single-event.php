@@ -104,11 +104,14 @@ $props = [
   'sections'       => $sections,
   'tags'           => $terms,
   'relatedContent' => array_map(function($post) {
+    $id = $post->ID;
     return [
       'id'        => $post->ID,
       'title'     => get_the_title($post),
       'link'      => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+      'description' => get_the_excerpt($post),
+      'location' => function_exists('tribe_get_venue') ? tribe_get_venue($id) : '',
     ];
   }, $related),
   'moreThisWeek'   => $more_week,

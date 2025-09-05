@@ -116,7 +116,7 @@ export default function AidListingPage({ props }) {
 
               {gdHtml.tabs && (
                 <section
-                  className="rounded-xl !px-0"
+                  className="rounded-xl !px-0 [&_iframe]:w-full [&_iframe]:h-auto [&_iframe]:aspect-video"
                   dangerouslySetInnerHTML={{ __html: gdHtml.tabs }}
                 />
               )}
@@ -136,6 +136,7 @@ export default function AidListingPage({ props }) {
                           image={item.thumbnail}
                           title={item.title}
                           href={item.href}
+                          description={item.description}
                         />
                       ))
                     ) : (

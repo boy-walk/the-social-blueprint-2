@@ -135,6 +135,7 @@ export default function MessageBoardPage({
                         image={item.thumbnail}
                         title={item.title}
                         href={item.href || item.link}
+                        description={item.description}
                       />
                     ))
                   ) : (

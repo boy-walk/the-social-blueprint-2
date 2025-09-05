@@ -89,6 +89,7 @@ $related_content = array_map(function($p){
     'link'      => get_permalink($p),    
     'href'      => get_permalink($p),         
     'thumbnail' => get_the_post_thumbnail_url($p, 'medium'),
+    'description' => get_the_excerpt($p),
   ];
 }, $related_posts);
 

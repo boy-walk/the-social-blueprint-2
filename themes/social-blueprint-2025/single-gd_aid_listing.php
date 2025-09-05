@@ -18,12 +18,38 @@ $author = [
 /* Breadcrumbs */
 $breadcrumbs = function_exists('sbp_build_breadcrumbs') ? sbp_build_breadcrumbs() : [];
 
-/* --- Ask GD to render its native sections --- */
+// Exact GD output first
+$gd_tabs_raw = do_shortcode("[gd_single_tabs show_as_list='true' remove_separator_line='true']");
+
+// 1) decode entities in case GD escaped the brackets
+$gd_tabs = html_entity_decode($gd_tabs_raw, ENT_QUOTES, 'UTF-8');
+
+// 2) tidy up auto <p> around shortcodes
+$gd_tabs = shortcode_unautop($gd_tabs);
+
+// 3) run shortcodes that might still be present (e.g. [embedyt] … [/embedyt])
+$gd_tabs = do_shortcode($gd_tabs);
+
+// 4) run through the_content so oEmbed and related filters fire
+$gd_tabs = apply_filters('the_content', $gd_tabs);
+
+/* 5) Fallback: if any [embedyt] remain, convert to oEmbed manually */
+$gd_tabs = preg_replace_callback(
+  '/\[embedyt\]\s*(https?:\/\/[^\s\]]+)\s*\[\/embedyt\]/i',
+  function ($m) {
+    $url = trim($m[1]);
+    $embed = wp_oembed_get($url);
+    return $embed ? $embed : esc_url($url);
+  },
+  $gd_tabs
+);
+
+// now assign to your JSON payload
 $gdHtml = [
   'notifications' => do_shortcode('[gd_notifications]'),
   'images'        => do_shortcode("[gd_post_images type='slider' slideshow='true' controlnav='1' show_title='false' show_caption='false' aspect='16-9' cover='true']"),
   'taxonomies'    => do_shortcode("[gd_single_taxonomies]"),
-  'tabs'          => do_shortcode("[gd_single_tabs show_as_list='true' remove_separator_line='true']"),
+  'tabs'          => $gd_tabs,   // <- processed version
   'nextPrev'      => do_shortcode('[gd_single_next_prev]'),
 ];
 
@@ -56,6 +82,7 @@ if (function_exists('sb_get_related_by_topic_tags')) {
         'title'     => get_the_title($p),
         'href'      => get_permalink($p),
         'thumbnail' => get_the_post_thumbnail_url($p, 'medium'),
+        'description' => get_the_excerpt($p),
       ];
     }
   }

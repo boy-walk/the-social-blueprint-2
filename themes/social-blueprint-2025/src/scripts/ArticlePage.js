@@ -124,6 +124,7 @@ export function ArticlePage({
                         image={item.thumbnail}
                         title={item.title}
                         href={item.link}
+                        description={item.description}
                       />
                     ))
                   ) : (

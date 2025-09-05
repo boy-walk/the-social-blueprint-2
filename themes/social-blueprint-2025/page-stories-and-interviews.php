@@ -12,7 +12,7 @@ $everybody_has_a_story_args = new WP_Query([
   'order' => 'DESC',
   'tax_query' => [
     [
-      'taxonomy' => 'topic_tag',
+      'taxonomy' => 'series',
       'field' => 'slug',
       'terms' => 'everybody-has-a-story',
     ]
@@ -25,7 +25,7 @@ $candid_conversations_args = new WP_Query([
   'posts_per_page' => 15,
   'tax_query' => [
     [
-      'taxonomy' => 'topic_tag',
+      'taxonomy' => 'series',
       'field' => 'slug',
       'terms' => 'candid-conversations',
     ]
@@ -41,7 +41,7 @@ $blueprint_stories_args = [
   'order' => 'DESC',
   'tax_query' => [
     [
-      'taxonomy' => 'topic_tag',
+      'taxonomy' => 'category',
       'field' => 'slug',
       'terms' => 'blueprint-stories',
     ]
@@ -57,7 +57,7 @@ $holocaust_stories_args = [
   'order' => 'DESC',
   'tax_query' => [
     [
-      'taxonomy' => 'topic_tag',
+      'taxonomy' => 'category',
       'field' => 'slug',
       'terms' => 'holocaust-stories',
     ]

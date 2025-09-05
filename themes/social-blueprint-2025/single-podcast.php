@@ -43,7 +43,7 @@ $author_obj = [
   'avatar' => $avatar_url,
 ];
 
-$terms = get_the_terms( $post->ID, ['topic_tag', 'people_tag', 'location_tag', 'audience_tag', 'theme'] ); 
+$terms = get_the_terms( $post->ID, ['topic_tag', 'people_tag', 'location_tag', 'audience_tag', 'theme', 'series'] ); 
 // If terms are not empty, map them to an array of names
 if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
   $terms = array_map( function( $term ) {
@@ -98,6 +98,7 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcas
          'title'     => get_the_title($post),
          'link'      => get_permalink($post),
          'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+         'description' => get_the_excerpt($post),
        ];
      }, $related_content)) ); ?>'
      data-breadcrumbs='<?php echo esc_attr( wp_json_encode($breadcrumbs) ); ?>'

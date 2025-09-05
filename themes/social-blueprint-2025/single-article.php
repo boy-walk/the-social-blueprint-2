@@ -112,6 +112,7 @@ if ($more_by_author->have_posts()) {
          'title'     => get_the_title($post),
          'link'      => get_permalink($post),
          'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+         'description' => get_the_excerpt($post),
        ];
      }, $related_content)) ); ?>'
     data-more-by-author='<?php echo esc_attr( wp_json_encode($more_by_author_data) ); ?>'
