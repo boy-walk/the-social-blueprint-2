@@ -22955,118 +22955,161 @@ function ContactForm() {
     e.preventDefault();
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "flex gap-25 px-32 py-16 justify-center items-center",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
-      onSubmit: handleSubmit,
-      className: "flex flex-col flex-2 gap-12 w-full max-w-3xl mx-auto",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("header", {
-        className: "space-y-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-          className: "Blueprint-headline-large-emphasized italic",
-          children: "Got a question? Contact Us."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-large text-schemesOnSurfaceVariant",
-          children: "Feel free to reach out for general inquiries."
+    className: "w-full",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "bg-schemesSurfaceVariant hidden md:block",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "max-w-[1600px] mx-auto px-6 md:px-8 lg:px-16 py-12 flex items-end justify-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "Blueprint-display-large text-schemesOnSurface",
+          children: "Contact us"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "h-16 w-16 rounded-full bg-schemesPrimaryFixed opacity-20"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex-1 flex flex-col gap-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "flex flex-col md:flex-row gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-            label: "First name",
-            placeholder: "Input",
-            value: form.firstName,
-            onChange: handleChange('firstName'),
-            style: "outlined"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-            label: "Last name",
-            placeholder: "Input",
-            value: form.lastName,
-            onChange: handleChange('lastName')
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("section", {
+      className: "max-w-[1600px] mx-auto px-4 md:px-8 lg:px-16 py-10 md:py-14",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+          onSubmit: handleSubmit,
+          className: "md:col-span-2 w-full flex flex-col gap-8",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("header", {
+            className: "space-y-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+              className: "Blueprint-headline-large-emphasized text-schemesOnSurface",
+              children: "Send us a message"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+              children: "Use the form below and we'll get back to you as soon as we can."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "flex flex-col gap-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+                label: "First name",
+                placeholder: "Input",
+                value: form.firstName,
+                onChange: handleChange('firstName'),
+                style: "outlined"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+                label: "Last name",
+                placeholder: "Input",
+                value: form.lastName,
+                onChange: handleChange('lastName'),
+                style: "outlined"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+                label: "Email",
+                placeholder: "Input",
+                value: form.email,
+                onChange: handleChange('email'),
+                style: "outlined"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+                label: "Phone number",
+                placeholder: "Input",
+                value: form.phone,
+                onChange: handleChange('phone'),
+                style: "outlined"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+              label: "Topic",
+              placeholder: "Input",
+              value: form.topic,
+              onChange: handleChange('topic'),
+              trailingIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-base",
+                children: "\u25BE"
+              }),
+              style: "outlined"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+              label: "Message",
+              placeholder: "Type your message",
+              value: form.message,
+              onChange: handleChange('message'),
+              multiline: true,
+              style: "outlined"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "flex flex-col gap-3",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
+                className: "flex items-start gap-3 Blueprint-body-medium text-schemesOnSurface",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                  type: "checkbox",
+                  className: "accent-schemesPrimary mt-1",
+                  checked: form.agreed,
+                  onChange: handleToggle('agreed')
+                }), "By submitting this form, you agree to provide accurate information and communicate respectfully. The Social Blueprint does not provide medical or crisis services; please contact the appropriate services for emergencies. Your message may be shared with relevant organisations to assist you."]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "flex",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                label: "Send a message",
+                size: "base",
+                style: "filled",
+                disabled: !form.agreed
+              })
+            })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "flex flex-col md:flex-row gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-            label: "Email",
-            placeholder: "Input",
-            value: form.email,
-            onChange: handleChange('email')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-            label: "Phone number",
-            placeholder: "Input",
-            value: form.phone,
-            onChange: handleChange('phone')
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-          label: "Topic",
-          placeholder: "Input",
-          value: form.topic,
-          onChange: handleChange('topic'),
-          trailingIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-lg",
-            children: "\u25BE"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-          label: "Message",
-          placeholder: "Type your message",
-          value: form.message,
-          onChange: handleChange('message'),
-          multiline: true
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
-          className: "flex items-start gap-3 Blueprint-body-medium",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "checkbox",
-            className: "accent-schemesPrimary mt-1",
-            checked: form.agreed,
-            onChange: handleToggle('agreed')
-          }), "I accept the terms"]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          label: "Send a message",
-          size: "base",
-          style: "filled",
-          disabled: !form.agreed
-        })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "w-auto max-w-lg flex flex-col flex-1 gap-8 Blueprint-body-medium text-schemesOnSurfaceVariant",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-title-large-emphasized text-schemesOnSurface mb-1",
-          children: "Medical Emergency - Hatzolah"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-large mb-1",
-          children: "24/7 volunteer-run Jewish medical response"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-large-emphasized",
-          children: "(03) 9527 5111"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-title-large-emphasized text-schemesOnSurface mb-1",
-          children: "Mental Health Support - Jewish Care"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-large mb-1",
-          children: "Free sessions for community members 16+"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-large-emphasized",
-          children: "(03) 8517 5999  Mon to Fri, 9am-5pm"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-title-large-emphasized text-schemesOnSurface mb-1",
-          children: "Report Antisemitism - CSG"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-large mb-1",
-          children: "Emergency team available 24/7"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
-          className: "Blueprint-body-large-emphasized",
-          children: ["1300 000 274 or via the", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
-            href: "#",
-            className: "underline",
-            children: "Jeap App"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("aside", {
+          className: "md:col-span-1 w-full flex flex-col gap-6 Blueprint-body-medium text-schemesOnSurfaceVariant",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "p-5 rounded-xl",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "Blueprint-title-large-emphasized text-schemesOnSurface mb-1",
+              children: "Medical Emergency \xB7 Hatzolah"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "Blueprint-body-large mb-2",
+              children: "24/7 volunteer-run Jewish medical response"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "inline-flex items-center gap-2 flex-wrap",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "Blueprint-body-large-emphasized inline-block px-3 py-1 rounded-full bg-schemesSurfaceVariant text-schemesOnSurface",
+                children: "(03) 9527 5111"
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "p-5 rounded-xl",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "Blueprint-title-large-emphasized text-schemesOnSurface mb-1",
+              children: "Mental Health Support \xB7 Jewish Care"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "Blueprint-body-large mb-2",
+              children: "Free sessions for community members 16+"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "inline-flex items-center gap-2 flex-wrap",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "Blueprint-body-large-emphasized inline-block px-3 py-1 rounded-full bg-schemesSurfaceVariant text-schemesOnSurface",
+                children: "(03) 8517 5999"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "Blueprint-label-large inline-block px-3 py-1 rounded-full bg-schemesSurfaceVariant text-schemesOnSurface",
+                children: "Mon\u2013Fri, 9am\u20135pm"
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "p-5 rounded-xl",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "Blueprint-title-large-emphasized text-schemesOnSurface mb-1",
+              children: "Report Antisemitism \xB7 CSG"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "Blueprint-body-large mb-2",
+              children: "Emergency team available 24/7"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "inline-flex items-center gap-2 flex-wrap",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "Blueprint-body-large-emphasized inline-block px-3 py-1 rounded-full bg-schemesSurfaceVariant text-schemesOnSurface",
+                children: "1300 000 274"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+                href: "#",
+                className: "Blueprint-label-large inline-block px-3 py-1 rounded-full bg-schemesSurfaceVariant text-schemesOnSurface underline",
+                children: "via the Jeap App"
+              })]
+            })]
           })]
         })]
-      })]
+      })
     })]
   });
 }
@@ -28575,108 +28618,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
-
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
 
 
 const NewsletterBanner = () => {
-  const [email, setEmail] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
-  const [phoneNumber, setPhoneNumber] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
-  const [submitted, setSubmitted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    await fetch("https://form.flodesk.com/forms/62a9dfb03e1f4ce38387eee4/submit", {
-      method: "POST",
-      mode: "no-cors",
-      // required for Flodesk
-      body: data
+  const formId = "68bced8dbed9ca618cdd69c2";
+  const ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!window.fd) return; // rely on global loader in header.php
+    if (!ref.current || ref.current.dataset.fdMounted) return;
+    const id = `fd-form-${formId}`;
+    ref.current.id = id;
+    window.fd("form", {
+      formId,
+      containerEl: `#${id}`
     });
-    setSubmitted(true);
-  };
-  if (submitted) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "flex flex-col justify-center bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
-        className: "Blueprint-headline-medium mb-4 font-bold",
-        children: "Thanks for subscribing!"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-        className: "Blueprint-body-large sm:Blueprint-body-medium",
-        children: "You're now on the list. Shabbat shalom \uD83D\uDD4A\uFE0F"
-      })]
-    });
-  }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
-    onSubmit: handleSubmit,
+    ref.current.dataset.fdMounted = "1";
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("section", {
     className: "bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-12 px-4 sm:px-8 lg:px-16 text-center rounded-3xl w-full",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
-      className: "Blueprint-headline-medium mb-4 font-bold",
-      children: "Stay connected to the Melbourne Jewish community"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-      className: "mb-6 Blueprint-body-large sm:Blueprint-body-medium",
-      children: "Receive our newsletter every Friday morning with the latest updates. It's like no other newsletter! No spam, just good stuff."
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "flex flex-col md:flex-row justify-center items-center gap-2 max-w-2xl mx-auto mb-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "hidden",
-        name: "csrf",
-        value: "1c00cae43d5b4b0a8401c6fa7565e6028a49818a90cb2c162db4762d36ec7c5881b4ee1fb81130217eb1b39fa47cb4898aa8773ccbee5b40fdaca53c46d36d4f"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "jlROHAa",
-        placeholder: "jlROHAa",
-        style: {
-          display: "none"
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "ajlROHA",
-        placeholder: "ajlROHA",
-        style: {
-          display: "none"
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "lROHAaj",
-        placeholder: "lROHAaj",
-        style: {
-          display: "none"
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "HROAajl",
-        placeholder: "HROAajl",
-        style: {
-          display: "none"
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "email",
-        name: "email",
-        required: true,
-        placeholder: "Email",
-        className: "h-full Blueprint-label-large w-full sm:flex-1 px-4 py-3 rounded-xl border-none outline-none text-schemesOnSurfaceVariant bg-[color:var(--schemesSurface,#F8F2EF)]",
-        value: email,
-        onChange: e => setEmail(e.target.value)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "tel",
-        name: "phone_number",
-        placeholder: "Phone Number",
-        className: "h-full Blueprint-label-large w-full sm:flex-1 px-4 py-3 rounded-xl border-none outline-none text-schemesOnSurfaceVariant bg-[color:var(--schemesSurface,#F8F2EF)]",
-        value: phoneNumber,
-        onChange: e => setPhoneNumber(e.target.value)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-        label: "Subscribe",
-        type: "submit",
-        variant: "tonal",
-        size: "lg"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-      className: "text-sm text-white opacity-80",
-      children: "We respect your inbox. Unsubscribe anytime."
-    })]
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "mx-auto",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        ref: ref
+      })
+    })
   });
 };
 
