@@ -37,6 +37,8 @@ import CostOfLivingPage from './scripts/CostOfLivingPage';
 import { AddListing } from './scripts/AddListing';
 import AidListingPage from './scripts/AidListingPage';
 import TopicDirectoryPage from './scripts/TopicDirectory';
+import { HealthListingHub } from './scripts/HealthListingHub';
+import { AidListingHub } from './scripts/AidListingHub';
 
 const frontPage = document.getElementById('front-page');
 if (frontPage) {
@@ -326,4 +328,16 @@ const el36 = document.getElementById("topic-directory-root");
 if (el36) {
   const props = JSON.parse(el36.getAttribute("data-props") || "{}");
   ReactDOM.createRoot(el36).render(<TopicDirectoryPage {...props} />);
+}
+
+const el37 = document.getElementById("health-listing-hub-root");
+if (el37) {
+  const props = JSON.parse(el37.getAttribute("data-props") || "{}");
+  ReactDOM.createRoot(el37).render(<HealthListingHub props={props} />);
+}
+
+const el38 = document.getElementById("aid-listing-hub-root");
+if (el38) {
+  const props = JSON.parse(el38.getAttribute("data-props") || "{}");
+  ReactDOM.createRoot(el38).render(<AidListingHub props={props} />);
 }
