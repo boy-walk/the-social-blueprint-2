@@ -32,7 +32,7 @@ export function AccountDashboard({ user, events }) {
                   </div>
                 </div>
               </Card>
-              <Card>
+              <Card href={"/account-listings"}>
                 <div className="flex flex-col gap-8 h-full justify-between items-start p-4 w-full">
                   <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
                     <UserCircleIcon size={22} />

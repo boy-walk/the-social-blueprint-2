@@ -39,6 +39,7 @@ import AidListingPage from './scripts/AidListingPage';
 import TopicDirectoryPage from './scripts/TopicDirectory';
 import { HealthListingHub } from './scripts/HealthListingHub';
 import { AidListingHub } from './scripts/AidListingHub';
+import { AccountListings } from './scripts/AccountListings';
 
 const frontPage = document.getElementById('front-page');
 if (frontPage) {
@@ -340,4 +341,9 @@ const el38 = document.getElementById("aid-listing-hub-root");
 if (el38) {
   const props = JSON.parse(el38.getAttribute("data-props") || "{}");
   ReactDOM.createRoot(el38).render(<AidListingHub props={props} />);
+}
+
+const el39 = document.getElementById("account-listings-root");
+if (el39) {
+  ReactDOM.createRoot(el39).render(<AccountListings />);
 }

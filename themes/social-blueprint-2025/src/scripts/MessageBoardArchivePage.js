@@ -269,7 +269,6 @@ export default function MessageBoardArchivePage(props) {
   }, [items, searchQuery, searchIndex]);
 
   const searching = searchQuery.trim().length > 0;
-  console.log(items)
 
   const hasActiveFilters = useMemo(
     () => Object.values(selectedTerms).some((arr) => (arr || []).length > 0),
@@ -323,9 +322,12 @@ export default function MessageBoardArchivePage(props) {
   };
 
   const LeadingIcon = ({ item }) => {
+    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
     return (
-      <div className="aspect-[3/4] max-h-30 rounded-xl flex items-center justify-center shrink-0">
-        <img src={item.thumbnail} alt="" className="rounded-xl object-cover" />
+      <div className="w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0">
+        <span className="Blueprint-headline-medium text-[var(--schemesOnSecondaryContainer)]">
+          {letter}
+        </span>
       </div>
     );
   };

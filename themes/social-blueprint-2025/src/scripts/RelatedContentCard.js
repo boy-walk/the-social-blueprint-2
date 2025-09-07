@@ -20,22 +20,22 @@ export const RelatedContentCard = ({
         </div>
 
         {/* Text content */}
-        <div className="p-4 flex flex-col justify-start w-2/3">
+        <div className="p-2 flex flex-col gap-1 justify-start w-2/3">
           {date && (
-            <div className="text-sm text-[var(--schemesOnSurfaceVariant)] mb-1">
+            <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]">
               {date}
             </div>
           )}
-          <div className="Blueprint-title-medium font-bold mb-1 line-clamp-3">
+          <div className="Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-2">
             {title}
           </div>
           {description && (
-            <div className="text-sm text-[var(--schemesOnSurfaceVariant)] mb-2 line-clamp-2">
+            <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] line-clamp-2">
               {description}
             </div>
           )}
           {location && (
-            <div className="text-sm text-[var(--schemesOnSurfaceVariant)]">
+            <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]">
               {location}
             </div>
           )}
