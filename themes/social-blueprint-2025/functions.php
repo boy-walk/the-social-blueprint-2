@@ -619,4 +619,3 @@ add_filter('rest_request_after_callbacks', function ($response, $handler, $reque
   $response->set_data($data);
   return $response;
 }, 10, 3);
-

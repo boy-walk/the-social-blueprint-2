@@ -17,7 +17,7 @@ $gd_types   = array_values(array_filter($all_public, static function($n){ return
 $post_types = array_values(array_unique(array_merge(
   $gd_types,
   in_array('tribe_events', $all_public, true) ? ['tribe_events'] : [],
-  ['post'] // articles
+  ['article'] // articles
 )));
 
 $q = new WP_Query([
@@ -63,7 +63,11 @@ if ( $q->have_posts() ) {
   wp_reset_postdata();
 }
 
+$breadcrumbs = sbp_build_breadcrumbs();
 ?>
+
 <div id="account-listings-root"
-     data-items="<?php echo esc_attr( wp_json_encode($list) ); ?>"></div>
+     data-items="<?php echo esc_attr( wp_json_encode($list) ); ?>"
+    data-breadcrumbs='<?php echo esc_attr( wp_json_encode($breadcrumbs) ); ?>'
+     ></div>
 <?php get_footer();

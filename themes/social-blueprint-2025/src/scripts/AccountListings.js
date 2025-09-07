@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Card } from "./Card";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 const TABS = [
   { key: "all", label: "All" },
@@ -11,7 +12,7 @@ const TABS = [
 
 function typeLabel(item) {
   if (item.post_type === "gd_discount") return "Messageboard";
-  if (item.post_type === "post") return "Article";
+  if (item.post_type === "article") return "Article";
   if (item.post_type === "tribe_events") return "Event";
   if (item.post_type?.startsWith("gd_")) return "Directory";
   return "Listing";
@@ -49,31 +50,49 @@ function HeaderRow() {
     </div>
   );
 }
-
 function RowCard({ item }) {
   const t = typeLabel(item);
   const chip = statusChip(item.status);
 
+  const node = document.getElementById("account-listings-root");
+  // You already solved Events edit links; keep that logic.
+  // Here we add GD front-end edit support:
+  const gdBase = (node?.dataset?.gdAddBase || "/add-listing/").replace(/\/?$/, "/");
+
+  // Build a GD edit URL if this is a GeoDirectory CPT
+  const gdEditUrl = item.post_type?.startsWith("gd_")
+    ? `${gdBase}?listing_type=${encodeURIComponent(item.post_type)}&action=edit&pid=${item.id}`
+    : null;
+
+  const eventEditUrl = item.post_type === "tribe_events" ? `/events-calendar/community/edit/${item.id}/` : null;
+
+  const frontEditUrl = gdEditUrl ?? eventEditUrl;
+
   const secondary =
     item.start
       ? new Date(item.start).toLocaleString("en-AU", {
-        weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit",
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        hour: "numeric",
+        minute: "2-digit",
       })
       : `Last updated ${new Intl.RelativeTimeFormat("en-AU", { numeric: "auto" }).format(
-        Math.round((new Date(item.modified) - new Date()) / (1000 * 60 * 60 * 24)), "day"
+        Math.round(
+          (new Date(item.modified) - new Date()) / (1000 * 60 * 60 * 24)
+        ),
+        "day"
       )}`;
 
   return (
     <Card styles="p-0">
-      <div className={`grid ${COLS} gap-3 items-center px-4 py-3`}>
-        {/* Type (visible on md+, shown above title on mobile) */}
+      <div className="grid md:grid-cols-[140px_1fr_160px_140px] gap-3 items-center px-4 py-3">
         <div className="hidden md:block">
           <span className="Blueprint-label-medium px-2 py-1 rounded-md bg-schemesSurfaceContainer text-schemesOnSurfaceVariant">
             {t}
           </span>
         </div>
 
-        {/* Title + secondary */}
         <div className="min-w-0">
           <div className="md:hidden mb-1">
             <span className="Blueprint-label-medium px-2 py-1 rounded-md bg-schemesSurfaceContainer text-schemesOnSurfaceVariant">
@@ -86,19 +105,26 @@ function RowCard({ item }) {
           <div className="Blueprint-label-medium text-schemesOnSurfaceVariant">{secondary}</div>
         </div>
 
-        {/* Status chip */}
         <div>
           <span className={`Blueprint-label-medium px-2 py-1 rounded ${chip.cls}`}>{chip.label}</span>
         </div>
 
-        {/* Actions */}
-        <div className="text-left md:text-right">
+        <div className="text-left md:text-right flex gap-2 justify-start md:justify-end">
           <a
             href={item.permalink}
             className="Blueprint-label-medium rounded-lg bg-schemesPrimary text-schemesOnPrimary px-3 py-1 inline-block"
           >
             View
           </a>
+
+          {frontEditUrl && (
+            <a
+              href={frontEditUrl}
+              className="Blueprint-label-medium rounded-lg bg-schemesSecondary text-schemesOnSecondary px-3 py-1 inline-block"
+            >
+              Edit
+            </a>
+          )}
         </div>
       </div>
     </Card>
@@ -111,6 +137,10 @@ export function AccountListings() {
     if (!node) return [];
     try { return JSON.parse(node.dataset.items || "[]"); } catch { return []; }
   }, [node]);
+  const breadcrumbs = useMemo(() => {
+    if (!node) return [];
+    try { return JSON.parse(node.dataset.breadcrumbs || "[]"); } catch { return []; }
+  }, [node]);
 
   const [tab, setTab] = useState("all");
   const filtered = useMemo(
@@ -121,6 +151,9 @@ export function AccountListings() {
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="bg-schemesPrimaryFixed">
+        <div className="hidden md:block md:px-8 md:pt-8 lg:px-16 lg:pt-8">
+          <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
+        </div>
         <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-8">
           <h1 className="Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large">
             My Active Listings
