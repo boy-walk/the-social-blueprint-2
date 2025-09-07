@@ -75,23 +75,30 @@ $front_props = [
   <?php
 
 
-$event_posts = get_posts([
-  'post_type' => 'tribe_events',
+$event_posts = tribe_get_events([
   'posts_per_page' => 3,
+  'start_date' => current_time('Y-m-d H:i:s'),
+  'end_date' => date('Y-m-d H:i:s', strtotime('+1 week')),
+  'tribeHideRecurrence' => true,
+  'eventDisplay' => 'list',
   'orderby' => 'meta_value',
-  'meta_key' => '_EventStartDate',
   'order' => 'ASC',
-  'meta_query' => [
-    [
-      'key' => '_EventStartDate',
-      'value' => current_time('Y-m-d H:i:s'),
-      'compare' => '>=',
-      'type' => 'DATETIME'
-    ]
-  ]
 ]);
 
-$events = array_map('map_post', $event_posts);
+
+$events = array_map(function($post) {
+  return [
+    'id'        => $post->ID,
+    'title'     => get_the_title($post),
+    'post_type' => get_post_type($post),
+    'permalink'      => get_permalink($post),
+    'image'     => get_the_post_thumbnail_url($post->ID, 'medium_large'),
+    'thumbnail' => get_the_post_thumbnail_url($post->ID, 'medium_large'),
+    // Get a friendly date format
+    'date'  => tribe_get_start_date($post->ID, false, 'D, M j \a\t g:ia'),
+    'author'    => get_the_author_meta('display_name', $post->post_author),
+  ];
+}, $event_posts);
 
 $podcasts = get_posts([
   'post_type' => 'podcast',
