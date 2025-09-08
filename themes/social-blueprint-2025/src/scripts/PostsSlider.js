@@ -2,8 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { ContentCard } from "./ContentCard";
 import { getBadge } from "./getBadge";
+import { Button } from "./Button";
 
-export function PostsSlider({ events, itemsToDisplay = 4 }) {
+export function PostsSlider({ title = null, description = null, events, itemsToDisplay = 4, viewAllUrl = null }) {
   const scrollRef = useRef(null);
   const itemRefs = useRef([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -64,7 +65,29 @@ export function PostsSlider({ events, itemsToDisplay = 4 }) {
 
 
   return (
-    <div>
+    <div className="flex flex-col w-full">
+      {title && (
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-6 gap-4">
+          <div className="flex flex-col gap-4">
+            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface">
+              {title}
+            </h2>
+            {description && (
+              <p className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant mt-1 max-w-2xl">
+                {description}
+              </p>
+            )}
+          </div>
+          {viewAllUrl && (
+            <Button
+              label="View All"
+              variant="tonal"
+              size="sm"
+              onClick={() => { window.location.href = viewAllUrl }}
+            />
+          )}
+        </div>
+      )}
       <div className="overflow-hidden">
         <div
           ref={scrollRef}
@@ -73,7 +96,7 @@ export function PostsSlider({ events, itemsToDisplay = 4 }) {
           {events?.map((post, idx) => (
             <div
               key={post.id}
-              className="flex-shrink-0 px-2 flex pb-4"
+              className="flex-shrink-0 flex px-0 lg:px-1"
               style={{ width: `${100 / itemsPerView}%` }}
             >
               <a href={post.permalink} className="block w-full h-full">

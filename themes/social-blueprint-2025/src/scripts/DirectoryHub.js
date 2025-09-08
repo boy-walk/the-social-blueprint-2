@@ -92,20 +92,12 @@ export const DirectoryHub = ({ costOfLiving, contactLists, breadcrumbs = [] }) =
       </div>
       <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Cost of Living</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={costOfLiving || []} />
+          <PostsSlider events={costOfLiving || []} title="Cost of Living" description="Find trusted advice, programs, and tools to help you feel more in control." viewAllUrl="/cost_of_living" />
         </div>
       </div>
       <div className="bg-schemesSecondaryFixed">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Contact Lists</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={contactLists || []} />
+          <PostsSlider events={contactLists || []} title="Contact Lists" description={"Find trusted advice, programs, and tools to help you feel more in control."} />
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto">

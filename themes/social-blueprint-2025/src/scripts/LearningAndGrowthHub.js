@@ -100,29 +100,17 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
       </div>
       <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Educational Podcasts</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={podcasts || []} />
+          <PostsSlider events={podcasts || []} title="Educational Podcasts" viewAllUrl="/podcasts/?theme=learning-and-growth" description="Hear conversations and stories from within the Jewish community and beyond, exploring education, wellbeing, and culture." />
         </div>
       </div>
       <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Educational Events</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={events || []} />
+          <PostsSlider events={events || []} title="Educational Events" description="Find talks, classes, and workshops that encourage personal development and community connection through learning." viewAllUrl="/events/?theme=learning-and-growth" />
         </div>
       </div>
       <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Cost of Living</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={costOfLiving || []} />
+          <PostsSlider events={costOfLiving || []} title="Cost of Living" description="Access practical resources and advice to help manage rising costs with confidence, tailored to our community’s needs." viewAllUrl="/cost_of_living/?theme=learning-and-growth" />
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto">

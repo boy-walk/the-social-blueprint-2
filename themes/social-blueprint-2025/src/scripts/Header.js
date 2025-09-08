@@ -77,7 +77,7 @@ const MENU_SECTIONS = {
         { label: "Discover Events", href: "/events" },
         { label: "View Calendar", href: "/events/calendar" },
         { label: "Featured Events", href: "/events?featured=1" },
-        { label: "Submit an event", href: "/submit-event" },
+        { label: "Submit an event", href: "/events-calendar/community/add" },
       ],
     },
     {

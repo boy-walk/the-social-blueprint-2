@@ -93,20 +93,12 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
       </div>
       <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Recent Podcasts</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={podcasts || []} />
+          <PostsSlider events={podcasts || []} title="Recent Podcasts" description="Hear personal stories and expert voices that shine a light on the many paths and shared experiences in our community." viewAllUrl="/podcasts/?theme=support-and-services" />
         </div>
       </div>
       <div className="bg-schemesSecondaryFixed">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">Mental Health & Inspriting Stories</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={articles || []} />
+          <PostsSlider events={articles || []} title="Mental Health & Inspriring Stories" description="Explore first-hand stories and conversations that highlight resilience, wellbeing, and the importance of seeking support." viewAllUrl="/articles/?theme=support-and-services" />
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto">

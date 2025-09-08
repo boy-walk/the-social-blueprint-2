@@ -122,11 +122,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
       {/* Events */}
       <div className="bg-schemesSecondaryFixed">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSecondaryFixed">What's on this week</h2>
-            <ArrowIcon className="text-schemesOnSecondaryFixed" />
-          </div>
-          <PostsSlider events={events} />
+          <PostsSlider events={events} viewAllUrl="/events" title="Events on this week" description="Find workshops, classes, concerts, and community gatherings happening across Melbourne’s Jewish community this week - updated regularly so you never miss out." />
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto">

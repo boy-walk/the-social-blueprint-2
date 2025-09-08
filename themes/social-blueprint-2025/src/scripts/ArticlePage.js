@@ -148,14 +148,8 @@ export function ArticlePage({
       {/* Lower sections (use same container spacing as PodcastPage’s slider) */}
       <div className="p-6 md:p-8 lg:p-16 lg:max-w-[1600px] mx-auto">
         <section className="space-y-6 mb-12">
-          <div className="flex items-center gap-2">
-            <div className="Blueprint-headline-small-emphasized">
-              More From {author?.name || "the Author"}
-            </div>
-            <ArrowIcon />
-          </div>
           {moreByAuthor.length ? (
-            <PostsSlider events={moreByAuthor} />
+            <PostsSlider events={moreByAuthor} viewAllUrl={`/?author=${author.id}`} title={`More from ${author?.name || "the Author"}`} />
           ) : (
             <div className="Blueprint-label-large text-schemesOnSurfaceVariant">
               No more articles by this author yet.
@@ -164,12 +158,8 @@ export function ArticlePage({
         </section>
 
         <section className="space-y-4">
-          <div className="flex items-center gap-2">
-            <div className="Blueprint-headline-small-emphasized">More Articles</div>
-            <ArrowIcon />
-          </div>
           {moreArticles.length ? (
-            <PostsSlider events={moreArticles} />
+            <PostsSlider events={moreArticles} title="More Articles" viewAllUrl="/articles" />
           ) : (
             <div className="Blueprint-label-large text-schemesOnSurfaceVariant">
               Nothing to show yet.

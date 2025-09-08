@@ -62,6 +62,15 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     const params = new URLSearchParams(window.location.search);
     const audienceParam = params.get("audience");
     const featuredParam = params.get("featured");
+    const themeParam = params.get("theme");
+    if (themeParam) {
+      const matchedType = (types || []).find(opt => {
+        const idStr = String(opt.id);
+        const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
+        return themeParam === idStr || themeParam === optSlug;
+      });
+      if (matchedType) setSelectedTypes([String(matchedType.id)]);
+    }
     if (featuredParam === "1") setOnlyFeatured(true);
     if (!audienceParam) return;
 

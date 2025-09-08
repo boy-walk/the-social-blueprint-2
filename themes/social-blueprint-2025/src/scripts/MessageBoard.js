@@ -1,7 +1,6 @@
 import React from "react";
 import { ShareButton } from "./ShareButton";
 import { RelatedContentCard } from "./RelatedContentCard";
-import { PostsSlider } from "./PostsSlider";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { Tag } from "./Tag";

@@ -58,7 +58,7 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
             return (
               <div
                 key={post.id}
-                className="flex-shrink-0 px-2 pb-4"
+                className="flex-shrink-0"
                 style={{ width: `${100 / itemsPerView}%` }}
               >
                 <Card href={post.permalink} styles="h-full">
