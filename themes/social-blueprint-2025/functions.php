@@ -6,6 +6,7 @@ require_once get_template_directory() . '/inc/breadcrumbs.php';
 require_once get_template_directory() . '/inc/podcast-series-taxonomy.php';
 require_once get_template_directory() . '/inc/candle-lighting-times.php';
 require_once get_template_directory() . '/inc/article-category-taxonomy.php';
+require_once get_template_directory() . '/inc/submit-article.php';
 
 function boilerplate_load_assets() {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
@@ -620,3 +621,34 @@ add_filter('rest_request_after_callbacks', function ($response, $handler, $reque
   $response->set_data($data);
   return $response;
 }, 10, 3);
+
+add_action('wp_enqueue_scripts', function () {
+  // Bail early if the plugin isn't active.
+  if ( ! function_exists( 'tribe_is_community_edit_event_page' ) ) {
+    return;
+  }
+
+  $is_ce =
+    tribe_is_community_edit_event_page() ||
+    ( function_exists( 'tribe_is_community_create_event_page' ) && tribe_is_community_create_event_page() ) ||
+    ( function_exists( 'tribe_is_community_my_events_page' )   && tribe_is_community_my_events_page() );
+
+  if ( ! $is_ce ) return;
+
+  // Make sure the file path is correct for your theme.
+  $path = get_stylesheet_directory() . '/assets/css/tribe-community.css';
+  $uri  = get_stylesheet_directory_uri() . '/assets/css/tribe-community.css';
+
+  // Cache-bust in dev; falls back gracefully if file missing.
+  $ver = file_exists($path) ? filemtime($path) : null;
+
+  wp_enqueue_style('tsb-tribe-community', $uri, [], $ver);
+
+      wp_enqueue_script(
+      'sbp-ce-layout',
+      get_stylesheet_directory_uri() . '/js/sbp-community-events.js',
+      [],
+      '1.0',
+      true
+    );
+});

@@ -417,12 +417,13 @@ function MobileMenu({
 }
 
 /* -------------------------- Desktop header --------------------------- */
+
 export default function Header({ isUserLoggedIn = false }) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(null); // desktop mega
+  const [open, setOpen] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);   // <-- NEW
+  const [mobileOpen, setMobileOpen] = useState(false);
   const hoverTimer = useRef(null);
   const headerRef = useRef(null);
   useAdminBarOffset();
@@ -473,7 +474,6 @@ export default function Header({ isUserLoggedIn = false }) {
   const cancelClose = () => {
     if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
   };
-
   const goto = (href) => (window.location.href = href);
 
   const NavBtn = ({ id, label, href }) => (
@@ -500,15 +500,19 @@ export default function Header({ isUserLoggedIn = false }) {
           transition-all duration-300
         `}
       >
-        <a href="/" className="flex items-center">
+        <a href="/" className="flex items-center flex-none">
           <img
             src={Logo}
             alt="The Social Blueprint"
-            className={`${scrolled ? "h-12 lg:h-16" : "h-15 lg:h-20"} transition-all duration-300`}
+            className={[
+              "block w-auto flex-none object-contain",
+              "min-h-[32px] md:min-h-[40px] lg:min-h-[55px]",
+              scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20",
+              "transition-all duration-300",
+            ].join(" ")}
           />
         </a>
 
-        {/* Desktop cluster */}
         <div className={`hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`}>
           <div
             className={`
@@ -542,7 +546,6 @@ export default function Header({ isUserLoggedIn = false }) {
           </div>
         </div>
 
-        {/* Mobile trigger */}
         <div className="lg:hidden items-center">
           <IconButton
             icon={<ListIcon size={22} weight="bold" />}
@@ -555,7 +558,7 @@ export default function Header({ isUserLoggedIn = false }) {
         </div>
 
         <MegaPanel
-          open={open}                 // string key like "whats-on" | null
+          open={open}
           onClose={() => setOpen(null)}
           anchorRef={headerRef}
           onPanelEnter={cancelClose}
@@ -567,10 +570,8 @@ export default function Header({ isUserLoggedIn = false }) {
             <div className="w-full h-2 mt-[-8px] bg-transparent shadow-[7px_6px_1px_rgba(28,27,26,0.15)]" />
           </div>
         )}
-
       </header>
 
-      {/* Mobile overlay menu */}
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} isUserLoggedIn={isUserLoggedIn} />
     </>
   );

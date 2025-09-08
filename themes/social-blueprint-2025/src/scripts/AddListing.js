@@ -73,7 +73,7 @@ export function AddListing({ breadcrumbs = [] }) {
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card href="/submit-article">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-[#7FD0FF] rounded-[12px] p-1">
                           <StarOfDavidIcon size={22} />

@@ -9,7 +9,7 @@ export function TextField({
   supportingText = '',
   leadingIcon = null,
   trailingIcon = null,
-  error = false,
+  error = '',            // <-- string message ('' = no error)
   disabled = false,
   required = false,
   style = 'outlined',
@@ -19,6 +19,10 @@ export function TextField({
   id,
 }) {
   const inputId = id || useId();
+  const msgId = `${inputId}-msg`;
+  const hasError = typeof error === 'string' && error.length > 0;
+  const helperText = hasError ? error : supportingText;
+
   const containerBase =
     'relative w-full rounded-lg text-schemesOnSurface Blueprint-body-medium';
 
@@ -30,7 +34,7 @@ export function TextField({
       'bg-schemesSurfaceVariant hover:bg-schemesSurface focus-within:bg-schemesSurface',
   };
 
-  const errorClasses = error
+  const errorClasses = hasError
     ? 'border-schemesError focus-within:border-schemesError'
     : '';
 
@@ -39,70 +43,63 @@ export function TextField({
     : '';
 
   const labelBase =
-    'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight' +
+    'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight ' +
     'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixed peer-focus:bg-[#0799D0] rounded-sm';
-
-  const labelError = error
-    ? 'text-schemesError peer-focus:text-schemesError'
-    : '';
 
   const inputBase =
     'peer w-full py-3 pr-4 pl-3 bg-transparent outline-none ' +
-    'text-schemesOnSurface placeholder:opacity-0 ' +
+    'text-schemesOnSurface placeholder:opacity-0 rounded-xl ' +
+    'bg-schemesSurfaceContainerLow ' +
     'disabled:bg-transparent';
 
+  const commonProps = {
+    id: inputId,
+    name,
+    value,
+    onChange,
+    placeholder: placeholder || label,
+    required,
+    disabled,
+    'aria-invalid': hasError ? 'true' : undefined,
+    'aria-describedby': helperText ? msgId : undefined,
+    className: multiline ? clsx(inputBase, 'resize-none h-32') : inputBase,
+  };
+
   return (
-    <div className={clsx(containerBase, variantMap[style], errorClasses, disabledClasses)}>
-      {leadingIcon && (
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant pointer-events-none">
-          {leadingIcon}
-        </span>
-      )}
-      {multiline ? (
-        <textarea
-          id={inputId}
-          name={name}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder || label}
-          required={required}
-          disabled={disabled}
-          className={clsx(inputBase, 'resize-none h-32')}
-        />
-      ) : (
-        <input
-          id={inputId}
-          type={type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder || label}
-          required={required}
-          disabled={disabled}
-          className={inputBase}
-        />)}
-      <label htmlFor={inputId} className={clsx(labelBase, labelError)}>
-        {label}
-      </label>
-      {trailingIcon && (
-        <button
-          type="button"
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant hover:text-schemesOnSurface"
-          tabIndex={-1}
-        >
-          {trailingIcon}
-        </button>
-      )}
-      {supportingText && (
-        <p
-          className={clsx(
-            'mt-1 ml-4 Blueprint-body-small',
-            error ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'
-          )}
-        >
-          {supportingText}
+    <>
+      <div className={clsx(containerBase, variantMap[style], errorClasses, disabledClasses)}>
+        {leadingIcon && (
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant pointer-events-none">
+            {leadingIcon}
+          </span>
+        )}
+
+        {multiline ? (
+          <textarea {...commonProps} />
+        ) : (
+          <input type={type} {...commonProps} />
+        )}
+
+        <label htmlFor={inputId} className={labelBase}>
+          {label}
+        </label>
+
+        {trailingIcon && (
+          <button
+            type="button"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant hover:text-schemesOnSurface"
+            tabIndex={-1}
+          >
+            {trailingIcon}
+          </button>
+        )}
+      </div>
+
+      {helperText ? (
+        <p id={msgId} className="mt-1 ml-4 Blueprint-body-small text-schemesError">
+          {helperText}
         </p>
-      )}
-    </div>
+      ) : null}
+    </>
   );
 }

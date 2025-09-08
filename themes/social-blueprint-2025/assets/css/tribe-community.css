@@ -1,0 +1,173 @@
+/* ====== Container reset ====== */
+#tribe-events-pg-template.tribe-events-pg-template {
+  background: var(--schemesSurface, #fff);
+  color: var(--schemesOnSurface, #1b1b1b);
+  padding: 64px;
+  max-width: none;
+}
+
+#tribe-community-events.form {
+  /* kill the default border + frame */
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0;
+  background: var(--schemesSurface, #fff);
+}
+
+/* inner content wrapper (TEC uses .tribe-events-pg-template and .tribe-community-events) */
+#tribe-community-events.form .tribe-events-pg-template,
+#tribe-community-events.form .tribe-community-events,
+#tribe-community-events.form .tribe-community-events-container {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: 1.5rem 1rem;
+}
+
+@media (min-width: 1024px) {
+
+  #tribe-community-events.form .tribe-events-pg-template,
+  #tribe-community-events.form .tribe-community-events,
+  #tribe-community-events.form .tribe-community-events-container {
+    padding: 2.5rem 2rem;
+  }
+}
+
+/* ====== Section headings ====== */
+#tribe-community-events.form h2,
+#tribe-community-events.form .tribe-events-community-section-title {
+  font: var(--_Blueprint-title-medium, 600 1.125rem/1.2 system-ui);
+  margin: 1.25rem 0 .5rem;
+}
+
+/* Small helper heading we add via JS for the top band */
+#tribe-community-events.form .sbp-section-title {
+  font: 700 1rem/1.1 system-ui;
+  color: var(--schemesOnSurfaceVariant, #595959);
+  margin-bottom: .5rem;
+}
+
+/* ====== Cards / groups ====== */
+#tribe-community-events.form .sbp-card,
+#tribe-community-events.form .tribe-section,
+#tribe-community-events.form .events-community-post-title,
+#tribe-community-events.form .events-community-post-content,
+#tribe-community-events.form .tribe-section-image-uploader,
+#tribe-community-events.form .tribe-events-community-details {
+  border: 1px solid var(--schemesOutlineVariant, #e6e2df);
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
+}
+
+/* space between groups */
+#tribe-community-events.form .tribe-section+.tribe-section,
+#tribe-community-events.form .events-community-post-title+*,
+#tribe-community-events.form .events-community-post-content+*,
+#tribe-community-events.form .tribe-events-community-details+* {
+  margin-top: 16px;
+  background: #fff;
+}
+
+/* ====== Inputs ====== */
+#tribe-community-events.form input[type="text"],
+#tribe-community-events.form input[type="url"],
+#tribe-community-events.form input[type="number"],
+#tribe-community-events.form input[type="email"],
+#tribe-community-events.form input[type="search"],
+#tribe-community-events.form input[type="tel"],
+#tribe-community-events.form select,
+#tribe-community-events.form textarea {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--schemesOutlineVariant, #ddd9d5);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--schemesOnSurface, #1b1b1b);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  transition: border-color .15s, box-shadow .15s;
+}
+
+#tribe-community-events.form input:focus,
+#tribe-community-events.form select:focus,
+#tribe-community-events.form textarea:focus {
+  border-color: var(--schemesPrimary, #1b6ef3);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--schemesPrimary, #1b6ef3) 18%, transparent);
+}
+
+/* Labels */
+#tribe-community-events.form label {
+  display: block;
+  font: 500 .8rem/1.2 system-ui;
+  color: var(--schemesOnSurfaceVariant, #5b5b5b);
+  margin-bottom: .35rem;
+}
+
+#tribe-community-events.form .req {
+  color: var(--schemesPrimary, #1b6ef3);
+}
+
+/* Description textarea height */
+#tribe-community-events.form textarea#post_content {
+  min-height: 220px;
+}
+
+/* Featured image box looks like an empty tile */
+#tribe-community-events.form .tribe-section-image-uploader {
+  min-height: 240px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+/* Date/time row spacing */
+#tribe-community-events.form .tribe-events-community-date,
+#tribe-community-events.form .tribe-events-community-time {
+  display: grid;
+  gap: 10px;
+}
+
+/* Submit button */
+#tribe-community-events.form .tribe-community-events-submit input[type="submit"],
+#tribe-community-events.form .tribe-community-events-submit button[type="submit"] {
+  border-radius: 12px;
+  padding: 12px 18px;
+  background: var(--schemesPrimary, #1b6ef3);
+  color: var(--schemesOnPrimary, #fff);
+  border: 0;
+  cursor: pointer;
+}
+
+#tribe-community-events.form .tribe-community-events-submit input[type="submit"]:hover {
+  filter: brightness(.96);
+}
+
+/* ====== Top two-column layout (added via JS wrapper) ====== */
+#tribe-community-events.form .sbp-basic {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  #tribe-community-events.form .sbp-basic {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 480px);
+    gap: 20px;
+  }
+}
+
+/* left column stack (title + description) */
+#tribe-community-events.form .sbp-basic .sbp-left>*+* {
+  margin-top: 12px;
+}
+
+/* ====== Misc cleanups ====== */
+#tribe-community-events.form .tribe-events-message,
+#tribe-community-events.form .notice,
+#tribe-community-events.form .tribe-community-notice {
+  margin-bottom: 14px;
+}
+
+#tribe-community-events.form .tribe-community-events a.button,
+#tribe-community-events.form .tribe-community-events input.button {
+  border-radius: 10px;
+}

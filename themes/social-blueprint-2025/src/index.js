@@ -40,6 +40,7 @@ import TopicDirectoryPage from './scripts/TopicDirectory';
 import { HealthListingHub } from './scripts/HealthListingHub';
 import { AidListingHub } from './scripts/AidListingHub';
 import { AccountListings } from './scripts/AccountListings';
+import SubmitArticlePage from './scripts/SubmitArticlePage';
 
 const frontPage = document.getElementById('front-page');
 if (frontPage) {
@@ -346,4 +347,10 @@ if (el38) {
 const el39 = document.getElementById("account-listings-root");
 if (el39) {
   ReactDOM.createRoot(el39).render(<AccountListings />);
+}
+
+const el40 = document.getElementById("submit-article-root");
+if (el40) {
+  const props = JSON.parse(el40.getAttribute("data-props") || "{}");
+  ReactDOM.createRoot(el40).render(<SubmitArticlePage {...props} />);
 }
