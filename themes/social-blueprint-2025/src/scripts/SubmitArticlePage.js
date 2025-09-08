@@ -118,10 +118,8 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
     );
   }
 
-  console.log(errors)
-
   return (
-    <div className="bg-schemesSurface">
+    <div className="bg-schemesSurface px-4 lg:px-0">
       <form onSubmit={submit} className="max-w-[1000px] grid grid-cols-1 gap-8 w-full py-8 md:py-16 mx-auto" noValidate>
         <div className="flex flex-col gap-3">
           <h1 className="Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large text-schemesOnSurface text-center italic">Submit your story</h1>

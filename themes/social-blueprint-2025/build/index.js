@@ -33304,9 +33304,8 @@ function SubmitArticleForm({
       })]
     });
   }
-  console.log(errors);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    className: "bg-schemesSurface",
+    className: "bg-schemesSurface px-4 lg:px-0",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
       onSubmit: submit,
       className: "max-w-[1000px] grid grid-cols-1 gap-8 w-full py-8 md:py-16 mx-auto",
