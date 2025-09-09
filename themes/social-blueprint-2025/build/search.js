@@ -663,7 +663,7 @@ const SearchBar = () => {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
         type: "search",
         id: "default-search",
-        className: "block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest",
+        className: "block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-2 focus:ring-[#1e6586] focus:border-[#1e6586] outline-none",
         placeholder: "Search podcasts, events, resources...",
         onChange: e => setQuery(e.target.value),
         required: true,
@@ -797,4 +797,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=search.js.map?ver=4da170f0ec4242d14339
+//# sourceMappingURL=search.js.map?ver=0b208e78e830297bcf12
