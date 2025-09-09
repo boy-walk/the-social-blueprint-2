@@ -22,13 +22,13 @@ export function AccountDashboard({ user, events }) {
               {t('quickLinks')}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card>
+              <Card href="/add-listing-hub">
                 <div className="flex flex-col gap-8 h-full justify-between items-start p-4 w-full">
                   <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
                     <MailboxIcon size={22} />
                   </div>
                   <div className="Blueprint-title-medium">
-                    {t('manageEvents')}
+                    Add a new listing
                   </div>
                 </div>
               </Card>

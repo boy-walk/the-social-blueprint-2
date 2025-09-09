@@ -507,7 +507,7 @@ export default function Header({ isUserLoggedIn = false }) {
             className={[
               "block w-auto flex-none object-contain",
               "min-h-[24px] md:min-h-[32px] lg:min-h-[36px]",
-              scrolled ? "max-h-12 lg:max-h-12" : "max-h-16 lg:max-h-16",
+              scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20",
               "transition-all duration-300",
             ].join(" ")}
           />

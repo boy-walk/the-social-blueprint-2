@@ -7,7 +7,7 @@ import { Breadcrumbs } from "./Breadcrumbs";
 export function AddListing({ breadcrumbs = [] }) {
   return (
     <div>
-      <div className="hidden md:block bg-schemesPrimaryFixed">
+      <div className="bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
           <div className="md:px-8 md:pt-8 lg:px-16 lg:pt-8">
             <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />

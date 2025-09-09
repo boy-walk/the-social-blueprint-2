@@ -3,13 +3,11 @@ import { ContentCard } from "./ContentCard";
 import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
 import { getBadge } from "./getBadge";
-import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon, FunnelSimpleIcon, XIcon } from "@phosphor-icons/react";
 import { Breadcrumbs } from "./Breadcrumbs";
 
 /**
- * GenericArchivePage (lean)
- * - single fetch per taxonomy for term options (TSB endpoint)
- * - items fetch does NOT depend on term metadata => no flicker when filters load
+ * GenericArchivePage (lean) + mobile filters drawer
  */
 export function GenericArchivePage(props) {
   const {
@@ -24,18 +22,14 @@ export function GenericArchivePage(props) {
     breadcrumbs = [],
   } = props;
 
-  // Just normalize for display context (no GD branching)
   const postTypes = useMemo(() => (Array.isArray(postType) ? postType : [postType]), [postType]);
 
   // ---------------- UI state ----------------
   const [page, setPage] = useState(1);
-
-  // Seed once from archive context to avoid an extra fetch later
   const [selectedTerms, setSelectedTerms] = useState(() => {
     if (taxonomy && currentTerm?.id) return { [taxonomy]: [String(currentTerm.id)] };
     return {};
   });
-
   const [items, setItems] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(undefined);
@@ -45,16 +39,14 @@ export function GenericArchivePage(props) {
   const [retryTick, setRetryTick] = useState(0);
 
   // Term options (per taxonomy)
-  const [termsOptions, setTermsOptions] = useState({}); // taxonomy -> Tree[] | Flat[]
-  const fetchedOnceRef = useRef(new Set());             // avoid duplicate term fetches this mount
+  const [termsOptions, setTermsOptions] = useState({});
+  const fetchedOnceRef = useRef(new Set());
 
   // Hide the group we’re already scoped to
   const displayedFilters = useMemo(() => {
     if (!taxonomy) return filters;
-
     return (filters || []).filter((f) => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
-
 
   // ---------------- Fetch terms (1 call per taxonomy via TSB endpoint) ----------------
   useEffect(() => {
@@ -62,15 +54,12 @@ export function GenericArchivePage(props) {
       setTermsOptions({});
       return;
     }
-
     let cancelled = false;
-
     (async () => {
       const next = {};
       for (const f of displayedFilters) {
         const tax = f.taxonomy;
-        if (fetchedOnceRef.current.has(tax)) continue; // already fetched during this mount
-
+        if (fetchedOnceRef.current.has(tax)) continue;
         try {
           const res = await fetch(
             `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`,
@@ -78,39 +67,33 @@ export function GenericArchivePage(props) {
           );
           if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
           const json = await res.json();
-
           const rows = (Array.isArray(json) ? json : []).map((t) => ({
             id: String(t.id),
             name: t.name,
             slug: t.slug,
             parent: String((t.parent ?? 0) || "0"),
           }));
-
-          // Build tree only if hierarchical
           const isHier = rows.some((r) => r.parent !== "0");
           if (isHier) {
             const byId = {};
             rows.forEach((r) => (byId[r.id] = { ...r, children: [] }));
             const roots = [];
-            rows.forEach((r) => (r.parent !== "0" && byId[r.parent]) ? byId[r.parent].children.push(byId[r.id]) : roots.push(byId[r.id]));
+            rows.forEach((r) =>
+              (r.parent !== "0" && byId[r.parent]) ? byId[r.parent].children.push(byId[r.id]) : roots.push(byId[r.id])
+            );
             const sortTree = (nodes) => { nodes.sort((a, b) => a.name.localeCompare(b.name)); nodes.forEach(n => sortTree(n.children)); };
             sortTree(roots);
             next[tax] = roots;
           } else {
             next[tax] = rows.map(({ id, name, slug }) => ({ id, name, slug }));
           }
-
           fetchedOnceRef.current.add(tax);
         } catch {
           next[f.taxonomy] = [];
         }
       }
-
-      if (!cancelled && Object.keys(next).length) {
-        setTermsOptions((prev) => ({ ...prev, ...next }));
-      }
+      if (!cancelled && Object.keys(next).length) setTermsOptions((prev) => ({ ...prev, ...next }));
     })();
-
     return () => { cancelled = true; };
   }, [displayedFilters]);
 
@@ -124,7 +107,6 @@ export function GenericArchivePage(props) {
 
     const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
     if (isTree) {
-      // find node by id and show only that branch
       const stack = [...opts];
       let node = null;
       while (stack.length) {
@@ -145,25 +127,17 @@ export function GenericArchivePage(props) {
     }
   }, [termsOptions, taxonomy, currentTerm]);
 
-  // ---------------- Fetch items (decoupled from term metadata => no flicker) ----------------
+  // ---------------- Fetch items ----------------
   const fetchSeq = useRef(0);
-
   useEffect(() => {
     let cancelled = false;
     const seq = ++fetchSeq.current;
-
     (async () => {
       setLoading(true);
       setError("");
       try {
         const payload = { ...baseQuery, page };
-
-        // Base tax from server
-        const baseTax = Array.isArray(baseQuery.tax)
-          ? baseQuery.tax.slice()
-          : baseQuery.tax ? [baseQuery.tax] : [];
-
-        // UI selections (no client-side descendant expansion; server will include children)
+        const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
@@ -176,13 +150,11 @@ export function GenericArchivePage(props) {
             });
           }
         }
-
         const finalTax = [...baseTax, ...uiTax];
         if (finalTax.length) {
           payload.tax = finalTax;
           if (baseQuery.tax_relation) payload.tax_relation = baseQuery.tax_relation;
         }
-
         const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -190,7 +162,6 @@ export function GenericArchivePage(props) {
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
-
         if (!cancelled && seq === fetchSeq.current) {
           setItems(json.items || []);
           setTotalPages(json.total_pages || 1);
@@ -202,7 +173,6 @@ export function GenericArchivePage(props) {
         if (!cancelled && seq === fetchSeq.current) setLoading(false);
       }
     })();
-
     return () => { cancelled = true; };
   }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
@@ -248,10 +218,27 @@ export function GenericArchivePage(props) {
     [selectedTerms]
   );
 
-  const clearAllFilters = () => {
-    setSelectedTerms({});
-    setPage(1);
-  };
+  const clearAllFilters = () => { setSelectedTerms({}); setPage(1); };
+
+  // ---------------- Mobile filters drawer ----------------
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const firstCloseBtnRef = useRef(null);
+  const openFilters = () => setIsFiltersOpen(true);
+  const closeFilters = () => setIsFiltersOpen(false);
+
+  useEffect(() => {
+    if (!isFiltersOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e) => { if (e.key === "Escape") closeFilters(); };
+    window.addEventListener("keydown", onKey);
+    setTimeout(() => firstCloseBtnRef.current?.focus(), 0);
+    return () => { document.body.style.overflow = prev; window.removeEventListener("keydown", onKey); };
+  }, [isFiltersOpen]);
+
+  const filterCount =
+    Object.values(selectedTerms).reduce((n, arr) => n + (arr?.length || 0), 0) +
+    (searching ? 1 : 0);
 
   // ---------------- Skeletons ----------------
   const skeletonCards = Array.from({ length: 8 }).map((_, i) => (
@@ -276,8 +263,35 @@ export function GenericArchivePage(props) {
         </div>
       </div>
 
+      {/* Mobile search + Filters button */}
+      <div className="tsb-container lg:hidden pt-6">
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <input
+              id="archive-search-mobile"
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by keyword"
+              className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+            />
+            <MagnifyingGlassIcon size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
+          </div>
+
+          <Button
+            onClick={openFilters}
+            icon={<FunnelSimpleIcon />}
+            label={filterCount ? `Filters (${filterCount})` : "Filters"}
+            variant="outlined"
+            size="base"
+            aria-expanded={isFiltersOpen ? "true" : "false"}
+            aria-controls="mobile-filters"
+          />
+        </div>
+      </div>
+
       <div className="tsb-container flex flex-col lg:flex-row py-8 gap-8">
-        {/* Filters */}
+        {/* Filters (desktop) */}
         {displayedFilters.length > 0 && (
           <aside className="hidden lg:block lg:w-64 xl:w-72">
             {/* Search bar */}
@@ -307,25 +321,27 @@ export function GenericArchivePage(props) {
               </div>
             )}
 
-            {displayedFilters.filter((f) => (termsOptions[f.taxonomy] || []).length > 0).map((f) => (
-              <div key={f.taxonomy} className="mb-4">
-                <FilterGroup
-                  title={f.label || f.taxonomy}
-                  options={termsOptions[f.taxonomy] || []}
-                  selected={selectedTerms[f.taxonomy] || []}
-                  onChangeHandler={(e) => {
-                    const id = String(e.target.value);
-                    const checked = !!e.target.checked;
-                    setSelectedTerms((prev) => {
-                      const current = prev[f.taxonomy] || [];
-                      const next = checked ? [...current, id] : current.filter((x) => x !== id);
-                      return { ...prev, [f.taxonomy]: next };
-                    });
-                    setPage(1);
-                  }}
-                />
-              </div>
-            ))}
+            {displayedFilters
+              .filter((f) => (termsOptions[f.taxonomy] || []).length > 0)
+              .map((f) => (
+                <div key={f.taxonomy} className="mb-4">
+                  <FilterGroup
+                    title={f.label || f.taxonomy}
+                    options={termsOptions[f.taxonomy] || []}
+                    selected={selectedTerms[f.taxonomy] || []}
+                    onChangeHandler={(e) => {
+                      const id = String(e.target.value);
+                      const checked = !!e.target.checked;
+                      setSelectedTerms((prev) => {
+                        const current = prev[f.taxonomy] || [];
+                        const next = checked ? [...current, id] : current.filter((x) => x !== id);
+                        return { ...prev, [f.taxonomy]: next };
+                      });
+                      setPage(1);
+                    }}
+                  />
+                </div>
+              ))}
           </aside>
         )}
 
@@ -410,6 +426,82 @@ export function GenericArchivePage(props) {
             </div>
           )}
         </section>
+      </div>
+
+      {/* MOBILE FILTERS DRAWER */}
+      <div
+        id="mobile-filters"
+        className={`lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`}
+        aria-hidden={isFiltersOpen ? "false" : "true"}
+      >
+        {/* Overlay */}
+        <div
+          onClick={closeFilters}
+          className={`absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`}
+        />
+        {/* Sheet */}
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Filters"
+          className={`absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}`}
+        >
+          {/* Header */}
+          <div className="relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]">
+            <div className="mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]" />
+            <div className="mt-3 flex items-center justify-between">
+              <div className="Blueprint-title-small-emphasized">Filters</div>
+              <button
+                ref={firstCloseBtnRef}
+                type="button"
+                onClick={closeFilters}
+                className="rounded-full p-2 hover:bg-surfaceContainerHigh text-schemesOnSurfaceVariant"
+                aria-label="Close filters"
+              >
+                <XIcon />
+              </button>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="px-4 py-4 overflow-y-auto space-y-4">
+            <div className="relative">
+              <input
+                type="search"
+                placeholder="Search by keyword"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+              />
+              <MagnifyingGlassIcon size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
+            </div>
+
+            {displayedFilters.map((f) => (
+              <FilterGroup
+                key={`m-${f.taxonomy}`}
+                title={f.label || f.taxonomy}
+                options={termsOptions[f.taxonomy] || []}
+                selected={selectedTerms[f.taxonomy] || []}
+                onChangeHandler={(e) => {
+                  const id = String(e.target.value);
+                  const checked = !!e.target.checked;
+                  setSelectedTerms((prev) => {
+                    const current = prev[f.taxonomy] || [];
+                    const next = checked ? [...current, id] : current.filter((x) => x !== id);
+                    return { ...prev, [f.taxonomy]: next };
+                  });
+                  setPage(1);
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Footer actions */}
+          <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2">
+            <Button onClick={clearAllFilters} variant="outlined" label="Clear all" className="flex-1" />
+            <Button onClick={closeFilters} variant="filled" label="Apply" className="flex-1" />
+          </div>
+        </div>
       </div>
     </div>
   );

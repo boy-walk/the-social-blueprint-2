@@ -1,356 +1,338 @@
+// src/index.js
 import './i18n';
-import FrontPage from './scripts/FrontPage';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Header from './scripts/Header';
-import { SectionOne } from './scripts/SectionOne';
-import { SponsorshipBanner } from './scripts/Sponsorship';
-import { RegisterIndividual } from './scripts/RegisterIndividual';
-import { Footer } from './scripts/Footer';
-import { LoginForm } from './scripts/LoginForm'
-import { TermsAndConditions } from './scripts/TermsAndConditions';
-import { ContactForm } from './scripts/ContactUs';
-import { Page404 } from './scripts/Page404';
-import { RegisterOrganisation } from './scripts/RegisterOrganisation';
-import PodcastPage from './scripts/PodcastPage';
-import { SearchPage } from './scripts/SearchPage';
-import { CommunityHubPage } from './scripts/CommunityHubPage';
-import { AccountDashboard } from './scripts/AccountDashboard';
-import { NewsletterBanner } from './scripts/NewsletterBanner';
-import { AccountEditProfilePage } from './scripts/AccountProfilePage';
-import { AccountChangePasswordPage } from './scripts/AccountProfilePage';
-import { AboutUs } from './scripts/AboutUs';
-import { ArticlePage } from './scripts/ArticlePage';
-import { EventPage } from './scripts/EventPage';
-import { EventsHubPage } from './scripts/EventsHubPage';
-import { StoriesAndInterviews } from './scripts/StoriesAndInterviews';
-import { EventsCalendar } from './scripts/EventsCalendar';
-import { LearningAndGrowthHub } from './scripts/LearningAndGrowthHub';
-import { CultureAndIdentityHub } from './scripts/CultureAndIdentityHub';
-import { SupportAndServicesHub } from './scripts/SupportAndServicesHub';
-import { DirectoryHub } from './scripts/DirectoryHub';
-import { CostOfLiving } from './scripts/CostOfLiving';
-import { GenericArchivePage } from './scripts/GenericArchivePage';
-import MessageBoardArchivePage from './scripts/MessageBoardArchivePage';
-import MessageBoardPage from './scripts/MessageBoard';
-import CostOfLivingPage from './scripts/CostOfLivingPage';
-import { AddListing } from './scripts/AddListing';
-import AidListingPage from './scripts/AidListingPage';
-import TopicDirectoryPage from './scripts/TopicDirectory';
-import { HealthListingHub } from './scripts/HealthListingHub';
-import { AidListingHub } from './scripts/AidListingHub';
-import { AccountListings } from './scripts/AccountListings';
-import SubmitArticlePage from './scripts/SubmitArticlePage';
 
-const frontPage = document.getElementById('front-page');
-if (frontPage) {
-  const props = JSON.parse(frontPage.dataset.props);
-  const root = ReactDOM.createRoot(frontPage);
-  root.render(<FrontPage {...props} />);
+const $ = (id) => document.getElementById(id);
+const parse = (s, fallback = '{}') => {
+  try { return JSON.parse(s ?? fallback); } catch { return JSON.parse(fallback); }
+};
+
+// Mount helper: loads the component only if the element exists.
+function mount(id, loader, propsFromEl = () => ({})) {
+  const el = $(id);
+  if (!el) return;
+  loader().then((Comp) => {
+    ReactDOM.createRoot(el).render(React.createElement(Comp, propsFromEl(el)));
+  }).catch((e) => { if (process.env.NODE_ENV !== 'production') console.error(e); });
 }
 
-const header = document.getElementById('header');
-if (header) {
-  const isUserLoggedIn = header.getAttribute('isUserLoggedIn') === 'true';
-  ReactDOM.createRoot(header).render(<Header isUserLoggedIn={isUserLoggedIn} />);
-}
+/* ---------- One call per mount point ---------- */
 
-const el1 = document.getElementById('section-one');
-if (el1) {
-  const events = JSON.parse(el1.dataset.events);
-  const podcasts = JSON.parse(el1.dataset.podcasts || '[]');
-  const messageBoardPosts = JSON.parse(el1.dataset.messageBoardPosts || '[]');
-  const dynamicProps = JSON.parse(el1.dataset.dynamicProps || '{}');
-  const historicalPhotos = JSON.parse(el1.dataset.historicalPhotos || '[]');
-  const sponsorshipBanner = JSON.parse(el1.dataset.sponsorshipBanner || '{}');
-  ReactDOM.createRoot(el1).render(
-    <SectionOne
-      events={events}
-      podcasts={podcasts}
-      messageBoardPosts={messageBoardPosts}
-      dynamicProps={dynamicProps}
-      historicalPhotos={historicalPhotos}
-      sponsorshipBanner={sponsorshipBanner}
-    />
-  );
-}
+// Front page
+mount(
+  'front-page',
+  () => import(/* webpackChunkName: "front-page" */ './scripts/FrontPage').then(m => m.default),
+  (el) => parse(el.dataset.props || '{}')
+);
 
-const el2 = document.getElementById('sponsorship-banner');
-if (el2) {
-  const data = JSON.parse(el2.dataset.banner);
-  ReactDOM.createRoot(el2).render(<SponsorshipBanner {...data} />);
-}
+// Header
+mount(
+  'header',
+  () => import(/* webpackChunkName: "header" */ './scripts/Header').then(m => m.default),
+  (el) => ({ isUserLoggedIn: el.getAttribute('isUserLoggedIn') === 'true' })
+);
 
-const el4 = document.getElementById('register-individual');
-if (el4) {
-  ReactDOM.createRoot(el4).render(<RegisterIndividual />);
-}
+// Section one
+mount(
+  'section-one',
+  () => import(/* webpackChunkName: "section-one" */ './scripts/SectionOne').then(m => m.SectionOne),
+  (el) => ({
+    events: parse(el.dataset.events || '[]'),
+    podcasts: parse(el.dataset.podcasts || '[]'),
+    messageBoardPosts: parse(el.dataset.messageBoardPosts || '[]'),
+    dynamicProps: parse(el.dataset.dynamicProps || '{}'),
+    historicalPhotos: parse(el.dataset.historicalPhotos || '[]'),
+    sponsorshipBanner: parse(el.dataset.sponsorshipBanner || '{}'),
+  })
+);
 
-const el5 = document.getElementById('footer');
-if (el5) {
-  ReactDOM.createRoot(el5).render(<Footer />);
-}
+// Sponsorship
+mount(
+  'sponsorship-banner',
+  () => import(/* webpackChunkName: "sponsorship" */ './scripts/Sponsorship').then(m => m.SponsorshipBanner),
+  (el) => parse(el.dataset.banner || '{}')
+);
 
-const el6 = document.getElementById('login-form');
-if (el6) {
-  ReactDOM.createRoot(el6).render(<LoginForm />)
-}
+// Register Individual
+mount(
+  'register-individual',
+  () => import(/* webpackChunkName: "register-individual" */ './scripts/RegisterIndividual').then(m => m.default || m.RegisterIndividual)
+);
 
-const el7 = document.getElementById('terms-and-conditions');
-if (el7) {
-  ReactDOM.createRoot(el7).render(<TermsAndConditions />)
-}
+// Footer
+mount(
+  'footer',
+  () => import(/* webpackChunkName: "footer" */ './scripts/Footer').then(m => m.Footer)
+);
 
-const el8 = document.getElementById('contact-us');
-if (el8) {
-  ReactDOM.createRoot(el8).render(<ContactForm />)
-}
+// Login
+mount(
+  'login-form',
+  () => import(/* webpackChunkName: "login" */ './scripts/LoginForm').then(m => m.LoginForm)
+);
 
-const el9 = document.getElementById('404');
-if (el9) {
-  ReactDOM.createRoot(el9).render(<Page404 />);
-}
+// T&C
+mount(
+  'terms-and-conditions',
+  () => import(/* webpackChunkName: "terms" */ './scripts/TermsAndConditions').then(m => m.TermsAndConditions)
+);
 
-const el10 = document.getElementById('register-organisation');
-if (el10) {
-  ReactDOM.createRoot(el10).render(<RegisterOrganisation />);
-}
+// Contact
+mount(
+  'contact-us',
+  () => import(/* webpackChunkName: "contact" */ './scripts/ContactUs').then(m => m.ContactForm)
+);
 
-const el11 = document.getElementById('podcast-root');
-if (el11) {
-  const props = {
-    title: el11.dataset.title,
-    date: el11.dataset.date,
-    subtitle: el11.dataset.subtitle,
-    videoUrl: el11.dataset.videoUrl,
-    sections: JSON.parse(el11.dataset.sections),
-    tags: JSON.parse(el11.dataset.tags),
-    moreInterviews: JSON.parse(el11.dataset.moreInterviews) || [],
-    author: JSON.parse(el11.dataset.authorObj),
-    taxonomies: JSON.parse(el11.dataset.taxonomies || '{}'),
-    relatedContent: JSON.parse(el11.dataset.relatedContent || '[]'),
-    breadcrumbs: JSON.parse(el11.dataset.breadcrumbs || '[]'),
-  };
-  ReactDOM.createRoot(el11).render(<PodcastPage {...props} />);
-}
+// 404
+mount(
+  '404',
+  () => import(/* webpackChunkName: "page-404" */ './scripts/Page404').then(m => m.Page404)
+);
 
-const el12 = document.getElementById('search-root');
-if (el12) {
-  const query = el12.getAttribute("data-query") || '';
-  const results = JSON.parse(el12.getAttribute("data-results"))
-  ReactDOM.createRoot(el12).render(<SearchPage query={query} results={results} />);
-}
+// Register Organisation
+mount(
+  'register-organisation',
+  () => import(/* webpackChunkName: "register-organisation" */ './scripts/RegisterOrganisation').then(m => m.default || m.RegisterOrganisation)
+);
 
-const el13 = document.getElementById('community-hub-root');
-if (el13) {
-  const props = window.__COMMUNITY_HUB_PROPS__ || {};
-  ReactDOM.createRoot(el13).render(<CommunityHubPage {...props} />);
-}
+// Podcast page
+mount(
+  'podcast-root',
+  () => import(/* webpackChunkName: "podcast-page" */ './scripts/PodcastPage').then(m => m.default),
+  (el) => ({
+    title: el.dataset.title, date: el.dataset.date, subtitle: el.dataset.subtitle,
+    videoUrl: el.dataset.videoUrl, sections: parse(el.dataset.sections || '[]'),
+    tags: parse(el.dataset.tags || '[]'), moreInterviews: parse(el.dataset.moreInterviews || '[]'),
+    author: parse(el.dataset.authorObj || '{}'), taxonomies: parse(el.dataset.taxonomies || '{}'),
+    relatedContent: parse(el.dataset.relatedContent || '[]'), breadcrumbs: parse(el.dataset.breadcrumbs || '[]'),
+  })
+);
 
-const el14 = document.getElementById('account-dashboard-root');
-if (el14) {
-  const userData = JSON.parse(el14.dataset.user);
-  const eventsData = JSON.parse(el14.dataset.events || '[]');
-  ReactDOM.createRoot(el14).render(<AccountDashboard user={userData} events={eventsData} />);
-}
+// Search
+mount(
+  'search-root',
+  () => import(/* webpackChunkName: "search" */ './scripts/SearchPage').then(m => m.SearchPage),
+  (el) => ({ query: el.getAttribute('data-query') || '', results: parse(el.getAttribute('data-results') || '[]') })
+);
 
-const el15 = document.getElementById('newsletter-banner');
-if (el15) {
-  ReactDOM.createRoot(el15).render(<NewsletterBanner />);
-}
+// Community hub
+mount(
+  'community-hub-root',
+  () => import(/* webpackChunkName: "community-hub" */ './scripts/CommunityHubPage').then(m => m.CommunityHubPage),
+  () => (window.__COMMUNITY_HUB_PROPS__ || {})
+);
 
-const el16 = document.getElementById('account-settings-root');
-if (el16) {
-  const props = {
-    links: JSON.parse(el16.dataset.links || '{}'),
-    user: JSON.parse(el16.dataset.user || '{}'),
-    profile: JSON.parse(el16.dataset.profile || '{}'),
+// Account dashboard
+mount(
+  'account-dashboard-root',
+  () => import(/* webpackChunkName: "account-dashboard" */ './scripts/AccountDashboard').then(m => m.AccountDashboard),
+  (el) => ({ user: parse(el.dataset.user || '{}'), events: parse(el.dataset.events || '[]') })
+);
+
+// Newsletter banner
+mount(
+  'newsletter-banner',
+  () => import(/* webpackChunkName: "newsletter-banner" */ './scripts/NewsletterBanner').then(m => m.NewsletterBanner)
+);
+
+// Account profile edit
+mount(
+  'account-settings-root',
+  () => import(/* webpackChunkName: "account-profile" */ './scripts/AccountProfilePage'),
+  (el) => {
+    const m = (mod) => mod.AccountEditProfilePage || mod.default;
+    return import(/* webpackChunkName: "account-profile" */ './scripts/AccountProfilePage').then((mod) => {
+      const Comp = m(mod);
+      ReactDOM.createRoot(el).render(React.createElement(Comp, {
+        links: parse(el.dataset.links || '{}'),
+        user: parse(el.dataset.user || '{}'),
+        profile: parse(el.dataset.profile || '{}'),
+      }));
+    });
   }
-  ReactDOM.createRoot(el16).render(<AccountEditProfilePage {...props} />);
-}
+);
 
-const el17 = document.getElementById('account-change-password-root');
-if (el17) {
-  const props = {
-    links: JSON.parse(el17.dataset.links || '{}'),
-    user: JSON.parse(el17.dataset.user || '{}'),
-    profile: JSON.parse(el17.dataset.profile || '{}'),
+// Account change password
+mount(
+  'account-change-password-root',
+  () => import(/* webpackChunkName: "account-profile" */ './scripts/AccountProfilePage').then(m => m.AccountChangePasswordPage),
+  (el) => ({
+    links: parse(el.dataset.links || '{}'),
+    user: parse(el.dataset.user || '{}'),
+    profile: parse(el.dataset.profile || '{}'),
+  })
+);
+
+// About / Our Mission
+mount(
+  'OurMissionPage',
+  () => import(/* webpackChunkName: "about-us" */ './scripts/AboutUs').then(m => m.AboutUs),
+  (el) => parse(el.getAttribute('data-props') || '{}')
+);
+
+// Article
+mount(
+  'article-root',
+  () => import(/* webpackChunkName: "article-page" */ './scripts/ArticlePage').then(m => m.ArticlePage),
+  (el) => ({
+    title: el.dataset.title, date: el.dataset.date, subtitle: el.dataset.subtitle, imageUrl: el.dataset.imageUrl,
+    content: parse(el.dataset.content || '[]'), moreArticles: parse(el.dataset.moreArticles || '[]'),
+    relatedContent: parse(el.dataset.relatedContent || '[]'), tags: parse(el.dataset.tags || '[]'),
+    author: parse(el.dataset.authorObj || '{}'), moreByAuthor: parse(el.dataset.moreByAuthor || '[]'),
+    breadcrumbs: parse(el.dataset.breadcrumbs || '[]'),
+  })
+);
+
+// Event page
+mount(
+  'tsb-event-root',
+  () => import(/* webpackChunkName: "event-page" */ './scripts/EventPage').then(m => m.default),
+  (el) => parse(el.dataset.props || '{}')
+);
+
+// Events hub
+mount(
+  'events-hub-root',
+  () => import(/* webpackChunkName: "events-hub" */ './scripts/EventsHubPage').then(m => m.EventsHubPage),
+  (el) => parse(el.dataset.props || '{}')
+);
+
+// Stories & Interviews hub
+mount(
+  'stories-and-interviews-root',
+  () => import(/* webpackChunkName: "stories-interviews" */ './scripts/StoriesAndInterviews').then(m => m.StoriesAndInterviews),
+  (el) => parse(el.dataset.props || '{}')
+);
+
+// FullCalendar page
+mount(
+  'events-fullcalendar',
+  () => import(/* webpackChunkName: "events-calendar" */ './scripts/EventsCalendar').then(m => m.EventsCalendar),
+  (el) => ({
+    types: parse(el.dataset.types || '[]'),
+    topics: parse(el.dataset.topics || '[]'),
+    audiences: parse(el.dataset.audiences || '[]'),
+    locations: parse(el.dataset.locations || '[]'),
+  })
+);
+
+// Hubs
+mount(
+  'learning-and-growth-hub-root',
+  () => import(/* webpackChunkName: "learning-hub" */ './scripts/LearningAndGrowthHub').then(m => m.LearningAndGrowthHub),
+  (el) => parse(el.dataset.props || '{}')
+);
+mount(
+  'culture-and-identity-hub-root',
+  () => import(/* webpackChunkName: "culture-hub" */ './scripts/CultureAndIdentityHub').then(m => m.CultureAndIdentityHub),
+  (el) => parse(el.dataset.props || '{}')
+);
+mount(
+  'support-and-services-hub-root',
+  () => import(/* webpackChunkName: "support-hub" */ './scripts/SupportAndServicesHub').then(m => m.SupportAndServicesHub),
+  (el) => parse(el.dataset.props || '{}')
+);
+mount(
+  'directory-hub-root',
+  () => import(/* webpackChunkName: "directory-hub" */ './scripts/DirectoryHub').then(m => m.DirectoryHub),
+  (el) => parse(el.dataset.props || '{}')
+);
+
+// Cost of Living hub
+mount(
+  'cost-of-living-root',
+  () => import(/* webpackChunkName: "col-hub" */ './scripts/CostOfLiving').then(m => m.CostOfLiving),
+  (el) => parse(el.getAttribute('data-props') || '{}')
+);
+
+// Generic archive (+ taxonomy-scoped)
+mount(
+  'generic-archive-root',
+  () => import(/* webpackChunkName: "generic-archive" */ './scripts/GenericArchivePage').then(m => m.GenericArchivePage),
+  (el) => parse(el.getAttribute('data-props') || '{}')
+);
+mount(
+  'taxonomy-root',
+  () => import(/* webpackChunkName: "generic-archive" */ './scripts/GenericArchivePage').then(m => m.GenericArchivePage),
+  (el) => parse(el.getAttribute('data-props') || '{}')
+);
+
+// Message board archive + single
+mount(
+  'messageboard-archive-root',
+  () => import(/* webpackChunkName: "mb-archive" */ './scripts/MessageBoardArchivePage').then(m => m.default),
+  (el) => parse(el.getAttribute('data-props') || '{}')
+);
+mount(
+  'gd-discount-root',
+  () => import(/* webpackChunkName: "mb-page" */ './scripts/MessageBoard').then(m => m.default),
+  (el) => {
+    const ds = el.dataset;
+    return {
+      title: ds.title, date: ds.date, author: parse(ds.authorObj || '{}'),
+      categories: parse(ds.categories || '[]'), featuredImage: ds.featuredImage || '',
+      contentHtml: ds.contentHtml || '', relatedContent: parse(ds.relatedContent || '[]'),
+      recentPosts: parse(ds.recentPosts || '[]'), trendingTopics: parse(ds.trendingTopics || '[]'),
+      breadcrumbs: parse(ds.breadcrumbs || '[]'),
+    };
   }
-  ReactDOM.createRoot(el17).render(<AccountChangePasswordPage {...props} />);
-}
+);
 
-const el18 = document.getElementById("OurMissionPage")
-if (el18) {
-  const props = JSON.parse(el18.getAttribute("data-props") || "{}")
-  ReactDOM.createRoot(el18).render(<AboutUs {...props} />)
-}
+// Cost of living page
+mount(
+  'gd-col-root',
+  () => import(/* webpackChunkName: "col-page" */ './scripts/CostOfLivingPage').then(m => m.default),
+  (el) => ({
+    title: el.dataset.title, date: el.dataset.date, featuredImage: el.dataset.featuredImage || null,
+    author: parse(el.dataset.authorObj || '{}'), categories: parse(el.dataset.categories || '[]'),
+    contentHtml: el.dataset.contentHtml || '', relatedContent: parse(el.dataset.relatedContent || '[]'),
+    recentPosts: parse(el.dataset.recentPosts || '[]'), pdfFile: el.dataset.pdfFile || null,
+  })
+);
 
-const el19 = document.getElementById('article-root');
-if (el19) {
-  const props = {
-    title: el19.dataset.title,
-    date: el19.dataset.date,
-    subtitle: el19.dataset.subtitle,
-    imageUrl: el19.dataset.imageUrl,
-    content: JSON.parse(el19.dataset.content || '[]'),
-    moreArticles: JSON.parse(el19.dataset.moreArticles || '[]'),
-    relatedContent: JSON.parse(el19.dataset.relatedContent || '[]'),
-    tags: JSON.parse(el19.dataset.tags || '[]'),
-    author: JSON.parse(el19.dataset.authorObj || '{}'),
-    moreByAuthor: JSON.parse(el19.dataset.moreByAuthor || '[]'),
-    breadcrumbs: JSON.parse(el19.dataset.breadcrumbs || '[]'),
-  };
-  ReactDOM.createRoot(el19).render(<ArticlePage {...props} />);
-}
+// Add listing
+mount(
+  'add-listing-root',
+  () => import(/* webpackChunkName: "add-listing" */ './scripts/AddListing').then(m => m.AddListing || m.default),
+  (el) => parse(el.getAttribute('data-props') || '{}')
+);
 
-const el20 = document.getElementById("tsb-event-root");
-if (el20) {
-  const props = JSON.parse(el20.dataset.props || '{}');
-  ReactDOM.createRoot(el20).render(<EventPage {...props} />);
-}
+// Aid listing + hub
+mount(
+  'aid-listing-root',
+  () => import(/* webpackChunkName: "aid-listing" */ './scripts/AidListingPage').then(m => m.default),
+  (el) => ({ props: parse(el.getAttribute('data-props') || '{}') })
+);
+mount(
+  'aid-listing-hub-root',
+  () => import(/* webpackChunkName: "aid-listing-hub" */ './scripts/AidListingHub').then(m => m.AidListingHub),
+  (el) => ({ props: parse(el.getAttribute('data-props') || '{}') })
+);
 
-const el21 = document.getElementById('events-hub-root');
-if (el21) {
-  const props = JSON.parse(el21.dataset.props || '{}');
-  ReactDOM.createRoot(el21).render(<EventsHubPage {...props} />);
-}
+// Topic directory
+mount(
+  'topic-directory-root',
+  () => import(/* webpackChunkName: "topic-directory" */ './scripts/TopicDirectory').then(m => m.default),
+  (el) => parse(el.getAttribute('data-props') || '{}')
+);
 
-const el22 = document.getElementById('stories-and-interviews-root');
-if (el22) {
-  const props = JSON.parse(el22.dataset.props || '{}');
-  ReactDOM.createRoot(el22).render(<StoriesAndInterviews {...props} />);
-}
+// Health listing hub
+mount(
+  'health-listing-hub-root',
+  () => import(/* webpackChunkName: "health-hub" */ './scripts/HealthListingHub').then(m => m.HealthListingHub),
+  (el) => ({ props: parse(el.getAttribute('data-props') || '{}') })
+);
 
-const el23 = document.getElementById('events-fullcalendar');
-if (el23) {
-  const props = {
-    types: JSON.parse(el23.dataset.types),
-    topics: JSON.parse(el23.dataset.topics),
-    audiences: JSON.parse(el23.dataset.audiences),
-    locations: JSON.parse(el23.dataset.locations)
-  }
-  ReactDOM.createRoot(el23).render(<EventsCalendar {...props} />)
-}
+// Account listings
+mount(
+  'account-listings-root',
+  () => import(/* webpackChunkName: "account-listings" */ './scripts/AccountListings').then(m => m.AccountListings)
+);
 
-const el24 = document.getElementById('learning-and-growth-hub-root');
-if (el24) {
-  const props = JSON.parse(el24.dataset.props || '{}');
-  ReactDOM.createRoot(el24).render(<LearningAndGrowthHub {...props} />);
-}
-
-const el25 = document.getElementById('culture-and-identity-hub-root');
-if (el25) {
-  const props = JSON.parse(el25.dataset.props || '{}');
-  ReactDOM.createRoot(el25).render(<CultureAndIdentityHub {...props} />);
-}
-
-const el26 = document.getElementById('support-and-services-hub-root');
-if (el26) {
-  const props = JSON.parse(el26.dataset.props || '{}');
-  ReactDOM.createRoot(el26).render(<SupportAndServicesHub {...props} />);
-}
-
-const el27 = document.getElementById('directory-hub-root');
-if (el27) {
-  const props = JSON.parse(el27.dataset.props || '{}');
-  ReactDOM.createRoot(el27).render(<DirectoryHub {...props} />);
-}
-
-const el28 = document.getElementById('cost-of-living-root');
-if (el28) {
-  const props = JSON.parse(el28.getAttribute('data-props') || '{}');
-  ReactDOM.createRoot(el28).render(<CostOfLiving {...props} />);
-}
-
-const el29 = document.getElementById('generic-archive-root');
-if (el29) {
-  const props = JSON.parse(el29.getAttribute('data-props') || '{}');
-  ReactDOM.createRoot(el29).render(<GenericArchivePage {...props} />);
-}
-
-const el30 = document.getElementById('taxonomy-root');
-if (el30) {
-  const props = JSON.parse(el30.getAttribute('data-props') || '{}');
-  ReactDOM.createRoot(el30).render(<GenericArchivePage {...props} />);
-}
-
-const el31 = document.getElementById('messageboard-archive-root');
-if (el31) {
-  const props = JSON.parse(el31.getAttribute('data-props') || '{}');
-  ReactDOM.createRoot(el31).render(<MessageBoardArchivePage {...props} />);
-}
-
-const el32 = document.getElementById('gd-discount-root');
-if (el32) {
-  const ds = el32.dataset;
-  const props = {
-    title: ds.title,
-    date: ds.date,
-    author: JSON.parse(ds.authorObj || "{}"),
-    categories: JSON.parse(ds.categories || "[]"),
-    featuredImage: ds.featuredImage || "",
-    contentHtml: ds.contentHtml || "",
-    relatedContent: JSON.parse(ds.relatedContent || "[]"),
-    recentPosts: JSON.parse(ds.recentPosts || "[]"),
-    trendingTopics: JSON.parse(ds.trendingTopics || "[]"),
-    breadcrumbs: JSON.parse(ds.breadcrumbs || "[]"),
-  };
-  ReactDOM.createRoot(el32).render(<MessageBoardPage {...props} />);
-}
-
-const el33 = document.getElementById("gd-col-root");
-if (el33) {
-  const props = {
-    title: el33.dataset.title,
-    date: el33.dataset.date,
-    featuredImage: el33.dataset.featuredImage || null,
-    author: JSON.parse(el33.dataset.authorObj || "{}"),
-    categories: JSON.parse(el33.dataset.categories || "[]"),
-    contentHtml: el33.dataset.contentHtml || "",
-    relatedContent: JSON.parse(el33.dataset.relatedContent || "[]"),
-    recentPosts: JSON.parse(el33.dataset.recentPosts || "[]"),
-    pdfFile: el33.dataset.pdfFile || null,
-  };
-  ReactDOM.createRoot(el33).render(<CostOfLivingPage {...props} />);
-}
-
-const el34 = document.getElementById("add-listing-root");
-if (el34) {
-  const props = JSON.parse(el34.getAttribute('data-props') || '{}');
-  ReactDOM.createRoot(el34).render(<AddListing {...props} />);
-}
-
-const el35 = document.getElementById("aid-listing-root");
-if (el35) {
-  const props = JSON.parse(el35.getAttribute("data-props") || "{}");
-  ReactDOM.createRoot(el35).render(<AidListingPage props={props} />);
-}
-
-const el36 = document.getElementById("topic-directory-root");
-if (el36) {
-  const props = JSON.parse(el36.getAttribute("data-props") || "{}");
-  ReactDOM.createRoot(el36).render(<TopicDirectoryPage {...props} />);
-}
-
-const el37 = document.getElementById("health-listing-hub-root");
-if (el37) {
-  const props = JSON.parse(el37.getAttribute("data-props") || "{}");
-  ReactDOM.createRoot(el37).render(<HealthListingHub props={props} />);
-}
-
-const el38 = document.getElementById("aid-listing-hub-root");
-if (el38) {
-  const props = JSON.parse(el38.getAttribute("data-props") || "{}");
-  ReactDOM.createRoot(el38).render(<AidListingHub props={props} />);
-}
-
-const el39 = document.getElementById("account-listings-root");
-if (el39) {
-  ReactDOM.createRoot(el39).render(<AccountListings />);
-}
-
-const el40 = document.getElementById("submit-article-root");
-if (el40) {
-  const props = JSON.parse(el40.getAttribute("data-props") || "{}");
-  ReactDOM.createRoot(el40).render(<SubmitArticlePage {...props} />);
-}
+// Submit Article
+mount(
+  'submit-article-root',
+  () => import(/* webpackChunkName: "submit-article" */ './scripts/SubmitArticlePage').then(m => m.default),
+  (el) => parse(el.getAttribute('data-props') || '{}')
+);

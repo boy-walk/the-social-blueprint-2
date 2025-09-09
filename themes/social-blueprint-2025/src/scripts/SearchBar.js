@@ -34,7 +34,7 @@ export const SearchBar = () => {
         <input
           type="search"
           id="default-search"
-          className="block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-blue-500 focus:border-blue-500"
+          className="block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest"
           placeholder="Search podcasts, events, resources..."
           onChange={(e) => setQuery(e.target.value)}
           required

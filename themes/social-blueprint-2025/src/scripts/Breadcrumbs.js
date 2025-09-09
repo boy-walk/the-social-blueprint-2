@@ -12,7 +12,7 @@ export function Breadcrumbs({ items = [], textColour = 'text-schemesOnSurfaceVar
   })
 
   return (
-    <nav aria-label="Breadcrumb" className="hidden md:block mb-6">
+    <nav aria-label="Breadcrumb" className="mb-3 lg:mb-6">
       <ol className={`flex flex-wrap items-center gap-1 Blueprint-label-small lg:Blueprint-label-large ${textColour}`}>
         {filteredItems.map((it, i) => (
           <React.Fragment key={i}>
