@@ -145,11 +145,10 @@ export function EventPage({
                 <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2">
                   Related Content
                 </h2>
-                {console.log(relatedContent)}
                 <div className="flex flex-col gap-2">
                   {relatedContent?.length ? (
                     relatedContent.map((item) => (
-                      <RelatedContentCard key={item.id} image={item.thumbnail} title={item.title} href={item.link} description={item.description} location={item.location} />
+                      <RelatedContentCard key={item.id} image={item.thumbnail} title={item.title} href={item.link} description={item.description} date={item.date} />
                     ))
                   ) : (
                     <p className="text-schemesOnSurfaceVariant">No related content available.</p>

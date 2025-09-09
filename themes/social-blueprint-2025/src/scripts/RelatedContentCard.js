@@ -3,7 +3,6 @@ import { Card } from "./Card";
 export const RelatedContentCard = ({
   title,
   date,
-  location,
   image,
   href,
   description,
@@ -26,17 +25,12 @@ export const RelatedContentCard = ({
               {date}
             </div>
           )}
-          <div className="Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-2">
+          <div className="Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-1">
             {title}
           </div>
           {description && (
             <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] line-clamp-2">
               {description}
-            </div>
-          )}
-          {location && (
-            <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]">
-              {location}
             </div>
           )}
         </div>

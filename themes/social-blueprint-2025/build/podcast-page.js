@@ -1796,7 +1796,7 @@ function PodcastPage({
                   image: item.thumbnail,
                   title: item.title,
                   href: item.link,
-                  description: item.description
+                  description: item.subtitle
                 }, item.id)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
                   className: "text-schemesOnSurfaceVariant",
                   children: "No related content available."
@@ -2023,7 +2023,6 @@ __webpack_require__.r(__webpack_exports__);
 const RelatedContentCard = ({
   title,
   date,
-  location,
   image,
   href,
   description
@@ -2046,14 +2045,11 @@ const RelatedContentCard = ({
           className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]",
           children: date
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-2",
+          className: "Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-1",
           children: title
         }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] line-clamp-2",
           children: description
-        }), location && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]",
-          children: location
         })]
       })]
     })
@@ -2423,4 +2419,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=9d0da708eb318b50c9d1
+//# sourceMappingURL=podcast-page.js.map?ver=1107d1c8c37f2fc06321

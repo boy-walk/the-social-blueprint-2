@@ -1574,7 +1574,6 @@ __webpack_require__.r(__webpack_exports__);
 const RelatedContentCard = ({
   title,
   date,
-  location,
   image,
   href,
   description
@@ -1597,14 +1596,11 @@ const RelatedContentCard = ({
           className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]",
           children: date
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-2",
+          className: "Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-1",
           children: title
         }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] line-clamp-2",
           children: description
-        }), location && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]",
-          children: location
         })]
       })]
     })
@@ -1879,4 +1875,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing.js.map?ver=d91ad048023a4c6b0f70
+//# sourceMappingURL=aid-listing.js.map?ver=8c711cc8462241e8c41a

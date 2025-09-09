@@ -1637,14 +1637,14 @@ function EventPage({
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h2", {
                 className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2",
                 children: "Related Content"
-              }), console.log(relatedContent), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
                 className: "flex flex-col gap-2",
                 children: [relatedContent?.length ? relatedContent.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_RelatedContentCard__WEBPACK_IMPORTED_MODULE_4__.RelatedContentCard, {
                   image: item.thumbnail,
                   title: item.title,
                   href: item.link,
                   description: item.description,
-                  location: item.location
+                  date: item.date
                 }, item.id)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
                   className: "text-schemesOnSurfaceVariant",
                   children: "No related content available."
@@ -2015,7 +2015,6 @@ __webpack_require__.r(__webpack_exports__);
 const RelatedContentCard = ({
   title,
   date,
-  location,
   image,
   href,
   description
@@ -2038,14 +2037,11 @@ const RelatedContentCard = ({
           className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]",
           children: date
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-2",
+          className: "Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized font-bold line-clamp-1",
           children: title
         }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] line-clamp-2",
           children: description
-        }), location && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)]",
-          children: location
         })]
       })]
     })
@@ -2415,4 +2411,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=event-page.js.map?ver=a69d5406ce02a7f37709
+//# sourceMappingURL=event-page.js.map?ver=a1375bfd17276b85ee6b

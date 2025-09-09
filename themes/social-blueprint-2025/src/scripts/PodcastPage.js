@@ -120,7 +120,7 @@ export default function PodcastPage({
                         image={item.thumbnail}
                         title={item.title}
                         href={item.link}
-                        description={item.description}
+                        description={item.subtitle}
                       />
                     ))
                   ) : (

@@ -112,6 +112,7 @@ $props = [
       'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
       'description' => get_the_excerpt($post),
       'location' => function_exists('tribe_get_venue') ? tribe_get_venue($id) : '',
+      'date'      => function_exists('tribe_get_start_date') ? tribe_get_start_date($id, false, 'D, M j \a\t g:ia') : '',
     ];
   }, $related),
   'moreThisWeek'   => $more_week,

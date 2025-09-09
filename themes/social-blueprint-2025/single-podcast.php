@@ -98,7 +98,7 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcas
          'title'     => get_the_title($post),
          'link'      => get_permalink($post),
          'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
-         'description' => get_the_excerpt($post),
+         'subtitle' => get_the_excerpt($post),
        ];
      }, $related_content)) ); ?>'
      data-breadcrumbs='<?php echo esc_attr( wp_json_encode($breadcrumbs) ); ?>'
