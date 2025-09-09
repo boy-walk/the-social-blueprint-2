@@ -124,8 +124,6 @@ $props = [
 ?>
 <div
   id="tsb-event-root"
-  class="tsb-event-root"
-  data-component="EventPage"
   data-props='<?php echo esc_attr( wp_json_encode( $props, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) ); ?>'>
 </div>
 <?php get_footer(); ?>

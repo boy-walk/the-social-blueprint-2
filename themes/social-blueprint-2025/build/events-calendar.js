@@ -115,7 +115,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // + funnel & close
+
 
 function EventsCalendar({
   types,
@@ -140,21 +140,22 @@ function EventsCalendar({
   const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const calendarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
-
-  // NEW: mobile filters drawer
   const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const firstCloseBtnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-
-  // tooltip state (unchanged)
   const [tip, setTip] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     visible: false,
     x: 0,
     y: 0,
-    html: ""
+    title: "",
+    range: "",
+    venue: "",
+    location: "",
+    description: "",
+    image: null,
+    url: ""
   });
   const moveHandlerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-
-  // debounce search
+  const rafRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
     return () => clearTimeout(t);
@@ -175,8 +176,6 @@ function EventsCalendar({
     });
   };
   const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-
-  // Preselects (unchanged) ...
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
@@ -201,9 +200,7 @@ function EventsCalendar({
       return requested.includes(idStr) || requested.includes(optSlug);
     }).map(opt => String(opt.id));
     if (matchedIds.length) setSelectedAudiences(matchedIds);
-  }, [audiences]);
-
-  // Fetch when request changes (unchanged) ...
+  }, [audiences, types]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFirstDatesSet.current) {
       isFirstDatesSet.current = false;
@@ -248,8 +245,6 @@ function EventsCalendar({
       cancelled = true;
     };
   }, [requestParams]);
-
-  // Rebuild request on filter/date/search change (unchanged)
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     setRequestParams(prev => ({
       ...prev,
@@ -263,8 +258,6 @@ function EventsCalendar({
       s: debouncedKeywordValue
     }));
   }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
-
-  // Responsive view (unchanged)
   const applyResponsiveView = api => {
     if (!api || typeof window === "undefined") return;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
@@ -290,18 +283,76 @@ function EventsCalendar({
       window.removeEventListener("resize", hideTip);
     };
   }, []);
-
-  // Tooltip helpers (unchanged) ...
-  const fmtRange = event => {/* ... */};
-  const showTooltip = info => {/* ... */};
-  const hideTooltip = () => {/* ... */};
-
-  // ---- Mobile filter UX helpers ----
+  const fmtRange = event => {
+    const s = event.start ? new Date(event.start) : null;
+    const e = event.end ? new Date(event.end) : null;
+    if (!s) return "";
+    const dateFmt = new Intl.DateTimeFormat(undefined, {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    });
+    const timeFmt = new Intl.DateTimeFormat(undefined, {
+      hour: "numeric",
+      minute: "2-digit"
+    });
+    const sameDay = e && s.toDateString() === e.toDateString();
+    if (!e) return `${dateFmt.format(s)} • ${timeFmt.format(s)}`;
+    if (sameDay) return `${dateFmt.format(s)} • ${timeFmt.format(s)}–${timeFmt.format(e)}`;
+    return `${dateFmt.format(s)} ${timeFmt.format(s)} → ${dateFmt.format(e)} ${timeFmt.format(e)}`;
+  };
+  const showTooltip = info => {
+    const {
+      event,
+      jsEvent
+    } = info;
+    const ep = event.extendedProps || {};
+    const nextTip = {
+      visible: true,
+      x: jsEvent.clientX,
+      y: jsEvent.clientY,
+      title: event.title || "",
+      range: fmtRange(event),
+      venue: ep.venue || "",
+      location: ep.location || "",
+      description: ep.description || "",
+      image: ep.image || null,
+      url: event.url || ""
+    };
+    setTip(nextTip);
+    const onMove = e => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        setTip(t => ({
+          ...t,
+          x: e.clientX,
+          y: e.clientY
+        }));
+      });
+    };
+    moveHandlerRef.current = onMove;
+    document.addEventListener("mousemove", onMove, {
+      passive: true
+    });
+  };
+  const hideTooltip = () => {
+    if (moveHandlerRef.current) {
+      document.removeEventListener("mousemove", moveHandlerRef.current);
+      moveHandlerRef.current = null;
+    }
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    setTip(t => ({
+      ...t,
+      visible: false
+    }));
+  };
   const filterCount = selectedTypes.length + selectedTopics.length + selectedAudiences.length + selectedLocations.length + (onlyFeatured ? 1 : 0) + (debouncedKeywordValue ? 1 : 0);
   const openFilters = () => setIsFiltersOpen(true);
   const closeFilters = () => setIsFiltersOpen(false);
-
-  // lock scroll on open + esc to close + focus the close button
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFiltersOpen) {
       const prev = document.body.style.overflow;
@@ -325,8 +376,6 @@ function EventsCalendar({
     setSelectedLocations([]);
     setOnlyFeatured(false);
   };
-
-  // ---- Render ----
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -484,14 +533,42 @@ function EventsCalendar({
         })]
       })]
     }), tip.visible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "pointer-events-none fixed z-[60] max-w-[22rem] rounded-xl border bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)] shadow-[0_12px_24px_rgba(0,0,0,0.18)] px-4 py-3",
+      role: "tooltip",
+      className: "pointer-events-none fixed z-[60] max-w-[22rem] rounded-xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 px-4 py-3",
       style: {
         left: Math.min(window.innerWidth - 16, tip.x + 12),
         top: Math.min(window.innerHeight - 16, tip.y + 12)
       },
-      dangerouslySetInnerHTML: {
-        __html: tip.html
-      }
+      "aria-hidden": tip.visible ? "false" : "true",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex gap-3",
+        children: [tip.image ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: tip.image,
+          alt: "",
+          className: "w-16 h-16 rounded-lg object-cover shrink-0",
+          loading: "lazy",
+          decoding: "async"
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "min-w-0",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-title-small-emphasized truncate",
+            children: tip.title
+          }), tip.range ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-label-small text-schemesOnSurfaceVariant mt-0.5",
+            children: tip.range
+          }) : null, tip.venue || tip.location ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-label-small text-schemesOnSurfaceVariant truncate mt-0.5",
+            children: [tip.venue, tip.location].filter(Boolean).join(" • ")
+          }) : null, tip.description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-body-small text-schemesOnSurface mt-2 line-clamp-3",
+            children: tip.description
+          }) : null, tip.url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+            href: tip.url,
+            className: "Blueprint-label-small-emphasized inline-block mt-2 text-palettesPrimary40 underline underline-offset-2",
+            children: "View details"
+          }) : null]
+        })]
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       id: "mobile-filters",
       className: `lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`,
@@ -819,4 +896,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=f59f5187627210b7fe8e
+//# sourceMappingURL=events-calendar.js.map?ver=a66f524917965738e3d6

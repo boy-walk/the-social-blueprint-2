@@ -202,3 +202,5 @@ export function EventPage({
     </main>
   );
 }
+
+export default EventPage;

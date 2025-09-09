@@ -187,7 +187,7 @@ mount(
 // Event page
 mount(
   'tsb-event-root',
-  () => import(/* webpackChunkName: "event-page" */ './scripts/EventPage').then(m => m.default),
+  () => import(/* webpackChunkName: "event-page" */ './scripts/EventPage').then(m => m.EventPage || m.default),
   (el) => parse(el.dataset.props || '{}')
 );
 

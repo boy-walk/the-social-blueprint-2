@@ -1460,7 +1460,8 @@ function ContentCard({
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   EventPage: () => (/* binding */ EventPage)
+/* harmony export */   EventPage: () => (/* binding */ EventPage),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -1714,6 +1715,7 @@ function EventPage({
     })]
   });
 }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventPage);
 
 /***/ }),
 
@@ -2413,4 +2415,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=event-page.js.map?ver=f741092007bec309669b
+//# sourceMappingURL=event-page.js.map?ver=a69d5406ce02a7f37709

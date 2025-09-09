@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
 import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
-import { ArrowLeftIcon, ArrowRightIcon, FunnelSimpleIcon, XIcon } from "@phosphor-icons/react"; // + funnel & close
+import { ArrowLeftIcon, ArrowRightIcon, FunnelSimpleIcon, XIcon } from "@phosphor-icons/react";
 
 export function EventsCalendar({ types, topics, audiences, locations }) {
   const [keyword, setKeyword] = useState("");
@@ -23,15 +23,24 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
   const calendarRef = useRef(null);
   const isFirstDatesSet = useRef(true);
 
-  // NEW: mobile filters drawer
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const firstCloseBtnRef = useRef(null);
 
-  // tooltip state (unchanged)
-  const [tip, setTip] = useState({ visible: false, x: 0, y: 0, html: "" });
+  const [tip, setTip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    title: "",
+    range: "",
+    venue: "",
+    location: "",
+    description: "",
+    image: null,
+    url: "",
+  });
   const moveHandlerRef = useRef(null);
+  const rafRef = useRef(null);
 
-  // debounce search
   useEffect(() => {
     const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
     return () => clearTimeout(t);
@@ -60,7 +69,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     s.toString().normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
       .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-  // Preselects (unchanged) ...
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
@@ -90,9 +98,8 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       .map(opt => String(opt.id));
 
     if (matchedIds.length) setSelectedAudiences(matchedIds);
-  }, [audiences]);
+  }, [audiences, types]);
 
-  // Fetch when request changes (unchanged) ...
   useEffect(() => {
     if (isFirstDatesSet.current) {
       isFirstDatesSet.current = false;
@@ -135,7 +142,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     return () => { cancelled = true; };
   }, [requestParams]);
 
-  // Rebuild request on filter/date/search change (unchanged)
   useEffect(() => {
     setRequestParams(prev => ({
       ...prev,
@@ -150,7 +156,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     }));
   }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
 
-  // Responsive view (unchanged)
   const applyResponsiveView = (api) => {
     if (!api || typeof window === "undefined") return;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
@@ -176,12 +181,61 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     };
   }, []);
 
-  // Tooltip helpers (unchanged) ...
-  const fmtRange = (event) => { /* ... */ };
-  const showTooltip = (info) => { /* ... */ };
-  const hideTooltip = () => { /* ... */ };
+  const fmtRange = (event) => {
+    const s = event.start ? new Date(event.start) : null;
+    const e = event.end ? new Date(event.end) : null;
+    if (!s) return "";
+    const dateFmt = new Intl.DateTimeFormat(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+    const timeFmt = new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" });
+    const sameDay = e && s.toDateString() === e.toDateString();
+    if (!e) return `${dateFmt.format(s)} • ${timeFmt.format(s)}`;
+    if (sameDay) return `${dateFmt.format(s)} • ${timeFmt.format(s)}–${timeFmt.format(e)}`;
+    return `${dateFmt.format(s)} ${timeFmt.format(s)} → ${dateFmt.format(e)} ${timeFmt.format(e)}`;
+  };
 
-  // ---- Mobile filter UX helpers ----
+  const showTooltip = (info) => {
+    const { event, jsEvent } = info;
+    const ep = event.extendedProps || {};
+    const nextTip = {
+      visible: true,
+      x: jsEvent.clientX,
+      y: jsEvent.clientY,
+      title: event.title || "",
+      range: fmtRange(event),
+      venue: ep.venue || "",
+      location: ep.location || "",
+      description: ep.description || "",
+      image: ep.image || null,
+      url: event.url || "",
+    };
+    setTip(nextTip);
+
+    const onMove = (e) => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        setTip((t) => ({
+          ...t,
+          x: e.clientX,
+          y: e.clientY,
+        }));
+      });
+    };
+    moveHandlerRef.current = onMove;
+    document.addEventListener("mousemove", onMove, { passive: true });
+  };
+
+  const hideTooltip = () => {
+    if (moveHandlerRef.current) {
+      document.removeEventListener("mousemove", moveHandlerRef.current);
+      moveHandlerRef.current = null;
+    }
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    setTip(t => ({ ...t, visible: false }));
+  };
+
   const filterCount =
     selectedTypes.length +
     selectedTopics.length +
@@ -193,7 +247,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
   const openFilters = () => setIsFiltersOpen(true);
   const closeFilters = () => setIsFiltersOpen(false);
 
-  // lock scroll on open + esc to close + focus the close button
   useEffect(() => {
     if (isFiltersOpen) {
       const prev = document.body.style.overflow;
@@ -214,10 +267,8 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     setOnlyFeatured(false);
   };
 
-  // ---- Render ----
   return (
     <div className="bg-schemesSurface">
-      {/* Hero */}
       <div className="bg-schemesPrimaryFixed">
         <div className="tsb-container">
           <div className="py-16 flex flex-col justify-end items-start gap-2 max-w-3xl">
@@ -232,7 +283,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       </div>
 
       <div className={`tsb-container py-8 flex flex-grow ${isLoading ? "cursor-wait" : ""}`}>
-        {/* DESKTOP/LG filters sidebar */}
         <aside className={`hidden md:hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
           <div className="relative flex items-center mb-6">
             <input
@@ -263,9 +313,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
           </div>
         </aside>
 
-        {/* Calendar + MOBILE header actions */}
         <section className={`flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
-          {/* Mobile search + filter button */}
           <div className="lg:hidden px-3 sm:px-4 md:px-6 flex items-center gap-2 mb-4">
             <div className="relative flex-1">
               <input
@@ -291,7 +339,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             />
           </div>
 
-          {/* Calendar header */}
           <div className="flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14 mb-6">
             <div className="flex items-center justify-end gap-2 w-full">
               <Button onClick={handlePrevClick} icon={<ArrowLeftIcon />} label="Previous Month" />
@@ -299,7 +346,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             </div>
           </div>
 
-          {/* Calendar */}
           <div className="px-3 sm:px-4 md:px-6 lg:px-8 pb-3 rounded-b-2xl">
             <div className="bg-[var(--schemesSurface)] rounded-2xl overflow-hidden">
               <FullCalendar
@@ -330,28 +376,60 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
         </section>
       </div>
 
-      {/* Tooltip layer (unchanged) */}
       {tip.visible && (
         <div
-          className="pointer-events-none fixed z-[60] max-w-[22rem] rounded-xl border bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)] shadow-[0_12px_24px_rgba(0,0,0,0.18)] px-4 py-3"
-          style={{ left: Math.min(window.innerWidth - 16, tip.x + 12), top: Math.min(window.innerHeight - 16, tip.y + 12) }}
-          dangerouslySetInnerHTML={{ __html: tip.html }}
-        />
+          role="tooltip"
+          className="pointer-events-none fixed z-[60] max-w-[22rem] rounded-xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 px-4 py-3"
+          style={{
+            left: Math.min(window.innerWidth - 16, tip.x + 12),
+            top: Math.min(window.innerHeight - 16, tip.y + 12),
+          }}
+          aria-hidden={tip.visible ? "false" : "true"}
+        >
+          <div className="flex gap-3">
+            {tip.image ? (
+              <img
+                src={tip.image}
+                alt=""
+                className="w-16 h-16 rounded-lg object-cover shrink-0"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : null}
+            <div className="min-w-0">
+              <div className="Blueprint-title-small-emphasized truncate">{tip.title}</div>
+              {tip.range ? <div className="Blueprint-label-small text-schemesOnSurfaceVariant mt-0.5">{tip.range}</div> : null}
+              {(tip.venue || tip.location) ? (
+                <div className="Blueprint-label-small text-schemesOnSurfaceVariant truncate mt-0.5">
+                  {[tip.venue, tip.location].filter(Boolean).join(" • ")}
+                </div>
+              ) : null}
+              {tip.description ? (
+                <div className="Blueprint-body-small text-schemesOnSurface mt-2 line-clamp-3">{tip.description}</div>
+              ) : null}
+              {tip.url ? (
+                <a
+                  href={tip.url}
+                  className="Blueprint-label-small-emphasized inline-block mt-2 text-palettesPrimary40 underline underline-offset-2"
+                >
+                  View details
+                </a>
+              ) : null}
+            </div>
+          </div>
+        </div>
       )}
 
-      {/* MOBILE FILTERS DRAWER */}
       <div
         id="mobile-filters"
         className={`lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`}
         aria-hidden={isFiltersOpen ? "false" : "true"}
       >
-        {/* Overlay */}
         <div
           onClick={closeFilters}
           className={`absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`}
         />
 
-        {/* Sheet */}
         <div
           role="dialog"
           aria-modal="true"
@@ -363,7 +441,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}
           `}
         >
-          {/* Drag handle + header */}
           <div className="relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]">
             <div className="mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]" />
             <div className="mt-3 flex items-center justify-between">
@@ -380,9 +457,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             </div>
           </div>
 
-          {/* Content */}
           <div className="px-4 py-4 overflow-y-auto space-y-4">
-            {/* Keyword on mobile inside sheet too (optional secondary) */}
             <div className="relative">
               <input
                 type="text"
@@ -407,20 +482,9 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             <FilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
           </div>
 
-          {/* Footer actions */}
           <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2">
-            <Button
-              onClick={clearAll}
-              variant="outlined"
-              label="Clear all"
-              className="flex-1"
-            />
-            <Button
-              onClick={closeFilters}
-              variant="filled"
-              label="Apply"
-              className="flex-1"
-            />
+            <Button onClick={clearAll} variant="outlined" label="Clear all" className="flex-1" />
+            <Button onClick={closeFilters} variant="filled" label="Apply" className="flex-1" />
           </div>
         </div>
       </div>
