@@ -1,4 +1,3 @@
-Here’s a drop-in guide you can add to your repo as `README_DESIGNER.md`.
 
 ---
 
@@ -60,7 +59,7 @@ Now when you load the local site in a browser, it uses the repo’s theme/plugin
 From the theme folder (adjust if your theme name differs):
 
 ```bash
-cd wp-content/themes/brads-boilerplate-theme-tailwind
+cd wp-content/themes/social-blueprint-2025
 npm install
 npm run dev   # starts the dev build/watch (Vite/webpack)
 ```
@@ -96,7 +95,7 @@ Common scripts:
 
 ## 6) What you can safely edit
 
-* **Theme**: `/wp-content/themes/brads-boilerplate-theme-tailwind`
+* **Theme**: `/wp-content/themes/social-blueprint-2025`
 
   * React components in `/scripts`
   * PHP templates in the theme
