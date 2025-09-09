@@ -506,8 +506,8 @@ export default function Header({ isUserLoggedIn = false }) {
             alt="The Social Blueprint"
             className={[
               "block w-auto flex-none object-contain",
-              "min-h-[32px] md:min-h-[40px] lg:min-h-[55px]",
-              scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20",
+              "min-h-[24px] md:min-h-[32px] lg:min-h-[36px]",
+              scrolled ? "max-h-12 lg:max-h-12" : "max-h-16 lg:max-h-16",
               "transition-all duration-300",
             ].join(" ")}
           />
@@ -524,7 +524,7 @@ export default function Header({ isUserLoggedIn = false }) {
           </div>
 
           <div className="hidden lg:flex items-center gap-6">
-            <nav className="hidden lg:flex items-center gap-6 Blueprint-body-medium">
+            <nav className="hidden lg:flex items-center Blueprint-body-medium">
               <NavBtn id="whats-on" label={t("whats_on")} href="/events" />
               <NavBtn id="directory" label={t("directory")} href="/directory" />
               <NavBtn id="blueprint-stories" label={t("blueprint_stories")} href="/stories-and-interviews" />

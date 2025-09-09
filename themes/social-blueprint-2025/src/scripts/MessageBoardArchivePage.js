@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
-import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon, FunnelSimpleIcon, XIcon } from "@phosphor-icons/react";
 import { Breadcrumbs } from "./Breadcrumbs";
 
 export default function MessageBoardArchivePage(props) {
@@ -22,7 +22,7 @@ export default function MessageBoardArchivePage(props) {
   // ---------------- State ----------------
   const [page, setPage] = useState(1);
 
-  // Seed once to avoid mount flicker on taxonomy archives
+  // Seed once for taxonomy archives
   const [selectedTerms, setSelectedTerms] = useState(() => {
     if (taxonomy && currentTerm?.id) return { [taxonomy]: [String(currentTerm.id)] };
     return {};
@@ -36,22 +36,30 @@ export default function MessageBoardArchivePage(props) {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filters / terms
-  const [termsOptions, setTermsOptions] = useState({});     // taxonomyName -> Tree[] | Flat[]
-  const [descendantsMap, setDescendantsMap] = useState({}); // taxonomyName -> { termId: [descIds...] }
+  const [termsOptions, setTermsOptions] = useState({});
+  const [descendantsMap, setDescendantsMap] = useState({});
   const [retryTick, setRetryTick] = useState(0);
 
-  // Hide the filter group for the taxonomy the page is already scoped to
+  // ---- identify the "Category" taxonomy to promote to chips ----
+  const categoryFilter = useMemo(() => {
+    const re = /(_category|_categories|category|categories|cat)$/i;
+    return (filters || []).find((f) => f.isCategory || re.test(f.taxonomy));
+  }, [filters]);
+  const categoryTax = categoryFilter?.taxonomy || null;
+
+  // Sidebar filters (exclude the scoped taxonomy and the category)
   const displayedFilters = useMemo(() => {
-    if (!taxonomy) return filters;
-    return (filters || []).filter((f) => f.taxonomy !== taxonomy);
-  }, [filters, taxonomy]);
+    return (filters || []).filter(
+      (f) => f.taxonomy !== taxonomy && f.taxonomy !== categoryTax
+    );
+  }, [filters, taxonomy, categoryTax]);
 
   // ---------------- Helpers ----------------
   const buildTreeAndDescendants = (rows) => {
     const byId = {};
     rows.forEach((r) => {
       const id = String(r.id);
-      byId[id] = { id, name: r.name, slug: r.slug, children: [] };
+      byId[id] = { id, name: r.name, slug: r.slug, parent: String((r.parent ?? 0) || "0"), children: [] };
     });
     const roots = [];
     rows.forEach((r) => {
@@ -76,28 +84,27 @@ export default function MessageBoardArchivePage(props) {
     return { tree: roots, descendants };
   };
 
-  // ---------------- Load term options (TSB endpoint only; 1 call per taxonomy) ----------------
-  const fetchedOnceRef = useRef(new Set()); // keep track per taxonomy for this mount
+  // ---------------- Load term options ----------------
+  const fetchedOnceRef = useRef(new Set());
 
   useEffect(() => {
-    if (!displayedFilters.length) {
+    const toFetch = [...displayedFilters];
+    if (categoryTax) toFetch.unshift({ taxonomy: categoryTax });
+
+    if (!toFetch.length) {
       setTermsOptions({});
       setDescendantsMap({});
       return;
     }
-
     let cancelled = false;
 
     (async () => {
       const nextOptions = {};
       const nextDesc = {};
 
-      for (const f of displayedFilters) {
+      for (const f of toFetch) {
         const tax = f.taxonomy;
-        if (fetchedOnceRef.current.has(tax)) {
-          // we already fetched this taxonomy during this mount – reuse existing state
-          continue;
-        }
+        if (fetchedOnceRef.current.has(tax)) continue;
         try {
           const res = await fetch(
             `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`,
@@ -105,7 +112,6 @@ export default function MessageBoardArchivePage(props) {
           );
           if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
           const json = await res.json();
-
           const rows = (Array.isArray(json) ? json : []).map((t) => ({
             id: String(t.id),
             name: t.name,
@@ -135,7 +141,7 @@ export default function MessageBoardArchivePage(props) {
     })();
 
     return () => { cancelled = true; };
-  }, [displayedFilters]);
+  }, [displayedFilters, categoryTax]);
 
   // ---------------- Scope filter UI for taxonomy archives (UI-only) ----------------
   const didScopeRef = useRef(false);
@@ -180,12 +186,12 @@ export default function MessageBoardArchivePage(props) {
       try {
         const payload = { ...baseQuery, page };
 
-        // Start from server-provided base tax
+        // base tax
         const baseTax = Array.isArray(baseQuery.tax)
           ? baseQuery.tax.slice()
           : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // UI selections (no client-side descendant expansion; rely on include_children)
+        // UI selections
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
@@ -219,13 +225,9 @@ export default function MessageBoardArchivePage(props) {
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
       } catch (err) {
-        if (!cancelled && seq === fetchSeq.current) {
-          setError(err.message || "Failed to load data");
-        }
+        if (!cancelled && seq === fetchSeq.current) setError(err.message || "Failed to load data");
       } finally {
-        if (!cancelled && seq === fetchSeq.current) {
-          setLoading(false);
-        }
+        if (!cancelled && seq === fetchSeq.current) setLoading(false);
       }
     })();
 
@@ -271,14 +273,45 @@ export default function MessageBoardArchivePage(props) {
   const searching = searchQuery.trim().length > 0;
 
   const hasActiveFilters = useMemo(
-    () => Object.values(selectedTerms).some((arr) => (arr || []).length > 0),
-    [selectedTerms]
+    () => Object.entries(selectedTerms).some(([k, arr]) => (k !== categoryTax) && (arr || []).length > 0),
+    [selectedTerms, categoryTax]
   );
 
-  const clearAllFilters = () => {
-    setSelectedTerms({});
+  // ---------------- Category chips ----------------
+  const categoryOptionsRaw = termsOptions[categoryTax] || [];
+  const isCatTree = Array.isArray(categoryOptionsRaw[0]?.children);
+  const categoryRoots = isCatTree ? categoryOptionsRaw : categoryOptionsRaw; // we only show roots/flat
+  const currentCategorySel = (selectedTerms[categoryTax] || [])[0] || "";
+
+  const setCategory = (id) => {
+    setSelectedTerms((prev) => ({ ...prev, [categoryTax]: id ? [String(id)] : [] }));
     setPage(1);
   };
+
+  // ---------------- Mobile filters drawer ----------------
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const firstCloseBtnRef = useRef(null);
+  const openFilters = () => setIsFiltersOpen(true);
+  const closeFilters = () => setIsFiltersOpen(false);
+
+  useEffect(() => {
+    if (!isFiltersOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e) => { if (e.key === "Escape") closeFilters(); };
+    window.addEventListener("keydown", onKey);
+    setTimeout(() => firstCloseBtnRef.current?.focus(), 0);
+    return () => { document.body.style.overflow = prev; window.removeEventListener("keydown", onKey); };
+  }, [isFiltersOpen]);
+
+  const clearAllFilters = () => {
+    setSelectedTerms((prev) => ({ [categoryTax]: prev[categoryTax] || [] })); // keep category; clear others
+    setPage(1);
+  };
+
+  const filterCount =
+    (hasActiveFilters ? Object.values(selectedTerms).reduce((n, arr, k) => n + ((Object.keys(selectedTerms)[k] === categoryTax) ? 0 : (arr || []).length), 0) : 0) +
+    (searching ? 1 : 0);
 
   // ---------------- Row rendering helpers ----------------
   const stripTags = (html) => {
@@ -300,9 +333,7 @@ export default function MessageBoardArchivePage(props) {
       seen.add(key);
       labels.push(text);
     };
-
     if (Array.isArray(item?.categories)) item.categories.forEach(push);
-
     if (item?.taxonomies && typeof item.taxonomies === "object") {
       Object.entries(item.taxonomies).forEach(([tx, arr]) => {
         if (!Array.isArray(arr)) return;
@@ -311,13 +342,11 @@ export default function MessageBoardArchivePage(props) {
         }
       });
     }
-
     Object.keys(item || {}).forEach((k) => {
       if (!/_category$/.test(k) && !/categories?$/.test(k) && !/cat$/.test(k)) return;
       const v = item[k];
       if (Array.isArray(v)) v.forEach(push);
     });
-
     return labels;
   };
 
@@ -364,12 +393,7 @@ export default function MessageBoardArchivePage(props) {
             {item?.excerpt && (
               <p
                 className="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]"
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
+                style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}
               >
                 {stripTags(item.excerpt)}
               </p>
@@ -402,15 +426,41 @@ export default function MessageBoardArchivePage(props) {
           <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
           <h1 className="Blueprint-headline-large text-schemesOnSurface mb-1">{title}</h1>
           {subtitle && (
-            <p className="Blueprint-body-medium text-schemesOnPrimaryFixedVariant">
-              {subtitle}
-            </p>
+            <p className="Blueprint-body-medium text-schemesOnPrimaryFixedVariant">{subtitle}</p>
           )}
         </div>
       </div>
 
-      <div className="tsb-container flex flex-col lg:flex-row py-8 gap-8">
-        {/* Filters */}
+      {/* Top controls: category chips + mobile search & filters */}
+      <div className="tsb-container pt-6">
+        {/* Mobile search + Filters button */}
+        <div className="lg:hidden flex items-center gap-2 mb-4">
+          <div className="relative flex-1">
+            <input
+              id="archive-search-mobile"
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by keyword"
+              className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+            />
+            <MagnifyingGlassIcon size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
+          </div>
+
+          <Button
+            onClick={() => setIsFiltersOpen(true)}
+            icon={<FunnelSimpleIcon />}
+            label={filterCount ? `Filters (${filterCount})` : "Filters"}
+            variant="outlined"
+            size="base"
+            aria-expanded={isFiltersOpen ? "true" : "false"}
+            aria-controls="mobile-filters"
+          />
+        </div>
+      </div>
+
+      <div className="tsb-container flex flex-col lg:flex-row py-4 lg:py-8 gap-8">
+        {/* Filters (desktop) */}
         {displayedFilters.length > 0 && (
           <aside className="hidden lg:block lg:w-64 xl:w-72">
             <div className="mb-6">
@@ -469,7 +519,33 @@ export default function MessageBoardArchivePage(props) {
 
         {/* Main content */}
         <section className="flex-1">
-          {/* Error state */}
+          {categoryTax && (categoryRoots?.length > 0) && (
+            <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-3">
+              <button
+                type="button"
+                onClick={() => setCategory("")}
+                className={`px-3 py-2 rounded-sm whitespace-nowrap ${currentCategorySel ? "bg-[var(--schemesSurfaceContainerHigh)]" : "bg-gray-500 text-[var(--schemesOnPrimary)]"
+                  } Blueprint-label-small`}
+              >
+                All
+              </button>
+              {categoryRoots.map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => setCategory(opt.id)}
+                  className={`px-3 py-2 rounded-sm whitespace-nowrap ${String(currentCategorySel) === String(opt.id)
+                    ? "bg-gray-500 text-[var(--schemesOnPrimary)]"
+                    : "bg-[var(--schemesSurfaceContainerHigh)]"
+                    } Blueprint-label-small`}
+                  title={opt.name}
+                >
+                  {opt.name}
+                </button>
+              ))}
+            </div>
+          )}
+          {/* Error */}
           {error && !loading && (
             <div className="mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6">
               <div className="Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]">Something went wrong</div>
@@ -481,14 +557,14 @@ export default function MessageBoardArchivePage(props) {
             </div>
           )}
 
-          {/* Loading skeleton */}
+          {/* Loading */}
           {loading && (
             <div className="space-y-4 mb-8" aria-hidden="true">
               {skeletonRows}
             </div>
           )}
 
-          {/* Empty state */}
+          {/* Empty */}
           {!loading && !error && filteredItems.length === 0 && (
             <div className="rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8">
               <div className="Blueprint-headline-small mb-2">No results found</div>
@@ -505,7 +581,7 @@ export default function MessageBoardArchivePage(props) {
             </div>
           )}
 
-          {/* Results list */}
+          {/* Results */}
           {!loading && !error && filteredItems.length > 0 && (
             <>
               <div className="flex items-center justify-between mb-3">
@@ -547,6 +623,79 @@ export default function MessageBoardArchivePage(props) {
             </div>
           )}
         </section>
+      </div>
+
+      {/* MOBILE FILTERS DRAWER */}
+      <div
+        id="mobile-filters"
+        className={`lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`}
+        aria-hidden={isFiltersOpen ? "false" : "true"}
+      >
+        {/* Overlay */}
+        <div
+          onClick={closeFilters}
+          className={`absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`}
+        />
+        {/* Sheet */}
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Filters"
+          className={`absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}`}
+        >
+          <div className="relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]">
+            <div className="mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]" />
+            <div className="mt-3 flex items-center justify-between">
+              <div className="Blueprint-title-small-emphasized">Filters</div>
+              <button
+                ref={firstCloseBtnRef}
+                type="button"
+                onClick={closeFilters}
+                className="rounded-full p-2 hover:bg-surfaceContainerHigh text-schemesOnSurfaceVariant"
+                aria-label="Close filters"
+              >
+                <XIcon />
+              </button>
+            </div>
+          </div>
+
+          <div className="px-4 py-4 overflow-y-auto space-y-4">
+            <div className="relative">
+              <input
+                type="search"
+                placeholder="Search by keyword"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+              />
+              <MagnifyingGlassIcon size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
+            </div>
+
+            {displayedFilters.map((f) => (
+              <FilterGroup
+                key={`m-${f.taxonomy}`}
+                title={f.label || f.taxonomy}
+                options={termsOptions[f.taxonomy] || []}
+                selected={selectedTerms[f.taxonomy] || []}
+                onChangeHandler={(e) => {
+                  const id = String(e.target.value);
+                  const checked = !!(e.target.checked);
+                  setSelectedTerms((prev) => {
+                    const current = prev[f.taxonomy] || [];
+                    const next = checked ? [...current, id] : current.filter((x) => x !== id);
+                    return { ...prev, [f.taxonomy]: next };
+                  });
+                  setPage(1);
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2">
+            <Button onClick={clearAllFilters} variant="outlined" label="Clear all" className="flex-1" />
+            <Button onClick={closeFilters} variant="filled" label="Apply" className="flex-1" />
+          </div>
+        </div>
       </div>
     </div>
   );

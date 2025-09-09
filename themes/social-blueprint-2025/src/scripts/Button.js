@@ -13,11 +13,11 @@ export function Button({
   type = 'button',
 }) {
   const sizeStyles = {
-    xs: 'px-3 py-1.5 Blueprint-label-large',
-    sm: 'px-4 py-2 Blueprint-label-large',
-    base: 'px-4 py-2.5 Blueprint-title-medium',
-    lg: 'px-6 py-4 Blueprint-headline-small',
-    xl: 'px-8 py-6 Blueprint-headline-large',
+    xs: 'px-3 py-1.5 Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large',
+    sm: 'px-4 py-2 Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large',
+    base: 'px-4 py-2.5 Blueprint-title-small md:Blueprint-title-medium lg:Blueprint-title-large',
+    lg: 'px-4 py-4 Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large',
+    xl: 'px-8 py-6 Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large',
   }[size];
 
   const rounded = {

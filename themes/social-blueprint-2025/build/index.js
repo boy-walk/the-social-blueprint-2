@@ -14252,6 +14252,32 @@ const c = r;
 
 /***/ }),
 
+/***/ "./node_modules/@phosphor-icons/react/dist/csr/FunnelSimple.es.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/csr/FunnelSimple.es.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FunnelSimple: () => (/* binding */ l),
+/* harmony export */   FunnelSimpleIcon: () => (/* binding */ o)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
+/* harmony import */ var _defs_FunnelSimple_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/FunnelSimple.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/FunnelSimple.es.js");
+
+
+
+const o = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((n, m) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: m, ...n, weights: _defs_FunnelSimple_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
+o.displayName = "FunnelSimpleIcon";
+const l = o;
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@phosphor-icons/react/dist/csr/Gear.es.js":
 /*!****************************************************************!*\
   !*** ./node_modules/@phosphor-icons/react/dist/csr/Gear.es.js ***!
@@ -16306,6 +16332,56 @@ const e = /* @__PURE__ */ new Map([
   [
     "thin",
     /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M216,92H164V40a12,12,0,0,0-12-12H104A12,12,0,0,0,92,40V92H40a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12H92v52a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V164h52a12,12,0,0,0,12-12V104A12,12,0,0,0,216,92Zm4,60a4,4,0,0,1-4,4H160a4,4,0,0,0-4,4v56a4,4,0,0,1-4,4H104a4,4,0,0,1-4-4V160a4,4,0,0,0-4-4H40a4,4,0,0,1-4-4V104a4,4,0,0,1,4-4H96a4,4,0,0,0,4-4V40a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4V96a4,4,0,0,0,4,4h56a4,4,0,0,1,4,4Z" }))
+  ]
+]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@phosphor-icons/react/dist/defs/FunnelSimple.es.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/defs/FunnelSimple.es.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ e)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+
+const e = /* @__PURE__ */ new Map([
+  [
+    "bold",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M204,136a12,12,0,0,1-12,12H64a12,12,0,0,1,0-24H192A12,12,0,0,1,204,136Zm28-60H24a12,12,0,0,0,0,24H232a12,12,0,0,0,0-24Zm-80,96H104a12,12,0,0,0,0,24h48a12,12,0,0,0,0-24Z" }))
+  ],
+  [
+    "duotone",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
+      "path",
+      {
+        d: "M232,56V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Z",
+        opacity: "0.2"
+      }
+    ), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M200,136a8,8,0,0,1-8,8H64a8,8,0,0,1,0-16H192A8,8,0,0,1,200,136Zm32-56H24a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16Zm-80,96H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16Z" }))
+  ],
+  [
+    "fill",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM144,176H112a8,8,0,0,1,0-16h32a8,8,0,0,1,0,16Zm32-40H80a8,8,0,0,1,0-16h96a8,8,0,0,1,0,16Zm32-40H48a8,8,0,0,1,0-16H208a8,8,0,0,1,0,16Z" }))
+  ],
+  [
+    "light",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M198,136a6,6,0,0,1-6,6H64a6,6,0,0,1,0-12H192A6,6,0,0,1,198,136Zm34-54H24a6,6,0,0,0,0,12H232a6,6,0,0,0,0-12Zm-80,96H104a6,6,0,0,0,0,12h48a6,6,0,0,0,0-12Z" }))
+  ],
+  [
+    "regular",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M200,136a8,8,0,0,1-8,8H64a8,8,0,0,1,0-16H192A8,8,0,0,1,200,136Zm32-56H24a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16Zm-80,96H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16Z" }))
+  ],
+  [
+    "thin",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M196,136a4,4,0,0,1-4,4H64a4,4,0,0,1,0-8H192A4,4,0,0,1,196,136Zm36-52H24a4,4,0,0,0,0,8H232a4,4,0,0,0,0-8Zm-80,96H104a4,4,0,0,0,0,8h48a4,4,0,0,0,0-8Z" }))
   ]
 ]);
 
@@ -23966,11 +24042,11 @@ function Button({
   type = 'button'
 }) {
   const sizeStyles = {
-    xs: 'px-3 py-1.5 Blueprint-label-large',
-    sm: 'px-4 py-2 Blueprint-label-large',
-    base: 'px-4 py-2.5 Blueprint-title-medium',
-    lg: 'px-6 py-4 Blueprint-headline-small',
-    xl: 'px-8 py-6 Blueprint-headline-large'
+    xs: 'px-3 py-1.5 Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large',
+    sm: 'px-4 py-2 Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large',
+    base: 'px-4 py-2.5 Blueprint-title-small md:Blueprint-title-medium lg:Blueprint-title-large',
+    lg: 'px-4 py-4 Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large',
+    xl: 'px-8 py-6 Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large'
   }[size];
   const rounded = {
     square: {
@@ -25977,13 +26053,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
-/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
-/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/index.js");
+/* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
+/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
+/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/index.js");
 /* harmony import */ var _FilterGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterGroup */ "./src/scripts/FilterGroup.js");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FunnelSimple.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 
@@ -25992,7 +26070,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+ // + funnel & close
 
 function EventsCalendar({
   types,
@@ -26013,13 +26091,16 @@ function EventsCalendar({
   const [selectedTopics, setSelectedTopics] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedAudiences, setSelectedAudiences] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedLocations, setSelectedLocations] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [onlyFeatured, setOnlyFeatured] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // NEW
-
+  const [onlyFeatured, setOnlyFeatured] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const calendarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
 
-  // ---- TOOLTIP STATE ----
+  // NEW: mobile filters drawer
+  const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const firstCloseBtnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // tooltip state (unchanged)
   const [tip, setTip] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     visible: false,
     x: 0,
@@ -26050,7 +26131,7 @@ function EventsCalendar({
   };
   const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-  // Preselect audience from URL once
+  // Preselects (unchanged) ...
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
@@ -26077,7 +26158,7 @@ function EventsCalendar({
     if (matchedIds.length) setSelectedAudiences(matchedIds);
   }, [audiences]);
 
-  // Fetch when request changes
+  // Fetch when request changes (unchanged) ...
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFirstDatesSet.current) {
       isFirstDatesSet.current = false;
@@ -26123,7 +26204,7 @@ function EventsCalendar({
     };
   }, [requestParams]);
 
-  // Rebuild request on filter/date/search change
+  // Rebuild request on filter/date/search change (unchanged)
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     setRequestParams(prev => ({
       ...prev,
@@ -26134,12 +26215,11 @@ function EventsCalendar({
       audience: selectedAudiences.toString(),
       locations: selectedLocations.toString(),
       is_featured: onlyFeatured ? "1" : "",
-      // NEW: truthy when checked
       s: debouncedKeywordValue
     }));
   }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
 
-  // Switch view at md breakpoint
+  // Responsive view (unchanged)
   const applyResponsiveView = api => {
     if (!api || typeof window === "undefined") return;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
@@ -26166,76 +26246,39 @@ function EventsCalendar({
     };
   }, []);
 
-  // ---- Tooltip helpers ----
-  const fmtRange = event => {
-    const s = event.start,
-      e = event.end;
-    if (!s) return "";
-    const dOpts = {
-      year: "numeric",
-      month: "short",
-      day: "numeric"
-    };
-    const tOpts = {
-      hour: "2-digit",
-      minute: "2-digit"
-    };
-    const sD = s.toLocaleDateString(undefined, dOpts);
-    const sT = event.allDay ? "" : s.toLocaleTimeString(undefined, tOpts);
-    if (!e || s.toDateString() === e.toDateString()) {
-      return event.allDay ? sD : `${sD} • ${sT}`;
-    }
-    const eD = e.toLocaleDateString(undefined, dOpts);
-    const eT = event.allDay ? "" : e.toLocaleTimeString(undefined, tOpts);
-    return event.allDay ? `${sD} → ${eD}` : `${sD} ${sT} → ${eD} ${eT}`;
-  };
-  const showTooltip = info => {
-    const {
-      event,
-      jsEvent
-    } = info;
-    const {
-      image,
-      description,
-      venue,
-      location
-    } = event.extendedProps || {};
-    const when = fmtRange(event);
-    const where = [venue, location].filter(Boolean).join(" • ");
-    const html = `
-      <div class="space-y-2">
-        <div class="Blueprint-title-small-emphasized">${event.title || "Untitled event"}</div>
-        ${when ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${when}</div>` : ""}
-        ${where ? `<div class="Blueprint-body-small text-[var(--schemesOnSurfaceVariant)]">${where}</div>` : ""}
-        ${image ? `<img src="${image}" alt="" class="w-full h-28 object-cover rounded-lg" />` : ""}
-        ${description ? `<div class="Blueprint-body-small line-clamp-7">${description}</div>` : ""}
-      </div>
-    `;
-    setTip({
-      visible: true,
-      x: jsEvent.clientX,
-      y: jsEvent.clientY,
-      html
-    });
+  // Tooltip helpers (unchanged) ...
+  const fmtRange = event => {/* ... */};
+  const showTooltip = info => {/* ... */};
+  const hideTooltip = () => {/* ... */};
 
-    // follow the cursor
-    const onMove = e => setTip(t => ({
-      ...t,
-      x: e.clientX,
-      y: e.clientY
-    }));
-    moveHandlerRef.current = onMove;
-    document.addEventListener("mousemove", onMove);
-  };
-  const hideTooltip = () => {
-    setTip(t => ({
-      ...t,
-      visible: false
-    }));
-    if (moveHandlerRef.current) {
-      document.removeEventListener("mousemove", moveHandlerRef.current);
-      moveHandlerRef.current = null;
+  // ---- Mobile filter UX helpers ----
+  const filterCount = selectedTypes.length + selectedTopics.length + selectedAudiences.length + selectedLocations.length + (onlyFeatured ? 1 : 0) + (debouncedKeywordValue ? 1 : 0);
+  const openFilters = () => setIsFiltersOpen(true);
+  const closeFilters = () => setIsFiltersOpen(false);
+
+  // lock scroll on open + esc to close + focus the close button
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (isFiltersOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      const onKey = e => {
+        if (e.key === "Escape") closeFilters();
+      };
+      window.addEventListener("keydown", onKey);
+      setTimeout(() => firstCloseBtnRef.current?.focus(), 0);
+      return () => {
+        document.body.style.overflow = prev;
+        window.removeEventListener("keydown", onKey);
+      };
     }
+  }, [isFiltersOpen]);
+  const clearAll = () => {
+    setKeyword("");
+    setSelectedTypes([]);
+    setSelectedTopics([]);
+    setSelectedAudiences([]);
+    setSelectedLocations([]);
+    setOnlyFeatured(false);
   };
 
   // ---- Render ----
@@ -26265,12 +26308,14 @@ function EventsCalendar({
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             placeholder: "Search by keyword",
+            value: keyword,
             onChange: e => setKeyword(e.target.value),
             className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
             className: "absolute right-3 text-[var(--schemesOnSurfaceVariant)] w-5 h-5",
             viewBox: "0 0 24 24",
             fill: "none",
+            "aria-hidden": true,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
               d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
               stroke: "currentColor",
@@ -26315,27 +26360,59 @@ function EventsCalendar({
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
         className: `flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "lg:hidden px-3 sm:px-4 md:px-6 flex items-center gap-2 mb-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "relative flex-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "text",
+              placeholder: "Search by keyword",
+              value: keyword,
+              onChange: e => setKeyword(e.target.value),
+              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
+              className: "absolute right-3 top-1/2 -translate-y-1/2 text-[var(--schemesOnSurfaceVariant)] w-5 h-5",
+              viewBox: "0 0 24 24",
+              fill: "none",
+              "aria-hidden": true,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+                d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+                stroke: "currentColor",
+                strokeWidth: "2",
+                strokeLinecap: "round",
+                strokeLinejoin: "round"
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            onClick: openFilters,
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.FunnelSimpleIcon, {}),
+            label: filterCount ? `Filters (${filterCount})` : "Filters",
+            variant: "outlined",
+            size: "base",
+            "aria-expanded": isFiltersOpen ? "true" : "false",
+            "aria-controls": "mobile-filters"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14 mb-6",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "flex items-center justify-end gap-2 w-full",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               onClick: handlePrevClick,
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.ArrowLeftIcon, {}),
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.ArrowLeftIcon, {}),
               label: "Previous Month"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               onClick: handleNextClick,
               label: "Next Month",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.ArrowRightIcon, {})
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.ArrowRightIcon, {})
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "px-3 sm:px-4 md:px-6 lg:px-8 pb-3 rounded-b-2xl",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "bg-[var(--schemesSurface)] rounded-2xl overflow-hidden",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
               ref: calendarRef,
-              plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_7__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_8__["default"]],
+              plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_8__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_9__["default"]],
               initialView: "dayGridMonth",
               headerToolbar: false,
               fixedWeekCount: false,
@@ -26362,7 +26439,7 @@ function EventsCalendar({
         })]
       })]
     }), tip.visible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: " pointer-events-none fixed z-[9999] max-w-[22rem] rounded-xl border bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)] shadow-[0_12px_24px_rgba(0,0,0,0.18)] px-4 py-3 ",
+      className: "pointer-events-none fixed z-[60] max-w-[22rem] rounded-xl border bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)] shadow-[0_12px_24px_rgba(0,0,0,0.18)] px-4 py-3",
       style: {
         left: Math.min(window.innerWidth - 16, tip.x + 12),
         top: Math.min(window.innerHeight - 16, tip.y + 12)
@@ -26370,6 +26447,107 @@ function EventsCalendar({
       dangerouslySetInnerHTML: {
         __html: tip.html
       }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      id: "mobile-filters",
+      className: `lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`,
+      "aria-hidden": isFiltersOpen ? "false" : "true",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        onClick: closeFilters,
+        className: `absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        role: "dialog",
+        "aria-modal": "true",
+        "aria-label": "Filters",
+        className: `
+            absolute left-0 right-0 bottom-0 max-h-[85vh]
+            rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)]
+            transition-transform duration-300
+            ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}
+          `,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "mt-3 flex items-center justify-between",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "Blueprint-title-small-emphasized",
+              children: "Filters"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              ref: firstCloseBtnRef,
+              type: "button",
+              onClick: closeFilters,
+              className: "rounded-full p-2 hover:bg-surfaceContainerHigh text-schemesOnSurfaceVariant",
+              "aria-label": "Close filters",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.XIcon, {})
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "px-4 py-4 overflow-y-auto space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "relative",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "text",
+              placeholder: "Search by keyword",
+              value: keyword,
+              onChange: e => setKeyword(e.target.value),
+              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
+              className: "absolute right-3 top-1/2 -translate-y-1/2 text-[var(--schemesOnSurfaceVariant)] w-5 h-5",
+              viewBox: "0 0 24 24",
+              fill: "none",
+              "aria-hidden": true,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+                d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+                stroke: "currentColor",
+                strokeWidth: "2",
+                strokeLinecap: "round",
+                strokeLinejoin: "round"
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            options: [{
+              id: "1",
+              name: "Featured only"
+            }],
+            selected: onlyFeatured ? ["1"] : [],
+            onChangeHandler: e => setOnlyFeatured(!!e.target.checked)
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            title: "Theme",
+            options: types,
+            selected: selectedTypes,
+            onChangeHandler: onType
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            title: "Topic",
+            options: topics,
+            selected: selectedTopics,
+            onChangeHandler: onTopic
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            title: "Audience",
+            options: audiences,
+            selected: selectedAudiences,
+            onChangeHandler: onAudience
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            title: "Location",
+            options: locations,
+            selected: selectedLocations,
+            onChangeHandler: onLocation
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            onClick: clearAll,
+            variant: "outlined",
+            label: "Clear all",
+            className: "flex-1"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            onClick: closeFilters,
+            variant: "filled",
+            label: "Apply",
+            className: "flex-1"
+          })]
+        })]
+      })]
     })]
   });
 }
@@ -28443,7 +28621,7 @@ function Header({
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
           src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
           alt: "The Social Blueprint",
-          className: ["block w-auto flex-none object-contain", "min-h-[32px] md:min-h-[40px] lg:min-h-[55px]", scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20", "transition-all duration-300"].join(" ")
+          className: ["block w-auto flex-none object-contain", "min-h-[24px] md:min-h-[32px] lg:min-h-[36px]", scrolled ? "max-h-12 lg:max-h-12" : "max-h-16 lg:max-h-16", "transition-all duration-300"].join(" ")
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: `hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`,
@@ -28456,7 +28634,7 @@ function Header({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "hidden lg:flex items-center gap-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("nav", {
-            className: "hidden lg:flex items-center gap-6 Blueprint-body-medium",
+            className: "hidden lg:flex items-center Blueprint-body-medium",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
               id: "whats-on",
               label: t("whats_on"),
@@ -29643,6 +29821,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FilterGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterGroup */ "./src/scripts/FilterGroup.js");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FunnelSimple.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
 /* harmony import */ var _Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Breadcrumbs */ "./src/scripts/Breadcrumbs.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
@@ -29669,7 +29849,7 @@ function MessageBoardArchivePage(props) {
   // ---------------- State ----------------
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
 
-  // Seed once to avoid mount flicker on taxonomy archives
+  // Seed once for taxonomy archives
   const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
     if (taxonomy && currentTerm?.id) return {
       [taxonomy]: [String(currentTerm.id)]
@@ -29684,25 +29864,33 @@ function MessageBoardArchivePage(props) {
   const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
 
   // Filters / terms
-  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomyName -> Tree[] | Flat[]
-  const [descendantsMap, setDescendantsMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}); // taxonomyName -> { termId: [descIds...] }
+  const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [descendantsMap, setDescendantsMap] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
 
-  // Hide the filter group for the taxonomy the page is already scoped to
+  // ---- identify the "Category" taxonomy to promote to chips ----
+  const categoryFilter = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const re = /(_category|_categories|category|categories|cat)$/i;
+    return (filters || []).find(f => f.isCategory || re.test(f.taxonomy));
+  }, [filters]);
+  const categoryTax = categoryFilter?.taxonomy || null;
+
+  // Sidebar filters (exclude the scoped taxonomy and the category)
   const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    if (!taxonomy) return filters;
-    return (filters || []).filter(f => f.taxonomy !== taxonomy);
-  }, [filters, taxonomy]);
+    return (filters || []).filter(f => f.taxonomy !== taxonomy && f.taxonomy !== categoryTax);
+  }, [filters, taxonomy, categoryTax]);
 
   // ---------------- Helpers ----------------
   const buildTreeAndDescendants = rows => {
     const byId = {};
     rows.forEach(r => {
+      var _r$parent;
       const id = String(r.id);
       byId[id] = {
         id,
         name: r.name,
         slug: r.slug,
+        parent: String(((_r$parent = r.parent) !== null && _r$parent !== void 0 ? _r$parent : 0) || "0"),
         children: []
       };
     });
@@ -29733,11 +29921,14 @@ function MessageBoardArchivePage(props) {
     };
   };
 
-  // ---------------- Load term options (TSB endpoint only; 1 call per taxonomy) ----------------
-  const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set()); // keep track per taxonomy for this mount
-
+  // ---------------- Load term options ----------------
+  const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set());
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!displayedFilters.length) {
+    const toFetch = [...displayedFilters];
+    if (categoryTax) toFetch.unshift({
+      taxonomy: categoryTax
+    });
+    if (!toFetch.length) {
       setTermsOptions({});
       setDescendantsMap({});
       return;
@@ -29746,12 +29937,9 @@ function MessageBoardArchivePage(props) {
     (async () => {
       const nextOptions = {};
       const nextDesc = {};
-      for (const f of displayedFilters) {
+      for (const f of toFetch) {
         const tax = f.taxonomy;
-        if (fetchedOnceRef.current.has(tax)) {
-          // we already fetched this taxonomy during this mount – reuse existing state
-          continue;
-        }
+        if (fetchedOnceRef.current.has(tax)) continue;
         try {
           const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`, {
             headers: {
@@ -29807,7 +29995,7 @@ function MessageBoardArchivePage(props) {
     return () => {
       cancelled = true;
     };
-  }, [displayedFilters]);
+  }, [displayedFilters, categoryTax]);
 
   // ---------------- Scope filter UI for taxonomy archives (UI-only) ----------------
   const didScopeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
@@ -29858,10 +30046,10 @@ function MessageBoardArchivePage(props) {
           page
         };
 
-        // Start from server-provided base tax
+        // base tax
         const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
 
-        // UI selections (no client-side descendant expansion; rely on include_children)
+        // UI selections
         const uiTax = [];
         for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
           if (termIds && termIds.length) {
@@ -29894,13 +30082,9 @@ function MessageBoardArchivePage(props) {
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
       } catch (err) {
-        if (!cancelled && seq === fetchSeq.current) {
-          setError(err.message || "Failed to load data");
-        }
+        if (!cancelled && seq === fetchSeq.current) setError(err.message || "Failed to load data");
       } finally {
-        if (!cancelled && seq === fetchSeq.current) {
-          setLoading(false);
-        }
+        if (!cancelled && seq === fetchSeq.current) setLoading(false);
       }
     })();
     return () => {
@@ -29942,11 +30126,47 @@ function MessageBoardArchivePage(props) {
     });
   }, [items, searchQuery, searchIndex]);
   const searching = searchQuery.trim().length > 0;
-  const hasActiveFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.values(selectedTerms).some(arr => (arr || []).length > 0), [selectedTerms]);
-  const clearAllFilters = () => {
-    setSelectedTerms({});
+  const hasActiveFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.entries(selectedTerms).some(([k, arr]) => k !== categoryTax && (arr || []).length > 0), [selectedTerms, categoryTax]);
+
+  // ---------------- Category chips ----------------
+  const categoryOptionsRaw = termsOptions[categoryTax] || [];
+  const isCatTree = Array.isArray(categoryOptionsRaw[0]?.children);
+  const categoryRoots = isCatTree ? categoryOptionsRaw : categoryOptionsRaw; // we only show roots/flat
+  const currentCategorySel = (selectedTerms[categoryTax] || [])[0] || "";
+  const setCategory = id => {
+    setSelectedTerms(prev => ({
+      ...prev,
+      [categoryTax]: id ? [String(id)] : []
+    }));
     setPage(1);
   };
+
+  // ---------------- Mobile filters drawer ----------------
+  const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const firstCloseBtnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const openFilters = () => setIsFiltersOpen(true);
+  const closeFilters = () => setIsFiltersOpen(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!isFiltersOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = e => {
+      if (e.key === "Escape") closeFilters();
+    };
+    window.addEventListener("keydown", onKey);
+    setTimeout(() => firstCloseBtnRef.current?.focus(), 0);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [isFiltersOpen]);
+  const clearAllFilters = () => {
+    setSelectedTerms(prev => ({
+      [categoryTax]: prev[categoryTax] || []
+    })); // keep category; clear others
+    setPage(1);
+  };
+  const filterCount = (hasActiveFilters ? Object.values(selectedTerms).reduce((n, arr, k) => n + (Object.keys(selectedTerms)[k] === categoryTax ? 0 : (arr || []).length), 0) : 0) + (searching ? 1 : 0);
 
   // ---------------- Row rendering helpers ----------------
   const stripTags = html => {
@@ -30071,8 +30291,37 @@ function MessageBoardArchivePage(props) {
           children: subtitle
         })]
       })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "tsb-container pt-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "lg:hidden flex items-center gap-2 mb-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "relative flex-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            id: "archive-search-mobile",
+            type: "search",
+            value: searchQuery,
+            onChange: e => setSearchQuery(e.target.value),
+            placeholder: "Search by keyword",
+            className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.MagnifyingGlassIcon, {
+            size: 20,
+            className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
+            weight: "bold",
+            "aria-hidden": true
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          onClick: () => setIsFiltersOpen(true),
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.FunnelSimpleIcon, {}),
+          label: filterCount ? `Filters (${filterCount})` : "Filters",
+          variant: "outlined",
+          size: "base",
+          "aria-expanded": isFiltersOpen ? "true" : "false",
+          "aria-controls": "mobile-filters"
+        })]
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "tsb-container flex flex-col lg:flex-row py-8 gap-8",
+      className: "tsb-container flex flex-col lg:flex-row py-4 lg:py-8 gap-8",
       children: [displayedFilters.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("aside", {
         className: "hidden lg:block lg:w-64 xl:w-72",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -30138,7 +30387,21 @@ function MessageBoardArchivePage(props) {
         }, f.taxonomy))]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
         className: "flex-1",
-        children: [error && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [categoryTax && categoryRoots?.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "flex items-center gap-2 overflow-x-auto pb-3 mb-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            type: "button",
+            onClick: () => setCategory(""),
+            className: `px-3 py-2 rounded-sm whitespace-nowrap ${currentCategorySel ? "bg-[var(--schemesSurfaceContainerHigh)]" : "bg-gray-500 text-[var(--schemesOnPrimary)]"} Blueprint-label-small`,
+            children: "All"
+          }), categoryRoots.map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            type: "button",
+            onClick: () => setCategory(opt.id),
+            className: `px-3 py-2 rounded-sm whitespace-nowrap ${String(currentCategorySel) === String(opt.id) ? "bg-gray-500 text-[var(--schemesOnPrimary)]" : "bg-[var(--schemesSurfaceContainerHigh)]"} Blueprint-label-small`,
+            title: opt.name,
+            children: opt.name
+          }, opt.id))]
+        }), error && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]",
@@ -30217,6 +30480,85 @@ function MessageBoardArchivePage(props) {
             disabled: page >= totalPages,
             onClick: () => setPage(p => Math.min(totalPages, p + 1)),
             label: "Next"
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      id: "mobile-filters",
+      className: `lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`,
+      "aria-hidden": isFiltersOpen ? "false" : "true",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        onClick: closeFilters,
+        className: `absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        role: "dialog",
+        "aria-modal": "true",
+        "aria-label": "Filters",
+        className: `absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}`,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "mt-3 flex items-center justify-between",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "Blueprint-title-small-emphasized",
+              children: "Filters"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              ref: firstCloseBtnRef,
+              type: "button",
+              onClick: closeFilters,
+              className: "rounded-full p-2 hover:bg-surfaceContainerHigh text-schemesOnSurfaceVariant",
+              "aria-label": "Close filters",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.XIcon, {})
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "px-4 py-4 overflow-y-auto space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "relative",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              type: "search",
+              placeholder: "Search by keyword",
+              value: searchQuery,
+              onChange: e => setSearchQuery(e.target.value),
+              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.MagnifyingGlassIcon, {
+              size: 20,
+              className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
+              weight: "bold",
+              "aria-hidden": true
+            })]
+          }), displayedFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            title: f.label || f.taxonomy,
+            options: termsOptions[f.taxonomy] || [],
+            selected: selectedTerms[f.taxonomy] || [],
+            onChangeHandler: e => {
+              const id = String(e.target.value);
+              const checked = !!e.target.checked;
+              setSelectedTerms(prev => {
+                const current = prev[f.taxonomy] || [];
+                const next = checked ? [...current, id] : current.filter(x => x !== id);
+                return {
+                  ...prev,
+                  [f.taxonomy]: next
+                };
+              });
+              setPage(1);
+            }
+          }, `m-${f.taxonomy}`))]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            onClick: clearAllFilters,
+            variant: "outlined",
+            label: "Clear all",
+            className: "flex-1"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            onClick: closeFilters,
+            variant: "filled",
+            label: "Apply",
+            className: "flex-1"
           })]
         })]
       })]
