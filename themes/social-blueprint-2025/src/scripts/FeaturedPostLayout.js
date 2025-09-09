@@ -23,6 +23,7 @@ export default function FeaturedPostLayout({ posts }) {
           fullHeight
           fullWidth
           title={hero.title}
+          subtitle={hero.subtitle}
         />)}
       </div>
       <div className={`flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`}>
@@ -33,7 +34,7 @@ export default function FeaturedPostLayout({ posts }) {
               image={post.thumbnail}
               category={post.post_type}
               title={post.title}
-              description={post.excerpt}
+              description={post.subtitle || post.excerpt || ""}
               author={post.author}
               date={post.date}
               href={post.permalink}

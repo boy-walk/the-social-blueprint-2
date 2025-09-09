@@ -95,9 +95,9 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
                         {post.title}
                       </h3>
 
-                      {post.excerpt && (
+                      {post.subtitle && (
                         <p className="text-schemesOnSurfaceVariant Blueprint-body-small md:Blueprint-body-medium line-clamp-3">
-                          {post.excerpt}
+                          {post.subtitle}
                         </p>
                       )}
                     </div>

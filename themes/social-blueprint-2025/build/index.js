@@ -26761,7 +26761,8 @@ function FeaturedPostLayout({
         href: hero.permalink,
         fullHeight: true,
         fullWidth: true,
-        title: hero.title
+        title: hero.title,
+        subtitle: hero.subtitle
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: `flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`,
@@ -26771,7 +26772,7 @@ function FeaturedPostLayout({
           image: post.thumbnail,
           category: post.post_type,
           title: post.title,
-          description: post.excerpt,
+          description: post.subtitle || post.excerpt || "",
           author: post.author,
           date: post.date,
           href: post.permalink,
@@ -27971,7 +27972,7 @@ const MENU_SECTIONS = {
       href: "/events"
     }, {
       label: "View Calendar",
-      href: "/events/calendar"
+      href: "/events"
     }, {
       label: "Featured Events",
       href: "/events?featured=1"
@@ -30334,9 +30335,9 @@ function MessageBoardSlider({
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
                     className: "Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized text-schemesOnSurface mb-1 md:mb-2 line-clamp-2",
                     children: post.title
-                  }), post.excerpt && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+                  }), post.subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
                     className: "text-schemesOnSurfaceVariant Blueprint-body-small md:Blueprint-body-medium line-clamp-3",
-                    children: post.excerpt
+                    children: post.subtitle
                   })]
                 })]
               })

@@ -52,6 +52,7 @@ function map_post($post) {
     'title' => get_the_title($post),
     'post_type' => get_post_type($post),
     'excerpt' => get_the_excerpt($post),
+    'subtitle' => get_field('podcast_subtitle', $post->ID),
     'author' => get_the_author_meta('display_name', $post->post_author),
     'date' => get_the_date('', $post),
     'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
@@ -94,9 +95,9 @@ $events = array_map(function($post) {
     'permalink'      => get_permalink($post),
     'image'     => get_the_post_thumbnail_url($post->ID, 'medium_large'),
     'thumbnail' => get_the_post_thumbnail_url($post->ID, 'medium_large'),
-    // Get a friendly date format
     'date'  => tribe_get_start_date($post->ID, false, 'D, M j \a\t g:ia'),
     'author'    => get_the_author_meta('display_name', $post->post_author),
+    'subtitle' => get_the_excerpt($post),
   ];
 }, $event_posts);
 

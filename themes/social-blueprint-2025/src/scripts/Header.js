@@ -75,7 +75,7 @@ const MENU_SECTIONS = {
       title: "Discover",
       items: [
         { label: "Discover Events", href: "/events" },
-        { label: "View Calendar", href: "/events/calendar" },
+        { label: "View Calendar", href: "/events" },
         { label: "Featured Events", href: "/events?featured=1" },
         { label: "Submit an event", href: "/events-calendar/community/add" },
       ],

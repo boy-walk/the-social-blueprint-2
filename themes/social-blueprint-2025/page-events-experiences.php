@@ -21,17 +21,14 @@ $events_this_week = tribe_get_events([
   'eventDisplay' => 'list',
 ]);
 
-
 $breadcrumbs = sbp_build_breadcrumbs();
-
-
 
 function map_post($post) {
   $author_id = get_post_field('post_author', $post);
   return [
     'id' => $post->ID,
     'title' => html_entity_decode(get_the_title($post), ENT_QUOTES, 'UTF-8'),
-    'excerpt' => html_entity_decode(get_the_excerpt($post), ENT_QUOTES, 'UTF-8'),
+    'subtitle' => html_entity_decode(get_the_excerpt($post), ENT_QUOTES, 'UTF-8'),
     'permalink' => get_permalink($post),
     'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
     'post_type' => get_post_type($post),
