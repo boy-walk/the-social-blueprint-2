@@ -235,28 +235,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _tiptap_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @tiptap/react */ "./node_modules/@tiptap/react/dist/index.js");
-/* harmony import */ var _tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tiptap/starter-kit */ "./node_modules/@tiptap/starter-kit/dist/index.js");
-/* harmony import */ var _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tiptap/extension-link */ "./node_modules/@tiptap/extension-link/dist/index.js");
-/* harmony import */ var _tiptap_extension_image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tiptap/extension-image */ "./node_modules/@tiptap/extension-image/dist/index.js");
-/* harmony import */ var _tiptap_extension_text_align__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tiptap/extension-text-align */ "./node_modules/@tiptap/extension-text-align/dist/index.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextB.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextItalic.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextAUnderline.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignLeft.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignCenterHorizontal.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignRight.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ListNumbers.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Quotes.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Code.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Link.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ImageSquare.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowCounterClockwise.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowClockwise.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextB.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextItalic.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextAUnderline.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignLeft.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignCenterHorizontal.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ListNumbers.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Quotes.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Code.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Link.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ImageSquare.es.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var _tiptap_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @tiptap/react */ "./node_modules/@tiptap/react/dist/index.js");
+/* harmony import */ var _tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tiptap/starter-kit */ "./node_modules/@tiptap/starter-kit/dist/index.js");
+/* harmony import */ var _tiptap_extension_underline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tiptap/extension-underline */ "./node_modules/@tiptap/extension-underline/dist/index.js");
+/* harmony import */ var _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tiptap/extension-link */ "./node_modules/@tiptap/extension-link/dist/index.js");
+/* harmony import */ var _tiptap_extension_image__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @tiptap/extension-image */ "./node_modules/@tiptap/extension-image/dist/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -265,7 +264,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* --- Custom React Image Node --- */
+
+// Custom React node view for images
 
 const ResizableImage = props => {
   const {
@@ -277,31 +277,11 @@ const ResizableImage = props => {
   const {
     src,
     alt,
-    width,
-    uploading
+    width
   } = node.attrs;
-  const dragRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const startResize = e => {
-    e.preventDefault();
-    const startX = e.clientX;
-    const startW = parseInt(width) || e.target.previousSibling.offsetWidth;
-    const onMove = moveEvt => {
-      const dx = moveEvt.clientX - startX;
-      const newW = Math.max(60, startW + dx);
-      updateAttributes({
-        width: newW
-      });
-    };
-    const onUp = () => {
-      document.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerup", onUp);
-    };
-    document.addEventListener("pointermove", onMove);
-    document.addEventListener("pointerup", onUp);
-  };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_tiptap_react__WEBPACK_IMPORTED_MODULE_6__.NodeViewWrapper, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_tiptap_react__WEBPACK_IMPORTED_MODULE_7__.NodeViewWrapper, {
     className: "relative inline-block group",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
       src: src,
       alt: alt,
       style: {
@@ -310,58 +290,47 @@ const ResizableImage = props => {
         height: "auto"
       },
       className: `rounded-md ${selected ? "ring-2 ring-schemesPrimary" : ""}`
-    }), uploading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm rounded-md",
-      children: "Uploading\u2026"
-    }), selected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+    }), selected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
         type: "button",
         className: "absolute -top-3 -right-3 rounded-full bg-schemesError text-schemesOnError p-1 shadow-md",
         onClick: () => deleteNode?.(),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.XIcon, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.XIcon, {
           size: 14
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        ref: dragRef,
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         role: "slider",
         "aria-label": "Resize image",
         className: "absolute -bottom-2 -right-2 w-4 h-4 bg-schemesPrimaryContainer rounded-sm cursor-se-resize shadow",
-        onPointerDown: startResize
+        draggable: true,
+        onDrag: e => {
+          if (!e.clientX) return;
+          const newWidth = Math.max(60, e.clientX - e.target.getBoundingClientRect().left);
+          updateAttributes({
+            width: newWidth
+          });
+        }
       })]
     })]
   });
 };
-
-/* --- Main Editor --- */
 const RichTextField = ({
   label = "Content",
   value,
   onChange,
-  required = false
+  required = false,
+  error = ""
 }) => {
-  const [uploadError, setUploadError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
-  const editor = (0,_tiptap_react__WEBPACK_IMPORTED_MODULE_6__.useEditor)({
-    extensions: [_tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_1__["default"].configure({
+  const [uploading, setUploading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const editor = (0,_tiptap_react__WEBPACK_IMPORTED_MODULE_7__.useEditor)({
+    extensions: [_tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_2__["default"].configure({
       blockquote: true,
       codeBlock: true
-    }), _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_2__["default"].configure({
+    }), _tiptap_extension_underline__WEBPACK_IMPORTED_MODULE_3__["default"], _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_4__["default"].configure({
       openOnClick: false
-    }), _tiptap_extension_text_align__WEBPACK_IMPORTED_MODULE_4__["default"].configure({
-      types: ["heading", "paragraph"]
-    }), _tiptap_extension_image__WEBPACK_IMPORTED_MODULE_3__["default"].extend({
+    }), _tiptap_extension_image__WEBPACK_IMPORTED_MODULE_5__["default"].extend({
       addNodeView() {
-        return (0,_tiptap_react__WEBPACK_IMPORTED_MODULE_6__.ReactNodeViewRenderer)(ResizableImage);
-      },
-      addAttributes() {
-        return {
-          ...this.parent?.(),
-          width: {
-            default: null
-          },
-          uploading: {
-            default: false
-          }
-        };
+        return (0,_tiptap_react__WEBPACK_IMPORTED_MODULE_7__.ReactNodeViewRenderer)(ResizableImage);
       }
     })],
     content: value || "",
@@ -375,179 +344,173 @@ const RichTextField = ({
       });
     }
   });
-
-  /* Insert image as DataURL (upload later) */
-  const insertImage = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(async () => {
+  const exec = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((command, attrs) => {
+    if (!editor) return;
+    editor.chain().focus()[command](attrs).run();
+  }, [editor]);
+  const addLink = () => {
+    if (!editor) return;
+    let url = window.prompt("Enter URL (https://…)");
+    if (!url) return;
     try {
-      const file = await new Promise(resolve => {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "image/*";
-        input.onchange = () => resolve(input.files[0]);
-        input.click();
-      });
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        editor.chain().focus().setImage({
-          src: reader.result,
-          uploading: false
-        }).run();
-      };
-      reader.readAsDataURL(file);
-      setUploadError("");
-    } catch (err) {
-      setUploadError(err?.message || "Image selection failed.");
-    }
-  }, [editor]);
-
-  /* Extract images for real upload on submit */
-  const extractImages = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
-    if (!editor) return [];
-    const json = editor.getJSON();
-    const images = [];
-    const traverse = node => {
-      if (node.type === "image" && node.attrs.src?.startsWith("data:")) {
-        images.push(node.attrs.src);
+      if (!/^https?:\/\//i.test(url)) {
+        url = "https://" + url;
       }
-      if (node.content) node.content.forEach(traverse);
+      const u = new URL(url);
+      if (!/^https?:$/.test(u.protocol)) return;
+      exec("setLink", {
+        href: u.href
+      });
+    } catch {
+      alert("Invalid URL");
+    }
+  };
+  const insertImage = async () => {
+    if (!editor) return;
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      setUploading(true);
+      try {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const dataUrl = e.target.result;
+          editor.chain().focus().setImage({
+            src: dataUrl
+          }).run();
+        };
+        reader.readAsDataURL(file);
+      } catch {
+        alert("Could not load image");
+      } finally {
+        setUploading(false);
+      }
     };
-    traverse(json);
-    return images;
-  }, [editor]);
-  if (!editor) return null;
+    input.click();
+  };
   const Btn = ({
+    title,
     onClick,
-    active,
     children,
-    title
-  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+    disabled
+  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
     type: "button",
     onMouseDown: e => e.preventDefault(),
     onClick: onClick,
+    disabled: disabled,
     title: title,
-    className: `px-2 py-1 rounded-md border transition ${active ? "bg-schemesPrimary text-white" : "border-schemesOutlineVariant text-schemesOnSurfaceVariant hover:text-schemesOnSurface"}`,
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])("px-2 py-1.5 rounded-md border Blueprint-label-medium transition", "border-schemesOutlineVariant text-schemesOnSurfaceVariant hover:text-schemesOnSurface hover:bg-surfaceContainerHigh", "focus:outline-none focus:ring-2 focus:ring-schemesPrimaryContainer disabled:opacity-50"),
     children: children
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "w-full",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-      className: "px-1 Blueprint-label-medium bg-schemesPrimaryFixed rounded-sm text-schemesOnSurface",
-      children: [label, required ? " *" : ""]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "relative w-full rounded-lg border border-schemesOutline bg-schemesSurfaceContainerLow",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "flex flex-wrap items-center gap-2 px-3 py-2 border-b border-schemesOutlineVariant",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().toggleBold().run(),
-          active: editor.isActive("bold"),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+        className: "absolute left-4 -top-3 px-1 Blueprint-label-medium bg-schemesPrimaryFixed rounded-sm",
+        children: [label, required ? " *" : ""]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "flex flex-wrap items-center gap-2 px-3 pt-6 pb-2 border-b border-schemesOutlineVariant",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Bold",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.TextBIcon, {
+          onClick: () => exec("toggleBold"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.TextBIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().toggleItalic().run(),
-          active: editor.isActive("italic"),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Italic",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.TextItalicIcon, {
+          onClick: () => exec("toggleItalic"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.TextItalicIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().toggleUnderline().run(),
-          active: editor.isActive("underline"),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Underline",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.TextAUnderlineIcon, {
+          onClick: () => exec("toggleUnderline"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.TextAUnderlineIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().setTextAlign("left").run(),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "w-px h-6 bg-schemesOutlineVariant mx-1"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Align left",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.AlignLeftIcon, {
+          onClick: () => exec("setTextAlign", "left"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.AlignLeftIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().setTextAlign("center").run(),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Align center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.AlignCenterHorizontalIcon, {
+          onClick: () => exec("setTextAlign", "center"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.AlignCenterHorizontalIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().setTextAlign("right").run(),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Align right",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.AlignRightIcon, {
+          onClick: () => exec("setTextAlign", "right"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__.AlignRightIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().toggleBulletList().run(),
-          active: editor.isActive("bulletList"),
-          title: "Bullet list",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__.ListIcon, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "w-px h-6 bg-schemesOutlineVariant mx-1"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
+          title: "Bulleted list",
+          onClick: () => exec("toggleBulletList"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__.ListIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().toggleOrderedList().run(),
-          active: editor.isActive("orderedList"),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Numbered list",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__.ListNumbersIcon, {
+          onClick: () => exec("toggleOrderedList"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_16__.ListNumbersIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().toggleBlockquote().run(),
-          active: editor.isActive("blockquote"),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "w-px h-6 bg-schemesOutlineVariant mx-1"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Quote",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_16__.QuotesIcon, {
+          onClick: () => exec("toggleBlockquote"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_17__.QuotesIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().toggleCodeBlock().run(),
-          active: editor.isActive("codeBlock"),
-          title: "Code",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_17__.CodeIcon, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
+          title: "Code block",
+          onClick: () => exec("toggleCodeBlock"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_18__.CodeIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => {
-            const url = window.prompt("Enter URL");
-            if (url) editor.chain().focus().setLink({
-              href: url
-            }).run();
-          },
-          active: editor.isActive("link"),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Insert link",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_18__.LinkIcon, {
+          onClick: addLink,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_19__.LinkIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: insertImage,
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "w-px h-6 bg-schemesOutlineVariant mx-1"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Btn, {
           title: "Insert image",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_19__.ImageSquareIcon, {
-            size: 18
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().undo().run(),
-          title: "Undo",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_20__.ArrowCounterClockwiseIcon, {
-            size: 18
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
-          onClick: () => editor.chain().focus().redo().run(),
-          title: "Redo",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_21__.ArrowClockwiseIcon, {
+          onClick: insertImage,
+          disabled: uploading,
+          children: uploading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            className: "text-xs font-semibold px-1",
+            children: "Uploading\u2026"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_20__.ImageSquareIcon, {
             size: 18
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "cursor-text",
-        onClick: () => editor.chain().focus().run(),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_tiptap_react__WEBPACK_IMPORTED_MODULE_6__.EditorContent, {
+        onClick: () => editor?.chain().focus().run(),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_tiptap_react__WEBPACK_IMPORTED_MODULE_7__.EditorContent, {
           editor: editor,
-          className: "tiptap min-h-[300px] px-3 py-3 Blueprint-body-medium text-schemesOnSurface"
+          className: "tiptap min-h-[300px] px-3 py-3 outline-none Blueprint-body-medium text-schemesOnSurface"
         })
       })]
-    }), uploadError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+    }), error ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
       className: "mt-1 ml-1 Blueprint-body-small text-schemesError",
-      children: uploadError
-    })]
+      children: error
+    }) : null]
   });
 };
 
@@ -987,4 +950,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=submit-article.js.map?ver=090de09cef0589049850
+//# sourceMappingURL=submit-article.js.map?ver=b64d49c98ea1b49061e8

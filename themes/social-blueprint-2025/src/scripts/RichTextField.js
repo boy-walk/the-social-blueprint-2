@@ -1,10 +1,4 @@
-import React, { useCallback, useState, useRef } from "react";
-import { EditorContent, useEditor, ReactNodeViewRenderer, NodeViewWrapper } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Link from "@tiptap/extension-link";
-import Image from "@tiptap/extension-image";
-import TextAlign from "@tiptap/extension-text-align";
-
+import React, { useCallback, useState } from "react";
 import {
   TextBolderIcon,
   TextItalicIcon,
@@ -17,37 +11,20 @@ import {
   ListNumbersIcon,
   QuotesIcon,
   CodeIcon,
-  ArrowCounterClockwiseIcon,
-  ArrowClockwiseIcon,
   ImageSquareIcon,
   XIcon,
 } from "@phosphor-icons/react";
+import clsx from "clsx";
+import { useEditor, EditorContent, NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import Link from "@tiptap/extension-link";
+import Image from "@tiptap/extension-image";
 
-/* --- Custom React Image Node --- */
+// Custom React node view for images
 const ResizableImage = (props) => {
   const { node, updateAttributes, deleteNode, selected } = props;
-  const { src, alt, width, uploading } = node.attrs;
-  const dragRef = useRef(null);
-
-  const startResize = (e) => {
-    e.preventDefault();
-    const startX = e.clientX;
-    const startW = parseInt(width) || e.target.previousSibling.offsetWidth;
-
-    const onMove = (moveEvt) => {
-      const dx = moveEvt.clientX - startX;
-      const newW = Math.max(60, startW + dx);
-      updateAttributes({ width: newW });
-    };
-
-    const onUp = () => {
-      document.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerup", onUp);
-    };
-
-    document.addEventListener("pointermove", onMove);
-    document.addEventListener("pointerup", onUp);
-  };
+  const { src, alt, width } = node.attrs;
 
   return (
     <NodeViewWrapper className="relative inline-block group">
@@ -57,14 +34,10 @@ const ResizableImage = (props) => {
         style={{ width: width || "auto", maxWidth: "100%", height: "auto" }}
         className={`rounded-md ${selected ? "ring-2 ring-schemesPrimary" : ""}`}
       />
-      {uploading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm rounded-md">
-          Uploading…
-        </div>
-      )}
+
       {selected && (
         <>
-          {/* Delete */}
+          {/* Delete button */}
           <button
             type="button"
             className="absolute -top-3 -right-3 rounded-full bg-schemesError text-schemesOnError p-1 shadow-md"
@@ -72,13 +45,18 @@ const ResizableImage = (props) => {
           >
             <XIcon size={14} />
           </button>
+
           {/* Resize handle */}
           <div
-            ref={dragRef}
             role="slider"
             aria-label="Resize image"
             className="absolute -bottom-2 -right-2 w-4 h-4 bg-schemesPrimaryContainer rounded-sm cursor-se-resize shadow"
-            onPointerDown={startResize}
+            draggable
+            onDrag={(e) => {
+              if (!e.clientX) return;
+              const newWidth = Math.max(60, e.clientX - e.target.getBoundingClientRect().left);
+              updateAttributes({ width: newWidth });
+            }}
           />
         </>
       )}
@@ -86,30 +64,26 @@ const ResizableImage = (props) => {
   );
 };
 
-/* --- Main Editor --- */
 export const RichTextField = ({
   label = "Content",
   value,
   onChange,
   required = false,
+  error = "",
 }) => {
-  const [uploadError, setUploadError] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({ blockquote: true, codeBlock: true }),
+      StarterKit.configure({
+        blockquote: true,
+        codeBlock: true,
+      }),
+      Underline,
       Link.configure({ openOnClick: false }),
-      TextAlign.configure({ types: ["heading", "paragraph"] }),
       Image.extend({
         addNodeView() {
           return ReactNodeViewRenderer(ResizableImage);
-        },
-        addAttributes() {
-          return {
-            ...this.parent?.(),
-            width: { default: null },
-            uploading: { default: false },
-          };
         },
       }),
     ],
@@ -119,62 +93,68 @@ export const RichTextField = ({
     },
   });
 
-  /* Insert image as DataURL (upload later) */
-  const insertImage = useCallback(async () => {
+  const exec = useCallback(
+    (command, attrs) => {
+      if (!editor) return;
+      editor.chain().focus()[command](attrs).run();
+    },
+    [editor]
+  );
+
+  const addLink = () => {
+    if (!editor) return;
+    let url = window.prompt("Enter URL (https://…)");
+    if (!url) return;
+
     try {
-      const file = await new Promise((resolve) => {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "image/*";
-        input.onchange = () => resolve(input.files[0]);
-        input.click();
-      });
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        editor
-          .chain()
-          .focus()
-          .setImage({ src: reader.result, uploading: false })
-          .run();
-      };
-      reader.readAsDataURL(file);
-      setUploadError("");
-    } catch (err) {
-      setUploadError(err?.message || "Image selection failed.");
-    }
-  }, [editor]);
-
-  /* Extract images for real upload on submit */
-  const extractImages = useCallback(() => {
-    if (!editor) return [];
-    const json = editor.getJSON();
-    const images = [];
-
-    const traverse = (node) => {
-      if (node.type === "image" && node.attrs.src?.startsWith("data:")) {
-        images.push(node.attrs.src);
+      if (!/^https?:\/\//i.test(url)) {
+        url = "https://" + url;
       }
-      if (node.content) node.content.forEach(traverse);
+      const u = new URL(url);
+      if (!/^https?:$/.test(u.protocol)) return;
+      exec("setLink", { href: u.href });
+    } catch {
+      alert("Invalid URL");
+    }
+  };
+
+  const insertImage = async () => {
+    if (!editor) return;
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      setUploading(true);
+      try {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const dataUrl = e.target.result;
+          editor.chain().focus().setImage({ src: dataUrl }).run();
+        };
+        reader.readAsDataURL(file);
+      } catch {
+        alert("Could not load image");
+      } finally {
+        setUploading(false);
+      }
     };
+    input.click();
+  };
 
-    traverse(json);
-    return images;
-  }, [editor]);
-
-  if (!editor) return null;
-
-  const Btn = ({ onClick, active, children, title }) => (
+  const Btn = ({ title, onClick, children, disabled }) => (
     <button
       type="button"
       onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
+      disabled={disabled}
       title={title}
-      className={`px-2 py-1 rounded-md border transition ${active
-        ? "bg-schemesPrimary text-white"
-        : "border-schemesOutlineVariant text-schemesOnSurfaceVariant hover:text-schemesOnSurface"
-        }`}
+      className={clsx(
+        "px-2 py-1.5 rounded-md border Blueprint-label-medium transition",
+        "border-schemesOutlineVariant text-schemesOnSurfaceVariant hover:text-schemesOnSurface hover:bg-surfaceContainerHigh",
+        "focus:outline-none focus:ring-2 focus:ring-schemesPrimaryContainer disabled:opacity-50"
+      )}
     >
       {children}
     </button>
@@ -182,90 +162,84 @@ export const RichTextField = ({
 
   return (
     <div className="w-full">
-      <span className="px-1 Blueprint-label-medium bg-schemesPrimaryFixed rounded-sm text-schemesOnSurface">
-        {label}
-        {required ? " *" : ""}
-      </span>
       <div className="relative w-full rounded-lg border border-schemesOutline bg-schemesSurfaceContainerLow">
-        <div className="flex flex-wrap items-center gap-2 px-3 py-2 border-b border-schemesOutlineVariant">
-          <Btn onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive("bold")} title="Bold">
+        {/* Label */}
+        <span className="absolute left-4 -top-3 px-1 Blueprint-label-medium bg-schemesPrimaryFixed rounded-sm">
+          {label}
+          {required ? " *" : ""}
+        </span>
+
+        {/* Toolbar */}
+        <div className="flex flex-wrap items-center gap-2 px-3 pt-6 pb-2 border-b border-schemesOutlineVariant">
+          <Btn title="Bold" onClick={() => exec("toggleBold")}>
             <TextBolderIcon size={18} />
           </Btn>
-          <Btn onClick={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive("italic")} title="Italic">
+          <Btn title="Italic" onClick={() => exec("toggleItalic")}>
             <TextItalicIcon size={18} />
           </Btn>
-          <Btn
-            onClick={() => editor.chain().focus().toggleUnderline().run()}
-            active={editor.isActive("underline")}
-            title="Underline"
-          >
+          <Btn title="Underline" onClick={() => exec("toggleUnderline")}>
             <TextAUnderlineIcon size={18} />
           </Btn>
 
-          <Btn onClick={() => editor.chain().focus().setTextAlign("left").run()} title="Align left">
+          <div className="w-px h-6 bg-schemesOutlineVariant mx-1" />
+
+          <Btn title="Align left" onClick={() => exec("setTextAlign", "left")}>
             <AlignLeftIcon size={18} />
           </Btn>
-          <Btn onClick={() => editor.chain().focus().setTextAlign("center").run()} title="Align center">
+          <Btn title="Align center" onClick={() => exec("setTextAlign", "center")}>
             <AlignCenterHorizontalIcon size={18} />
           </Btn>
-          <Btn onClick={() => editor.chain().focus().setTextAlign("right").run()} title="Align right">
+          <Btn title="Align right" onClick={() => exec("setTextAlign", "right")}>
             <AlignRightIcon size={18} />
           </Btn>
 
-          <Btn onClick={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive("bulletList")} title="Bullet list">
+          <div className="w-px h-6 bg-schemesOutlineVariant mx-1" />
+
+          <Btn title="Bulleted list" onClick={() => exec("toggleBulletList")}>
             <ListIcon size={18} />
           </Btn>
-          <Btn onClick={() => editor.chain().focus().toggleOrderedList().run()} active={editor.isActive("orderedList")} title="Numbered list">
+          <Btn title="Numbered list" onClick={() => exec("toggleOrderedList")}>
             <ListNumbersIcon size={18} />
           </Btn>
 
-          <Btn onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive("blockquote")} title="Quote">
+          <div className="w-px h-6 bg-schemesOutlineVariant mx-1" />
+
+          <Btn title="Quote" onClick={() => exec("toggleBlockquote")}>
             <QuotesIcon size={18} />
           </Btn>
-          <Btn onClick={() => editor.chain().focus().toggleCodeBlock().run()} active={editor.isActive("codeBlock")} title="Code">
+          <Btn title="Code block" onClick={() => exec("toggleCodeBlock")}>
             <CodeIcon size={18} />
           </Btn>
-
-          <Btn
-            onClick={() => {
-              const url = window.prompt("Enter URL");
-              if (url) editor.chain().focus().setLink({ href: url }).run();
-            }}
-            active={editor.isActive("link")}
-            title="Insert link"
-          >
+          <Btn title="Insert link" onClick={addLink}>
             <LinkIcon size={18} />
           </Btn>
 
-          <Btn onClick={insertImage} title="Insert image">
-            <ImageSquareIcon size={18} />
-          </Btn>
+          <div className="w-px h-6 bg-schemesOutlineVariant mx-1" />
 
-          <Btn onClick={() => editor.chain().focus().undo().run()} title="Undo">
-            <ArrowCounterClockwiseIcon size={18} />
-          </Btn>
-          <Btn onClick={() => editor.chain().focus().redo().run()} title="Redo">
-            <ArrowClockwiseIcon size={18} />
+          <Btn title="Insert image" onClick={insertImage} disabled={uploading}>
+            {uploading ? (
+              <span className="text-xs font-semibold px-1">Uploading…</span>
+            ) : (
+              <ImageSquareIcon size={18} />
+            )}
           </Btn>
         </div>
 
         {/* Editor */}
-        <div className="cursor-text" onClick={() => editor.chain().focus().run()}>
+        <div
+          className="cursor-text"
+          onClick={() => editor?.chain().focus().run()}
+        >
           <EditorContent
             editor={editor}
-            className="tiptap min-h-[300px] px-3 py-3 Blueprint-body-medium text-schemesOnSurface"
+            className="tiptap min-h-[300px] px-3 py-3 outline-none Blueprint-body-medium text-schemesOnSurface"
           />
         </div>
       </div>
 
-      {uploadError && (
-        <p className="mt-1 ml-1 Blueprint-body-small text-schemesError">
-          {uploadError}
-        </p>
-      )}
-
-      {/* Example: expose extractImages */}
-      {/* In parent form you can call editorRef.current.extractImages() */}
+      {error ? (
+        <p className="mt-1 ml-1 Blueprint-body-small text-schemesError">{error}</p>
+      ) : null}
     </div>
   );
 };
