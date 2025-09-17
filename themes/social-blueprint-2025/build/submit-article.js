@@ -235,463 +235,318 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextB.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextItalic.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextAUnderline.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignLeft.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignCenterHorizontal.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignRight.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ListNumbers.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Quotes.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Code.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Link.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ImageSquare.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _tiptap_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @tiptap/react */ "./node_modules/@tiptap/react/dist/index.js");
+/* harmony import */ var _tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tiptap/starter-kit */ "./node_modules/@tiptap/starter-kit/dist/index.js");
+/* harmony import */ var _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tiptap/extension-link */ "./node_modules/@tiptap/extension-link/dist/index.js");
+/* harmony import */ var _tiptap_extension_image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tiptap/extension-image */ "./node_modules/@tiptap/extension-image/dist/index.js");
+/* harmony import */ var _tiptap_extension_text_align__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tiptap/extension-text-align */ "./node_modules/@tiptap/extension-text-align/dist/index.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextB.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextItalic.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/TextAUnderline.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignLeft.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignCenterHorizontal.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/AlignRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ListNumbers.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Quotes.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Code.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Link.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ImageSquare.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowCounterClockwise.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowClockwise.es.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
 
+
+
+
+
+/* --- Custom React Image Node --- */
+
+const ResizableImage = props => {
+  const {
+    node,
+    updateAttributes,
+    deleteNode,
+    selected
+  } = props;
+  const {
+    src,
+    alt,
+    width,
+    uploading
+  } = node.attrs;
+  const dragRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const startResize = e => {
+    e.preventDefault();
+    const startX = e.clientX;
+    const startW = parseInt(width) || e.target.previousSibling.offsetWidth;
+    const onMove = moveEvt => {
+      const dx = moveEvt.clientX - startX;
+      const newW = Math.max(60, startW + dx);
+      updateAttributes({
+        width: newW
+      });
+    };
+    const onUp = () => {
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerup", onUp);
+    };
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("pointerup", onUp);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_tiptap_react__WEBPACK_IMPORTED_MODULE_6__.NodeViewWrapper, {
+    className: "relative inline-block group",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+      src: src,
+      alt: alt,
+      style: {
+        width: width || "auto",
+        maxWidth: "100%",
+        height: "auto"
+      },
+      className: `rounded-md ${selected ? "ring-2 ring-schemesPrimary" : ""}`
+    }), uploading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm rounded-md",
+      children: "Uploading\u2026"
+    }), selected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        type: "button",
+        className: "absolute -top-3 -right-3 rounded-full bg-schemesError text-schemesOnError p-1 shadow-md",
+        onClick: () => deleteNode?.(),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.XIcon, {
+          size: 14
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        ref: dragRef,
+        role: "slider",
+        "aria-label": "Resize image",
+        className: "absolute -bottom-2 -right-2 w-4 h-4 bg-schemesPrimaryContainer rounded-sm cursor-se-resize shadow",
+        onPointerDown: startResize
+      })]
+    })]
+  });
+};
+
+/* --- Main Editor --- */
 const RichTextField = ({
   label = "Content",
-  value = "",
+  value,
   onChange,
-  required = false,
-  onUpload,
-  // async (file) => public URL
-  maxInlineMB = 1.2 // if no onUpload, fallback to DataURL up to this size
+  required = false
 }) => {
-  const editorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const fileRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const savedRange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-
-  // --- image selection + resize overlay ---
-  const wrapRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const [selImg, setSelImg] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const [overlayRect, setOverlayRect] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const [drag, setDrag] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null); // {startX, startW}
-
-  const [uploading, setUploading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const emit = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
-    if (!onChange || !editorRef.current) return;
-    onChange({
-      target: {
-        value: editorRef.current.innerHTML
+  const [uploadError, setUploadError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+  const editor = (0,_tiptap_react__WEBPACK_IMPORTED_MODULE_6__.useEditor)({
+    extensions: [_tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_1__["default"].configure({
+      blockquote: true,
+      codeBlock: true
+    }), _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_2__["default"].configure({
+      openOnClick: false
+    }), _tiptap_extension_text_align__WEBPACK_IMPORTED_MODULE_4__["default"].configure({
+      types: ["heading", "paragraph"]
+    }), _tiptap_extension_image__WEBPACK_IMPORTED_MODULE_3__["default"].extend({
+      addNodeView() {
+        return (0,_tiptap_react__WEBPACK_IMPORTED_MODULE_6__.ReactNodeViewRenderer)(ResizableImage);
+      },
+      addAttributes() {
+        return {
+          ...this.parent?.(),
+          width: {
+            default: null
+          },
+          uploading: {
+            default: false
+          }
+        };
       }
-    });
-  }, [onChange]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    // keep selection range for toolbar actions
-    const onSel = () => {
-      const sel = document.getSelection();
-      if (sel && sel.rangeCount) savedRange.current = sel.getRangeAt(0).cloneRange();
-    };
-    document.addEventListener('selectionchange', onSel);
-    return () => document.removeEventListener('selectionchange', onSel);
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    // keep editor DOM in sync with controlled value
-    if (editorRef.current && editorRef.current.innerHTML !== value) {
-      editorRef.current.innerHTML = value || "";
-    }
-  }, [value]);
-  const restore = () => {
-    const sel = window.getSelection();
-    if (savedRange.current && sel) {
-      sel.removeAllRanges();
-      sel.addRange(savedRange.current);
-    }
-  };
-  const focusEditor = () => editorRef.current?.focus();
-  const exec = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((cmd, v = null) => {
-    restore();
-    document.execCommand(cmd, false, v);
-    focusEditor();
-    emit();
-  }, [emit]);
-  const handleKeyDown = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(e => {
-    if (e.ctrlKey || e.metaKey) {
-      switch (e.key) {
-        case 'b':
-          e.preventDefault();
-          exec('bold');
-          break;
-        case 'i':
-          e.preventDefault();
-          exec('italic');
-          break;
-        case 'u':
-          e.preventDefault();
-          exec('underline');
-          break;
-        case 'z':
-          e.preventDefault();
-          exec(e.shiftKey ? 'redo' : 'undo');
-          break;
-        default:
-          break;
-      }
-    }
-    // delete selected image via keyboard
-    if ((e.key === 'Backspace' || e.key === 'Delete') && selImg) {
-      e.preventDefault();
-      selImg.remove();
-      setSelImg(null);
-      setOverlayRect(null);
-      emit();
-    }
-  }, [exec, selImg, emit]);
-
-  // --- image insert helpers ---
-  const addLink = () => {
-    restore();
-    const url = window.prompt('Enter URL (https://…)');
-    if (!url) return;
-    try {
-      const u = new URL(url);
-      if (!/^https?:$/.test(u.protocol)) return;
-      exec('createLink', u.href);
-    } catch {}
-  };
-  const insertImgElAlt = (src, alt) => {
-    exec('insertImage', src);
-    const imgs = editorRef.current?.getElementsByTagName('img') || [];
-    for (let i = imgs.length - 1; i >= 0; i--) {
-      if (imgs[i].getAttribute('src') === src) {
-        if (alt) imgs[i].setAttribute('alt', alt);
-        // default responsive behaviour
-        imgs[i].removeAttribute('height');
-        imgs[i].style.height = 'auto';
-        imgs[i].style.maxWidth = '100%';
-        // select it
-        setTimeout(() => selectImage(imgs[i]), 0);
-        break;
-      }
-    }
-  };
-  const insertImageFromUrl = async () => {
-    restore();
-    const url = window.prompt('Image URL (https://…)');
-    if (!url) return;
-    try {
-      const u = new URL(url);
-      if (!/^https?:$/.test(u.protocol)) return;
-      const alt = window.prompt('Alt text (optional)') || '';
-      insertImgElAlt(u.href, alt);
-    } catch {}
-  };
-  const toDataURL = file => new Promise((resolve, reject) => {
-    const r = new FileReader();
-    r.onerror = () => reject(new Error('read fail'));
-    r.onload = () => resolve(r.result);
-    r.readAsDataURL(file);
-  });
-  const onUploadClick = () => {
-    restore();
-    fileRef.current?.click();
-  };
-  const onFileChange = async e => {
-    const f = e.target.files?.[0];
-    e.target.value = '';
-    if (!f || !f.type.startsWith('image/')) return;
-    setUploading(true);
-    try {
-      let url = '';
-      if (typeof onUpload === 'function') {
-        url = await onUpload(f);
-      } else {
-        if (f.size > maxInlineMB * 1024 * 1024) {
-          alert(`Image > ${maxInlineMB}MB. Please use a smaller image or a URL.`);
-          setUploading(false);
-          return;
+    })],
+    content: value || "",
+    onUpdate: ({
+      editor
+    }) => {
+      onChange?.({
+        target: {
+          value: editor.getHTML()
         }
-        url = await toDataURL(f);
-      }
-      const alt = window.prompt('Alt text (optional)') || '';
-      insertImgElAlt(url, alt);
-    } catch {
-      alert('Could not insert image.');
-    } finally {
-      setUploading(false);
-      focusEditor();
-      emit();
-    }
-  };
-
-  // --- selection + overlay positioning ---
-  const updateOverlay = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(imgEl => {
-    if (!imgEl || !wrapRef.current) {
-      setOverlayRect(null);
-      return;
-    }
-    const imgBox = imgEl.getBoundingClientRect();
-    const wrapBox = wrapRef.current.getBoundingClientRect();
-    setOverlayRect({
-      top: imgBox.top - wrapBox.top + wrapRef.current.scrollTop,
-      left: imgBox.left - wrapBox.left + wrapRef.current.scrollLeft,
-      width: imgBox.width,
-      height: imgBox.height
-    });
-  }, []);
-  const selectImage = imgEl => {
-    setSelImg(imgEl);
-    updateOverlay(imgEl);
-  };
-  const clearSelection = () => {
-    setSelImg(null);
-    setOverlayRect(null);
-  };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const onClick = e => {
-      if (!editorRef.current) return;
-      if (e.target && e.target.tagName === 'IMG' && editorRef.current.contains(e.target)) {
-        selectImage(e.target);
-      } else if (!wrapRef.current?.contains(e.target)) {
-        clearSelection();
-      }
-    };
-    const onScrollOrResize = () => {
-      if (selImg) updateOverlay(selImg);
-    };
-    document.addEventListener('click', onClick);
-    window.addEventListener('resize', onScrollOrResize);
-    wrapRef.current?.addEventListener('scroll', onScrollOrResize);
-    return () => {
-      document.removeEventListener('click', onClick);
-      window.removeEventListener('resize', onScrollOrResize);
-      wrapRef.current?.removeEventListener('scroll', onScrollOrResize);
-    };
-  }, [selImg, updateOverlay]);
-
-  // --- dragging to resize ---
-  const startDrag = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!selImg) return;
-    const startW = selImg.getBoundingClientRect().width;
-    const startX = 'clientX' in e ? e.clientX : 0;
-
-    // Max width = nearest block container (or editor wrap) width
-    const block = selImg.closest('figure, p, div, li') || wrapRef.current;
-    const maxW = block ? block.getBoundingClientRect().width : startW;
-    const state = {
-      startX,
-      startW,
-      maxW
-    };
-    setDrag(state);
-
-    // Prefer Pointer Events
-    if (e.nativeEvent && 'pointerId' in e.nativeEvent && e.currentTarget.setPointerCapture) {
-      const id = e.nativeEvent.pointerId;
-      e.currentTarget.setPointerCapture(id);
-      const onMove = pe => {
-        const dx = pe.clientX - state.startX;
-        const newW = Math.max(60, Math.min(Math.round(state.startW + dx), Math.round(state.maxW)));
-        selImg.style.width = newW + 'px';
-        selImg.removeAttribute('height');
-        selImg.setAttribute('width', String(newW));
-        updateOverlay(selImg);
-      };
-      const onUp = () => {
-        try {
-          e.currentTarget.releasePointerCapture(id);
-        } catch (_) {}
-        e.currentTarget.removeEventListener('pointermove', onMove);
-        e.currentTarget.removeEventListener('pointerup', onUp);
-        setDrag(null);
-        emit();
-      };
-      e.currentTarget.addEventListener('pointermove', onMove);
-      e.currentTarget.addEventListener('pointerup', onUp, {
-        once: true
       });
-      return;
     }
+  });
 
-    // Fallback: mouse events
-    const onMouseMove = me => {
-      const dx = me.clientX - state.startX;
-      const newW = Math.max(60, Math.min(Math.round(state.startW + dx), Math.round(state.maxW)));
-      selImg.style.width = newW + 'px';
-      selImg.removeAttribute('height');
-      selImg.setAttribute('width', String(newW));
-      updateOverlay(selImg);
+  /* Insert image as DataURL (upload later) */
+  const insertImage = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(async () => {
+    try {
+      const file = await new Promise(resolve => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = () => resolve(input.files[0]);
+        input.click();
+      });
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        editor.chain().focus().setImage({
+          src: reader.result,
+          uploading: false
+        }).run();
+      };
+      reader.readAsDataURL(file);
+      setUploadError("");
+    } catch (err) {
+      setUploadError(err?.message || "Image selection failed.");
+    }
+  }, [editor]);
+
+  /* Extract images for real upload on submit */
+  const extractImages = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    if (!editor) return [];
+    const json = editor.getJSON();
+    const images = [];
+    const traverse = node => {
+      if (node.type === "image" && node.attrs.src?.startsWith("data:")) {
+        images.push(node.attrs.src);
+      }
+      if (node.content) node.content.forEach(traverse);
     };
-    const onMouseUp = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      setDrag(null);
-      emit();
-    };
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp, {
-      once: true
-    });
-  };
+    traverse(json);
+    return images;
+  }, [editor]);
+  if (!editor) return null;
   const Btn = ({
-    title,
     onClick,
+    active,
     children,
-    disabled
-  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+    title
+  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
     type: "button",
     onMouseDown: e => e.preventDefault(),
     onClick: onClick,
-    disabled: disabled,
     title: title,
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])("px-2 py-1.5 rounded-md border Blueprint-label-medium transition", "border-schemesOutlineVariant text-schemesOnSurfaceVariant hover:text-schemesOnSurface hover:bg-surfaceContainerHigh", "focus:outline-none focus:ring-2 focus:ring-schemesPrimaryContainer disabled:opacity-50"),
+    className: `px-2 py-1 rounded-md border transition ${active ? "bg-schemesPrimary text-white" : "border-schemesOutlineVariant text-schemesOnSurfaceVariant hover:text-schemesOnSurface"}`,
     children: children
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "w-full",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "relative w-full rounded-lg border border-schemesOutline bg-schemesSurfaceContainerLow focus-within:border-schemesPrimaryContainer",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-        className: "absolute left-4 -translate-y-1/2 px-1 Blueprint-label-medium bg-schemesPrimaryFixed rounded-sm",
-        children: [label, required ? " *" : ""]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex flex-wrap items-center gap-2 px-3 pt-6 pb-2 border-b border-schemesOutlineVariant",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
-          title: "Bold (Ctrl+B)",
-          onClick: () => exec('bold'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.TextBIcon, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+      className: "px-1 Blueprint-label-medium bg-schemesPrimaryFixed rounded-sm text-schemesOnSurface",
+      children: [label, required ? " *" : ""]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "relative w-full rounded-lg border border-schemesOutline bg-schemesSurfaceContainerLow",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "flex flex-wrap items-center gap-2 px-3 py-2 border-b border-schemesOutlineVariant",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().toggleBold().run(),
+          active: editor.isActive("bold"),
+          title: "Bold",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.TextBIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
-          title: "Italic (Ctrl+I)",
-          onClick: () => exec('italic'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.TextItalicIcon, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().toggleItalic().run(),
+          active: editor.isActive("italic"),
+          title: "Italic",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.TextItalicIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
-          title: "Underline (Ctrl+U)",
-          onClick: () => exec('underline'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.TextAUnderlineIcon, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().toggleUnderline().run(),
+          active: editor.isActive("underline"),
+          title: "Underline",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.TextAUnderlineIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "w-px h-6 bg-schemesOutlineVariant mx-1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().setTextAlign("left").run(),
           title: "Align left",
-          onClick: () => exec('justifyLeft'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.AlignLeftIcon, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.AlignLeftIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().setTextAlign("center").run(),
           title: "Align center",
-          onClick: () => exec('justifyCenter'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.AlignCenterHorizontalIcon, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.AlignCenterHorizontalIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().setTextAlign("right").run(),
           title: "Align right",
-          onClick: () => exec('justifyRight'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.AlignRightIcon, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.AlignRightIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "w-px h-6 bg-schemesOutlineVariant mx-1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
-          title: "Bulleted list",
-          onClick: () => exec('insertUnorderedList'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.ListIcon, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().toggleBulletList().run(),
+          active: editor.isActive("bulletList"),
+          title: "Bullet list",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__.ListIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().toggleOrderedList().run(),
+          active: editor.isActive("orderedList"),
           title: "Numbered list",
-          onClick: () => exec('insertOrderedList'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.ListNumbersIcon, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__.ListNumbersIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "w-px h-6 bg-schemesOutlineVariant mx-1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().toggleBlockquote().run(),
+          active: editor.isActive("blockquote"),
           title: "Quote",
-          onClick: () => exec('formatBlock', 'blockquote'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.QuotesIcon, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_16__.QuotesIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
-          title: "Code block",
-          onClick: () => exec('formatBlock', 'pre'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.CodeIcon, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().toggleCodeBlock().run(),
+          active: editor.isActive("codeBlock"),
+          title: "Code",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_17__.CodeIcon, {
             size: 18
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
-          title: "Insert link",
-          onClick: addLink,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.LinkIcon, {
-            size: 18
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "w-px h-6 bg-schemesOutlineVariant mx-1"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
-          title: "Insert image URL",
-          onClick: insertImageFromUrl,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__.ImageSquareIcon, {
-            size: 18
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Btn, {
-          title: uploading ? "Uploading…" : "Upload image",
-          onClick: onUploadClick,
-          disabled: uploading,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-            className: "text-xs font-semibold px-1",
-            children: uploading ? "…" : "Upload"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-          ref: fileRef,
-          type: "file",
-          accept: "image/*",
-          className: "hidden",
-          onChange: onFileChange
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        ref: wrapRef,
-        className: "relative",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          ref: editorRef,
-          contentEditable: true,
-          onKeyDown: handleKeyDown,
-          onInput: emit,
-          className: "min-h-[300px] px-3 py-3 outline-none Blueprint-body-medium text-schemesOnSurface [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1 [&_img]:max-w-full [&_img]:h-auto [&_img]:my-2",
-          suppressContentEditableWarning: true
-        }), selImg && overlayRect && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "absolute border border-schemesPrimaryContainer rounded",
-          style: {
-            top: overlayRect.top,
-            left: overlayRect.left,
-            width: overlayRect.width,
-            height: overlayRect.height
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => {
+            const url = window.prompt("Enter URL");
+            if (url) editor.chain().focus().setLink({
+              href: url
+            }).run();
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-            type: "button",
-            className: "pointer-events-auto absolute -top-3 -right-3 rounded-full bg-schemesError text-schemesOnError p-1 shadow-md",
-            title: "Remove image",
-            onClick: e => {
-              e.stopPropagation();
-              selImg.remove();
-              clearSelection();
-              emit();
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__.XIcon, {
-              size: 14
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            role: "slider",
-            "aria-label": "Resize image",
-            className: "pointer-events-auto absolute -bottom-2 -right-2 w-4 h-4 bg-schemesPrimaryContainer rounded-sm cursor-se-resize shadow",
-            onMouseDown: startDrag,
-            title: "Drag to resize"
-          })]
+          active: editor.isActive("link"),
+          title: "Insert link",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_18__.LinkIcon, {
+            size: 18
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: insertImage,
+          title: "Insert image",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_19__.ImageSquareIcon, {
+            size: 18
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().undo().run(),
+          title: "Undo",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_20__.ArrowCounterClockwiseIcon, {
+            size: 18
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Btn, {
+          onClick: () => editor.chain().focus().redo().run(),
+          title: "Redo",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_21__.ArrowClockwiseIcon, {
+            size: 18
+          })
         })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "cursor-text",
+        onClick: () => editor.chain().focus().run(),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_tiptap_react__WEBPACK_IMPORTED_MODULE_6__.EditorContent, {
+          editor: editor,
+          className: "tiptap min-h-[300px] px-3 py-3 Blueprint-body-medium text-schemesOnSurface"
+        })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-      className: "mt-1 ml-1 Blueprint-body-small text-schemesOnSurfaceVariant",
-      children: "Tip: click an image to select it, then drag the corner to resize. Width is saved; height stays auto."
+    }), uploadError && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+      className: "mt-1 ml-1 Blueprint-body-small text-schemesError",
+      children: uploadError
     })]
   });
 };
@@ -810,6 +665,25 @@ function SubmitArticleForm({
       [k]: ""
     })); // clear error as user types
   };
+  const processInlineImages = async html => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    const imgs = Array.from(div.querySelectorAll("img[src^='data:']"));
+    for (const img of imgs) {
+      try {
+        const res = await fetch(img.src);
+        const blob = await res.blob();
+        const file = new File([blob], "inline-image.png", {
+          type: blob.type
+        });
+        const url = await uploadInlineImage(file);
+        img.src = url;
+      } catch (err) {
+        console.error("Inline image upload failed", err);
+      }
+    }
+    return div.innerHTML;
+  };
   const uploadInlineImage = async file => {
     const fd = new FormData();
     fd.append("file", file, file.name);
@@ -862,9 +736,10 @@ function SubmitArticleForm({
     if (!validate()) return;
     setBusy(true);
     try {
+      const processedContent = await processInlineImages(acf.article_content);
       const fd = new FormData();
       fd.append("website", "");
-      Object.entries(acf).forEach(([k, v]) => fd.append(`acf[${k}]`, v));
+      Object.entries(acf).forEach(([k, v]) => fd.append(`acf[${k}]`, k === "article_content" ? processedContent : v));
       topics.forEach(id => fd.append("topic_tags[]", String(id)));
       if (theme) fd.append("theme", String(theme));
       if (audience) fd.append("audience_tag", String(audience));
@@ -1047,7 +922,6 @@ function TextField({
   leadingIcon = null,
   trailingIcon = null,
   error = '',
-  // <-- string message ('' = no error)
   disabled = false,
   required = false,
   style = 'outlined',
@@ -1060,15 +934,15 @@ function TextField({
   const msgId = `${inputId}-msg`;
   const hasError = typeof error === 'string' && error.length > 0;
   const helperText = hasError ? error : supportingText;
-  const containerBase = 'relative w-full rounded-lg text-schemesOnSurface Blueprint-body-medium';
+  const containerBase = 'relative w-full rounded-xl text-schemesOnSurface Blueprint-body-medium';
   const variantMap = {
-    outlined: 'border border-schemesOutline bg-transparent hover:border-schemesOnSurfaceVariant ' + 'focus-within:border-schemesPrimaryContainer',
+    outlined: 'border border-schemesOutline bg-schemesSurfaceContainerLow hover:border-schemesOnSurfaceVariant ' + 'focus-within:border-schemesPrimaryContainer',
     filled: 'bg-schemesSurfaceVariant hover:bg-schemesSurface focus-within:bg-schemesSurface'
   };
   const errorClasses = hasError ? 'border-schemesError focus-within:border-schemesError' : '';
   const disabledClasses = disabled ? 'opacity-50 pointer-events-none cursor-not-allowed' : '';
-  const labelBase = 'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight ' + 'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixed peer-focus:bg-[#0799D0] rounded-sm';
-  const inputBase = 'peer w-full py-3 pr-4 pl-3 bg-transparent outline-none ' + 'text-schemesOnSurface placeholder:opacity-0 rounded-xl ' + 'bg-schemesSurfaceContainerLow ' + 'disabled:bg-transparent';
+  const labelBase = 'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight ' + 'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixed peer-focus:bg-schemesSurfaceContainerLow rounded-sm';
+  const inputBase = 'peer w-full py-3 pr-4 pl-3 bg-transparent outline-none ' + 'text-schemesOnSurface placeholder:opacity-0 disabled:bg-transparent';
   const commonProps = {
     id: inputId,
     name,
@@ -1104,7 +978,7 @@ function TextField({
       })]
     }), helperText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
       id: msgId,
-      className: "mt-1 ml-4 Blueprint-body-small text-schemesError",
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('mt-1 ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
       children: helperText
     }) : null]
   });
@@ -1113,4 +987,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=submit-article.js.map?ver=0e184e87c527554ad3e7
+//# sourceMappingURL=submit-article.js.map?ver=090de09cef0589049850

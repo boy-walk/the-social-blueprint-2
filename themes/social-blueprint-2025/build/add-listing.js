@@ -71,15 +71,21 @@ function AddListing({
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
                     href: "/add-listing/health_listing",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                         className: "bg-[#6ED4BE] rounded-[12px] p-1",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.MoneyWavyIcon, {
                           size: 22
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                        className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small",
-                        children: ["Add Health and Wellbeing", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Clinicians, groups, programs."]
+                        className: "flex flex-col gap-0.5",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small",
+                          children: "Add Health and Wellbeing"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "lg:Blueprint-label-large md:Blueprint-label-medium Blueprint-label-small",
+                          children: "Clinicians, groups, programs."
+                        })]
                       })]
                     })
                   })
@@ -88,7 +94,7 @@ function AddListing({
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
                     href: "/add-listing/aid_listing",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                         className: "bg-[#A3B4FF] rounded-[12px] p-1",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.BowlFoodIcon, {
@@ -105,7 +111,7 @@ function AddListing({
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
                     href: "/add-listing/message-boards",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                         className: "bg-[#FF9388] rounded-[12px] p-1",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.HeartHalfIcon, {
@@ -122,7 +128,7 @@ function AddListing({
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
                     href: "/events-calendar/community/add",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                         className: "bg-[#F7D471] rounded-[12px] p-1",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.MicrophoneStageIcon, {
@@ -139,7 +145,7 @@ function AddListing({
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
                     href: "/submit-article",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                      className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                         className: "bg-[#7FD0FF] rounded-[12px] p-1",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.StarOfDavidIcon, {
@@ -308,4 +314,4 @@ const NewsletterBanner = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=add-listing.js.map?ver=3d3ea6ffe403ecba3d1f
+//# sourceMappingURL=add-listing.js.map?ver=fff159e1aafe8f097fb1

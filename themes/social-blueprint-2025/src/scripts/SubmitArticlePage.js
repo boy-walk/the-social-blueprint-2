@@ -29,6 +29,25 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
     setErrors((e) => ({ ...e, [k]: "" })); // clear error as user types
   };
 
+  const processInlineImages = async (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    const imgs = Array.from(div.querySelectorAll("img[src^='data:']"));
+
+    for (const img of imgs) {
+      try {
+        const res = await fetch(img.src);
+        const blob = await res.blob();
+        const file = new File([blob], "inline-image.png", { type: blob.type });
+        const url = await uploadInlineImage(file);
+        img.src = url;
+      } catch (err) {
+        console.error("Inline image upload failed", err);
+      }
+    }
+    return div.innerHTML;
+  };
+
   const uploadInlineImage = async (file) => {
     const fd = new FormData();
     fd.append("file", file, file.name);
@@ -81,9 +100,12 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
 
     setBusy(true);
     try {
+      const processedContent = await processInlineImages(acf.article_content);
       const fd = new FormData();
       fd.append("website", "");
-      Object.entries(acf).forEach(([k, v]) => fd.append(`acf[${k}]`, v));
+      Object.entries(acf).forEach(([k, v]) =>
+        fd.append(`acf[${k}]`, k === "article_content" ? processedContent : v)
+      );
       topics.forEach((id) => fd.append("topic_tags[]", String(id)));
       if (theme) fd.append("theme", String(theme));
       if (audience) fd.append("audience_tag", String(audience));

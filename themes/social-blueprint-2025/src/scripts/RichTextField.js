@@ -1,286 +1,180 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react';
-import {
-  TextBolderIcon, TextAUnderlineIcon, TextItalicIcon,
-  AlignLeftIcon, AlignCenterHorizontalIcon, AlignRightIcon,
-  LinkIcon, ListIcon, ListNumbersIcon, QuotesIcon, CodeIcon,
-  ArrowCounterClockwiseIcon, ArrowClockwiseIcon, ImageSquareIcon, XIcon
-} from '@phosphor-icons/react';
-import clsx from 'clsx';
+import React, { useCallback, useState, useRef } from "react";
+import { EditorContent, useEditor, ReactNodeViewRenderer, NodeViewWrapper } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Link from "@tiptap/extension-link";
+import Image from "@tiptap/extension-image";
+import TextAlign from "@tiptap/extension-text-align";
 
+import {
+  TextBolderIcon,
+  TextItalicIcon,
+  TextAUnderlineIcon,
+  AlignLeftIcon,
+  AlignCenterHorizontalIcon,
+  AlignRightIcon,
+  LinkIcon,
+  ListIcon,
+  ListNumbersIcon,
+  QuotesIcon,
+  CodeIcon,
+  ArrowCounterClockwiseIcon,
+  ArrowClockwiseIcon,
+  ImageSquareIcon,
+  XIcon,
+} from "@phosphor-icons/react";
+
+/* --- Custom React Image Node --- */
+const ResizableImage = (props) => {
+  const { node, updateAttributes, deleteNode, selected } = props;
+  const { src, alt, width, uploading } = node.attrs;
+  const dragRef = useRef(null);
+
+  const startResize = (e) => {
+    e.preventDefault();
+    const startX = e.clientX;
+    const startW = parseInt(width) || e.target.previousSibling.offsetWidth;
+
+    const onMove = (moveEvt) => {
+      const dx = moveEvt.clientX - startX;
+      const newW = Math.max(60, startW + dx);
+      updateAttributes({ width: newW });
+    };
+
+    const onUp = () => {
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerup", onUp);
+    };
+
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("pointerup", onUp);
+  };
+
+  return (
+    <NodeViewWrapper className="relative inline-block group">
+      <img
+        src={src}
+        alt={alt}
+        style={{ width: width || "auto", maxWidth: "100%", height: "auto" }}
+        className={`rounded-md ${selected ? "ring-2 ring-schemesPrimary" : ""}`}
+      />
+      {uploading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm rounded-md">
+          Uploading…
+        </div>
+      )}
+      {selected && (
+        <>
+          {/* Delete */}
+          <button
+            type="button"
+            className="absolute -top-3 -right-3 rounded-full bg-schemesError text-schemesOnError p-1 shadow-md"
+            onClick={() => deleteNode?.()}
+          >
+            <XIcon size={14} />
+          </button>
+          {/* Resize handle */}
+          <div
+            ref={dragRef}
+            role="slider"
+            aria-label="Resize image"
+            className="absolute -bottom-2 -right-2 w-4 h-4 bg-schemesPrimaryContainer rounded-sm cursor-se-resize shadow"
+            onPointerDown={startResize}
+          />
+        </>
+      )}
+    </NodeViewWrapper>
+  );
+};
+
+/* --- Main Editor --- */
 export const RichTextField = ({
   label = "Content",
-  value = "",
+  value,
   onChange,
   required = false,
-  onUpload,           // async (file) => public URL
-  maxInlineMB = 1.2,  // if no onUpload, fallback to DataURL up to this size
 }) => {
-  const editorRef = useRef(null);
-  const fileRef = useRef(null);
-  const savedRange = useRef(null);
+  const [uploadError, setUploadError] = useState("");
 
-  // --- image selection + resize overlay ---
-  const wrapRef = useRef(null);
-  const [selImg, setSelImg] = useState(null);
-  const [overlayRect, setOverlayRect] = useState(null);
-  const [drag, setDrag] = useState(null); // {startX, startW}
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({ blockquote: true, codeBlock: true }),
+      Link.configure({ openOnClick: false }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      Image.extend({
+        addNodeView() {
+          return ReactNodeViewRenderer(ResizableImage);
+        },
+        addAttributes() {
+          return {
+            ...this.parent?.(),
+            width: { default: null },
+            uploading: { default: false },
+          };
+        },
+      }),
+    ],
+    content: value || "",
+    onUpdate: ({ editor }) => {
+      onChange?.({ target: { value: editor.getHTML() } });
+    },
+  });
 
-  const [uploading, setUploading] = useState(false);
-
-  const emit = useCallback(() => {
-    if (!onChange || !editorRef.current) return;
-    onChange({ target: { value: editorRef.current.innerHTML } });
-  }, [onChange]);
-
-  useEffect(() => {
-    // keep selection range for toolbar actions
-    const onSel = () => {
-      const sel = document.getSelection();
-      if (sel && sel.rangeCount) savedRange.current = sel.getRangeAt(0).cloneRange();
-    };
-    document.addEventListener('selectionchange', onSel);
-    return () => document.removeEventListener('selectionchange', onSel);
-  }, []);
-
-  useEffect(() => {
-    // keep editor DOM in sync with controlled value
-    if (editorRef.current && editorRef.current.innerHTML !== value) {
-      editorRef.current.innerHTML = value || "";
-    }
-  }, [value]);
-
-  const restore = () => {
-    const sel = window.getSelection();
-    if (savedRange.current && sel) {
-      sel.removeAllRanges();
-      sel.addRange(savedRange.current);
-    }
-  };
-
-  const focusEditor = () => editorRef.current?.focus();
-
-  const exec = useCallback((cmd, v = null) => {
-    restore();
-    document.execCommand(cmd, false, v);
-    focusEditor();
-    emit();
-  }, [emit]);
-
-  const handleKeyDown = useCallback((e) => {
-    if (e.ctrlKey || e.metaKey) {
-      switch (e.key) {
-        case 'b': e.preventDefault(); exec('bold'); break;
-        case 'i': e.preventDefault(); exec('italic'); break;
-        case 'u': e.preventDefault(); exec('underline'); break;
-        case 'z': e.preventDefault(); exec(e.shiftKey ? 'redo' : 'undo'); break;
-        default: break;
-      }
-    }
-    // delete selected image via keyboard
-    if ((e.key === 'Backspace' || e.key === 'Delete') && selImg) {
-      e.preventDefault();
-      selImg.remove();
-      setSelImg(null);
-      setOverlayRect(null);
-      emit();
-    }
-  }, [exec, selImg, emit]);
-
-  // --- image insert helpers ---
-  const addLink = () => {
-    restore();
-    const url = window.prompt('Enter URL (https://…)');
-    if (!url) return;
+  /* Insert image as DataURL (upload later) */
+  const insertImage = useCallback(async () => {
     try {
-      const u = new URL(url);
-      if (!/^https?:$/.test(u.protocol)) return;
-      exec('createLink', u.href);
-    } catch { }
-  };
+      const file = await new Promise((resolve) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = () => resolve(input.files[0]);
+        input.click();
+      });
+      if (!file) return;
 
-  const insertImgElAlt = (src, alt) => {
-    exec('insertImage', src);
-    const imgs = editorRef.current?.getElementsByTagName('img') || [];
-    for (let i = imgs.length - 1; i >= 0; i--) {
-      if (imgs[i].getAttribute('src') === src) {
-        if (alt) imgs[i].setAttribute('alt', alt);
-        // default responsive behaviour
-        imgs[i].removeAttribute('height');
-        imgs[i].style.height = 'auto';
-        imgs[i].style.maxWidth = '100%';
-        // select it
-        setTimeout(() => selectImage(imgs[i]), 0);
-        break;
-      }
-    }
-  };
-
-  const insertImageFromUrl = async () => {
-    restore();
-    const url = window.prompt('Image URL (https://…)');
-    if (!url) return;
-    try {
-      const u = new URL(url);
-      if (!/^https?:$/.test(u.protocol)) return;
-      const alt = window.prompt('Alt text (optional)') || '';
-      insertImgElAlt(u.href, alt);
-    } catch { }
-  };
-
-  const toDataURL = (file) =>
-    new Promise((resolve, reject) => {
-      const r = new FileReader();
-      r.onerror = () => reject(new Error('read fail'));
-      r.onload = () => resolve(r.result);
-      r.readAsDataURL(file);
-    });
-
-  const onUploadClick = () => { restore(); fileRef.current?.click(); };
-
-  const onFileChange = async (e) => {
-    const f = e.target.files?.[0];
-    e.target.value = '';
-    if (!f || !f.type.startsWith('image/')) return;
-    setUploading(true);
-    try {
-      let url = '';
-      if (typeof onUpload === 'function') {
-        url = await onUpload(f);
-      } else {
-        if (f.size > maxInlineMB * 1024 * 1024) {
-          alert(`Image > ${maxInlineMB}MB. Please use a smaller image or a URL.`);
-          setUploading(false);
-          return;
-        }
-        url = await toDataURL(f);
-      }
-      const alt = window.prompt('Alt text (optional)') || '';
-      insertImgElAlt(url, alt);
-    } catch {
-      alert('Could not insert image.');
-    } finally {
-      setUploading(false);
-      focusEditor();
-      emit();
-    }
-  };
-
-  // --- selection + overlay positioning ---
-  const updateOverlay = useCallback((imgEl) => {
-    if (!imgEl || !wrapRef.current) { setOverlayRect(null); return; }
-    const imgBox = imgEl.getBoundingClientRect();
-    const wrapBox = wrapRef.current.getBoundingClientRect();
-    setOverlayRect({
-      top: imgBox.top - wrapBox.top + wrapRef.current.scrollTop,
-      left: imgBox.left - wrapBox.left + wrapRef.current.scrollLeft,
-      width: imgBox.width,
-      height: imgBox.height,
-    });
-  }, []);
-
-  const selectImage = (imgEl) => {
-    setSelImg(imgEl);
-    updateOverlay(imgEl);
-  };
-
-  const clearSelection = () => {
-    setSelImg(null);
-    setOverlayRect(null);
-  };
-
-  useEffect(() => {
-    const onClick = (e) => {
-      if (!editorRef.current) return;
-      if (e.target && e.target.tagName === 'IMG' && editorRef.current.contains(e.target)) {
-        selectImage(e.target);
-      } else if (!wrapRef.current?.contains(e.target)) {
-        clearSelection();
-      }
-    };
-    const onScrollOrResize = () => { if (selImg) updateOverlay(selImg); };
-    document.addEventListener('click', onClick);
-    window.addEventListener('resize', onScrollOrResize);
-    wrapRef.current?.addEventListener('scroll', onScrollOrResize);
-    return () => {
-      document.removeEventListener('click', onClick);
-      window.removeEventListener('resize', onScrollOrResize);
-      wrapRef.current?.removeEventListener('scroll', onScrollOrResize);
-    };
-  }, [selImg, updateOverlay]);
-
-  // --- dragging to resize ---
-  const startDrag = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!selImg) return;
-
-    const startW = selImg.getBoundingClientRect().width;
-    const startX = 'clientX' in e ? e.clientX : 0;
-
-    // Max width = nearest block container (or editor wrap) width
-    const block = selImg.closest('figure, p, div, li') || wrapRef.current;
-    const maxW = block ? block.getBoundingClientRect().width : startW;
-
-    const state = { startX, startW, maxW };
-    setDrag(state);
-
-    // Prefer Pointer Events
-    if (e.nativeEvent && 'pointerId' in e.nativeEvent && e.currentTarget.setPointerCapture) {
-      const id = e.nativeEvent.pointerId;
-      e.currentTarget.setPointerCapture(id);
-
-      const onMove = (pe) => {
-        const dx = pe.clientX - state.startX;
-        const newW = Math.max(60, Math.min(Math.round(state.startW + dx), Math.round(state.maxW)));
-        selImg.style.width = newW + 'px';
-        selImg.removeAttribute('height');
-        selImg.setAttribute('width', String(newW));
-        updateOverlay(selImg);
+      const reader = new FileReader();
+      reader.onload = () => {
+        editor
+          .chain()
+          .focus()
+          .setImage({ src: reader.result, uploading: false })
+          .run();
       };
-      const onUp = () => {
-        try { e.currentTarget.releasePointerCapture(id); } catch (_) { }
-        e.currentTarget.removeEventListener('pointermove', onMove);
-        e.currentTarget.removeEventListener('pointerup', onUp);
-        setDrag(null);
-        emit();
-      };
-
-      e.currentTarget.addEventListener('pointermove', onMove);
-      e.currentTarget.addEventListener('pointerup', onUp, { once: true });
-      return;
+      reader.readAsDataURL(file);
+      setUploadError("");
+    } catch (err) {
+      setUploadError(err?.message || "Image selection failed.");
     }
+  }, [editor]);
 
-    // Fallback: mouse events
-    const onMouseMove = (me) => {
-      const dx = me.clientX - state.startX;
-      const newW = Math.max(60, Math.min(Math.round(state.startW + dx), Math.round(state.maxW)));
-      selImg.style.width = newW + 'px';
-      selImg.removeAttribute('height');
-      selImg.setAttribute('width', String(newW));
-      updateOverlay(selImg);
+  /* Extract images for real upload on submit */
+  const extractImages = useCallback(() => {
+    if (!editor) return [];
+    const json = editor.getJSON();
+    const images = [];
+
+    const traverse = (node) => {
+      if (node.type === "image" && node.attrs.src?.startsWith("data:")) {
+        images.push(node.attrs.src);
+      }
+      if (node.content) node.content.forEach(traverse);
     };
-    const onMouseUp = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      setDrag(null);
-      emit();
-    };
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp, { once: true });
-  };
+    traverse(json);
+    return images;
+  }, [editor]);
 
-  const Btn = ({ title, onClick, children, disabled }) => (
+  if (!editor) return null;
+
+  const Btn = ({ onClick, active, children, title }) => (
     <button
       type="button"
       onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
-      disabled={disabled}
       title={title}
-      className={clsx(
-        "px-2 py-1.5 rounded-md border Blueprint-label-medium transition",
-        "border-schemesOutlineVariant text-schemesOnSurfaceVariant hover:text-schemesOnSurface hover:bg-surfaceContainerHigh",
-        "focus:outline-none focus:ring-2 focus:ring-schemesPrimaryContainer disabled:opacity-50"
-      )}
+      className={`px-2 py-1 rounded-md border transition ${active
+        ? "bg-schemesPrimary text-white"
+        : "border-schemesOutlineVariant text-schemesOnSurfaceVariant hover:text-schemesOnSurface"
+        }`}
     >
       {children}
     </button>
@@ -288,92 +182,90 @@ export const RichTextField = ({
 
   return (
     <div className="w-full">
-      <div className="relative w-full rounded-lg border border-schemesOutline bg-schemesSurfaceContainerLow focus-within:border-schemesPrimaryContainer">
-        <span className="absolute left-4 -translate-y-1/2 px-1 Blueprint-label-medium bg-schemesPrimaryFixed rounded-sm">
-          {label}{required ? " *" : ""}
-        </span>
-
-        {/* Toolbar */}
-        <div className="flex flex-wrap items-center gap-2 px-3 pt-6 pb-2 border-b border-schemesOutlineVariant">
-          <Btn title="Bold (Ctrl+B)" onClick={() => exec('bold')}><TextBolderIcon size={18} /></Btn>
-          <Btn title="Italic (Ctrl+I)" onClick={() => exec('italic')}><TextItalicIcon size={18} /></Btn>
-          <Btn title="Underline (Ctrl+U)" onClick={() => exec('underline')}><TextAUnderlineIcon size={18} /></Btn>
-
-          <div className="w-px h-6 bg-schemesOutlineVariant mx-1" />
-
-          <Btn title="Align left" onClick={() => exec('justifyLeft')}><AlignLeftIcon size={18} /></Btn>
-          <Btn title="Align center" onClick={() => exec('justifyCenter')}><AlignCenterHorizontalIcon size={18} /></Btn>
-          <Btn title="Align right" onClick={() => exec('justifyRight')}><AlignRightIcon size={18} /></Btn>
-
-          <div className="w-px h-6 bg-schemesOutlineVariant mx-1" />
-
-          <Btn title="Bulleted list" onClick={() => exec('insertUnorderedList')}><ListIcon size={18} /></Btn>
-          <Btn title="Numbered list" onClick={() => exec('insertOrderedList')}><ListNumbersIcon size={18} /></Btn>
-
-          <div className="w-px h-6 bg-schemesOutlineVariant mx-1" />
-
-          <Btn title="Quote" onClick={() => exec('formatBlock', 'blockquote')}><QuotesIcon size={18} /></Btn>
-          <Btn title="Code block" onClick={() => exec('formatBlock', 'pre')}><CodeIcon size={18} /></Btn>
-          <Btn title="Insert link" onClick={addLink}><LinkIcon size={18} /></Btn>
-
-          <div className="w-px h-6 bg-schemesOutlineVariant mx-1" />
-
-          <Btn title="Insert image URL" onClick={insertImageFromUrl}><ImageSquareIcon size={18} /></Btn>
-          <Btn title={uploading ? "Uploading…" : "Upload image"} onClick={onUploadClick} disabled={uploading}>
-            <span className="text-xs font-semibold px-1">{uploading ? "…" : "Upload"}</span>
+      <span className="px-1 Blueprint-label-medium bg-schemesPrimaryFixed rounded-sm text-schemesOnSurface">
+        {label}
+        {required ? " *" : ""}
+      </span>
+      <div className="relative w-full rounded-lg border border-schemesOutline bg-schemesSurfaceContainerLow">
+        <div className="flex flex-wrap items-center gap-2 px-3 py-2 border-b border-schemesOutlineVariant">
+          <Btn onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive("bold")} title="Bold">
+            <TextBolderIcon size={18} />
           </Btn>
-          <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onFileChange} />
+          <Btn onClick={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive("italic")} title="Italic">
+            <TextItalicIcon size={18} />
+          </Btn>
+          <Btn
+            onClick={() => editor.chain().focus().toggleUnderline().run()}
+            active={editor.isActive("underline")}
+            title="Underline"
+          >
+            <TextAUnderlineIcon size={18} />
+          </Btn>
+
+          <Btn onClick={() => editor.chain().focus().setTextAlign("left").run()} title="Align left">
+            <AlignLeftIcon size={18} />
+          </Btn>
+          <Btn onClick={() => editor.chain().focus().setTextAlign("center").run()} title="Align center">
+            <AlignCenterHorizontalIcon size={18} />
+          </Btn>
+          <Btn onClick={() => editor.chain().focus().setTextAlign("right").run()} title="Align right">
+            <AlignRightIcon size={18} />
+          </Btn>
+
+          <Btn onClick={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive("bulletList")} title="Bullet list">
+            <ListIcon size={18} />
+          </Btn>
+          <Btn onClick={() => editor.chain().focus().toggleOrderedList().run()} active={editor.isActive("orderedList")} title="Numbered list">
+            <ListNumbersIcon size={18} />
+          </Btn>
+
+          <Btn onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive("blockquote")} title="Quote">
+            <QuotesIcon size={18} />
+          </Btn>
+          <Btn onClick={() => editor.chain().focus().toggleCodeBlock().run()} active={editor.isActive("codeBlock")} title="Code">
+            <CodeIcon size={18} />
+          </Btn>
+
+          <Btn
+            onClick={() => {
+              const url = window.prompt("Enter URL");
+              if (url) editor.chain().focus().setLink({ href: url }).run();
+            }}
+            active={editor.isActive("link")}
+            title="Insert link"
+          >
+            <LinkIcon size={18} />
+          </Btn>
+
+          <Btn onClick={insertImage} title="Insert image">
+            <ImageSquareIcon size={18} />
+          </Btn>
+
+          <Btn onClick={() => editor.chain().focus().undo().run()} title="Undo">
+            <ArrowCounterClockwiseIcon size={18} />
+          </Btn>
+          <Btn onClick={() => editor.chain().focus().redo().run()} title="Redo">
+            <ArrowClockwiseIcon size={18} />
+          </Btn>
         </div>
 
-        {/* Editor area + resize overlay */}
-        <div ref={wrapRef} className="relative">
-          <div
-            ref={editorRef}
-            contentEditable
-            onKeyDown={handleKeyDown}
-            onInput={emit}
-            className="min-h-[300px] px-3 py-3 outline-none Blueprint-body-medium text-schemesOnSurface
-                       [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1
-                       [&_img]:max-w-full [&_img]:h-auto [&_img]:my-2"
-            suppressContentEditableWarning
+        {/* Editor */}
+        <div className="cursor-text" onClick={() => editor.chain().focus().run()}>
+          <EditorContent
+            editor={editor}
+            className="tiptap min-h-[300px] px-3 py-3 Blueprint-body-medium text-schemesOnSurface"
           />
-
-          {selImg && overlayRect && (
-            <div
-              className="absolute border border-schemesPrimaryContainer rounded"
-              style={{
-                top: overlayRect.top,
-                left: overlayRect.left,
-                width: overlayRect.width,
-                height: overlayRect.height,
-              }}
-            >
-              {/* remove selection button */}
-              <button
-                type="button"
-                className="pointer-events-auto absolute -top-3 -right-3 rounded-full bg-schemesError text-schemesOnError p-1 shadow-md"
-                title="Remove image"
-                onClick={(e) => { e.stopPropagation(); selImg.remove(); clearSelection(); emit(); }}
-              >
-                <XIcon size={14} />
-              </button>
-
-              {/* resize handle bottom-right */}
-              <div
-                role="slider"
-                aria-label="Resize image"
-                className="pointer-events-auto absolute -bottom-2 -right-2 w-4 h-4 bg-schemesPrimaryContainer rounded-sm cursor-se-resize shadow"
-                onMouseDown={startDrag}
-                title="Drag to resize"
-              />
-            </div>
-          )}
         </div>
       </div>
 
-      <p className="mt-1 ml-1 Blueprint-body-small text-schemesOnSurfaceVariant">
-        Tip: click an image to select it, then drag the corner to resize. Width is saved; height stays auto.
-      </p>
+      {uploadError && (
+        <p className="mt-1 ml-1 Blueprint-body-small text-schemesError">
+          {uploadError}
+        </p>
+      )}
+
+      {/* Example: expose extractImages */}
+      {/* In parent form you can call editorRef.current.extractImages() */}
     </div>
   );
 };

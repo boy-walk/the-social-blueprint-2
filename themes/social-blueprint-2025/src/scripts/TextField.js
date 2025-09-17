@@ -9,7 +9,7 @@ export function TextField({
   supportingText = '',
   leadingIcon = null,
   trailingIcon = null,
-  error = '',            // <-- string message ('' = no error)
+  error = '',
   disabled = false,
   required = false,
   style = 'outlined',
@@ -24,11 +24,11 @@ export function TextField({
   const helperText = hasError ? error : supportingText;
 
   const containerBase =
-    'relative w-full rounded-lg text-schemesOnSurface Blueprint-body-medium';
+    'relative w-full rounded-xl text-schemesOnSurface Blueprint-body-medium';
 
   const variantMap = {
     outlined:
-      'border border-schemesOutline bg-transparent hover:border-schemesOnSurfaceVariant ' +
+      'border border-schemesOutline bg-schemesSurfaceContainerLow hover:border-schemesOnSurfaceVariant ' +
       'focus-within:border-schemesPrimaryContainer',
     filled:
       'bg-schemesSurfaceVariant hover:bg-schemesSurface focus-within:bg-schemesSurface',
@@ -44,13 +44,11 @@ export function TextField({
 
   const labelBase =
     'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight ' +
-    'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixed peer-focus:bg-[#0799D0] rounded-sm';
+    'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixed peer-focus:bg-schemesSurfaceContainerLow rounded-sm';
 
   const inputBase =
     'peer w-full py-3 pr-4 pl-3 bg-transparent outline-none ' +
-    'text-schemesOnSurface placeholder:opacity-0 rounded-xl ' +
-    'bg-schemesSurfaceContainerLow ' +
-    'disabled:bg-transparent';
+    'text-schemesOnSurface placeholder:opacity-0 disabled:bg-transparent';
 
   const commonProps = {
     id: inputId,
@@ -62,12 +60,21 @@ export function TextField({
     disabled,
     'aria-invalid': hasError ? 'true' : undefined,
     'aria-describedby': helperText ? msgId : undefined,
-    className: multiline ? clsx(inputBase, 'resize-none h-32') : inputBase,
+    className: multiline
+      ? clsx(inputBase, 'resize-none h-32')
+      : inputBase,
   };
 
   return (
     <>
-      <div className={clsx(containerBase, variantMap[style], errorClasses, disabledClasses)}>
+      <div
+        className={clsx(
+          containerBase,
+          variantMap[style],
+          errorClasses,
+          disabledClasses
+        )}
+      >
         {leadingIcon && (
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant pointer-events-none">
             {leadingIcon}
@@ -96,7 +103,13 @@ export function TextField({
       </div>
 
       {helperText ? (
-        <p id={msgId} className="mt-1 ml-4 Blueprint-body-small text-schemesError">
+        <p
+          id={msgId}
+          className={clsx(
+            'mt-1 ml-4 Blueprint-body-small',
+            hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'
+          )}
+        >
           {helperText}
         </p>
       ) : null}

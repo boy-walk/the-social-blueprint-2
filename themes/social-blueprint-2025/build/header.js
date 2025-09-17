@@ -184,8 +184,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// 🔽 put near the top of your Header component file
-
 function useAdminBarOffset() {
   const [offset, setOffset] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -196,8 +194,6 @@ function useAdminBarOffset() {
       const bar = getBar();
       const h = bar ? Math.round(bar.getBoundingClientRect().height) : 0;
       setOffset(h);
-
-      // Make sure the bar is fixed (WP usually does this already)
       if (bar) {
         bar.style.position = "fixed";
         bar.style.top = "0";
@@ -205,19 +201,14 @@ function useAdminBarOffset() {
         bar.style.right = "0";
         bar.style.zIndex = "99999";
       }
-
-      // Push the sticky header down exactly under the admin bar
       root.style.position = "sticky";
-      root.style.top = `${h}px`; // overrides Tailwind top-0 on the same element
+      root.style.top = `${h}px`;
       root.style.zIndex = "1000";
     };
     compute();
-
-    // Keep it in sync if the bar height changes (mobile vs desktop)
     const ro = window.ResizeObserver && getBar() ? new ResizeObserver(compute) : null;
     if (ro && getBar()) ro.observe(getBar());
     window.addEventListener("resize", compute);
-    // WP swaps admin bar DOM on login/logout or customizers sometimes:
     const id = setInterval(() => {
       if (!getBar()) return;
       compute();
@@ -383,6 +374,14 @@ const MENU_SECTIONS = {
     }]
   }]
 };
+const SECTION_ROUTES = {
+  "whats-on": "/events",
+  directory: "/directory",
+  "blueprint-stories": "/stories-and-interviews",
+  "about-us": "/about-us",
+  "message-board": "/message-boards",
+  "explore-by": "/topics"
+};
 function MegaPanel({
   open,
   onClose,
@@ -391,8 +390,6 @@ function MegaPanel({
   onPanelLeave
 }) {
   const panelRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-
-  // Close on outside click
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!open) return;
     const onDown = e => {
@@ -405,8 +402,6 @@ function MegaPanel({
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, [open, onClose, anchorRef]);
-
-  // Close on Escape
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!open) return;
     const onKey = e => e.key === "Escape" && onClose();
@@ -449,7 +444,6 @@ function MegaPanel({
     })
   });
 }
-/* ---------- Mobile overlay menu ---------- */
 function MobileMenu({
   open,
   onClose,
@@ -457,24 +451,19 @@ function MobileMenu({
 }) {
   const [expanded, setExpanded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [present, setPresent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(open);
-  const [entered, setEntered] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false); // drives the animation state
-
-  // Stage enter/exit so opening doesn't snap
+  const [entered, setEntered] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (open) {
-      setPresent(true); // mount
-      setEntered(false); // start closed for first paint
-      const id = requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)) // then animate to open
-      );
+      setPresent(true);
+      setEntered(false);
+      const id = requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
       return () => cancelAnimationFrame(id);
     } else {
-      setEntered(false); // play exit animation
-      const t = setTimeout(() => setPresent(false), 300); // unmount after transition
+      setEntered(false);
+      const t = setTimeout(() => setPresent(false), 300);
       return () => clearTimeout(t);
     }
   }, [open]);
-
-  // Lock body scroll while visible (including during exit animation)
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!present) return;
     const {
@@ -506,7 +495,7 @@ function MobileMenu({
     onClick: onClose,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("aside", {
       className: `
-          absolute inset-y-0 left-0 w-[92vw] w-full
+          absolute inset-y-0 left-0 w-full
           bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
           shadow-[0_12px_28px_rgba(0,0,0,.25)]
           p-5 pt-6
@@ -538,16 +527,15 @@ function MobileMenu({
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("nav", {
         children: Object.entries(MENU_SECTIONS).map(([key, groups], idx) => {
           const isOpen = !!expanded[key];
+          const panelId = `mm-panel-${key}`;
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: idx ? "border-t border-[var(--schemesOutlineVariant)]" : "",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
-              className: " w-full flex items-center justify-between py-4 Blueprint-title-medium ",
-              onClick: () => setExpanded(m => ({
-                ...m,
-                [key]: !m[key]
-              })),
-              "aria-expanded": isOpen,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "w-full flex items-center justify-between py-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                href: SECTION_ROUTES[key],
+                className: "Blueprint-title-medium hover:text-[var(--schemesPrimary)]",
+                onClick: onClose,
                 children: {
                   "whats-on": "Whats on",
                   directory: "Directory",
@@ -556,16 +544,27 @@ function MobileMenu({
                   "message-board": "Messageboard",
                   "explore-by": "Explore by"
                 }[key]
-              }), isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MinusIcon, {
-                size: 24,
-                className: "text-[var(--schemesPrimary)]",
-                weight: "bold"
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PlusIcon, {
-                size: 24,
-                className: "text-[var(--schemesPrimary)]",
-                weight: "bold"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+                type: "button",
+                "aria-expanded": isOpen,
+                "aria-controls": panelId,
+                onClick: () => setExpanded(m => ({
+                  ...m,
+                  [key]: !m[key]
+                })),
+                className: "p-2 rounded-md hover:bg-[var(--schemesSurfaceContainerHigh)]",
+                children: isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MinusIcon, {
+                  size: 24,
+                  className: "text-[var(--schemesPrimary)]",
+                  weight: "bold"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PlusIcon, {
+                  size: 24,
+                  className: "text-[var(--schemesPrimary)]",
+                  weight: "bold"
+                })
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              id: panelId,
               className: `grid transition-[grid-template-rows,opacity] duration-200 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 className: "overflow-hidden",
@@ -611,9 +610,6 @@ function MobileMenu({
     })
   });
 }
-
-/* -------------------------- Desktop header --------------------------- */
-
 function Header({
   isUserLoggedIn = false
 }) {
@@ -942,4 +938,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=fde0cddb0c3e5d1b0b48
+//# sourceMappingURL=header.js.map?ver=e5576ec6ee12f75cf01c

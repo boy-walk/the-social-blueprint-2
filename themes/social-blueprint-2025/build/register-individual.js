@@ -305,7 +305,6 @@ function TextField({
   leadingIcon = null,
   trailingIcon = null,
   error = '',
-  // <-- string message ('' = no error)
   disabled = false,
   required = false,
   style = 'outlined',
@@ -318,15 +317,15 @@ function TextField({
   const msgId = `${inputId}-msg`;
   const hasError = typeof error === 'string' && error.length > 0;
   const helperText = hasError ? error : supportingText;
-  const containerBase = 'relative w-full rounded-lg text-schemesOnSurface Blueprint-body-medium';
+  const containerBase = 'relative w-full rounded-xl text-schemesOnSurface Blueprint-body-medium';
   const variantMap = {
-    outlined: 'border border-schemesOutline bg-transparent hover:border-schemesOnSurfaceVariant ' + 'focus-within:border-schemesPrimaryContainer',
+    outlined: 'border border-schemesOutline bg-schemesSurfaceContainerLow hover:border-schemesOnSurfaceVariant ' + 'focus-within:border-schemesPrimaryContainer',
     filled: 'bg-schemesSurfaceVariant hover:bg-schemesSurface focus-within:bg-schemesSurface'
   };
   const errorClasses = hasError ? 'border-schemesError focus-within:border-schemesError' : '';
   const disabledClasses = disabled ? 'opacity-50 pointer-events-none cursor-not-allowed' : '';
-  const labelBase = 'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight ' + 'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixed peer-focus:bg-[#0799D0] rounded-sm';
-  const inputBase = 'peer w-full py-3 pr-4 pl-3 bg-transparent outline-none ' + 'text-schemesOnSurface placeholder:opacity-0 rounded-xl ' + 'bg-schemesSurfaceContainerLow ' + 'disabled:bg-transparent';
+  const labelBase = 'absolute left-4 -translate-y-1/2 px-1 transition-all duration-150 leading-tight ' + 'Blueprint-label-medium pointer-events-none bg-schemesPrimaryFixed peer-focus:bg-schemesSurfaceContainerLow rounded-sm';
+  const inputBase = 'peer w-full py-3 pr-4 pl-3 bg-transparent outline-none ' + 'text-schemesOnSurface placeholder:opacity-0 disabled:bg-transparent';
   const commonProps = {
     id: inputId,
     name,
@@ -362,7 +361,7 @@ function TextField({
       })]
     }), helperText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
       id: msgId,
-      className: "mt-1 ml-4 Blueprint-body-small text-schemesError",
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('mt-1 ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
       children: helperText
     }) : null]
   });
@@ -371,4 +370,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-individual.js.map?ver=eb235040c0ad59756d83
+//# sourceMappingURL=register-individual.js.map?ver=d782ce02899f9677bde1

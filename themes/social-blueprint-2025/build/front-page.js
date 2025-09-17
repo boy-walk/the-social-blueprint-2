@@ -232,29 +232,31 @@ function ContentCard({
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "flex h-full min-h-0 flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[1] max-h-50 lg:max-h-100" : "aspect-[1.6] max-h-40 lg:max-h-75"].join(" "),
+        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] md:aspect-[1] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] md:aspect-[1.6] max-h-56 md:max-h-40 lg:max-h-75"].join(" "),
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
-          className: " h-full w-full object-cover transition-transform duration-700 ease-out will-change-transform group-hover:-translate-y-[6%] group-hover:scale-[1.04] "
+          className: " h-full w-full object-cover transition-transform duration-700 ease-out will-change-transform md:group-hover:-translate-y-[6%] md:group-hover:scale-[1.04] ",
+          loading: "lazy",
+          decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
           className: "absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium",
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: " relative p-4 pt-3 /* lock the text area height so the card never changes size */ h-[112px] md:h-[116px] lg:h-[128px] overflow-hidden ",
+        className: " relative p-4 pt-3 h-auto md:h-[116px] lg:h-[128px] md:overflow-hidden ",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: " pointer-events-none absolute inset-x-0 bottom-0 h-8 opacity-100 transition-opacity duration-200 group-hover:opacity-0 "
+          className: " pointer-events-none absolute inset-x-0 bottom-0 h-8 opacity-0 md:opacity-100 transition-opacity duration-200 md:group-hover:opacity-0 "
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "transition-transform duration-300 ease-out group-hover:-translate-y-1.5",
+          className: "md:transition-transform md:duration-300 md:ease-out md:group-hover:-translate-y-1.5",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
+            className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
             children: date
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-            className: " Blueprint-body-large-emphasized md:Blueprint-body-small-emphasized line-clamp-2 group-hover:line-clamp-none ",
+            className: " Blueprint-body-large-emphasized md:Blueprint-body-small-emphasized line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " text-sm text-schemesOnSurfaceVariant line-clamp-2 group-hover:line-clamp-none ",
+            className: " text-sm text-schemesOnSurfaceVariant line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
             className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
@@ -652,4 +654,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=f336b6934fdf047c2704
+//# sourceMappingURL=front-page.js.map?ver=d40c257c3734c8a85ab9

@@ -513,6 +513,7 @@ function EventsCalendar({
               dayMaxEvents: 4,
               dayMaxEventRows: 3,
               eventDisplay: "block",
+              height: "auto",
               datesSet: datesSet,
               eventMouseEnter: showTooltip,
               eventMouseLeave: hideTooltip,
@@ -896,4 +897,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=a66f524917965738e3d6
+//# sourceMappingURL=events-calendar.js.map?ver=94d246846791c2e199ce

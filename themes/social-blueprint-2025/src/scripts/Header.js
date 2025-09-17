@@ -13,7 +13,6 @@ import {
 } from "@phosphor-icons/react";
 import { Socials } from "./Socials";
 
-// 🔽 put near the top of your Header component file
 function useAdminBarOffset() {
   const [offset, setOffset] = useState(0);
 
@@ -26,8 +25,6 @@ function useAdminBarOffset() {
       const bar = getBar();
       const h = bar ? Math.round(bar.getBoundingClientRect().height) : 0;
       setOffset(h);
-
-      // Make sure the bar is fixed (WP usually does this already)
       if (bar) {
         bar.style.position = "fixed";
         bar.style.top = "0";
@@ -35,23 +32,19 @@ function useAdminBarOffset() {
         bar.style.right = "0";
         bar.style.zIndex = "99999";
       }
-
-      // Push the sticky header down exactly under the admin bar
       root.style.position = "sticky";
-      root.style.top = `${h}px`;     // overrides Tailwind top-0 on the same element
+      root.style.top = `${h}px`;
       root.style.zIndex = "1000";
     };
 
     compute();
 
-    // Keep it in sync if the bar height changes (mobile vs desktop)
     const ro = (window.ResizeObserver && getBar())
       ? new ResizeObserver(compute)
       : null;
     if (ro && getBar()) ro.observe(getBar());
 
     window.addEventListener("resize", compute);
-    // WP swaps admin bar DOM on login/logout or customizers sometimes:
     const id = setInterval(() => {
       if (!getBar()) return;
       compute();
@@ -67,7 +60,6 @@ function useAdminBarOffset() {
 
   return offset;
 }
-
 
 const MENU_SECTIONS = {
   "whats-on": [
@@ -176,10 +168,18 @@ const MENU_SECTIONS = {
   ],
 };
 
+const SECTION_ROUTES = {
+  "whats-on": "/events",
+  directory: "/directory",
+  "blueprint-stories": "/stories-and-interviews",
+  "about-us": "/about-us",
+  "message-board": "/message-boards",
+  "explore-by": "/topics",
+};
+
 function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
   const panelRef = useRef(null);
 
-  // Close on outside click
   useEffect(() => {
     if (!open) return;
     const onDown = (e) => {
@@ -193,7 +193,6 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
     return () => document.removeEventListener("mousedown", onDown);
   }, [open, onClose, anchorRef]);
 
-  // Close on Escape
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -251,7 +250,7 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
     </div>
   );
 }
-/* ---------- Mobile overlay menu ---------- */
+
 function MobileMenu({
   open,
   onClose,
@@ -259,25 +258,23 @@ function MobileMenu({
 }) {
   const [expanded, setExpanded] = useState({});
   const [present, setPresent] = useState(open);
-  const [entered, setEntered] = useState(false); // drives the animation state
+  const [entered, setEntered] = useState(false);
 
-  // Stage enter/exit so opening doesn't snap
   useEffect(() => {
     if (open) {
-      setPresent(true);    // mount
-      setEntered(false);   // start closed for first paint
+      setPresent(true);
+      setEntered(false);
       const id = requestAnimationFrame(() =>
-        requestAnimationFrame(() => setEntered(true)) // then animate to open
+        requestAnimationFrame(() => setEntered(true))
       );
       return () => cancelAnimationFrame(id);
     } else {
-      setEntered(false);   // play exit animation
-      const t = setTimeout(() => setPresent(false), 300); // unmount after transition
+      setEntered(false);
+      const t = setTimeout(() => setPresent(false), 300);
       return () => clearTimeout(t);
     }
   }, [open]);
 
-  // Lock body scroll while visible (including during exit animation)
   useEffect(() => {
     if (!present) return;
     const { overflow, paddingRight } = document.body.style;
@@ -311,7 +308,7 @@ function MobileMenu({
     >
       <aside
         className={`
-          absolute inset-y-0 left-0 w-[92vw] w-full
+          absolute inset-y-0 left-0 w-full
           bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
           shadow-[0_12px_28px_rgba(0,0,0,.25)]
           p-5 pt-6
@@ -321,7 +318,6 @@ function MobileMenu({
         `}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header row */}
         <div className="flex items-center justify-between mb-6">
           <a href="/" className="flex items-center" onClick={onClose}>
             <img src={LogoDark} alt="The Social Blueprint" className="h-14" />
@@ -335,22 +331,18 @@ function MobileMenu({
           </button>
         </div>
 
-        {/* Sections */}
         <nav>
           {Object.entries(MENU_SECTIONS).map(([key, groups], idx) => {
             const isOpen = !!expanded[key];
+            const panelId = `mm-panel-${key}`;
             return (
               <div key={key} className={idx ? "border-t border-[var(--schemesOutlineVariant)]" : ""}>
-                <button
-                  className="
-                    w-full flex items-center justify-between
-                    py-4
-                    Blueprint-title-medium
-                  "
-                  onClick={() => setExpanded((m) => ({ ...m, [key]: !m[key] }))}
-                  aria-expanded={isOpen}
-                >
-                  <span>
+                <div className="w-full flex items-center justify-between py-4">
+                  <a
+                    href={SECTION_ROUTES[key]}
+                    className="Blueprint-title-medium hover:text-[var(--schemesPrimary)]"
+                    onClick={onClose}
+                  >
                     {{
                       "whats-on": "Whats on",
                       directory: "Directory",
@@ -359,18 +351,25 @@ function MobileMenu({
                       "message-board": "Messageboard",
                       "explore-by": "Explore by",
                     }[key]}
-                  </span>
-                  {isOpen ? (
-                    <MinusIcon size={24} className="text-[var(--schemesPrimary)]" weight="bold" />
-                  ) : (
-                    <PlusIcon size={24} className="text-[var(--schemesPrimary)]" weight="bold" />
-                  )}
-                </button>
+                  </a>
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setExpanded((m) => ({ ...m, [key]: !m[key] }))}
+                    className="p-2 rounded-md hover:bg-[var(--schemesSurfaceContainerHigh)]"
+                  >
+                    {isOpen ? (
+                      <MinusIcon size={24} className="text-[var(--schemesPrimary)]" weight="bold" />
+                    ) : (
+                      <PlusIcon size={24} className="text-[var(--schemesPrimary)]" weight="bold" />
+                    )}
+                  </button>
+                </div>
 
-                {/* Items */}
                 <div
-                  className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}
+                  id={panelId}
+                  className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                 >
                   <div className="overflow-hidden">
                     {groups.map((group, gi) => (
@@ -400,7 +399,6 @@ function MobileMenu({
           })}
         </nav>
 
-        {/* Footer actions */}
         <div className="mt-8 grid grid-cols-2 gap-3">
           <Button label="Subscribe" variant="filled" size="lg" onClick={() => goto("/subscribe")} />
           <Button
@@ -415,8 +413,6 @@ function MobileMenu({
     </div>
   );
 }
-
-/* -------------------------- Desktop header --------------------------- */
 
 export default function Header({ isUserLoggedIn = false }) {
   const { t } = useTranslation();

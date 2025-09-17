@@ -25,7 +25,7 @@
   }
 
   .sm\:Blueprint-display-medium-emphasized {
-    font-weight: 500;
+    font-weight: 700;
     font-size: 45px;
     line-height: 52px;
     letter-spacing: 0;
@@ -261,7 +261,7 @@
   }
 
   .md\:Blueprint-display-medium-emphasized {
-    font-weight: 500;
+    font-weight: 700;
     font-size: 45px;
     line-height: 52px;
     letter-spacing: 0;
@@ -497,7 +497,7 @@
   }
 
   .lg\:Blueprint-display-medium-emphasized {
-    font-weight: 500;
+    font-weight: 700;
     font-size: 45px;
     line-height: 52px;
     letter-spacing: 0;

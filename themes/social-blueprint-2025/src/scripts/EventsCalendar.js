@@ -357,6 +357,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
                 dayMaxEvents={4}
                 dayMaxEventRows={3}
                 eventDisplay="block"
+                height="auto"
                 datesSet={datesSet}
                 eventMouseEnter={showTooltip}
                 eventMouseLeave={hideTooltip}

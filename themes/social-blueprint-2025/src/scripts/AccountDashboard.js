@@ -1,5 +1,5 @@
 import React from "react";
-import { GearIcon, MailboxIcon, UserCircleIcon } from "@phosphor-icons/react";
+import { GearIcon, PencilIcon, StackPlusIcon } from "@phosphor-icons/react";
 import { Card } from "./Card";
 import { PostsSlider } from "./PostsSlider";
 import { NewsletterBanner } from "./NewsletterBanner";
@@ -25,7 +25,7 @@ export function AccountDashboard({ user, events }) {
               <Card href="/add-listing-hub">
                 <div className="flex flex-col gap-8 h-full justify-between items-start p-4 w-full">
                   <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
-                    <MailboxIcon size={22} />
+                    <StackPlusIcon size={22} />
                   </div>
                   <div className="Blueprint-title-medium">
                     Add a new listing
@@ -35,7 +35,7 @@ export function AccountDashboard({ user, events }) {
               <Card href={"/account-listings"}>
                 <div className="flex flex-col gap-8 h-full justify-between items-start p-4 w-full">
                   <div className="bg-schemesPrimaryFixed rounded-[12px] p-1" >
-                    <UserCircleIcon size={22} />
+                    <PencilIcon size={22} />
                   </div>
                   <div className="Blueprint-title-medium">
                     {t('activeListings')}

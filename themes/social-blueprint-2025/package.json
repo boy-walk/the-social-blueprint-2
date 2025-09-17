@@ -40,6 +40,11 @@
     "@fullcalendar/list": "^6.1.19",
     "@fullcalendar/react": "^6.1.19",
     "@phosphor-icons/react": "^2.1.10",
+    "@tiptap/extension-image": "^3.4.3",
+    "@tiptap/extension-link": "^3.4.3",
+    "@tiptap/extension-text-align": "^3.4.3",
+    "@tiptap/react": "^3.4.3",
+    "@tiptap/starter-kit": "^3.4.3",
     "clsx": "^2.1.1",
     "i18next": "^25.2.0",
     "react-i18next": "^15.5.1"

@@ -39,8 +39,8 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4">Quick Links</h2>
             <div className="mt-6">
               <div className="mt-6">
-                <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory
-                md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
+                <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory
+                md:grid md:grid-cols-5 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
                     <Card href="/message-board">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">

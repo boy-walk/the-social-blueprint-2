@@ -51,7 +51,7 @@ export function LoginForm() {
           {/* {t('log_in')} */} Log&nbsp;in
         </h1>
         <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
-          {/* {t('login_subtitle')} */} Lorem ipsum dolor sit amet adipiscing elit.
+          Access your account to post, connect, and explore everything happening in the Melbourne Jewish community.
         </p>
       </header>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
