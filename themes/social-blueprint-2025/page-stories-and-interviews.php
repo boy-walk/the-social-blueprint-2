@@ -77,6 +77,7 @@ $props = [
       'link' => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
       'post_type' => get_post_type($post),
+      'subtitle' => get_field('podcast_subtitle', $post->ID) ?: '',
     ];
   }, $everyBodyHasAStory),
   
@@ -87,6 +88,7 @@ $props = [
       'link' => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
       'post_type' => get_post_type($post),
+      'subtitle' => get_field('podcast_subtitle', $post->ID) ?: '',
     ];
   }, $candidConversations),
 
@@ -97,6 +99,7 @@ $props = [
       'link' => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
       'post_type' => get_post_type($post),
+      'subtitle' => get_field('subtitle', $post->ID) ?: '',
     ];
   }, $blueprint_stories),
 
@@ -107,6 +110,7 @@ $props = [
       'link' => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
       'post_type' => get_post_type($post),
+      'subtitle' => get_field('subtitle', $post->ID) ?: '',
     ];
   }, $holocaust_stories),
   'breadcrumbs'  => $breadcrumbs,

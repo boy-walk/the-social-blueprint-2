@@ -1935,7 +1935,7 @@ function PostsSlider({
                 author: post.author,
                 title: post.title,
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
-                subtitle: post.meta?.author || post.meta?.location || "",
+                subtitle: post.meta?.location || post.subtitle || "",
                 href: post.link,
                 fullHeight: true
               })
@@ -2382,4 +2382,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=article-page.js.map?ver=12964d162fa886616cde
+//# sourceMappingURL=article-page.js.map?ver=6ff4ecd5ed8b4abd5b60

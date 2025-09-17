@@ -1410,7 +1410,8 @@ function BrowseAll({
           title: post.title,
           badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
           type: post.post_type,
-          subtitle: post.date,
+          date: post.date,
+          subtitle: post.meta?.location || post.excerpt || "",
           href: post.permalink,
           fullHeight: true
         })
@@ -2226,7 +2227,7 @@ function PostsSlider({
                 author: post.author,
                 title: post.title,
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
-                subtitle: post.meta?.author || post.meta?.location || "",
+                subtitle: post.meta?.location || post.subtitle || "",
                 href: post.link,
                 fullHeight: true
               })
@@ -2301,4 +2302,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=directory-hub.js.map?ver=bae64674ee84bd0dd153
+//# sourceMappingURL=directory-hub.js.map?ver=a2ce5f91cd4b7dfb7acd

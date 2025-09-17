@@ -1680,7 +1680,8 @@ function BrowseAll({
           title: post.title,
           badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
           type: post.post_type,
-          subtitle: post.date,
+          date: post.date,
+          subtitle: post.meta?.location || post.excerpt || "",
           href: post.permalink,
           fullHeight: true
         })
@@ -2213,7 +2214,7 @@ function PostsSlider({
                 author: post.author,
                 title: post.title,
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
-                subtitle: post.meta?.author || post.meta?.location || "",
+                subtitle: post.meta?.location || post.subtitle || "",
                 href: post.link,
                 fullHeight: true
               })
@@ -2439,4 +2440,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=stories-interviews.js.map?ver=480c4ab0a97fda8e48ea
+//# sourceMappingURL=stories-interviews.js.map?ver=f2db0009fbe9ada89879

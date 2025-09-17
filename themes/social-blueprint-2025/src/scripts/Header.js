@@ -10,6 +10,8 @@ import {
   PlusIcon,
   MinusIcon,
   SmileyIcon,
+  CaretDownIcon,
+  CaretUpIcon,
 } from "@phosphor-icons/react";
 import { Socials } from "./Socials";
 
@@ -408,9 +410,27 @@ function MobileMenu({
             icon={<SmileyIcon size={22} weight="bold" />}
             onClick={() => goto(isUserLoggedIn ? "/account-dashboard" : "/login")}
           />
+          {!isUserLoggedIn && (
+            <><Button
+              label="Register as Individual"
+              className="w-full px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow"
+              variant="tonal"
+              size="lg"
+              role="menuitem"
+              onClick={() => goto("/register-individual")}
+            />
+              <Button
+                label="Register as Organisation"
+                className="w-full px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow"
+                variant="tonal"
+                role="menuitem"
+                size="lg"
+                onClick={() => goto("/register-organisation")}
+              />
+            </>)}
         </div>
-      </aside>
-    </div>
+      </aside >
+    </div >
   );
 }
 
@@ -418,11 +438,22 @@ export default function Header({ isUserLoggedIn = false }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const hoverTimer = useRef(null);
   const headerRef = useRef(null);
   useAdminBarOffset();
+
+  useEffect(() => {
+    if (!showRegister) return;
+    const onClick = (e) => {
+      if (!headerRef.current) return;
+      if (!headerRef.current.contains(e.target)) setShowRegister(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [showRegister]);
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
@@ -528,16 +559,68 @@ export default function Header({ isUserLoggedIn = false }) {
               <NavBtn id="message-board" label={t("message_board")} href="/message-boards" />
               <NavBtn id="explore-by" label={"Explore by"} href="/topics" />
             </nav>
-            <div className="flex gap-4">
-              <Button label={t("Subscribe")} variant="filled" shape="square" size="lg" onClick={() => goto("/subscribe")} />
+            <div className="flex gap-4 relative">
               <Button
-                label={isUserLoggedIn ? t("account_dasboard") : t("log_in")}
-                variant="tonal"
+                label={t("Subscribe")}
+                variant="filled"
                 shape="square"
                 size="lg"
-                icon={<SmileyIcon size={22} weight="bold" />}
-                onClick={() => goto(isUserLoggedIn ? "/account-dashboard" : "/login")}
+                onClick={() => goto("/subscribe")}
               />
+
+              {isUserLoggedIn ? (
+                <Button
+                  label={t("account_dasboard")}
+                  variant="tonal"
+                  shape="square"
+                  size="lg"
+                  icon={<SmileyIcon size={22} weight="bold" />}
+                  onClick={() => goto("/account-dashboard")}
+                />
+              ) : (
+                <div className="relative">
+                  <div className="flex items-center gap-1">
+                    <Button
+                      label={t("log_in")}
+                      variant="tonal"
+                      shape="square"
+                      size="lg"
+                      icon={<SmileyIcon size={22} weight="bold" />}
+                      onClick={() => goto("/login")}
+                    />
+                    <Button
+                      label={showRegister ? <CaretUpIcon weight="bold" /> : <CaretDownIcon weight="bold" />}
+                      variant="tonal"
+                      shape="square"
+                      className="h-full"
+                      size="lg"
+                      onClick={() => setShowRegister((v) => !v)}
+                    />
+                  </div>
+
+                  {showRegister && (
+                    <div
+                      className="absolute right-0 mt-2 w-56 rounded-md z-50"
+                      role="menu"
+                    >
+                      <Button
+                        label="Register as Individual"
+                        className="w-full justify-start px-4 py-2 mb-1 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow border-1 border-black"
+                        variant="tonal"
+                        role="menuitem"
+                        onClick={() => goto("/register-individual")}
+                      />
+                      <Button
+                        label="Register as Organisation"
+                        className="w-full justify-start px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow border-1 border-black"
+                        variant="tonal"
+                        role="menuitem"
+                        onClick={() => goto("/register-organisation")}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -185,7 +185,7 @@ function LoginForm() {
           className: "accent-schemesPrimary",
           checked: form.remember,
           onChange: handle('remember')
-        }), " Remember\xA0Me"]
+        }), " Remember Me"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
         label: "Log in",
         style: "filled",
@@ -197,13 +197,13 @@ function LoginForm() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "flex justify-between text-schemesPrimary Blueprint-body-medium pt-2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
-          href: "/register",
+          href: "/register-individual",
           className: "hover:underline",
-          children: " Create\xA0account"
+          children: " Create account"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
           href: "/forgot-password",
           className: "hover:underline",
-          children: " Forgot\xA0password?"
+          children: " Forgot password?"
         })]
       })]
     })]
@@ -304,4 +304,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=login.js.map?ver=d2f637e5245b4644b438
+//# sourceMappingURL=login.js.map?ver=66792e55809b10804e13

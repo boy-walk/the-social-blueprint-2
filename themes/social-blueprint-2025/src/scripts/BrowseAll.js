@@ -157,7 +157,8 @@ export default function BrowseAll({
                 title={post.title}
                 badge={getBadge(post.post_type)}
                 type={post.post_type}
-                subtitle={post.date}
+                date={post.date}
+                subtitle={post.meta?.location || post.excerpt || ""}
                 href={post.permalink}
                 fullHeight
               />

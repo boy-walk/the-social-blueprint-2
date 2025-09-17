@@ -447,7 +447,8 @@ function BrowseAll({
           title: post.title,
           badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
           type: post.post_type,
-          subtitle: post.date,
+          date: post.date,
+          subtitle: post.meta?.location || post.excerpt || "",
           href: post.permalink,
           fullHeight: true
         })
@@ -799,4 +800,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=search.js.map?ver=a209f2c87aa0ce2d11ca
+//# sourceMappingURL=search.js.map?ver=c96dceafc8c38d09a9eb

@@ -171,7 +171,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Minus.es.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Plus.es.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretUp.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretDown.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
 /* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
@@ -605,6 +607,22 @@ function MobileMenu({
             weight: "bold"
           }),
           onClick: () => goto(isUserLoggedIn ? "/account-dashboard" : "/login")
+        }), !isUserLoggedIn && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            label: "Register as Individual",
+            className: "w-full px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow",
+            variant: "tonal",
+            size: "lg",
+            role: "menuitem",
+            onClick: () => goto("/register-individual")
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            label: "Register as Organisation",
+            className: "w-full px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow",
+            variant: "tonal",
+            role: "menuitem",
+            size: "lg",
+            onClick: () => goto("/register-organisation")
+          })]
         })]
       })]
     })
@@ -618,11 +636,21 @@ function Header({
   } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_5__.useTranslation)();
   const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [isDesktop, setIsDesktop] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [showRegister, setShowRegister] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [mobileOpen, setMobileOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const hoverTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   useAdminBarOffset();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!showRegister) return;
+    const onClick = e => {
+      if (!headerRef.current) return;
+      if (!headerRef.current.contains(e.target)) setShowRegister(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [showRegister]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
     const update = () => setIsDesktop(mql.matches);
@@ -746,15 +774,15 @@ function Header({
               href: "/topics"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-            className: "flex gap-4",
+            className: "flex gap-4 relative",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
               label: t("Subscribe"),
               variant: "filled",
               shape: "square",
               size: "lg",
               onClick: () => goto("/subscribe")
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-              label: isUserLoggedIn ? t("account_dasboard") : t("log_in"),
+            }), isUserLoggedIn ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              label: t("account_dasboard"),
               variant: "tonal",
               shape: "square",
               size: "lg",
@@ -762,14 +790,57 @@ function Header({
                 size: 22,
                 weight: "bold"
               }),
-              onClick: () => goto(isUserLoggedIn ? "/account-dashboard" : "/login")
+              onClick: () => goto("/account-dashboard")
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "relative",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                className: "flex items-center gap-1",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                  label: t("log_in"),
+                  variant: "tonal",
+                  shape: "square",
+                  size: "lg",
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.SmileyIcon, {
+                    size: 22,
+                    weight: "bold"
+                  }),
+                  onClick: () => goto("/login")
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                  label: showRegister ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.CaretUpIcon, {
+                    weight: "bold"
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.CaretDownIcon, {
+                    weight: "bold"
+                  }),
+                  variant: "tonal",
+                  shape: "square",
+                  className: "h-full",
+                  size: "lg",
+                  onClick: () => setShowRegister(v => !v)
+                })]
+              }), showRegister && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                className: "absolute right-0 mt-2 w-56 rounded-md z-50",
+                role: "menu",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                  label: "Register as Individual",
+                  className: "w-full justify-start px-4 py-2 mb-1 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow border-1 border-black",
+                  variant: "tonal",
+                  role: "menuitem",
+                  onClick: () => goto("/register-individual")
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                  label: "Register as Organisation",
+                  className: "w-full justify-start px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow border-1 border-black",
+                  variant: "tonal",
+                  role: "menuitem",
+                  onClick: () => goto("/register-organisation")
+                })]
+              })]
             })]
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "lg:hidden items-center",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_4__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.ListIcon, {
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__.ListIcon, {
             size: 22,
             weight: "bold"
           }),
@@ -938,4 +1009,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=e5576ec6ee12f75cf01c
+//# sourceMappingURL=header.js.map?ver=0c704444df83760374c2

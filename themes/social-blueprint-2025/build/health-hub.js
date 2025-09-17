@@ -1552,7 +1552,8 @@ function BrowseAll({
           title: post.title,
           badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
           type: post.post_type,
-          subtitle: post.date,
+          date: post.date,
+          subtitle: post.meta?.location || post.excerpt || "",
           href: post.permalink,
           fullHeight: true
         })
@@ -2130,4 +2131,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=health-hub.js.map?ver=998cf768cd0973e8f7c1
+//# sourceMappingURL=health-hub.js.map?ver=caa902ecde2b58e835a9

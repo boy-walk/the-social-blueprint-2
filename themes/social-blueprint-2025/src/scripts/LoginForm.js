@@ -77,7 +77,7 @@ export function LoginForm() {
             checked={form.remember}
             onChange={handle('remember')}
           />
-          {/* {t('remember_me')} */} Remember&nbsp;Me
+          {/* {t('remember_me')} */} Remember Me
         </label>
 
         <Button
@@ -91,11 +91,11 @@ export function LoginForm() {
         />
 
         <div className="flex justify-between text-schemesPrimary Blueprint-body-medium pt-2">
-          <a href="/register" className="hover:underline">
-            {/* {t('create_account')} */} Create&nbsp;account
+          <a href="/register-individual" className="hover:underline">
+            {/* {t('create_account')} */} Create account
           </a>
           <a href="/forgot-password" className="hover:underline">
-            {/* {t('forgot_password')} */} Forgot&nbsp;password?
+            {/* {t('forgot_password')} */} Forgot password?
           </a>
         </div>
       </form>
