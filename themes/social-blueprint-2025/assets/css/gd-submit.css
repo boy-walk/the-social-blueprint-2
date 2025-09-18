@@ -1,0 +1,24 @@
+body.geodir-page-add form {
+  max-width: 1600px;
+  margin: auto;
+  padding: 64px;
+}
+
+#geodirectory-add-post .form-control {
+  background-color: white !important;
+}
+
+#geodirectory-add-post .col-form-label {
+  color: var(--schemesOnPrimaryFixedDim, #000);
+  font: var(--_Blueprint-body-medium, 400 1rem/1.5 system-ui);
+}
+
+#geodirectory-add-post .btn {
+  font: var(--_Blueprint-body-medium, 400 1rem/1.5 system-ui);
+  background-color: var(--schemesPrimary, #0799D0);
+  border: none;
+}
+
+body.geodir-page-add .form-check-label {
+  background-color: transparent;
+}

@@ -1,13 +1,13 @@
-/* ====== Container reset ====== */
+/* ====== Container reset (mobile-first) ====== */
 #tribe-events-pg-template.tribe-events-pg-template {
   background: var(--schemesSurface, #fff);
   color: var(--schemesOnSurface, #1b1b1b);
-  padding: 64px;
+  padding: 16px;
+  /* ↓ smaller on mobile */
   max-width: none;
 }
 
 #tribe-community-events.form {
-  /* kill the default border + frame */
   border: 0 !important;
   box-shadow: none !important;
   padding: 0;
@@ -16,50 +16,54 @@
   margin: auto;
 }
 
-/* inner content wrapper (TEC uses .tribe-events-pg-template and .tribe-community-events) */
 #tribe-community-events.form .tribe-events-pg-template,
 #tribe-community-events.form .tribe-community-events,
 #tribe-community-events.form .tribe-community-events-container {
   max-width: 1120px;
   margin-inline: auto;
-  padding: 1.5rem 1rem;
+  padding: 16px 12px;
+  /* ↓ mobile padding */
 }
 
-#tribe-community-events .tribe-button-secondary {
-  display: none;
-}
-
-@media (min-width: 1024px) {
+/* md ≥ 768px */
+@media (min-width: 768px) {
+  #tribe-events-pg-template.tribe-events-pg-template {
+    padding: 32px;
+  }
 
   #tribe-community-events.form .tribe-events-pg-template,
   #tribe-community-events.form .tribe-community-events,
   #tribe-community-events.form .tribe-community-events-container {
-    padding: 2.5rem 2rem;
+    padding: 24px 20px;
   }
 }
 
-/* ====== Section headings ====== */
+/* lg ≥ 1024px */
+@media (min-width: 1024px) {
+  #tribe-events-pg-template.tribe-events-pg-template {
+    padding: 64px;
+  }
+
+  #tribe-community-events.form .tribe-events-pg-template,
+  #tribe-community-events.form .tribe-community-events,
+  #tribe-community-events.form .tribe-community-events-container {
+    padding: 40px 32px;
+  }
+}
+
+/* ====== Section headings (unchanged) ====== */
 #tribe-community-events.form h2,
 #tribe-community-events.form .tribe-events-community-section-title {
   font: var(--_Blueprint-title-medium, 600 1.125rem/1.2 system-ui);
-  margin: 1.25rem 0 .5rem;
+  margin: 1rem 0 .5rem;
+  /* slightly tighter on mobile */
 }
 
-/* Small helper heading we add via JS for the top band */
-#tribe-community-events.form .sbp-section-title {
-  font: 700 1rem/1.1 system-ui;
-  color: var(--schemesOnSurfaceVariant, #595959);
-  margin-bottom: .5rem;
-}
-
-#tribe-community-events.form .tribe-section {
-  border: 0;
-  box-shadow: none;
-  background: transparent;
-  padding: 0;
-}
-
-#tribe-community-events.form .tribe-section-header h3 {
+/* Keep your label chips */
+#tribe-community-events.form .tribe-section-header h3,
+#tribe-community-events.form .tribe-section-header label,
+.events-community-post-title>label,
+.events-community-post-content>label {
   display: inline-block;
   background: var(--schemesPrimaryFixed, #0799D0);
   color: var(--schemesOnPrimaryFixed, #fff);
@@ -68,16 +72,7 @@
   line-height: 1.2;
 }
 
-#tribe-community-events.form .tribe-section-header label {
-  display: inline-block;
-  background: var(--schemesPrimaryFixed, #0799D0);
-  color: var(--schemesOnPrimaryFixed, #fff);
-  padding: 6px 10px;
-  border-radius: 8px;
-  line-height: 1.2;
-}
-
-
+/* Inputs */
 #tribe-community-events.form .input {
   font: var(--_Blueprint-body-medium, 400 1rem/1.5 system-ui);
   color: var(--schemesOnSurface, #1b1b1b);
@@ -90,16 +85,8 @@
   transition: border-color .2s ease-in-out, box-shadow .2s ease-in-out;
 }
 
-#tribe-community-events.form .button {
-  font: var(--_Blueprint-label-large, 600 0.7rem/1.25 system-ui);
-  color: var(--schemesOnPrimary, #fff);
-  background: var(--schemesPrimary, #0065ff);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-
+/* Primary buttons */
+#tribe-community-events.form .button,
 #post.tribe-button {
   font: var(--_Blueprint-label-large, 600 0.7rem/1.25 system-ui);
   color: var(--schemesOnPrimary, #fff);
@@ -110,38 +97,47 @@
   transition: background-color .2s ease-in-out, box-shadow .2s ease-in-out;
 }
 
-.events-community-post-title>label {
-  display: inline-block;
-  /* make background wrap the text */
-  background: var(--schemesPrimaryFixed, #0799D0);
-  color: var(--schemesOnPrimaryFixed, #fff);
-  padding: 6px 10px;
-  border-radius: 8px;
-  line-height: 1.2;
+/* ====== Only hide secondary buttons in FOOTERS (see bug above) ====== */
+#tribe-community-events.form .tribe-section-footer .tribe-button-secondary {
+  display: none;
 }
 
-.events-community-post-title>label .req {
-  margin-left: 6px;
-  font-weight: 600;
-  opacity: .9;
-  color: var(--schemesOnPrimaryFixed, #fff);
-  /* keep contrast but slightly subdued */
+#tribe-community-events.form a {
+  display: none;
 }
 
-.events-community-post-content>label {
-  display: inline-block;
-  /* make background wrap the text */
-  background: var(--schemesPrimaryFixed, #0799D0);
-  color: var(--schemesOnPrimaryFixed, #fff);
-  padding: 6px 10px;
-  border-radius: 8px;
-  line-height: 1.2;
+/* and explicitly keep them visible in the image field */
+#tribe-community-events.form .tribe-field-image .tribe-button-secondary,
+#tribe-community-events.form .tribe-events-c-post__image .tribe-button-secondary,
+#tribe-community-events.form [class*="post-image"] .tribe-button-secondary {
+  display: inline-flex;
 }
 
-.events-community-post-content>label .req {
-  margin-left: 6px;
-  font-weight: 600;
-  opacity: .9;
-  color: var(--schemesOnPrimaryFixed, #fff);
-  /* keep contrast but slightly subdued */
+/* ====== Image upload/drop zone improvements ====== */
+/* Try to match TEC’s common dropzone; include a few likely wrappers */
+#tribe-community-events.form .tribe-field-image .tribe-common-c-dropzone,
+#tribe-community-events.form .tribe-field-image .tribe-image-upload,
+#tribe-community-events.form .tribe-events-c-post__image .tribe-common-c-dropzone,
+#tribe-community-events.form [class*="post__image"] .tribe-common-c-dropzone {
+  padding-block: 24px;
+  /* extra Y padding */
+  min-height: 180px;
+  /* taller target */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* On small screens, don’t let it collapse */
+@media (max-width: 480px) {
+
+  #tribe-community-events.form .tribe-field-image .tribe-common-c-dropzone,
+  #tribe-community-events.form .tribe-field-image .tribe-image-upload,
+  #tribe-community-events.form .tribe-events-c-post__image .tribe-common-c-dropzone,
+  #tribe-community-events.form [class*="post__image"] .tribe-common-c-dropzone {
+    min-height: 140px;
+    padding-block: 20px;
+  }
 }

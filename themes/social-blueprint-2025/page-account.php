@@ -39,6 +39,7 @@ while ($query->have_posts()) {
         'thumbnail' => get_the_post_thumbnail_url($event_id, 'medium'),
         'startDate' => $start_date,
         'location' => $location,
+        'post_type' => get_post_type($post),
     ];
 }
 

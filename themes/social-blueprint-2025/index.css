@@ -184,3 +184,40 @@ h6 {
   color: var(--schemesPrimary);
   text-decoration: none;
 }
+
+/* Full-bleed wrapper: escape any center/padded container */
+.tsb-fullbleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+/* Banner skin (uses your tokens) */
+.tsb-gd-banner {
+  background: var(--schemesPrimaryFixedDim);
+  color: var(--schemesOnPrimary);
+}
+
+.tsb-gd-banner__inner {
+  max-width: 1600px;
+  margin-inline: auto;
+  padding: 16px 16px;
+  /* mobile default */
+}
+
+/* Responsive paddings to match site rhythm */
+@media (min-width: 640px) {
+
+  /* sm */
+  .tsb-gd-banner__inner {
+    padding: 20px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  /* lg */
+  .tsb-gd-banner__inner {
+    padding: 28px 64px;
+  }
+}

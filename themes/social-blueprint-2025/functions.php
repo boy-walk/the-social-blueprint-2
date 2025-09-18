@@ -652,3 +652,43 @@ add_action('wp_enqueue_scripts', function () {
       true
     );
 });
+
+function sbp_is_gd_add_listing() {
+  // Native check if available
+  if (function_exists('geodir_is_page') && geodir_is_page('add-listing')) {
+    return true;
+  }
+  // Shortcode on current page
+  if (is_page() && ($p = get_post()) && has_shortcode($p->post_content, 'gd_add_listing')) {
+    return true;
+  }
+  // Common query var when switching CPT: ?listing_type=gd_place
+  if (!empty($_GET['listing_type']) && is_string($_GET['listing_type']) && str_starts_with($_GET['listing_type'], 'gd_')) {
+    return true;
+  }
+  return false;
+}
+
+// Add a body class we can reliably scope to
+add_filter('body_class', function($classes) {
+  if (sbp_is_gd_add_listing()) {
+    $classes[] = 'sbp-gd-submit';
+    // include the chosen CPT slug if present (?listing_type=gd_place)
+    if (!empty($_GET['listing_type'])) {
+      $classes[] = 'sbp-gd-'.sanitize_html_class($_GET['listing_type']);
+    }
+  }
+  return $classes;
+});
+
+// Enqueue our submit-form stylesheet only when needed
+add_action('wp_enqueue_scripts', function () {
+  if (sbp_is_gd_add_listing()) {
+    wp_enqueue_style(
+      'sbp-gd-submit',
+      get_stylesheet_directory_uri() . '/assets/css/gd-submit.css',
+      [],
+      null
+    );
+  }
+}, 20);
