@@ -22,3 +22,9 @@ body.geodir-page-add form {
 body.geodir-page-add .form-check-label {
   background-color: transparent;
 }
+
+@media (max-width: 480px) {
+  body.geodir-page-add form {
+    padding: 16px;
+  }
+}

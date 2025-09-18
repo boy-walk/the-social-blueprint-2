@@ -692,3 +692,38 @@ add_action('wp_enqueue_scripts', function () {
     );
   }
 }, 20);
+
+function sb_prepend_banner_on_tribe_community_pages( $content ) {
+  if ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || is_feed() ) {
+      return $content;
+  }
+
+  if ( ! is_main_query() || ! is_page() ) {
+      return $content;
+  }
+
+  global $post;
+  if ( ! $post ) {
+      return $content;
+  }
+
+  // Adjust this to the page slug(s) or IDs you use for the community submit/edit page.
+  // Example slugs: 'community-events', 'submit-event', 'edit-event'
+  $target_slugs = array( 'community-events', 'submit-event', 'edit-event' );
+  $target_ids   = array( /* 123, 456 */ ); // optional: exact page IDs
+
+  if ( in_array( $post->post_name, $target_slugs, true ) || in_array( $post->ID, $target_ids, true ) ) {
+      // Build banner HTML (use your theme CSS classes only)
+      $banner  = '<div class="bg-schemesPrimaryFixed" style="height:200px;">';
+      $banner .= '  <div class="p-16 max-w-[1600px] mx-auto Blueprint-headline-large">';
+      $banner .=        esc_html( get_the_title( $post ) );
+      $banner .= '  </div>';
+      $banner .= '</div>';
+
+      // Prepend banner and return full content so plugin output and shortcodes are preserved
+      return $banner . $content;
+  }
+
+  return $content;
+}
+add_filter( 'the_content', 'sb_prepend_banner_on_tribe_community_pages', 5 );
