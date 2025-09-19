@@ -1946,7 +1946,7 @@ function PillTag({
   backgroundColor = '#007ea8'
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-    className: `text-center relative inline-block p-2 md:px-2.5 py-1 md:py-2 lg:px-3 lg:py-1 rounded-xl text-white italic Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-headline-large-emphasized bg-${backgroundColor}`,
+    className: `text-center relative inline-block p-2 md:px-2.5 py-1 md:py-2 lg:px-3 lg:py-1 rounded-xl text-white italic Blueprint-headline-small-emphasized md:Blueprint-headline-medium-emphasized lg:Blueprint-headline-large-emphasized bg-${backgroundColor}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
       className: "relative z-10",
       children: label
@@ -2331,4 +2331,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=1e17a55b0acf475abe72
+//# sourceMappingURL=mb-page.js.map?ver=1e6b8e43f1cd0f6250ad
