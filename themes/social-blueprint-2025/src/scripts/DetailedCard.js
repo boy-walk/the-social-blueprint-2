@@ -29,7 +29,7 @@ export function DetailedCard({
               </p>
             )}
             {title && (
-              <h3 className="Blueprint-body-large-emphasized text-schemesLightOnSurface transition-colors duration-200">
+              <h3 className="Blueprint-body-large-emphasized text-schemesLightOnSurface transition-colors duration-200 group-hover:text-[var(--schemesPrimary)]">
                 {title}
               </h3>
             )}
