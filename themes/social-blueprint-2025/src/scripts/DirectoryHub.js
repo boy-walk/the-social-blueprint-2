@@ -35,7 +35,7 @@ export const DirectoryHub = ({ costOfLiving, contactLists, breadcrumbs = [] }) =
                 <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/cost-of-living">
+                    <Card styles="shadow-3x3" href="/cost-of-living">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <MailboxIcon size={22} />
@@ -45,7 +45,7 @@ export const DirectoryHub = ({ costOfLiving, contactLists, breadcrumbs = [] }) =
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/aid-listing-hub">
+                    <Card styles="shadow-3x3" href="/aid-listing-hub">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CellTowerIcon size={22} />
@@ -55,7 +55,7 @@ export const DirectoryHub = ({ costOfLiving, contactLists, breadcrumbs = [] }) =
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/health-listing-hub">
+                    <Card styles="shadow-3x3" href="/health-listing-hub">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CalendarDotIcon size={22} />
@@ -65,7 +65,7 @@ export const DirectoryHub = ({ costOfLiving, contactLists, breadcrumbs = [] }) =
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/business">
+                    <Card styles="shadow-3x3" href="/business">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
@@ -75,7 +75,7 @@ export const DirectoryHub = ({ costOfLiving, contactLists, breadcrumbs = [] }) =
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/listings/category/jewish-life-cycle/">
+                    <Card styles="shadow-3x3" href="/listings/category/jewish-life-cycle/">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <StarIcon size={22} />

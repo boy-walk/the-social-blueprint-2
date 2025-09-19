@@ -32,7 +32,7 @@ export function CostOfLiving({ sections, breadcrumbs = [] }) {
                 <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-6 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/cost_of_living/category/finance-101">
+                    <Card styles="shadow-3x3" href="/cost_of_living/category/finance-101">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-[#6ED4BE] rounded-[12px] p-1">
                           <MoneyWavyIcon size={22} />
@@ -43,7 +43,7 @@ export function CostOfLiving({ sections, breadcrumbs = [] }) {
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/stories-and-interviews">
+                    <Card styles="shadow-3x3" href="/stories-and-interviews">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-[#A3B4FF] rounded-[12px] p-1">
                           <BowlFoodIcon size={22} />
@@ -54,7 +54,7 @@ export function CostOfLiving({ sections, breadcrumbs = [] }) {
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/events">
+                    <Card styles="shadow-3x3" href="/events">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-[#FF9388] rounded-[12px] p-1">
                           <HeartHalfIcon size={22} />
@@ -65,7 +65,7 @@ export function CostOfLiving({ sections, breadcrumbs = [] }) {
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-[#F7D471] rounded-[12px] p-1">
                           <MicrophoneStageIcon size={22} />
@@ -76,7 +76,7 @@ export function CostOfLiving({ sections, breadcrumbs = [] }) {
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-[#7FD0FF] rounded-[12px] p-1">
                           <StarOfDavidIcon size={22} />
@@ -87,7 +87,7 @@ export function CostOfLiving({ sections, breadcrumbs = [] }) {
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-[#C7A9EA] rounded-[12px] p-1">
                           <CarIcon size={22} />

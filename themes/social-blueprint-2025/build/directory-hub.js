@@ -1639,6 +1639,7 @@ function ContentCard({
     ${fullHeight ? "h-full" : ""}
     ${fullWidth ? "w-full" : ""}
     p-2
+    transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1
   `.trim();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
     href: href,
@@ -1650,11 +1651,11 @@ function ContentCard({
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
-          className: " h-full w-full object-cover transition-transform duration-700 ease-out will-change-transform md:group-hover:-translate-y-[6%] md:group-hover:scale-[1.04] ",
+          className: " h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 ",
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          className: "absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium",
+          className: "absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100",
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -1662,18 +1663,18 @@ function ContentCard({
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: " pointer-events-none absolute inset-x-0 bottom-0 h-8 opacity-0 md:opacity-100 transition-opacity duration-200 md:group-hover:opacity-0 "
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "md:transition-transform md:duration-300 md:ease-out md:group-hover:-translate-y-1.5",
+          className: "transition-transform duration-200 ease-in-out",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
+            className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: date
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-            className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 ",
+            className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-2 ",
+            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
+            className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: author
           })]
         })]
@@ -1767,6 +1768,7 @@ const DirectoryHub = ({
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_7__.Card, {
+                    styles: "shadow-3x3",
                     href: "/cost-of-living",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
@@ -1784,6 +1786,7 @@ const DirectoryHub = ({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_7__.Card, {
+                    styles: "shadow-3x3",
                     href: "/aid-listing-hub",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
@@ -1801,6 +1804,7 @@ const DirectoryHub = ({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_7__.Card, {
+                    styles: "shadow-3x3",
                     href: "/health-listing-hub",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
@@ -1818,6 +1822,7 @@ const DirectoryHub = ({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_7__.Card, {
+                    styles: "shadow-3x3",
                     href: "/business",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
@@ -1835,6 +1840,7 @@ const DirectoryHub = ({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_7__.Card, {
+                    styles: "shadow-3x3",
                     href: "/listings/category/jewish-life-cycle/",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
@@ -2330,4 +2336,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=directory-hub.js.map?ver=b07a1f37ee5055e5fd1e
+//# sourceMappingURL=directory-hub.js.map?ver=828cdbccdda69c8a0acd

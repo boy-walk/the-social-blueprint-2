@@ -20,6 +20,7 @@ export function ContentCard({
     ${fullHeight ? "h-full" : ""}
     ${fullWidth ? "w-full" : ""}
     p-2
+    transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1
   `.trim();
 
   return (
@@ -40,15 +41,15 @@ export function ContentCard({
               className="
                 h-full w-full
                 object-cover
-                transition-transform duration-700 ease-out will-change-transform
-                md:group-hover:-translate-y-[6%] md:group-hover:scale-[1.04]
+                transition-transform duration-300 ease-in-out
+                group-hover:scale-105
               "
               loading="lazy"
               decoding="async"
             />
           )}
           {badge && (
-            <span className="absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium">
+            <span className="absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100">
               {badge}
             </span>
           )}
@@ -69,9 +70,9 @@ export function ContentCard({
                 md:group-hover:opacity-0
               "
             />
-            <div className="md:transition-transform md:duration-300 md:ease-out md:group-hover:-translate-y-1.5">
+            <div className="transition-transform duration-200 ease-in-out">
               {date && (
-                <div className="Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant">
+                <div className="Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
                   {date}
                 </div>
               )}
@@ -80,6 +81,7 @@ export function ContentCard({
                 className="
                   Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized
                   line-clamp-2
+                  transition-colors duration-200 group-hover:text-[var(--schemesPrimary)]
                 "
               >
                 {title}
@@ -90,6 +92,7 @@ export function ContentCard({
                   className="
                     Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant
                     line-clamp-2
+                    transition-colors duration-200 group-hover:text-schemesOnSurface
                   "
                 >
                   {subtitle}
@@ -97,7 +100,7 @@ export function ContentCard({
               )}
 
               {author && (
-                <p className="mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant">
+                <p className="mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
                   {author}
                 </p>
               )}
