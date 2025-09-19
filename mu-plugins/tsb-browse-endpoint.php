@@ -85,18 +85,7 @@ add_action('rest_api_init', function () {
           if (!in_array($relation, ['AND','OR'], true)) $relation = 'AND';
           $args['tax_query'] = array_merge(['relation' => $relation], $tax_query);
         }
-
-        // ------------ The Events Calendar tuning ------------
-        if (in_array('tribe_events', $post_types, true)) {
-          $args['eventDisplay']                 = 'custom';
-          $args['tribe_suppress_query_filters'] = true;
-          if (!empty($p['tribeHideRecurrence'])) {
-            unset($args['tribe_suppress_query_filters']);
-            $args['tribeHideRecurrence'] = true;
-            $args['eventDisplay']        = 'list';
-          }
-        }
-
+        
         if (function_exists('tsb_debug')) {
           tsb_debug('browse:args', $args, 'browse');
         }

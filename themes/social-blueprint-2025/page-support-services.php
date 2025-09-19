@@ -44,6 +44,7 @@ function map_post($post) {
     'link' => get_permalink($post),
     'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
     'post_type' => get_post_type($post),
+    'subtitle' => get_the_excerpt($post),
   ];
 }
 

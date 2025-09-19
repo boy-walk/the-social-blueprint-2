@@ -42,7 +42,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
                 <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/message-board">
+                    <Card styles="shadow-3x3" href="/message-board">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <MailboxIcon size={22} />
@@ -53,7 +53,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/stories-and-interviews">
+                    <Card styles="shadow-3x3" href="/stories-and-interviews">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CellTowerIcon size={22} />
@@ -64,7 +64,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/events">
+                    <Card styles="shadow-3x3" href="/events">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CalendarDotIcon size={22} />
@@ -75,7 +75,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3" href="/submit-article">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
@@ -86,7 +86,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <StarIcon size={22} />
@@ -137,9 +137,12 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
             tax: [{ taxonomy: 'theme', field: 'slug', terms: ['community-and-connection'] }],
           }}
           filters={[
-            { label: "Community jobs", tax: { taxonomy: "topic_tag", terms: ["community-jobs"] } },
-            { label: "Activities & Programs", tax: { taxonomy: "topic_tag", terms: ["activities-programs"] } },
-            { label: "Volunteering & Getting Involved", tax: { taxonomy: "topic_tag", terms: ["volunteering-getting-involved"] } },
+            { label: "Article", post_type: "article" },
+            { label: "Podcast", post_type: "podcast" },
+            { label: "Aid Listing", post_type: "gd_aid_listing" },
+            { label: "Health Listing", post_type: "gd_health_listing" },
+            { label: "Message Board", post_type: "gd_discount" },
+            { label: "Event", post_type: "tribe_events" },
           ]}
           className="py-16 px-4 sm:px-8 lg:px-16 mx-auto"
         />

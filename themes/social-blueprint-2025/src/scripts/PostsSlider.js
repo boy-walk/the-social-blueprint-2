@@ -91,7 +91,7 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
       <div className="overflow-hidden">
         <div
           ref={scrollRef}
-          className="flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[350px]"
+          className="flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[375px]"
         >
           {events?.map((post, idx) => (
             <div

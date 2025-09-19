@@ -69,6 +69,7 @@ function AddListing({
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
+                    styles: "shadow-3x3",
                     href: "/add-listing/health_listing",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
@@ -92,6 +93,7 @@ function AddListing({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
+                    styles: "shadow-3x3",
                     href: "/add-listing/aid_listing",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
@@ -109,6 +111,7 @@ function AddListing({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
+                    styles: "shadow-3x3",
                     href: "/add-listing/message-boards",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
@@ -126,6 +129,7 @@ function AddListing({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
+                    styles: "shadow-3x3",
                     href: "/events-calendar/community/add",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
@@ -143,6 +147,7 @@ function AddListing({
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_2__.Card, {
+                    styles: "shadow-3x3",
                     href: "/submit-article",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-full justify-between items-start p-4 w-full",
@@ -314,4 +319,4 @@ const NewsletterBanner = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=add-listing.js.map?ver=fff159e1aafe8f097fb1
+//# sourceMappingURL=add-listing.js.map?ver=bd5bb7dc7ab29d854460

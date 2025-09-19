@@ -1,10 +1,9 @@
 import React from "react";
-import { ArrowIcon } from "../../assets/icons/arrow";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { NewsletterBanner } from "./NewsletterBanner";
 import { PostsSlider } from "./PostsSlider";
-import CommunityConnectionHubIcon from "../../assets/community-connection-hub.svg";
+import LearningGrowthIcon from "../../assets/learning-growth.svg";
 import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { CellTowerIcon, MailboxIcon, CalendarDotIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react";
@@ -28,7 +27,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                 Educational resources and inspiring stories to support your personal growth.
               </p>
             </div>
-            <img src={CommunityConnectionHubIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />
+            <img src={LearningGrowthIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />
           </div>
           <div className="p-4 md:pb-8 lg:px-16">
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4">Quick Links</h2>
@@ -37,7 +36,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                 <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/message-board">
+                    <Card styles="shadow-3x3" href="/message-board">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <MailboxIcon size={22} />
@@ -47,7 +46,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/stories-and-interviews">
+                    <Card styles="shadow-3x3" href="/stories-and-interviews">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CellTowerIcon size={22} />
@@ -57,7 +56,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/categories/cost-of-living">
+                    <Card styles="shadow-3x3" href="/categories/cost-of-living">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CalendarDotIcon size={22} />
@@ -67,7 +66,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
@@ -77,7 +76,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <StarIcon size={22} />

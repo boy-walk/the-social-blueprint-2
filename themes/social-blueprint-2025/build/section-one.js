@@ -1464,10 +1464,10 @@ function ContentCard({
             className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
             children: date
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-            className: " Blueprint-body-large-emphasized md:Blueprint-body-small-emphasized line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none ",
+            className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " text-sm text-schemesOnSurfaceVariant line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none ",
+            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-2 ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
             className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
@@ -1511,7 +1511,7 @@ function DetailedCard({
   buttonText = "Read more"
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-    styles: "h-full",
+    styles: "h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
       href: href || "#",
       className: "flex h-full w-full gap-4 group",
@@ -1520,31 +1520,31 @@ function DetailedCard({
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           src: image,
           alt: image ? title : null,
-          className: "w-full h-full object-cover bg-gray-100 rounded-lg"
+          className: "w-full h-full object-cover bg-gray-100 rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "flex flex-col justify-between w-full h-full p-2 lg:p-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "space-y-1 py-1 lg:py-2",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
+            className: "Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: date
           }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
-            className: "Blueprint-body-large-emphasized text-schemesLightOnSurface",
+            className: "Blueprint-body-large-emphasized text-schemesLightOnSurface transition-colors duration-200",
             children: title
           }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2",
+            className: "Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: description
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "flex items-center pt-2 mt-auto w-full",
           children: [location && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-label-large text-schemesOnSurfaceVariant",
+            className: "Blueprint-label-large text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: location
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
-            className: "inline-flex ml-auto items-center gap-1 Blueprint-label-large text-schemesOnSurface group-hover:underline",
+            className: "inline-flex ml-auto items-center gap-1 Blueprint-label-large text-schemesOnSurface group-hover:underline transition-all duration-200 group-hover:text-blue-600",
             children: [buttonText, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_2__.ArrowIcon, {
-              className: "w-7.5"
+              className: "w-7.5 transition-transform duration-200 group-hover:translate-x-1"
             })]
           })]
         })]
@@ -1791,20 +1791,92 @@ function MessageBoardSlider({
   const scrollRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const [currentIndex, setCurrentIndex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
   const [itemsPerView, setItemsPerView] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(3);
+  const [itemWidthPx, setItemWidthPx] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null); // measured pixel width per visible item
+  const GAP_FALLBACK_PX = 8; // matches gap-2 (Tailwind) = 0.5rem = 8px usually
+
   if (!Array.isArray(messageBoard) || messageBoard.length === 0) return null;
+
+  // update itemsPerView on resize
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const update = () => setItemsPerView(window.innerWidth < 1028 ? 1 : 3);
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    const updateItems = () => setItemsPerView(window.innerWidth < 1028 ? 1 : 3);
+    updateItems();
+    window.addEventListener("resize", updateItems);
+    return () => window.removeEventListener("resize", updateItems);
   }, []);
+
+  // measure container and compute pixel width per item accounting for gap and container paddings
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const computeSizes = () => {
+      const style = window.getComputedStyle(el);
+      // prefer 'gap' then 'column-gap' then fallback
+      const gapValue = style.getPropertyValue("gap") || style.getPropertyValue("column-gap") || `${GAP_FALLBACK_PX}px`;
+      const gapPx = parseFloat(gapValue) || GAP_FALLBACK_PX;
+
+      // get container width and paddings
+      const containerRect = el.getBoundingClientRect();
+      const containerWidth = containerRect.width;
+      const paddingLeft = parseFloat(style.getPropertyValue("padding-left")) || 0;
+      const paddingRight = parseFloat(style.getPropertyValue("padding-right")) || 0;
+
+      // total gaps per "viewport" is (itemsPerView - 1) gaps
+      const totalGaps = Math.max(0, itemsPerView - 1) * gapPx;
+
+      // available width for items (subtract paddings and total gaps)
+      const availableForItems = Math.max(0, containerWidth - paddingLeft - paddingRight - totalGaps);
+
+      // width per item in px
+      const perItem = availableForItems / itemsPerView;
+      setItemWidthPx(perItem);
+
+      // ensure there's some right padding so last card isn't visually clipped when scaled/shadowed
+      // we set inline padding-right to at least gapPx (if existing paddingRight is smaller)
+      const desiredRightPad = Math.max(paddingRight, gapPx);
+      if (parseFloat(style.getPropertyValue("padding-right")) !== desiredRightPad) {
+        el.style.paddingRight = `${desiredRightPad}px`;
+      }
+      // also ensure small left padding to mirror right (keeps visual balance)
+      const desiredLeftPad = Math.max(paddingLeft, gapPx / 2);
+      if (parseFloat(style.getPropertyValue("padding-left")) !== desiredLeftPad) {
+        el.style.paddingLeft = `${desiredLeftPad}px`;
+      }
+    };
+
+    // initial compute
+    computeSizes();
+
+    // observe resizes
+    let ro;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(computeSizes);
+      ro.observe(el);
+    } else {
+      window.addEventListener("resize", computeSizes);
+    }
+    return () => {
+      if (ro) ro.disconnect();else window.removeEventListener("resize", computeSizes);
+    };
+  }, [itemsPerView, messageBoard.length]);
   const totalSlides = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Math.ceil(messageBoard.length / itemsPerView), [messageBoard.length, itemsPerView]);
   const scrollToIndex = index => {
     const el = scrollRef.current;
     if (!el) return;
-    const itemWidth = el.offsetWidth / itemsPerView;
+
+    // get gap in px (same logic as measurement)
+    const style = window.getComputedStyle(el);
+    const gapValue = style.getPropertyValue("gap") || style.getPropertyValue("column-gap") || `${GAP_FALLBACK_PX}px`;
+    const gapPx = parseFloat(gapValue) || GAP_FALLBACK_PX;
+
+    // width per item
+    const childWidth = itemWidthPx != null ? itemWidthPx : el.getBoundingClientRect().width / itemsPerView;
+    const fullItemWidth = childWidth + gapPx;
+
+    // calculate target left; ensure we account for the left padding we may have set on the scroller
+    const paddingLeft = parseFloat(style.getPropertyValue("padding-left")) || 0;
+    const targetLeft = fullItemWidth * itemsPerView * index - paddingLeft;
     el.scrollTo({
-      left: itemWidth * itemsPerView * index,
+      left: targetLeft,
       behavior: "smooth"
     });
     setCurrentIndex(index);
@@ -1817,18 +1889,26 @@ function MessageBoardSlider({
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "overflow-hidden",
+      className: "overflow-visible",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        ref: scrollRef,
-        className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden",
+        ref: scrollRef
+        // keep horizontal scrolling but allow vertical overflow; remove hard px padding here because we set it dynamically above
+        ,
+        className: "flex items-stretch gap-2 transition-transform duration-300 ease-in-out overflow-x-auto overflow-y-visible py-2 scrollbar-hidden",
         children: messageBoard.map(post => {
           const cats = Array.isArray(post.categories) ? post.categories.slice(0, 2) : [];
           const extra = Array.isArray(post.categories) && post.categories.length > 2 ? post.categories.length - 2 : 0;
+
+          // prefer pixel width when available — this ensures the gap is accounted for exactly
+          const itemStyle = itemWidthPx != null ? {
+            width: `${itemWidthPx}px`
+          } : {
+            width: `${100 / itemsPerView}%`
+          };
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "flex-shrink-0",
-            style: {
-              width: `${100 / itemsPerView}%`
-            },
+            // keep the hover transform but avoid clipping by letting the parent be overflow-visible
+            className: "flex-shrink-0 transform transition-transform duration-200 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg will-change-transform",
+            style: itemStyle,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
               href: post.permalink,
               styles: "h-full",
@@ -2544,4 +2624,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=ff0766489167f99dacf3
+//# sourceMappingURL=section-one.js.map?ver=5c16b330e422ce3baf6e

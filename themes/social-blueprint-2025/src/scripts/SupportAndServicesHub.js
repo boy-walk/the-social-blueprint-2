@@ -1,10 +1,9 @@
 import React from "react";
-import { ArrowIcon } from "../../assets/icons/arrow";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { NewsletterBanner } from "./NewsletterBanner";
 import { PostsSlider } from "./PostsSlider";
-import CommunityConnectionHubIcon from "../../assets/community-connection-hub.svg";
+import SupportServicesIcon from "../../assets/support-services.svg";
 import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { FirstAidIcon, HeadCircuitIcon, ButterflyIcon, TrendUpIcon, AppWindowIcon } from "@phosphor-icons/react";
@@ -27,7 +26,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                 We've gathered practical resources to help you through tough times, from mental health support to community aid services.
               </p>
             </div>
-            <img src={CommunityConnectionHubIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />
+            <img src={SupportServicesIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />
           </div>
           <div className="p-4 md:pb-8 lg:px-16">
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4">Quick Links</h2>
@@ -36,7 +35,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                 <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/aid_listing.health_listing/?topic_tag=mental-health">
+                    <Card styles="shadow-3x3" href="/aid_listing.health_listing/?topic_tag=mental-health">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <HeadCircuitIcon size={22} />
@@ -46,7 +45,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/stories-and-interviews">
+                    <Card styles="shadow-3x3" href="/stories-and-interviews">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <FirstAidIcon size={22} />
@@ -56,7 +55,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card href="/categories/cost-of-living">
+                    <Card styles="shadow-3x3" href="/categories/cost-of-living">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <ButterflyIcon size={22} />
@@ -66,7 +65,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
@@ -76,7 +75,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card>
+                    <Card styles="shadow-3x3">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <AppWindowIcon size={22} />

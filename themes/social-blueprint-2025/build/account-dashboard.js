@@ -309,10 +309,10 @@ function ContentCard({
             className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
             children: date
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-            className: " Blueprint-body-large-emphasized md:Blueprint-body-small-emphasized line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none ",
+            className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " text-sm text-schemesOnSurfaceVariant line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none ",
+            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-2 ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
             className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
@@ -477,7 +477,7 @@ function PostsSlider({
       className: "overflow-hidden",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         ref: scrollRef,
-        className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[350px]",
+        className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[375px]",
         children: events?.map((post, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "flex-shrink-0 flex px-0 lg:px-1",
           style: {
@@ -573,4 +573,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=account-dashboard.js.map?ver=f8d2da167af1d80d3ecb
+//# sourceMappingURL=account-dashboard.js.map?ver=f8c8e373ddbbf106520b

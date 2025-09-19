@@ -1272,8 +1272,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// ---- stable module-level defaults ----
-
 const EMPTY = Object.freeze([]);
 const DEFAULT_BASE_QUERY = Object.freeze({
   per_page: 10,
@@ -1290,7 +1288,6 @@ function BrowseAll({
   endpoint = "/wp-json/tsb/v1/browse",
   baseQuery = DEFAULT_BASE_QUERY,
   filters = EMPTY,
-  // <-- stable, not recreated each render
   initialFilter = "All",
   gridHeights = DEFAULT_GRID_HEIGHTS,
   className = ""
@@ -1306,11 +1303,9 @@ function BrowseAll({
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [err, setErr] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const perPage = (_baseQuery$per_page = baseQuery.per_page) !== null && _baseQuery$per_page !== void 0 ? _baseQuery$per_page : 10;
-
-  // stable key for filters so a new [] reference doesn't retrigger everything
   const filtersKey = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => filters && filters.length ? JSON.stringify(filters) : "[]", [filters]);
 
-  // Build payload from baseQuery + active filter
+  // payload: baseQuery is the default; chip values (if present) OVERRIDE specific fields
   const payload = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     const p = {
       ...baseQuery,
@@ -1318,23 +1313,59 @@ function BrowseAll({
       per_page: perPage
     };
 
-    // merge base tax + chip tax
-    const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax : baseQuery.tax ? [baseQuery.tax] : EMPTY;
-    let chipTax = EMPTY;
-    if (active && active !== "All") {
-      const f = (filters || EMPTY).find(x => x.label === active);
-      if (f?.tax) chipTax = Array.isArray(f.tax) ? f.tax : [f.tax];
+    // helper normalizers
+    const normalizePT = v => {
+      if (!v) return [];
+      if (Array.isArray(v)) return v.slice();
+      if (typeof v === "string") return [v];
+      return [];
+    };
+    const normalizeTax = t => {
+      if (!t) return [];
+      return Array.isArray(t) ? t.slice() : [t];
+    };
+
+    // find active chip (if not "All")
+    const chip = active && active !== "All" ? (filters || EMPTY).find(x => x.label === active) : null;
+
+    // POST_TYPE override logic: chip replaces baseQuery.post_type if present
+    const basePT = normalizePT(baseQuery.post_type);
+    const chipPT = chip ? normalizePT(chip.post_type) : [];
+    if (chipPT.length) {
+      p.post_type = chipPT;
+    } else if (basePT.length) {
+      p.post_type = basePT;
+    } else {
+      delete p.post_type;
     }
-    p.tax = [...baseTax, ...chipTax];
-    if (baseQuery.tax_relation) p.tax_relation = baseQuery.tax_relation;
+
+    // TAX override logic: chip replaces baseQuery.tax if present
+    const baseTax = normalizeTax(baseQuery.tax);
+    const chipTax = chip ? normalizeTax(chip.tax) : [];
+    if (chipTax.length) {
+      p.tax = chipTax;
+    } else if (baseTax.length) {
+      p.tax = baseTax;
+    } else {
+      delete p.tax;
+    }
+
+    // tax_relation: chip can override, else baseQuery
+    if (chip && chip.tax_relation) {
+      p.tax_relation = chip.tax_relation;
+    } else if (baseQuery.tax_relation) {
+      p.tax_relation = baseQuery.tax_relation;
+    } else {
+      delete p.tax_relation;
+    }
+
+    // preserve other baseQuery keys that may be useful for the endpoint
+    if (baseQuery.meta_key) p.meta_key = baseQuery.meta_key;
+    if (baseQuery.tribeHideRecurrence) p.tribeHideRecurrence = baseQuery.tribeHideRecurrence;
+    if (baseQuery.s) p.s = baseQuery.s;
     return p;
-    // depend on filtersKey (structural) rather than filters reference
   }, [baseQuery, active, page, perPage, filtersKey]);
-
-  // stable key for effect dependency
   const payloadKey = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => JSON.stringify(payload), [payload]);
-
-  // Fetch helper with abort
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let isMounted = true;
     const ac = new AbortController();
@@ -1360,10 +1391,7 @@ function BrowseAll({
       isMounted = false;
       ac.abort();
     };
-    // depend on endpoint + *key*, not the object itself
-  }, [payloadKey]);
-
-  // Reset page to 1 when filter changes
+  }, [payloadKey, endpoint]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     setPage(1);
   }, [active]);
@@ -1639,10 +1667,10 @@ function ContentCard({
             className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
             children: date
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-            className: " Blueprint-body-large-emphasized md:Blueprint-body-small-emphasized line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none ",
+            className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " text-sm text-schemesOnSurfaceVariant line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none ",
+            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-2 ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
             className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant",
@@ -2206,7 +2234,7 @@ function PostsSlider({
       className: "overflow-hidden",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         ref: scrollRef,
-        className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[350px]",
+        className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[375px]",
         children: events?.map((post, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "flex-shrink-0 flex px-0 lg:px-1",
           style: {
@@ -2302,4 +2330,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=directory-hub.js.map?ver=a2ce5f91cd4b7dfb7acd
+//# sourceMappingURL=directory-hub.js.map?ver=b07a1f37ee5055e5fd1e

@@ -78,8 +78,8 @@ export function ContentCard({
 
               <h3
                 className="
-                  Blueprint-body-large-emphasized md:Blueprint-body-small-emphasized
-                  line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none
+                  Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized
+                  line-clamp-2
                 "
               >
                 {title}
@@ -88,8 +88,8 @@ export function ContentCard({
               {subtitle && (
                 <p
                   className="
-                    text-sm text-schemesOnSurfaceVariant
-                    line-clamp-3 md:line-clamp-2 md:group-hover:line-clamp-none
+                    Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant
+                    line-clamp-2
                   "
                 >
                   {subtitle}
