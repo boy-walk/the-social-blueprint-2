@@ -77,9 +77,6 @@ export default function PodcastPage({
                   </div>
 
                   <ShareButton
-                    title={title}
-                    summary={subtitle || ""}
-                    url={typeof window !== "undefined" ? window.location.href : undefined}
                   />
                 </div>
               </div>

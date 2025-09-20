@@ -1765,11 +1765,7 @@ function PodcastPage({
                       children: formattedDate
                     })]
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ShareButton__WEBPACK_IMPORTED_MODULE_5__.ShareButton, {
-                  title: title,
-                  summary: subtitle || "",
-                  url: typeof window !== "undefined" ? window.location.href : undefined
-                })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ShareButton__WEBPACK_IMPORTED_MODULE_5__.ShareButton, {})]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("section", {
               className: "space-y-6 lg:space-y-7 max-w-3xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant",
@@ -2481,4 +2477,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=5a413c45dc49fb8750b3
+//# sourceMappingURL=podcast-page.js.map?ver=590337cdf4b74e285baa
