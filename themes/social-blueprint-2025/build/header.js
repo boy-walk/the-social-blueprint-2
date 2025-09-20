@@ -410,8 +410,8 @@ function MegaPanel({
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+  const groups = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => MENU_SECTIONS[open] || [], [open]);
   if (!open) return null;
-  const groups = MENU_SECTIONS[open] || [];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     ref: panelRef,
     role: "dialog",
@@ -426,7 +426,7 @@ function MegaPanel({
             grid gap-8 items-start
             ${groups.length >= 3 ? "grid-cols-3" : "grid-cols-2"}
           `,
-        children: groups.map((section, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: groups.map(section => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "min-w-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "Blueprint-title-small text-[var(--schemesOnSurface)] mb-2",
@@ -441,7 +441,7 @@ function MegaPanel({
               })
             }, item.href))
           })]
-        }, i))
+        }, section.title))
       })
     })
   });
@@ -1009,4 +1009,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=93f53c34b203b9567787
+//# sourceMappingURL=header.js.map?ver=015e902d2f8eb6f4a076

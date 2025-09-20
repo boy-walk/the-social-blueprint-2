@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import Logo from "../../assets/logo.svg";
 import LogoDark from "../../assets/logo-dark.svg";
 import { Button } from "./Button";
@@ -202,9 +202,9 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  if (!open) return null;
+  const groups = useMemo(() => MENU_SECTIONS[open] || [], [open]);
 
-  const groups = MENU_SECTIONS[open] || [];
+  if (!open) return null;
 
   return (
     <div
@@ -228,8 +228,8 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
             ${groups.length >= 3 ? "grid-cols-3" : "grid-cols-2"}
           `}
         >
-          {groups.map((section, i) => (
-            <div key={i} className="min-w-0">
+          {groups.map((section) => (
+            <div key={section.title} className="min-w-0">
               <div className="Blueprint-title-small text-[var(--schemesOnSurface)] mb-2">
                 {section.title}
               </div>
