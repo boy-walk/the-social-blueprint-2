@@ -2046,14 +2046,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
-// ShareButton.jsx
+// WordPress-optimized ShareButton component
 
 
 
 
+
+// Helper to get meta tag content
+
+function getMetaContent(property) {
+  if (typeof document === 'undefined') return '';
+  const meta = document.querySelector(`meta[property="${property}"], meta[name="${property}"]`);
+  return meta ? meta.getAttribute('content') || '' : '';
+}
+
+// Helper to get page data from WordPress/meta tags
+function getPageData() {
+  return {
+    title: getMetaContent('og:title') || document.title || '',
+    description: getMetaContent('og:description') || '',
+    image: getMetaContent('og:image') || '',
+    url: getMetaContent('og:url') || window.location.href
+  };
+}
 
 // Robust copier: uses Clipboard API when available, falls back to execCommand
-
 async function safeCopyToClipboard(text) {
   try {
     if (typeof navigator !== 'undefined' && navigator.clipboard && typeof navigator.clipboard.writeText === 'function' && (window.isSecureContext || location.hostname === 'localhost')) {
@@ -2111,9 +2128,11 @@ function Snackbar({
   });
 }
 function ShareButton({
-  url,
+  // Allow manual overrides, but default to page data
+  url = '',
   title = '',
-  summary = '',
+  description = '',
+  hashtags = '',
   className = '',
   size = 'base',
   variant = 'filled',
@@ -2124,11 +2143,30 @@ function ShareButton({
     open: false,
     message: ''
   });
+  const [pageData, setPageData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    title: '',
+    description: '',
+    url: '',
+    image: ''
+  });
   const btnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const menuRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const shareUrl = typeof window !== 'undefined' ? url || window.location.href : url || '';
+
+  // Get page data on mount
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (typeof window !== 'undefined') {
+      setPageData(getPageData());
+    }
+  }, []);
+
+  // Use provided props or fall back to page data
+  const shareUrl = url || pageData.url || (typeof window !== 'undefined' ? window.location.href : '');
+  const shareTitle = title || pageData.title || (typeof document !== 'undefined' ? document.title : '');
+  const shareDescription = description || pageData.description || '';
   const encodedUrl = encodeURIComponent(shareUrl);
-  const encodedTitle = encodeURIComponent(title || (typeof document !== 'undefined' ? document.title : '') || '');
+  const encodedTitle = encodeURIComponent(shareTitle);
+  const encodedDescription = encodeURIComponent(shareDescription);
+  const encodedHashtags = encodeURIComponent(hashtags);
   const links = [{
     id: 'facebook',
     label: 'Facebook',
@@ -2137,7 +2175,7 @@ function ShareButton({
       weight: "fill"
     }),
     type: 'link',
-    href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}${encodedTitle ? `&quote=${encodedTitle}` : ''}`
   }, {
     id: 'linkedin',
     label: 'LinkedIn',
@@ -2147,6 +2185,20 @@ function ShareButton({
     }),
     type: 'link',
     href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
+  }, {
+    id: 'twitter',
+    label: 'Twitter/X',
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
+      width: 20,
+      height: 20,
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+        d: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+      })
+    }),
+    type: 'link',
+    href: `https://twitter.com/intent/tweet?url=${encodedUrl}${encodedTitle ? `&text=${encodedTitle}` : ''}${encodedHashtags ? `&hashtags=${encodedHashtags}` : ''}`
   }, {
     id: 'instagram',
     label: 'Instagram (copy link)',
@@ -2197,7 +2249,6 @@ function ShareButton({
       message: ok ? 'Link copied' : 'Copy failed — press ⌘/Ctrl+C'
     });
     if (!ok) {
-      // Last‑resort prompt so users can manually copy
       const res = window.prompt('Copy this link:', payload);
       if (res !== null) setSnack({
         open: true,
@@ -2212,21 +2263,20 @@ function ShareButton({
       return;
     }
     if (item.type === 'ig') {
-      await copyLink(title);
-      // try app, then web (no official web intent)
+      await copyLink(shareTitle);
       window.location.href = 'instagram://app';
       setTimeout(() => window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer'), 300);
       setOpen(false);
       return;
     }
     if (item.type === 'yt') {
-      await copyLink(title);
+      await copyLink(shareTitle);
       window.open('https://www.youtube.com/', '_blank', 'noopener,noreferrer');
       setOpen(false);
       return;
     }
     if (item.type === 'copy') {
-      await copyLink(title);
+      await copyLink(shareTitle);
       setOpen(false);
       return;
     }
@@ -2263,6 +2313,15 @@ function ShareButton({
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.X, {
               size: 18
             })
+          })]
+        }), shareTitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "text-xs text-[var(--schemesOnSurfaceVariant)] mb-2 p-2 bg-[var(--schemesSurfaceContainer)] rounded-lg",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "font-medium truncate",
+            children: shareTitle
+          }), shareDescription && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "truncate mt-1",
+            children: shareDescription
           })]
         }), links.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
           label: item.label,
@@ -2383,4 +2442,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=article-page.js.map?ver=a3adfed448df2f8daa96
+//# sourceMappingURL=article-page.js.map?ver=c5406664cf0f54e9e734

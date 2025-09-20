@@ -1,4 +1,4 @@
-// ShareButton.jsx
+// WordPress-optimized ShareButton component
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from './Button';
 import {
@@ -6,6 +6,23 @@ import {
   CheckCircle as CheckIcon,
 } from '@phosphor-icons/react';
 import clsx from 'clsx';
+
+// Helper to get meta tag content
+function getMetaContent(property) {
+  if (typeof document === 'undefined') return '';
+  const meta = document.querySelector(`meta[property="${property}"], meta[name="${property}"]`);
+  return meta ? meta.getAttribute('content') || '' : '';
+}
+
+// Helper to get page data from WordPress/meta tags
+function getPageData() {
+  return {
+    title: getMetaContent('og:title') || document.title || '',
+    description: getMetaContent('og:description') || '',
+    image: getMetaContent('og:image') || '',
+    url: getMetaContent('og:url') || window.location.href,
+  };
+}
 
 // Robust copier: uses Clipboard API when available, falls back to execCommand
 async function safeCopyToClipboard(text) {
@@ -74,9 +91,11 @@ function Snackbar({ open, message = 'Link copied', onClose }) {
 }
 
 export function ShareButton({
-  url,
+  // Allow manual overrides, but default to page data
+  url = '',
   title = '',
-  summary = '',
+  description = '',
+  hashtags = '',
   className = '',
   size = 'base',
   variant = 'filled',
@@ -84,12 +103,26 @@ export function ShareButton({
 }) {
   const [open, setOpen] = useState(false);
   const [snack, setSnack] = useState({ open: false, message: '' });
+  const [pageData, setPageData] = useState({ title: '', description: '', url: '', image: '' });
   const btnRef = useRef(null);
   const menuRef = useRef(null);
 
-  const shareUrl = typeof window !== 'undefined' ? (url || window.location.href) : (url || '');
+  // Get page data on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setPageData(getPageData());
+    }
+  }, []);
+
+  // Use provided props or fall back to page data
+  const shareUrl = url || pageData.url || (typeof window !== 'undefined' ? window.location.href : '');
+  const shareTitle = title || pageData.title || (typeof document !== 'undefined' ? document.title : '');
+  const shareDescription = description || pageData.description || '';
+
   const encodedUrl = encodeURIComponent(shareUrl);
-  const encodedTitle = encodeURIComponent(title || (typeof document !== 'undefined' ? document.title : '') || '');
+  const encodedTitle = encodeURIComponent(shareTitle);
+  const encodedDescription = encodeURIComponent(shareDescription);
+  const encodedHashtags = encodeURIComponent(hashtags);
 
   const links = [
     {
@@ -97,7 +130,7 @@ export function ShareButton({
       label: 'Facebook',
       icon: <FacebookLogo size={20} weight="fill" />,
       type: 'link',
-      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`,
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}${encodedTitle ? `&quote=${encodedTitle}` : ''}`,
     },
     {
       id: 'linkedin',
@@ -106,9 +139,35 @@ export function ShareButton({
       type: 'link',
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
     },
-    { id: 'instagram', label: 'Instagram (copy link)', icon: <InstagramLogo size={20} weight="fill" />, type: 'ig' },
-    { id: 'youtube', label: 'YouTube (copy link)', icon: <YoutubeLogo size={20} weight="fill" />, type: 'yt' },
-    { id: 'copy', label: 'Copy link', icon: <LinkSimple size={20} weight="bold" />, type: 'copy' },
+    {
+      id: 'twitter',
+      label: 'Twitter/X',
+      icon: (
+        <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      ),
+      type: 'link',
+      href: `https://twitter.com/intent/tweet?url=${encodedUrl}${encodedTitle ? `&text=${encodedTitle}` : ''}${encodedHashtags ? `&hashtags=${encodedHashtags}` : ''}`,
+    },
+    {
+      id: 'instagram',
+      label: 'Instagram (copy link)',
+      icon: <InstagramLogo size={20} weight="fill" />,
+      type: 'ig'
+    },
+    {
+      id: 'youtube',
+      label: 'YouTube (copy link)',
+      icon: <YoutubeLogo size={20} weight="fill" />,
+      type: 'yt'
+    },
+    {
+      id: 'copy',
+      label: 'Copy link',
+      icon: <LinkSimple size={20} weight="bold" />,
+      type: 'copy'
+    },
   ];
 
   useEffect(() => {
@@ -140,7 +199,6 @@ export function ShareButton({
     setSnack({ open: true, message: ok ? 'Link copied' : 'Copy failed — press ⌘/Ctrl+C' });
 
     if (!ok) {
-      // Last‑resort prompt so users can manually copy
       const res = window.prompt('Copy this link:', payload);
       if (res !== null) setSnack({ open: true, message: 'Link ready to paste' });
     }
@@ -153,21 +211,20 @@ export function ShareButton({
       return;
     }
     if (item.type === 'ig') {
-      await copyLink(title);
-      // try app, then web (no official web intent)
+      await copyLink(shareTitle);
       window.location.href = 'instagram://app';
       setTimeout(() => window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer'), 300);
       setOpen(false);
       return;
     }
     if (item.type === 'yt') {
-      await copyLink(title);
+      await copyLink(shareTitle);
       window.open('https://www.youtube.com/', '_blank', 'noopener,noreferrer');
       setOpen(false);
       return;
     }
     if (item.type === 'copy') {
-      await copyLink(title);
+      await copyLink(shareTitle);
       setOpen(false);
       return;
     }
@@ -207,6 +264,16 @@ export function ShareButton({
                 <CloseIcon size={18} />
               </button>
             </div>
+
+            {/* Optional: Show what's being shared */}
+            {shareTitle && (
+              <div className="text-xs text-[var(--schemesOnSurfaceVariant)] mb-2 p-2 bg-[var(--schemesSurfaceContainer)] rounded-lg">
+                <div className="font-medium truncate">{shareTitle}</div>
+                {shareDescription && (
+                  <div className="truncate mt-1">{shareDescription}</div>
+                )}
+              </div>
+            )}
 
             {links.map((item) => (
               <Button
