@@ -336,3 +336,10 @@ mount(
   () => import(/* webpackChunkName: "submit-article" */ './scripts/SubmitArticlePage').then(m => m.default),
   (el) => parse(el.getAttribute('data-props') || '{}')
 );
+
+// FAQs
+mount(
+  'faqs-root',
+  () => import(/* webpackChunkName: "faqs" */ './scripts/FAQ').then(m => m.Faq),
+  (el) => ({ props: parse(el.getAttribute('data-props') || '{}') })
+);
