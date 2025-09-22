@@ -730,9 +730,8 @@ function sb_prepend_banner_on_tribe_community_pages( $content ) {
 add_filter( 'the_content', 'sb_prepend_banner_on_tribe_community_pages', 5 );
 
 function sbp_dequeue_cf7_turnstile() {
-    wp_dequeue_script( 'cloudflare-turnstile' );
-    // Optionally, you can also deregister the script if you don't intend to use it at all
-    // wp_deregister_script( 'script-handle-to-remove' ); 
+  wp_dequeue_script( 'cloudflare-turnstile' ); // dequeue default turnstile JS inclusion 
+  // because for some reasons CF7 is including it on pages where it should not be included.
 }
 add_action( 'wp_enqueue_scripts', 'sbp_dequeue_cf7_turnstile' );
 
