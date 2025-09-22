@@ -13,57 +13,94 @@ export function ContactForm() {
     message: "",
     agreed: false,
   });
+
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileWidgetId, setTurnstileWidgetId] = useState(null);
+
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (turnstile !== undefined) {
+      const siteKey = document.getElementById('turnstile_site_key');
+      if (siteKey === null) return;
+      const widgetId = turnstile.render("#turnstile-container", {
+        sitekey: siteKey.value,
+        callback: function (token) {
+          setTurnstileToken(token);
+        },
+        'expired-callback': function() {
+          setTurnstileToken('');
+        },
+        'timeout-callback': function() {
+          setTurnstileToken('');
+        }
+      });
+
+      setTurnstileWidgetId(widgetId);
+    }
+
+  }, []);
 
   const handleChange = (key) => (e) =>
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
   const handleToggle = (key) => () =>
     setForm((prev) => ({ ...prev, [key]: !prev[key] }));
 
-  const cf7 = useMemo(() => {
-    const root = document.getElementById("cf7-proxy");
-    return root ? root.querySelector("form.wpcf7-form") : null;
-  }, []);
-
-  useEffect(() => {
-    if (!cf7) return;
-    const onOk = () => {
-      setSubmitting(false);
-      setSent(true);
-    };
-    const onFail = () => setSubmitting(false);
-    cf7.addEventListener("wpcf7mailsent", onOk);
-    cf7.addEventListener("wpcf7mailfailed", onFail);
-    cf7.addEventListener("wpcf7invalid", onFail);
-    return () => {
-      cf7.removeEventListener("wpcf7mailsent", onOk);
-      cf7.removeEventListener("wpcf7mailfailed", onFail);
-      cf7.removeEventListener("wpcf7invalid", onFail);
-    };
-  }, [cf7]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!cf7) return;
+    const fullName = [form.firstName, form.lastName].filter(Boolean).join(" ");
+
+    const formId = document.getElementById('cf7_form_id');
+
+    if (!formId) return;
+
     setSubmitting(true);
 
-    const setVal = (name, value) => {
-      const el = cf7.querySelector(`[name="${name}"]`);
-      if (!el) return;
-      el.value = value;
-      el.dispatchEvent(new Event("input", { bubbles: true }));
-      el.dispatchEvent(new Event("change", { bubbles: true }));
+    const formDataRaw = {
+      'your-name': fullName,
+      'your-email': form.email,
+      'your-phone': form.phone,
+      'your-topic': form.topic,
+      'your-message': form.message,
+      '_wpcf7_unit_tag': formId.value,
+      '_wpcf7_turnstile_response': turnstileToken
     };
-    const fullName = [form.firstName, form.lastName].filter(Boolean).join(" ");
-    setVal("your-name", fullName);
-    setVal("your-phone", form.phone);
-    setVal("your-email", form.email);
-    setVal("your-subject", form.topic);
-    setVal("your-message", form.message);
+    const formData = new FormData();
 
-    if (cf7.requestSubmit) cf7.requestSubmit();
-    else cf7.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    for (const name in formDataRaw) {
+      formData.append(name, formDataRaw[name]);
+    }
+
+    const res = await fetch('/wp-json/contact-form-7/v1/contact-forms/' + formId.value + '/feedback', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      console.log(data);
+
+      // Response will be like this:
+      // var response = {
+      //   "contact_form_id": 39254,
+      //   "status": "mail_sent",
+      //   "message": "Thank you for your message. It has been sent.",
+      //   "posted_data_hash": "f566d2051f627ed7984beac3920af97b",
+      //   "into": "#39254",
+      //   "invalid_fields": []
+      // }
+
+      setSent(true);
+      if (turnstile !== undefined) {
+        turnstile.reset(turnstileWidgetId);
+      }
+    } else {
+      console.log('Error with request', data.message);
+    }
+
+    setSubmitting(false);
   };
 
   if (sent) {
@@ -166,11 +203,14 @@ export function ContactForm() {
                 By submitting this form, you agree to provide accurate information and communicate respectfully. The Social Blueprint does not offer crisis or emergency support. Any personal details you share will be handled in line with our Privacy Policy and will not be sold or shared with third parties. We are not responsible for the outcomes of any interactions you may have with organisations listed on this site.
               </label>
 
+              <div id="turnstile-container"></div>
+
               <Button
                 label={submitting ? "Sending…" : "Send a message"}
                 size="lg"
                 style="filled"
-                disabled={!form.agreed || submitting}
+                type="submit"
+                disabled={!form.agreed || submitting || turnstileToken == ''}
               />
             </div>
           </form>

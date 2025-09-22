@@ -5,10 +5,25 @@
  */
 get_header();
 ?>
-<div id="cf7-proxy" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
-  <?php echo do_shortcode('[contact-form-7 id="e2b4dcd" title="Contact Form Basic Live" html_class="tsb-cf7"]'); ?>
-</div>
-<main id="contact-us" class="min-h-screen"></main>
 
+<?php
+  // Turnstile site key for front end
+  $site_key = '';
+  if (class_exists('WPCF7')) {
+    $sitekeys = WPCF7::get_option( 'turnstile' );
+    $site_key = (!empty($sitekeys)) ? array_key_first($sitekeys) : '';
+  }
+
+  // Form id
+  $cf7_form_id = get_field('form_id', false, false) ?? '';
+?>
+
+<input type="hidden" id="turnstile_site_key" name="turnstile_site_key" value="<?= esc_attr($site_key); ?>">
+<input type="hidden" id="cf7_form_id" name="cf7_form_id" value="<?= esc_attr($cf7_form_id); ?>">
+<?php if (!empty($cf7_form_id)): ?>
+  <main id="contact-us" class="min-h-screen"></main>
+<?php else: ?>
+  <p>Form id not set.</p>
+<?php endif; ?>
 <?php get_footer(); ?>
 

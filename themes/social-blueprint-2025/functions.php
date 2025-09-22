@@ -728,3 +728,35 @@ function sb_prepend_banner_on_tribe_community_pages( $content ) {
   return $content;
 }
 add_filter( 'the_content', 'sb_prepend_banner_on_tribe_community_pages', 5 );
+
+function sbp_dequeue_cf7_turnstile() {
+    wp_dequeue_script( 'cloudflare-turnstile' );
+    // Optionally, you can also deregister the script if you don't intend to use it at all
+    // wp_deregister_script( 'script-handle-to-remove' ); 
+}
+add_action( 'wp_enqueue_scripts', 'sbp_dequeue_cf7_turnstile' );
+
+function sbp_contact_enqueue_scripts() {
+  if ( !is_page_template('page-contact-us.php') ) {
+    return;
+  }
+
+  // Cloudflare Turnstile
+  wp_enqueue_script(
+    'cloudflare-turnstile',
+    'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit',
+    array(),   // no dependencies
+    null,      // no version (or you can pass a string)
+    true       // load in footer
+  );
+
+  // Add defer attribute
+  add_filter('script_loader_tag', function ($tag, $handle) {
+    if ($handle === 'cloudflare-turnstile') {
+      // Insert defer into the script tag
+      return str_replace(' src', ' defer src', $tag);
+    }
+    return $tag;
+  }, 10, 2);
+}
+add_action('wp_enqueue_scripts', 'sbp_contact_enqueue_scripts');
