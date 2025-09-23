@@ -160,12 +160,6 @@ export function AccountSettings() {
       setOriginalForm(data);
       setEditing(false);
       setMessage({ type: 'success', text: 'Profile updated successfully!' });
-
-      // Notify parent component if callback provided
-      if (onProfileUpdate) {
-        onProfileUpdate(data);
-      }
-
     } catch (error) {
       console.error('Profile update error:', error);
       setMessage({ type: 'error', text: error.message });

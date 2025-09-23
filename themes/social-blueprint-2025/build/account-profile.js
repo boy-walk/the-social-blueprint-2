@@ -634,11 +634,6 @@ function AccountSettings() {
         type: 'success',
         text: 'Profile updated successfully!'
       });
-
-      // Notify parent component if callback provided
-      if (onProfileUpdate) {
-        onProfileUpdate(data);
-      }
     } catch (error) {
       console.error('Profile update error:', error);
       setMessage({
@@ -1155,4 +1150,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=7dcebbe6ff4d58670c4f
+//# sourceMappingURL=account-profile.js.map?ver=39ef81be141956af1661
