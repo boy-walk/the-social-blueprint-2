@@ -8,6 +8,7 @@ require_once get_template_directory() . '/inc/candle-lighting-times.php';
 require_once get_template_directory() . '/inc/article-category-taxonomy.php';
 require_once get_template_directory() . '/inc/submit-article.php';
 require_once get_template_directory() . '/inc/share.php';
+require_once get_template_directory() . '/inc/user-wp.php';
 
 function boilerplate_load_assets() {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
@@ -285,109 +286,6 @@ add_filter('acf/settings/load_json', function ($paths) {
   unset($paths[0]);
   $paths[] = get_stylesheet_directory() . '/acf-json';
   return $paths;
-});
-
-add_action('rest_api_init', function () {
-  register_rest_route('custom/v1', '/user-profile', [
-    'methods' => 'GET',
-    'callback' => function () {
-      $user = wp_get_current_user();
-      if (!$user || !$user->ID) return new WP_Error('unauthorized', 'Not logged in', ['status' => 401]);
-
-      return [
-        'ID' => $user->ID,
-        'first_name' => $user->first_name,
-        'last_name' => $user->last_name,
-        'display_name' => $user->display_name,
-        'email' => $user->user_email,
-        'bio' => get_user_meta($user->ID, 'description', true),
-        'phone' => get_user_meta($user->ID, 'phone', true),
-        'avatar_url' => get_avatar_url($user->ID),
-      ];
-    },
-    'permission_callback' => '__return_true'
-  ]);
-
-  register_rest_route('custom/v1', '/user-profile', [
-    'methods' => 'POST',
-    'callback' => function ($request) {
-      $user = wp_get_current_user();
-      if (!$user || !$user->ID) return new WP_Error('unauthorized', 'Not logged in', ['status' => 401]);
-
-      $data = $request->get_json_params();
-
-      wp_update_user([
-        'ID' => $user->ID,
-        'first_name' => sanitize_text_field($data['first_name']),
-        'last_name' => sanitize_text_field($data['last_name']),
-        'user_email' => sanitize_email($data['email']),
-        'display_name' => sanitize_text_field($data['display_name']),
-      ]);
-
-      update_user_meta($user->ID, 'phone', sanitize_text_field($data['phone']));
-      update_user_meta($user->ID, 'description', sanitize_textarea_field($data['bio']));
-
-      return ['success' => true];
-    },
-    'permission_callback' => '__return_true'
-  ]);
-});
-
-add_action('rest_api_init', function () {
-  register_rest_route('custom/v1', '/upload-avatar', [
-    'methods' => 'POST',
-    'callback' => 'custom_upload_avatar',
-    'permission_callback' => function () { return is_user_logged_in(); }
-  ]);
-});
-
-function custom_upload_avatar(WP_REST_Request $request) {
-  if (empty($_FILES['avatar'])) {
-    return new WP_REST_Response(['message' => 'No file uploaded'], 400);
-  }
-
-  require_once ABSPATH . 'wp-admin/includes/file.php';
-  require_once ABSPATH . 'wp-admin/includes/media.php';
-  require_once ABSPATH . 'wp-admin/includes/image.php';
-
-  $upload = media_handle_upload('avatar', 0);
-
-  if (is_wp_error($upload)) {
-    return new WP_REST_Response(['message' => $upload->get_error_message()], 400);
-  }
-
-  $user_id = get_current_user_id();
-  update_user_meta($user_id, 'uwp_profile_photo', $upload);
-
-  $url = wp_get_attachment_image_url($upload, 'full');
-
-  return new WP_REST_Response(['url' => $url], 200);
-}
-
-add_action('rest_api_init', function () {
-  register_rest_route('custom/v1', '/change-password', [
-    'methods' => 'POST',
-    'callback' => function ($request) {
-      if (!is_user_logged_in()) {
-        return new WP_REST_Response(['message' => 'Not logged in'], 401);
-      }
-
-      $params = $request->get_json_params();
-      $user = wp_get_current_user();
-
-      if (!wp_check_password($params['current_password'], $user->user_pass, $user->ID)) {
-        return new WP_REST_Response(['message' => 'Current password is incorrect'], 400);
-      }
-
-      if (empty($params['new_password']) || strlen($params['new_password']) < 6) {
-        return new WP_REST_Response(['message' => 'Password must be at least 6 characters'], 400);
-      }
-
-      wp_set_password($params['new_password'], $user->ID);
-      return ['success' => true];
-    },
-    'permission_callback' => '__return_true',
-  ]);
 });
 
 function register_historical_photos_cpt() {

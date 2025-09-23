@@ -315,7 +315,7 @@ export const RichTextField = ({
         disabled ? "opacity-60 cursor-not-allowed" : ""
       )}>
         {/* Label */}
-        <span className="absolute left-4 -top-3 px-2 Blueprint-label-medium bg-schemesSurface text-schemesOnSurfaceVariant rounded-sm shadow-sm">
+        <span className="absolute left-4 -top-3 px-2 Blueprint-label-medium bg-schemesPrimaryFixed text-schemesOnSurfaceVariant rounded-sm shadow-sm">
           {label}
           {required ? <span className="text-schemesError ml-1">*</span> : ""}
         </span>

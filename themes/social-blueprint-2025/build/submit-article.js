@@ -705,7 +705,7 @@ const RichTextField = ({
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])("relative w-full rounded-lg border bg-schemesSurfaceContainerLow transition-colors", error ? "border-schemesError" : "border-schemesOutline", disabled ? "opacity-60 cursor-not-allowed" : ""),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
-        className: "absolute left-4 -top-3 px-2 Blueprint-label-medium bg-schemesSurface text-schemesOnSurfaceVariant rounded-sm shadow-sm",
+        className: "absolute left-4 -top-3 px-2 Blueprint-label-medium bg-schemesPrimaryFixed text-schemesOnSurfaceVariant rounded-sm shadow-sm",
         children: [label, required ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
           className: "text-schemesError ml-1",
           children: "*"
@@ -1522,4 +1522,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=submit-article.js.map?ver=d1420a34212fc390d97d
+//# sourceMappingURL=submit-article.js.map?ver=c12591e980d134412900

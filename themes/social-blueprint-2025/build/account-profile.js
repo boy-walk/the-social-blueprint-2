@@ -31,29 +31,112 @@ const AccountChangePassword = ({
   });
   const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [submitting, setSubmitting] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [showPasswordRequirements, setShowPasswordRequirements] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [passwordStrength, setPasswordStrength] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    score: 0,
+    feedback: ''
+  });
   const handleChange = e => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
+    const {
+      name,
+      value
+    } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Clear field-specific errors when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+
+    // Clear status messages when user starts typing
+    if (status) {
+      setStatus(null);
+    }
+
+    // Check password strength for new password
+    if (name === 'newPassword') {
+      setPasswordStrength(checkPasswordStrength(value));
+    }
+  };
+  const checkPasswordStrength = password => {
+    if (!password) return {
+      score: 0,
+      feedback: ''
+    };
+    let score = 0;
+    const feedback = [];
+
+    // Length check
+    if (password.length >= 8) score++;else feedback.push('at least 8 characters');
+
+    // Uppercase check
+    if (/[A-Z]/.test(password)) score++;else feedback.push('an uppercase letter');
+
+    // Lowercase check
+    if (/[a-z]/.test(password)) score++;else feedback.push('a lowercase letter');
+
+    // Number check
+    if (/\d/.test(password)) score++;else feedback.push('a number');
+
+    // Special character check
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score++;else feedback.push('a special character');
+    const strengthLevels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+    const strengthLevel = strengthLevels[Math.min(score, 4)];
+    let feedbackText = '';
+    if (score < 3) {
+      feedbackText = `${strengthLevel} - Add ${feedback.slice(0, 2).join(' and ')}`;
+    } else {
+      feedbackText = strengthLevel;
+    }
+    return {
+      score,
+      feedback: feedbackText
+    };
+  };
+  const validateForm = () => {
+    const newErrors = {};
+    if (!form.currentPassword.trim()) {
+      newErrors.currentPassword = 'Current password is required';
+    }
+    if (!form.newPassword.trim()) {
+      newErrors.newPassword = 'New password is required';
+    } else if (form.newPassword.length < 8) {
+      newErrors.newPassword = 'Password must be at least 8 characters long';
+    } else if (form.newPassword === form.currentPassword) {
+      newErrors.newPassword = 'New password must be different from current password';
+    }
+    if (!form.confirmPassword.trim()) {
+      newErrors.confirmPassword = 'Please confirm your new password';
+    } else if (form.newPassword !== form.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
   const handleSubmit = async e => {
     e.preventDefault();
     setStatus(null);
-    if (form.newPassword !== form.confirmPassword) {
+    if (!validateForm()) {
       setStatus({
         error: true,
-        message: 'Passwords do not match'
+        message: 'Please fix the errors below'
       });
       return;
     }
     setSubmitting(true);
     try {
-      const res = await fetch('/wp-json/custom/v1/change-password', {
+      const response = await fetch('/wp-json/custom/v1/change-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': window.WPData?.nonce
+          'X-WP-Nonce': window.WPData?.nonce || ''
         },
         credentials: 'include',
         body: JSON.stringify({
@@ -61,69 +144,215 @@ const AccountChangePassword = ({
           new_password: form.newPassword
         })
       });
-      const result = await res.json();
-      if (!res.ok) {
-        throw new Error(result.message || 'Password change failed');
+      const result = await response.json();
+      if (!response.ok) {
+        // Handle specific error cases from the backend
+        if (result.code === 'incorrect_password') {
+          setErrors({
+            currentPassword: result.message
+          });
+          setStatus({
+            error: true,
+            message: 'Please check your current password'
+          });
+        } else if (result.code === 'weak_password') {
+          setErrors({
+            newPassword: result.message
+          });
+          setStatus({
+            error: true,
+            message: 'Please choose a stronger password'
+          });
+        } else if (result.code === 'same_password') {
+          setErrors({
+            newPassword: result.message
+          });
+          setStatus({
+            error: true,
+            message: 'Please choose a different password'
+          });
+        } else {
+          throw new Error(result.message || 'Password change failed');
+        }
+        return;
       }
+
+      // Success
       setStatus({
         success: true,
-        message: 'Password updated successfully'
+        message: result.message || 'Password updated successfully! You remain logged in.'
       });
       setForm({
         currentPassword: '',
         newPassword: '',
         confirmPassword: ''
       });
-    } catch (err) {
+      setPasswordStrength({
+        score: 0,
+        feedback: ''
+      });
+    } catch (error) {
+      console.error('Password change error:', error);
       setStatus({
         error: true,
-        message: err.message
+        message: error.message || 'An unexpected error occurred'
       });
     } finally {
       setSubmitting(false);
     }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
-    onSubmit: handleSubmit,
-    className: "max-w-2xl mx-auto",
+  const getPasswordStrengthColor = score => {
+    const colors = ['bg-stateError',
+    // Very Weak
+    'bg-stateError',
+    // Weak  
+    'bg-yellow-500',
+    // Fair
+    'bg-blue-500',
+    // Good
+    'bg-stateSuccess' // Strong
+    ];
+    return colors[Math.min(score, 4)];
+  };
+  const isFormValid = form.currentPassword && form.newPassword && form.confirmPassword && form.newPassword === form.confirmPassword && form.newPassword.length >= 8 && form.newPassword !== form.currentPassword;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "max-w-2xl mx-auto px-4 lg:px-0",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-      className: "Blueprint-headline-small-emphasized mb-6",
+      className: "Blueprint-headline-small-emphasized mb-1",
       children: "Change Password"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "space-y-4",
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: "Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant",
+      children: "Update your password to keep your account secure."
+    }), status && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: `mb-6 p-4 rounded-lg border ${status.success ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess' : 'bg-stateError/10 border-stateError text-stateError'}`,
+      role: "alert",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "Blueprint-body-medium",
+        children: status.message
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+      onSubmit: handleSubmit,
+      className: "space-y-6",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         type: "password",
         name: "currentPassword",
         label: "Current Password",
         value: form.currentPassword,
         onChange: handleChange,
-        required: true
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-        type: "password",
-        name: "newPassword",
-        label: "New Password",
-        value: form.newPassword,
-        onChange: handleChange,
-        required: true
+        disabled: submitting,
+        required: true,
+        error: errors.currentPassword,
+        autoComplete: "current-password"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+          type: "password",
+          name: "newPassword",
+          label: "New Password",
+          value: form.newPassword,
+          onChange: handleChange,
+          disabled: submitting,
+          required: true,
+          error: errors.newPassword,
+          autoComplete: "new-password",
+          onFocus: () => setShowPasswordRequirements(true),
+          onBlur: () => setShowPasswordRequirements(false)
+        }), form.newPassword && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "mt-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "flex items-center gap-2 mb-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "flex-1 bg-schemesOutlineVariant rounded-full h-2 overflow-hidden",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: `h-full transition-all duration-300 ${getPasswordStrengthColor(passwordStrength.score)}`,
+                style: {
+                  width: `${passwordStrength.score / 5 * 100}%`
+                }
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "Blueprint-body-small text-schemesOnSurfaceVariant min-w-fit",
+              children: passwordStrength.feedback
+            })]
+          })
+        }), showPasswordRequirements && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "mt-2 p-3 bg-surfaceContainerHigh rounded-lg border border-schemesOutlineVariant",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant mb-2 font-medium",
+            children: "Password Requirements:"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant space-y-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: form.newPassword.length >= 8 ? 'text-stateSuccess' : '',
+              children: "\u2713 At least 8 characters"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: /[A-Z]/.test(form.newPassword) ? 'text-stateSuccess' : '',
+              children: "\u2713 One uppercase letter"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: /[a-z]/.test(form.newPassword) ? 'text-stateSuccess' : '',
+              children: "\u2713 One lowercase letter"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: /\d/.test(form.newPassword) ? 'text-stateSuccess' : '',
+              children: "\u2713 One number"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: /[!@#$%^&*(),.?":{}|<>]/.test(form.newPassword) ? 'text-stateSuccess' : '',
+              children: "\u2713 One special character"
+            })]
+          })]
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         type: "password",
         name: "confirmPassword",
-        label: "Confirm Password",
+        label: "Confirm New Password",
         value: form.confirmPassword,
         onChange: handleChange,
-        required: true
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "mt-6",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-        label: submitting ? 'Updating...' : 'Save Changes',
-        type: "submit",
         disabled: submitting,
-        variant: "filled",
-        size: "base",
-        shape: "square",
-        className: "w-full"
-      })
+        required: true,
+        error: errors.confirmPassword,
+        autoComplete: "new-password"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex flex-col sm:flex-row gap-3 pt-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: submitting ? 'Updating Password...' : 'Update Password',
+          type: "submit",
+          disabled: submitting || !isFormValid,
+          variant: "filled",
+          size: "base"
+        }), (form.currentPassword || form.newPassword || form.confirmPassword) && !submitting && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Clear Form",
+          type: "button",
+          variant: "outlined",
+          size: "base",
+          onClick: () => {
+            setForm({
+              currentPassword: '',
+              newPassword: '',
+              confirmPassword: ''
+            });
+            setErrors({});
+            setStatus(null);
+            setPasswordStrength({
+              score: 0,
+              feedback: ''
+            });
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "mt-8 p-4 bg-surfaceContainerLow rounded-lg border border-schemesOutlineVariant",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "Blueprint-body-medium font-medium text-schemesOnSurface mb-2",
+          children: "\uD83D\uDD12 Password Security Tips"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+          className: "Blueprint-body-small text-schemesOnSurfaceVariant space-y-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+            children: "\u2022 Use a unique password you don't use anywhere else"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+            children: "\u2022 Consider using a password manager to generate and store strong passwords"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+            children: "\u2022 Avoid using personal information like names, birthdays, or addresses"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+            children: "\u2022 Change your password regularly, especially if you suspect it may be compromised"
+          })]
+        })]
+      })]
     })]
   });
 };
@@ -242,36 +471,257 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function AccountSettings({
-  profile
+  profile: initialProfile,
+  onProfileUpdate
 }) {
   const [editing, setEditing] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(profile);
+  const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialProfile || {});
+  const [originalForm, setOriginalForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialProfile || {});
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [avatarUploading, setAvatarUploading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [hasChanges, setHasChanges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const fileInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // Load profile data on mount if not provided
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!initialProfile) {
+      loadProfile();
+    }
+  }, [initialProfile]);
+
+  // Track changes
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const changed = Object.keys(form).some(key => form[key] !== originalForm[key]);
+    setHasChanges(changed);
+  }, [form, originalForm]);
+  const loadProfile = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/wp-json/custom/v1/user-profile', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'X-WP-Nonce': window.WPData?.nonce || ''
+        }
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to load profile');
+      }
+      const profileData = await response.json();
+      setForm(profileData);
+      setOriginalForm(profileData);
+    } catch (error) {
+      setMessage({
+        type: 'error',
+        text: error.message
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleChange = e => {
     const {
       name,
       value
     } = e.target;
-    setForm({
-      ...form,
+    setForm(prev => ({
+      ...prev,
       [name]: value
-    });
+    }));
+
+    // Clear field-specific error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+
+    // Clear general messages
+    if (message) {
+      setMessage(null);
+    }
+  };
+  const validateForm = () => {
+    const newErrors = {};
+    if (!form.first_name?.trim()) {
+      newErrors.first_name = 'First name is required';
+    }
+    if (!form.last_name?.trim()) {
+      newErrors.last_name = 'Last name is required';
+    }
+    if (!form.email?.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    if (form.phone && form.phone.length > 0) {
+      // Australian phone number validation (mobile and landline)
+      const cleanPhone = form.phone.replace(/[\s\-\(\)\+]/g, '');
+      const phoneRegex = /^(0[2-9]\d{8}|61[2-9]\d{8}|\+61[2-9]\d{8})$/;
+
+      // Allow various Australian formats:
+      // Mobile: 04XX XXX XXX, 61XXX XXX XXX, +61XXX XXX XXX
+      // Landline: 0X XXXX XXXX, 61X XXXX XXXX, +61X XXXX XXXX
+      if (!phoneRegex.test(cleanPhone)) {
+        newErrors.phone = 'Please enter a valid Australian phone number (e.g., 0426 101 998)';
+      }
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
   const resetChanges = () => {
-    setForm(profile);
+    setForm(originalForm);
     setEditing(false);
+    setErrors({});
+    setMessage(null);
   };
   const saveChanges = async () => {
-    await fetch('/wp-json/custom/v1/user-profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': window.WPData?.nonce
-      },
-      body: JSON.stringify(form)
-    });
-    setUser(form);
-    setEditMode(false);
+    if (!validateForm()) {
+      setMessage({
+        type: 'error',
+        text: 'Please fix the errors below'
+      });
+      return;
+    }
+    setLoading(true);
+    setMessage(null);
+    try {
+      const response = await fetch('/wp-json/custom/v1/user-profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': window.WPData?.nonce || ''
+        },
+        credentials: 'include',
+        body: JSON.stringify(form)
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        // Handle specific error cases
+        if (data.code === 'email_exists') {
+          setErrors({
+            email: data.message
+          });
+          setMessage({
+            type: 'error',
+            text: 'Please fix the errors below'
+          });
+        } else {
+          throw new Error(data.message || 'Failed to save changes');
+        }
+        return;
+      }
+
+      // Update local state with server response
+      setForm(data);
+      setOriginalForm(data);
+      setEditing(false);
+      setMessage({
+        type: 'success',
+        text: 'Profile updated successfully!'
+      });
+
+      // Notify parent component if callback provided
+      if (onProfileUpdate) {
+        onProfileUpdate(data);
+      }
+    } catch (error) {
+      console.error('Profile update error:', error);
+      setMessage({
+        type: 'error',
+        text: error.message
+      });
+    } finally {
+      setLoading(false);
+    }
   };
+  const handleAvatarUpload = async e => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Client-side validation
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSize) {
+      setMessage({
+        type: 'error',
+        text: 'Image must be less than 2MB'
+      });
+      return;
+    }
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    if (!allowedTypes.includes(file.type)) {
+      setMessage({
+        type: 'error',
+        text: 'Please upload a JPEG, PNG, or GIF image'
+      });
+      return;
+    }
+    setAvatarUploading(true);
+    setMessage(null);
+    try {
+      const formData = new FormData();
+      formData.append('avatar', file);
+      const response = await fetch('/wp-json/custom/v1/upload-avatar', {
+        method: 'POST',
+        headers: {
+          'X-WP-Nonce': window.WPData?.nonce || ''
+        },
+        credentials: 'include',
+        body: formData
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Upload failed');
+      }
+
+      // Update avatar in form
+      const newForm = {
+        ...form,
+        avatar: data.url
+      };
+      setForm(newForm);
+      setOriginalForm(newForm);
+      setMessage({
+        type: 'success',
+        text: 'Avatar updated successfully!'
+      });
+    } catch (error) {
+      console.error('Avatar upload error:', error);
+      setMessage({
+        type: 'error',
+        text: error.message
+      });
+    } finally {
+      setAvatarUploading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+  const startEditing = () => {
+    setEditing(true);
+    setMessage(null);
+    setErrors({});
+  };
+  if (loading && !form.ID) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "max-w-2xl mx-auto px-4 lg:px-0 py-8",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex items-center justify-center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "w-8 h-8 border-3 border-schemesPrimary border-t-transparent rounded-full animate-spin"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "ml-3 Blueprint-body-medium text-schemesOnSurfaceVariant",
+          children: "Loading profile..."
+        })]
+      })
+    });
+  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "max-w-2xl mx-auto px-4 lg:px-0",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
@@ -279,110 +729,132 @@ function AccountSettings({
       children: "Profile"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
       className: "Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant",
-      children: "View your profile details and make changes when needed."
+      children: "View and edit your profile details."
+    }), message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: `mb-6 p-4 rounded-lg border ${message.type === 'success' ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess' : 'bg-stateError/10 border-stateError text-stateError'}`,
+      role: "alert",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "Blueprint-body-medium",
+        children: message.text
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "flex items-center gap-4 mb-8",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-        src: form.avatar || '/wp-content/plugins/userswp/assets/images/no_profile.png',
-        alt: "Avatar",
-        className: "rounded-lg w-24 h-24 mb-2"
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "relative",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: form.avatar || '/wp-content/plugins/userswp/assets/images/no_profile.png',
+          alt: "Profile avatar",
+          className: "rounded-lg w-24 h-24 object-cover border-2 border-schemesOutlineVariant"
+        }), avatarUploading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"
+          })
+        })]
       }), editing && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          ref: fileInputRef,
           type: "file",
-          accept: "image/*",
+          accept: "image/jpeg,image/jpg,image/png,image/gif",
           id: "avatarUpload",
-          style: {
-            display: 'none'
-          },
-          onChange: async e => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const formData = new FormData();
-            formData.append('avatar', file);
-            const res = await fetch('/wp-json/custom/v1/upload-avatar', {
-              method: 'POST',
-              headers: {
-                'X-WP-Nonce': window.WPData?.nonce
-              },
-              body: formData
-            });
-            const json = await res.json();
-            if (res.ok) {
-              setForm(prev => ({
-                ...prev,
-                avatar: json.url
-              }));
-            } else {
-              alert(json.message || 'Upload failed');
-            }
-          }
+          className: "sr-only",
+          onChange: handleAvatarUpload,
+          disabled: avatarUploading
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          label: "Change photo",
+          label: avatarUploading ? "Uploading..." : "Change photo",
           variant: "tonal",
           size: "sm",
-          onClick: () => document.getElementById('avatarUpload').click()
+          onClick: () => fileInputRef.current?.click(),
+          disabled: avatarUploading
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "Blueprint-body-small text-schemesOnSurfaceVariant",
+          children: "JPEG, PNG, or GIF. Max 2MB."
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
       className: "flex flex-col gap-6",
+      onSubmit: e => e.preventDefault(),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex gap-6",
+        className: "grid grid-cols-1 md:grid-cols-2 gap-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "First name",
           name: "first_name",
-          value: form.first_name,
+          value: form.first_name || '',
           onChange: handleChange,
-          disabled: !editing
+          disabled: !editing,
+          required: true,
+          error: errors.first_name
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Last name",
           name: "last_name",
-          value: form.last_name,
+          value: form.last_name || '',
           onChange: handleChange,
-          disabled: !editing
+          disabled: !editing,
+          required: true,
+          error: errors.last_name
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex gap-6",
+        className: "grid grid-cols-1 md:grid-cols-2 gap-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-          label: "Account name",
+          label: "Username",
           name: "username",
-          value: form.username,
-          onChange: handleChange,
-          disabled: !editing
+          value: form.username || '',
+          disabled: true,
+          helpText: "Username cannot be changed"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Phone",
           name: "phone",
-          value: form.phone,
+          value: form.phone || '',
           onChange: handleChange,
-          disabled: !editing
+          disabled: !editing,
+          error: errors.phone
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Email",
         name: "email",
-        value: form.email,
+        type: "email",
+        value: form.email || '',
         onChange: handleChange,
-        disabled: !editing
+        disabled: !editing,
+        required: true,
+        error: errors.email
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Bio",
         name: "bio",
-        value: form.bio,
+        value: form.bio || '',
         onChange: handleChange,
         disabled: !editing,
-        multiline: true
+        multiline: true,
+        rows: 4,
+        helpText: "Tell others a bit about yourself"
+      }), form.registration_date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "text-schemesOnSurfaceVariant Blueprint-body-small",
+        children: ["Member since: ", new Date(form.registration_date).toLocaleDateString('en-AU', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "flex gap-4 mt-6",
+      className: "flex flex-col sm:flex-row gap-3 mt-8",
       children: editing ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          label: "Reset Changes",
-          variant: "tonal",
-          onClick: resetChanges
+          label: "Cancel",
+          variant: "outlined",
+          onClick: resetChanges,
+          disabled: loading
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          label: "Save Changes",
-          onClick: saveChanges
+          label: loading ? "Saving..." : "Save Changes",
+          onClick: saveChanges,
+          disabled: loading || !hasChanges
+        }), hasChanges && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "Blueprint-body-small text-schemesOnSurfaceVariant self-center",
+          children: "You have unsaved changes"
         })]
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
         label: "Edit Profile",
-        onClick: () => setEditing(true)
+        onClick: startEditing,
+        disabled: loading
       })
     })]
   });
@@ -656,4 +1128,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=2580a86a864ee76a234e
+//# sourceMappingURL=account-profile.js.map?ver=3757e1bc92f07bc68764
