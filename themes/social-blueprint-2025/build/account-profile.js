@@ -425,14 +425,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function AccountEditProfilePage(props) {
   const {
-    links,
-    user
-  } = props;
+    links
+  } = props; // { profileHref, passwordHref, logoutHref }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_AccountLayout__WEBPACK_IMPORTED_MODULE_0__.AccountLayout, {
     active: "profile",
     links: links,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_AccountSettingsPage__WEBPACK_IMPORTED_MODULE_1__.AccountSettings, {
-      user: user
+      ...props
     })
   });
 }
@@ -472,389 +471,147 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function AccountSettings({
-  user
+  profile
 }) {
   const [editing, setEditing] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
-  const [originalForm, setOriginalForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
-  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-  const [avatarUploading, setAvatarUploading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
-  const [hasChanges, setHasChanges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const fileInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    loadProfile();
-  }, []);
-
-  // Track changes
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const changed = Object.keys(form).some(key => form[key] !== originalForm[key]);
-    setHasChanges(changed);
-  }, [form, originalForm]);
-  const loadProfile = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('/wp-json/custom/v1/user-profile', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'X-WP-Nonce': window.WPData?.nonce || ''
-        }
-      });
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Response not ok:', response.status, errorText);
-        throw new Error(`Server error: ${response.status}`);
-      }
-      const profileData = await response.json();
-      console.log('Loaded profile data:', profileData);
-      setForm(profileData);
-      setOriginalForm(profileData);
-    } catch (error) {
-      console.error('Load profile error:', error);
-      setMessage({
-        type: 'error',
-        text: error.message
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(profile);
   const handleChange = e => {
     const {
       name,
       value
     } = e.target;
-    setForm(prev => ({
-      ...prev,
+    setForm({
+      ...form,
       [name]: value
-    }));
-
-    // Clear field-specific error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-
-    // Clear general messages
-    if (message) {
-      setMessage(null);
-    }
-  };
-  const validateForm = () => {
-    const newErrors = {};
-    if (!form.first_name?.trim()) {
-      newErrors.first_name = 'First name is required';
-    }
-    if (!form.last_name?.trim()) {
-      newErrors.last_name = 'Last name is required';
-    }
-    if (!form.email?.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-    if (form.phone && form.phone.length > 0) {
-      // Australian phone number validation (mobile and landline)
-      const cleanPhone = form.phone.replace(/[\s\-\(\)\+]/g, '');
-      const phoneRegex = /^(0[2-9]\d{8}|61[2-9]\d{8}|\+61[2-9]\d{8})$/;
-      if (!phoneRegex.test(cleanPhone)) {
-        newErrors.phone = 'Please enter a valid Australian phone number (e.g., 0426 101 998)';
-      }
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    });
   };
   const resetChanges = () => {
-    setForm(originalForm);
+    setForm(profile);
     setEditing(false);
-    setErrors({});
-    setMessage(null);
   };
   const saveChanges = async () => {
-    if (!validateForm()) {
-      setMessage({
-        type: 'error',
-        text: 'Please fix the errors below'
-      });
-      return;
-    }
-    setLoading(true);
-    setMessage(null);
-    try {
-      const response = await fetch('/wp-json/custom/v1/user-profile', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-WP-Nonce': window.WPData?.nonce || ''
-        },
-        credentials: 'include',
-        body: JSON.stringify(form)
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        // Handle specific error cases
-        if (data.code === 'email_exists') {
-          setErrors({
-            email: data.message
-          });
-          setMessage({
-            type: 'error',
-            text: 'Please fix the errors below'
-          });
-        } else {
-          throw new Error(data.message || 'Failed to save changes');
-        }
-        return;
-      }
-
-      // Reload the profile data from the server to get the fresh state
-      await loadProfile();
-      setEditing(false);
-      setMessage({
-        type: 'success',
-        text: 'Profile updated successfully!'
-      });
-    } catch (error) {
-      console.error('Profile update error:', error);
-      setMessage({
-        type: 'error',
-        text: error.message
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-  const handleAvatarUpload = async e => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Client-side validation
-    const maxSize = 2 * 1024 * 1024; // 2MB
-    if (file.size > maxSize) {
-      setMessage({
-        type: 'error',
-        text: 'Image must be less than 2MB'
-      });
-      return;
-    }
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-    if (!allowedTypes.includes(file.type)) {
-      setMessage({
-        type: 'error',
-        text: 'Please upload a JPEG, PNG, or GIF image'
-      });
-      return;
-    }
-    setAvatarUploading(true);
-    setMessage(null);
-    try {
-      const formData = new FormData();
-      formData.append('avatar', file); // Changed from 'avatar_url' to 'avatar'
-
-      const response = await fetch('/wp-json/custom/v1/upload-avatar', {
-        method: 'POST',
-        headers: {
-          'X-WP-Nonce': window.WPData?.nonce || ''
-        },
-        credentials: 'include',
-        body: formData
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || 'Upload failed');
-      }
-
-      // Update avatar in form
-      const newForm = {
-        ...form,
-        avatar_url: data.url
-      };
-      setForm(newForm);
-      setOriginalForm(newForm);
-      setMessage({
-        type: 'success',
-        text: 'Avatar updated successfully!'
-      });
-    } catch (error) {
-      console.error('Avatar upload error:', error);
-      setMessage({
-        type: 'error',
-        text: error.message
-      });
-    } finally {
-      setAvatarUploading(false);
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
-  };
-  const startEditing = () => {
-    setEditing(true);
-    setMessage(null);
-    setErrors({});
-  };
-
-  // Debug function to refresh profile data
-  const refreshProfile = async () => {
-    setMessage(null);
-    await loadProfile();
-  };
-  if (loading && !form.ID) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "max-w-2xl mx-auto px-4 lg:px-0 py-8",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex items-center justify-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "w-8 h-8 border-3 border-schemesPrimary border-t-transparent rounded-full animate-spin"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          className: "ml-3 Blueprint-body-medium text-schemesOnSurfaceVariant",
-          children: "Loading profile..."
-        })]
-      })
+    await fetch('/wp-json/custom/v1/user-profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-WP-Nonce': window.WPData?.nonce
+      },
+      body: JSON.stringify(form)
     });
-  }
+    setUser(form);
+    setEditMode(false);
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "max-w-2xl mx-auto px-4 lg:px-0",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "flex items-center justify-between mb-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-          className: "Blueprint-headline-small-emphasized mb-1",
-          children: "Profile"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
-          children: "View and edit your profile details."
-        })]
-      }), !editing && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-        label: "Refresh",
-        variant: "outlined",
-        size: "sm",
-        onClick: refreshProfile,
-        disabled: loading
-      })]
-    }), message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: `mb-6 p-4 rounded-lg border ${message.type === 'success' ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess' : 'bg-stateError/10 border-stateError text-stateError'}`,
-      role: "alert",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "Blueprint-body-medium",
-        children: message.text
-      })
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+      className: "Blueprint-headline-small-emphasized mb-1",
+      children: "Profile"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: "Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant",
+      children: "View your profile details and make changes when needed."
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "flex items-center gap-4 mb-8",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "relative",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-          src: form.avatar_url || '/wp-content/plugins/userswp/assets/images/no_profile.png',
-          alt: "Profile avatar",
-          className: "rounded-lg w-24 h-24 object-cover border-2 border-schemesOutlineVariant"
-        }), avatarUploading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"
-          })
-        })]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+        src: form.avatar || '/wp-content/plugins/userswp/assets/images/no_profile.png',
+        alt: "Avatar",
+        className: "rounded-lg w-24 h-24 mb-2"
       }), editing && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-          ref: fileInputRef,
           type: "file",
-          accept: "image/jpeg,image/jpg,image/png,image/gif",
+          accept: "image/*",
           id: "avatarUpload",
-          className: "sr-only",
-          onChange: handleAvatarUpload,
-          disabled: avatarUploading
+          style: {
+            display: 'none'
+          },
+          onChange: async e => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('avatar', file);
+            const res = await fetch('/wp-json/custom/v1/upload-avatar', {
+              method: 'POST',
+              headers: {
+                'X-WP-Nonce': window.WPData?.nonce
+              },
+              body: formData
+            });
+            const json = await res.json();
+            if (res.ok) {
+              setForm(prev => ({
+                ...prev,
+                avatar: json.url
+              }));
+            } else {
+              alert(json.message || 'Upload failed');
+            }
+          }
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          label: avatarUploading ? "Uploading..." : "Change photo",
+          label: "Change photo",
           variant: "tonal",
           size: "sm",
-          onClick: () => fileInputRef.current?.click(),
-          disabled: avatarUploading
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-small text-schemesOnSurfaceVariant",
-          children: "JPEG, PNG, or GIF. Max 2MB."
+          onClick: () => document.getElementById('avatarUpload').click()
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
       className: "flex flex-col gap-6",
-      onSubmit: e => e.preventDefault(),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+        className: "flex gap-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "First name",
           name: "first_name",
-          value: form.first_name || '',
+          value: form.first_name,
           onChange: handleChange,
-          disabled: !editing,
-          required: true,
-          error: errors.first_name
+          disabled: !editing
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Last name",
           name: "last_name",
-          value: form.last_name || '',
+          value: form.last_name,
           onChange: handleChange,
-          disabled: !editing,
-          required: true,
-          error: errors.last_name
+          disabled: !editing
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+        className: "flex gap-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-          label: "Display Name",
-          name: "display_name",
-          value: form.display_name || '',
+          label: "Account name",
+          name: "username",
+          value: form.username,
           onChange: handleChange,
           disabled: !editing
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Phone",
           name: "phone",
-          value: form.phone || '',
+          value: form.phone,
           onChange: handleChange,
-          disabled: !editing,
-          error: errors.phone
+          disabled: !editing
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Email",
         name: "email",
-        type: "email",
-        value: form.email || '',
+        value: form.email,
         onChange: handleChange,
-        disabled: !editing,
-        required: true,
-        error: errors.email
+        disabled: !editing
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Bio",
         name: "bio",
-        value: form.bio || '',
+        value: form.bio,
         onChange: handleChange,
         disabled: !editing,
-        multiline: true,
-        rows: 4,
-        helpText: "Tell others a bit about yourself"
+        multiline: true
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "flex flex-col sm:flex-row gap-3 mt-8",
+      className: "flex gap-4 mt-6",
       children: editing ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          label: "Cancel",
-          variant: "outlined",
-          onClick: resetChanges,
-          disabled: loading
+          label: "Reset Changes",
+          variant: "tonal",
+          onClick: resetChanges
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          label: loading ? "Saving..." : "Save Changes",
-          onClick: saveChanges,
-          disabled: loading || !hasChanges
-        }), hasChanges && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "Blueprint-body-small text-schemesOnSurfaceVariant self-center",
-          children: "You have unsaved changes"
+          label: "Save Changes",
+          onClick: saveChanges
         })]
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
         label: "Edit Profile",
-        onClick: startEditing,
-        disabled: loading
+        onClick: () => setEditing(true)
       })
     })]
   });
@@ -1128,4 +885,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=c44a191734c69106e86d
+//# sourceMappingURL=account-profile.js.map?ver=af286a2edcdcdd0f3159

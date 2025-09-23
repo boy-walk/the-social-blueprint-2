@@ -4,10 +4,10 @@ import { AccountSettings } from "./AccountSettingsPage";
 import { AccountChangePassword } from "./AccountChangePassword";
 
 export function AccountEditProfilePage(props) {
-  const { links, user } = props;
+  const { links } = props; // { profileHref, passwordHref, logoutHref }
   return (
     <AccountLayout active="profile" links={links}>
-      <AccountSettings user={user} />
+      <AccountSettings {...props} />
     </AccountLayout>
   );
 }
