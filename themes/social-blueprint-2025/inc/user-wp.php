@@ -7,16 +7,16 @@ add_action('rest_api_init', function () {
       $user = wp_get_current_user();
       if (!$user || !$user->ID) return new WP_Error('unauthorized', 'Not logged in', ['status' => 401]);
 
-      // Get custom avatar URL if set, otherwise use gravatar
-      $avatar_attachment_id = get_user_meta($user->ID, 'uwp_profile_photo', true);
-      $avatar_url = $avatar_attachment_id 
-        ? wp_get_attachment_image_url($avatar_attachment_id, 'thumbnail') 
+      // Check for UsersWP profile photo first, then fallback to gravatar
+      $uwp_avatar = get_user_meta($user->ID, 'uwp_profile_photo', true);
+      $avatar_url = $uwp_avatar 
+        ? wp_get_attachment_image_url($uwp_avatar, 'thumbnail') 
         : get_avatar_url($user->ID);
 
       return [
         'ID' => $user->ID,
-        'first_name' => $user->first_name,
-        'last_name' => $user->last_name,
+        'first_name' => get_user_meta($user->ID, 'first_name', true) ?: $user->first_name,
+        'last_name' => get_user_meta($user->ID, 'last_name', true) ?: $user->last_name,
         'display_name' => $user->display_name,
         'username' => $user->user_login,
         'email' => $user->user_email,
@@ -47,7 +47,7 @@ add_action('rest_api_init', function () {
       }
 
       // Update core user data
-      wp_update_user([
+      $user_update = wp_update_user([
         'ID' => $user->ID,
         'first_name' => sanitize_text_field($data['first_name']),
         'last_name' => sanitize_text_field($data['last_name']),
@@ -55,11 +55,27 @@ add_action('rest_api_init', function () {
         'display_name' => sanitize_text_field(trim($data['first_name'] . ' ' . $data['last_name'])),
       ]);
 
-      // Update meta fields
+      if (is_wp_error($user_update)) {
+        return new WP_Error('update_failed', $user_update->get_error_message(), ['status' => 400]);
+      }
+
+      // Update user meta fields
+      update_user_meta($user->ID, 'first_name', sanitize_text_field($data['first_name']));
+      update_user_meta($user->ID, 'last_name', sanitize_text_field($data['last_name']));
       update_user_meta($user->ID, 'phone', sanitize_text_field($data['phone']));
       update_user_meta($user->ID, 'description', sanitize_textarea_field($data['bio']));
 
-      return ['success' => true];
+      // Trigger UsersWP hooks if available
+      if (function_exists('uwp_get_user_profile_fields')) {
+        do_action('uwp_account_edit_extra_fields_save', $user->ID, $data);
+      }
+
+      // Clear any user caches
+      clean_user_cache($user->ID);
+      wp_cache_delete($user->ID, 'users');
+      wp_cache_delete($user->ID, 'user_meta');
+
+      return ['success' => true, 'message' => 'Profile updated successfully'];
     },
     'permission_callback' => function () {
       $nonce = $_SERVER['HTTP_X_WP_NONCE'] ?? '';
@@ -124,9 +140,14 @@ function custom_upload_avatar(WP_REST_Request $request) {
     wp_delete_attachment($old_avatar_id, true);
   }
   
+  // Update UsersWP profile photo meta
   update_user_meta($user_id, 'uwp_profile_photo', $upload);
 
-  $url = wp_get_attachment_image_url($upload, 'full');
+  // Clear user cache
+  clean_user_cache($user_id);
+  wp_cache_delete($user_id, 'user_meta');
+
+  $url = wp_get_attachment_image_url($upload, 'thumbnail');
 
   return new WP_REST_Response(['url' => $url], 200);
 }
