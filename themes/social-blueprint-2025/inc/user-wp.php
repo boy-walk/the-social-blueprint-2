@@ -103,7 +103,6 @@ add_action('rest_api_init', function () {
 });
 
 function custom_get_user_profile() {
-  wp_cache_delete(get_current_user_id(), 'user_meta');
   $user = wp_get_current_user();
   
   if (!$user || !$user->ID) {
@@ -134,10 +133,15 @@ function custom_get_user_profile() {
     $last_name = $user->last_name;
   }
   
-  // UsersWP bio might be stored as uwp_bio or description
-  $bio = get_user_meta($user->ID, 'uwp_bio', true);
-  if (empty($bio)) {
-    $bio = get_user_meta($user->ID, 'description', true);
+  // UsersWP bio might be stored under various field names
+  $bio_fields = ['uwp_bio', 'description', 'uwp_about', 'about', 'biographical_info'];
+  $bio = '';
+  
+  foreach ($bio_fields as $field) {
+    $bio = get_user_meta($user->ID, $field, true);
+    if (!empty($bio)) {
+      break;
+    }
   }
   
   // UsersWP phone might be stored as uwp_phone
@@ -205,8 +209,11 @@ function custom_update_user_profile($request) {
     }
     
     if (isset($data['bio'])) {
+      // Update bio in multiple possible field names for UsersWP compatibility
       update_user_meta($user->ID, 'uwp_bio', $data['bio']);
       update_user_meta($user->ID, 'description', $data['bio']);
+      update_user_meta($user->ID, 'uwp_about', $data['bio']);
+      update_user_meta($user->ID, 'biographical_info', $data['bio']);
     }
 
     // If UsersWP is active, trigger its update hooks
