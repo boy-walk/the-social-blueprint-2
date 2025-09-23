@@ -103,6 +103,7 @@ add_action('rest_api_init', function () {
 });
 
 function custom_get_user_profile() {
+  wp_cache_delete(get_current_user_id(), 'user_meta');
   $user = wp_get_current_user();
   
   if (!$user || !$user->ID) {
