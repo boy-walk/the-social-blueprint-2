@@ -147,7 +147,7 @@ mount(
       ReactDOM.createRoot(el).render(React.createElement(Comp, {
         links: parse(el.dataset.links || '{}'),
         user: parse(el.dataset.user || '{}'),
-        profile: parse(el.dataset.profile || '{}'),
+        // Remove this line: profile: parse(el.dataset.profile || '{}'),
       }));
     });
   }

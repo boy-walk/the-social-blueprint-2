@@ -2,30 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TextField } from './TextField';
 import { Button } from './Button';
 
-export function AccountSettings({ profile: initialProfile, onProfileUpdate }) {
+export function AccountSettings({ onProfileUpdate }) {
   const [editing, setEditing] = useState(false);
-  const [form, setForm] = useState(initialProfile || {});
-  const [originalForm, setOriginalForm] = useState(initialProfile || {});
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({});
+  const [originalForm, setOriginalForm] = useState({});
+  const [loading, setLoading] = useState(true);
   const [avatarUploading, setAvatarUploading] = useState(false);
   const [message, setMessage] = useState(null);
   const [errors, setErrors] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Update form when initialProfile changes
+  // Load profile data on mount
   useEffect(() => {
-    if (initialProfile && Object.keys(initialProfile).length > 0) {
-      setForm(initialProfile);
-      setOriginalForm(initialProfile);
-    }
-  }, [initialProfile]);
-
-  // Load profile data on mount if not provided
-  useEffect(() => {
-    if (!initialProfile || Object.keys(initialProfile).length === 0) {
-      loadProfile();
-    }
+    loadProfile();
   }, []);
 
   // Track changes
@@ -236,16 +226,6 @@ export function AccountSettings({ profile: initialProfile, onProfileUpdate }) {
     setMessage(null);
     await loadProfile();
   };
-
-  // Console log for debugging
-  useEffect(() => {
-    console.log('AccountSettings Debug:', {
-      initialProfile,
-      currentForm: form,
-      hasID: !!form.ID,
-      formKeys: Object.keys(form)
-    });
-  }, [initialProfile, form]);
 
   if (loading && !form.ID) {
     return (

@@ -471,32 +471,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function AccountSettings({
-  profile: initialProfile,
   onProfileUpdate
 }) {
   const [editing, setEditing] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialProfile || {});
-  const [originalForm, setOriginalForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialProfile || {});
-  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [originalForm, setOriginalForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const [avatarUploading, setAvatarUploading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [hasChanges, setHasChanges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const fileInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
-  // Update form when initialProfile changes
+  // Load profile data on mount
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (initialProfile && Object.keys(initialProfile).length > 0) {
-      setForm(initialProfile);
-      setOriginalForm(initialProfile);
-    }
-  }, [initialProfile]);
-
-  // Load profile data on mount if not provided
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!initialProfile || Object.keys(initialProfile).length === 0) {
-      loadProfile();
-    }
+    loadProfile();
   }, []);
 
   // Track changes
@@ -722,16 +711,6 @@ function AccountSettings({
     setMessage(null);
     await loadProfile();
   };
-
-  // Console log for debugging
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    console.log('AccountSettings Debug:', {
-      initialProfile,
-      currentForm: form,
-      hasID: !!form.ID,
-      formKeys: Object.keys(form)
-    });
-  }, [initialProfile, form]);
   if (loading && !form.ID) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "max-w-2xl mx-auto px-4 lg:px-0 py-8",
@@ -1163,4 +1142,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=76cdca3dcaa44ba1f719
+//# sourceMappingURL=account-profile.js.map?ver=5dc7725f222f97fc6136
