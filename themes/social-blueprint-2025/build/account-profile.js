@@ -471,7 +471,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function AccountSettings() {
+function AccountSettings({
+  user
+}) {
   const [editing, setEditing] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [originalForm, setOriginalForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
@@ -500,26 +502,13 @@ function AccountSettings() {
           'X-WP-Nonce': window.WPData?.nonce || ''
         }
       });
-
-      // Check if response is ok
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Response not ok:', response.status, errorText);
         throw new Error(`Server error: ${response.status}`);
       }
-
-      // Try to parse JSON
-      const responseText = await response.text();
-      console.log('Raw response:', responseText);
-      let profileData;
-      try {
-        profileData = JSON.parse(responseText);
-      } catch (jsonError) {
-        console.error('JSON Parse Error:', jsonError);
-        console.error('Response text:', responseText);
-        throw new Error('Server returned invalid response format');
-      }
-      console.log('Parsed profile data:', profileData);
+      const profileData = await response.json();
+      console.log('Loaded profile data:', profileData);
       setForm(profileData);
       setOriginalForm(profileData);
     } catch (error) {
@@ -572,10 +561,6 @@ function AccountSettings() {
       // Australian phone number validation (mobile and landline)
       const cleanPhone = form.phone.replace(/[\s\-\(\)\+]/g, '');
       const phoneRegex = /^(0[2-9]\d{8}|61[2-9]\d{8}|\+61[2-9]\d{8})$/;
-
-      // Allow various Australian formats:
-      // Mobile: 04XX XXX XXX, 61XXX XXX XXX, +61XXX XXX XXX
-      // Landline: 0X XXXX XXXX, 61X XXXX XXXX, +61X XXXX XXXX
       if (!phoneRegex.test(cleanPhone)) {
         newErrors.phone = 'Please enter a valid Australian phone number (e.g., 0426 101 998)';
       }
@@ -626,9 +611,8 @@ function AccountSettings() {
         return;
       }
 
-      // Update local state with server response
-      setForm(data);
-      setOriginalForm(data);
+      // Reload the profile data from the server to get the fresh state
+      await loadProfile();
       setEditing(false);
       setMessage({
         type: 'success',
@@ -669,7 +653,8 @@ function AccountSettings() {
     setMessage(null);
     try {
       const formData = new FormData();
-      formData.append('avatar_url', file);
+      formData.append('avatar', file); // Changed from 'avatar_url' to 'avatar'
+
       const response = await fetch('/wp-json/custom/v1/upload-avatar', {
         method: 'POST',
         headers: {
@@ -818,11 +803,11 @@ function AccountSettings() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "grid grid-cols-1 md:grid-cols-2 gap-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-          label: "Username",
-          name: "username",
-          value: form.username || '',
-          disabled: true,
-          helpText: "Username cannot be changed"
+          label: "Display Name",
+          name: "display_name",
+          value: form.display_name || '',
+          onChange: handleChange,
+          disabled: !editing
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Phone",
           name: "phone",
@@ -849,13 +834,6 @@ function AccountSettings() {
         multiline: true,
         rows: 4,
         helpText: "Tell others a bit about yourself"
-      }), form.registration_date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "text-schemesOnSurfaceVariant Blueprint-body-small",
-        children: ["Member since: ", new Date(form.registration_date).toLocaleDateString('en-AU', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "flex flex-col sm:flex-row gap-3 mt-8",
@@ -1150,4 +1128,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=39ef81be141956af1661
+//# sourceMappingURL=account-profile.js.map?ver=c44a191734c69106e86d

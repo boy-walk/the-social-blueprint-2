@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TextField } from './TextField';
 import { Button } from './Button';
 
-export function AccountSettings() {
+export function AccountSettings({ user }) {
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({});
   const [originalForm, setOriginalForm] = useState({});
@@ -34,27 +34,15 @@ export function AccountSettings() {
         },
       });
 
-      // Check if response is ok
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Response not ok:', response.status, errorText);
         throw new Error(`Server error: ${response.status}`);
       }
 
-      // Try to parse JSON
-      const responseText = await response.text();
-      console.log('Raw response:', responseText);
+      const profileData = await response.json();
+      console.log('Loaded profile data:', profileData);
 
-      let profileData;
-      try {
-        profileData = JSON.parse(responseText);
-      } catch (jsonError) {
-        console.error('JSON Parse Error:', jsonError);
-        console.error('Response text:', responseText);
-        throw new Error('Server returned invalid response format');
-      }
-
-      console.log('Parsed profile data:', profileData);
       setForm(profileData);
       setOriginalForm(profileData);
 
@@ -103,9 +91,6 @@ export function AccountSettings() {
       const cleanPhone = form.phone.replace(/[\s\-\(\)\+]/g, '');
       const phoneRegex = /^(0[2-9]\d{8}|61[2-9]\d{8}|\+61[2-9]\d{8})$/;
 
-      // Allow various Australian formats:
-      // Mobile: 04XX XXX XXX, 61XXX XXX XXX, +61XXX XXX XXX
-      // Landline: 0X XXXX XXXX, 61X XXXX XXXX, +61X XXXX XXXX
       if (!phoneRegex.test(cleanPhone)) {
         newErrors.phone = 'Please enter a valid Australian phone number (e.g., 0426 101 998)';
       }
@@ -155,9 +140,9 @@ export function AccountSettings() {
         return;
       }
 
-      // Update local state with server response
-      setForm(data);
-      setOriginalForm(data);
+      // Reload the profile data from the server to get the fresh state
+      await loadProfile();
+
       setEditing(false);
       setMessage({ type: 'success', text: 'Profile updated successfully!' });
     } catch (error) {
@@ -190,7 +175,7 @@ export function AccountSettings() {
 
     try {
       const formData = new FormData();
-      formData.append('avatar_url', file);
+      formData.append('avatar', file); // Changed from 'avatar_url' to 'avatar'
 
       const response = await fetch('/wp-json/custom/v1/upload-avatar', {
         method: 'POST',
@@ -346,11 +331,11 @@ export function AccountSettings() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <TextField
-            label="Username"
-            name="username"
-            value={form.username || ''}
-            disabled={true}
-            helpText="Username cannot be changed"
+            label="Display Name"
+            name="display_name"
+            value={form.display_name || ''}
+            onChange={handleChange}
+            disabled={!editing}
           />
           <TextField
             label="Phone"
@@ -383,16 +368,6 @@ export function AccountSettings() {
           rows={4}
           helpText="Tell others a bit about yourself"
         />
-
-        {form.registration_date && (
-          <div className="text-schemesOnSurfaceVariant Blueprint-body-small">
-            Member since: {new Date(form.registration_date).toLocaleDateString('en-AU', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </div>
-        )}
       </form>
 
       {/* Action Buttons */}
