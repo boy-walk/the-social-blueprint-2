@@ -115,15 +115,45 @@ function custom_get_user_profile() {
     ? wp_get_attachment_image_url($avatar_attachment_id, 'thumbnail') 
     : get_avatar_url($user->ID, ['size' => 150]);
 
+  // UsersWP often stores first_name and last_name in different meta keys
+  // Try multiple possible field names
+  $first_name = get_user_meta($user->ID, 'uwp_first_name', true);
+  if (empty($first_name)) {
+    $first_name = get_user_meta($user->ID, 'first_name', true);
+  }
+  if (empty($first_name)) {
+    $first_name = $user->first_name;
+  }
+                
+  $last_name = get_user_meta($user->ID, 'uwp_last_name', true);
+  if (empty($last_name)) {
+    $last_name = get_user_meta($user->ID, 'last_name', true);
+  }
+  if (empty($last_name)) {
+    $last_name = $user->last_name;
+  }
+  
+  // UsersWP bio might be stored as uwp_bio or description
+  $bio = get_user_meta($user->ID, 'uwp_bio', true);
+  if (empty($bio)) {
+    $bio = get_user_meta($user->ID, 'description', true);
+  }
+  
+  // UsersWP phone might be stored as uwp_phone
+  $phone = get_user_meta($user->ID, 'uwp_phone', true);
+  if (empty($phone)) {
+    $phone = get_user_meta($user->ID, 'phone', true);
+  }
+
   return [
     'ID' => $user->ID,
-    'first_name' => $user->first_name ?: '',
-    'last_name' => $user->last_name ?: '',
-    'display_name' => $user->display_name ?: '',
+    'first_name' => $first_name ?: '',
+    'last_name' => $last_name ?: '',
+    'display_name' => $user->display_name ?: trim($first_name . ' ' . $last_name),
     'username' => $user->user_login ?: '',
     'email' => $user->user_email ?: '',
-    'bio' => get_user_meta($user->ID, 'description', true) ?: '',
-    'phone' => get_user_meta($user->ID, 'phone', true) ?: '',
+    'bio' => $bio ?: '',
+    'phone' => $phone ?: '',
     'avatar' => $avatar_url ?: '',
     'registration_date' => $user->user_registered
   ];
@@ -142,8 +172,6 @@ function custom_update_user_profile($request) {
     // Update core user data
     $user_data = [
       'ID' => $user->ID,
-      'first_name' => $data['first_name'],
-      'last_name' => $data['last_name'],
       'user_email' => $data['email'],
     ];
 
@@ -159,13 +187,30 @@ function custom_update_user_profile($request) {
       return new WP_Error('update_failed', $result->get_error_message(), ['status' => 400]);
     }
 
-    // Update meta fields
+    // Update UsersWP meta fields - try both UsersWP and standard keys
+    if (isset($data['first_name'])) {
+      update_user_meta($user->ID, 'uwp_first_name', $data['first_name']);
+      update_user_meta($user->ID, 'first_name', $data['first_name']);
+    }
+    
+    if (isset($data['last_name'])) {
+      update_user_meta($user->ID, 'uwp_last_name', $data['last_name']);
+      update_user_meta($user->ID, 'last_name', $data['last_name']);
+    }
+    
     if (isset($data['phone'])) {
+      update_user_meta($user->ID, 'uwp_phone', $data['phone']);
       update_user_meta($user->ID, 'phone', $data['phone']);
     }
     
     if (isset($data['bio'])) {
+      update_user_meta($user->ID, 'uwp_bio', $data['bio']);
       update_user_meta($user->ID, 'description', $data['bio']);
+    }
+
+    // If UsersWP is active, trigger its update hooks
+    if (function_exists('uwp_update_user_profile')) {
+      do_action('uwp_account_edit_extra_fields_save', $user->ID, $data);
     }
 
     // Return updated profile data

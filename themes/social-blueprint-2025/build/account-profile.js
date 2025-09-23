@@ -503,14 +503,30 @@ function AccountSettings({
           'X-WP-Nonce': window.WPData?.nonce || ''
         }
       });
+
+      // Check if response is ok
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to load profile');
+        const errorText = await response.text();
+        console.error('Response not ok:', response.status, errorText);
+        throw new Error(`Server error: ${response.status}`);
       }
-      const profileData = await response.json();
+
+      // Try to parse JSON
+      const responseText = await response.text();
+      console.log('Raw response:', responseText);
+      let profileData;
+      try {
+        profileData = JSON.parse(responseText);
+      } catch (jsonError) {
+        console.error('JSON Parse Error:', jsonError);
+        console.error('Response text:', responseText);
+        throw new Error('Server returned invalid response format');
+      }
+      console.log('Parsed profile data:', profileData);
       setForm(profileData);
       setOriginalForm(profileData);
     } catch (error) {
+      console.error('Load profile error:', error);
       setMessage({
         type: 'error',
         text: error.message
@@ -1142,4 +1158,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=5dc7725f222f97fc6136
+//# sourceMappingURL=account-profile.js.map?ver=fd2d8a2c36e8e04b3e47
