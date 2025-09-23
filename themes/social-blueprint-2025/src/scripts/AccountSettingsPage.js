@@ -13,7 +13,6 @@ export function AccountSettings() {
   const [hasChanges, setHasChanges] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Load profile data on mount
   useEffect(() => {
     loadProfile();
   }, []);
@@ -197,7 +196,7 @@ export function AccountSettings() {
 
     try {
       const formData = new FormData();
-      formData.append('avatar', file);
+      formData.append('avatar_url', file);
 
       const response = await fetch('/wp-json/custom/v1/upload-avatar', {
         method: 'POST',
@@ -215,7 +214,7 @@ export function AccountSettings() {
       }
 
       // Update avatar in form
-      const newForm = { ...form, avatar: data.avatar_url };
+      const newForm = { ...form, avatar_url: data.url };
       setForm(newForm);
       setOriginalForm(newForm);
       setMessage({ type: 'success', text: 'Avatar updated successfully!' });

@@ -481,8 +481,6 @@ function AccountSettings() {
   const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [hasChanges, setHasChanges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const fileInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-
-  // Load profile data on mount
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     loadProfile();
   }, []);
@@ -676,7 +674,7 @@ function AccountSettings() {
     setMessage(null);
     try {
       const formData = new FormData();
-      formData.append('avatar', file);
+      formData.append('avatar_url', file);
       const response = await fetch('/wp-json/custom/v1/upload-avatar', {
         method: 'POST',
         headers: {
@@ -693,7 +691,7 @@ function AccountSettings() {
       // Update avatar in form
       const newForm = {
         ...form,
-        avatar: data.avatar_url
+        avatar_url: data.url
       };
       setForm(newForm);
       setOriginalForm(newForm);
@@ -1157,4 +1155,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=eec42ab62feff50de676
+//# sourceMappingURL=account-profile.js.map?ver=7dcebbe6ff4d58670c4f
