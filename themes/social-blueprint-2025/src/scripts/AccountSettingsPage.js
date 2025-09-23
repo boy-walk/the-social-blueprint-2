@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TextField } from './TextField';
 import { Button } from './Button';
 
-export function AccountSettings({ onProfileUpdate }) {
+export function AccountSettings() {
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({});
   const [originalForm, setOriginalForm] = useState({});
@@ -215,7 +215,7 @@ export function AccountSettings({ onProfileUpdate }) {
       }
 
       // Update avatar in form
-      const newForm = { ...form, avatar: data.url };
+      const newForm = { ...form, avatar: data.avatar_url };
       setForm(newForm);
       setOriginalForm(newForm);
       setMessage({ type: 'success', text: 'Avatar updated successfully!' });
@@ -279,8 +279,8 @@ export function AccountSettings({ onProfileUpdate }) {
       {message && (
         <div
           className={`mb-6 p-4 rounded-lg border ${message.type === 'success'
-              ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess'
-              : 'bg-stateError/10 border-stateError text-stateError'
+            ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess'
+            : 'bg-stateError/10 border-stateError text-stateError'
             }`}
           role="alert"
         >
@@ -292,7 +292,7 @@ export function AccountSettings({ onProfileUpdate }) {
       <div className="flex items-center gap-4 mb-8">
         <div className="relative">
           <img
-            src={form.avatar || '/wp-content/plugins/userswp/assets/images/no_profile.png'}
+            src={form.avatar_url || '/wp-content/plugins/userswp/assets/images/no_profile.png'}
             alt="Profile avatar"
             className="rounded-lg w-24 h-24 object-cover border-2 border-schemesOutlineVariant"
           />

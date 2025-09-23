@@ -425,13 +425,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function AccountEditProfilePage(props) {
   const {
-    links
-  } = props; // { profileHref, passwordHref, logoutHref }
+    links,
+    user
+  } = props;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_AccountLayout__WEBPACK_IMPORTED_MODULE_0__.AccountLayout, {
     active: "profile",
     links: links,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_AccountSettingsPage__WEBPACK_IMPORTED_MODULE_1__.AccountSettings, {
-      ...props
+      user: user
     })
   });
 }
@@ -470,9 +471,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function AccountSettings({
-  onProfileUpdate
-}) {
+function AccountSettings() {
   const [editing, setEditing] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [originalForm, setOriginalForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
@@ -694,7 +693,7 @@ function AccountSettings({
       // Update avatar in form
       const newForm = {
         ...form,
-        avatar: data.url
+        avatar: data.avatar_url
       };
       setForm(newForm);
       setOriginalForm(newForm);
@@ -772,7 +771,7 @@ function AccountSettings({
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "relative",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-          src: form.avatar || '/wp-content/plugins/userswp/assets/images/no_profile.png',
+          src: form.avatar_url || '/wp-content/plugins/userswp/assets/images/no_profile.png',
           alt: "Profile avatar",
           className: "rounded-lg w-24 h-24 object-cover border-2 border-schemesOutlineVariant"
         }), avatarUploading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -1158,4 +1157,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=3a12542a780cb0cb91c8
+//# sourceMappingURL=account-profile.js.map?ver=eec42ab62feff50de676

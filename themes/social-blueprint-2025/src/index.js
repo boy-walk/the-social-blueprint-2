@@ -139,18 +139,11 @@ mount(
 // Account profile edit
 mount(
   'account-settings-root',
-  () => import(/* webpackChunkName: "account-profile" */ './scripts/AccountProfilePage'),
-  async (el) => {
-    const m = (mod) => mod.AccountEditProfilePage || mod.default;
-    return import(/* webpackChunkName: "account-profile" */ './scripts/AccountProfilePage').then((mod) => {
-      const Comp = m(mod);
-      ReactDOM.createRoot(el).render(React.createElement(Comp, {
-        links: parse(el.dataset.links || '{}'),
-        user: parse(el.dataset.user || '{}'),
-        // Remove this line: profile: parse(el.dataset.profile || '{}'),
-      }));
-    });
-  }
+  () => import(/* webpackChunkName: "account-profile" */ './scripts/AccountProfilePage').then(m => m.AccountEditProfilePage),
+  (el) => ({
+    links: parse(el.dataset.links || '{}'),
+    user: parse(el.dataset.user || '{}'),
+  })
 );
 
 // Account change password
