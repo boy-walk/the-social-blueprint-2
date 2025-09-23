@@ -75,7 +75,29 @@ add_action('rest_api_init', function () {
       wp_cache_delete($user->ID, 'users');
       wp_cache_delete($user->ID, 'user_meta');
 
-      return ['success' => true, 'message' => 'Profile updated successfully'];
+      // Return the updated profile data instead of just success
+      $user = wp_get_current_user(); // Reload user data
+      
+      // Check for UsersWP profile photo first, then fallback to gravatar
+      $uwp_avatar = get_user_meta($user->ID, 'uwp_profile_photo', true);
+      $avatar_url = $uwp_avatar 
+        ? wp_get_attachment_image_url($uwp_avatar, 'thumbnail') 
+        : get_avatar_url($user->ID);
+
+      return [
+        'ID' => $user->ID,
+        'first_name' => get_user_meta($user->ID, 'first_name', true) ?: $user->first_name,
+        'last_name' => get_user_meta($user->ID, 'last_name', true) ?: $user->last_name,
+        'display_name' => $user->display_name,
+        'username' => $user->user_login,
+        'email' => $user->user_email,
+        'bio' => get_user_meta($user->ID, 'description', true),
+        'phone' => get_user_meta($user->ID, 'phone', true),
+        'avatar' => $avatar_url,
+        'registration_date' => $user->user_registered,
+        'success' => true,
+        'message' => 'Profile updated successfully'
+      ];
     },
     'permission_callback' => function () {
       $nonce = $_SERVER['HTTP_X_WP_NONCE'] ?? '';
