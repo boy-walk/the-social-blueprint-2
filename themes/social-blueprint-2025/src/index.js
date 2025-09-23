@@ -140,7 +140,7 @@ mount(
 mount(
   'account-settings-root',
   () => import(/* webpackChunkName: "account-profile" */ './scripts/AccountProfilePage'),
-  (el) => {
+  async (el) => {
     const m = (mod) => mod.AccountEditProfilePage || mod.default;
     return import(/* webpackChunkName: "account-profile" */ './scripts/AccountProfilePage').then((mod) => {
       const Comp = m(mod);

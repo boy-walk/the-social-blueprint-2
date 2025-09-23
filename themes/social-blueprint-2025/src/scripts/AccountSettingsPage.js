@@ -13,12 +13,20 @@ export function AccountSettings({ profile: initialProfile, onProfileUpdate }) {
   const [hasChanges, setHasChanges] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Load profile data on mount if not provided
+  // Update form when initialProfile changes
   useEffect(() => {
-    if (!initialProfile) {
-      loadProfile();
+    if (initialProfile && Object.keys(initialProfile).length > 0) {
+      setForm(initialProfile);
+      setOriginalForm(initialProfile);
     }
   }, [initialProfile]);
+
+  // Load profile data on mount if not provided
+  useEffect(() => {
+    if (!initialProfile || Object.keys(initialProfile).length === 0) {
+      loadProfile();
+    }
+  }, []);
 
   // Track changes
   useEffect(() => {
@@ -223,6 +231,22 @@ export function AccountSettings({ profile: initialProfile, onProfileUpdate }) {
     setErrors({});
   };
 
+  // Debug function to refresh profile data
+  const refreshProfile = async () => {
+    setMessage(null);
+    await loadProfile();
+  };
+
+  // Console log for debugging
+  useEffect(() => {
+    console.log('AccountSettings Debug:', {
+      initialProfile,
+      currentForm: form,
+      hasID: !!form.ID,
+      formKeys: Object.keys(form)
+    });
+  }, [initialProfile, form]);
+
   if (loading && !form.ID) {
     return (
       <div className="max-w-2xl mx-auto px-4 lg:px-0 py-8">
@@ -236,10 +260,23 @@ export function AccountSettings({ profile: initialProfile, onProfileUpdate }) {
 
   return (
     <div className="max-w-2xl mx-auto px-4 lg:px-0">
-      <h2 className="Blueprint-headline-small-emphasized mb-1">Profile</h2>
-      <p className="Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant">
-        View and edit your profile details.
-      </p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h2 className="Blueprint-headline-small-emphasized mb-1">Profile</h2>
+          <p className="Blueprint-body-medium text-schemesOnSurfaceVariant">
+            View and edit your profile details.
+          </p>
+        </div>
+        {!editing && (
+          <Button
+            label="Refresh"
+            variant="outlined"
+            size="sm"
+            onClick={refreshProfile}
+            disabled={loading}
+          />
+        )}
+      </div>
 
       {/* Success/Error Messages */}
       {message && (

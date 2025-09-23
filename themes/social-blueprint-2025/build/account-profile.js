@@ -484,12 +484,20 @@ function AccountSettings({
   const [hasChanges, setHasChanges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const fileInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
-  // Load profile data on mount if not provided
+  // Update form when initialProfile changes
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!initialProfile) {
-      loadProfile();
+    if (initialProfile && Object.keys(initialProfile).length > 0) {
+      setForm(initialProfile);
+      setOriginalForm(initialProfile);
     }
   }, [initialProfile]);
+
+  // Load profile data on mount if not provided
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!initialProfile || Object.keys(initialProfile).length === 0) {
+      loadProfile();
+    }
+  }, []);
 
   // Track changes
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -708,6 +716,22 @@ function AccountSettings({
     setMessage(null);
     setErrors({});
   };
+
+  // Debug function to refresh profile data
+  const refreshProfile = async () => {
+    setMessage(null);
+    await loadProfile();
+  };
+
+  // Console log for debugging
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    console.log('AccountSettings Debug:', {
+      initialProfile,
+      currentForm: form,
+      hasID: !!form.ID,
+      formKeys: Object.keys(form)
+    });
+  }, [initialProfile, form]);
   if (loading && !form.ID) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "max-w-2xl mx-auto px-4 lg:px-0 py-8",
@@ -724,12 +748,23 @@ function AccountSettings({
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "max-w-2xl mx-auto px-4 lg:px-0",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-      className: "Blueprint-headline-small-emphasized mb-1",
-      children: "Profile"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-      className: "Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant",
-      children: "View and edit your profile details."
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "flex items-center justify-between mb-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+          className: "Blueprint-headline-small-emphasized mb-1",
+          children: "Profile"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
+          children: "View and edit your profile details."
+        })]
+      }), !editing && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+        label: "Refresh",
+        variant: "outlined",
+        size: "sm",
+        onClick: refreshProfile,
+        disabled: loading
+      })]
     }), message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: `mb-6 p-4 rounded-lg border ${message.type === 'success' ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess' : 'bg-stateError/10 border-stateError text-stateError'}`,
       role: "alert",
@@ -1128,4 +1163,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=3757e1bc92f07bc68764
+//# sourceMappingURL=account-profile.js.map?ver=76cdca3dcaa44ba1f719
