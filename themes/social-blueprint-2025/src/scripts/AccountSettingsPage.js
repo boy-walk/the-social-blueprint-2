@@ -22,8 +22,8 @@ export function AccountSettings({ profile }) {
       headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': window.WPData?.nonce, },
       body: JSON.stringify(form)
     });
-    setUser(form);
-    setEditMode(false);
+    setForm(form);
+    setEditing(false);
   };
 
   return (

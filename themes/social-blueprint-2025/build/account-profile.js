@@ -498,8 +498,8 @@ function AccountSettings({
       },
       body: JSON.stringify(form)
     });
-    setUser(form);
-    setEditMode(false);
+    setForm(form);
+    setEditing(false);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "max-w-2xl mx-auto px-4 lg:px-0",
@@ -885,4 +885,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=af286a2edcdcdd0f3159
+//# sourceMappingURL=account-profile.js.map?ver=60604a57f8d223a4c5e5
