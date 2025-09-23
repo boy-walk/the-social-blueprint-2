@@ -3782,17 +3782,11 @@ mount('account-dashboard-root', () => Promise.all(/*! import() | account-dashboa
 mount('newsletter-banner', () => __webpack_require__.e(/*! import() | newsletter-banner */ "newsletter-banner").then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/NewsletterBanner */ "./src/scripts/NewsletterBanner.js")).then(m => m.NewsletterBanner));
 
 // Account profile edit
-mount('account-settings-root', () => Promise.all(/*! import() | account-profile */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_LockKey_es_js-node_modules_phosphor-icons_-c78674"), __webpack_require__.e("account-profile")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/AccountProfilePage */ "./src/scripts/AccountProfilePage.js")), el => {
-  const m = mod => mod.AccountEditProfilePage || mod.default;
-  return Promise.all(/*! import() | account-profile */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_LockKey_es_js-node_modules_phosphor-icons_-c78674"), __webpack_require__.e("account-profile")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/AccountProfilePage */ "./src/scripts/AccountProfilePage.js")).then(mod => {
-    const Comp = m(mod);
-    react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(el).render(react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Comp, {
-      links: parse(el.dataset.links || '{}'),
-      user: parse(el.dataset.user || '{}'),
-      profile: parse(el.dataset.profile || '{}')
-    }));
-  });
-});
+mount('account-settings-root', () => Promise.all(/*! import() | account-profile */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_LockKey_es_js-node_modules_phosphor-icons_-c78674"), __webpack_require__.e("account-profile")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/AccountProfilePage */ "./src/scripts/AccountProfilePage.js")).then(m => m.AccountEditProfilePage), el => ({
+  links: parse(el.dataset.links || '{}'),
+  user: parse(el.dataset.user || '{}'),
+  profile: parse(el.dataset.profile || '{}')
+}));
 
 // Account change password
 mount('account-change-password-root', () => Promise.all(/*! import() | account-profile */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_LockKey_es_js-node_modules_phosphor-icons_-c78674"), __webpack_require__.e("account-profile")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/AccountProfilePage */ "./src/scripts/AccountProfilePage.js")).then(m => m.AccountChangePasswordPage), el => ({
