@@ -3,7 +3,9 @@
  * Template Name: Account Settings
  */
 
-get_header();if (!is_user_logged_in()) {
+get_header();
+
+if (!is_user_logged_in()) {
   wp_redirect(wp_login_url());
   exit;
 }
@@ -13,23 +15,27 @@ $user_id = $current_user->ID;
 
 // Get the UsersWP avatar attachment ID (if available)
 $uwp_avatar_id = get_user_meta($user_id, 'uwp_profile_photo', true);
-$avatar_url = $uwp_avatar_id ? wp_get_attachment_url($uwp_avatar_id) : get_avatar_url($user_id, ['size' => 96]);
+$avatar_url = $uwp_avatar_id ? wp_get_attachment_image_url($uwp_avatar_id, 'thumbnail') : get_avatar_url($user_id, ['size' => 150]);
 
+// Match the structure returned by your REST API endpoint
 $profile_data = [
-  'first_name' => get_user_meta($user_id, 'first_name', true),
-  'last_name' => get_user_meta($user_id, 'last_name', true),
+  'ID' => $user_id, // Add the missing ID field
+  'first_name' => $current_user->first_name ?: '', // Use core user fields
+  'last_name' => $current_user->last_name ?: '',
+  'display_name' => $current_user->display_name ?: '',
   'username' => $current_user->user_login,
   'email' => $current_user->user_email,
-  'phone' => get_user_meta($user_id, 'phone', true),
-  'bio' => get_user_meta($user_id, 'description', true),
-  'avatar' => $avatar_url,
+  'phone' => get_user_meta($user_id, 'phone', true) ?: '',
+  'bio' => get_user_meta($user_id, 'description', true) ?: '',
+  'avatar' => $avatar_url ?: '',
+  'registration_date' => $current_user->user_registered
 ];
 
 $links = [
   'profileHref'  => home_url('/account-settings'),
   'passwordHref' => home_url('/change-password'),
   'logoutHref'   => wp_logout_url( home_url('/') ),
-]
+];
 ?>
 
 <div id="account-settings-root"
