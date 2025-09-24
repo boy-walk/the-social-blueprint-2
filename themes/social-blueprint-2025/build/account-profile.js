@@ -31,29 +31,112 @@ const AccountChangePassword = ({
   });
   const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [submitting, setSubmitting] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [showPasswordRequirements, setShowPasswordRequirements] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [passwordStrength, setPasswordStrength] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    score: 0,
+    feedback: ''
+  });
   const handleChange = e => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
+    const {
+      name,
+      value
+    } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Clear field-specific errors when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+
+    // Clear status messages when user starts typing
+    if (status) {
+      setStatus(null);
+    }
+
+    // Check password strength for new password
+    if (name === 'newPassword') {
+      setPasswordStrength(checkPasswordStrength(value));
+    }
+  };
+  const checkPasswordStrength = password => {
+    if (!password) return {
+      score: 0,
+      feedback: ''
+    };
+    let score = 0;
+    const feedback = [];
+
+    // Length check
+    if (password.length >= 8) score++;else feedback.push('at least 8 characters');
+
+    // Uppercase check
+    if (/[A-Z]/.test(password)) score++;else feedback.push('an uppercase letter');
+
+    // Lowercase check
+    if (/[a-z]/.test(password)) score++;else feedback.push('a lowercase letter');
+
+    // Number check
+    if (/\d/.test(password)) score++;else feedback.push('a number');
+
+    // Special character check
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score++;else feedback.push('a special character');
+    const strengthLevels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+    const strengthLevel = strengthLevels[Math.min(score, 4)];
+    let feedbackText = '';
+    if (score < 3) {
+      feedbackText = `${strengthLevel} - Add ${feedback.slice(0, 2).join(' and ')}`;
+    } else {
+      feedbackText = strengthLevel;
+    }
+    return {
+      score,
+      feedback: feedbackText
+    };
+  };
+  const validateForm = () => {
+    const newErrors = {};
+    if (!form.currentPassword.trim()) {
+      newErrors.currentPassword = 'Current password is required';
+    }
+    if (!form.newPassword.trim()) {
+      newErrors.newPassword = 'New password is required';
+    } else if (form.newPassword.length < 8) {
+      newErrors.newPassword = 'Password must be at least 8 characters long';
+    } else if (form.newPassword === form.currentPassword) {
+      newErrors.newPassword = 'New password must be different from current password';
+    }
+    if (!form.confirmPassword.trim()) {
+      newErrors.confirmPassword = 'Please confirm your new password';
+    } else if (form.newPassword !== form.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
   const handleSubmit = async e => {
     e.preventDefault();
     setStatus(null);
-    if (form.newPassword !== form.confirmPassword) {
+    if (!validateForm()) {
       setStatus({
         error: true,
-        message: 'Passwords do not match'
+        message: 'Please fix the errors below'
       });
       return;
     }
     setSubmitting(true);
     try {
-      const res = await fetch('/wp-json/custom/v1/change-password', {
+      const response = await fetch('/wp-json/custom/v1/change-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': window.WPData?.nonce
+          'X-WP-Nonce': window.WPData?.nonce || ''
         },
         credentials: 'include',
         body: JSON.stringify({
@@ -61,69 +144,215 @@ const AccountChangePassword = ({
           new_password: form.newPassword
         })
       });
-      const result = await res.json();
-      if (!res.ok) {
-        throw new Error(result.message || 'Password change failed');
+      const result = await response.json();
+      if (!response.ok) {
+        // Handle specific error cases from the backend
+        if (result.code === 'incorrect_password') {
+          setErrors({
+            currentPassword: result.message
+          });
+          setStatus({
+            error: true,
+            message: 'Please check your current password'
+          });
+        } else if (result.code === 'weak_password') {
+          setErrors({
+            newPassword: result.message
+          });
+          setStatus({
+            error: true,
+            message: 'Please choose a stronger password'
+          });
+        } else if (result.code === 'same_password') {
+          setErrors({
+            newPassword: result.message
+          });
+          setStatus({
+            error: true,
+            message: 'Please choose a different password'
+          });
+        } else {
+          throw new Error(result.message || 'Password change failed');
+        }
+        return;
       }
+
+      // Success
       setStatus({
         success: true,
-        message: 'Password updated successfully'
+        message: result.message || 'Password updated successfully! You remain logged in.'
       });
       setForm({
         currentPassword: '',
         newPassword: '',
         confirmPassword: ''
       });
-    } catch (err) {
+      setPasswordStrength({
+        score: 0,
+        feedback: ''
+      });
+    } catch (error) {
+      console.error('Password change error:', error);
       setStatus({
         error: true,
-        message: err.message
+        message: error.message || 'An unexpected error occurred'
       });
     } finally {
       setSubmitting(false);
     }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
-    onSubmit: handleSubmit,
-    className: "max-w-2xl mx-auto",
+  const getPasswordStrengthColor = score => {
+    const colors = ['bg-stateError',
+    // Very Weak
+    'bg-stateError',
+    // Weak  
+    'bg-yellow-500',
+    // Fair
+    'bg-blue-500',
+    // Good
+    'bg-stateSuccess' // Strong
+    ];
+    return colors[Math.min(score, 4)];
+  };
+  const isFormValid = form.currentPassword && form.newPassword && form.confirmPassword && form.newPassword === form.confirmPassword && form.newPassword.length >= 8 && form.newPassword !== form.currentPassword;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "max-w-2xl mx-auto px-4 lg:px-0",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-      className: "Blueprint-headline-small-emphasized mb-6",
+      className: "Blueprint-headline-small-emphasized mb-1",
       children: "Change Password"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "space-y-4",
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: "Blueprint-body-medium mb-6 text-schemesOnSurfaceVariant",
+      children: "Update your password to keep your account secure."
+    }), status && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: `mb-6 p-4 rounded-lg border ${status.success ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess' : 'bg-stateError/10 border-stateError text-stateError'}`,
+      role: "alert",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "Blueprint-body-medium",
+        children: status.message
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+      onSubmit: handleSubmit,
+      className: "space-y-6",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         type: "password",
         name: "currentPassword",
         label: "Current Password",
         value: form.currentPassword,
         onChange: handleChange,
-        required: true
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-        type: "password",
-        name: "newPassword",
-        label: "New Password",
-        value: form.newPassword,
-        onChange: handleChange,
-        required: true
+        disabled: submitting,
+        required: true,
+        error: errors.currentPassword,
+        autoComplete: "current-password"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+          type: "password",
+          name: "newPassword",
+          label: "New Password",
+          value: form.newPassword,
+          onChange: handleChange,
+          disabled: submitting,
+          required: true,
+          error: errors.newPassword,
+          autoComplete: "new-password",
+          onFocus: () => setShowPasswordRequirements(true),
+          onBlur: () => setShowPasswordRequirements(false)
+        }), form.newPassword && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "mt-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "flex items-center gap-2 mb-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "flex-1 bg-schemesOutlineVariant rounded-full h-2 overflow-hidden",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: `h-full transition-all duration-300 ${getPasswordStrengthColor(passwordStrength.score)}`,
+                style: {
+                  width: `${passwordStrength.score / 5 * 100}%`
+                }
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "Blueprint-body-small text-schemesOnSurfaceVariant min-w-fit",
+              children: passwordStrength.feedback
+            })]
+          })
+        }), showPasswordRequirements && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "mt-2 p-3 bg-surfaceContainerHigh rounded-lg border border-schemesOutlineVariant",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant mb-2 font-medium",
+            children: "Password Requirements:"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant space-y-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: form.newPassword.length >= 8 ? 'text-stateSuccess' : '',
+              children: "\u2713 At least 8 characters"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: /[A-Z]/.test(form.newPassword) ? 'text-stateSuccess' : '',
+              children: "\u2713 One uppercase letter"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: /[a-z]/.test(form.newPassword) ? 'text-stateSuccess' : '',
+              children: "\u2713 One lowercase letter"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: /\d/.test(form.newPassword) ? 'text-stateSuccess' : '',
+              children: "\u2713 One number"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: /[!@#$%^&*(),.?":{}|<>]/.test(form.newPassword) ? 'text-stateSuccess' : '',
+              children: "\u2713 One special character"
+            })]
+          })]
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         type: "password",
         name: "confirmPassword",
-        label: "Confirm Password",
+        label: "Confirm New Password",
         value: form.confirmPassword,
         onChange: handleChange,
-        required: true
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "mt-6",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-        label: submitting ? 'Updating...' : 'Save Changes',
-        type: "submit",
         disabled: submitting,
-        variant: "filled",
-        size: "base",
-        shape: "square",
-        className: "w-full"
-      })
+        required: true,
+        error: errors.confirmPassword,
+        autoComplete: "new-password"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex flex-col sm:flex-row gap-3 pt-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: submitting ? 'Updating Password...' : 'Update Password',
+          type: "submit",
+          disabled: submitting || !isFormValid,
+          variant: "filled",
+          size: "base"
+        }), (form.currentPassword || form.newPassword || form.confirmPassword) && !submitting && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Clear Form",
+          type: "button",
+          variant: "outlined",
+          size: "base",
+          onClick: () => {
+            setForm({
+              currentPassword: '',
+              newPassword: '',
+              confirmPassword: ''
+            });
+            setErrors({});
+            setStatus(null);
+            setPasswordStrength({
+              score: 0,
+              feedback: ''
+            });
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "mt-8 p-4 bg-surfaceContainerLow rounded-lg border border-schemesOutlineVariant",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "Blueprint-body-medium font-medium text-schemesOnSurface mb-2",
+          children: "\uD83D\uDD12 Password Security Tips"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+          className: "Blueprint-body-small text-schemesOnSurfaceVariant space-y-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+            children: "\u2022 Use a unique password you don't use anywhere else"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+            children: "\u2022 Consider using a password manager to generate and store strong passwords"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+            children: "\u2022 Avoid using personal information like names, birthdays, or addresses"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+            children: "\u2022 Change your password regularly, especially if you suspect it may be compromised"
+          })]
+        })]
+      })]
     })]
   });
 };
@@ -269,8 +498,8 @@ function AccountSettings({
       },
       body: JSON.stringify(form)
     });
-    setUser(form);
-    setEditMode(false);
+    setForm(form);
+    setEditing(false);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "max-w-2xl mx-auto px-4 lg:px-0",
@@ -656,4 +885,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=2580a86a864ee76a234e
+//# sourceMappingURL=account-profile.js.map?ver=60604a57f8d223a4c5e5
