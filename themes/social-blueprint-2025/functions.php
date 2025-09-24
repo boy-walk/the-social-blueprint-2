@@ -8,6 +8,7 @@ require_once get_template_directory() . '/inc/candle-lighting-times.php';
 require_once get_template_directory() . '/inc/article-category-taxonomy.php';
 require_once get_template_directory() . '/inc/submit-article.php';
 require_once get_template_directory() . '/inc/share.php';
+require_once get_template_directory() . '/inc/turnstile.php';
 
 function boilerplate_load_assets() {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
@@ -50,6 +51,16 @@ add_action('rest_api_init', function () {
 // 3. REST Callback to register user
 function uwp_custom_register_user(WP_REST_Request $request) {
   $data = $request->get_json_params();
+
+  $turnstileResponse = $request->get_param('cf-turnstile-response');
+
+  if (empty($turnstileResponse) || !sbp_verify_turnstile_response($turnstileResponse)) {
+    return new WP_Error(
+      'turnstile_failed',
+      __('Turnstile verification failed. Please try again.', 'textdomain'),
+      ['status' => 400] // or 422 if you prefer
+    );
+  }
 
   if (empty($data['email']) || empty($data['password']) || empty($data['first_name'])) {
     return new WP_REST_Response(['message' => 'Missing required fields'], 400);
@@ -736,7 +747,11 @@ function sbp_dequeue_cf7_turnstile() {
 add_action( 'wp_enqueue_scripts', 'sbp_dequeue_cf7_turnstile' );
 
 function sbp_contact_enqueue_scripts() {
-  if ( !is_page_template('page-contact-us.php') ) {
+  $page_template = get_page_template_slug();
+
+  $ts_templates = ['page-contact-us.php', 'page-register-individual.php'];
+
+  if ( !in_array($page_template, $ts_templates) ) {
     return;
   }
 

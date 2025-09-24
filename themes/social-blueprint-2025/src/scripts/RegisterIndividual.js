@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from './TextField';
 import { Button } from './Button';
 
 export function RegisterIndividual() {
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileWidgetId, setTurnstileWidgetId] = useState(null);
+
   const [error, setError] = useState(null);
   const [form, setForm] = useState({
     firstName: '',
@@ -14,6 +17,28 @@ export function RegisterIndividual() {
     newsOptIn: false,
     agreed: false,
   });
+
+  useEffect(() => {
+    if (turnstile !== undefined) {
+      const siteKey = document.getElementById('turnstile_site_key');
+      if (siteKey === null) return;
+      const widgetId = turnstile.render("#turnstile-container", {
+        sitekey: siteKey.value,
+        callback: function (token) {
+          setTurnstileToken(token);
+        },
+        'expired-callback': function () {
+          setTurnstileToken('');
+        },
+        'timeout-callback': function () {
+          setTurnstileToken('');
+        }
+      });
+
+      setTurnstileWidgetId(widgetId);
+    }
+
+  }, []);
 
   const handleChange = (key) => (e) =>
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
@@ -44,6 +69,7 @@ export function RegisterIndividual() {
           first_name: form.firstName,
           last_name: form.lastName,
           agree: form.agreed ? 'yes' : 'no',
+          'cf-turnstile-response': turnstileToken
         }),
       });
 
@@ -155,6 +181,8 @@ export function RegisterIndividual() {
             <p className="Blueprint-body-medium">{error}</p>
           </div>
         )}
+      <div id="turnstile-container"></div>
+      {/* A hidden element with name 'cf-turnstile-response' will be added automatically */}
       </form>
       <div className="flex w-full">
         <Button
@@ -163,7 +191,7 @@ export function RegisterIndividual() {
           size="base"
           shape="square"
           className="w-full mt-8"
-          disabled={!canSubmit}
+          disabled={!canSubmit || turnstileToken === ''}
           onClick={handleSubmit}
         />
       </div>
