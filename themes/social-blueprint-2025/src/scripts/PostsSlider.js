@@ -47,7 +47,7 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
     };
   }, [events, itemsPerView]);
 
-  const totalSlides = Math.ceil(events?.length || 0 / itemsPerView);
+  const totalSlides = Math.ceil((events?.length || 0) / itemsPerView);
 
   const scrollToIndex = (index) => {
     if (!scrollRef.current) return;
@@ -62,7 +62,6 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
 
   // Keep refs array in sync
   itemRefs.current = Array(events?.length || 0);
-
 
   return (
     <div className="flex flex-col w-full">
@@ -88,21 +87,21 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
           )}
         </div>
       )}
-      <div className="overflow-hidden">
+      <div className="overflow-x-hidden py-2">
         <div
           ref={scrollRef}
-          className="flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[375px]"
+          className="flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden overflow-y-visible"
         >
           {events?.map((post, idx) => (
             <div
               key={post.id}
-              className="flex-shrink-0 flex px-0 lg:px-1"
+              className="flex-shrink-0 flex px-0 lg:px-1 py-1"
               style={{ width: `${100 / itemsPerView}%` }}
             >
               <a href={post.permalink} className="block w-full h-full">
                 <div
                   ref={(el) => (itemRefs.current[idx] = el)}
-                  style={maxCardHeight ? { height: maxCardHeight } : undefined}
+                  style={maxCardHeight ? { minHeight: maxCardHeight } : undefined}
                   className="h-full"
                 >
                   <ContentCard
@@ -126,17 +125,19 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
       <div className="flex justify-between gap-4 mt-6">
         <button
           onClick={prev}
-          className={`bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center ${currentIndex === 0 ? "opacity-30 cursor-not-allowed" : ""
+          className={`bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center transition-opacity ${currentIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:opacity-80"
             }`}
           disabled={currentIndex === 0}
+          aria-label="Previous slide"
         >
           <ArrowLeftIcon size={20} weight="bold" />
         </button>
         <button
           onClick={next}
-          className={`bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center ${currentIndex >= totalSlides - 1 ? "opacity-30 cursor-not-allowed" : ""
+          className={`bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center transition-opacity ${currentIndex >= totalSlides - 1 ? "opacity-30 cursor-not-allowed" : "hover:opacity-80"
             }`}
           disabled={currentIndex >= totalSlides - 1}
+          aria-label="Next slide"
         >
           <ArrowRightIcon size={20} weight="bold" />
         </button>

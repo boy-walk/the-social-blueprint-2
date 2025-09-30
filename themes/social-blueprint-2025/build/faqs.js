@@ -570,4 +570,4 @@ const Faq = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=faqs.js.map?ver=9fa0f5214dbaa184b4bb
+//# sourceMappingURL=faqs.js.map?ver=6328ca4fdec057eca7d0

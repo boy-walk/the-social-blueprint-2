@@ -20,7 +20,11 @@ export function ContentCard({
     ${fullHeight ? "h-full" : ""}
     ${fullWidth ? "w-full" : ""}
     p-2
-    transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1
+    transition-all duration-300 ease-in-out
+    hover:shadow-lg
+    hover:-translate-y-1
+    transform-gpu
+    [transform-origin:center]
   `.trim();
 
   return (
@@ -30,8 +34,8 @@ export function ContentCard({
           className={[
             "relative overflow-hidden rounded-lg bg-gray-100",
             fullHeight
-              ? "aspect-[4/3] md:aspect-[1] max-h-60 md:max-h-50 lg:max-h-100"
-              : "aspect-[4/3] md:aspect-[1.6] max-h-56 md:max-h-40 lg:max-h-75",
+              ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100"
+              : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75",
           ].join(" ")}
         >
           {image && (
@@ -43,6 +47,7 @@ export function ContentCard({
                 object-cover
                 transition-transform duration-300 ease-in-out
                 group-hover:scale-105
+                [transform-origin:center]
               "
               loading="lazy"
               decoding="async"

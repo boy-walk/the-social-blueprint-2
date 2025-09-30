@@ -1742,7 +1742,11 @@ function ContentCard({
     ${fullHeight ? "h-full" : ""}
     ${fullWidth ? "w-full" : ""}
     p-2
-    transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1
+    transition-all duration-300 ease-in-out
+    hover:shadow-lg
+    hover:-translate-y-1
+    transform-gpu
+    [transform-origin:center]
   `.trim();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
     href: href,
@@ -1750,11 +1754,11 @@ function ContentCard({
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "flex h-full min-h-0 flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] md:aspect-[1] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] md:aspect-[1.6] max-h-56 md:max-h-40 lg:max-h-75"].join(" "),
+        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75"].join(" "),
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
-          className: " h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 ",
+          className: " h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 [transform-origin:center] ",
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -2014,7 +2018,7 @@ function PostsSlider({
       window.removeEventListener("resize", measure);
     };
   }, [events, itemsPerView]);
-  const totalSlides = Math.ceil(events?.length || 0 / itemsPerView);
+  const totalSlides = Math.ceil((events?.length || 0) / itemsPerView);
   const scrollToIndex = index => {
     if (!scrollRef.current) return;
     const itemWidth = scrollRef.current.offsetWidth / itemsPerView;
@@ -2052,12 +2056,12 @@ function PostsSlider({
         }
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "overflow-hidden",
+      className: "overflow-x-hidden py-2",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         ref: scrollRef,
-        className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden max-h-[375px]",
+        className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden overflow-y-visible",
         children: events?.map((post, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "flex-shrink-0 flex px-0 lg:px-1",
+          className: "flex-shrink-0 flex px-0 lg:px-1 py-1",
           style: {
             width: `${100 / itemsPerView}%`
           },
@@ -2067,7 +2071,7 @@ function PostsSlider({
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
               ref: el => itemRefs.current[idx] = el,
               style: maxCardHeight ? {
-                height: maxCardHeight
+                minHeight: maxCardHeight
               } : undefined,
               className: "h-full",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
@@ -2088,16 +2092,18 @@ function PostsSlider({
       className: "flex justify-between gap-4 mt-6",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
         onClick: prev,
-        className: `bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center ${currentIndex === 0 ? "opacity-30 cursor-not-allowed" : ""}`,
+        className: `bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center transition-opacity ${currentIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:opacity-80"}`,
         disabled: currentIndex === 0,
+        "aria-label": "Previous slide",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.ArrowLeftIcon, {
           size: 20,
           weight: "bold"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
         onClick: next,
-        className: `bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center ${currentIndex >= totalSlides - 1 ? "opacity-30 cursor-not-allowed" : ""}`,
+        className: `bg-schemesSurface rounded-xl py-1.5 px-3 flex items-center justify-center transition-opacity ${currentIndex >= totalSlides - 1 ? "opacity-30 cursor-not-allowed" : "hover:opacity-80"}`,
         disabled: currentIndex >= totalSlides - 1,
+        "aria-label": "Next slide",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.ArrowRightIcon, {
           size: 20,
           weight: "bold"
@@ -2393,4 +2399,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=support-hub.js.map?ver=cf3b1a2c2f738615ab26
+//# sourceMappingURL=support-hub.js.map?ver=4e28504350f716e18fa4

@@ -501,35 +501,34 @@ function EventsCalendar({
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "px-3 sm:px-4 md:px-6 lg:px-8 pb-3 rounded-b-2xl",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "bg-[var(--schemesSurface)] rounded-2xl overflow-hidden",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
-              ref: calendarRef,
-              plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_8__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_9__["default"]],
-              initialView: "dayGridMonth",
-              headerToolbar: false,
-              fixedWeekCount: false,
-              dayMaxEvents: 4,
-              dayMaxEventRows: 3,
-              eventDisplay: "block",
-              height: "auto",
-              datesSet: datesSet,
-              eventMouseEnter: showTooltip,
-              eventMouseLeave: hideTooltip,
-              views: {
-                dayGridMonth: {
-                  showNonCurrentDates: false,
-                  displayEventTime: false,
-                  dayHeaderFormat: {
-                    weekday: "short"
-                  }
-                },
-                listMonth: {
-                  noEventsContent: "No events this month"
+          className: "bg-white rounded-2xl border border-schemesOutlineVariant overflow-hidden",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            ref: calendarRef,
+            plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_8__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_9__["default"]],
+            initialView: "dayGridMonth",
+            headerToolbar: false,
+            fixedWeekCount: false,
+            dayMaxEvents: 4,
+            dayMaxEventRows: 3,
+            eventColor: "var(--schemesPrimaryFixed)",
+            eventTextColor: "var(--schemesOnPrimaryFixed)",
+            eventDisplay: "block",
+            height: "auto",
+            datesSet: datesSet,
+            eventMouseEnter: showTooltip,
+            eventMouseLeave: hideTooltip,
+            views: {
+              dayGridMonth: {
+                showNonCurrentDates: false,
+                displayEventTime: false,
+                dayHeaderFormat: {
+                  weekday: "short"
                 }
+              },
+              listMonth: {
+                noEventsContent: "No events this month"
               }
-            })
+            }
           })
         })]
       })]
@@ -561,12 +560,10 @@ function EventsCalendar({
             className: "Blueprint-label-small text-schemesOnSurfaceVariant truncate mt-0.5",
             children: [tip.venue, tip.location].filter(Boolean).join(" • ")
           }) : null, tip.description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-body-small text-schemesOnSurface mt-2 line-clamp-3",
-            children: tip.description
-          }) : null, tip.url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
-            href: tip.url,
-            className: "Blueprint-label-small-emphasized inline-block mt-2 text-palettesPrimary40 underline underline-offset-2",
-            children: "View details"
+            className: "Blueprint-body-small text-schemesOnSurface mt-2 line-clamp-3 ",
+            dangerouslySetInnerHTML: {
+              __html: tip.description
+            }
           }) : null]
         })]
       })
@@ -897,4 +894,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=94d246846791c2e199ce
+//# sourceMappingURL=events-calendar.js.map?ver=14fa1a07523d0e449e9f

@@ -346,33 +346,33 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             </div>
           </div>
 
-          <div className="px-3 sm:px-4 md:px-6 lg:px-8 pb-3 rounded-b-2xl">
-            <div className="bg-[var(--schemesSurface)] rounded-2xl overflow-hidden">
-              <FullCalendar
-                ref={calendarRef}
-                plugins={[dayGridPlugin, listPlugin]}
-                initialView="dayGridMonth"
-                headerToolbar={false}
-                fixedWeekCount={false}
-                dayMaxEvents={4}
-                dayMaxEventRows={3}
-                eventDisplay="block"
-                height="auto"
-                datesSet={datesSet}
-                eventMouseEnter={showTooltip}
-                eventMouseLeave={hideTooltip}
-                views={{
-                  dayGridMonth: {
-                    showNonCurrentDates: false,
-                    displayEventTime: false,
-                    dayHeaderFormat: { weekday: "short" },
-                  },
-                  listMonth: {
-                    noEventsContent: "No events this month",
-                  },
-                }}
-              />
-            </div>
+          <div className="bg-white rounded-2xl border border-schemesOutlineVariant overflow-hidden">
+            <FullCalendar
+              ref={calendarRef}
+              plugins={[dayGridPlugin, listPlugin]}
+              initialView="dayGridMonth"
+              headerToolbar={false}
+              fixedWeekCount={false}
+              dayMaxEvents={4}
+              dayMaxEventRows={3}
+              eventColor="var(--schemesPrimaryFixed)"
+              eventTextColor="var(--schemesOnPrimaryFixed)"
+              eventDisplay="block"
+              height="auto"
+              datesSet={datesSet}
+              eventMouseEnter={showTooltip}
+              eventMouseLeave={hideTooltip}
+              views={{
+                dayGridMonth: {
+                  showNonCurrentDates: false,
+                  displayEventTime: false,
+                  dayHeaderFormat: { weekday: "short" },
+                },
+                listMonth: {
+                  noEventsContent: "No events this month",
+                },
+              }}
+            />
           </div>
         </section>
       </div>
@@ -406,15 +406,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
                 </div>
               ) : null}
               {tip.description ? (
-                <div className="Blueprint-body-small text-schemesOnSurface mt-2 line-clamp-3">{tip.description}</div>
-              ) : null}
-              {tip.url ? (
-                <a
-                  href={tip.url}
-                  className="Blueprint-label-small-emphasized inline-block mt-2 text-palettesPrimary40 underline underline-offset-2"
-                >
-                  View details
-                </a>
+                <div className="Blueprint-body-small text-schemesOnSurface mt-2 line-clamp-3 " dangerouslySetInnerHTML={{ __html: tip.description }} />
               ) : null}
             </div>
           </div>

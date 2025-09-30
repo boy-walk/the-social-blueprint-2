@@ -529,7 +529,11 @@ function ContentCard({
     ${fullHeight ? "h-full" : ""}
     ${fullWidth ? "w-full" : ""}
     p-2
-    transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1
+    transition-all duration-300 ease-in-out
+    hover:shadow-lg
+    hover:-translate-y-1
+    transform-gpu
+    [transform-origin:center]
   `.trim();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
     href: href,
@@ -537,11 +541,11 @@ function ContentCard({
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "flex h-full min-h-0 flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] md:aspect-[1] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] md:aspect-[1.6] max-h-56 md:max-h-40 lg:max-h-75"].join(" "),
+        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75"].join(" "),
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
-          className: " h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 ",
+          className: " h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 [transform-origin:center] ",
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -1449,4 +1453,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=2b75fc6a67b4b7b80455
+//# sourceMappingURL=generic-archive.js.map?ver=4fa0fabeedf9ae266a40

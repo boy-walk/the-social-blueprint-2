@@ -1890,4 +1890,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=col-page.js.map?ver=2aad7ace2f57f65b2fe2
+//# sourceMappingURL=col-page.js.map?ver=41e9522d51291baf8832

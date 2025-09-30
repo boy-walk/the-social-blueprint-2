@@ -2390,4 +2390,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=ee2eb05d26b994cc9df3
+//# sourceMappingURL=mb-page.js.map?ver=71ced171229ff0abce7c
