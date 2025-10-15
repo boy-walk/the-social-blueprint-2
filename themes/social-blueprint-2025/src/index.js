@@ -26,6 +26,12 @@ mount(
   (el) => parse(el.dataset.props || '{}')
 );
 
+mount(
+  'front-page-test',
+  () => import(/* webpackChunkName: "front-page" */ './scripts/FrontPageTest').then(m => m.default),
+  (el) => parse(el.dataset.props || '{}')
+);
+
 // Header
 mount(
   'header',

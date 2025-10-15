@@ -371,7 +371,7 @@ function FrontPage({
 }) {
   const words = ["creative", "resilient", "curious", "connected"];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    className: "bg-schemesPrimaryFixed",
+    className: "bg-schemesInverseOnSurface",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -498,7 +498,279 @@ function ShabbatTicker({
   const onEnter = () => setPaused(true);
   const onLeave = () => setPaused(false);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "mt-6 md:mt-8 rounded-xl bg-schemesPrimaryFixedDim opacity-80 text-schemesOnSurface overflow-hidden",
+    className: "mt-6 md:mt-8 rounded-xl bg-schemesSurface opacity-80 text-schemesOnSurface overflow-hidden",
+    role: "region",
+    "aria-label": "Shabbat times",
+    onMouseEnter: onEnter,
+    onMouseLeave: onLeave,
+    onFocus: onEnter,
+    onBlur: onLeave,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "Blueprint-title-medium whitespace-nowrap",
+      style: {
+        padding: "14px 0",
+        position: "relative"
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex gap-8 sm:gap-10 md:gap-12",
+        style: {
+          width: "200%",
+          animation: prefersReduced ? "none" : "tsb-marquee linear infinite",
+          animationDuration: `${speed}s`,
+          animationPlayState: paused ? "paused" : "running",
+          willChange: "transform",
+          opacity: 1
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6",
+          children: items.map((t, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: t
+          }, `a-${i}`))
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6",
+          "aria-hidden": "true",
+          children: items.map((t, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: t
+          }, `b-${i}`))
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("style", {
+      children: `
+        @keyframes tsb-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./src/scripts/FrontPageTest.js":
+/*!**************************************!*\
+  !*** ./src/scripts/FrontPageTest.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ FrontPage)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _SearchBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchBar */ "./src/scripts/SearchBar.js");
+/* harmony import */ var _ContentCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ContentCard */ "./src/scripts/ContentCard.js");
+/* harmony import */ var _getBadge__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getBadge */ "./src/scripts/getBadge.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+/* WordRotate: unchanged behavior, with responsive-safe inline styles */
+
+function WordRotate({
+  words = [],
+  stepMs = 220,
+  pauseMs = 900
+}) {
+  const i = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  const [angle, setAngle] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(-6);
+  const [stage, setStage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("pauseTop");
+  const t = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const reduced = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (reduced) return;
+    if (stage === "pauseTop" || stage === "pauseBottom") {
+      clearTimeout(t.current);
+      t.current = setTimeout(() => setStage(stage === "pauseTop" ? "toBottom" : "toTop"), pauseMs);
+    }
+    return () => clearTimeout(t.current);
+  }, [stage, pauseMs, reduced]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (reduced) return;
+    if (stage === "toBottom") setAngle(6);
+    if (stage === "bounceBottom1") setAngle(2);
+    if (stage === "bounceBottom2") setAngle(4);
+    if (stage === "toTop") setAngle(-6);
+    if (stage === "bounceTop1") setAngle(-2);
+    if (stage === "bounceTop2") setAngle(-4);
+  }, [stage, reduced]);
+  const onEnd = () => {
+    if (reduced) return;
+    if (stage === "toBottom") {
+      i.current = (i.current + 1) % words.length;
+      return setStage("bounceBottom1");
+    }
+    if (stage === "bounceBottom1") return setStage("bounceBottom2");
+    if (stage === "bounceBottom2") return setStage("pauseBottom");
+    if (stage === "toTop") {
+      i.current = (i.current + 1) % words.length;
+      return setStage("bounceTop1");
+    }
+    if (stage === "bounceTop1") return setStage("bounceTop2");
+    if (stage === "bounceTop2") return setStage("pauseTop");
+  };
+  const transition = stage === "toBottom" || stage === "toTop" ? `transform ${stepMs}ms cubic-bezier(.2,.8,0,1.1)` : stage.includes("bounce") ? `transform ${stepMs}ms cubic-bezier(.2,.7,0,1)` : "none";
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+    className: "inline-flex align-middle items-center",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+      onTransitionEnd: onEnd,
+      className: "inline-flex px-1 py-0.5 rounded-md bg-schemesSecondaryFixedDim text-schemesOnSecondaryFixed Blueprint-body-large-emphasized",
+      style: {
+        transform: `rotate(${reduced ? 0 : angle}deg)`,
+        transformOrigin: "50% 60%",
+        transition,
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center"
+      },
+      "aria-live": "polite",
+      children: words[i.current]
+    })
+  });
+}
+function FrontPage({
+  candleLightingTimes,
+  recentMessageBoard,
+  recentEvent,
+  recentArticle,
+  recentPodcast
+}) {
+  const words = ["creative", "resilient", "curious", "connected"];
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: "bg-schemesSecondaryFixed",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "flex flex-col md:flex-row md:items-start gap-8 md:gap-10 w-full",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "flex flex-col items-stretch md:items-start justify-start gap-4 md:gap-5 w-full",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "Blueprint-display-large-emphasized text-schemesOnPrimaryFixed max-w-none md:max-w-2xl text-center md:text-left leading-tight",
+            children: "Proudly celebrating our Melbourne Jewish community"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "Blueprint-body-large text-schemesOnPrimaryFixedVariant max-w-none md:max-w-xl text-center md:text-left",
+            children: ["Helpful, friendly, and ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(WordRotate, {
+              words: words
+            }), ". Find events, stories, podcasts, and ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {
+              className: "hidden md:block"
+            }), "support."]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "w-full md:max-w-xl",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_1__.SearchBar, {
+              placeholder: "Search events, articles, podcasts..."
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(QuickLinks, {
+            links: [{
+              title: "Events",
+              href: "/events"
+            }, {
+              title: "Podcasts",
+              href: "/podcasts"
+            }, {
+              title: "Stories",
+              href: "/articles"
+            }, {
+              title: "Aid",
+              href: "/aid_listing"
+            }, {
+              title: "Directory",
+              href: "/directory"
+            }]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "w-full md:max-w-3xl",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ShabbatTicker, {
+              times: candleLightingTimes
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "grid grid-cols-2 gap-4 h-full w-full max-w-xl",
+          children: [recentMessageBoard ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+            badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentMessageBoard.post_type),
+            image: recentMessageBoard.thumbnail,
+            href: recentMessageBoard.permalink,
+            fullHeight: true
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {}), recentEvent ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+            badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentEvent.post_type),
+            image: recentEvent.thumbnail,
+            href: recentEvent.permalink,
+            fullHeight: true
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {}), recentArticle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+            badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentArticle.post_type),
+            image: recentArticle.thumbnail,
+            href: recentArticle.permalink,
+            fullHeight: true
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {}), recentPodcast ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_2__.ContentCard, {
+            badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentPodcast.post_type),
+            image: recentPodcast.thumbnail,
+            href: recentPodcast.permalink,
+            fullHeight: true
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {})]
+        })]
+      })
+    })
+  });
+}
+
+/* QuickLinks: responsive grid → row */
+const QuickLinks = ({
+  links = []
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: "grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-row gap-3 md:gap-4",
+    children: links.map((link, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+      href: link.href || "#",
+      className: "no-underline md:flex-1",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "w-full text-center Blueprint-label-large px-4 py-2 md:py-1.5 rounded-lg bg-schemesOnPrimaryContainer text-schemesOnPrimaryFixed",
+        children: link.title
+      })
+    }, i))
+  });
+};
+function ShabbatTicker({
+  times,
+  speed = 35
+}) {
+  const prefersReduced = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const items = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    var _times$shabbat, _src$candle_lighting, _src$havdalah;
+    if (!times) return [];
+    const src = (_times$shabbat = times.shabbat) !== null && _times$shabbat !== void 0 ? _times$shabbat : times;
+    const c = (_src$candle_lighting = src.candle_lighting) !== null && _src$candle_lighting !== void 0 ? _src$candle_lighting : src.candleLighting;
+    const h = (_src$havdalah = src.havdalah) !== null && _src$havdalah !== void 0 ? _src$havdalah : src.Havdalah;
+    const fmtTs = ts => new Date(ts * 1000).toLocaleString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit"
+    });
+    const line = (ev, fallbackLabel) => {
+      if (!ev) return null;
+      const label = ev.title || fallbackLabel;
+      if (ev.date && ev.time) return `${label}: ${ev.date}`;
+      if (ev.timestamp) return `${label}: ${fmtTs(ev.timestamp)}`;
+      return null;
+    };
+    const out = [];
+    const cLine = line(c, "Candle lighting");
+    const hLine = line(h, "Havdalah");
+    if (cLine) out.push(cLine);
+    if (hLine) out.push(hLine);
+    return out;
+  }, [times]);
+  if (!items.length) return null;
+  const [paused, setPaused] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const onEnter = () => setPaused(true);
+  const onLeave = () => setPaused(false);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "mt-6 md:mt-8 rounded-xl bg-schemesOnSecondary opacity-80 text-schemesOnSurface overflow-hidden",
     role: "region",
     "aria-label": "Shabbat times",
     onMouseEnter: onEnter,
@@ -659,4 +931,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=4c5066469dce40d4b790
+//# sourceMappingURL=front-page.js.map?ver=4d796dd551a4c3148216

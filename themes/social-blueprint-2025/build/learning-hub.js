@@ -2522,4 +2522,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=214e301df3c51123f9a3
+//# sourceMappingURL=learning-hub.js.map?ver=2245f40086b36e15e677

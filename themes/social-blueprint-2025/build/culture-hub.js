@@ -2506,4 +2506,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=culture-hub.js.map?ver=418d3a4bb3a0c898f23f
+//# sourceMappingURL=culture-hub.js.map?ver=37395ac6b365cea82b76

@@ -64,7 +64,7 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
     <span className="inline-flex align-middle items-center">
       <span
         onTransitionEnd={onEnd}
-        className="inline-flex px-1 py-0.5 rounded-md bg-schemesPrimaryFixedDim text-schemesOnPrimaryFixedVariant Blueprint-body-large-emphasized"
+        className="inline-flex px-1 py-0.5 rounded-md bg-schemesSecondaryFixedDim text-schemesOnSecondaryFixed Blueprint-body-large-emphasized"
         style={{
           transform: `rotate(${reduced ? 0 : angle}deg)`,
           transformOrigin: "50% 60%",
@@ -87,7 +87,7 @@ export default function FrontPage({ candleLightingTimes, recentMessageBoard, rec
   const words = ["creative", "resilient", "curious", "connected"];
 
   return (
-    <div className="bg-schemesInverseOnSurface">
+    <div className="bg-schemesSecondaryFixed">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16">
         <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 w-full">
           <div className="flex flex-col items-stretch md:items-start justify-start gap-4 md:gap-5 w-full">
@@ -214,7 +214,7 @@ function ShabbatTicker({ times, speed = 35 }) {
 
   return (
     <div
-      className="mt-6 md:mt-8 rounded-xl bg-schemesSurface opacity-80 text-schemesOnSurface overflow-hidden"
+      className="mt-6 md:mt-8 rounded-xl bg-schemesOnSecondary opacity-80 text-schemesOnSurface overflow-hidden"
       role="region"
       aria-label="Shabbat times"
       onMouseEnter={onEnter}
