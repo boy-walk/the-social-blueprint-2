@@ -14,7 +14,9 @@ function mount(id, loader, propsFromEl = () => ({})) {
   if (!el) return;
   loader().then((Comp) => {
     ReactDOM.createRoot(el).render(React.createElement(Comp, propsFromEl(el)));
-  }).catch((e) => { if (process.env.NODE_ENV !== 'production') console.error(e); });
+  }).catch((e) => {
+    console.error('Mount failed for', id, e);
+  });
 }
 
 /* ---------- One call per mount point ---------- */

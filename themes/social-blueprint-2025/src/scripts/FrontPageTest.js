@@ -83,7 +83,7 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
   );
 }
 
-export default function FrontPage({ candleLightingTimes, recentMessageBoard, recentEvent, recentArticle, recentPodcast }) {
+export default function FrontPageTest({ candleLightingTimes, recentMessageBoard, recentEvent, recentArticle, recentPodcast }) {
   const words = ["creative", "resilient", "curious", "connected"];
 
   return (
