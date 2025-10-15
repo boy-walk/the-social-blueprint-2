@@ -1,5 +1,5 @@
 "use strict";
-(globalThis["webpackChunkbrads_boilerplate_theme"] = globalThis["webpackChunkbrads_boilerplate_theme"] || []).push([["front-page"],{
+(globalThis["webpackChunkbrads_boilerplate_theme"] = globalThis["webpackChunkbrads_boilerplate_theme"] || []).push([["front-page-test"],{
 
 /***/ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js":
 /*!***************************************************************************!*\
@@ -275,10 +275,10 @@ function ContentCard({
 
 /***/ }),
 
-/***/ "./src/scripts/FrontPage.js":
-/*!**********************************!*\
-  !*** ./src/scripts/FrontPage.js ***!
-  \**********************************/
+/***/ "./src/scripts/FrontPageTest.js":
+/*!**************************************!*\
+  !*** ./src/scripts/FrontPageTest.js ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -346,7 +346,7 @@ function WordRotate({
     className: "inline-flex align-middle items-center",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
       onTransitionEnd: onEnd,
-      className: "inline-flex px-1 py-0.5 rounded-md bg-schemesPrimaryFixedDim text-schemesOnPrimaryFixedVariant Blueprint-body-large-emphasized",
+      className: "inline-flex px-1 py-0.5 rounded-md bg-schemesSecondaryFixedDim text-schemesOnSecondaryFixed Blueprint-body-large-emphasized",
       style: {
         transform: `rotate(${reduced ? 0 : angle}deg)`,
         transformOrigin: "50% 60%",
@@ -371,7 +371,7 @@ function FrontPage({
 }) {
   const words = ["creative", "resilient", "curious", "connected"];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    className: "bg-schemesInverseOnSurface",
+    className: "bg-schemesSecondaryFixed",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -498,7 +498,7 @@ function ShabbatTicker({
   const onEnter = () => setPaused(true);
   const onLeave = () => setPaused(false);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "mt-6 md:mt-8 rounded-xl bg-schemesSurface opacity-80 text-schemesOnSurface overflow-hidden",
+    className: "mt-6 md:mt-8 rounded-xl bg-schemesOnSecondary opacity-80 text-schemesOnSurface overflow-hidden",
     role: "region",
     "aria-label": "Shabbat times",
     onMouseEnter: onEnter,
@@ -659,4 +659,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=887663678efef99f036c
+//# sourceMappingURL=front-page-test.js.map?ver=d5dc6c0542294d951f96

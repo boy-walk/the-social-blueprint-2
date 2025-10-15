@@ -28,7 +28,7 @@ mount(
 
 mount(
   'front-page-test',
-  () => import(/* webpackChunkName: "front-page" */ './scripts/FrontPageTest').then(m => m.default),
+  () => import(/* webpackChunkName: "front-page-test" */ './scripts/FrontPageTest').then(m => m.default),
   (el) => parse(el.dataset.props || '{}')
 );
 
