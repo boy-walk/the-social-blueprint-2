@@ -139,7 +139,7 @@ const SponsorshipBanner = ({
         }), imgSrc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: imgSrc,
           alt: "Sponsor Logo",
-          className: "w-auto object-contain"
+          className: "max-w-150 w-auto object-contain"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "flex flex-row md:flex-col gap-3 sm:gap-4",
@@ -172,4 +172,4 @@ const SponsorshipBanner = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=sponsorship.js.map?ver=c61059a03dc3d5431af8
+//# sourceMappingURL=sponsorship.js.map?ver=ad656d74c2b56f37de1c

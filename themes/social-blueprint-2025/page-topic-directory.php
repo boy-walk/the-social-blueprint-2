@@ -23,7 +23,7 @@ get_header(); ?>
         $children = get_terms([
           'taxonomy'   => $taxonomy,
           'parent'     => $term->term_id,
-          'hide_empty' => true,
+          'hide_empty' => false,
         ]);
         ?>
         <li class="leading-7">

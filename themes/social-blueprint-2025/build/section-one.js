@@ -2591,7 +2591,7 @@ const SponsorshipBanner = ({
         }), imgSrc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: imgSrc,
           alt: "Sponsor Logo",
-          className: "w-auto object-contain"
+          className: "max-w-150 w-auto object-contain"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "flex flex-row md:flex-col gap-3 sm:gap-4",
@@ -2665,4 +2665,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=9a63b57201c62ea5b844
+//# sourceMappingURL=section-one.js.map?ver=96e2a97078a2f342b5c2

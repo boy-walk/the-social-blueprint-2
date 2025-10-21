@@ -18,7 +18,7 @@ export const SponsorshipBanner = ({ imgSrc, enabled, href }) => {
             <img
               src={imgSrc}
               alt="Sponsor Logo"
-              className="w-auto object-contain"
+              className="max-w-150 w-auto object-contain"
             />
           )}
         </div>

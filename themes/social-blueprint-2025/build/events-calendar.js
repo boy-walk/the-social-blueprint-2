@@ -513,7 +513,7 @@ function EventsCalendar({
             eventColor: "var(--schemesPrimaryFixed)",
             eventTextColor: "var(--schemesOnPrimaryFixed)",
             eventDisplay: "block",
-            height: "auto",
+            height: "800px",
             datesSet: datesSet,
             eventMouseEnter: showTooltip,
             eventMouseLeave: hideTooltip,
@@ -894,4 +894,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=14fa1a07523d0e449e9f
+//# sourceMappingURL=events-calendar.js.map?ver=1b533f7336fde8cf446b

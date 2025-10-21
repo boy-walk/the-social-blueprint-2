@@ -358,7 +358,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
               eventColor="var(--schemesPrimaryFixed)"
               eventTextColor="var(--schemesOnPrimaryFixed)"
               eventDisplay="block"
-              height="auto"
+              height="800px"
               datesSet={datesSet}
               eventMouseEnter={showTooltip}
               eventMouseLeave={hideTooltip}
