@@ -1305,7 +1305,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label = 'Label',
+  label,
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -2390,4 +2390,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=4dc75833dd09233bb168
+//# sourceMappingURL=mb-page.js.map?ver=2f306107a73a012cff2f

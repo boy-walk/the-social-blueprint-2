@@ -36,7 +36,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label = 'Label',
+  label,
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -172,4 +172,4 @@ const SponsorshipBanner = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=sponsorship.js.map?ver=ad656d74c2b56f37de1c
+//# sourceMappingURL=sponsorship.js.map?ver=9f343b3d972b1e52a9c0

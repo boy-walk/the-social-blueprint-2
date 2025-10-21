@@ -36,7 +36,7 @@ export function IconButton({
       'focus-visible:ring-2 focus-visible:ring-[var(--schemesOutline)]'
     ),
     standard: clsx(
-      'text-[var(--schemesOnSurface)]  bg-transparent',
+      'text-[var(--schemesOnSurface)]  bg-schemesSurfaceContainer',
       'hover:bg-[var(--schemesSurfaceVariant)]',
       'active:bg-[var(--schemesSurfaceVariant)]',
       'focus-visible:ring-2 focus-visible:ring-[var(--schemesSurfaceVariant)]'

@@ -1,8 +1,10 @@
 // components/BrowseAll.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { ContentCard } from "./ContentCard";
-import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { getBadge } from "./getBadge";
+import { Button } from "./Button";
+import { IconButton } from "./Icon";
 
 const EMPTY = Object.freeze([]);
 const DEFAULT_BASE_QUERY = Object.freeze({
@@ -204,23 +206,23 @@ export default function BrowseAll({
       )}
 
       <div className="flex justify-center items-center gap-4 mt-8">
-        <button
+        <IconButton
+          icon={<ArrowLeftIcon size={24} weight="bold" />}
           disabled={page === 1}
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
-          className="p-2 rounded-full bg-[var(--schemesSurface)] border border-[var(--schemesOutlineVariant)] disabled:opacity-30"
-        >
-          <CaretLeftIcon size={24} weight="bold" />
-        </button>
-        <span className="text-sm font-medium">
-          {page} / {totalPages}
-        </span>
-        <button
+          style="standard"
+        />
+        <Button
+          label={`${page}/${totalPages}`}
+          variant="filled"
+          className="cursor-default pointer-events-none"
+        />
+        <IconButton
           disabled={page >= totalPages}
           onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-          className="p-2 rounded-full bg-[var(--schemesSurface)] border border-[var(--schemesOutlineVariant)] disabled:opacity-30"
-        >
-          <CaretRightIcon size={24} weight="bold" />
-        </button>
+          style="standard"
+          icon={<ArrowRightIcon size={24} weight="bold" />}
+        />
       </div>
     </section>
   );

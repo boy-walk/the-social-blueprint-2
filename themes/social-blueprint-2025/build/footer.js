@@ -393,7 +393,7 @@ function IconButton({
     filled: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-[var(--schemesPrimary)] text-[var(--schemesOnPrimary)]', 'hover:bg-[var(--schemesPrimaryContainer)]', 'active:bg-[var(--schemesPrimary)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesPrimaryContainer)]'),
     tonal: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('bg-schemesPrimaryFixed text-[var(--schemesOnSecondaryContainer)]', 'hover:bg-[var(--palettesOnPrimary60)]', 'active:bg-[var(--schemesSecondary)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesSecondaryContainer)]'),
     outlined: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('border border-[var(--schemesOutline)]  text-[var(--schemesOnSurface)]  bg-transparent', 'hover:bg-[var(--schemesSurfaceVariant)]', 'active:bg-[var(--schemesSurfaceVariant)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesOutline)]'),
-    standard: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('text-[var(--schemesOnSurface)]  bg-transparent', 'hover:bg-[var(--schemesSurfaceVariant)]', 'active:bg-[var(--schemesSurfaceVariant)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesSurfaceVariant)]')
+    standard: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('text-[var(--schemesOnSurface)]  bg-schemesSurfaceContainer', 'hover:bg-[var(--schemesSurfaceVariant)]', 'active:bg-[var(--schemesSurfaceVariant)]', 'focus-visible:ring-2 focus-visible:ring-[var(--schemesSurfaceVariant)]')
   };
   const disabledClasses = 'opacity-40 pointer-events-none select-none';
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
@@ -490,4 +490,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=footer.js.map?ver=76e2dd3d592c41a53cb0
+//# sourceMappingURL=footer.js.map?ver=c352f3368e2934a7679d

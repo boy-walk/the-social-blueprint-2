@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label = 'Label',
+  label,
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -894,4 +894,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=1b533f7336fde8cf446b
+//# sourceMappingURL=events-calendar.js.map?ver=c4a9934eefb6353ccbf8
