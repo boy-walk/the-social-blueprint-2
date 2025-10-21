@@ -1521,11 +1521,14 @@ function DetailedCard({
       href: href || "#",
       className: "flex h-full w-full gap-4 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "lg:aspect-[4/3] max-h-[275px] w-1/4 flex-shrink-0 overflow-hidden p-2 rounded-lg",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-          src: image,
-          alt: image ? title : null,
-          className: "w-full h-full object-cover bg-gray-100 rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105"
+        className: "lg:aspect-[4/3] max-h-[275px] w-1/4 flex-shrink-0 p-2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "w-full h-full overflow-hidden rounded-lg bg-gray-100",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: image,
+            alt: image ? title : null,
+            className: "w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105"
+          })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "flex flex-col justify-between w-full h-full p-2 lg:p-4",
@@ -2629,4 +2632,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=7f75d8541d6c27d2c2ba
+//# sourceMappingURL=section-one.js.map?ver=ec599a3cfc2512ebc01e

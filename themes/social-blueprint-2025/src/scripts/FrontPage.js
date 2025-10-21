@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useEffect, useState } from "react";
 import { SearchBar } from "./SearchBar";
 import { ContentCard } from "./ContentCard";
 import { getBadge } from "./getBadge";
+import { HeroCard } from "./HeroCard";
 
 /* WordRotate: unchanged behavior, with responsive-safe inline styles */
 function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
@@ -64,7 +65,7 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
     <span className="inline-flex align-middle items-center">
       <span
         onTransitionEnd={onEnd}
-        className="inline-flex px-1 py-0.5 rounded-md bg-schemesPrimaryFixedDim text-schemesOnPrimaryFixedVariant Blueprint-body-large-emphasized"
+        className="inline-flex px-1 py-0.5 rounded-md bg-schemesSecondaryContainer text-schemesOnSecondaryContainer Blueprint-title-large-emphasized"
         style={{
           transform: `rotate(${reduced ? 0 : angle}deg)`,
           transformOrigin: "50% 60%",
@@ -87,18 +88,18 @@ export default function FrontPage({ candleLightingTimes, recentMessageBoard, rec
   const words = ["creative", "resilient", "curious", "connected"];
 
   return (
-    <div className="bg-schemesInverseOnSurface">
+    <div className="bg-schemesSurface">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16">
         <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 w-full">
           <div className="flex flex-col items-stretch md:items-start justify-start gap-4 md:gap-5 w-full">
-            <div className="Blueprint-display-large-emphasized text-schemesOnPrimaryFixed max-w-none md:max-w-2xl text-center md:text-left leading-tight">
+            <div className="Blueprint-display-large-emphasized text-schemesOnSurface max-w-none md:max-w-2xl text-center md:text-left leading-tight">
               Proudly celebrating our Melbourne Jewish community
             </div>
 
-            <div className="Blueprint-body-large text-schemesOnPrimaryFixedVariant max-w-none md:max-w-xl text-center md:text-left">
-              Helpful, friendly, and <WordRotate words={words} />. Find events, stories, podcasts,
-              and <br className="hidden md:block" />
-              support.
+            <div className="Blueprint-title-large text-schemesOnSurface max-w-none md:max-w-xl text-center md:text-left">
+              Helpful, friendly, and <WordRotate words={words} />.
+              <br />
+              Find events, stories, podcasts, and support.
             </div>
 
             {/* Search: full-width on mobile, constrained on larger screens */}
@@ -116,39 +117,49 @@ export default function FrontPage({ candleLightingTimes, recentMessageBoard, rec
                 { title: "Directory", href: "/directory" },
               ]}
             />
-
-            {/* Shabbat ticker: full width on mobile; constrained on md+ */}
-            <div className="w-full md:max-w-3xl">
-              <ShabbatTicker times={candleLightingTimes} />
-            </div>
           </div>
           <div className="grid grid-cols-2 gap-4 h-full w-full max-w-xl">
-            {recentMessageBoard ? <ContentCard
+            {recentMessageBoard ? <HeroCard
               badge={getBadge(recentMessageBoard.post_type)}
               image={recentMessageBoard.thumbnail}
               href={recentMessageBoard.permalink}
+              title={recentMessageBoard.title}
+              subtitle={recentMessageBoard.subtitle || recentMessageBoard.excerpt}
+              date={recentMessageBoard.date}
               fullHeight
             /> : <div></div>}
-            {recentEvent ? <ContentCard
+            {recentEvent ? <HeroCard
               badge={getBadge(recentEvent.post_type)}
               image={recentEvent.thumbnail}
               href={recentEvent.permalink}
+              title={recentEvent.title}
+              subtitle={recentEvent.subtitle || recentEvent.excerpt}
+              date={recentEvent.date}
               fullHeight
             /> : <div></div>}
-            {recentArticle ? <ContentCard
+            {recentArticle ? <HeroCard
               badge={getBadge(recentArticle.post_type)}
               image={recentArticle.thumbnail}
               href={recentArticle.permalink}
+              title={recentArticle.title}
+              subtitle={recentArticle.subtitle || recentArticle.excerpt}
+              date={recentArticle.date}
               fullHeight
             /> : <div></div>}
-            {recentPodcast ? <ContentCard
+            {recentPodcast ? <HeroCard
               badge={getBadge(recentPodcast.post_type)}
               image={recentPodcast.thumbnail}
               href={recentPodcast.permalink}
+              title={recentPodcast.title}
+              subtitle={recentPodcast.subtitle || recentPodcast.excerpt}
+              date={recentPodcast.date}
               fullHeight
             /> : <div></div>}
           </div>
         </div>
+      </div>
+      <div className="w-full max-w-[1600px] mx-auto p-4 md:p-6 lg:px-16 lg:py-8">
+        <ShabbatTicker times={candleLightingTimes} />
       </div>
     </div>
   );
@@ -169,7 +180,7 @@ const QuickLinks = ({ links = [] }) => {
   );
 };
 
-function ShabbatTicker({ times, speed = 35 }) {
+function ShabbatTicker({ times, speed = 100 }) {
   const prefersReduced =
     typeof window !== "undefined" &&
     window.matchMedia &&
@@ -201,6 +212,7 @@ function ShabbatTicker({ times, speed = 35 }) {
     const out = [];
     const cLine = line(c, "Candle lighting");
     const hLine = line(h, "Havdalah");
+    out.push('Shabbat Candle-lighting Times')
     if (cLine) out.push(cLine);
     if (hLine) out.push(hLine);
     return out;
@@ -214,7 +226,7 @@ function ShabbatTicker({ times, speed = 35 }) {
 
   return (
     <div
-      className="mt-6 md:mt-8 rounded-xl bg-schemesSurface opacity-80 text-schemesOnSurface overflow-hidden"
+      className="mt-6 md:mt-8 rounded-xl bg-schemesSecondaryContainer text-schemesOnSecondaryContainer overflow-hidden shadow-3x2"
       role="region"
       aria-label="Shabbat times"
       onMouseEnter={onEnter}
@@ -223,13 +235,13 @@ function ShabbatTicker({ times, speed = 35 }) {
       onBlur={onLeave}
     >
       <div
-        className="Blueprint-title-medium whitespace-nowrap"
+        className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large whitespace-nowrap"
         style={{ padding: "14px 0", position: "relative" }}
       >
         <div
           className="flex gap-8 sm:gap-10 md:gap-12"
           style={{
-            width: "200%",
+            width: "800%",
             animation: prefersReduced ? "none" : "tsb-marquee linear infinite",
             animationDuration: `${speed}s`,
             animationPlayState: paused ? "paused" : "running",
@@ -240,6 +252,31 @@ function ShabbatTicker({ times, speed = 35 }) {
           <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6">
             {items.map((t, i) => (
               <span key={`a-${i}`}>{t}</span>
+            ))}
+          </div>
+          <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6" aria-hidden="true">
+            {items.map((t, i) => (
+              <span key={`b-${i}`}>{t}</span>
+            ))}
+          </div>
+          <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6" aria-hidden="true">
+            {items.map((t, i) => (
+              <span key={`b-${i}`}>{t}</span>
+            ))}
+          </div>
+          <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6" aria-hidden="true">
+            {items.map((t, i) => (
+              <span key={`b-${i}`}>{t}</span>
+            ))}
+          </div>
+          <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6" aria-hidden="true">
+            {items.map((t, i) => (
+              <span key={`b-${i}`}>{t}</span>
+            ))}
+          </div>
+          <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6" aria-hidden="true">
+            {items.map((t, i) => (
+              <span key={`b-${i}`}>{t}</span>
             ))}
           </div>
           <div className="flex gap-8 sm:gap-10 md:gap-12 flex-none px-4 sm:px-6" aria-hidden="true">

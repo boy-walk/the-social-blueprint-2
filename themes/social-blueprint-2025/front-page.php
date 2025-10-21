@@ -73,10 +73,6 @@ $front_props = [
   id="front-page"
   data-props='<?php echo esc_attr( wp_json_encode( $front_props, JSON_UNESCAPED_SLASHES ) ); ?>'
 ></div>
-<div
- id="front-page-test"
- data-props='<?php echo esc_attr( wp_json_encode( $front_props, JSON_UNESCAPED_SLASHES ) ); ?>'
-></div>
   <?php
 
 

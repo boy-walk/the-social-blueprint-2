@@ -28,7 +28,7 @@ export const SearchBar = () => {
       <div className="relative">
         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
           <div className="bg-schemesPrimaryFixed rounded-lg p-1.5">
-            <MagnifyingGlassIcon size={22} className="rounded-sm text-schemesOnPrimaryFixedVariant" />
+            <MagnifyingGlassIcon size={22} />
           </div>
         </div>
         <input

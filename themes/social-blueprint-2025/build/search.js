@@ -692,8 +692,7 @@ const SearchBar = () => {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "bg-schemesPrimaryFixed rounded-lg p-1.5",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.MagnifyingGlassIcon, {
-            size: 22,
-            className: "rounded-sm text-schemesOnPrimaryFixedVariant"
+            size: 22
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
@@ -833,4 +832,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=search.js.map?ver=6f2656d80cbe151aeced
+//# sourceMappingURL=search.js.map?ver=076c2e45a59b790768d7

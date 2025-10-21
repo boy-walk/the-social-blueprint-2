@@ -14,9 +14,7 @@ function mount(id, loader, propsFromEl = () => ({})) {
   if (!el) return;
   loader().then((Comp) => {
     ReactDOM.createRoot(el).render(React.createElement(Comp, propsFromEl(el)));
-  }).catch((e) => {
-    console.error('Mount failed for', id, e);
-  });
+  }).catch((e) => { if (process.env.NODE_ENV !== 'production') console.error(e); });
 }
 
 /* ---------- One call per mount point ---------- */
@@ -25,12 +23,6 @@ function mount(id, loader, propsFromEl = () => ({})) {
 mount(
   'front-page',
   () => import(/* webpackChunkName: "front-page" */ './scripts/FrontPage').then(m => m.default),
-  (el) => parse(el.dataset.props || '{}')
-);
-
-mount(
-  'front-page-test',
-  () => import(/* webpackChunkName: "front-page-test" */ './scripts/FrontPageTest').then(m => m.default),
   (el) => parse(el.dataset.props || '{}')
 );
 
