@@ -2563,8 +2563,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SponsorshipBanner: () => (/* binding */ SponsorshipBanner)
 /* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+ // Adjust the import path as needed
 
 const SponsorshipBanner = ({
   imgSrc,
@@ -2574,16 +2579,44 @@ const SponsorshipBanner = ({
   if (!enabled) {
     return null;
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-    href: href || "#",
-    target: "_blank",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-      className: "flex justify-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
-        src: imgSrc,
-        alt: "Sponsorship Banner",
-        className: "w-full h-auto object-fit rounded-xl"
-      })
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    className: "w-full bg-schemesInverseSurface rounded-xl p-4 md:p-8 lg:p-10",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "flex flex-col items-center justify-center lg:flex-row lg:items-center lg:justify-between gap-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "flex flex-col items-start justify-center gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+          className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesPrimaryFixed",
+          children: "Proudly sponsored by"
+        }), imgSrc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+          src: imgSrc,
+          alt: "Sponsor Logo",
+          className: "w-auto object-contain"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "flex flex-row md:flex-col gap-3 sm:gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+          href: href || "#",
+          target: "_blank",
+          rel: "noopener noreferrer",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+            label: "Link to sponsor",
+            variant: "filled",
+            shape: "square",
+            size: "base",
+            className: "w-full sm:w-auto bg-[#2b6b8a] hover:bg-[#3a7fa3]"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+            label: "More about us",
+            variant: "tonal",
+            shape: "square",
+            size: "base",
+            onClick: () => {},
+            className: "w-full sm:w-auto bg-[#c5e3f5] text-[#1a4a5e] hover:bg-[#b0d6ec]"
+          })
+        })]
+      })]
     })
   });
 };
@@ -2632,4 +2665,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=ec599a3cfc2512ebc01e
+//# sourceMappingURL=section-one.js.map?ver=ea63d26f055e7a4030a6
