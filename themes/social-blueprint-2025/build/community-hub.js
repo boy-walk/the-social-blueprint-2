@@ -2493,9 +2493,9 @@ function MessageBoardSlider({
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
                     className: "Blueprint-body-small-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized text-schemesOnSurface mb-1 md:mb-2 line-clamp-2",
                     children: post.title
-                  }), post.subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+                  }), post.subtitle || post.excerpt && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
                     className: "text-schemesOnSurfaceVariant Blueprint-body-small md:Blueprint-body-medium line-clamp-3",
-                    children: post.subtitle
+                    children: post.subtitle || post.excerpt
                   })]
                 })]
               })
@@ -2812,4 +2812,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=e4617bf9e0e53d0888e4
+//# sourceMappingURL=community-hub.js.map?ver=32b8cf3b68bb081e6f99
