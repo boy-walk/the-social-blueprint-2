@@ -138,7 +138,7 @@ export default function BrowseAll({
   const skeletons = Array.from({ length: perPage }).map((_, i) => (
     <div
       key={`sk-${i}`}
-      className={`rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden ${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`}
+      className={`rounded-xl border border-[var(--schemesOutlineVariant)] ${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`}
     >
       <div className="w-full h-1/2 bg-[var(--schemesSurfaceContainerHighest)] animate-pulse" />
       <div className="p-4 space-y-2">
@@ -176,7 +176,7 @@ export default function BrowseAll({
           : data.items.map((post) => (
             <div
               key={post.id}
-              className={`overflow-hidden ${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`}
+              className={`${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`}
             >
               <ContentCard
                 image={post.thumbnail}

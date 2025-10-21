@@ -436,7 +436,7 @@ function BrowseAll({
   const skeletons = Array.from({
     length: perPage
   }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: `rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden ${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
+    className: `rounded-xl border border-[var(--schemesOutlineVariant)] ${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "w-full h-1/2 bg-[var(--schemesSurfaceContainerHighest)] animate-pulse"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -469,7 +469,7 @@ function BrowseAll({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-stretch",
       children: loading ? skeletons : data.items.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: `overflow-hidden ${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
+        className: `${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
           image: post.thumbnail,
           title: post.title,
@@ -832,4 +832,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=search.js.map?ver=076c2e45a59b790768d7
+//# sourceMappingURL=search.js.map?ver=92151cce109329be05fd
