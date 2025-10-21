@@ -48,7 +48,7 @@ get_header(); ?>
       $roots = get_terms([
         'taxonomy'   => $taxonomy,
         'parent'     => 0,
-        'hide_empty' => true,
+        'hide_empty' => false,
         'orderby'    => 'name',
         'order'      => 'ASC',
       ]);
