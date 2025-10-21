@@ -70,7 +70,7 @@ get_header(); ?>
                 $children = get_terms([
                   'taxonomy'   => $taxonomy,
                   'parent'     => $root->term_id,
-                  'hide_empty' => true,
+                  'hide_empty' => false,
                   'orderby'    => 'name',
                   'order'      => 'ASC',
                 ]);
