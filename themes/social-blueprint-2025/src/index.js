@@ -17,32 +17,20 @@ function mount(id, loader, propsFromEl = () => ({})) {
   }).catch((e) => { if (process.env.NODE_ENV !== 'production') console.error(e); });
 }
 
-/* ---------- Critical components loaded immediately ---------- */
-
-// Login - load immediately to prevent double-click issue
-const loginEl = $('login-form');
-if (loginEl) {
-  import(/* webpackChunkName: "login" */ './scripts/LoginForm').then((m) => {
-    ReactDOM.createRoot(loginEl).render(React.createElement(m.LoginForm));
-  }).catch((e) => { if (process.env.NODE_ENV !== 'production') console.error(e); });
-}
-
-// Header - load immediately as it's always visible
-const headerEl = $('header');
-if (headerEl) {
-  import(/* webpackChunkName: "header" */ './scripts/Header').then((m) => {
-    const props = { isUserLoggedIn: headerEl.getAttribute('isUserLoggedIn') === 'true' };
-    ReactDOM.createRoot(headerEl).render(React.createElement(m.default, props));
-  }).catch((e) => { if (process.env.NODE_ENV !== 'production') console.error(e); });
-}
-
-/* ---------- Lazy-loaded components ---------- */
+/* ---------- One call per mount point ---------- */
 
 // Front page
 mount(
   'front-page',
   () => import(/* webpackChunkName: "front-page" */ './scripts/FrontPage').then(m => m.default),
   (el) => parse(el.dataset.props || '{}')
+);
+
+// Header
+mount(
+  'header',
+  () => import(/* webpackChunkName: "header" */ './scripts/Header').then(m => m.default),
+  (el) => ({ isUserLoggedIn: el.getAttribute('isUserLoggedIn') === 'true' })
 );
 
 // Section one
@@ -76,6 +64,12 @@ mount(
 mount(
   'footer',
   () => import(/* webpackChunkName: "footer" */ './scripts/Footer').then(m => m.Footer)
+);
+
+// Login
+mount(
+  'login-form',
+  () => import(/* webpackChunkName: "login" */ './scripts/LoginForm').then(m => m.LoginForm)
 );
 
 // T&C

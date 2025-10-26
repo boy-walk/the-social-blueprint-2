@@ -8,6 +8,12 @@
 @import "./font-classes.css";
 @import "./responsive-font-classes.css";
 
+@theme {
+  --breakpoint-sm: 0px;
+  --breakpoint-md: 568px;
+  --breakpoint-lg: 1201px;
+}
+
 :root {
   --schemesPrimary: #1e6586;
   --schemesSurfaceTint: #00658c;

@@ -11,11 +11,6 @@ module.exports = {
         heebo: ['"Heebo"', 'sans-serif'],
       },
     },
-    screens: {
-      sm: { max: '567px' },
-      md: { min: '568px', max: '1200px' }, // note 1027
-      lg: { min: '1201px' },
-    },
   },
   plugins: [require('@tailwindcss/typography')],
 }

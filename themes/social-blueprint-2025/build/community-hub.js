@@ -2872,4 +2872,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=a13f1cb534e061b95fc8
+//# sourceMappingURL=community-hub.js.map?ver=45e252e6905c0246b3e1

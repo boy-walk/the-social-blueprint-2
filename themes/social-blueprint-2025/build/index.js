@@ -3467,7 +3467,7 @@ module.exports = window["ReactJSXRuntime"];
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + ".js?ver=" + {"login":"0dd3452293edf3acc581","vendors-node_modules_phosphor-icons_react_dist_csr_FacebookLogo_es_js-node_modules_phosphor-i-c92012":"826b9c996bf2ced865f1","vendors-node_modules_phosphor-icons_react_dist_csr_CaretDown_es_js-node_modules_phosphor-icon-3fd4f3":"db9f27085a832aafbee2","header":"68c430ae0590c621bff1","front-page":"b1dd1654e9d4c4296a09","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowLeft_es_js-node_modules_phosphor-icon-acf5fd":"6e81b158efb0f5ea5e49","section-one":"96e2a97078a2f342b5c2","sponsorship":"ad656d74c2b56f37de1c","register-individual":"f568f0387e0d1a83ba2d","footer":"c352f3368e2934a7679d","terms":"b498b477a3139a7d67db","contact":"4991a848b41428e01ba2","page-404":"0f6742e934eb92a0e8db","register-organisation":"fdb039999562b140a27a","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowUpRight_es_js-node_modules_phosphor-i-46b4a0":"a7028c12a87b70d51d0a","podcast-page":"a4f944d59e04b1c5a2a4","search":"8df784b43d045942971a","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowUpRight_es_js-node_modules_phosphor-i-0765ec":"36deeac1426845735db2","community-hub":"a13f1cb534e061b95fc8","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowLeft_es_js-node_modules_phosphor-icon-799ef0":"1ee34075d67eeb1c56e1","account-dashboard":"21056a4b78c698cbe074","newsletter-banner":"a63aa1481d4a1fa7df7c","vendors-node_modules_phosphor-icons_react_dist_csr_LockKey_es_js-node_modules_phosphor-icons_-c78674":"55c52239020d86d10d0a","account-profile":"bb9b7b92f326db26adfc","vendors-node_modules_phosphor-icons_react_dist_csr_Books_es_js-node_modules_phosphor-icons_re-cd5604":"ba70f973db859a2ccddb","about-us":"0866965a75a0b46bd66d","article-page":"4fe42e27933c40d0ef78","event-page":"f7062342d9f0f85691a6","events-hub":"225b689ea3a2f18a6554","stories-interviews":"bc4a286fa09282e68ded","vendors-node_modules_fullcalendar_daygrid_index_js-node_modules_fullcalendar_list_index_js-no-bf342b":"d96dc495239f6d18d0b2","events-calendar":"62abf8410c9440edc914","learning-hub":"cb6a748ff7ff6d2c55cb","culture-hub":"2e0a129edada21542831","vendors-node_modules_phosphor-icons_react_dist_csr_AppWindow_es_js-node_modules_phosphor-icon-a4b347":"0ca163f7830567e54443","support-hub":"2ae43c66aaa15cb8539c","directory-hub":"4b869e5ad1b5ae335828","vendors-node_modules_phosphor-icons_react_dist_csr_BowlFood_es_js-node_modules_phosphor-icons-d93fcd":"15d3a6dd05dd4fdbb7cc","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowLeft_es_js-node_modules_phosphor-icon-f32220":"ab2bfe189b17b1afe222","col-hub":"6c231a2aa79f144a1d4a","generic-archive":"c8ea5536a894604461b0","mb-archive":"abbcc532276bc080817b","mb-page":"4dc75833dd09233bb168","col-page":"41e9522d51291baf8832","add-listing":"f34d33b7492513cf3a47","vendors-node_modules_phosphor-icons_react_dist_csr_Globe_es_js-node_modules_phosphor-icons_re-a99398":"a0c7508fd9b4ab3a713f","aid-listing":"242440be4d714f4a0b45","aid-listing-hub":"ad063c688949e3131d3c","topic-directory":"070f87d266a1601768d0","health-hub":"3dba40379759e0cfe299","account-listings":"f6eaf3bba1e19f74050f","vendors-node_modules_phosphor-icons_react_dist_csr_AlignCenterHorizontal_es_js-node_modules_p-2a094b":"96c8f886d3b749380611","submit-article":"ba9d3126328c7bba9129","faqs":"6328ca4fdec057eca7d0"}[chunkId] + "";
+/******/ 			return "" + chunkId + ".js?ver=" + {"front-page":"abc2b1118e333ac1b712","vendors-node_modules_phosphor-icons_react_dist_csr_FacebookLogo_es_js-node_modules_phosphor-i-c92012":"826b9c996bf2ced865f1","vendors-node_modules_phosphor-icons_react_dist_csr_CaretDown_es_js-node_modules_phosphor-icon-3fd4f3":"db9f27085a832aafbee2","header":"017cdf160aedb2bbe723","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowLeft_es_js-node_modules_phosphor-icon-acf5fd":"6e81b158efb0f5ea5e49","section-one":"485d9f53d454a86e9d8b","sponsorship":"ea27faadb7310d052d06","register-individual":"f568f0387e0d1a83ba2d","footer":"3e6ca5cfb71323e7139c","login":"0dd3452293edf3acc581","terms":"b498b477a3139a7d67db","contact":"4991a848b41428e01ba2","page-404":"0f6742e934eb92a0e8db","register-organisation":"fdb039999562b140a27a","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowUpRight_es_js-node_modules_phosphor-i-46b4a0":"a7028c12a87b70d51d0a","podcast-page":"a4f944d59e04b1c5a2a4","search":"8d3b4df40eb1eeb23eb5","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowUpRight_es_js-node_modules_phosphor-i-0765ec":"36deeac1426845735db2","community-hub":"45e252e6905c0246b3e1","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowLeft_es_js-node_modules_phosphor-icon-799ef0":"1ee34075d67eeb1c56e1","account-dashboard":"21056a4b78c698cbe074","newsletter-banner":"a63aa1481d4a1fa7df7c","vendors-node_modules_phosphor-icons_react_dist_csr_LockKey_es_js-node_modules_phosphor-icons_-c78674":"55c52239020d86d10d0a","account-profile":"bb9b7b92f326db26adfc","vendors-node_modules_phosphor-icons_react_dist_csr_Books_es_js-node_modules_phosphor-icons_re-cd5604":"ba70f973db859a2ccddb","about-us":"0866965a75a0b46bd66d","article-page":"4fe42e27933c40d0ef78","event-page":"f7062342d9f0f85691a6","events-hub":"1c3869d6ba2df7267043","stories-interviews":"a0bc676fdd247ee4e441","vendors-node_modules_fullcalendar_daygrid_index_js-node_modules_fullcalendar_list_index_js-no-bf342b":"d96dc495239f6d18d0b2","events-calendar":"62abf8410c9440edc914","learning-hub":"7ab7649117a7eb862208","culture-hub":"be343083f41ee2e6e1b5","vendors-node_modules_phosphor-icons_react_dist_csr_AppWindow_es_js-node_modules_phosphor-icon-a4b347":"0ca163f7830567e54443","support-hub":"1a14b52f9f56c643adcb","directory-hub":"98d2f4114ab0130b8b47","vendors-node_modules_phosphor-icons_react_dist_csr_BowlFood_es_js-node_modules_phosphor-icons-d93fcd":"15d3a6dd05dd4fdbb7cc","vendors-node_modules_phosphor-icons_react_dist_csr_ArrowLeft_es_js-node_modules_phosphor-icon-f32220":"ab2bfe189b17b1afe222","col-hub":"d06ebebec22a5adee8e6","generic-archive":"c8ea5536a894604461b0","mb-archive":"abbcc532276bc080817b","mb-page":"009a9cf442d425db5904","col-page":"41e9522d51291baf8832","add-listing":"a7652fe6e43f3ae2839e","vendors-node_modules_phosphor-icons_react_dist_csr_Globe_es_js-node_modules_phosphor-icons_re-a99398":"a0c7508fd9b4ab3a713f","aid-listing":"242440be4d714f4a0b45","aid-listing-hub":"78e83b70a0683f14ece3","topic-directory":"070f87d266a1601768d0","health-hub":"99cc5f02e6aba8ee516f","account-listings":"f6eaf3bba1e19f74050f","vendors-node_modules_phosphor-icons_react_dist_csr_AlignCenterHorizontal_es_js-node_modules_p-2a094b":"96c8f886d3b749380611","submit-article":"ba9d3126328c7bba9129","faqs":"6328ca4fdec057eca7d0"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -3704,35 +3704,15 @@ function mount(id, loader, propsFromEl = () => ({})) {
   });
 }
 
-/* ---------- Critical components loaded immediately ---------- */
-
-// Login - load immediately to prevent double-click issue
-const loginEl = $('login-form');
-if (loginEl) {
-  __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/LoginForm */ "./src/scripts/LoginForm.js")).then(m => {
-    react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(loginEl).render(react__WEBPACK_IMPORTED_MODULE_1___default().createElement(m.LoginForm));
-  }).catch(e => {
-    if (true) console.error(e);
-  });
-}
-
-// Header - load immediately as it's always visible
-const headerEl = $('header');
-if (headerEl) {
-  Promise.all(/*! import() | header */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_FacebookLogo_es_js-node_modules_phosphor-i-c92012"), __webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_CaretDown_es_js-node_modules_phosphor-icon-3fd4f3"), __webpack_require__.e("header")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/Header */ "./src/scripts/Header.js")).then(m => {
-    const props = {
-      isUserLoggedIn: headerEl.getAttribute('isUserLoggedIn') === 'true'
-    };
-    react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(headerEl).render(react__WEBPACK_IMPORTED_MODULE_1___default().createElement(m.default, props));
-  }).catch(e => {
-    if (true) console.error(e);
-  });
-}
-
-/* ---------- Lazy-loaded components ---------- */
+/* ---------- One call per mount point ---------- */
 
 // Front page
 mount('front-page', () => __webpack_require__.e(/*! import() | front-page */ "front-page").then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/FrontPage */ "./src/scripts/FrontPage.js")).then(m => m.default), el => parse(el.dataset.props || '{}'));
+
+// Header
+mount('header', () => Promise.all(/*! import() | header */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_FacebookLogo_es_js-node_modules_phosphor-i-c92012"), __webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_CaretDown_es_js-node_modules_phosphor-icon-3fd4f3"), __webpack_require__.e("header")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/Header */ "./src/scripts/Header.js")).then(m => m.default), el => ({
+  isUserLoggedIn: el.getAttribute('isUserLoggedIn') === 'true'
+}));
 
 // Section one
 mount('section-one', () => Promise.all(/*! import() | section-one */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_ArrowLeft_es_js-node_modules_phosphor-icon-acf5fd"), __webpack_require__.e("section-one")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/SectionOne */ "./src/scripts/SectionOne.js")).then(m => m.SectionOne), el => ({
@@ -3752,6 +3732,9 @@ mount('register-individual', () => __webpack_require__.e(/*! import() | register
 
 // Footer
 mount('footer', () => Promise.all(/*! import() | footer */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_FacebookLogo_es_js-node_modules_phosphor-i-c92012"), __webpack_require__.e("footer")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/Footer */ "./src/scripts/Footer.js")).then(m => m.Footer));
+
+// Login
+mount('login-form', () => __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/LoginForm */ "./src/scripts/LoginForm.js")).then(m => m.LoginForm));
 
 // T&C
 mount('terms-and-conditions', () => __webpack_require__.e(/*! import() | terms */ "terms").then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/TermsAndConditions */ "./src/scripts/TermsAndConditions.js")).then(m => m.TermsAndConditions));
