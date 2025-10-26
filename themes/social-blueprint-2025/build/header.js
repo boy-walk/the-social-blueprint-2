@@ -282,16 +282,13 @@ const MENU_SECTIONS = {
     title: "Read & Listen",
     items: [{
       label: "Articles and blogs",
-      href: "/stories-and-interviews?type=article"
+      href: "/articles"
     }, {
-      label: "Podcasts",
-      href: "/stories-and-interviews?type=podcast"
-    }, {
-      label: "Blueprint interviews",
-      href: "/stories-and-interviews/interviews"
+      label: "Everybody has a story",
+      href: "/podcasts/?series=everybody-has-a-story"
     }, {
       label: "Candid conversations",
-      href: "/stories-and-interviews/candid-conversations"
+      href: "/podcasts/?series=candid-conversations"
     }]
   }, {
     title: "Categories",
@@ -1009,4 +1006,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=017cdf160aedb2bbe723
+//# sourceMappingURL=header.js.map?ver=39c532428107f3277c99

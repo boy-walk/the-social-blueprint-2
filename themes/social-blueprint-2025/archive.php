@@ -197,7 +197,7 @@ $filters = [];
 if ( count($post_types) === 1 ) {
   $all_taxonomies = get_object_taxonomies( $post_types[0], 'objects' );
   $taxonomies = array_filter( $all_taxonomies, function( $tax ) {
-    return ! in_array( $tax->name, [ 'theme', 'location_tag', 'people_tag', 'post_tag', 'category' ], true );
+    return ! in_array( $tax->name, [ 'theme', 'location_tag', 'post_tag', 'category' ], true );
   } );
   foreach ( $taxonomies as $slug => $tax_obj ) {
     $filters[] = [

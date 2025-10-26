@@ -1774,6 +1774,7 @@ function PodcastPage({
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("section", {
               className: "space-y-6 lg:space-y-7 max-w-3xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant",
               children: sections.map((section, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+                className: " break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto [&_img]:block [&_figure]:max-w-full [&_figure]:overflow-hidden",
                 dangerouslySetInnerHTML: {
                   __html: section.text
                 }
@@ -2482,4 +2483,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=a4f944d59e04b1c5a2a4
+//# sourceMappingURL=podcast-page.js.map?ver=4223a03a6244d386a37c

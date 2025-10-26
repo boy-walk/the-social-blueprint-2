@@ -24,7 +24,6 @@ export function GenericArchivePage(props) {
 
   const postTypes = useMemo(() => (Array.isArray(postType) ? postType : [postType]), [postType]);
 
-  // ---------------- UI state ----------------
   const [page, setPage] = useState(1);
   const [selectedTerms, setSelectedTerms] = useState(() => {
     if (taxonomy && currentTerm?.id) return { [taxonomy]: [String(currentTerm.id)] };
@@ -38,17 +37,14 @@ export function GenericArchivePage(props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [retryTick, setRetryTick] = useState(0);
 
-  // Term options (per taxonomy)
   const [termsOptions, setTermsOptions] = useState({});
   const fetchedOnceRef = useRef(new Set());
 
-  // Hide the group we’re already scoped to
   const displayedFilters = useMemo(() => {
     if (!taxonomy) return filters;
     return (filters || []).filter((f) => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
 
-  // ---------------- Fetch terms (1 call per taxonomy via TSB endpoint) ----------------
   useEffect(() => {
     if (!displayedFilters.length) {
       setTermsOptions({});
@@ -97,7 +93,6 @@ export function GenericArchivePage(props) {
     return () => { cancelled = true; };
   }, [displayedFilters]);
 
-  // ---------------- Scope the visible branch on taxonomy archives (UI-only) ----------------
   const didScopeRef = useRef(false);
   useEffect(() => {
     if (didScopeRef.current) return;
@@ -127,7 +122,6 @@ export function GenericArchivePage(props) {
     }
   }, [termsOptions, taxonomy, currentTerm]);
 
-  // ---------------- Fetch items ----------------
   const fetchSeq = useRef(0);
   useEffect(() => {
     let cancelled = false;
@@ -176,7 +170,6 @@ export function GenericArchivePage(props) {
     return () => { cancelled = true; };
   }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
-  // ---------------- Client-side search ----------------
   const searchIndex = useMemo(() => {
     const idx = new Map();
     const collect = (val, bag) => {
@@ -220,7 +213,6 @@ export function GenericArchivePage(props) {
 
   const clearAllFilters = () => { setSelectedTerms({}); setPage(1); };
 
-  // ---------------- Mobile filters drawer ----------------
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const firstCloseBtnRef = useRef(null);
   const openFilters = () => setIsFiltersOpen(true);
@@ -240,7 +232,6 @@ export function GenericArchivePage(props) {
     Object.values(selectedTerms).reduce((n, arr) => n + (arr?.length || 0), 0) +
     (searching ? 1 : 0);
 
-  // ---------------- Skeletons ----------------
   const skeletonCards = Array.from({ length: 8 }).map((_, i) => (
     <div key={`sk-${i}`} className="rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden">
       <div className="w-full aspect-[1] bg-[var(--schemesSurfaceContainerHighest)] animate-pulse" />
@@ -254,7 +245,6 @@ export function GenericArchivePage(props) {
 
   return (
     <div className="archive-container bg-schemesSurface">
-      {/* Header band */}
       <div className="bg-schemesPrimaryFixed py-8">
         <div className="tsb-container">
           <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
@@ -263,7 +253,6 @@ export function GenericArchivePage(props) {
         </div>
       </div>
 
-      {/* Mobile search + Filters button */}
       <div className="tsb-container lg:hidden pt-6">
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
@@ -291,10 +280,8 @@ export function GenericArchivePage(props) {
       </div>
 
       <div className="tsb-container flex flex-col lg:flex-row py-8 gap-8">
-        {/* Filters (desktop) */}
         {displayedFilters.length > 0 && (
           <aside className="hidden lg:block lg:w-64 xl:w-72">
-            {/* Search bar */}
             <div className="mb-6">
               <label htmlFor="archive-search" className="sr-only">Search by keyword</label>
               <div className="flex items-center gap-2">
@@ -325,29 +312,58 @@ export function GenericArchivePage(props) {
               .filter((f) => (termsOptions[f.taxonomy] || []).length > 0)
               .map((f) => (
                 <div key={f.taxonomy} className="mb-4">
-                  <FilterGroup
-                    title={f.label || f.taxonomy}
-                    options={termsOptions[f.taxonomy] || []}
-                    selected={selectedTerms[f.taxonomy] || []}
-                    onChangeHandler={(e) => {
-                      const id = String(e.target.value);
-                      const checked = !!e.target.checked;
-                      setSelectedTerms((prev) => {
-                        const current = prev[f.taxonomy] || [];
-                        const next = checked ? [...current, id] : current.filter((x) => x !== id);
-                        return { ...prev, [f.taxonomy]: next };
-                      });
-                      setPage(1);
-                    }}
-                  />
+                  {f.taxonomy === "people_tag" ? (
+                    <div>
+                      <label
+                        htmlFor={`filter-${f.taxonomy}`}
+                        className="Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant"
+                      >
+                        {f.label || "People"}
+                      </label>
+                      <select
+                        id={`filter-${f.taxonomy}`}
+                        value={selectedTerms[f.taxonomy]?.[0] || ""}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setSelectedTerms((prev) => ({
+                            ...prev,
+                            [f.taxonomy]: value ? [value] : [],
+                          }));
+                          setPage(1);
+                        }}
+                        className="w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none"
+                      >
+                        <option value="">All</option>
+                        {(termsOptions[f.taxonomy] || []).map((opt) => (
+                          <option key={opt.id} value={opt.id}>
+                            {opt.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ) : (
+                    <FilterGroup
+                      title={f.label || f.taxonomy}
+                      options={termsOptions[f.taxonomy] || []}
+                      selected={selectedTerms[f.taxonomy] || []}
+                      onChangeHandler={(e) => {
+                        const id = String(e.target.value);
+                        const checked = !!e.target.checked;
+                        setSelectedTerms((prev) => {
+                          const current = prev[f.taxonomy] || [];
+                          const next = checked ? [...current, id] : current.filter((x) => x !== id);
+                          return { ...prev, [f.taxonomy]: next };
+                        });
+                        setPage(1);
+                      }}
+                    />
+                  )}
                 </div>
               ))}
           </aside>
         )}
 
-        {/* Main content */}
         <section className="flex-1">
-          {/* Error */}
           {error && !loading && (
             <div className="mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6">
               <div className="Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]">Something went wrong</div>
@@ -359,14 +375,12 @@ export function GenericArchivePage(props) {
             </div>
           )}
 
-          {/* Loading skeleton (items only) */}
           {loading && (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8" aria-hidden="true">
               {skeletonCards}
             </div>
           )}
 
-          {/* Empty */}
           {!loading && !error && filteredItems.length === 0 && (
             <div className="rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] p-10 text-center mb-8">
               <div className="Blueprint-headline-small mb-2">No results found</div>
@@ -383,7 +397,6 @@ export function GenericArchivePage(props) {
             </div>
           )}
 
-          {/* Results */}
           {!loading && !error && filteredItems.length > 0 && (
             <>
               <div className="flex items-center justify-between mb-4">
@@ -417,7 +430,6 @@ export function GenericArchivePage(props) {
             </>
           )}
 
-          {/* Pagination */}
           {!loading && !error && totalPages > 1 && !searching && (
             <div className="flex justify-center items-center gap-3 mt-2">
               <Button size="base" variant="tonal" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} label="Prev" />
@@ -434,19 +446,16 @@ export function GenericArchivePage(props) {
         className={`lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`}
         aria-hidden={isFiltersOpen ? "false" : "true"}
       >
-        {/* Overlay */}
         <div
           onClick={closeFilters}
           className={`absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`}
         />
-        {/* Sheet */}
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Filters"
           className={`absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}`}
         >
-          {/* Header */}
           <div className="relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]">
             <div className="mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]" />
             <div className="mt-3 flex items-center justify-between">
@@ -463,7 +472,6 @@ export function GenericArchivePage(props) {
             </div>
           </div>
 
-          {/* Content */}
           <div className="px-4 py-4 overflow-y-auto space-y-4">
             <div className="relative">
               <input
@@ -477,26 +485,57 @@ export function GenericArchivePage(props) {
             </div>
 
             {displayedFilters.map((f) => (
-              <FilterGroup
-                key={`m-${f.taxonomy}`}
-                title={f.label || f.taxonomy}
-                options={termsOptions[f.taxonomy] || []}
-                selected={selectedTerms[f.taxonomy] || []}
-                onChangeHandler={(e) => {
-                  const id = String(e.target.value);
-                  const checked = !!e.target.checked;
-                  setSelectedTerms((prev) => {
-                    const current = prev[f.taxonomy] || [];
-                    const next = checked ? [...current, id] : current.filter((x) => x !== id);
-                    return { ...prev, [f.taxonomy]: next };
-                  });
-                  setPage(1);
-                }}
-              />
+              <div key={`m-${f.taxonomy}`}>
+                {f.taxonomy === "people" ? (
+                  <div>
+                    <label
+                      htmlFor={`mobile-filter-${f.taxonomy}`}
+                      className="Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant"
+                    >
+                      {f.label || "People"}
+                    </label>
+                    <select
+                      id={`mobile-filter-${f.taxonomy}`}
+                      value={selectedTerms[f.taxonomy]?.[0] || ""}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setSelectedTerms((prev) => ({
+                          ...prev,
+                          [f.taxonomy]: value ? [value] : [],
+                        }));
+                        setPage(1);
+                      }}
+                      className="w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none"
+                    >
+                      <option value="">All</option>
+                      {(termsOptions[f.taxonomy] || []).map((opt) => (
+                        <option key={opt.id} value={opt.id}>
+                          {opt.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ) : (
+                  <FilterGroup
+                    title={f.label || f.taxonomy}
+                    options={termsOptions[f.taxonomy] || []}
+                    selected={selectedTerms[f.taxonomy] || []}
+                    onChangeHandler={(e) => {
+                      const id = String(e.target.value);
+                      const checked = !!e.target.checked;
+                      setSelectedTerms((prev) => {
+                        const current = prev[f.taxonomy] || [];
+                        const next = checked ? [...current, id] : current.filter((x) => x !== id);
+                        return { ...prev, [f.taxonomy]: next };
+                      });
+                      setPage(1);
+                    }}
+                  />
+                )}
+              </div>
             ))}
           </div>
 
-          {/* Footer actions */}
           <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2">
             <Button onClick={clearAllFilters} variant="outlined" label="Clear all" className="flex-1" />
             <Button onClick={closeFilters} variant="filled" label="Apply" className="flex-1" />

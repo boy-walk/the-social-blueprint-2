@@ -807,8 +807,6 @@ function GenericArchivePage(props) {
     breadcrumbs = []
   } = props;
   const postTypes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(postType) ? postType : [postType], [postType]);
-
-  // ---------------- UI state ----------------
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
   const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
     if (taxonomy && currentTerm?.id) return {
@@ -823,18 +821,12 @@ function GenericArchivePage(props) {
   const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-
-  // Term options (per taxonomy)
   const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set());
-
-  // Hide the group we’re already scoped to
   const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     if (!taxonomy) return filters;
     return (filters || []).filter(f => f.taxonomy !== taxonomy);
   }, [filters, taxonomy]);
-
-  // ---------------- Fetch terms (1 call per taxonomy via TSB endpoint) ----------------
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!displayedFilters.length) {
       setTermsOptions({});
@@ -903,8 +895,6 @@ function GenericArchivePage(props) {
       cancelled = true;
     };
   }, [displayedFilters]);
-
-  // ---------------- Scope the visible branch on taxonomy archives (UI-only) ----------------
   const didScopeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (didScopeRef.current) return;
@@ -938,8 +928,6 @@ function GenericArchivePage(props) {
       didScopeRef.current = true;
     }
   }, [termsOptions, taxonomy, currentTerm]);
-
-  // ---------------- Fetch items ----------------
   const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
@@ -994,8 +982,6 @@ function GenericArchivePage(props) {
       cancelled = true;
     };
   }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
-
-  // ---------------- Client-side search ----------------
   const searchIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     const idx = new Map();
     const collect = (val, bag) => {
@@ -1034,8 +1020,6 @@ function GenericArchivePage(props) {
     setSelectedTerms({});
     setPage(1);
   };
-
-  // ---------------- Mobile filters drawer ----------------
   const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const firstCloseBtnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const openFilters = () => setIsFiltersOpen(true);
@@ -1055,8 +1039,6 @@ function GenericArchivePage(props) {
     };
   }, [isFiltersOpen]);
   const filterCount = Object.values(selectedTerms).reduce((n, arr) => n + (arr?.length || 0), 0) + (searching ? 1 : 0);
-
-  // ---------------- Skeletons ----------------
   const skeletonCards = Array.from({
     length: 8
   }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -1166,7 +1148,32 @@ function GenericArchivePage(props) {
           })]
         }), displayedFilters.filter(f => (termsOptions[f.taxonomy] || []).length > 0).map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: "mb-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
+          children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+              htmlFor: `filter-${f.taxonomy}`,
+              className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
+              children: f.label || "People"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+              id: `filter-${f.taxonomy}`,
+              value: selectedTerms[f.taxonomy]?.[0] || "",
+              onChange: e => {
+                const value = e.target.value;
+                setSelectedTerms(prev => ({
+                  ...prev,
+                  [f.taxonomy]: value ? [value] : []
+                }));
+                setPage(1);
+              },
+              className: "w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                value: "",
+                children: "All"
+              }), (termsOptions[f.taxonomy] || []).map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                value: opt.id,
+                children: opt.name
+              }, opt.id))]
+            })]
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
             title: f.label || f.taxonomy,
             options: termsOptions[f.taxonomy] || [],
             selected: selectedTerms[f.taxonomy] || [],
@@ -1334,23 +1341,50 @@ function GenericArchivePage(props) {
               weight: "bold",
               "aria-hidden": true
             })]
-          }), displayedFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
-            title: f.label || f.taxonomy,
-            options: termsOptions[f.taxonomy] || [],
-            selected: selectedTerms[f.taxonomy] || [],
-            onChangeHandler: e => {
-              const id = String(e.target.value);
-              const checked = !!e.target.checked;
-              setSelectedTerms(prev => {
-                const current = prev[f.taxonomy] || [];
-                const next = checked ? [...current, id] : current.filter(x => x !== id);
-                return {
-                  ...prev,
-                  [f.taxonomy]: next
-                };
-              });
-              setPage(1);
-            }
+          }), displayedFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: f.taxonomy === "people" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                htmlFor: `mobile-filter-${f.taxonomy}`,
+                className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
+                children: f.label || "People"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+                id: `mobile-filter-${f.taxonomy}`,
+                value: selectedTerms[f.taxonomy]?.[0] || "",
+                onChange: e => {
+                  const value = e.target.value;
+                  setSelectedTerms(prev => ({
+                    ...prev,
+                    [f.taxonomy]: value ? [value] : []
+                  }));
+                  setPage(1);
+                },
+                className: "w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: "",
+                  children: "All"
+                }), (termsOptions[f.taxonomy] || []).map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: opt.id,
+                  children: opt.name
+                }, opt.id))]
+              })]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
+              title: f.label || f.taxonomy,
+              options: termsOptions[f.taxonomy] || [],
+              selected: selectedTerms[f.taxonomy] || [],
+              onChangeHandler: e => {
+                const id = String(e.target.value);
+                const checked = !!e.target.checked;
+                setSelectedTerms(prev => {
+                  const current = prev[f.taxonomy] || [];
+                  const next = checked ? [...current, id] : current.filter(x => x !== id);
+                  return {
+                    ...prev,
+                    [f.taxonomy]: next
+                  };
+                });
+                setPage(1);
+              }
+            })
           }, `m-${f.taxonomy}`))]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2",
@@ -1453,4 +1487,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=c8ea5536a894604461b0
+//# sourceMappingURL=generic-archive.js.map?ver=7ef173cfa05a59b21fc9

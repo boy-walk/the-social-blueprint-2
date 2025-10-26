@@ -105,10 +105,9 @@ const MENU_SECTIONS = {
     {
       title: "Read & Listen",
       items: [
-        { label: "Articles and blogs", href: "/stories-and-interviews?type=article" },
-        { label: "Podcasts", href: "/stories-and-interviews?type=podcast" },
-        { label: "Blueprint interviews", href: "/stories-and-interviews/interviews" },
-        { label: "Candid conversations", href: "/stories-and-interviews/candid-conversations" },
+        { label: "Articles and blogs", href: "/articles" },
+        { label: "Everybody has a story", href: "/podcasts/?series=everybody-has-a-story" },
+        { label: "Candid conversations", href: "/podcasts/?series=candid-conversations" },
       ],
     },
     {
