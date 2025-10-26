@@ -78,15 +78,12 @@ function AddListing({
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.MoneyWavyIcon, {
                           size: 22
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                         className: "flex flex-col gap-0.5",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                           className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small",
-                          children: "Add Health and Wellbeing"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                          className: "lg:Blueprint-label-large md:Blueprint-label-medium Blueprint-label-small",
-                          children: "Clinicians, groups, programs."
-                        })]
+                          children: ["Add Health and Wellbeing", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Clinicians, groups, programs."]
+                        })
                       })]
                     })
                   })
@@ -319,4 +316,4 @@ const NewsletterBanner = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=add-listing.js.map?ver=351bc97f9ec2092310a8
+//# sourceMappingURL=add-listing.js.map?ver=f34d33b7492513cf3a47

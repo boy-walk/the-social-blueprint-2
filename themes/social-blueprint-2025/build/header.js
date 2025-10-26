@@ -310,10 +310,10 @@ const MENU_SECTIONS = {
     title: "About Us",
     items: [{
       label: "Our Mission",
-      href: "/about-us/our-mission"
+      href: "/about-us"
     }, {
       label: "Contact & Support",
-      href: "/contact"
+      href: "/contact-us"
     }, {
       label: "FAQs",
       href: "/faqs"
@@ -329,7 +329,7 @@ const MENU_SECTIONS = {
       href: "/message-boards"
     }, {
       label: "Post a notice",
-      href: "/message-boards?post=1"
+      href: "/add-listing/message-boards/"
     }]
   }, {
     title: "Browse by category",
@@ -1009,4 +1009,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=f09515e86a5fea623707
+//# sourceMappingURL=header.js.map?ver=68c430ae0590c621bff1

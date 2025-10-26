@@ -35,8 +35,7 @@ export function AddListing({ breadcrumbs = [] }) {
                           <MoneyWavyIcon size={22} />
                         </div>
                         <div className="flex flex-col gap-0.5">
-                          <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add Health and Wellbeing</div>
-                          <div className="lg:Blueprint-label-large md:Blueprint-label-medium Blueprint-label-small">Clinicians, groups, programs.</div>
+                          <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add Health and Wellbeing<br />Clinicians, groups, programs.</div>
                         </div>
                       </div>
                     </Card>

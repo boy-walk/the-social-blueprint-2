@@ -10,12 +10,8 @@ require_once get_template_directory() . '/inc/submit-article.php';
 require_once get_template_directory() . '/inc/share.php';
 
 function boilerplate_load_assets() {
-  // Use filemtime for automatic cache busting
-  $js_version = filemtime(get_theme_file_path('/build/index.js'));
-  $css_version = filemtime(get_theme_file_path('/build/index.css'));
-  
-  wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), $js_version, true);
-  wp_enqueue_style('ourmaincss', get_theme_file_uri('/build/index.css'), array(), $css_version);
+  wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
+  wp_enqueue_style('ourmaincss', get_theme_file_uri('/build/index.css'));
 }
 add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
 

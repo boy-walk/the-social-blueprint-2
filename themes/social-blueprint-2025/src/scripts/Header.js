@@ -124,8 +124,8 @@ const MENU_SECTIONS = {
     {
       title: "About Us",
       items: [
-        { label: "Our Mission", href: "/about-us/our-mission" },
-        { label: "Contact & Support", href: "/contact" },
+        { label: "Our Mission", href: "/about-us" },
+        { label: "Contact & Support", href: "/contact-us" },
         { label: "FAQs", href: "/faqs" },
         { label: "Terms and conditions", href: "/terms" },
       ],
@@ -136,7 +136,7 @@ const MENU_SECTIONS = {
       title: "Message Board",
       items: [
         { label: "Browse Message board", href: "/message-boards" },
-        { label: "Post a notice", href: "/message-boards?post=1" },
+        { label: "Post a notice", href: "/add-listing/message-boards/" },
       ],
     },
     {
