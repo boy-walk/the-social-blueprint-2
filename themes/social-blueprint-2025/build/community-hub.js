@@ -1610,7 +1610,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -2872,4 +2872,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=1445ab8bcfbb77ca2bb5
+//# sourceMappingURL=community-hub.js.map?ver=a13f1cb534e061b95fc8

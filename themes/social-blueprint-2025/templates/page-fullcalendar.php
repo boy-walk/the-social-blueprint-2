@@ -29,50 +29,57 @@ get_header();
 -->
 
 <?php
-
-$terms = get_terms([
-    'taxonomy' => ['theme', 'topic_tag', 'audience_tag', 'location_tag'],
-    'hide_empty' => false
-]);
+$taxonomies = [
+  'theme' => 'types',
+  'topic_tag' => 'topics',
+  'audience_tag' => 'audiences',
+];
 
 $types = [];
 $topics = [];
 $audiences = [];
 $locations = [];
 
-/** @var WP_Term $term */
-foreach ($terms as $term) {
-    switch ($term->taxonomy) {
-        case 'theme':
-            $types[] = [
-                'id' => $term->term_id,
-                'name' => $term->name
-            ];
-            break;
-
-        case 'topic_tag':
-            $topics[] = [
-                'id' => $term->term_id,
-                'name' => $term->name
-            ];
-            break;
-
-        case 'audience_tag':
-            $audiences[] = [
-                'id' => $term->term_id,
-                'name' => $term->name
-            ];
-            break;
-
-        case 'location_tag':
-            $locations[] = [
-                'id' => $term->term_id,
-                'name' => $term->name
-            ];
-            break;
-    }
+foreach ($taxonomies as $taxonomy => $var_name) {
+  $response = wp_remote_get(
+      rest_url('tsb/v1/terms') . '?' . http_build_query([
+          'taxonomy' => $taxonomy,
+          'post_type' => 'tribe_events',
+          'per_page' => 200,
+      ])
+  );
+  
+  if (is_wp_error($response)) {
+      continue;
+  }
+  
+  $body = wp_remote_retrieve_body($response);
+  $terms = json_decode($body, true);
+  
+  if (!empty($terms)) {
+      $formatted_terms = array_map(function($term) {
+          return [
+              'id' => $term['id'],
+              'name' => $term['name']
+          ];
+      }, $terms);
+      
+      switch ($var_name) {
+          case 'types':
+              $types = $formatted_terms;
+              break;
+          case 'topics':
+              $topics = $formatted_terms;
+              break;
+          case 'audiences':
+              $audiences = $formatted_terms;
+              break;
+          case 'locations':
+              $locations = $formatted_terms;
+              break;
+      }
+  }
 }
-
 ?>
 
 <div

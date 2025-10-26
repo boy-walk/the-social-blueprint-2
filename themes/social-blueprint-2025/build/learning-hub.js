@@ -1567,7 +1567,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -2585,4 +2585,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=09fd82d646fde682bae0
+//# sourceMappingURL=learning-hub.js.map?ver=cb6a748ff7ff6d2c55cb

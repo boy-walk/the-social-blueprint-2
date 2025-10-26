@@ -85,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -1009,4 +1009,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=9b50cfaa44ecaef50604
+//# sourceMappingURL=header.js.map?ver=f09515e86a5fea623707

@@ -1076,7 +1076,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -1890,4 +1890,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=col-page.js.map?ver=aaa202088cb0e8c8da36
+//# sourceMappingURL=col-page.js.map?ver=41e9522d51291baf8832

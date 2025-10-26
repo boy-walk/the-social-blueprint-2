@@ -73,6 +73,7 @@ add_action('rest_api_init', function () {
         if ($meta_key)      $args['meta_key'] = $meta_key;
         if (!empty($p['start_date'])) $args['start_date'] = sanitize_text_field($p['start_date']); // only if provided
         if (!empty($p['end_date']))   $args['end_date']   = sanitize_text_field($p['end_date']);   // only if provided
+
         if ($search !== '') $args['s'] = $search;
         if ($tax_query)     $args['tax_query'] = $tax_query;
 

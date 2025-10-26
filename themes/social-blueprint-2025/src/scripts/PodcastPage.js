@@ -85,10 +85,6 @@ export default function PodcastPage({
                 {sections.map((section, index) => (
                   <div
                     key={index}
-                    className=" break-words
-                                [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline
-                                [&_img]:max-w-full [&_img]:h-auto [&_img]:block
-                                [&_figure]:max-w-full [&_figure]:overflow-hidden"
                     dangerouslySetInnerHTML={{ __html: section.text }}
                   />
                 ))}

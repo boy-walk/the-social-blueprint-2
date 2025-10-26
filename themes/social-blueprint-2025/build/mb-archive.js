@@ -388,7 +388,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -1435,4 +1435,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-archive.js.map?ver=0e1dd30533ee46ac5db0
+//# sourceMappingURL=mb-archive.js.map?ver=abbcc532276bc080817b

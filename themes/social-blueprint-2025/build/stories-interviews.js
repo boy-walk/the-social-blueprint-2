@@ -1909,7 +1909,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -2671,4 +2671,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=stories-interviews.js.map?ver=c7c07bcdbed8597b5b64
+//# sourceMappingURL=stories-interviews.js.map?ver=bc4a286fa09282e68ded

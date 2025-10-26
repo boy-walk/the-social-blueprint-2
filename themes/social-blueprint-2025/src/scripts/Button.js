@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 export function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',

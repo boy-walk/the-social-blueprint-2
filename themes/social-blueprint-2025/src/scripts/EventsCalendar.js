@@ -118,6 +118,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
         clearEvents();
         const api = calendarRef.current.getApi();
         (json.events || []).forEach((ev) => {
+          console.log(ev);
           api.addEvent({
             id: ev.id,
             title: ev.title || "Untitled",
@@ -309,7 +310,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             <FilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
             <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
             <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
-            <FilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
+            <FilterGroup title="Location Type" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
           </div>
         </aside>
 

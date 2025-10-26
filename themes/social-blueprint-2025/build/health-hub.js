@@ -1367,7 +1367,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -2037,4 +2037,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=health-hub.js.map?ver=216c7f0e1c55d8b7ea4d
+//# sourceMappingURL=health-hub.js.map?ver=3dba40379759e0cfe299

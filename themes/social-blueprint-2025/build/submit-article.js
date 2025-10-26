@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -1522,4 +1522,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=submit-article.js.map?ver=9f3f3efb3e37c2e899b7
+//# sourceMappingURL=submit-article.js.map?ver=ba9d3126328c7bba9129

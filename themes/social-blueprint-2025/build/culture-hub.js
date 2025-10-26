@@ -1659,7 +1659,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -2566,4 +2566,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=culture-hub.js.map?ver=f3079e0068c0fcbf5295
+//# sourceMappingURL=culture-hub.js.map?ver=2e0a129edada21542831

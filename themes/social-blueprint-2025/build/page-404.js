@@ -213,7 +213,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -332,4 +332,4 @@ function Page404() {
 /***/ })
 
 }]);
-//# sourceMappingURL=page-404.js.map?ver=2fe5a6a3b1c87c382eb0
+//# sourceMappingURL=page-404.js.map?ver=0f6742e934eb92a0e8db

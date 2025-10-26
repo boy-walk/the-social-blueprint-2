@@ -37,8 +37,8 @@ $organizer    = $organizer ?: get_the_author_meta('display_name', $author_id);
 
 $terms = wp_get_object_terms(
   $post_id,
-  ['topic_tag', 'people_tag', 'location_tag', 'audience_tag', 'theme'],
-  ['fields' => 'names']         // returns array of term names directly
+  ['topic_tag', 'people_tag', 'audience_tag', 'theme'],
+  ['fields' => 'names']        // returns array of term names directly
 );
 
 if ( is_wp_error( $terms ) || empty( $terms ) ) {

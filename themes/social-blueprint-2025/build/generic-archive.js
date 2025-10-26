@@ -388,7 +388,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -847,7 +847,7 @@ function GenericArchivePage(props) {
         const tax = f.taxonomy;
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
-          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`, {
+          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${postType}}`, {
             headers: {
               Accept: "application/json"
             }
@@ -1453,4 +1453,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=8cd63aaa98dfb72fdfa7
+//# sourceMappingURL=generic-archive.js.map?ver=c8ea5536a894604461b0

@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Button({
   className = '',
-  label,
+  label = 'Label',
   size = 'base',
   variant = 'filled',
   shape = 'square',
@@ -221,6 +221,7 @@ function EventsCalendar({
         clearEvents();
         const api = calendarRef.current.getApi();
         (json.events || []).forEach(ev => {
+          console.log(ev);
           api.addEvent({
             id: ev.id,
             title: ev.title || "Untitled",
@@ -446,7 +447,7 @@ function EventsCalendar({
             selected: selectedAudiences,
             onChangeHandler: onAudience
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Location",
+            title: "Location Type",
             options: locations,
             selected: selectedLocations,
             onChangeHandler: onLocation
@@ -894,4 +895,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=c4a9934eefb6353ccbf8
+//# sourceMappingURL=events-calendar.js.map?ver=62abf8410c9440edc914

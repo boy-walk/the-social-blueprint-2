@@ -225,6 +225,7 @@ if ( $taxonomy && $current_term_id ) {
     'terms'            => [ (int)$current_term_id ],
     'operator'         => 'IN',
     'include_children' => true,
+    'hide_empty'      => true,
   ];
 }
 
