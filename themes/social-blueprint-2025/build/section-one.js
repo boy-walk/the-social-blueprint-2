@@ -2189,8 +2189,8 @@ const SectionOne = ({
                   backgroundColor: "schemesPrimaryContainer"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant",
-                children: "Workshops, holidays, classes and community gatherings, updated regularly."
+                className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant",
+                children: "Discover Melbourne\u2019s largest Jewish events calendar with workshops, holidays, classes and community gatherings, updated regularly."
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
               className: "flex flex-wrap gap-4 items-center",
@@ -2665,4 +2665,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=485d9f53d454a86e9d8b
+//# sourceMappingURL=section-one.js.map?ver=214566d9d44970dc5cd4

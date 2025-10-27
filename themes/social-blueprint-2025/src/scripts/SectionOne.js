@@ -42,8 +42,8 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, 
                   <div className="Blueprint-headline-large-emphasized italic leading-snug">Upcoming</div>
                   <PillTag label="Events" backgroundColor="schemesPrimaryContainer" />
                 </div>
-                <div className="w-full Blueprint-body-large text-schemesOnSurfaceVariant">
-                  Workshops, holidays, classes and community gatherings, updated regularly.
+                <div className="max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant">
+                  Discover Melbourne’s largest Jewish events calendar with workshops, holidays, classes and community gatherings, updated regularly.
                 </div>
               </div>
               <div className="flex flex-wrap gap-4 items-center">
