@@ -16,7 +16,7 @@ export function HeroCard({
 }) {
   const cardStyles = `
     group relative flex flex-col rounded-2xl
-    ${shadow ? "shadow-lg" : ""}
+    ${shadow ? "shadow-3x3" : ""}
     ${fullHeight ? "h-full" : ""}
     ${fullWidth ? "w-full" : ""}
     p-2

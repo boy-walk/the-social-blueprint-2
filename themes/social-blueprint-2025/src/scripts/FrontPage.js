@@ -170,7 +170,9 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   title={recentArticle.title}
                   subtitle={recentArticle.subtitle || recentArticle.excerpt}
                   date={recentArticle.date}
-                  fullHeight />
+                  fullHeight
+                  shadow
+                />
               </div>
 
               <div className="row-span-7">
@@ -180,7 +182,9 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   title={recentCandidConversations.title}
                   subtitle={recentCandidConversations.subtitle || recentCandidConversations.excerpt}
                   date={recentCandidConversations.date}
-                  fullHeight />
+                  fullHeight
+                  shadow
+                />
               </div>
 
               <div className="row-span-7">
@@ -190,7 +194,9 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   title={recentEverybodyHasAStory.title}
                   subtitle={recentEverybodyHasAStory.subtitle || recentEverybodyHasAStory.excerpt}
                   date={recentEverybodyHasAStory.date}
-                  fullHeight />
+                  fullHeight
+                  shadow
+                />
               </div>
 
               <div className="row-span-5">
@@ -200,7 +206,9 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   title={recentEvent.title}
                   subtitle={recentEvent.subtitle || recentEvent.excerpt}
                   date={recentEvent.date}
-                  fullHeight />
+                  fullHeight
+                  shadow
+                />
               </div>
 
               {/* MESSAGEBOARD CTA */}

@@ -770,7 +770,8 @@ function FrontPage({
                 title: recentArticle.title,
                 subtitle: recentArticle.subtitle || recentArticle.excerpt,
                 date: recentArticle.date,
-                fullHeight: true
+                fullHeight: true,
+                shadow: true
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               className: "row-span-7",
@@ -781,7 +782,8 @@ function FrontPage({
                 title: recentCandidConversations.title,
                 subtitle: recentCandidConversations.subtitle || recentCandidConversations.excerpt,
                 date: recentCandidConversations.date,
-                fullHeight: true
+                fullHeight: true,
+                shadow: true
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               className: "row-span-7",
@@ -792,7 +794,8 @@ function FrontPage({
                 title: recentEverybodyHasAStory.title,
                 subtitle: recentEverybodyHasAStory.subtitle || recentEverybodyHasAStory.excerpt,
                 date: recentEverybodyHasAStory.date,
-                fullHeight: true
+                fullHeight: true,
+                shadow: true
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               className: "row-span-5",
@@ -803,7 +806,8 @@ function FrontPage({
                 title: recentEvent.title,
                 subtitle: recentEvent.subtitle || recentEvent.excerpt,
                 date: recentEvent.date,
-                fullHeight: true
+                fullHeight: true,
+                shadow: true
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
               className: "row-span-3 bg-schemesPrimaryContainer rounded-xl shadow-3x2 transition-transform hover:-translate-y-1",
@@ -1019,7 +1023,7 @@ function HeroCard({
 }) {
   const cardStyles = `
     group relative flex flex-col rounded-2xl
-    ${shadow ? "shadow-lg" : ""}
+    ${shadow ? "shadow-3x3" : ""}
     ${fullHeight ? "h-full" : ""}
     ${fullWidth ? "w-full" : ""}
     p-2
@@ -1183,4 +1187,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=0f2dca302a8db9887977
+//# sourceMappingURL=front-page.js.map?ver=1f1289b1734c15043e1b
