@@ -3,6 +3,9 @@ import { SearchBar } from "./SearchBar";
 import { ContentCard } from "./ContentCard";
 import { getBadge } from "./getBadge";
 import { HeroCard } from "./HeroCard";
+import { ArrowUpRightIcon } from "@phosphor-icons/react";
+import CostOfLiving from "../../assets/cost-of-living.svg"
+import MessageBoard from "../../assets/message-board.svg"
 
 /* WordRotate: unchanged behavior, with responsive-safe inline styles */
 function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
@@ -84,15 +87,16 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
   );
 }
 
-export default function FrontPage({ candleLightingTimes, recentMessageBoard, recentEvent, recentArticle, recentPodcast }) {
+export default function FrontPage({ candleLightingTimes, recentArticle, recentEvent, recentEverybodyHasAStory, recentCandidConversations }) {
   const words = ["creative", "resilient", "curious", "connected"];
 
   return (
     <div className="bg-schemesSurface">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16">
-        <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 w-full">
-          <div className="flex flex-col items-stretch md:items-start justify-start gap-4 md:gap-5 w-full">
-            <div className="Blueprint-display-large-emphasized text-schemesOnSurface max-w-none md:max-w-2xl text-center md:text-left leading-tight">
+        <div className="flex w-full flex-col md:flex-row gap-8 md:gap-10 items-stretch">
+          {/* Left column (text, search, etc.) stays the same */}
+          <div className="flex flex-col items-stretch md:items-start justify-end gap-4 md:gap-5 w-full md:w-[100%] lg:w-[35%] mb-0 lg:mb-8">
+            <div className="Blueprint-display-large-emphasized text-schemesOnSurface max-w-none md:max-w-xl text-center md:text-left leading-tight">
               Proudly celebrating our Melbourne Jewish community
             </div>
 
@@ -102,12 +106,10 @@ export default function FrontPage({ candleLightingTimes, recentMessageBoard, rec
               Find events, stories, podcasts, and support.
             </div>
 
-            {/* Search: full-width on mobile, constrained on larger screens */}
             <div className="w-full md:max-w-xl">
               <SearchBar placeholder="Search events, articles, podcasts..." />
             </div>
 
-            {/* Quick links: grid on mobile, row on md+; full-width tappable targets */}
             <QuickLinks
               links={[
                 { title: "Events", href: "/events" },
@@ -118,50 +120,123 @@ export default function FrontPage({ candleLightingTimes, recentMessageBoard, rec
               ]}
             />
           </div>
-          <div className="grid grid-cols-2 gap-4 h-full w-full max-w-xl">
-            {recentMessageBoard ? <HeroCard
-              badge={getBadge(recentMessageBoard.post_type)}
-              image={recentMessageBoard.thumbnail}
-              href={recentMessageBoard.permalink}
-              title={recentMessageBoard.title}
-              subtitle={recentMessageBoard.subtitle || recentMessageBoard.excerpt}
-              date={recentMessageBoard.date}
-              fullHeight
-            /> : <div></div>}
-            {recentEvent ? <HeroCard
-              badge={getBadge(recentEvent.post_type)}
-              image={recentEvent.thumbnail}
-              href={recentEvent.permalink}
-              title={recentEvent.title}
-              subtitle={recentEvent.subtitle || recentEvent.excerpt}
-              date={recentEvent.date}
-              fullHeight
-            /> : <div></div>}
-            {recentArticle ? <HeroCard
-              badge={getBadge(recentArticle.post_type)}
-              image={recentArticle.thumbnail}
-              href={recentArticle.permalink}
-              title={recentArticle.title}
-              subtitle={recentArticle.subtitle || recentArticle.excerpt}
-              date={recentArticle.date}
-              fullHeight
-            /> : <div></div>}
-            {recentPodcast ? <HeroCard
-              badge={getBadge(recentPodcast.post_type)}
-              image={recentPodcast.thumbnail}
-              href={recentPodcast.permalink}
-              title={recentPodcast.title}
-              subtitle={recentPodcast.subtitle || recentPodcast.excerpt}
-              date={recentPodcast.date}
-              fullHeight
-            /> : <div></div>}
+
+          {/* Bento stack (right column) */}
+          <div className="flex-1">
+            <div
+              className="
+                    grid
+                    [grid-template-columns:30%_40%_30%]
+                    grid-rows-10
+                    gap-4
+                    h-full
+                    w-full
+                    sm:w-auto
+                    md:w-full
+                  "
+            >
+              {/* COST OF LIVING */}
+              <a className="row-span-3 bg-schemesSecondary rounded-xl shadow-3x2 transition-transform hover:-translate-y-1" href="/cost-of-living">
+                <div className="relative flex flex-row p-4">
+                  <div className="flex flex-col items-start justify-start h-full p-2">
+                    <div className="Blueprint-body-large-emphasized text-schemesOnSecondary">
+                      Cost of living
+                    </div>
+                    <div className="Blueprint-body-large text-schemesOnSecondary mt-2">
+                      Get tips and support during challenging times.
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <div className="p-2 bg-schemesPrimaryFixed rounded-2xl">
+                      <ArrowUpRightIcon
+                        size={24}
+                        className="text-schemesOnSecondary"
+                        color="black"
+                        weight="bold"
+                      />
+                    </div>
+                  </div>
+                  <div className="absolute right-0 -bottom-3">
+                    <img src={CostOfLiving} alt="Cost of Living" className="w-24 h-24" />
+                  </div>
+                </div>
+              </a>
+
+              {/* MESSAGE BOARD */}
+              <div className="row-span-5">
+                <HeroCard badge={getBadge(recentArticle.post_type)}
+                  image={recentArticle.thumbnail}
+                  href={recentArticle.permalink}
+                  title={recentArticle.title}
+                  subtitle={recentArticle.subtitle || recentArticle.excerpt}
+                  date={recentArticle.date}
+                  fullHeight />
+              </div>
+
+              <div className="row-span-7">
+                <HeroCard badge={getBadge(recentCandidConversations.post_type)}
+                  image={recentCandidConversations.thumbnail}
+                  href={recentCandidConversations.permalink}
+                  title={recentCandidConversations.title}
+                  subtitle={recentCandidConversations.subtitle || recentCandidConversations.excerpt}
+                  date={recentCandidConversations.date}
+                  fullHeight />
+              </div>
+
+              <div className="row-span-7">
+                <HeroCard badge={"Everybody has a story"}
+                  image={recentEverybodyHasAStory.thumbnail}
+                  href={recentEverybodyHasAStory.permalink}
+                  title={recentEverybodyHasAStory.title}
+                  subtitle={recentEverybodyHasAStory.subtitle || recentEverybodyHasAStory.excerpt}
+                  date={recentEverybodyHasAStory.date}
+                  fullHeight />
+              </div>
+
+              <div className="row-span-5">
+                <HeroCard badge={getBadge(recentEvent.post_type)}
+                  image={recentEvent.thumbnail}
+                  href={recentEvent.permalink}
+                  title={recentEvent.title}
+                  subtitle={recentEvent.subtitle || recentEvent.excerpt}
+                  date={recentEvent.date}
+                  fullHeight />
+              </div>
+
+              {/* MESSAGEBOARD CTA */}
+              <a className="row-span-3 bg-schemesPrimaryContainer rounded-xl shadow-3x2 transition-transform hover:-translate-y-1" href="/message-boards">
+                <div className="relative flex flex-row p-4">
+                  <div className="flex flex-col items-start justify-start h-full p-2">
+                    <div className="Blueprint-body-large-emphasized text-schemesOnSecondary">
+                      Messageboard
+                    </div>
+                    <div className="Blueprint-body-large text-schemesOnSecondary mt-2">
+                      Find ways to <br />volunteer, donate, or get involved today.
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <div className="p-2 bg-schemesPrimaryFixed rounded-2xl">
+                      <ArrowUpRightIcon
+                        size={24}
+                        className="text-schemesOnSecondary"
+                        color="black"
+                        weight="bold"
+                      />
+                    </div>
+                  </div>
+                  <div className="absolute right-0 -bottom-1">
+                    <img src={MessageBoard} alt="Message Board" className="w-24 h-24" />
+                  </div>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
       <div className="w-full max-w-[1600px] mx-auto p-4 md:p-6 lg:px-16 lg:py-8">
         <ShabbatTicker times={candleLightingTimes} />
       </div>
-    </div>
+    </div >
   );
 }
 

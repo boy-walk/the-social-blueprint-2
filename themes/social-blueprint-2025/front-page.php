@@ -17,25 +17,39 @@ $times = sb_shabbat_times_hebcal([
   'b'         => 18,
 ]);
 
-$recent_message_board = get_posts([
-  'post_type' => 'gd_discount',
-  'posts_per_page' => 1,
-  'orderby' => 'date',
-  'order' => 'DESC',
-]);
-
-$recent_podcast = get_posts([
-  'post_type' => 'podcast',
-  'posts_per_page' => 1,
-  'orderby' => 'date',
-  'order' => 'DESC',
-]);
-
 $recent_article = get_posts([
   'post_type' => 'article',
   'posts_per_page' => 1,
   'orderby' => 'date',
   'order' => 'DESC',
+]);
+
+$recent_candid_conversations = get_posts([
+  'post_type' => 'podcast',
+  'posts_per_page' => 1,
+  'orderby' => 'date',
+  'order' => 'DESC',
+  'tax_query' => [
+    [
+      'taxonomy' => 'series',
+      'field'    => 'slug',
+      'terms'    => 'candid-conversations',
+    ],
+  ],
+]);
+
+$recent_everybody_has_a_story = get_posts([
+  'post_type' => 'podcast',
+  'posts_per_page' => 1,
+  'orderby' => 'date',
+  'order' => 'DESC',
+  'tax_query' => [
+    [
+      'taxonomy' => 'series',
+      'field'    => 'slug',
+      'terms'    => 'everybody-has-a-story',
+    ],
+  ],
 ]);
 
 $recent_event = tribe_get_events([
@@ -62,9 +76,9 @@ function map_post($post) {
 
 $front_props = [
   'candleLightingTimes' => $times ? $times : null,
-  'recentMessageBoard' => !empty($recent_message_board) ? map_post($recent_message_board[0]) : null,
-  'recentPodcast' => !empty($recent_podcast) ? map_post($recent_podcast[0]) : null,
   'recentArticle' => !empty($recent_article) ? map_post($recent_article[0]) : null,
+  'recentCandidConversations' => !empty($recent_candid_conversations) ? map_post($recent_candid_conversations[0]) : null,
+  'recentEverybodyHasAStory' => !empty($recent_everybody_has_a_story) ? map_post($recent_everybody_has_a_story[0]) : null,
   'recentEvent' => !empty($recent_event) ? map_post($recent_event[0]) : null,
 ];
 
