@@ -36,7 +36,7 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, 
           </div>
         </div>
 
-        <div className="py-16 px-4 sm:px-8 lg:px-16">
+        <div className="py-16 px-4 lg:px-16">
           <div className="bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
               <div className="flex flex-col justify-center items-start gap-12">
@@ -69,8 +69,8 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, 
             <FeaturedPostLayout posts={events} />
           </div>
         </div>
-        <div className="py-16 px-4 sm:px-8 lg:px-16">
-          <div className="px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 ">
+        <div className="py-16 px-4 lg:px-16">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1">
             <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end gap-6 w-full">
               <div className="flex flex-col justify-center items-start gap-12">
                 <div className="flex flex-col gap-3">
@@ -95,8 +95,8 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, 
             <FeaturedPostLayout posts={podcasts} />
           </div>
         </div>
-        <div className="py-16 px-4 sm:px-8 lg:px-16 flex flex-col">
-          <div className="bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-8 lg:py-16">
+        <div className="py-16 px-4 lg:px-16 flex flex-col">
+          <div className="bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 md:px-8 lg:px-16 py-8 lg:py-16">
             <div className="flex flex-col justify-center items-start gap-12">
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col lg:flex-row sm:gap-1 lg:gap-3 justify-center items-center lg:items-center w-full">

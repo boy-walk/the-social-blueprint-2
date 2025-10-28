@@ -2178,7 +2178,7 @@ const SectionOne = ({
           })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 sm:px-8 lg:px-16",
+        className: "py-16 px-4 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
@@ -2228,9 +2228,9 @@ const SectionOne = ({
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 sm:px-8 lg:px-16",
+        className: "py-16 px-4 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 ",
+          className: "px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
             className: "flex flex-col lg:flex-row justify-between items-center lg:items-end gap-6 w-full",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2265,9 +2265,9 @@ const SectionOne = ({
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 sm:px-8 lg:px-16 flex flex-col",
+        className: "py-16 px-4 lg:px-16 flex flex-col",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-8 lg:py-16",
+          className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 md:px-8 lg:px-16 py-8 lg:py-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "flex flex-col justify-center items-start gap-12",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
@@ -2680,4 +2680,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=d0fa868baf0b7ac435bb
+//# sourceMappingURL=section-one.js.map?ver=e330ab7e509c9f66d09f
