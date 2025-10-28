@@ -12,6 +12,7 @@ export function ContentCard({
   fullHeight = false,
   fullWidth = false,
   shadow = false,
+  large = false,
 }) {
   const cardStyles = `
     group
@@ -32,10 +33,11 @@ export function ContentCard({
       <div className="flex h-full min-h-0 flex-col">
         <div
           className={[
-            "relative overflow-hidden rounded-lg bg-gray-100",
             fullHeight
               ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100"
               : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75",
+            `relative overflow-hidden rounded-lg bg-gray-100`,
+            `${large ? "md:max-h-120" : ""}`,
           ].join(" ")}
         >
           {image && (

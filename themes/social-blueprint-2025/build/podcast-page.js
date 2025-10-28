@@ -1437,7 +1437,8 @@ function ContentCard({
   author,
   fullHeight = false,
   fullWidth = false,
-  shadow = false
+  shadow = false,
+  large = false
 }) {
   const cardStyles = `
     group
@@ -1458,7 +1459,7 @@ function ContentCard({
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "flex h-full min-h-0 flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75"].join(" "),
+        className: [fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75", `relative overflow-hidden rounded-lg bg-gray-100`, `${large ? "md:max-h-120" : ""}`].join(" "),
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
@@ -2483,4 +2484,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=4223a03a6244d386a37c
+//# sourceMappingURL=podcast-page.js.map?ver=c9487ad685bdded237c2

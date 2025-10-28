@@ -6,6 +6,7 @@ import { HeroCard } from "./HeroCard";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import CostOfLiving from "../../assets/cost-of-living.svg"
 import MessageBoard from "../../assets/message-board.svg"
+import { PostsSlider } from "./PostsSlider";
 
 /* WordRotate: unchanged behavior, with responsive-safe inline styles */
 function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
@@ -92,8 +93,8 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
 
   return (
     <div className="bg-schemesSurface">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-10 md:py-14 lg:py-16">
-        <div className="flex w-full flex-col md:flex-row gap-8 md:gap-10 items-stretch">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 py-10 md:py-14 lg:py-16">
+        <div className="flex w-full flex-col lg:flex-row gap-8 md:gap-10 items-stretch">
           {/* Left column (text, search, etc.) stays the same */}
           <div className="flex flex-col items-stretch md:items-start justify-end gap-4 md:gap-5 w-full md:w-[100%] lg:w-[35%] mb-0 lg:mb-8">
             <div className="Blueprint-display-large-emphasized text-schemesOnSurface max-w-none md:max-w-xl text-center md:text-left leading-tight">
@@ -122,12 +123,19 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
           </div>
 
           {/* Bento stack (right column) */}
-          <div className="flex-1">
+          <div className="block md:hidden lg:hidden">
+            <PostsSlider events={[recentArticle, recentCandidConversations, recentEverybodyHasAStory, recentEvent]} itemsToDisplay={1} />
+          </div>
+          <div className="flex-1 hidden md:block">
             <div
               className="
                     grid
-                    [grid-template-columns:30%_40%_30%]
-                    grid-rows-10
+                    md:[grid-template-columns:%50_%50]
+                    grid-cols-2
+                    lg:grid-cols-3
+                    lg:[grid-template-columns:30%_40%_30%]
+                    grid-rows-6
+                    lg:grid-rows-10
                     gap-4
                     h-full
                     w-full
@@ -136,8 +144,8 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   "
             >
               {/* COST OF LIVING */}
-              <a className="row-span-3 bg-schemesSecondary rounded-xl shadow-3x2 transition-transform hover:-translate-y-1" href="/cost-of-living">
-                <div className="relative flex flex-row p-4">
+              <a className="relative row-span-1 lg:row-span-3 bg-schemesSecondary rounded-xl shadow-3x2 transition-transform hover:-translate-y-1" href="/cost-of-living">
+                <div className="flex flex-row p-4">
                   <div className="flex flex-col items-start justify-start h-full p-2">
                     <div className="Blueprint-body-large-emphasized text-schemesOnSecondary">
                       Cost of living
@@ -156,14 +164,14 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                       />
                     </div>
                   </div>
-                  <div className="absolute right-0 -bottom-3">
-                    <img src={CostOfLiving} alt="Cost of Living" className="w-24 h-24" />
+                  <div className="absolute bottom-0 right-0">
+                    <img src={CostOfLiving} alt="Cost of Living" className="w-24 h-20" />
                   </div>
                 </div>
               </a>
 
               {/* MESSAGE BOARD */}
-              <div className="row-span-5">
+              <div className="row-span-2 lg:row-span-5">
                 <HeroCard badge={getBadge(recentArticle.post_type)}
                   image={recentArticle.thumbnail}
                   href={recentArticle.permalink}
@@ -175,7 +183,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                 />
               </div>
 
-              <div className="row-span-7">
+              <div className="row-span-3 lg:row-span-7">
                 <HeroCard badge={getBadge(recentCandidConversations.post_type)}
                   image={recentCandidConversations.thumbnail}
                   href={recentCandidConversations.permalink}
@@ -187,7 +195,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                 />
               </div>
 
-              <div className="row-span-7">
+              <div className="row-span-3 lg:row-span-7">
                 <HeroCard badge={"Everybody has a story"}
                   image={recentEverybodyHasAStory.thumbnail}
                   href={recentEverybodyHasAStory.permalink}
@@ -199,7 +207,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                 />
               </div>
 
-              <div className="row-span-5">
+              <div className="row-span-2 lg:row-span-5">
                 <HeroCard badge={getBadge(recentEvent.post_type)}
                   image={recentEvent.thumbnail}
                   href={recentEvent.permalink}
@@ -212,8 +220,8 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
               </div>
 
               {/* MESSAGEBOARD CTA */}
-              <a className="row-span-3 bg-schemesPrimaryContainer rounded-xl shadow-3x2 transition-transform hover:-translate-y-1" href="/message-boards">
-                <div className="relative flex flex-row p-4">
+              <a className="relative row-span-1 lg:row-span-3 bg-schemesPrimaryContainer rounded-xl shadow-3x2 transition-transform hover:-translate-y-1" href="/message-boards">
+                <div className=" flex flex-row p-4">
                   <div className="flex flex-col items-start justify-start h-full p-2">
                     <div className="Blueprint-body-large-emphasized text-schemesOnSecondary">
                       Messageboard
@@ -232,7 +240,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                       />
                     </div>
                   </div>
-                  <div className="absolute right-0 -bottom-1">
+                  <div className="absolute bottom-0 right-0">
                     <img src={MessageBoard} alt="Message Board" className="w-24 h-24" />
                   </div>
                 </div>

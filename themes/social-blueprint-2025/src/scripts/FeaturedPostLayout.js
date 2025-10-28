@@ -12,7 +12,7 @@ export default function FeaturedPostLayout({ posts }) {
   const stack = posts.slice(1, postLength);
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 w-full items-stretch">
+    <div className="flex flex-col lg:flex-row gap-4 w-full items-stretch">
       <div className="flex-1 md:flex-2 lg:flex-2 w-full">
         {hero && (<ContentCard
           date={hero.date}
@@ -24,6 +24,7 @@ export default function FeaturedPostLayout({ posts }) {
           fullWidth
           title={hero.title}
           subtitle={hero.subtitle}
+          large={true}
         />)}
       </div>
       <div className={`flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`}>

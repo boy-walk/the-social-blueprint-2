@@ -1699,7 +1699,8 @@ function ContentCard({
   author,
   fullHeight = false,
   fullWidth = false,
-  shadow = false
+  shadow = false,
+  large = false
 }) {
   const cardStyles = `
     group
@@ -1720,7 +1721,7 @@ function ContentCard({
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "flex h-full min-h-0 flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75"].join(" "),
+        className: [fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75", `relative overflow-hidden rounded-lg bg-gray-100`, `${large ? "md:max-h-120" : ""}`].join(" "),
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
@@ -1948,7 +1949,7 @@ function FeaturedPostLayout({
   const hero = posts[0];
   const stack = posts.slice(1, postLength);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "flex flex-col md:flex-row gap-4 w-full items-stretch",
+    className: "flex flex-col lg:flex-row gap-4 w-full items-stretch",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "flex-1 md:flex-2 lg:flex-2 w-full",
       children: hero && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
@@ -1960,7 +1961,8 @@ function FeaturedPostLayout({
         fullHeight: true,
         fullWidth: true,
         title: hero.title,
-        subtitle: hero.subtitle
+        subtitle: hero.subtitle,
+        large: true
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: `flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`,
@@ -2585,4 +2587,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=7ab7649117a7eb862208
+//# sourceMappingURL=learning-hub.js.map?ver=5bfd68d2e9256032c702

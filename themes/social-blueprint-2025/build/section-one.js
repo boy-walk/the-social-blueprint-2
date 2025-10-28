@@ -1427,7 +1427,8 @@ function ContentCard({
   author,
   fullHeight = false,
   fullWidth = false,
-  shadow = false
+  shadow = false,
+  large = false
 }) {
   const cardStyles = `
     group
@@ -1448,7 +1449,7 @@ function ContentCard({
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "flex h-full min-h-0 flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75"].join(" "),
+        className: [fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75", `relative overflow-hidden rounded-lg bg-gray-100`, `${large ? "md:max-h-120" : ""}`].join(" "),
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
@@ -1676,7 +1677,7 @@ function FeaturedPostLayout({
   const hero = posts[0];
   const stack = posts.slice(1, postLength);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "flex flex-col md:flex-row gap-4 w-full items-stretch",
+    className: "flex flex-col lg:flex-row gap-4 w-full items-stretch",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "flex-1 md:flex-2 lg:flex-2 w-full",
       children: hero && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
@@ -1688,7 +1689,8 @@ function FeaturedPostLayout({
         fullHeight: true,
         fullWidth: true,
         title: hero.title,
-        subtitle: hero.subtitle
+        subtitle: hero.subtitle,
+        large: true
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: `flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`,
@@ -2148,17 +2150,20 @@ const SectionOne = ({
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "flex flex-col justify-center items-center gap-12 w-full px-4 px-6 lg:px-32 py-12",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "flex gap-3 justify-center items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-            className: "Blueprint-headline-large-emphasized italic text-center leading-snug",
-            children: "Explore by"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            label: "Theme",
-            backgroundColor: "schemesPrimaryContainer"
+          className: "flex flex-col gap-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "flex gap-3 justify-center items-center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+              className: "Blueprint-headline-large-emphasized italic text-center leading-snug",
+              children: "Explore by"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              label: "Theme",
+              backgroundColor: "schemesPrimaryContainer"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "w-full Blueprint-body-large text-center text-schemesOnSurface",
+            children: "From support services to creative culture, start where you're curious."
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-          className: "w-full Blueprint-body-large text-center text-schemesOnSurface",
-          children: "From support services to creative culture, start where you're curious."
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "w-full flex justify-center pb-8",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2177,23 +2182,26 @@ const SectionOne = ({
           className: "bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
             className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
               className: "flex flex-col justify-center items-start gap-12",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                className: "flex gap-3 items-center",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                  className: "Blueprint-headline-large-emphasized italic leading-snug",
-                  children: "Upcoming"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                  label: "Events",
-                  backgroundColor: "schemesPrimaryContainer"
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                className: "flex flex-col gap-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                  className: "flex gap-4 items-center justify-center md:justify-start",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                    className: "Blueprint-headline-large-emphasized italic leading-snug",
+                    children: "Upcoming"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                    label: "Events",
+                    backgroundColor: "schemesPrimaryContainer"
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
+                  children: "Discover Melbourne\u2019s largest Jewish events calendar with workshops, holidays, classes and community gatherings, updated regularly."
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant",
-                children: "Discover Melbourne\u2019s largest Jewish events calendar with workshops, holidays, classes and community gatherings, updated regularly."
-              })]
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-              className: "flex flex-wrap gap-4 items-center",
+              className: "flex flex-no-wrap lg:flex-wrap gap-4 items-center justify-start",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
                 label: "Browse the calendar",
                 onClick: () => window.location.href = '/events',
@@ -2219,26 +2227,29 @@ const SectionOne = ({
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "px-4 sm:px-8 lg:px-16",
+        className: "py-16 px-4 sm:px-8 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "py-16 px-4 sm:px-8 lg:px-16 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 ",
+          className: "px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1 ",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-            className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "flex flex-col lg:flex-row justify-between items-center lg:items-end gap-6 w-full",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
               className: "flex flex-col justify-center items-start gap-12",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                className: "flex flex-col lg:flex-row gap-3 items-start lg:items-center",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                  label: "Real stories",
-                  backgroundColor: "schemesPrimaryContainer"
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                className: "flex flex-col gap-3",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                  className: "flex flex-col md:flex-row gap-4 items-center justify-center md:justify-start",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                    label: "Real stories",
+                    backgroundColor: "schemesPrimaryContainer"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                    className: "Blueprint-headline-large-emphasized italic leading-snug",
+                    children: "from our community"
+                  })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                  className: "Blueprint-headline-large-emphasized italic leading-snug",
-                  children: "from our community"
+                  className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
+                  children: "Personal reflections, creative insights and thoughtful perspectives."
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant",
-                children: "Personal reflections, creative insights and thoughtful perspectives."
-              })]
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
               className: "flex flex-wrap gap-4 items-center",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
@@ -2256,27 +2267,30 @@ const SectionOne = ({
         className: "py-16 px-4 sm:px-8 lg:px-16 flex flex-col",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-8 lg:py-16",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "flex flex-col justify-center items-start gap-12",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-              className: "flex flex-col lg:flex-row sm:gap-1 lg:gap-3 justify-center items-start lg:items-center w-full",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "flex flex-col gap-3",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                className: "flex gap-3 items-center",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                  className: "Blueprint-headline-large leading-snug",
-                  children: "Ask, offer or "
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                  label: "Connect",
-                  backgroundColor: "schemesSecondary"
+                className: "flex flex-col lg:flex-row sm:gap-1 lg:gap-3 justify-center items-center lg:items-center w-full",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                  className: "flex gap-3 items-center",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                    className: "Blueprint-headline-large leading-snug",
+                    children: "Ask, offer or "
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                    label: "Connect",
+                    backgroundColor: "schemesSecondary"
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  className: "Blueprint-headline-large leading-snug text-center w-full md:w-auto md:text-left",
+                  children: " via the community message board"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                className: "Blueprint-headline-large leading-snug",
-                children: " via the community message board"
+                className: "w-full Blueprint-body-large text-center lg:text-left text-schemesOnSecondaryContainer",
+                children: "A living space for announcements, questions, and informal support."
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-              className: "w-full Blueprint-body-large text-center text-schemesOnSecondaryContainer",
-              children: "A living space for announcements, questions, and informal support."
-            })]
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_MessageBoardSlider__WEBPACK_IMPORTED_MODULE_5__.MessageBoardSlider, {
             displaySlider: false,
             messageBoard: messageBoardPosts
@@ -2665,4 +2679,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=214566d9d44970dc5cd4
+//# sourceMappingURL=section-one.js.map?ver=aba24bc0b04257fe87b2
