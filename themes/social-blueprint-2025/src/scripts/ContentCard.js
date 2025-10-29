@@ -30,51 +30,56 @@ export function ContentCard({
 
   return (
     <Card href={href} styles={cardStyles}>
-      <div className="flex flex-col h-full min-h-0">
-        {/* Image Section */}
-        <div className="relative w-full">
-          <div
-            className={[
-              "aspect-[4/3] w-full overflow-hidden rounded-lg bg-gray-100",
-              `${large ? "md:max-h-120" : ""}`,
-            ].join(" ")}
-          >
-            {image && (
-              <img
-                src={image}
-                alt={title}
-                className="
-                  absolute inset-0
-                  h-full w-full
-                  object-cover
-                  transition-transform duration-300 ease-in-out
-                  group-hover:scale-105
-                "
-                loading="lazy"
-                decoding="async"
-              />
-            )}
-            {badge && (
-              <span className="absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100">
-                {badge}
-              </span>
-            )}
-          </div>
+      <div className="flex h-full min-h-0 flex-col">
+        <div
+          className={[
+            "relative overflow-hidden rounded-lg bg-gray-100",
+            fullHeight
+              ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100"
+              : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75",
+            `${large ? "md:max-h-120" : ""}`,
+          ].join(" ")}
+        >
+          {image && (
+            <img
+              src={image}
+              alt={title}
+              className="
+                h-full w-full
+                object-cover
+                transition-transform duration-300 ease-in-out
+                group-hover:scale-105
+                [transform-origin:center]
+              "
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+          {badge && (
+            <span className="absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100">
+              {badge}
+            </span>
+          )}
         </div>
 
-        {/* Content Section */}
         {title && (
           <div
             className="
               relative p-4 pt-3
+              overflow-hidden
               h-auto md:h-[116px] lg:h-[128px]
-              md:overflow-hidden
-              flex flex-col justify-between
             "
           >
-            <div className="flex flex-col gap-1">
+            <div
+              className="
+                pointer-events-none absolute inset-x-0 bottom-0 h-8
+                opacity-0 md:opacity-100 transition-opacity duration-200
+                md:group-hover:opacity-0
+              "
+            />
+            <div className="transition-transform duration-200 ease-in-out">
               {date && (
-                <div className="Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
+                <div className="Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface truncate">
                   {date}
                 </div>
               )}
@@ -83,6 +88,7 @@ export function ContentCard({
                 className="
                   Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized
                   line-clamp-2
+                  break-words
                   transition-colors duration-200 group-hover:text-[var(--schemesPrimary)]
                 "
               >
@@ -93,7 +99,8 @@ export function ContentCard({
                 <p
                   className="
                     Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant
-                    line-clamp-2
+                    line-clamp-3 sm:line-clamp-2
+                    break-words
                     transition-colors duration-200 group-hover:text-schemesOnSurface
                   "
                 >
@@ -102,7 +109,7 @@ export function ContentCard({
               )}
 
               {author && (
-                <p className="mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
+                <p className="mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface truncate">
                   {author}
                 </p>
               )}
