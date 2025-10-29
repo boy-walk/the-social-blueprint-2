@@ -2399,6 +2399,7 @@ function PostsSlider({
 
   // Keep refs array in sync
   itemRefs.current = Array(events?.length || 0);
+  const eventsFiltered = events.filter(event => event);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "flex flex-col w-full",
     children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -2425,7 +2426,7 @@ function PostsSlider({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         ref: scrollRef,
         className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden overflow-y-visible",
-        children: events?.map((post, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        children: eventsFiltered?.map((post, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "flex-shrink-0 flex px-0 lg:px-1 py-1",
           style: {
             width: `${100 / itemsPerView}%`
@@ -2673,4 +2674,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=stories-interviews.js.map?ver=7a300abd02f073905166
+//# sourceMappingURL=stories-interviews.js.map?ver=009fbb2a224d56fb50dd

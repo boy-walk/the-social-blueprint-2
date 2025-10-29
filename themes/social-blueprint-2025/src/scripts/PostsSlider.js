@@ -63,6 +63,8 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
   // Keep refs array in sync
   itemRefs.current = Array(events?.length || 0);
 
+  const eventsFiltered = events.filter(event => event)
+
   return (
     <div className="flex flex-col w-full">
       {title && (
@@ -92,7 +94,7 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
           ref={scrollRef}
           className="flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden overflow-y-visible"
         >
-          {events?.map((post, idx) => (
+          {eventsFiltered?.map((post, idx) => (
             <div
               key={post.id}
               className="flex-shrink-0 flex px-0 lg:px-1 py-1"
