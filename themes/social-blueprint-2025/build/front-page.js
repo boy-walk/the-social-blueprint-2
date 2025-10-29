@@ -924,6 +924,12 @@ function FrontPage({
   recentCandidConversations
 }) {
   const words = ["creative", "resilient", "curious", "connected"];
+  console.log({
+    recentArticle,
+    recentEvent,
+    recentEverybodyHasAStory,
+    recentCandidConversations
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
@@ -1009,7 +1015,7 @@ function FrontPage({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "row-span-2 lg:row-span-5",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_HeroCard__WEBPACK_IMPORTED_MODULE_4__.HeroCard, {
+              children: recentArticle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_HeroCard__WEBPACK_IMPORTED_MODULE_4__.HeroCard, {
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentArticle.post_type),
                 image: recentArticle.thumbnail,
                 href: recentArticle.permalink,
@@ -1018,10 +1024,10 @@ function FrontPage({
                 date: recentArticle.date,
                 fullHeight: true,
                 shadow: true
-              })
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {})
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "row-span-3 lg:row-span-7",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_HeroCard__WEBPACK_IMPORTED_MODULE_4__.HeroCard, {
+              children: recentCandidConversations ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_HeroCard__WEBPACK_IMPORTED_MODULE_4__.HeroCard, {
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentCandidConversations.post_type),
                 image: recentCandidConversations.thumbnail,
                 href: recentCandidConversations.permalink,
@@ -1030,10 +1036,10 @@ function FrontPage({
                 date: recentCandidConversations.date,
                 fullHeight: true,
                 shadow: true
-              })
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {})
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "row-span-3 lg:row-span-7",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_HeroCard__WEBPACK_IMPORTED_MODULE_4__.HeroCard, {
+              children: recentEverybodyHasAStory ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_HeroCard__WEBPACK_IMPORTED_MODULE_4__.HeroCard, {
                 badge: "Everybody has a story",
                 image: recentEverybodyHasAStory.thumbnail,
                 href: recentEverybodyHasAStory.permalink,
@@ -1042,10 +1048,10 @@ function FrontPage({
                 date: recentEverybodyHasAStory.date,
                 fullHeight: true,
                 shadow: true
-              })
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {})
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "row-span-2 lg:row-span-5",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_HeroCard__WEBPACK_IMPORTED_MODULE_4__.HeroCard, {
+              children: recentEvent ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_HeroCard__WEBPACK_IMPORTED_MODULE_4__.HeroCard, {
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(recentEvent.post_type),
                 image: recentEvent.thumbnail,
                 href: recentEvent.permalink,
@@ -1054,7 +1060,7 @@ function FrontPage({
                 date: recentEvent.date,
                 fullHeight: true,
                 shadow: true
-              })
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {})
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
               className: "relative row-span-1 lg:row-span-3 bg-schemesPrimaryContainer rounded-xl shadow-3x2 transition-transform hover:-translate-y-1",
               href: "/message-boards",
@@ -1597,4 +1603,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=844402180408baa9662c
+//# sourceMappingURL=front-page.js.map?ver=e404c1f211eb93de73bf

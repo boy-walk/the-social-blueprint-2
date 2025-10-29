@@ -91,6 +91,8 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
 export default function FrontPage({ candleLightingTimes, recentArticle, recentEvent, recentEverybodyHasAStory, recentCandidConversations }) {
   const words = ["creative", "resilient", "curious", "connected"];
 
+  console.log({ recentArticle, recentEvent, recentEverybodyHasAStory, recentCandidConversations });
+
   return (
     <div className="bg-schemesSurface">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 py-10 md:py-14 lg:py-16">
@@ -172,7 +174,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
 
               {/* MESSAGE BOARD */}
               <div className="row-span-2 lg:row-span-5">
-                <HeroCard badge={getBadge(recentArticle.post_type)}
+                {recentArticle ? <HeroCard badge={getBadge(recentArticle.post_type)}
                   image={recentArticle.thumbnail}
                   href={recentArticle.permalink}
                   title={recentArticle.title}
@@ -180,11 +182,11 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   date={recentArticle.date}
                   fullHeight
                   shadow
-                />
+                /> : <div />}
               </div>
 
               <div className="row-span-3 lg:row-span-7">
-                <HeroCard badge={getBadge(recentCandidConversations.post_type)}
+                {recentCandidConversations ? <HeroCard badge={getBadge(recentCandidConversations.post_type)}
                   image={recentCandidConversations.thumbnail}
                   href={recentCandidConversations.permalink}
                   title={recentCandidConversations.title}
@@ -192,11 +194,11 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   date={recentCandidConversations.date}
                   fullHeight
                   shadow
-                />
+                /> : <div />}
               </div>
 
               <div className="row-span-3 lg:row-span-7">
-                <HeroCard badge={"Everybody has a story"}
+                {recentEverybodyHasAStory ? <HeroCard badge={"Everybody has a story"}
                   image={recentEverybodyHasAStory.thumbnail}
                   href={recentEverybodyHasAStory.permalink}
                   title={recentEverybodyHasAStory.title}
@@ -204,11 +206,11 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   date={recentEverybodyHasAStory.date}
                   fullHeight
                   shadow
-                />
+                /> : <div />}
               </div>
 
               <div className="row-span-2 lg:row-span-5">
-                <HeroCard badge={getBadge(recentEvent.post_type)}
+                {recentEvent ? <HeroCard badge={getBadge(recentEvent.post_type)}
                   image={recentEvent.thumbnail}
                   href={recentEvent.permalink}
                   title={recentEvent.title}
@@ -216,7 +218,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                   date={recentEvent.date}
                   fullHeight
                   shadow
-                />
+                /> : <div />}
               </div>
 
               {/* MESSAGEBOARD CTA */}
