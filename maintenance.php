@@ -5,7 +5,7 @@
 //  DO NOT MODIFY THIS FILE BECAUSE IT WAS GENERATED AUTOMATICALLY,
 //  SO ALL YOUR CHANGES WILL BE LOST THE NEXT TIME THE FILE IS GENERATED.
 //  IF YOU REQUIRE TO APPLY CUSTOM MODIFICATIONS, PERFORM THEM IN THE FOLLOWING FILE:
-//  /home/thesocia/public_html/wp-content/maintenance/template.phtml
+//  /home/thesocia/staging.thesocialblueprint.org.au/wp-content/maintenance/template.phtml
 
 
 $protocol = $_SERVER['SERVER_PROTOCOL'];
@@ -24,8 +24,8 @@ header('Retry-After: 600');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="icon" href="/favicon.ico">
-    <link rel="stylesheet" href="https://thesocialblueprint.org.au/wp-content/maintenance/assets/styles.css">
-    <script src="https://thesocialblueprint.org.au/wp-content/maintenance/assets/timer.js"></script>
+    <link rel="stylesheet" href="https://staging.thesocialblueprint.org.au/wp-content/maintenance/assets/styles.css">
+    <script src="https://staging.thesocialblueprint.org.au/wp-content/maintenance/assets/timer.js"></script>
     <title>Scheduled Maintenance</title>
 </head>
 
