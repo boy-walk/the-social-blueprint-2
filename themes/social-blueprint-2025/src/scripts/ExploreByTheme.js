@@ -47,7 +47,7 @@ export const ExploreByTheme = () => {
               <div className="bg-schemesPrimaryFixed mx-4 mb-auto md:mb-0 rounded-xl p-1.5">
                 <ArrowUpRightIcon size={26} weight="bold" />
               </div>
-              <div className="w-full text-right lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 transition-transform duration-600 ease-in-out group-hover:-translate-y-2 mb-12 md:mb-2">
+              <div className="w-full text-right Blueprint-body-large-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 transition-transform duration-600 ease-in-out group-hover:-translate-y-2 mb-12 md:mb-2">
                 {item.title}
               </div>
             </div>

@@ -1761,7 +1761,7 @@ const ExploreByTheme = () => {
               weight: "bold"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "w-full text-right lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 transition-transform duration-600 ease-in-out group-hover:-translate-y-2 mb-12 md:mb-2",
+            className: "w-full text-right Blueprint-body-large-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 transition-transform duration-600 ease-in-out group-hover:-translate-y-2 mb-12 md:mb-2",
             children: item.title
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -1800,7 +1800,7 @@ function PillTag({
   backgroundColor = '#007ea8'
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-    className: `text-center relative inline-block p-2 md:px-2.5 py-1 md:py-2 lg:px-3 lg:py-1 rounded-xl text-white italic Blueprint-headline-small-emphasized md:Blueprint-headline-medium-emphasized lg:Blueprint-headline-large-emphasized bg-${backgroundColor}`,
+    className: `text-center relative inline-block px-3 sm:py-2 md:py-3 rounded-xl text-white italic Blueprint-title-large-emphasized bg-${backgroundColor}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
       className: "relative z-10",
       children: label
@@ -2450,4 +2450,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=article-page.js.map?ver=c99c4d0dd7902baab5df
+//# sourceMappingURL=article-page.js.map?ver=9be3a01c8bc01dc589fa

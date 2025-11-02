@@ -1629,7 +1629,7 @@ const ExploreByTheme = () => {
               weight: "bold"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "w-full text-right lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 transition-transform duration-600 ease-in-out group-hover:-translate-y-2 mb-12 md:mb-2",
+            className: "w-full text-right Blueprint-body-large-emphasized text-schemesOnSurface leading-snug break-words overflow-hidden px-4 transition-transform duration-600 ease-in-out group-hover:-translate-y-2 mb-12 md:mb-2",
             children: item.title
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -2056,7 +2056,7 @@ const PdfFlipBook = ({
     height: "100%",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
       children: ["Alternative text - include a link ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-        href: pdfUrl,
+        href: "http://africau.edu/images/default/sample.pdf",
         children: "to the PDF!"
       })]
     })
@@ -2086,7 +2086,7 @@ function PillTag({
   backgroundColor = '#007ea8'
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-    className: `text-center relative inline-block p-2 md:px-2.5 py-1 md:py-2 lg:px-3 lg:py-1 rounded-xl text-white italic Blueprint-headline-small-emphasized md:Blueprint-headline-medium-emphasized lg:Blueprint-headline-large-emphasized bg-${backgroundColor}`,
+    className: `text-center relative inline-block px-3 sm:py-2 md:py-3 rounded-xl text-white italic Blueprint-title-large-emphasized bg-${backgroundColor}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
       className: "relative z-10",
       children: label
@@ -2154,7 +2154,7 @@ const SectionOne = ({
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
             className: "flex gap-3 justify-center items-center",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-              className: "Blueprint-headline-large-emphasized italic text-center leading-snug",
+              className: "Blueprint-title-large-emphasized italic text-center leading-snug",
               children: "Explore by"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
               label: "Theme",
@@ -2189,7 +2189,7 @@ const SectionOne = ({
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "flex gap-4 items-center justify-center md:justify-start",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                    className: "Blueprint-headline-large-emphasized italic leading-snug",
+                    className: "Blueprint-title-large-emphasized italic leading-snug",
                     children: "Upcoming"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
                     label: "Events",
@@ -2230,35 +2230,27 @@ const SectionOne = ({
         className: "py-16 px-4 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-            className: "flex flex-col lg:flex-row justify-between items-center lg:items-end gap-6 w-full",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
               className: "flex flex-col justify-center items-start gap-12",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                 className: "flex flex-col gap-3",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                  className: "flex flex-col md:flex-row gap-4 items-center justify-center md:justify-start",
+                  className: "flex flex-col py-2 md:py-0 md:flex-row gap-4 items-center justify-center md:justify-start",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
                     label: "Real stories",
                     backgroundColor: "schemesPrimaryContainer"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                    className: "Blueprint-headline-large-emphasized italic leading-snug",
+                    className: "Blueprint-title-large-emphasized italic leading-snug",
                     children: "from our community"
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                  className: "w-full Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
+                  className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
                   children: "Personal reflections, creative insights and thoughtful perspectives."
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-              className: "flex flex-wrap gap-4 items-center",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-                label: "View all",
-                onClick: () => window.location.href = '/podcasts',
-                size: "base",
-                variant: "filled"
-              })
-            })]
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
             posts: podcasts
           })]
@@ -2268,13 +2260,13 @@ const SectionOne = ({
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 md:px-8 lg:px-16 py-8 lg:py-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-            className: "flex flex-col justify-center items-start gap-12",
+            className: "flex flex-col justify-center items-center gap-12",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-              className: "flex flex-col gap-3",
+              className: "flex flex-col gap-3 items-center justify-center",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                className: "flex flex-col lg:flex-row sm:gap-1 lg:gap-3 justify-center items-center lg:items-center w-full",
+                className: "flex flex-col lg:flex-row gap-3 justify-center items-center",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                  className: "flex gap-3 items-center",
+                  className: "flex gap-3 items-center justify-center",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                     className: "Blueprint-headline-large leading-snug",
                     children: "Ask, offer or "
@@ -2283,11 +2275,11 @@ const SectionOne = ({
                     backgroundColor: "schemesSecondary"
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                  className: "Blueprint-headline-large leading-snug text-center w-full md:w-auto md:text-left",
+                  className: "Blueprint-headline-large leading-snug text-center md:w-auto md:text-left",
                   children: " via the community message board"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                className: "w-full Blueprint-body-large text-center lg:text-left text-schemesOnSecondaryContainer",
+                className: "Blueprint-body-large text-center lg:text-left text-schemesOnSecondaryContainer",
                 children: "A living space for announcements, questions, and informal support."
               })]
             })
@@ -2387,9 +2379,9 @@ const DynamicSection = ({
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-      className: "flex-1",
+      className: "h-full lg:h-auto lg:flex-1",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "rounded-xl h-full w-full min-h-[200px] shadow-3x3 bg-schemesSurfaceContainer",
+        className: "rounded-xl h-full w-full shadow-3x3 bg-schemesSurfaceContainer",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PdfFlipBook__WEBPACK_IMPORTED_MODULE_8__.PdfFlipBook, {
           pdfUrl: dynamicProps.pdfUrl
         })
@@ -2673,4 +2665,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=dddc805cb952124f0ae5
+//# sourceMappingURL=section-one.js.map?ver=57c7e73fa13ce0ba7064
