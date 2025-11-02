@@ -176,7 +176,7 @@ const DynamicSection = ({ dynamicProps }) => {
   return (
     <div className="flex w-full gap-8 flex-col lg:flex-row">
       <div className="flex flex-col flex-2 gap-8 justify-between">
-        <div className="rounded-xl flex-1 overflow-hidden shadow-3x3 bg-schemesSurfaceContainer flex items-center justify-center">
+        <div className="rounded-xl flex-1 overflow-hidden flex items-center justify-center">
           {dynamicProps.image1 && (
             <img
               src={dynamicProps.image1}
@@ -185,7 +185,7 @@ const DynamicSection = ({ dynamicProps }) => {
             />
           )}
         </div>
-        <div className="rounded-xl overflow-hidden flex-1 shadow-3x3 bg-schemesSurfaceContainer flex items-center justify-center">
+        <div className="rounded-xl overflow-hidden flex-1 flex items-center justify-center">
           {dynamicProps.image2 && (
             <img
               src={dynamicProps.image2}

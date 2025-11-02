@@ -2372,14 +2372,14 @@ const DynamicSection = ({
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "flex flex-col flex-2 gap-8 justify-between",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "rounded-xl flex-1 overflow-hidden shadow-3x3 bg-schemesSurfaceContainer flex items-center justify-center",
+        className: "rounded-xl flex-1 overflow-hidden flex items-center justify-center",
         children: dynamicProps.image1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
           src: dynamicProps.image1,
           alt: "Dynamic Image 1",
           className: "w-full h-full object-contain"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "rounded-xl overflow-hidden flex-1 shadow-3x3 bg-schemesSurfaceContainer flex items-center justify-center",
+        className: "rounded-xl overflow-hidden flex-1 flex items-center justify-center",
         children: dynamicProps.image2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
           src: dynamicProps.image2,
           alt: "Dynamic Image 2",
@@ -2679,4 +2679,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=2e851201b75e05f8c413
+//# sourceMappingURL=section-one.js.map?ver=3c27cee882797d55097c
