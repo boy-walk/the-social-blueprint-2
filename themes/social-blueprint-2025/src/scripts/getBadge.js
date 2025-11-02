@@ -3,7 +3,7 @@ export const getBadge = (type) => {
     case 'tribe_events':
       return 'Event';
     case 'podcast':
-      return 'Podcast';
+      return 'Interviews';
     case 'article':
       return 'Article';
     case 'directory':

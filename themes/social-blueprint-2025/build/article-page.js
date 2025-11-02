@@ -2409,7 +2409,7 @@ const getBadge = type => {
     case 'tribe_events':
       return 'Event';
     case 'podcast':
-      return 'Podcast';
+      return 'Interviews';
     case 'article':
       return 'Article';
     case 'directory':
@@ -2450,4 +2450,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=article-page.js.map?ver=c3c5cc235c593157892a
+//# sourceMappingURL=article-page.js.map?ver=c99c4d0dd7902baab5df

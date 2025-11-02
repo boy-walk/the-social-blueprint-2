@@ -2212,7 +2212,7 @@ const getBadge = type => {
     case 'tribe_events':
       return 'Event';
     case 'podcast':
-      return 'Podcast';
+      return 'Interviews';
     case 'article':
       return 'Article';
     case 'directory':
@@ -2239,4 +2239,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing-hub.js.map?ver=27ffe51956de7af9e30a
+//# sourceMappingURL=aid-listing-hub.js.map?ver=c11b8741a30c2a67e357

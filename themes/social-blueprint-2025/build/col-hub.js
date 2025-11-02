@@ -2018,7 +2018,7 @@ const getBadge = type => {
     case 'tribe_events':
       return 'Event';
     case 'podcast':
-      return 'Podcast';
+      return 'Interviews';
     case 'article':
       return 'Article';
     case 'directory':
@@ -2045,4 +2045,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=e1a2e109d150b7855456
+//# sourceMappingURL=col-hub.js.map?ver=456442673f63a9bf5eba

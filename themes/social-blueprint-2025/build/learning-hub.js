@@ -2561,7 +2561,7 @@ const getBadge = type => {
     case 'tribe_events':
       return 'Event';
     case 'podcast':
-      return 'Podcast';
+      return 'Interviews';
     case 'article':
       return 'Article';
     case 'directory':
@@ -2588,4 +2588,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=e2f0bec2f747b553b107
+//# sourceMappingURL=learning-hub.js.map?ver=6847125d60e6e2b28de8

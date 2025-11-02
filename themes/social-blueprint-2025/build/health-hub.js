@@ -2011,7 +2011,7 @@ const getBadge = type => {
     case 'tribe_events':
       return 'Event';
     case 'podcast':
-      return 'Podcast';
+      return 'Interviews';
     case 'article':
       return 'Article';
     case 'directory':
@@ -2038,4 +2038,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=health-hub.js.map?ver=4b224daac1704f11f2cc
+//# sourceMappingURL=health-hub.js.map?ver=e37e031296d01f94f3b2

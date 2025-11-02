@@ -2368,28 +2368,28 @@ const DynamicSection = ({
   dynamicProps
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-    className: "flex w-full gap-8 flex-col lg:flex-row h-150",
+    className: "flex w-full gap-8 flex-col lg:flex-row",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "flex flex-col flex-2 gap-8 justify-between",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "rounded-xl flex-1 overflow-hidden shadow-3x3",
+        className: "rounded-xl flex-1 overflow-hidden shadow-3x3 bg-schemesSurfaceContainer flex items-center justify-center",
         children: dynamicProps.image1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
           src: dynamicProps.image1,
           alt: "Dynamic Image 1",
-          className: "w-full h-full object-fit"
+          className: "w-full h-full object-contain"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "rounded-xl overflow-hidden flex-1 shadow-3x3",
+        className: "rounded-xl overflow-hidden flex-1 shadow-3x3 bg-schemesSurfaceContainer flex items-center justify-center",
         children: dynamicProps.image2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
           src: dynamicProps.image2,
           alt: "Dynamic Image 2",
-          className: "w-full h-full object-fit"
+          className: "w-full h-full object-contain"
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
       className: "flex-1",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "rounded-xl h-full w-full min-h-[200px] shadow-3x3",
+        className: "rounded-xl h-full w-full min-h-[200px] shadow-3x3 bg-schemesSurfaceContainer",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PdfFlipBook__WEBPACK_IMPORTED_MODULE_8__.PdfFlipBook, {
           pdfUrl: dynamicProps.pdfUrl
         })
@@ -2652,7 +2652,7 @@ const getBadge = type => {
     case 'tribe_events':
       return 'Event';
     case 'podcast':
-      return 'Podcast';
+      return 'Interviews';
     case 'article':
       return 'Article';
     case 'directory':
@@ -2679,4 +2679,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=a1cb45722ae3aebc84d8
+//# sourceMappingURL=section-one.js.map?ver=2e851201b75e05f8c413

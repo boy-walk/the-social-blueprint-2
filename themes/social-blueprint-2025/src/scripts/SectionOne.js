@@ -174,35 +174,36 @@ export const ArrowIcon = () => (
 
 const DynamicSection = ({ dynamicProps }) => {
   return (
-    <div className="flex w-full gap-8 flex-col lg:flex-row h-150">
+    <div className="flex w-full gap-8 flex-col lg:flex-row">
       <div className="flex flex-col flex-2 gap-8 justify-between">
-        <div className="rounded-xl flex-1 overflow-hidden shadow-3x3">
+        <div className="rounded-xl flex-1 overflow-hidden shadow-3x3 bg-schemesSurfaceContainer flex items-center justify-center">
           {dynamicProps.image1 && (
             <img
               src={dynamicProps.image1}
               alt="Dynamic Image 1"
-              className="w-full h-full object-fit"
+              className="w-full h-full object-contain"
             />
           )}
         </div>
-        <div className="rounded-xl overflow-hidden flex-1 shadow-3x3">
+        <div className="rounded-xl overflow-hidden flex-1 shadow-3x3 bg-schemesSurfaceContainer flex items-center justify-center">
           {dynamicProps.image2 && (
             <img
               src={dynamicProps.image2}
               alt="Dynamic Image 2"
-              className="w-full h-full object-fit"
+              className="w-full h-full object-contain"
             />
           )}
         </div>
       </div>
       <div className="flex-1">
-        <div className="rounded-xl h-full w-full min-h-[200px] shadow-3x3">
+        <div className="rounded-xl h-full w-full min-h-[200px] shadow-3x3 bg-schemesSurfaceContainer">
           <PdfFlipBook pdfUrl={dynamicProps.pdfUrl} />
         </div>
       </div>
     </div>
-  )
+  );
 };
+
 
 const HistoricalPhotosSection = ({ historicalPhotos = [], speed = 12, pauseOnHover = true }) => {
   const scrollRef = useRef(null);
