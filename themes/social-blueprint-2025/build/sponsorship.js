@@ -117,52 +117,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
 
- // Adjust the import path as needed
+
 
 const SponsorshipBanner = ({
   imgSrc,
   enabled,
   href
 }) => {
-  if (!enabled) {
-    return null;
-  }
+  if (!enabled) return null;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    className: "w-full bg-schemesInverseSurface rounded-xl p-4 md:p-8 lg:p-10",
+    className: "w-full bg-schemesInverseSurface rounded-2xl p-6 md:p-8 lg:p-10",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "flex flex-col items-center justify-center lg:flex-row lg:items-center lg:justify-between gap-6",
+      className: " flex flex-col items-start text-left md:flex-row md:justify-between lg:items-center gap-6 md:gap-8 lg:gap-10 ",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex flex-col items-start justify-center gap-4",
+        className: " flex flex-col lg:items-start justify-start gap-4 lg:w-auto ",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
-          className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesPrimaryFixed",
+          className: " Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesPrimaryFixed ",
           children: "Proudly sponsored by"
         }), imgSrc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: imgSrc,
           alt: "Sponsor Logo",
-          className: "max-w-150 w-auto object-contain"
+          className: " w-auto max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[420px] object-contain "
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex flex-row md:flex-col gap-3 sm:gap-4",
+        className: " flex flex-row justify-center items-end gap-4 md:flex-row lg:flex-col lg:justify-end ",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
           href: href || "#",
           target: "_blank",
           rel: "noopener noreferrer",
+          className: "w-full sm:w-auto",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
             label: "Link to sponsor",
             variant: "filled",
-            shape: "square",
             size: "base",
-            className: "w-full sm:w-auto bg-[#2b6b8a] hover:bg-[#3a7fa3]"
+            className: " bg-[#2b6b8a] hover:bg-[#3a7fa3] px-6 md:px-8 w-full sm:w-auto "
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-            label: "More about us",
-            variant: "tonal",
-            shape: "square",
-            size: "base",
-            onClick: () => {},
-            className: "w-full sm:w-auto bg-[#c5e3f5] text-[#1a4a5e] hover:bg-[#b0d6ec]"
-          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+          label: "More about us",
+          variant: "tonal",
+          size: "base",
+          className: " bg-[#c5e3f5] text-[#1a4a5e] hover:bg-[#b0d6ec] px-6 md:px-8 w-full sm:w-auto "
         })]
       })]
     })
@@ -172,4 +166,4 @@ const SponsorshipBanner = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=sponsorship.js.map?ver=ea27faadb7310d052d06
+//# sourceMappingURL=sponsorship.js.map?ver=da1905ca21553b83ef50
