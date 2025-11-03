@@ -161,7 +161,7 @@ const MENU_SECTIONS = {
       title: "Content type",
       items: [
         { label: "Events", href: "/events" },
-        { label: "Podcasts", href: "/podcasts" },
+        { label: "Interviews", href: "/podcasts" },
         { label: "Articles", href: "/articles" },
         { label: "Message Board", href: "/message-boards" },
       ],

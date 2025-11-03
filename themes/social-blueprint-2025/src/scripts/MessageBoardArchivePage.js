@@ -220,7 +220,14 @@ export default function MessageBoardArchivePage(props) {
         const json = await res.json();
 
         if (!cancelled && seq === fetchSeq.current) {
-          setItems(json.items || []);
+          // Sort items: featured posts first, then others
+          const sortedItems = (json.items || []).sort((a, b) => {
+            const aFeat = a.featured ? 1 : 0;
+            const bFeat = b.featured ? 1 : 0;
+            return bFeat - aFeat;
+          });
+
+          setItems(sortedItems);
           setTotalPages(json.total_pages || 1);
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
@@ -351,7 +358,7 @@ export default function MessageBoardArchivePage(props) {
   };
 
   const LeadingIcon = ({ item }) => {
-    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
+    const letter = (String(item?.title || "").trim()[0] || "â€¢").toUpperCase();
     return (
       <div className="w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0">
         <span className="Blueprint-headline-medium text-[var(--schemesOnSecondaryContainer)]">
@@ -563,7 +570,7 @@ export default function MessageBoardArchivePage(props) {
               {skeletonRows}
             </div>
           )}
-
+          {console.log(filteredItems)}
           {/* Empty */}
           {!loading && !error && filteredItems.length === 0 && (
             <div className="rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8">

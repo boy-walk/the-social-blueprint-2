@@ -1524,22 +1524,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/**
- * MessageBoardPage (single gd_discount)
- * Reuses PodcastPage structure/components where possible.
- *
- * Props:
- * - title: string
- * - date: string (ISO or human)
- * - author: { id, name, url, avatar }
- * - categories: string[]            // chips row (gd_discount categories)
- * - contentHtml: string             // full post content (rendered HTML)
- * - featuredImage?: string
- * - relatedContent: [{ id,title,href,thumbnail }]
- * - recentPosts: [{ id,title,thumbnail,link,date,author,post_type }]
- * - trendingTopics: [{ name, link }]
- */
-
 function MessageBoardPage({
   title,
   date,
@@ -2390,4 +2374,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=be0b66088cf8fd592cf4
+//# sourceMappingURL=mb-page.js.map?ver=ee1b5eee82d114f34e58

@@ -50,7 +50,7 @@ export const SponsorshipBanner = ({ imgSrc, enabled, href }) => {
             lg:flex-col lg:justify-end
           "
         >
-          <a
+          {href && (<a
             href={href || "#"}
             target="_blank"
             rel="noopener noreferrer"
@@ -66,7 +66,7 @@ export const SponsorshipBanner = ({ imgSrc, enabled, href }) => {
                 w-full sm:w-auto
               "
             />
-          </a>
+          </a>)}
 
           <Button
             label="More about us"

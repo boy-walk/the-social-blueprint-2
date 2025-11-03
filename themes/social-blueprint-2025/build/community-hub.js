@@ -1954,7 +1954,7 @@ function CommunityHubPage({
           label: "Article",
           post_type: "article"
         }, {
-          label: "Podcast",
+          label: "Interview",
           post_type: "podcast"
         }, {
           label: "Aid Listing",
@@ -2875,4 +2875,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=71cc96777bdb79220338
+//# sourceMappingURL=community-hub.js.map?ver=1474048cf61acfde895b

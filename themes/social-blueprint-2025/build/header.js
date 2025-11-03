@@ -362,7 +362,7 @@ const MENU_SECTIONS = {
       label: "Events",
       href: "/events"
     }, {
-      label: "Podcasts",
+      label: "Interviews",
       href: "/podcasts"
     }, {
       label: "Articles",
@@ -1006,4 +1006,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=39c532428107f3277c99
+//# sourceMappingURL=header.js.map?ver=219521289e55c1a0176e

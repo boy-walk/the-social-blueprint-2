@@ -44,6 +44,7 @@ mount(
     dynamicProps: parse(el.dataset.dynamicProps || '{}'),
     historicalPhotos: parse(el.dataset.historicalPhotos || '[]'),
     sponsorshipBanner: parse(el.dataset.sponsorshipBanner || '{}'),
+    articles: parse(el.dataset.articles || '[]'),
   })
 );
 

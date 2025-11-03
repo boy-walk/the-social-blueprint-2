@@ -141,7 +141,7 @@ const SponsorshipBanner = ({
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: " flex flex-row justify-center items-end gap-4 md:flex-row lg:flex-col lg:justify-end ",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+        children: [href && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
           href: href || "#",
           target: "_blank",
           rel: "noopener noreferrer",
@@ -166,4 +166,4 @@ const SponsorshipBanner = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=sponsorship.js.map?ver=da1905ca21553b83ef50
+//# sourceMappingURL=sponsorship.js.map?ver=ad2ac11fa1b09d586311

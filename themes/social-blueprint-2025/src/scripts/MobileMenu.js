@@ -18,7 +18,7 @@ const content = {
   ],
   "blueprint-stories": [
     { title: "Articles and blogs", href: "/stories-and-interviews?type=article" },
-    { title: "Podcasts", href: "/stories-and-interviews?type=podcast" },
+    { title: "Interviews", href: "/stories-and-interviews?type=podcast" },
     { title: "Blueprint interviews", href: "/stories-and-interviews/interviews" },
   ],
   "about-us": [

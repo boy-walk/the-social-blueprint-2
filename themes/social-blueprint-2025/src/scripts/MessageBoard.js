@@ -8,21 +8,6 @@ import { Breadcrumbs } from "./Breadcrumbs";
 import { ArrowIcon } from "../../assets/icons/arrow";
 import { MessageBoardSlider } from "./MessageBoardSlider";
 
-/**
- * MessageBoardPage (single gd_discount)
- * Reuses PodcastPage structure/components where possible.
- *
- * Props:
- * - title: string
- * - date: string (ISO or human)
- * - author: { id, name, url, avatar }
- * - categories: string[]            // chips row (gd_discount categories)
- * - contentHtml: string             // full post content (rendered HTML)
- * - featuredImage?: string
- * - relatedContent: [{ id,title,href,thumbnail }]
- * - recentPosts: [{ id,title,thumbnail,link,date,author,post_type }]
- * - trendingTopics: [{ name, link }]
- */
 export default function MessageBoardPage({
   title,
   date,

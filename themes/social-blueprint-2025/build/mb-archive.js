@@ -905,7 +905,13 @@ function MessageBoardArchivePage(props) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
         if (!cancelled && seq === fetchSeq.current) {
-          setItems(json.items || []);
+          // Sort items: featured posts first, then others
+          const sortedItems = (json.items || []).sort((a, b) => {
+            const aFeat = a.featured ? 1 : 0;
+            const bFeat = b.featured ? 1 : 0;
+            return bFeat - aFeat;
+          });
+          setItems(sortedItems);
           setTotalPages(json.total_pages || 1);
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
@@ -1034,7 +1040,7 @@ function MessageBoardArchivePage(props) {
   const LeadingIcon = ({
     item
   }) => {
-    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
+    const letter = (String(item?.title || "").trim()[0] || "â€¢").toUpperCase();
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
@@ -1253,7 +1259,7 @@ function MessageBoardArchivePage(props) {
           className: "space-y-4 mb-8",
           "aria-hidden": "true",
           children: skeletonRows
-        }), !loading && !error && filteredItems.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), console.log(filteredItems), !loading && !error && filteredItems.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "Blueprint-headline-small mb-2",
@@ -1435,4 +1441,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-archive.js.map?ver=abbcc532276bc080817b
+//# sourceMappingURL=mb-archive.js.map?ver=0312ce80b976971f93c7

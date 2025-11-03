@@ -34,7 +34,7 @@ function TermsAndConditions() {
       children: [{
         title: '1. About Us',
         body: `The Social Blueprint is a trusted, apolitical digital hub built to support and showcase the Melbourne Jewish
-            community. We provide access to events, podcasts, organisations, resources, and initiatives relevant to Jewish life,
+            community. We provide access to events, interviews, organisations, resources, and initiatives relevant to Jewish life,
             advocacy, wellbeing, and culture.`
       }, {
         title: '2. Using This Website',
@@ -161,4 +161,4 @@ function TermsAndConditions() {
 /***/ })
 
 }]);
-//# sourceMappingURL=terms.js.map?ver=b498b477a3139a7d67db
+//# sourceMappingURL=terms.js.map?ver=df18143f580158138d59

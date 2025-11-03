@@ -95,7 +95,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
 
   return (
     <div className="bg-schemesSurface">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 py-10 md:py-14 lg:py-16">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 pt-10 md:pt-14 lg:pt-16">
         <div className="flex w-full flex-col lg:flex-row gap-8 md:gap-10 items-stretch">
           {/* Left column (text, search, etc.) stays the same */}
           <div className="flex flex-col items-stretch md:items-start justify-end gap-4 md:gap-5 w-full md:w-[100%] lg:w-[35%] mb-0 lg:mb-8">
@@ -116,7 +116,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
             <QuickLinks
               links={[
                 { title: "Events", href: "/events" },
-                { title: "Podcasts", href: "/podcasts" },
+                { title: "Interviews", href: "/podcasts" },
                 { title: "Stories", href: "/articles" },
                 { title: "Aid", href: "/aid_listing" },
                 { title: "Directory", href: "/directory" },

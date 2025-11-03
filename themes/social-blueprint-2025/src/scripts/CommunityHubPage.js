@@ -138,7 +138,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
           }}
           filters={[
             { label: "Article", post_type: "article" },
-            { label: "Podcast", post_type: "podcast" },
+            { label: "Interview", post_type: "podcast" },
             { label: "Aid Listing", post_type: "gd_aid_listing" },
             { label: "Health Listing", post_type: "gd_health_listing" },
             { label: "Message Board", post_type: "gd_discount" },

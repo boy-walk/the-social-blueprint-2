@@ -10,7 +10,7 @@ import { NewsletterBanner } from './NewsletterBanner';
 import { PdfFlipBook } from './PdfFlipBook';
 import { SponsorshipBanner } from './Sponsorship';
 
-export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, historicalPhotos, sponsorshipBanner }) => {
+export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dynamicProps, historicalPhotos, sponsorshipBanner }) => {
   return (
     <div className="bg-schemesSurface">
       <div className="max-w-[1600px] mx-auto">
@@ -85,6 +85,24 @@ export const SectionOne = ({ events, podcasts, messageBoardPosts, dynamicProps, 
               </div>
             </div>
             <FeaturedPostLayout posts={podcasts} />
+          </div>
+        </div>
+        <div className="py-16 px-4 lg:px-16">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
+              <div className="flex flex-col justify-center items-start gap-12">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col py-2 md:py-0 md:flex-row gap-4 items-center justify-center md:justify-start">
+                    <PillTag label="Real stories" backgroundColor="schemesPrimaryContainer" />
+                    <div className="Blueprint-title-large-emphasized italic leading-snug">from our community</div>
+                  </div>
+                  <div className="max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left">
+                    Personal reflections, creative insights and thoughtful perspectives.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <FeaturedPostLayout posts={articles} />
           </div>
         </div>
         <div className="py-16 px-4 lg:px-16 flex flex-col">

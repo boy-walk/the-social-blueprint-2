@@ -932,7 +932,7 @@ function FrontPage({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 py-10 md:py-14 lg:py-16",
+      className: "max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 pt-10 md:pt-14 lg:pt-16",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "flex w-full flex-col lg:flex-row gap-8 md:gap-10 items-stretch",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
@@ -955,7 +955,7 @@ function FrontPage({
               title: "Events",
               href: "/events"
             }, {
-              title: "Podcasts",
+              title: "Interviews",
               href: "/podcasts"
             }, {
               title: "Stories",
@@ -1526,7 +1526,6 @@ const SearchBar = () => {
   }, []);
   const handleSubmit = e => {
     e.preventDefault();
-    if (!query.trim()) return;
     window.location.href = `/?s=${encodeURIComponent(query)}`;
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
@@ -1550,9 +1549,8 @@ const SearchBar = () => {
         type: "search",
         id: "default-search",
         className: "block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-2 focus:ring-[#1e6586] focus:border-[#1e6586] outline-none",
-        placeholder: "Search podcasts, events, resources...",
+        placeholder: "Search interviews, events, resources...",
         onChange: e => setQuery(e.target.value),
-        required: true,
         value: query || ''
       })]
     })]
@@ -1603,4 +1601,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=9573b881d167f8126728
+//# sourceMappingURL=front-page.js.map?ver=f109306d3b89295fe3cf

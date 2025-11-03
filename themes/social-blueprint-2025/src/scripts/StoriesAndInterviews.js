@@ -22,7 +22,7 @@ export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, 
                 Stories & Interviews
               </h1>
               <p className="text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl">
-                Podcasts and written pieces sharing lived experiences, ideas, and reflections from Melbourne's Jewish community.
+                Interviews and written pieces sharing lived experiences, ideas, and reflections from Melbourne's Jewish community.
               </p>
             </div>
             <img src={CommunityConnectionHubIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />

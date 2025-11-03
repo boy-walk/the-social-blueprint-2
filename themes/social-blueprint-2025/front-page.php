@@ -149,6 +149,15 @@ $historical_photos = get_posts([
   'orderby' => 'rand',
 ]);
 
+$articles = get_posts([
+  'post_type' => 'article',
+  'posts_per_page' => 3,
+  'orderby' => 'date',
+  'order' => 'DESC',
+]);
+
+$article_posts = array_map('map_post', $articles);
+
 
 $carouselData = array_map(function($photo) {
   return [
@@ -176,6 +185,7 @@ $banner_data = [
     data-dynamic-props='<?php echo esc_attr(json_encode($dynamic_props)); ?>'
     data-historical-photos='<?php echo esc_attr(json_encode($carouselData)); ?>'
     data-sponsorship-banner='<?php echo esc_attr(json_encode($banner_data)); ?>'
+    data-articles='<?php echo esc_attr(json_encode($article_posts)); ?>'
 >
 </div>
 <?php get_footer();

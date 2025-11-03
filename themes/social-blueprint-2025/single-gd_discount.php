@@ -34,9 +34,7 @@ foreach ($category_taxes as $tx) {
 
 /** Author (same pattern as your podcast template). */
 $author_id   = (int) get_post_field('post_author', $post_id);
-$first       = trim(get_the_author_meta('first_name', $author_id));
-$last        = trim(get_the_author_meta('last_name',  $author_id));
-$author_name = $first || $last ? trim("$first $last") : get_the_author_meta('display_name', $author_id);
+$author_name = get_the_author_meta('display_name', $author_id);
 $uwp_avatar_id = get_user_meta($author_id, 'uwp_profile_photo', true);
 $avatar_url    = $uwp_avatar_id ? wp_get_attachment_url($uwp_avatar_id) : get_avatar_url($author_id, ['size' => 96]);
 

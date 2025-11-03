@@ -92,7 +92,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
       </div>
       <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <PostsSlider events={podcasts || []} title="Recent Podcasts" description="Hear personal stories and expert voices that shine a light on the many paths and shared experiences in our community." viewAllUrl="/podcasts/?theme=support-and-services" />
+          <PostsSlider events={podcasts || []} title="Recent Interviews" description="Hear personal stories and expert voices that shine a light on the many paths and shared experiences in our community." viewAllUrl="/podcasts/?theme=support-and-services" />
         </div>
       </div>
       <div className="bg-schemesSecondaryFixed">

@@ -68,7 +68,7 @@ export default function PodcastPage({
                     />
                     <div className="flex flex-col gap-1">
                       <div className="lg:Blueprint-title-medium">
-                        {author?.name ? `${author.name}` : "Podcast Author"}
+                        {author?.name ? `${author.name}` : "Inteview Author"}
                       </div>
                       <div className="Blueprint-label-large text-schemesOnSurfaceVariant">
                         {formattedDate}

@@ -836,7 +836,6 @@ const SearchBar = () => {
   }, []);
   const handleSubmit = e => {
     e.preventDefault();
-    if (!query.trim()) return;
     window.location.href = `/?s=${encodeURIComponent(query)}`;
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
@@ -860,9 +859,8 @@ const SearchBar = () => {
         type: "search",
         id: "default-search",
         className: "block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-2 focus:ring-[#1e6586] focus:border-[#1e6586] outline-none",
-        placeholder: "Search podcasts, events, resources...",
+        placeholder: "Search interviews, events, resources...",
         onChange: e => setQuery(e.target.value),
-        required: true,
         value: query || ''
       })]
     })]
@@ -896,23 +894,7 @@ __webpack_require__.r(__webpack_exports__);
 const CHIP_OPTIONS = [{
   label: "All",
   types: ['tribe_events', 'article', 'podcast', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living']
-}, {
-  label: "Articles",
-  types: ['article']
-}, {
-  label: "Podcasts",
-  types: ['podcast']
-}, {
-  label: "Events",
-  types: ['tribe_events']
-}, {
-  label: "Directory",
-  types: ['directory']
-}, {
-  label: "Message board",
-  types: ['gd_discount']
-} // optional, keep/remove as needed
-];
+}];
 function SearchPage({
   query = ""
 }) {
@@ -943,7 +925,25 @@ function SearchPage({
       title: "Results",
       endpoint: "/wp-json/tsb/v1/browse",
       baseQuery: baseQuery,
-      filters: [],
+      filters: [{
+        label: "Article",
+        post_type: "article"
+      }, {
+        label: "Interview",
+        post_type: "podcast"
+      }, {
+        label: "Aid Listing",
+        post_type: "gd_aid_listing"
+      }, {
+        label: "Health Listing",
+        post_type: "gd_health_listing"
+      }, {
+        label: "Message Board",
+        post_type: "gd_discount"
+      }, {
+        label: "Event",
+        post_type: "tribe_events"
+      }],
       className: "py-16 px-4 sm:px-8 lg:px-16 mx-auto max-w-[1600px]"
     })]
   });
@@ -993,4 +993,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=search.js.map?ver=30637c2035dc09cb27eb
+//# sourceMappingURL=search.js.map?ver=af16f5c188ee9a06b0a0

@@ -5,11 +5,6 @@ import { SearchBar } from "./SearchBar";
 // Post-type chips. "All" aggregates everything you want searchable.
 const CHIP_OPTIONS = [
   { label: "All", types: ['tribe_events', 'article', 'podcast', 'directory', 'gd_discount', 'gd_aid_listing', 'gd_health_listing', 'gd_business', 'gd_photo_gallery', 'gd_cost_of_living'] },
-  { label: "Articles", types: ['article'] },
-  { label: "Podcasts", types: ['podcast'] },
-  { label: "Events", types: ['tribe_events'] },
-  { label: "Directory", types: ['directory'] },
-  { label: "Message board", types: ['gd_discount'] }, // optional, keep/remove as needed
 ];
 
 export function SearchPage({ query = "" }) {
@@ -38,7 +33,14 @@ export function SearchPage({ query = "" }) {
         title="Results"
         endpoint="/wp-json/tsb/v1/browse"
         baseQuery={baseQuery}
-        filters={[]}
+        filters={[
+          { label: "Article", post_type: "article" },
+          { label: "Interview", post_type: "podcast" },
+          { label: "Aid Listing", post_type: "gd_aid_listing" },
+          { label: "Health Listing", post_type: "gd_health_listing" },
+          { label: "Message Board", post_type: "gd_discount" },
+          { label: "Event", post_type: "tribe_events" },
+        ]}
         className="py-16 px-4 sm:px-8 lg:px-16 mx-auto max-w-[1600px]"
       />
     </>

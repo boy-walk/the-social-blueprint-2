@@ -2358,7 +2358,7 @@ const SupportAndServicesHub = ({
         className: "flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_PostsSlider__WEBPACK_IMPORTED_MODULE_4__.PostsSlider, {
           events: podcasts || [],
-          title: "Recent Podcasts",
+          title: "Recent Interviews",
           description: "Hear personal stories and expert voices that shine a light on the many paths and shared experiences in our community.",
           viewAllUrl: "/podcasts/?theme=support-and-services"
         })
@@ -2461,4 +2461,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=support-hub.js.map?ver=1b9ccac2469a1e8bad1f
+//# sourceMappingURL=support-hub.js.map?ver=b827de7e3a412be349ed

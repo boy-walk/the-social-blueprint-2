@@ -2539,7 +2539,7 @@ function StoriesAndInterviews({
               children: "Stories & Interviews"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
               className: "text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl",
-              children: "Podcasts and written pieces sharing lived experiences, ideas, and reflections from Melbourne's Jewish community."
+              children: "Interviews and written pieces sharing lived experiences, ideas, and reflections from Melbourne's Jewish community."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
             src: _assets_community_connection_hub_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
@@ -2673,4 +2673,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=stories-interviews.js.map?ver=0eedae26d0b8cb741474
+//# sourceMappingURL=stories-interviews.js.map?ver=89e466cc51d9027d3e74

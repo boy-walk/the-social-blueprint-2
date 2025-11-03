@@ -99,7 +99,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
       </div>
       <div>
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <PostsSlider events={podcasts || []} title="Educational Podcasts" viewAllUrl="/podcasts/?theme=learning-and-growth" description="Hear conversations and stories from within the Jewish community and beyond, exploring education, wellbeing, and culture." />
+          <PostsSlider events={podcasts || []} title="Educational Interviews" viewAllUrl="/podcasts/?theme=learning-and-growth" description="Hear conversations and stories from within the Jewish community and beyond, exploring education, wellbeing, and culture." />
         </div>
       </div>
       <div>

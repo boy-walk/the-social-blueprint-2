@@ -2235,7 +2235,7 @@ const LearningAndGrowthHub = ({
         className: "flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PostsSlider__WEBPACK_IMPORTED_MODULE_4__.PostsSlider, {
           events: podcasts || [],
-          title: "Educational Podcasts",
+          title: "Educational Interviews",
           viewAllUrl: "/podcasts/?theme=learning-and-growth",
           description: "Hear conversations and stories from within the Jewish community and beyond, exploring education, wellbeing, and culture."
         })
@@ -2588,4 +2588,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=f2ae940474813fb6d78d
+//# sourceMappingURL=learning-hub.js.map?ver=eb24dd088ae1a2c6a88f
