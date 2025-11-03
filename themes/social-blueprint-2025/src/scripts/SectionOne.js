@@ -93,11 +93,11 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
               <div className="flex flex-col justify-center items-start gap-12">
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-col py-2 md:py-0 md:flex-row gap-4 items-center justify-center md:justify-start">
-                    <PillTag label="Real stories" backgroundColor="schemesPrimaryContainer" />
-                    <div className="Blueprint-title-large-emphasized italic leading-snug">from our community</div>
+                    <PillTag label="Articles" backgroundColor="schemesPrimaryContainer" />
+                    <div className="Blueprint-title-large-emphasized italic leading-snug">insights and inspiration</div>
                   </div>
                   <div className="max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left">
-                    Personal reflections, creative insights and thoughtful perspectives.
+                    Explore thoughtful writing, recipes, reflections and features from community members and experts.
                   </div>
                 </div>
               </div>

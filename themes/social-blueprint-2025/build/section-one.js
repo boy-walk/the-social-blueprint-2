@@ -2269,15 +2269,15 @@ const SectionOne = ({
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "flex flex-col py-2 md:py-0 md:flex-row gap-4 items-center justify-center md:justify-start",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                    label: "Real stories",
+                    label: "Articles",
                     backgroundColor: "schemesPrimaryContainer"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                     className: "Blueprint-title-large-emphasized italic leading-snug",
-                    children: "from our community"
+                    children: "insights and inspiration"
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
-                  children: "Personal reflections, creative insights and thoughtful perspectives."
+                  children: "Explore thoughtful writing, recipes, reflections and features from community members and experts."
                 })]
               })
             })
@@ -2695,4 +2695,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=b10c1dc1d6e0a6ac81b1
+//# sourceMappingURL=section-one.js.map?ver=86ceee2557ccc797b1d7
