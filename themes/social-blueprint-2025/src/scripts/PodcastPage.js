@@ -31,7 +31,7 @@ export default function PodcastPage({
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="p-6 md:p-8 lg:p-12">
-        <div className="lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16">
+        <div className="lg:max-w-[1600px] max-w-[640px] md:max-w-[1200px] mx-auto px-0 lg:px-16">
           <Breadcrumbs items={breadcrumbs} />
           <div className="flex flex-col md:flex-col lg:flex-row lg:gap-16">
             <div className="flex-3 min-w-0 space-y-4">
@@ -81,7 +81,7 @@ export default function PodcastPage({
                 </div>
               </div>
 
-              <section className="space-y-6 lg:space-y-7 max-w-3xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant">
+              <section className="space-y-6 lg:space-y-7 max-w-5xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant">
                 {sections.map((section, index) => (
                   <div
                     key={index}

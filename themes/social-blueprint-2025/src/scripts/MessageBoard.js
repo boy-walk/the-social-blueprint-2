@@ -31,7 +31,7 @@ export default function MessageBoardPage({
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
       <div className="p-6 md:p-8 lg:p-12">
-        <div className="lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16">
+        <div className="lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[1200px] mx-auto px-0 lg:px-16">
           <Breadcrumbs items={breadcrumbs} />
           <div className="flex flex-col md:flex-col lg:flex-row lg:gap-16">
             <div className="flex-3 min-w-0 space-y-6">
@@ -84,7 +84,7 @@ export default function MessageBoardPage({
               </header>
               {/* Content */}
               <section
-                className="space-y-6 lg:space-y-7 max-w-3xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant
+                className="space-y-6 lg:space-y-7 max-w-5xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant
                            break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline
                            [&_img]:max-w-full [&_img]:h-auto [&_img]:block
                            [&_figure]:max-w-full [&_figure]:overflow-hidden"
