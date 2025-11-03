@@ -1589,7 +1589,7 @@ function MessageBoardPage({
                 })]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("section", {
-              className: "space-y-6 lg:space-y-7 max-w-5xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto [&_img]:block [&_figure]:max-w-full [&_figure]:overflow-hidden",
+              className: "space-y-6 lg:space-y-7 max-w-5xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto [&_img]:block [&_figure]:max-w-full [&_figure]:overflow-hidden [&_p]:mb-4",
               dangerouslySetInnerHTML: {
                 __html: contentHtml
               }
@@ -2374,4 +2374,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=de5487cd619637bde753
+//# sourceMappingURL=mb-page.js.map?ver=2138e3fcead722a034af

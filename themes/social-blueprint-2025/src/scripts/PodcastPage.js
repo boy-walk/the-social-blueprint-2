@@ -88,7 +88,8 @@ export default function PodcastPage({
                     className=" break-words
                                 [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline
                                 [&_img]:max-w-full [&_img]:h-auto [&_img]:block
-                                [&_figure]:max-w-full [&_figure]:overflow-hidden"
+                                [&_figure]:max-w-full [&_figure]:overflow-hidden
+                                [&_p]:mb-4"
                     dangerouslySetInnerHTML={{ __html: section.text }}
                   />
                 ))}
