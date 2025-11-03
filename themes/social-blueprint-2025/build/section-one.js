@@ -1808,7 +1808,7 @@ function MessageBoardSlider({
 
   // update itemsPerView on resize
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const updateItems = () => setItemsPerView(window.innerWidth < 1028 ? 1 : 3);
+    const updateItems = () => setItemsPerView(window.innerWidth < 1201 ? 1 : 3);
     updateItems();
     window.addEventListener("resize", updateItems);
     return () => window.removeEventListener("resize", updateItems);
@@ -2234,9 +2234,9 @@ const SectionOne = ({
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-              className: "flex flex-col justify-center items-start gap-12",
+              className: "flex flex-col justify-center items-start gap-12 w-full",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                className: "flex flex-col gap-3",
+                className: "flex flex-col gap-3 w-full",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "flex flex-col py-2 md:py-0 md:flex-row gap-4 items-center justify-center md:justify-start",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -2246,9 +2246,17 @@ const SectionOne = ({
                     className: "Blueprint-title-large-emphasized italic leading-snug",
                     children: "from our community"
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                  className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
-                  children: "Personal reflections, creative insights and thoughtful perspectives."
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                  className: "flex flex-col md:flex-row gap-4 justify-between items-center w-full",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                    className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
+                    children: "Personal reflections, creative insights and thoughtful perspectives."
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                    label: "View all",
+                    onClick: () => window.location.href = '/articles',
+                    size: "base",
+                    variant: "filled"
+                  })]
                 })]
               })
             })
@@ -2263,9 +2271,9 @@ const SectionOne = ({
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-              className: "flex flex-col justify-center items-start gap-12",
+              className: "flex flex-col justify-center items-start gap-12 w-full",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                className: "flex flex-col gap-3",
+                className: "flex flex-col gap-3 w-full",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "flex flex-col py-2 md:py-0 md:flex-row gap-4 items-center justify-center md:justify-start",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -2275,9 +2283,17 @@ const SectionOne = ({
                     className: "Blueprint-title-large-emphasized italic leading-snug",
                     children: "insights and inspiration"
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                  className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
-                  children: "Explore thoughtful writing, recipes, reflections and features from community members and experts."
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                  className: "flex flex-col md:flex-row gap-4 justify-between items-center w-full",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                    className: "max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left",
+                    children: "Explore thoughtful writing, recipes, reflections and features from community members and experts."
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                    label: "View all",
+                    onClick: () => window.location.href = '/articles',
+                    size: "base",
+                    variant: "filled"
+                  })]
                 })]
               })
             })
@@ -2290,22 +2306,22 @@ const SectionOne = ({
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 md:px-8 lg:px-16 py-8 lg:py-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-            className: "flex flex-col justify-center items-center gap-12",
+            className: "flex flex-col justify-center items-center gap-4 md:gap-6 lg:gap-8",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-              className: "flex flex-col gap-3 items-center justify-center",
+              className: "flex flex-col gap-4 lg:gap-6 items-center justify-center",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                className: "flex flex-col lg:flex-row gap-3 justify-center items-center",
+                className: "flex flex-col lg:flex-row gap-1 md:gap-3 justify-center items-center text-schemesOnSecondaryFixed",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "flex gap-3 items-center justify-center",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                    className: "Blueprint-headline-large leading-snug",
+                    className: "Blueprint-title-large-emphasized leading-snug",
                     children: "Ask, offer or "
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
                     label: "Connect",
                     backgroundColor: "schemesSecondary"
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                  className: "Blueprint-headline-large leading-snug text-center md:w-auto md:text-left",
+                  className: "Blueprint-title-large-emphasized leading-snug text-center md:w-auto md:text-left",
                   children: " via the community message board"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2316,6 +2332,15 @@ const SectionOne = ({
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_MessageBoardSlider__WEBPACK_IMPORTED_MODULE_5__.MessageBoardSlider, {
             displaySlider: false,
             messageBoard: messageBoardPosts
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "flex justify-center",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+              label: "Browse all listings",
+              onClick: () => window.location.href = '/message-board',
+              size: "lg",
+              variant: "filled",
+              className: "bg-schemesSecondary"
+            })
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2695,4 +2720,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=86ceee2557ccc797b1d7
+//# sourceMappingURL=section-one.js.map?ver=1f5e3c22dab063859a30

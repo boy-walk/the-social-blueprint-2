@@ -23,7 +23,7 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
 
   // update itemsPerView on resize
   useEffect(() => {
-    const updateItems = () => setItemsPerView(window.innerWidth < 1028 ? 1 : 3);
+    const updateItems = () => setItemsPerView(window.innerWidth < 1201 ? 1 : 3);
     updateItems();
     window.addEventListener("resize", updateItems);
     return () => window.removeEventListener("resize", updateItems);

@@ -1730,7 +1730,7 @@ function MessageBoardSlider({
 
   // update itemsPerView on resize
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const updateItems = () => setItemsPerView(window.innerWidth < 1028 ? 1 : 3);
+    const updateItems = () => setItemsPerView(window.innerWidth < 1201 ? 1 : 3);
     updateItems();
     window.addEventListener("resize", updateItems);
     return () => window.removeEventListener("resize", updateItems);
@@ -2374,4 +2374,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=2138e3fcead722a034af
+//# sourceMappingURL=mb-page.js.map?ver=9e3bfe7494f76e07e37a

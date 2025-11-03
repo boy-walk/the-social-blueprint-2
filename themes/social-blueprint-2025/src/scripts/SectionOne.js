@@ -72,14 +72,22 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
         <div className="py-16 px-4 lg:px-16">
           <div className="px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
-              <div className="flex flex-col justify-center items-start gap-12">
-                <div className="flex flex-col gap-3">
+              <div className="flex flex-col justify-center items-start gap-12 w-full">
+                <div className="flex flex-col gap-3 w-full">
                   <div className="flex flex-col py-2 md:py-0 md:flex-row gap-4 items-center justify-center md:justify-start">
                     <PillTag label="Real stories" backgroundColor="schemesPrimaryContainer" />
                     <div className="Blueprint-title-large-emphasized italic leading-snug">from our community</div>
                   </div>
-                  <div className="max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left">
-                    Personal reflections, creative insights and thoughtful perspectives.
+                  <div className="flex flex-col md:flex-row gap-4 justify-between items-center w-full">
+                    <div className="max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left">
+                      Personal reflections, creative insights and thoughtful perspectives.
+                    </div>
+                    <Button
+                      label="View all"
+                      onClick={() => (window.location.href = '/articles')}
+                      size="base"
+                      variant="filled"
+                    />
                   </div>
                 </div>
               </div>
@@ -90,14 +98,22 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
         <div className="py-16 px-4 lg:px-16">
           <div className="px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full">
-              <div className="flex flex-col justify-center items-start gap-12">
-                <div className="flex flex-col gap-3">
+              <div className="flex flex-col justify-center items-start gap-12 w-full">
+                <div className="flex flex-col gap-3 w-full">
                   <div className="flex flex-col py-2 md:py-0 md:flex-row gap-4 items-center justify-center md:justify-start">
                     <PillTag label="Articles" backgroundColor="schemesPrimaryContainer" />
                     <div className="Blueprint-title-large-emphasized italic leading-snug">insights and inspiration</div>
                   </div>
-                  <div className="max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left">
-                    Explore thoughtful writing, recipes, reflections and features from community members and experts.
+                  <div className="flex flex-col md:flex-row gap-4 justify-between items-center w-full">
+                    <div className="max-w-3xl Blueprint-body-large text-schemesOnSurfaceVariant text-center md:text-left">
+                      Explore thoughtful writing, recipes, reflections and features from community members and experts.
+                    </div>
+                    <Button
+                      label="View all"
+                      onClick={() => (window.location.href = '/articles')}
+                      size="base"
+                      variant="filled"
+                    />
                   </div>
                 </div>
               </div>
@@ -107,14 +123,14 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
         </div>
         <div className="py-16 px-4 lg:px-16 flex flex-col">
           <div className="bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 md:px-8 lg:px-16 py-8 lg:py-16">
-            <div className="flex flex-col justify-center items-center gap-12">
-              <div className="flex flex-col gap-3 items-center justify-center">
-                <div className="flex flex-col lg:flex-row gap-3 justify-center items-center">
+            <div className="flex flex-col justify-center items-center gap-4 md:gap-6 lg:gap-8">
+              <div className="flex flex-col gap-4 lg:gap-6 items-center justify-center">
+                <div className="flex flex-col lg:flex-row gap-1 md:gap-3 justify-center items-center text-schemesOnSecondaryFixed">
                   <div className="flex gap-3 items-center justify-center">
-                    <div className="Blueprint-headline-large leading-snug">Ask, offer or </div>
+                    <div className="Blueprint-title-large-emphasized leading-snug">Ask, offer or </div>
                     <PillTag label="Connect" backgroundColor="schemesSecondary" />
                   </div>
-                  <div className="Blueprint-headline-large leading-snug text-center md:w-auto md:text-left"> via the community message board</div>
+                  <div className="Blueprint-title-large-emphasized leading-snug text-center md:w-auto md:text-left"> via the community message board</div>
                 </div>
                 <div className="Blueprint-body-large text-center lg:text-left text-schemesOnSecondaryContainer">
                   A living space for announcements, questions, and informal support.
@@ -122,6 +138,15 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
               </div>
             </div>
             <MessageBoardSlider displaySlider={false} messageBoard={messageBoardPosts} />
+            <div className="flex justify-center">
+              <Button
+                label="Browse all listings"
+                onClick={() => (window.location.href = '/message-board')}
+                size="lg"
+                variant="filled"
+                className="bg-schemesSecondary"
+              />
+            </div>
           </div>
         </div>
         <div className="py-8 px-4 sm:px-8 lg:px-16">
