@@ -390,7 +390,7 @@ function EventsCalendar({
             children: "Upcoming Community Events"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small text-schemesOnPrimaryFixedVariant",
-            children: "Stay informed and connected. Find community jobs, volunteer opportunities, local notices, and informal support through our active message boards and groups."
+            children: "Connect. Celebrate. Belong. Explore Melbourne\u2019s Jewish Events."
           })]
         })
       })
@@ -895,4 +895,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=62abf8410c9440edc914
+//# sourceMappingURL=events-calendar.js.map?ver=b819a362251cba0edf16

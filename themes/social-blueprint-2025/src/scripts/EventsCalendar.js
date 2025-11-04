@@ -277,7 +277,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
               Upcoming Community Events
             </div>
             <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small text-schemesOnPrimaryFixedVariant">
-              Stay informed and connected. Find community jobs, volunteer opportunities, local notices, and informal support through our active message boards and groups.
+              Connect. Celebrate. Belong. Explore Melbourne’s Jewish Events.
             </div>
           </div>
         </div>
