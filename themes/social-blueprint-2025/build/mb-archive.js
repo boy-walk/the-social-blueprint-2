@@ -1054,6 +1054,7 @@ function MessageBoardArchivePage(props) {
         }
       }
     }
+    console.log(imageUrl);
     if (imageUrl) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "aspect-[7/10] max-h-32 rounded-sm overflow-hidden shrink-0 bg-[var(--schemesSurfaceContainerHighest)]",
@@ -1465,4 +1466,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-archive.js.map?ver=5441eca520e92ae74370
+//# sourceMappingURL=mb-archive.js.map?ver=6dc29cbc41f296938474
