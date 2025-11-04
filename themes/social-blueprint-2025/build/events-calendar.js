@@ -261,7 +261,7 @@ function EventsCalendar({
   }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
   const applyResponsiveView = api => {
     if (!api || typeof window === "undefined") return;
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const mobile = window.matchMedia("(max-width: 568px)").matches;
     const desired = mobile ? "listMonth" : "dayGridMonth";
     if (api.view?.type !== desired) api.changeView(desired);
   };
@@ -269,7 +269,7 @@ function EventsCalendar({
     const api = calendarRef.current?.getApi();
     if (!api) return;
     applyResponsiveView(api);
-    const mql = window.matchMedia("(max-width: 767px)");
+    const mql = window.matchMedia("(max-width: 568px)");
     const onChange = () => applyResponsiveView(api);
     if (mql.addEventListener) mql.addEventListener("change", onChange);else mql.addListener(onChange);
     const hideTip = () => setTip(t => ({
@@ -546,7 +546,7 @@ function EventsCalendar({
         children: [tip.image ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           src: tip.image,
           alt: "",
-          className: "w-16 h-16 rounded-lg object-cover shrink-0",
+          className: "max-h-25 rounded-lg object-cover shrink-0",
           loading: "lazy",
           decoding: "async"
         }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -895,4 +895,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=b819a362251cba0edf16
+//# sourceMappingURL=events-calendar.js.map?ver=4d30f433e7db86459b18

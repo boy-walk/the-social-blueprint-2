@@ -159,7 +159,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
 
   const applyResponsiveView = (api) => {
     if (!api || typeof window === "undefined") return;
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const mobile = window.matchMedia("(max-width: 568px)").matches;
     const desired = mobile ? "listMonth" : "dayGridMonth";
     if (api.view?.type !== desired) api.changeView(desired);
   };
@@ -167,7 +167,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     const api = calendarRef.current?.getApi();
     if (!api) return;
     applyResponsiveView(api);
-    const mql = window.matchMedia("(max-width: 767px)");
+    const mql = window.matchMedia("(max-width: 568px)");
     const onChange = () => applyResponsiveView(api);
     if (mql.addEventListener) mql.addEventListener("change", onChange);
     else mql.addListener(onChange);
@@ -393,7 +393,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
               <img
                 src={tip.image}
                 alt=""
-                className="w-16 h-16 rounded-lg object-cover shrink-0"
+                className="max-h-25 rounded-lg object-cover shrink-0"
                 loading="lazy"
                 decoding="async"
               />
