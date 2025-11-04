@@ -371,12 +371,11 @@ export default function MessageBoardArchivePage(props) {
         }
       }
     }
-    console.log(imageUrl)
     if (imageUrl) {
       return (
         <div className="aspect-[7/10] max-h-32 rounded-sm overflow-hidden shrink-0 bg-[var(--schemesSurfaceContainerHighest)]">
           <img
-            src={`/app/uploads/${imageUrl}`}
+            src={`/wp-content/uploads/${imageUrl}`}
             alt={item?.title || "Category image"}
             className="w-full h-full object-fit"
             loading="lazy"
