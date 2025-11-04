@@ -41,7 +41,7 @@ $blueprint_stories_args = [
   'order' => 'DESC',
   'tax_query' => [
     [
-      'taxonomy' => 'category',
+      'taxonomy' => 'article_category',
       'field' => 'slug',
       'terms' => 'blueprint-stories',
     ]
@@ -57,9 +57,9 @@ $holocaust_stories_args = [
   'order' => 'DESC',
   'tax_query' => [
     [
-      'taxonomy' => 'category',
+      'taxonomy' => 'topic_tag',
       'field' => 'slug',
-      'terms' => 'holocaust-stories',
+      'terms' => 'holocaust',
     ]
     ],
   ];
