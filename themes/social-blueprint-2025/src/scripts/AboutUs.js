@@ -77,10 +77,10 @@ export function AboutUs(props) {
           </Card>
         </div>
       </div>
-      <div className="max-w-[1600px] mx-auto p-6 md:p-16">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-16">
         <TimelineSection timeline={timeline} intro="Our journey so far" />
       </div>
-      <div className="p-0 md:p-8 lg:p-16">
+      <div className="px-0 md:px-8 lg:px-16 py-0">
         <div className="p-4 md:p-6 lg:p-16 rounded-none md:rounded-xl bg-schemesSecondaryFixed shadow-3x2">
           <div className="max-w-[1600px] Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized p-3 lg:Blueprint-title-large-emphasized text-schemesOnSecondaryContainer mb-6 md:mb-8 lg:mb-12 text-center">Testimonials</div>
           <TestimonialSlider testimonials={t} displaySlider={t.length > 2} />
@@ -139,7 +139,7 @@ export const TimelineSection = ({ timeline = [], intro = "" }) => {
 
   return (
     <div className="flex flex-col md:flex-col lg:flex-row gap-8 lg:gap-16 self-stretch">
-      <div className="flex flex-row-reverse lg:flex-col gap-6 md:mb-8 lg:mb-0">
+      <div className="flex flex-col md:flex-row-reverse lg:flex-col gap-6 md:mb-8 lg:mb-0">
         <div className="flex flex-col gap-6">
           <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface">
             {intro}
@@ -148,7 +148,7 @@ export const TimelineSection = ({ timeline = [], intro = "" }) => {
             A look at the key moments, launches, and collaborations that have shaped The Social Blueprint.
           </p>
         </div>
-        <img src={AboutUsSvg} alt="About us illustration" className="w-full lg:w-auto max-w-70" />
+        <img src={AboutUsSvg} alt="About us illustration" className="w-full lg:w-auto max-w-50 lg:max-w-70" />
       </div>
       <ol className="flex flex-col">
         {timeline.map((time, index) => {

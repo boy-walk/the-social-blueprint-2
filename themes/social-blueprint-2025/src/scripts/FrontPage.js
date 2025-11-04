@@ -120,6 +120,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                 { title: "Stories", href: "/articles" },
                 { title: "Aid", href: "/aid_listing" },
                 { title: "Directory", href: "/directory" },
+                { title: "Israel", href: "/?s=Israel" }
               ]}
             />
           </div>

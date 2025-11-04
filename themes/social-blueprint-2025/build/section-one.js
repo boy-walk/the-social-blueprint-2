@@ -2201,9 +2201,9 @@ const SectionOne = ({
                   children: "Discover Melbourne\u2019s largest Jewish events calendar with workshops, holidays, classes and community gatherings, updated regularly."
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
               className: "flex flex-no-wrap lg:flex-wrap gap-4 items-center justify-start",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
                 label: "Browse the calendar",
                 onClick: () => window.location.href = '/events',
                 size: "base",
@@ -2216,12 +2216,7 @@ const SectionOne = ({
                     size: 12
                   })
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
-                label: "View all events",
-                onClick: () => window.location.href = '/submit-event',
-                size: "base",
-                variant: "filled"
-              })]
+              })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_FeaturedPostLayout__WEBPACK_IMPORTED_MODULE_4__["default"], {
             posts: events
@@ -2720,4 +2715,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=4dc355cf15cc9ccfd374
+//# sourceMappingURL=section-one.js.map?ver=ffa7594bc705f67de599

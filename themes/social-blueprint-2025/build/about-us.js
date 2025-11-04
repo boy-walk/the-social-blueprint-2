@@ -374,13 +374,13 @@ function AboutUs(props) {
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "max-w-[1600px] mx-auto p-6 md:p-16",
+      className: "max-w-[1600px] mx-auto px-6 md:px-16",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(TimelineSection, {
         timeline: timeline,
         intro: "Our journey so far"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "p-0 md:p-8 lg:p-16",
+      className: "px-0 md:px-8 lg:px-16 py-0",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "p-4 md:p-6 lg:p-16 rounded-none md:rounded-xl bg-schemesSecondaryFixed shadow-3x2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -455,7 +455,7 @@ const TimelineSection = ({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "flex flex-col md:flex-col lg:flex-row gap-8 lg:gap-16 self-stretch",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "flex flex-row-reverse lg:flex-col gap-6 md:mb-8 lg:mb-0",
+      className: "flex flex-col md:flex-row-reverse lg:flex-col gap-6 md:mb-8 lg:mb-0",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "flex flex-col gap-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
@@ -468,7 +468,7 @@ const TimelineSection = ({
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
         src: _assets_about_us_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
         alt: "About us illustration",
-        className: "w-full lg:w-auto max-w-70"
+        className: "w-full lg:w-auto max-w-50 lg:max-w-70"
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ol", {
       className: "flex flex-col",
@@ -757,4 +757,4 @@ function TestimonialSlider({
 /***/ })
 
 }]);
-//# sourceMappingURL=about-us.js.map?ver=54fc7a9a291d5fc1c1e0
+//# sourceMappingURL=about-us.js.map?ver=b8ca5bc33c56b3697bac

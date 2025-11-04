@@ -58,12 +58,6 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
                   variant="filled"
                   icon={<div className="bg-white rounded-full p-1"><StarIcon color="#1e6586" weight="fill" size={12} /></div>}
                 />
-                <Button
-                  label="View all events"
-                  onClick={() => (window.location.href = '/submit-event')}
-                  size="base"
-                  variant="filled"
-                />
               </div>
             </div>
             <FeaturedPostLayout posts={events} />

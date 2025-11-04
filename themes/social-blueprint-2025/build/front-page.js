@@ -966,6 +966,9 @@ function FrontPage({
             }, {
               title: "Directory",
               href: "/directory"
+            }, {
+              title: "Israel",
+              href: "/?s=Israel"
             }]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
@@ -1601,4 +1604,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=0b57f6d2e49e8498f8d1
+//# sourceMappingURL=front-page.js.map?ver=b4809bd7b215743c2300

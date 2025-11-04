@@ -71,7 +71,7 @@ const MENU_SECTIONS = {
         { label: "Discover Events", href: "/events" },
         { label: "View Calendar", href: "/events" },
         { label: "Featured Events", href: "/events?featured=1" },
-        { label: "Submit an event", href: "/events-calendar/community/add" },
+        { label: "Submit an Event", href: "/events-calendar/community/add" },
       ],
     },
     {
@@ -105,9 +105,9 @@ const MENU_SECTIONS = {
     {
       title: "Read & Listen",
       items: [
-        { label: "Articles and blogs", href: "/articles" },
+        { label: "Articles and Blogs", href: "/articles" },
         { label: "Everybody has a story", href: "/podcasts/?series=everybody-has-a-story" },
-        { label: "Candid conversations", href: "/podcasts/?series=candid-conversations" },
+        { label: "Candid Conversations", href: "/podcasts/?series=candid-conversations" },
       ],
     },
     {
@@ -126,7 +126,7 @@ const MENU_SECTIONS = {
         { label: "Our Mission", href: "/about-us" },
         { label: "Contact & Support", href: "/contact-us" },
         { label: "FAQs", href: "/faqs" },
-        { label: "Terms and conditions", href: "/terms" },
+        { label: "Terms and Conditions", href: "/terms" },
       ],
     },
   ],
@@ -134,8 +134,8 @@ const MENU_SECTIONS = {
     {
       title: "Message Board",
       items: [
-        { label: "Browse Message board", href: "/message-boards" },
-        { label: "Post a notice", href: "/add-listing/message-boards/" },
+        { label: "Browse Message Board", href: "/message-boards" },
+        { label: "Post a Notice", href: "/add-listing/message-boards/" },
       ],
     },
     {
@@ -143,8 +143,8 @@ const MENU_SECTIONS = {
       items: [
         { label: "Jobs", href: "/message-boards?cat=jobs" },
         { label: "Volunteering", href: "/message-boards?cat=volunteering" },
-        { label: "Local notices", href: "/message-boards?cat=local-notices" },
-        { label: "Informal support", href: "/message-boards?cat=support" },
+        { label: "Local Notices", href: "/message-boards?cat=local-notices" },
+        { label: "Informal Support", href: "/message-boards?cat=support" },
       ],
     },
   ],

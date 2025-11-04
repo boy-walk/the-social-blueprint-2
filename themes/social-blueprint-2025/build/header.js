@@ -237,7 +237,7 @@ const MENU_SECTIONS = {
       label: "Featured Events",
       href: "/events?featured=1"
     }, {
-      label: "Submit an event",
+      label: "Submit an Event",
       href: "/events-calendar/community/add"
     }]
   }, {
@@ -281,13 +281,13 @@ const MENU_SECTIONS = {
   "blueprint-stories": [{
     title: "Read & Listen",
     items: [{
-      label: "Articles and blogs",
+      label: "Articles and Blogs",
       href: "/articles"
     }, {
       label: "Everybody has a story",
       href: "/podcasts/?series=everybody-has-a-story"
     }, {
-      label: "Candid conversations",
+      label: "Candid Conversations",
       href: "/podcasts/?series=candid-conversations"
     }]
   }, {
@@ -315,17 +315,17 @@ const MENU_SECTIONS = {
       label: "FAQs",
       href: "/faqs"
     }, {
-      label: "Terms and conditions",
+      label: "Terms and Conditions",
       href: "/terms"
     }]
   }],
   "message-board": [{
     title: "Message Board",
     items: [{
-      label: "Browse Message board",
+      label: "Browse Message Board",
       href: "/message-boards"
     }, {
-      label: "Post a notice",
+      label: "Post a Notice",
       href: "/add-listing/message-boards/"
     }]
   }, {
@@ -337,10 +337,10 @@ const MENU_SECTIONS = {
       label: "Volunteering",
       href: "/message-boards?cat=volunteering"
     }, {
-      label: "Local notices",
+      label: "Local Notices",
       href: "/message-boards?cat=local-notices"
     }, {
-      label: "Informal support",
+      label: "Informal Support",
       href: "/message-boards?cat=support"
     }]
   }],
@@ -1006,4 +1006,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=219521289e55c1a0176e
+//# sourceMappingURL=header.js.map?ver=d64933a971fc014f3367
