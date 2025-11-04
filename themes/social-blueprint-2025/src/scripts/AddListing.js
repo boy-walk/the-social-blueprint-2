@@ -1,7 +1,7 @@
 import React from "react";
 import { NewsletterBanner } from "./NewsletterBanner";
 import { Card } from "./Card";
-import { BowlFoodIcon, HeartHalfIcon, MicrophoneStageIcon, MoneyWavyIcon, StarOfDavidIcon } from "@phosphor-icons/react";
+import { BookIcon, BowlFoodIcon, HeartHalfIcon, MicrophoneStageIcon, MoneyWavyIcon, StarOfDavidIcon } from "@phosphor-icons/react";
 import { Breadcrumbs } from "./Breadcrumbs";
 
 export function AddListing({ breadcrumbs = [] }) {
@@ -27,7 +27,7 @@ export function AddListing({ breadcrumbs = [] }) {
             <div className="mt-6">
               <div className="mt-6">
                 <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory
-                md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
+                md:grid md:grid-cols-6 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
                     <Card styles="shadow-3x3" href="/add-listing/health_listing">
                       <div className="flex flex-col gap-2 h-full justify-between items-start p-4 w-full">
@@ -35,7 +35,7 @@ export function AddListing({ breadcrumbs = [] }) {
                           <MoneyWavyIcon size={22} />
                         </div>
                         <div className="flex flex-col gap-0.5">
-                          <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add Health and Wellbeing<br />Clinicians, groups, programs.</div>
+                          <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add <b>Health and Wellbeing</b><br />Clinicians, groups, programs.</div>
                         </div>
                       </div>
                     </Card>
@@ -47,7 +47,7 @@ export function AddListing({ breadcrumbs = [] }) {
                         <div className="bg-[#A3B4FF] rounded-[12px] p-1">
                           <BowlFoodIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add Aid and Support<br />Community services, help.</div>
+                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add <b>Aid and Support</b><br />Community services, help.</div>
                       </div>
                     </Card>
                   </div>
@@ -58,7 +58,7 @@ export function AddListing({ breadcrumbs = [] }) {
                         <div className="bg-[#FF9388] rounded-[12px] p-1">
                           <HeartHalfIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Post to message board<br />Items, jobs, services.</div>
+                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Post to <b>message board</b><br />Items, jobs, services.</div>
                       </div>
                     </Card>
                   </div>
@@ -69,7 +69,7 @@ export function AddListing({ breadcrumbs = [] }) {
                         <div className="bg-[#F7D471] rounded-[12px] p-1">
                           <MicrophoneStageIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add an event<br />Workshops, festivals, classes.</div>
+                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add an <b>event</b><br />Workshops, festivals, classes.</div>
                       </div>
                     </Card>
                   </div>
@@ -78,9 +78,21 @@ export function AddListing({ breadcrumbs = [] }) {
                     <Card styles="shadow-3x3" href="/submit-article">
                       <div className="flex flex-col gap-2 h-full justify-between items-start p-4 w-full">
                         <div className="bg-[#7FD0FF] rounded-[12px] p-1">
+                          <BookIcon size={22} />
+                        </div>
+                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Submit an article<br /><b>Stories, interviews, opinions</b></div>
+                      </div>
+                    </Card>
+                  </div>
+
+
+                  <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
+                    <Card styles="shadow-3x3" href="/add-listing/listings">
+                      <div className="flex flex-col gap-2 h-full justify-between items-start p-4 w-full">
+                        <div className="bg-[#7FD0FF] rounded-[12px] p-1">
                           <StarOfDavidIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Submit an article<br />Stories, interviews, opinions</div>
+                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add <b>Social | Community Interests</b><br />Post community groups and activities.</div>
                       </div>
                     </Card>
                   </div>

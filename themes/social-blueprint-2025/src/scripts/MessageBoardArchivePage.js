@@ -15,6 +15,7 @@ export default function MessageBoardArchivePage(props) {
     title,
     subtitle,
     breadcrumbs = [],
+    categories = [],
   } = props;
 
   const CPT = useMemo(() => (Array.isArray(postType) ? postType[0] : postType) || "gd_discount", [postType]);
@@ -220,14 +221,7 @@ export default function MessageBoardArchivePage(props) {
         const json = await res.json();
 
         if (!cancelled && seq === fetchSeq.current) {
-          // Sort items: featured posts first, then others
-          const sortedItems = (json.items || []).sort((a, b) => {
-            const aFeat = a.featured ? 1 : 0;
-            const bFeat = b.featured ? 1 : 0;
-            return bFeat - aFeat;
-          });
-
-          setItems(sortedItems);
+          setItems(json.items || []);
           setTotalPages(json.total_pages || 1);
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
@@ -358,7 +352,39 @@ export default function MessageBoardArchivePage(props) {
   };
 
   const LeadingIcon = ({ item }) => {
-    const letter = (String(item?.title || "").trim()[0] || "â€¢").toUpperCase();
+    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
+
+    // Find the category image from the categories prop
+    let imageUrl = null;
+
+    // Look through the item's taxonomies to find the category
+    if (item?.taxonomies && categoryTax) {
+      console.log(item?.taxonomies, categoryTax)
+      const itemCategories = item.taxonomies[categoryTax];
+      if (Array.isArray(itemCategories) && itemCategories.length > 0) {
+        // Get the first category's ID
+        const categoryId = itemCategories[0].id;
+        // Find matching category in the categories prop
+        const matchingCategory = categories.find(cat => cat.id === categoryId);
+        if (matchingCategory?.image_url) {
+          imageUrl = matchingCategory.image_url;
+        }
+      }
+    }
+
+    if (imageUrl) {
+      return (
+        <div className="aspect-[7/10] max-h-32 rounded-sm overflow-hidden shrink-0 bg-[var(--schemesSurfaceContainerHighest)]">
+          <img
+            src={`/app/uploads/${imageUrl}`}
+            alt={item?.title || "Category image"}
+            className="w-full h-full object-fit"
+            loading="lazy"
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0">
         <span className="Blueprint-headline-medium text-[var(--schemesOnSecondaryContainer)]">
@@ -377,9 +403,9 @@ export default function MessageBoardArchivePage(props) {
         href={href}
         className="block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] hover:bg-[var(--schemesSurfaceContainer)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition"
       >
-        <div className="flex gap-4 p-4">
+        <div className="flex gap-4 p-2">
           <LeadingIcon item={item} />
-          <div className="flex-1">
+          <div className="flex-1 py-2">
             {categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-2">
                 {categories.map((label, idx) => (
@@ -570,7 +596,7 @@ export default function MessageBoardArchivePage(props) {
               {skeletonRows}
             </div>
           )}
-          {console.log(filteredItems)}
+
           {/* Empty */}
           {!loading && !error && filteredItems.length === 0 && (
             <div className="rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-10 text-center mb-8">

@@ -557,7 +557,7 @@ add_action('rest_api_init', function () {
             'name' => $t->name,
             'slug' => $t->slug,
             'parent' => (int)$t->parent,
-            'count' => (int)$t->count
+            'count' => (int)$t->count,
           ];
         }, $terms);
       }

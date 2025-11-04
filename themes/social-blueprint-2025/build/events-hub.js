@@ -1371,8 +1371,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ContentCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContentCard */ "./src/scripts/ContentCard.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowRight.es.js");
 /* harmony import */ var _getBadge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getBadge */ "./src/scripts/getBadge.js");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Icon */ "./src/scripts/Icon.js");
@@ -1564,29 +1562,68 @@ function BrowseAll({
     }), err && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
       className: "Blueprint-body-large text-[var(--schemesError)] mt-6",
       children: ["Error: ", err]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "flex justify-center items-center gap-4 mt-8",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_4__.IconButton, {
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.ArrowLeftIcon, {
-          size: 24,
-          weight: "bold"
-        }),
-        disabled: page === 1,
-        onClick: () => setPage(p => Math.max(p - 1, 1)),
-        style: "standard"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-        label: `${page}/${totalPages}`,
-        variant: "filled",
-        className: "cursor-default pointer-events-none"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_4__.IconButton, {
-        disabled: page >= totalPages,
-        onClick: () => setPage(p => Math.min(p + 1, totalPages)),
-        style: "standard",
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.ArrowRightIcon, {
-          size: 24,
-          weight: "bold"
-        })
-      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "flex justify-center items-center gap-3 mt-2",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "flex justify-center items-center flex-wrap gap-2 mt-2",
+        children: (() => {
+          const buttons = [];
+          const range = 2; // how many pages before and after current page
+
+          let start = Math.max(1, page - range);
+          let end = Math.min(totalPages, page + range);
+
+          // Adjust range at edges (so we still show up to 5)
+          if (page <= range) end = Math.min(totalPages, 1 + range * 2);
+          if (page > totalPages - range) start = Math.max(1, totalPages - range * 2);
+
+          // Always include first page
+          if (start > 1) {
+            buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              size: "sm",
+              variant: page === 1 ? "filled" : "tonal",
+              label: "1",
+              onClick: () => setPage(1),
+              className: `min-w-[36px] px-3 ${page === 1 ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`
+            }, 1));
+            if (start > 2) {
+              buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "px-1 text-schemesOnSurfaceVariant",
+                children: "\u2026"
+              }, "start-ellipsis"));
+            }
+          }
+
+          // Pages around current
+          for (let i = start; i <= end; i++) {
+            buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              size: "sm",
+              variant: i === page ? "filled" : "tonal",
+              label: i.toString(),
+              onClick: () => setPage(i),
+              className: `min-w-[36px] px-3 ${i === page ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`
+            }, i));
+          }
+
+          // Always include last page
+          if (end < totalPages) {
+            if (end < totalPages - 1) {
+              buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "px-1 text-schemesOnSurfaceVariant",
+                children: "\u2026"
+              }, "end-ellipsis"));
+            }
+            buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              size: "sm",
+              variant: page === totalPages ? "filled" : "tonal",
+              label: totalPages.toString(),
+              onClick: () => setPage(totalPages),
+              className: `min-w-[36px] px-3 ${page === totalPages ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`
+            }, totalPages));
+          }
+          return buttons;
+        })()
+      })
     })]
   });
 }
@@ -2633,4 +2670,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=events-hub.js.map?ver=fadf7463b16c66b8de38
+//# sourceMappingURL=events-hub.js.map?ver=5cbd823b5420eb83b07e

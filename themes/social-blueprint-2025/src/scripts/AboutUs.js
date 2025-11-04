@@ -4,6 +4,7 @@ import { Card } from "./Card"
 import { TestimonialSlider } from "./TestimonialSlider"
 import { ICONS } from "./IconPicker"
 import Megaphone from "../../assets/megaphone.svg"
+import AboutUsSvg from "../../assets/about-us.svg"
 
 export function AboutUs(props) {
   const { timeline = [], testimonials = [], featuredVideo = {} } = props
@@ -138,15 +139,17 @@ export const TimelineSection = ({ timeline = [], intro = "" }) => {
 
   return (
     <div className="flex flex-col md:flex-col lg:flex-row gap-8 lg:gap-16 self-stretch">
-      <div className="flex flex-col gap-6">
-        <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface">
-          {intro}
-        </h2>
-        <p className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant lg:max-w-sm">
-          A look at the key moments, launches, and collaborations that have shaped The Social Blueprint.
-        </p>
+      <div className="flex flex-row-reverse lg:flex-col gap-6 md:mb-8 lg:mb-0">
+        <div className="flex flex-col gap-6">
+          <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface">
+            {intro}
+          </h2>
+          <p className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant lg:max-w-sm">
+            A look at the key moments, launches, and collaborations that have shaped The Social Blueprint.
+          </p>
+        </div>
+        <img src={AboutUsSvg} alt="About us illustration" className="w-full lg:w-auto max-w-70" />
       </div>
-
       <ol className="flex flex-col">
         {timeline.map((time, index) => {
           const Icon = ICONS[time.icon] || PlanetIcon;

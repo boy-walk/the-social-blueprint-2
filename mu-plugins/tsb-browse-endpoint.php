@@ -115,6 +115,7 @@ add_action('rest_api_init', function () {
             'author'    => get_the_author_meta('display_name', $author_id),
             'topics'    => wp_get_post_terms($post->ID, 'topic_tag', ['fields' => 'names']),
             'featured'  => get_post_meta($post->ID, 'is_featured', "1") ? true : false,
+            'gd_category_image' => get_post_meta($post->ID, 'gd_category_image', true),
           ];
         }, $q->posts);
 
