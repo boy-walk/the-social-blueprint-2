@@ -58,7 +58,7 @@ export function AddListing({ breadcrumbs = [] }) {
                         <div className="bg-[#FF9388] rounded-[12px] p-1">
                           <HeartHalfIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Post to <b>message board</b><br />Items, jobs, services.</div>
+                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Post to <b>Message Board</b><br />Items, jobs, services.</div>
                       </div>
                     </Card>
                   </div>
@@ -69,7 +69,7 @@ export function AddListing({ breadcrumbs = [] }) {
                         <div className="bg-[#F7D471] rounded-[12px] p-1">
                           <MicrophoneStageIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add an <b>event</b><br />Workshops, festivals, classes.</div>
+                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Add an <b>Event</b><br />Workshops, festivals, classes.</div>
                       </div>
                     </Card>
                   </div>
@@ -80,7 +80,7 @@ export function AddListing({ breadcrumbs = [] }) {
                         <div className="bg-[#7FD0FF] rounded-[12px] p-1">
                           <BookIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Submit an article<br /><b>Stories, interviews, opinions</b></div>
+                        <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small">Submit an article<br /><b>Stories, Interviews.</b></div>
                       </div>
                     </Card>
                   </div>

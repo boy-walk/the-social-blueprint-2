@@ -1,5 +1,5 @@
-/* ───────────── sm: 0–767px ───────────── */
-@media (max-width: 767px) {
+/* ───────────── sm: 0–568px ───────────── */
+@media (max-width: 567px) {
   .sm\:Blueprint-display-large {
     font-weight: 700;
     font-size: 56px;
@@ -235,7 +235,7 @@
 }
 
 /* ───────────── md: 768–1023px ───────────── */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 568px) and (max-width: 1200px) {
   .md\:Blueprint-display-large {
     font-weight: 700;
     font-size: 56px;
@@ -471,7 +471,7 @@
 }
 
 /* ───────────── lg: ≥1024px ───────────── */
-@media (min-width: 1024px) {
+@media (min-width: 1201px) {
   .lg\:Blueprint-display-large {
     font-weight: 700;
     font-size: 56px;

@@ -199,7 +199,7 @@ function AddListing({
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                         className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small",
                         children: ["Post to ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("b", {
-                          children: "message board"
+                          children: "Message Board"
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Items, jobs, services."]
                       })]
                     })
@@ -219,7 +219,7 @@ function AddListing({
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                         className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small",
                         children: ["Add an ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("b", {
-                          children: "event"
+                          children: "Event"
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Workshops, festivals, classes."]
                       })]
                     })
@@ -239,7 +239,7 @@ function AddListing({
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                         className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small",
                         children: ["Submit an article", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("b", {
-                          children: "Stories, interviews, opinions"
+                          children: "Stories, Interviews."
                         })]
                       })]
                     })
@@ -421,4 +421,4 @@ const NewsletterBanner = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=add-listing.js.map?ver=ae47bcbc89e2c48ffaaf
+//# sourceMappingURL=add-listing.js.map?ver=b8182c2e10a375831746
