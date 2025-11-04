@@ -140,7 +140,7 @@ export default function PodcastPage({
       </div>
 
       <div className="hidden md:block md:p-8 lg:p-16 lg:max-w-[1600px] mx-auto">
-        <PostsSlider events={moreInterviews} itemsToDisplay={3} />
+        <PostsSlider events={moreInterviews} itemsToDisplay={4} />
       </div>
 
       <div className="bg-schemesPrimaryFixed w-full">

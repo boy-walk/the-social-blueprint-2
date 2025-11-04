@@ -1821,7 +1821,7 @@ function PodcastPage({
       className: "hidden md:block md:p-8 lg:p-16 lg:max-w-[1600px] mx-auto",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_PostsSlider__WEBPACK_IMPORTED_MODULE_7__.PostsSlider, {
         events: moreInterviews,
-        itemsToDisplay: 3
+        itemsToDisplay: 4
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       className: "bg-schemesPrimaryFixed w-full",
@@ -2485,4 +2485,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=6db160ace08396428607
+//# sourceMappingURL=podcast-page.js.map?ver=4c1ea119c41052e71182
