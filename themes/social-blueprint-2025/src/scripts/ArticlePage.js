@@ -90,7 +90,7 @@ export function ArticlePage({
               <section className="space-y-6 lg:space-y-7 max-w-5xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant">
                 {content ? (
                   <div
-                    className="break-words  [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-4 [&_a]:underline"
+                    className="break-words  [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-4 [&_a]:underline [&_p]:mb-4"
                     dangerouslySetInnerHTML={{ __html: content }}
                   />
                 ) : (

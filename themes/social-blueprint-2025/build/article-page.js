@@ -1337,7 +1337,7 @@ function ArticlePage({
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("section", {
               className: "space-y-6 lg:space-y-7 max-w-5xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant",
               children: content ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                className: "break-words  [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-4 [&_a]:underline",
+                className: "break-words  [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-4 [&_a]:underline [&_p]:mb-4",
                 dangerouslySetInnerHTML: {
                   __html: content
                 }
@@ -2450,4 +2450,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=article-page.js.map?ver=e78532656f5a58ce95b7
+//# sourceMappingURL=article-page.js.map?ver=02b47f67bb31b3d56740
