@@ -135,7 +135,7 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
             <div className="flex justify-center">
               <Button
                 label="Browse all listings"
-                onClick={() => (window.location.href = '/message-board')}
+                onClick={() => (window.location.href = '/message-boards')}
                 size="lg"
                 variant="filled"
                 className="bg-schemesSecondary"

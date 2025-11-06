@@ -2331,7 +2331,7 @@ const SectionOne = ({
             className: "flex justify-center",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
               label: "Browse all listings",
-              onClick: () => window.location.href = '/message-board',
+              onClick: () => window.location.href = '/message-boards',
               size: "lg",
               variant: "filled",
               className: "bg-schemesSecondary"
@@ -2715,4 +2715,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=ffa7594bc705f67de599
+//# sourceMappingURL=section-one.js.map?ver=0a0b2d0e8e9461da7fcb

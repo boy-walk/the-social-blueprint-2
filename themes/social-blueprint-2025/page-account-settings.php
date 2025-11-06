@@ -3,10 +3,7 @@
  * Template Name: Account Settings
  */
 
-get_header();if (!is_user_logged_in()) {
-  wp_redirect(wp_login_url());
-  exit;
-}
+get_header();
 
 $current_user = wp_get_current_user();
 $user_id = $current_user->ID;

@@ -262,9 +262,9 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
 /* QuickLinks: responsive grid → row */
 const QuickLinks = ({ links = [] }) => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-row gap-3 md:gap-4">
+    <div className="flex gap-2 flex-wrap">
       {links.map((link, i) => (
-        <a key={i} href={link.href || "#"} className="no-underline md:flex-1">
+        <a key={i} href={link.href || "#"} className="no-underline">
           <div className="w-full text-center Blueprint-label-large px-4 py-2 md:py-1.5 rounded-lg bg-schemesOnPrimaryContainer text-schemesOnPrimaryFixed">
             {link.title}
           </div>

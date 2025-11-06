@@ -3,6 +3,11 @@
  * Template Name: Aid Listing Hub
  */
 
+ if (!is_user_logged_in()) {
+  wp_redirect(home_url('/login'));
+  exit;
+}
+
 get_header();
 
 $breadcrumbs = sbp_build_breadcrumbs();

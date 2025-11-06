@@ -1115,10 +1115,10 @@ const QuickLinks = ({
   links = []
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-    className: "grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-row gap-3 md:gap-4",
+    className: "flex gap-2 flex-wrap",
     children: links.map((link, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
       href: link.href || "#",
-      className: "no-underline md:flex-1",
+      className: "no-underline",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "w-full text-center Blueprint-label-large px-4 py-2 md:py-1.5 rounded-lg bg-schemesOnPrimaryContainer text-schemesOnPrimaryFixed",
         children: link.title
@@ -1604,4 +1604,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=b4809bd7b215743c2300
+//# sourceMappingURL=front-page.js.map?ver=3c6b869ecc4224d9e7ce
