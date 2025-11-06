@@ -74,7 +74,7 @@ if ($contact['website'] && !preg_match('#^https?://#i', $contact['website'])) {
 /* --- Related content --- */
 $related_content = [];
 if (function_exists('sb_get_related_by_topic_tags')) {
-  $rels = sb_get_related_by_topic_tags($post_id, 3, true, ['gd_health_listing']);
+  $rels = sb_get_related_by_topic_tags($post_id, 3, true, ['gd_health_listing'], ['topic_tag', 'theme']);
   if ($rels) {
     foreach ($rels as $p) {
       $related_content[] = [

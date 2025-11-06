@@ -51,7 +51,7 @@ if ( is_wp_error( $terms ) || empty( $terms ) ) {
 $content_html = apply_filters('the_content', get_post_field('post_content', $post_id));
 $sections = [['text' => $content_html]];
 
-$related = sb_get_related_by_topic_tags( $post_id, 3, true, ['tribe_events'] );
+$related = sb_get_related_by_topic_tags( $post_id, 3, true, ['tribe_events'], ['topic_tag', 'theme'] );
 $breadcrumbs = sbp_build_breadcrumbs();
 
 $more_week = [];

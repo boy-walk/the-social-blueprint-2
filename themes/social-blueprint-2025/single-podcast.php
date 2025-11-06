@@ -83,7 +83,7 @@ $people_tags = get_terms([
   'order' => 'ASC',
 ]);
 
-$related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcast'] );
+$related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcast'], ['topic_tag', 'theme'] );
 ?>
 
 <div id="podcast-root"

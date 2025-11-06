@@ -57,7 +57,7 @@ $content_html = ob_get_clean();
 
 // Related content (topic_tag/theme) if your helper exists; otherwise empty
 $related_posts = function_exists('sb_get_related_by_topic_tags')
-  ? sb_get_related_by_topic_tags($post_id, 3, false, ['gd_cost_of_living'])
+  ? sb_get_related_by_topic_tags($post_id, 3, false, ['gd_cost_of_living'], ['topic_tag', 'theme'])
   : [];
 $related_content = array_map(function($p){
   return [

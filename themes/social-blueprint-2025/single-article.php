@@ -65,7 +65,7 @@ if ($more_articles->have_posts()) {
   $more_articles_data = [];
 }
 
-$related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, false, ['article'] );
+$related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, false, ['article'], ['topic_tag', 'theme'] );
 
 $more_by_author = new WP_Query([
   'post_type'      => 'article',

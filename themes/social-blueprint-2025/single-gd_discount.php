@@ -52,7 +52,7 @@ $content_html = apply_filters('the_content', get_post_field('post_content', $pos
 
 /** Related content. */
 if (function_exists('sb_get_related_by_topic_tags')) {
-  $related_posts = sb_get_related_by_topic_tags($post_id, 4, false, 'gd_discount');
+  $related_posts = sb_get_related_by_topic_tags($post_id, 4, false, 'gd_discount', ['topic_tag', 'theme']);
 } else {
   // Group term IDs by taxonomy and query each group (avoids cross-tax mismatch)
   $tax_groups = [];
