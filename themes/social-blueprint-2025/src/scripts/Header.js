@@ -81,6 +81,8 @@ const MENU_SECTIONS = {
         { label: "For Adults", href: "/events?audience=adults" },
         { label: "Community Groups", href: "/events?audience=groups" },
         { label: "For Seniors", href: "/events?audience=seniors" },
+        { label: "For Children", href: "/events?audience=children" },
+        { label: "For Teens", href: "/events?audience=teens" },
       ],
     },
   ],

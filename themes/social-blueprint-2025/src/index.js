@@ -107,6 +107,7 @@ mount(
     tags: parse(el.dataset.tags || '[]'), moreInterviews: parse(el.dataset.moreInterviews || '[]'),
     author: parse(el.dataset.authorObj || '{}'), taxonomies: parse(el.dataset.taxonomies || '{}'),
     relatedContent: parse(el.dataset.relatedContent || '[]'), breadcrumbs: parse(el.dataset.breadcrumbs || '[]'),
+    interviewees: parse(el.dataset.interviewees || '[]'),
   })
 );
 

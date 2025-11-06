@@ -125,13 +125,31 @@ $podcasts = get_posts([
 
 $podcast_posts = array_map('map_post', $podcasts);
 
-$message_board_posts = get_posts([
+$featured_posts = get_posts([
   'post_type' => 'gd_discount',
   'posts_per_page' => 3,
   'orderby' => 'date',
   'order' => 'DESC',
+  'meta_key' => 'is_featured',
+  'meta_value' => '1'
 ]);
-$message_board_posts = array_map('map_post', $message_board_posts);
+
+$remaining = 3 - count($featured_posts);
+
+// Fill remaining slots with non-featured posts
+$other_posts = [];
+if ($remaining > 0) {
+  $exclude_ids = array_map(function($p) { return $p->ID; }, $featured_posts);
+  $other_posts = get_posts([
+    'post_type' => 'gd_discount',
+    'posts_per_page' => $remaining,
+    'orderby' => 'date',
+    'order' => 'DESC',
+    'post__not_in' => $exclude_ids
+  ]);
+}
+
+$message_board_posts = array_map('map_post', array_merge($featured_posts, $other_posts));
 
 $callout_one = get_field('callout_one');
 $callout_two = get_field('callout_two');

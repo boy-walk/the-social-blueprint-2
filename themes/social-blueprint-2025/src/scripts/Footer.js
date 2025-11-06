@@ -33,9 +33,8 @@ export function Footer({ className = '' }) {
             {
               heading: 'Explore',
               links: [{ title: 'What’s on', href: '/events' },
-              { title: 'Blueprint Stories', href: '/stories-and-interview' },
+              { title: 'Blueprint Stories', href: '/stories-and-interviews' },
               { title: 'By Topic', href: '/topics' },
-              { title: 'By Audience', href: '/audience_tag' },
               ],
             },
             {
@@ -43,7 +42,7 @@ export function Footer({ className = '' }) {
               links: [{ title: 'Message Board', href: '/message-boards' },
               { title: 'Cost of Living', href: '/cost-of-living' },
               { title: 'Directory', href: '/directory' },
-              { title: 'Post a notice', href: '/post-a-notice' }],
+              { title: 'Add Listing', href: '/add-listing-hub' }],
             },
             {
               heading: 'About',

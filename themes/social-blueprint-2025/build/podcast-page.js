@@ -1713,7 +1713,8 @@ function PodcastPage({
   moreInterviews,
   author,
   relatedContent = [],
-  breadcrumbs = []
+  breadcrumbs = [],
+  interviewees = []
 }) {
   const formattedDate = date ? new Date(date).toLocaleDateString("en-AU", {
     year: "numeric",
@@ -1811,6 +1812,21 @@ function PodcastPage({
                     className: "Blueprint-label-large underline text-schemesPrimary p-2",
                     children: "Explore all topics"
                   })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("select", {
+                  className: "mt-4 w-full rounded-lg bg-schemesSurfaceContainer text-schemesOnSurfaceVariant p-3 outline-none Blueprint-body-medium",
+                  onChange: e => {
+                    const selectedUrl = e.target.value;
+                    if (selectedUrl) {
+                      window.location.href = selectedUrl;
+                    }
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
+                    value: "",
+                    children: "Browse by Interviewee"
+                  }), interviewees.map(person => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
+                    value: person.link,
+                    children: person.name
+                  }, person.id))]
                 })]
               })
             })]
@@ -2485,4 +2501,4 @@ const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u03
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=4c1ea119c41052e71182
+//# sourceMappingURL=podcast-page.js.map?ver=29a8b05deb87886d3e8e

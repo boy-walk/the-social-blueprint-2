@@ -76,6 +76,13 @@ if ($more_interviews->have_posts()) {
   $more_interviews_data = [];
 }
 
+$people_tags = get_terms([
+  'taxonomy' => 'people_tag',
+  'hide_empty' => false, // Include terms with no posts
+  'orderby' => 'name',
+  'order' => 'ASC',
+]);
+
 $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcast'] );
 ?>
 
@@ -98,6 +105,13 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcas
        ];
      }, $related_content)) ); ?>'
      data-breadcrumbs='<?php echo esc_attr( wp_json_encode($breadcrumbs) ); ?>'
+     data-interviewees='<?php echo esc_attr( wp_json_encode(array_map(function($term) {
+       return [
+         'id'   => $term->term_id,
+         'name' => $term->name,
+         'link' => get_term_link($term),
+       ];
+     }, $people_tags)) ); ?>'
 >
 </div>
 

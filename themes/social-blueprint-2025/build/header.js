@@ -254,6 +254,12 @@ const MENU_SECTIONS = {
     }, {
       label: "For Seniors",
       href: "/events?audience=seniors"
+    }, {
+      label: "For Children",
+      href: "/events?audience=children"
+    }, {
+      label: "For Teens",
+      href: "/events?audience=teens"
     }]
   }],
   directory: [{
@@ -1006,4 +1012,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=d64933a971fc014f3367
+//# sourceMappingURL=header.js.map?ver=ec881fb4273363f41b0c

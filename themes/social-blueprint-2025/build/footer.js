@@ -264,13 +264,10 @@ function Footer({
             href: '/events'
           }, {
             title: 'Blueprint Stories',
-            href: '/stories-and-interview'
+            href: '/stories-and-interviews'
           }, {
             title: 'By Topic',
             href: '/topics'
-          }, {
-            title: 'By Audience',
-            href: '/audience_tag'
           }]
         }, {
           heading: 'Engage',
@@ -284,8 +281,8 @@ function Footer({
             title: 'Directory',
             href: '/directory'
           }, {
-            title: 'Post a notice',
-            href: '/post-a-notice'
+            title: 'Add Listing',
+            href: '/add-listing-hub'
           }]
         }, {
           heading: 'About',
@@ -490,4 +487,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=footer.js.map?ver=3e6ca5cfb71323e7139c
+//# sourceMappingURL=footer.js.map?ver=7eb8674e55664f0a1612

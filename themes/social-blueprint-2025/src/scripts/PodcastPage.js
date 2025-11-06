@@ -19,6 +19,7 @@ export default function PodcastPage({
   author,
   relatedContent = [],
   breadcrumbs = [],
+  interviewees = [],
 }) {
   const formattedDate = date
     ? new Date(date).toLocaleDateString("en-AU", {
@@ -132,6 +133,19 @@ export default function PodcastPage({
                       Explore all topics
                     </div>
                   </a>
+                  <select className="mt-4 w-full rounded-lg bg-schemesSurfaceContainer text-schemesOnSurfaceVariant p-3 outline-none Blueprint-body-medium" onChange={(e) => {
+                    const selectedUrl = e.target.value;
+                    if (selectedUrl) {
+                      window.location.href = selectedUrl;
+                    }
+                  }}>
+                    <option value="">Browse by Interviewee</option>
+                    {interviewees.map((person) => (
+                      <option key={person.id} value={person.link}>
+                        {person.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </aside>
