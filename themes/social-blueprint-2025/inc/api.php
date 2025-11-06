@@ -91,10 +91,24 @@ function sbp_rest_get_events( WP_REST_Request $request ) {
             );
         }
     }
+    
+    // --- Handle location_type filtering
+    $location_type = $request->get_param('location_type') ?? '';
+    if ( ! empty( $location_type ) ) {
+        $location_values = array_filter( array_map( 'sanitize_text_field', explode( ',', $location_type ) ) );
+        if ( ! empty( $location_values ) ) {
+            $meta_query[] = array(
+                'key'     => '_ecp_custom_4',
+                'value'   => $location_values,
+                'compare' => 'IN',
+            );
+        }
+    }
+    
     if ( count( $meta_query ) > 1 ) {
         $meta_query = array_merge( array( 'relation' => 'AND' ), $meta_query );
     }
-
+    
     // --- Dates & search
     $start_date = sanitize_text_field( $request->get_param('start_date') ?? '' );
     $end_date   = sanitize_text_field( $request->get_param('end_date') ?? '' );
@@ -130,6 +144,7 @@ function sbp_rest_get_events( WP_REST_Request $request ) {
             'url'         => tribe_get_event_link( $event ),
             'description' => tribe_events_get_the_excerpt( $event ),
             'image'       => get_the_post_thumbnail_url( $event, 'medium' ),
+            'location_type' => tribe_get_event_meta( $event->ID, '_ecp_custom_4', true),
         );
     }
 

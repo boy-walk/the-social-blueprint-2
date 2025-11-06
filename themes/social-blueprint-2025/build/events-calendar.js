@@ -254,7 +254,7 @@ function EventsCalendar({
       types: selectedTypes.toString(),
       topics: selectedTopics.toString(),
       audience: selectedAudiences.toString(),
-      locations: selectedLocations.toString(),
+      location_type: selectedLocations.toString(),
       is_featured: onlyFeatured ? "1" : "",
       s: debouncedKeywordValue
     }));
@@ -354,6 +354,13 @@ function EventsCalendar({
   const filterCount = selectedTypes.length + selectedTopics.length + selectedAudiences.length + selectedLocations.length + (onlyFeatured ? 1 : 0) + (debouncedKeywordValue ? 1 : 0);
   const openFilters = () => setIsFiltersOpen(true);
   const closeFilters = () => setIsFiltersOpen(false);
+  const locationTypeOptions = [{
+    id: "In Person",
+    name: "In Person"
+  }, {
+    id: "Online",
+    name: "Online"
+  }];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFiltersOpen) {
       const prev = document.body.style.overflow;
@@ -448,7 +455,7 @@ function EventsCalendar({
             onChangeHandler: onAudience
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Location Type",
-            options: locations,
+            options: locationTypeOptions,
             selected: selectedLocations,
             onChangeHandler: onLocation
           })]
@@ -895,4 +902,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=4d30f433e7db86459b18
+//# sourceMappingURL=events-calendar.js.map?ver=4c2664ee2ac7fcecb416

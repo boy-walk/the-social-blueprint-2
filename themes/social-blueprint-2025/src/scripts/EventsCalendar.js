@@ -151,7 +151,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       types: selectedTypes.toString(),
       topics: selectedTopics.toString(),
       audience: selectedAudiences.toString(),
-      locations: selectedLocations.toString(),
+      location_type: selectedLocations.toString(),
       is_featured: onlyFeatured ? "1" : "",
       s: debouncedKeywordValue,
     }));
@@ -248,6 +248,11 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
   const openFilters = () => setIsFiltersOpen(true);
   const closeFilters = () => setIsFiltersOpen(false);
 
+  const locationTypeOptions = [
+    { id: "In Person", name: "In Person" },
+    { id: "Online", name: "Online" }
+  ];
+
   useEffect(() => {
     if (isFiltersOpen) {
       const prev = document.body.style.overflow;
@@ -310,7 +315,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             <FilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
             <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
             <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
-            <FilterGroup title="Location Type" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
+            <FilterGroup title="Location Type" options={locationTypeOptions} selected={selectedLocations} onChangeHandler={onLocation} />
           </div>
         </aside>
 
