@@ -41,8 +41,6 @@ $props = [
   ],
 ];
 
-echo '<!-- PROPS DEBUG: ' . print_r($props, true) . ' -->';
-
 ?>
 <main id="main">
   <div id="submit-article-root"

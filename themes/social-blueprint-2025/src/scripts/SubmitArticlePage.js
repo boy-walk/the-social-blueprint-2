@@ -17,6 +17,8 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
   const [errors, setErrors] = useState({});
   const [uploadProgress, setUploadProgress] = useState(null);
 
+  console.log(taxonomies)
+
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const themeRef = useRef(null);
@@ -396,8 +398,8 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
             role="alert"
             aria-live="assertive"
             className={`p-4 rounded-lg border ${msg.t === "success"
-                ? "bg-stateSuccess/10 border-stateSuccess text-stateSuccess"
-                : "bg-stateError/10 border-stateError text-stateError"
+              ? "bg-stateSuccess/10 border-stateSuccess text-stateSuccess"
+              : "bg-stateError/10 border-stateError text-stateError"
               }`}
           >
             <div className="Blueprint-body-medium">{msg.m}</div>
