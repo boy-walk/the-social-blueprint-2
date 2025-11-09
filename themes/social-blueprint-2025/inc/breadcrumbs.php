@@ -88,6 +88,17 @@ function sbp_build_breadcrumbs() {
   $home_url = home_url('/');
   $crumbs   = [ ['label' => 'Home', 'url' => $home_url] ];
 
+  file_put_contents(
+    ABSPATH . 'breadcrumb-debug.txt',
+    "=== Breadcrumb Debug ===\n" .
+    "is_singular: " . (is_singular() ? 'yes' : 'no') . "\n" .
+    "is_tax: " . (is_tax() ? 'yes' : 'no') . "\n" .
+    "is_post_type_archive: " . (is_post_type_archive() ? 'yes' : 'no') . "\n" .
+    "queried_object: " . print_r(get_queried_object(), true) . "\n" .
+    "post_type query_var: " . get_query_var('post_type') . "\n",
+    FILE_APPEND
+  );
+
   // Singular
   if (is_singular()) {
     $post_id = get_the_ID();
@@ -103,14 +114,33 @@ function sbp_build_breadcrumbs() {
     // Category-like chain
     $cat_taxes = sbp_detect_category_taxes_for_cpt($pt);
     $primary   = sbp_primary_term($post_id, $cat_taxes);
+
+    file_put_contents(
+      ABSPATH . 'breadcrumb-debug.txt',
+      "Post ID: $post_id\n" .
+      "Post Type: $pt\n" .
+      "Cat taxes detected: " . print_r($cat_taxes, true) . "\n" .
+      "Primary term: " . print_r($primary, true) . "\n",
+      FILE_APPEND
+    );
     if ($primary) {
+      $ancestors = get_ancestors($primary->term_id, $primary->taxonomy, 'taxonomy');
       // Link to CPT-filtered archive for each term in the chain
+      file_put_contents(
+        ABSPATH . 'breadcrumb-debug.txt',
+        "Term ancestors: " . print_r($ancestors, true) . "\n",
+        FILE_APPEND
+      );
       $crumbs = array_merge($crumbs, sbp_chain_for_term_on_cpt_archive($primary, $pt, $primary->taxonomy));
-      // Make the last term (the primary) non-clickable
-      $crumbs[count($crumbs)-1]['url'] = '';
     }
 
     $crumbs[] = ['label' => get_the_title($post_id), 'url' => ''];
+
+    file_put_contents(
+      ABSPATH . 'breadcrumb-debug.txt',
+      "Final crumbs: " . print_r($crumbs, true) . "\n\n",
+      FILE_APPEND
+    );
     return $crumbs;
   }
 
