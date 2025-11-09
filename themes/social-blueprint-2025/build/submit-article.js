@@ -936,12 +936,12 @@ function SubmitArticleForm({
   const [submitted, setSubmitted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [uploadProgress, setUploadProgress] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const topicOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (taxonomies?.topic_tag || []).map(t => [t.id, t.name]), [taxonomies]);
+  const themeOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (taxonomies?.theme || []).map(t => [t.id, t.name]), [taxonomies]);
+  const audienceOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (taxonomies?.audience_tag || []).map(t => [t.id, t.name]), [taxonomies]);
   const titleRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const contentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const themeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const topicOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.entries(taxonomies?.topic_tag || {}), [taxonomies]);
-  const themeOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.entries(taxonomies?.theme || {}), [taxonomies]);
-  const audienceOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.entries(taxonomies?.audience_tag || {}), [taxonomies]);
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
   const MAX_INLINE_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB for inline images
 
@@ -1522,4 +1522,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=submit-article.js.map?ver=4e2f660a4ef60e6d96db
+//# sourceMappingURL=submit-article.js.map?ver=62747c2d8823d6f906a4
