@@ -308,7 +308,7 @@ function Footer({
             className: "Blueprint-label-large text-schemesInverseOnSurface",
             children: heading
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
-            className: "hidden lg:flex flex-col gap-2",
+            className: "flex flex-col gap-2",
             children: links.map(txt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
                 href: txt.href,
@@ -487,4 +487,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=footer.js.map?ver=7eb8674e55664f0a1612
+//# sourceMappingURL=footer.js.map?ver=9e62a929062addd285a0

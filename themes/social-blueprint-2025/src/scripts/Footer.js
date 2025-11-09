@@ -54,7 +54,7 @@ export function Footer({ className = '' }) {
           ].map(({ heading, links }) => (
             <nav key={heading} className="flex flex-col gap-0 lg:gap-4">
               <h3 className="Blueprint-label-large text-schemesInverseOnSurface">{heading}</h3>
-              <ul className="hidden lg:flex flex-col gap-2">
+              <ul className="flex flex-col gap-2">
                 {links.map((txt) => (
                   <li key={txt.title}>
                     <a
