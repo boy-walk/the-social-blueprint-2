@@ -108,7 +108,7 @@ if ($more_by_author->have_posts()) {
          'id'        => $post->ID,
          'title'     => get_the_title($post),
          'link'      => get_permalink($post),
-         'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+         'thumbnail' => get_the_post_thumbnail_url($post, 'large'),
          'description' => get_the_excerpt($post),
        ];
      }, $related_content)) ); ?>'
