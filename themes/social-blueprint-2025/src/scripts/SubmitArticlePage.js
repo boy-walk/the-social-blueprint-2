@@ -17,8 +17,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
   const [errors, setErrors] = useState({});
   const [uploadProgress, setUploadProgress] = useState(null);
 
-  console.log(taxonomies)
-
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const themeRef = useRef(null);

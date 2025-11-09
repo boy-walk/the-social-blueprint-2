@@ -936,7 +936,6 @@ function SubmitArticleForm({
   const [submitted, setSubmitted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [uploadProgress, setUploadProgress] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  console.log(taxonomies);
   const titleRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const contentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const themeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
@@ -1523,4 +1522,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=submit-article.js.map?ver=eb71c03943bf1bfe03ab
+//# sourceMappingURL=submit-article.js.map?ver=4e2f660a4ef60e6d96db

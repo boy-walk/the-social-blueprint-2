@@ -34,10 +34,10 @@ if ( ! is_user_logged_in() ) {
 $props = [
   'restUrl' => esc_url_raw(rest_url('sb/v1/article-submissions')),
   'wpNonce' => wp_create_nonce('wp_rest'),
-  'taxonomies' => [
-    'topic_tag'    => get_terms(['taxonomy'=>'topic_tag','hide_empty'=>false,'fields'=>'id=>name']),
-    'theme'        => get_terms(['taxonomy'=>'theme','hide_empty'=>false,'fields'=>'id=>name']),
-    'audience_tag' => get_terms(['taxonomy'=>'audience_tag','hide_empty'=>false,'fields'=>'id=>name']),
+  'taxonomies' => (object)[
+    'topic_tag'    => (object)array_column(get_terms(['taxonomy'=>'topic_tag','hide_empty'=>false]) ?: [], 'name', 'term_id'),
+    'theme'        => (object)array_column(get_terms(['taxonomy'=>'theme','hide_empty'=>false]) ?: [], 'name', 'term_id'),
+    'audience_tag' => (object)array_column(get_terms(['taxonomy'=>'audience_tag','hide_empty'=>false]) ?: [], 'name', 'term_id'),
   ],
 ];
 
