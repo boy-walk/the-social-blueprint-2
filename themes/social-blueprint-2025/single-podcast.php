@@ -57,7 +57,7 @@ if ($more_interviews->have_posts()) {
       'id'        => get_the_ID(),
       'title'     => get_the_title(),
       'link'      => get_permalink(),
-      'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+      'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'large'),
       'date'      => get_the_date('', get_the_ID()),
       'author'    => get_the_author_meta('display_name'),
       'post_type' => get_post_type(),
@@ -92,7 +92,7 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcas
          'id'        => $post->ID,
          'title'     => get_the_title($post),
          'link'      => get_permalink($post),
-         'thumbnail' => get_the_post_thumbnail_url($post, 'full'),
+         'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
          'subtitle' => get_the_excerpt($post),
        ];
      }, $related_content)) ); ?>'
