@@ -840,7 +840,7 @@ function GenericArchivePage(props) {
         const tax = f.taxonomy;
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
-          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${postType}}`, {
+          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${encodeURIComponent(postTypes[0])}`, {
             headers: {
               Accept: "application/json"
             }
@@ -1532,4 +1532,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=52041fe3135ee7fb2e9c
+//# sourceMappingURL=generic-archive.js.map?ver=1091e056a9befbdebaaf
