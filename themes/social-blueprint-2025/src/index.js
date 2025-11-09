@@ -271,6 +271,7 @@ mount(
       contentHtml: ds.contentHtml || '', relatedContent: parse(ds.relatedContent || '[]'),
       recentPosts: parse(ds.recentPosts || '[]'), trendingTopics: parse(ds.trendingTopics || '[]'),
       breadcrumbs: parse(ds.breadcrumbs || '[]'),
+      tags: parse(ds.tags || '[]'),
     };
   }
 );

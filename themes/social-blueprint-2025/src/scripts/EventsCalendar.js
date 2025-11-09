@@ -312,7 +312,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
               onChangeHandler={(e) => setOnlyFeatured(!!e.target.checked)}
             />
 
-            <FilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
             <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
             <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
             <FilterGroup title="Location Type" options={locationTypeOptions} selected={selectedLocations} onChangeHandler={onLocation} />
@@ -478,7 +477,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             <FilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
             <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
             <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
-            <FilterGroup title="Location" options={locations} selected={selectedLocations} onChangeHandler={onLocation} />
+            <FilterGroup title="Location Type" options={locationTypeOptions} selected={selectedLocations} onChangeHandler={onLocation} />
           </div>
 
           <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2">

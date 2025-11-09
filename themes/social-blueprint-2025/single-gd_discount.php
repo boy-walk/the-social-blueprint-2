@@ -131,6 +131,18 @@ if ($recent_q->have_posts()) {
   wp_reset_postdata();
 }
 
+$terms = wp_get_object_terms(
+  $post_id,
+  ['topic_tag', 'people_tag', 'audience_tag', 'theme']
+);
+
+$mapped_terms = array_map(function($term) {
+  return [
+    'name' => $term->name,
+    'url' => get_term_link($term),
+  ];
+}, $terms);
+
 /** Trending topics (topic_tag) */
 $trending = [];
 if (taxonomy_exists('topic_tag')) {
@@ -153,7 +165,7 @@ if (taxonomy_exists('topic_tag')) {
      data-title="<?php echo esc_attr(get_the_title()); ?>"
      data-date="<?php echo esc_attr(get_the_date('c')); ?>"
      data-author-obj='<?php echo esc_attr( wp_json_encode($author_obj) ); ?>'
-     data-categories='<?php echo esc_attr( wp_json_encode($category_labels) ); ?>'
+     data-tags='<?php echo esc_attr( wp_json_encode($mapped_terms) ); ?>'
      data-featured-image="<?php echo esc_url($featured_image); ?>"
      data-content-html='<?php echo esc_attr( $content_html ); ?>'
      data-related-content='<?php echo esc_attr( wp_json_encode($related_content) ); ?>'

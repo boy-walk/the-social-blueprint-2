@@ -15,6 +15,7 @@ export default function AidListingPage({ props }) {
     breadcrumbs = [],
     contact = {},
     related = [],
+    tags = [],
   } = props || {};
 
   const formattedDate = date

@@ -55,7 +55,7 @@ export function EventPage({
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="flex-3 min-w-0 space-y-8 lg:space-y-10">
               {tags.length > 0 && (<div className="flex flex-wrap gap-2">
-                {tags?.map((t) => <Tag key={t} tagName={t} href={`${t}`} />)}
+                {tags?.map((t) => <Tag key={t} tagName={t.name} href={`${t.url}`} />)}
               </div>)}
               <header className="space-y-2">
                 {dateLine && <div className="Blueprint-label-large text-schemesOnSurfaceVariant">{dateLine}</div>}
@@ -127,15 +127,6 @@ export function EventPage({
               {heroUrl && (
                 <div className="w-full rounded-xl overflow-hidden shadow-md">
                   <img src={heroUrl} alt="" className="w-full h-auto block max-h-175 object-cover" loading="lazy" />
-                </div>
-              )}
-
-              {tags?.length > 0 && (
-                <div className="pt-2">
-                  <div className="Blueprint-headline-small-emphasized mb-4">Keep exploring</div>
-                  <div className="flex flex-wrap gap-2">
-                    {tags.map((t) => <Tag key={t} tagName={t} />)}
-                  </div>
                 </div>
               )}
             </div>

@@ -29,16 +29,17 @@ $author_obj = [
   'avatar' => $avatar_url,
 ];
 
-$terms = get_the_terms( $post->ID, ['topic_tag', 'people_tag', 'location_tag', 'audience_tag', 'theme'] ); 
-// If terms are not empty, map them to an array of names
-if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-  $terms = array_map( function( $term ) {
-    return $term->name;
-  }, $terms );
-} else {
-  $terms = [];
-}
+$terms = wp_get_object_terms(
+  $post_id,
+  ['topic_tag', 'people_tag', 'audience_tag', 'theme']
+);
 
+$mapped_terms = array_map(function($term) {
+  return [
+    'name' => $term->name,
+    'url' => get_term_link($term),
+  ];
+}, $terms);
 
 
 // -------- Retrieve 3 other podcasts for "more interviews" --------
@@ -101,7 +102,7 @@ if ($more_by_author->have_posts()) {
      data-content="<?php echo esc_attr( wp_json_encode($content) ); ?>"
      data-more-articles='<?php echo esc_attr( wp_json_encode($more_articles_data) ); ?>'
      data-author-obj='<?php echo esc_attr( wp_json_encode($author_obj) ); ?>'
-     data-tags='<?php echo esc_attr( wp_json_encode($terms) ); ?>'
+     data-tags='<?php echo esc_attr( wp_json_encode($mapped_terms) ); ?>'
      data-related-content='<?php echo esc_attr( wp_json_encode(array_map(function($post) {
        return [
          'id'        => $post->ID,

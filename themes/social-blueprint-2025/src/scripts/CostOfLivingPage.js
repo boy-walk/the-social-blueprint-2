@@ -72,6 +72,7 @@ export default function CostOfLivingPage({
   contentHtml,         // raw HTML from the editor
   relatedContent = [], // [ { id, title, href, thumbnail } ]
   pdfFile,             // url
+  breadcrumbs = [],    // [ { label, url } ]
 }) {
   const formattedDate = date
     ? new Date(date).toLocaleDateString("en-AU", { year: "numeric", month: "long", day: "numeric" })

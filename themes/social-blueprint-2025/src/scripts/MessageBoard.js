@@ -12,7 +12,7 @@ export default function MessageBoardPage({
   title,
   date,
   author,
-  categories = [],
+  tags = [],
   contentHtml,
   featuredImage,
   relatedContent = [],
@@ -37,16 +37,10 @@ export default function MessageBoardPage({
             <div className="flex-3 min-w-0 space-y-6">
               {/* Header */}
               <header className="space-y-3">
-                {/* Category chips */}
-                {categories?.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {categories.map((c, i) => (
-                      <span
-                        key={`${c}-${i}`}
-                        className="px-3 py-2 rounded-lg bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small"
-                      >
-                        {c}
-                      </span>
+                {tags?.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {tags.map((tag) => (
+                      <Tag href={tag.url} key={tag} tagName={tag.name} />
                     ))}
                   </div>
                 )}

@@ -103,7 +103,7 @@ export function ArticlePage({
               {tags?.length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-2">
                   {tags.map((tag) => (
-                    <Tag key={tag} tagName={tag} />
+                    <Tag key={tag} href={tag.url} tagName={tag.name} />
                   ))}
                 </div>
               )}

@@ -439,11 +439,6 @@ function EventsCalendar({
             selected: onlyFeatured ? ["1"] : [],
             onChangeHandler: e => setOnlyFeatured(!!e.target.checked)
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Theme",
-            options: types,
-            selected: selectedTypes,
-            onChangeHandler: onType
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Topic",
             options: topics,
             selected: selectedTopics,
@@ -656,8 +651,8 @@ function EventsCalendar({
             selected: selectedAudiences,
             onChangeHandler: onAudience
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Location",
-            options: locations,
+            title: "Location Type",
+            options: locationTypeOptions,
             selected: selectedLocations,
             onChangeHandler: onLocation
           })]
@@ -902,4 +897,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=4c2664ee2ac7fcecb416
+//# sourceMappingURL=events-calendar.js.map?ver=f8243e80509dc7ccf90f

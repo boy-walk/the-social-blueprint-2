@@ -1275,7 +1275,9 @@ function CostOfLivingPage({
   // raw HTML from the editor
   relatedContent = [],
   // [ { id, title, href, thumbnail } ]
-  pdfFile // url
+  pdfFile,
+  // url
+  breadcrumbs = [] // [ { label, url } ]
 }) {
   const formattedDate = date ? new Date(date).toLocaleDateString("en-AU", {
     year: "numeric",
@@ -1890,4 +1892,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=col-page.js.map?ver=e2e3862bde2ea8367897
+//# sourceMappingURL=col-page.js.map?ver=e256acf2f8ed4de551f1

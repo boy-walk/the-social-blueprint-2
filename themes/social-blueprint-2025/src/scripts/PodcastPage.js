@@ -99,7 +99,7 @@ export default function PodcastPage({
               {tags?.length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-2">
                   {tags.map((tag) => (
-                    <Tag href={tag} key={tag} tagName={tag} />
+                    <Tag href={tag.url} key={tag} tagName={tag.name} />
                   ))}
                 </div>
               )}

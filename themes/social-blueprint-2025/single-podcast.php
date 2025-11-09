@@ -14,16 +14,6 @@ $video_url      = get_field('podcast_video_url', $post_id);
 $subtitle       = get_field('podcast_subtitle', $post_id);
 $content_blocks = get_field('content_sections', $post_id) ?: [];
 
-// (kept for backward-compat) ACF 'tags' field → array of term IDs?
-$tags      = get_field('tags', $post_id) ?: [];
-$tag_names = [];
-foreach ($tags as $tag_id) {
-  $term = get_term($tag_id);
-  if ($term && !is_wp_error($term)) {
-    $tag_names[] = $term->name;
-  }
-}
-
 // -------- Author (rich object) --------
 $author_id = (int) get_post_field('post_author', $post_id);
 
@@ -39,15 +29,17 @@ $author_obj = [
   'avatar' => $avatar_url,
 ];
 
-$terms = get_the_terms( $post->ID, ['topic_tag', 'people_tag', 'location_tag', 'audience_tag', 'theme', 'series'] ); 
-// If terms are not empty, map them to an array of names
-if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-  $terms = array_map( function( $term ) {
-    return $term->name;
-  }, $terms );
-} else {
-  $terms = [];
-}
+$terms = wp_get_object_terms(
+  $post_id,
+  ['topic_tag', 'people_tag', 'audience_tag', 'theme']
+);
+
+$mapped_terms = array_map(function($term) {
+  return [
+    'name' => $term->name,
+    'url' => get_term_link($term),
+  ];
+}, $terms);
 
 // -------- Retrieve 3 other podcasts for "more interviews" --------
 $more_interviews = new WP_Query([
@@ -94,7 +86,7 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcas
      data-sections="<?php echo esc_attr( wp_json_encode($content_blocks) ); ?>"
      data-more-interviews='<?php echo esc_attr( wp_json_encode($more_interviews_data) ); ?>'
      data-author-obj='<?php echo esc_attr( wp_json_encode($author_obj) ); ?>'
-     data-tags='<?php echo esc_attr( wp_json_encode($terms) ); ?>'
+     data-tags='<?php echo esc_attr( wp_json_encode($mapped_terms) ); ?>'
      data-related-content='<?php echo esc_attr( wp_json_encode(array_map(function($post) {
        return [
          'id'        => $post->ID,

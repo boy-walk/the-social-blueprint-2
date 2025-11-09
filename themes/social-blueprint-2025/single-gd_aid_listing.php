@@ -88,6 +88,8 @@ if (function_exists('sb_get_related_by_topic_tags')) {
   }
 }
 
+$breadcrumbs = sbp_build_breadcrumbs();
+
 /* --- Props for React --- */
 $props = [
   'title'       => $title,
@@ -96,6 +98,7 @@ $props = [
   'breadcrumbs' => $breadcrumbs,
   'related'     => $related_content,
   'contact'     => $contact,
+  'breadcrumbs' => $breadcrumbs,
 ];
 ?>
 <script id="aid-gd-html" type="application/json">

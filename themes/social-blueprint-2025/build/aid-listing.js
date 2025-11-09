@@ -1097,7 +1097,8 @@ function AidListingPage({
     author = {},
     breadcrumbs = [],
     contact = {},
-    related = []
+    related = [],
+    tags = []
   } = props || {};
   const formattedDate = date ? new Date(date).toLocaleDateString("en-AU", {
     year: "numeric",
@@ -1934,4 +1935,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing.js.map?ver=3c81525267610837949a
+//# sourceMappingURL=aid-listing.js.map?ver=193f6b68fc54e250670d
