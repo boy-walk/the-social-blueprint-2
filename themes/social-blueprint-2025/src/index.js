@@ -304,7 +304,7 @@ mount(
 mount(
   'aid-listing-hub-root',
   () => import(/* webpackChunkName: "aid-listing-hub" */ './scripts/AidListingHub').then(m => m.AidListingHub),
-  (el) => ({ props: parse(el.getAttribute('data-props') || '{}') })
+  (el) => parse(el.getAttribute('data-props') || '{}')
 );
 
 // Topic directory
@@ -318,7 +318,7 @@ mount(
 mount(
   'health-listing-hub-root',
   () => import(/* webpackChunkName: "health-hub" */ './scripts/HealthListingHub').then(m => m.HealthListingHub),
-  (el) => ({ props: parse(el.getAttribute('data-props') || '{}') })
+  (el) => parse(el.getAttribute('data-props') || '{}')
 );
 
 // Account listings

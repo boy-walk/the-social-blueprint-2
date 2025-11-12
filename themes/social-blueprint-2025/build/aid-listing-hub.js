@@ -1124,6 +1124,86 @@ const a = /* @__PURE__ */ new Map([
 
 /***/ }),
 
+/***/ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ p)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _context_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./context.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/context.es.js");
+
+
+const p = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(
+  (s, a) => {
+    const {
+      alt: n,
+      color: r,
+      size: t,
+      weight: o,
+      mirrored: c,
+      children: i,
+      weights: m,
+      ...x
+    } = s, {
+      color: d = "currentColor",
+      size: l,
+      weight: f = "regular",
+      mirrored: g = !1,
+      ...w
+    } = react__WEBPACK_IMPORTED_MODULE_0__.useContext(_context_es_js__WEBPACK_IMPORTED_MODULE_1__.IconContext);
+    return /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(
+      "svg",
+      {
+        ref: a,
+        xmlns: "http://www.w3.org/2000/svg",
+        width: t != null ? t : l,
+        height: t != null ? t : l,
+        fill: r != null ? r : d,
+        viewBox: "0 0 256 256",
+        transform: c || g ? "scale(-1, 1)" : void 0,
+        ...w,
+        ...x
+      },
+      !!n && /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("title", null, n),
+      i,
+      m.get(o != null ? o : f)
+    );
+  }
+);
+p.displayName = "IconBase";
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@phosphor-icons/react/dist/lib/context.es.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/lib/context.es.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IconContext: () => (/* binding */ o)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+
+const o = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  color: "currentColor",
+  size: "1em",
+  weight: "regular",
+  mirrored: !1
+});
+
+
+
+/***/ }),
+
 /***/ "./node_modules/clsx/dist/clsx.mjs":
 /*!*****************************************!*\
   !*** ./node_modules/clsx/dist/clsx.mjs ***!
@@ -1156,11 +1236,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NewsletterBanner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NewsletterBanner */ "./src/scripts/NewsletterBanner.js");
 /* harmony import */ var _BrowseAll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./BrowseAll */ "./src/scripts/BrowseAll.js");
 /* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MoneyWavy.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/BowlFood.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/HeartHalf.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MicrophoneStage.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/StarOfDavid.es.js");
 /* harmony import */ var _Breadcrumbs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Breadcrumbs */ "./src/scripts/Breadcrumbs.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
@@ -1172,9 +1247,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 function AidListingHub({
-  sections,
+  categories = [],
   breadcrumbs = []
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -1197,10 +1271,10 @@ function AidListingHub({
               children: "Aid & Support"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
               className: "text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl",
-              children: "Find community resources offering practical aid, from financial help and housing to counselling and crisis services.              "
+              children: "Find community resources offering practical aid, from financial help and housing to counselling and crisis services."
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "p-4 md:pb-8 lg:px-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
             className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4",
@@ -1208,98 +1282,47 @@ function AidListingHub({
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "mt-6",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              className: "mt-6",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                className: "flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory md:grid md:grid-cols-5 md:gap-6 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
+              className: "flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory scrollbar-hidden pb-2",
+              children: categories.map(category => {
+                const categoryLink = `/aid_listing/category/${category.slug}`;
+                const bgColor = category.color || '#6ED4BE';
+                const hasFaIcon = category.fa_icon && typeof category.fa_icon === 'string';
+
+                // Build image URL if available
+                const imageUrl = category.image_url ? category.image_url.startsWith('http') ? category.image_url : `/wp-content/uploads/${category.image_url}` : null;
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                  className: "shrink-0 snap-start w-[45%] sm:w-[30%] md:w-[200px]",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
                     styles: "shadow-3x3",
-                    href: "/cost_of_living/category/finance-101",
+                    href: categoryLink,
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "bg-[#6ED4BE] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.MoneyWavyIcon, {
-                          size: 22
+                      children: [hasFaIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                        className: "rounded-[12px] p-1 flex items-center justify-center",
+                        style: {
+                          backgroundColor: bgColor
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                          className: `${category.fa_icon} text-white`,
+                          style: {
+                            fontSize: '22px'
+                          },
+                          "aria-hidden": "true"
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      }) : imageUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                        className: "w-full h-full flex items-center justify-center",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                          src: imageUrl,
+                          alt: category.name,
+                          className: "max-w-full max-h-[4em] object-contain"
+                        })
+                      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
-                        children: "Financial Assistance, Interest-Free Loans"
+                        children: category.name
                       })]
                     })
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
-                    styles: "shadow-3x3",
-                    href: "/stories-and-interviews",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "bg-[#A3B4FF] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.BowlFoodIcon, {
-                          size: 22
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
-                        children: "Food Assistance, Aid"
-                      })]
-                    })
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
-                    styles: "shadow-3x3",
-                    href: "/events",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "bg-[#FF9388] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.HeartHalfIcon, {
-                          size: 22
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
-                        children: "Housing, Emergency Accommodation"
-                      })]
-                    })
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
-                    styles: "shadow-3x3",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "bg-[#F7D471] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.MicrophoneStageIcon, {
-                          size: 22
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
-                        children: "Volunteer Opportunities, Donation Drives"
-                      })]
-                    })
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
-                    styles: "shadow-3x3",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "bg-[#7FD0FF] rounded-[12px] p-1",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.StarOfDavidIcon, {
-                          size: 22
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
-                        children: "Community Safety, Antisemitism Reporting"
-                      })]
-                    })
-                  })
-                })]
+                }, category.id);
               })
             })
           })]
@@ -2140,4 +2163,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing-hub.js.map?ver=43bee93df2e9cb4f3877
+//# sourceMappingURL=aid-listing-hub.js.map?ver=49589e3402607d797ea2
