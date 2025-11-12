@@ -108,7 +108,7 @@ export default function MessageBoardArchivePage(props) {
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
           const res = await fetch(
-            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`,
+            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${encodeURIComponent('gd_discount')}`,
             { headers: { Accept: "application/json" } }
           );
           if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);

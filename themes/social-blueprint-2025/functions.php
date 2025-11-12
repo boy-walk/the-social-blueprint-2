@@ -530,20 +530,32 @@ add_action('rest_api_init', function () {
       global $wpdb;
       
       $taxonomy = sanitize_key($req->get_param('taxonomy'));
-      $post_type = sanitize_key($req->get_param('post_type'));
+      $post_types_raw = $req->get_param('post_type'); // Can be string or array
       $per_page = max(1, min(200, (int)$req->get_param('per_page') ?: 100));
       
       if (!$taxonomy || !taxonomy_exists($taxonomy)) {
         return new WP_Error('tsb_invalid_taxonomy', 'Invalid taxonomy.', ['status' => 400]);
       }
       
-      // If post_type is provided, validate it
-      if ($post_type && !post_type_exists($post_type)) {
-        return new WP_Error('tsb_invalid_post_type', 'Invalid post type.', ['status' => 400]);
+      // Normalize post_types to an array
+      $post_types = [];
+      if ($post_types_raw) {
+        if (is_array($post_types_raw)) {
+          $post_types = array_map('sanitize_key', $post_types_raw);
+        } else {
+          $post_types = [sanitize_key($post_types_raw)];
+        }
+        
+        // Validate all post types exist
+        foreach ($post_types as $pt) {
+          if (!post_type_exists($pt)) {
+            return new WP_Error('tsb_invalid_post_type', "Invalid post type: {$pt}", ['status' => 400]);
+          }
+        }
       }
       
       // If no post_type specified, use the original behavior
-      if (!$post_type) {
+      if (empty($post_types)) {
         $terms = get_terms([
           'taxonomy'   => $taxonomy,
           'hide_empty' => true,
@@ -558,25 +570,29 @@ add_action('rest_api_init', function () {
             'name' => $t->name,
             'slug' => $t->slug,
             'parent' => (int)$t->parent,
-            'count' => (int)$t->count,
+            'count' => (int)$t->count
           ];
         }, $terms);
       }
       
-      // Filter by specific post type using optimized query
-      $results = $wpdb->get_results($wpdb->prepare("
+      // Filter by multiple post types using optimized query with IN clause
+      $placeholders = implode(',', array_fill(0, count($post_types), '%s'));
+      $query = "
         SELECT t.term_id, t.name, t.slug, tt.parent, COUNT(DISTINCT p.ID) as post_count
         FROM {$wpdb->terms} AS t
         INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
         INNER JOIN {$wpdb->term_relationships} AS tr ON tt.term_taxonomy_id = tr.term_taxonomy_id
         INNER JOIN {$wpdb->posts} AS p ON tr.object_id = p.ID
         WHERE tt.taxonomy = %s
-        AND p.post_type = %s
+        AND p.post_type IN ($placeholders)
         AND p.post_status = 'publish'
         GROUP BY t.term_id
         ORDER BY t.name ASC
         LIMIT %d
-      ", $taxonomy, $post_type, $per_page));
+      ";
+      
+      $prepare_args = array_merge([$taxonomy], $post_types, [$per_page]);
+      $results = $wpdb->get_results($wpdb->prepare($query, ...$prepare_args));
       
       if (empty($results)) {
         return [];

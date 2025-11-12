@@ -1789,7 +1789,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function CostOfLiving({
-  sections,
   breadcrumbs = []
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -2239,4 +2238,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=e069a9652e7452edba43
+//# sourceMappingURL=col-hub.js.map?ver=e80c2a261a1228cd5674

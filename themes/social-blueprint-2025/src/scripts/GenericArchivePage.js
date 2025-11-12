@@ -22,6 +22,8 @@ export function GenericArchivePage(props) {
     breadcrumbs = [],
   } = props;
 
+  console.log(props)
+
   const postTypes = useMemo(() => (Array.isArray(postType) ? postType : [postType]), [postType]);
 
   const [page, setPage] = useState(1);

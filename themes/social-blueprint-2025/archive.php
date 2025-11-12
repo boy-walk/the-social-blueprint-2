@@ -190,20 +190,47 @@ $for_term_detection = count($post_types) === 1 ? $post_types[0] : null;
 list($taxonomy, $current_term_id, $current_term_slug) = tsb_detect_current_term($for_term_detection);
 
 /** ---------------- Filters (server-provided) ----------------
- * For single CPT we can safely emit its taxonomies (except ones you’ve excluded).
- * For multi CPT, taxonomies may differ; to avoid confusion we send none.
+ * For single CPT we emit its taxonomies (except excluded ones).
+ * For multi CPT, we find SHARED taxonomies across all post types.
  */
 $filters = [];
+$excluded_taxonomies = [ 'theme', 'location_tag', 'post_tag', 'category', 'audience_tag' ];
+
 if ( count($post_types) === 1 ) {
+  // Single CPT: use its taxonomies
   $all_taxonomies = get_object_taxonomies( $post_types[0], 'objects' );
-  $taxonomies = array_filter( $all_taxonomies, function( $tax ) {
-    return ! in_array( $tax->name, [ 'theme', 'location_tag', 'post_tag', 'category', 'audience_tag' ], true );
+  $taxonomies = array_filter( $all_taxonomies, function( $tax ) use ( $excluded_taxonomies ) {
+    return ! in_array( $tax->name, $excluded_taxonomies, true );
   } );
   foreach ( $taxonomies as $slug => $tax_obj ) {
     $filters[] = [
       'taxonomy' => $slug,
       'label'    => $tax_obj->labels->singular_name,
     ];
+  }
+} else {
+  // Multi CPT: find shared taxonomies across all post types
+  $shared_taxonomies = null;
+  foreach ( $post_types as $pt ) {
+    $pt_taxonomies = get_object_taxonomies( $pt, 'names' );
+    if ( $shared_taxonomies === null ) {
+      $shared_taxonomies = $pt_taxonomies;
+    } else {
+      $shared_taxonomies = array_intersect( $shared_taxonomies, $pt_taxonomies );
+    }
+  }
+  
+  if ( $shared_taxonomies ) {
+    foreach ( $shared_taxonomies as $tax_name ) {
+      if ( in_array( $tax_name, $excluded_taxonomies, true ) ) continue;
+      $tax_obj = get_taxonomy( $tax_name );
+      if ( $tax_obj ) {
+        $filters[] = [
+          'taxonomy' => $tax_name,
+          'label'    => $tax_obj->labels->singular_name,
+        ];
+      }
+    }
   }
 }
 

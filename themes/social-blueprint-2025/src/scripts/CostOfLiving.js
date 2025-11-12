@@ -7,7 +7,7 @@ import { Card } from "./Card";
 import { BowlFoodIcon, CarIcon, HeartHalfIcon, MicrophoneStageIcon, MoneyWavyIcon, StarOfDavidIcon } from "@phosphor-icons/react";
 import { Breadcrumbs } from "./Breadcrumbs";
 
-export function CostOfLiving({ sections, breadcrumbs = [] }) {
+export function CostOfLiving({ breadcrumbs = [] }) {
   return (
     <div>
       <div className="hidden md:block bg-schemesPrimaryFixed">

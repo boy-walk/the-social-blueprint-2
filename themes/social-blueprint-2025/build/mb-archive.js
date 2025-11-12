@@ -770,7 +770,7 @@ function MessageBoardArchivePage(props) {
         const tax = f.taxonomy;
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
-          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`, {
+          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${encodeURIComponent('gd_discount')}`, {
             headers: {
               Accept: "application/json"
             }
@@ -1465,4 +1465,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-archive.js.map?ver=b142a727617d668501b2
+//# sourceMappingURL=mb-archive.js.map?ver=65db810f46cf1b3e9f68

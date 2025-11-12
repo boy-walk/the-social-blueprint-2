@@ -300,13 +300,13 @@ const MENU_SECTIONS = {
     title: "Categories",
     items: [{
       label: "Community & Connection",
-      href: "/stories-and-interviews?theme=community-and-connection"
+      href: "/podcast.article/?theme=community-and-connection"
     }, {
       label: "Culture & Identity",
-      href: "/stories-and-interviews?theme=culture-and-identity"
+      href: "/podcast.article/?theme=culture-and-identity"
     }, {
       label: "Learning & Growth",
-      href: "/stories-and-interviews?theme=learning-and-growth"
+      href: "/podcast.article/?theme=learning-and-growth"
     }]
   }],
   "about-us": [{
@@ -1012,4 +1012,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=ec881fb4273363f41b0c
+//# sourceMappingURL=header.js.map?ver=3f3ff9a4e181c7a1bb52
