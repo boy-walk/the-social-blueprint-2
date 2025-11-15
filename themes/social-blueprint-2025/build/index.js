@@ -3896,7 +3896,7 @@ mount('health-listing-hub-root', () => __webpack_require__.e(/*! import() | heal
 mount('account-listings-root', () => __webpack_require__.e(/*! import() | account-listings */ "account-listings").then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/AccountListings */ "./src/scripts/AccountListings.js")).then(m => m.AccountListings));
 
 // Submit Article
-mount('submit-article-root', () => Promise.all(/*! import() | submit-article */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_AlignCenterHorizontal_es_js-node_modules_p-2a094b"), __webpack_require__.e("submit-article")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/SubmitArticlePage */ "./src/scripts/SubmitArticlePage.js")).then(m => m.default), el => parse(el.getAttribute('data-props') || '{}'));
+mount('submit-article-root', () => Promise.all(/*! import() | submit-article */[__webpack_require__.e("vendors-node_modules_phosphor-icons_react_dist_csr_AlignCenterHorizontal_es_js-node_modules_p-2a094b"), __webpack_require__.e("submit-article")]).then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/SubmitArticlePage */ "./src/scripts/SubmitArticlePage.js")).then(m => m.default), el => parse(el.dataset.props || '{}'));
 
 // FAQs
 mount('faqs-root', () => __webpack_require__.e(/*! import() | faqs */ "faqs").then(__webpack_require__.bind(__webpack_require__, /*! ./scripts/FAQ */ "./src/scripts/FAQ.js")).then(m => m.Faq), el => ({

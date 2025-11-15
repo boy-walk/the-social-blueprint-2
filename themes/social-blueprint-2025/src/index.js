@@ -331,7 +331,7 @@ mount(
 mount(
   'submit-article-root',
   () => import(/* webpackChunkName: "submit-article" */ './scripts/SubmitArticlePage').then(m => m.default),
-  (el) => parse(el.getAttribute('data-props') || '{}')
+  (el) => parse(el.dataset.props || '{}')
 );
 
 // FAQs
