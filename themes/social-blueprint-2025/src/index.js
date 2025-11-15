@@ -342,3 +342,10 @@ mount(
   () => import(/* webpackChunkName: "faqs" */ './scripts/FAQ').then(m => m.Faq),
   (el) => ({ props: parse(el.getAttribute('data-props') || '{}') })
 );
+
+// Forgot Password
+mount(
+  'forgot-password-root',
+  () => import(/* webpackChunkName: "forgot-password" */ './scripts/ForgotPassword').then(m => m.default),
+  (el) => parse(el.dataset.props || '{}')
+);
