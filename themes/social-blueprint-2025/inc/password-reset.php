@@ -58,19 +58,8 @@ function sb_handle_password_reset(WP_REST_Request $request) {
         ], 500);
     }
 
-    // Build reset URL
-    // Try to get UsersWP reset page first
-    $reset_page_url = uwp_get_page_link('reset');
-    
-    // If UsersWP doesn't have a reset page configured, use the account page or wp-login
-    if (empty($reset_page_url) || $reset_page_url === home_url('/')) {
-        // Try UsersWP account page
-        $reset_page_url = uwp_get_page_link('account');
-        if (empty($reset_page_url) || $reset_page_url === home_url('/')) {
-            // Fallback to WordPress default
-            $reset_page_url = network_site_url('wp-login.php', 'login');
-        }
-    }
+    // Build reset URL - use the custom reset password page
+    $reset_page_url = home_url('/reset-password/');
     
     $reset_url = add_query_arg([
         'action' => 'rp',
