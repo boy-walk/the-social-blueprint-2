@@ -10,11 +10,12 @@ export function DetailedCard({
   date,
   href,
   buttonText = "Read more",
+  shadow = false,
 }) {
   return (
-    <Card styles="h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1">
-      <a href={href || "#"} className="flex h-full w-full gap-4 group">
-        <div className="lg:aspect-[4/3] max-h-[275px] w-1/4 flex-shrink-0 p-2">
+    <Card styles={`h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`}>
+      <a href={href || "#"} className="flex h-full w-full gap-0 md:gap-2 lg:gap-4 group">
+        <div className="lg:aspect-[4/3] max-h-[275px] w-1/3 lg:w-1/4 flex-shrink-0 p-2">
           <div className="w-full h-full overflow-hidden rounded-lg bg-gray-100">
             <img
               src={image}

@@ -25,6 +25,7 @@ export default function FeaturedPostLayout({ posts }) {
           title={hero.title}
           subtitle={hero.subtitle}
           large={true}
+          shadow
         />)}
       </div>
       <div className={`flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`}>
@@ -40,6 +41,7 @@ export default function FeaturedPostLayout({ posts }) {
               date={post.date}
               href={post.permalink}
               buttonText="Read more"
+              shadow
             />
           </div>
         ))}

@@ -1843,7 +1843,7 @@ function MessageBoardSlider({
             style: itemStyle,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
               href: post.permalink,
-              styles: "h-full",
+              styles: "h-full shadow-3x3",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                 className: "flex gap-2",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -2355,4 +2355,4 @@ const Tag = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=78a28ee74cab848dc4a2
+//# sourceMappingURL=mb-page.js.map?ver=d22a29b51b48e0c359f0

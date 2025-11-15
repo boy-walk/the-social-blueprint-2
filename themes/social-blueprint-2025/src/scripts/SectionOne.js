@@ -136,7 +136,7 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
               <Button
                 label="Browse all listings"
                 onClick={() => (window.location.href = '/message-boards')}
-                size="lg"
+                size="base"
                 variant="filled"
                 className="bg-schemesSecondary"
               />

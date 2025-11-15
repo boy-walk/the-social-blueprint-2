@@ -1823,15 +1823,16 @@ function DetailedCard({
   description,
   date,
   href,
-  buttonText = "Read more"
+  buttonText = "Read more",
+  shadow = false
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-    styles: "h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1",
+    styles: `h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
       href: href || "#",
-      className: "flex h-full w-full gap-4 group",
+      className: "flex h-full w-full gap-0 md:gap-2 lg:gap-4 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "lg:aspect-[4/3] max-h-[275px] w-1/4 flex-shrink-0 p-2",
+        className: "lg:aspect-[4/3] max-h-[275px] w-1/3 lg:w-1/4 flex-shrink-0 p-2",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full h-full overflow-hidden rounded-lg bg-gray-100",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
@@ -1999,7 +2000,8 @@ function FeaturedPostLayout({
         fullWidth: true,
         title: hero.title,
         subtitle: hero.subtitle,
-        large: true
+        large: true,
+        shadow: true
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: `flex-4 md:flex-2 lg:flex-3 flex flex-col gap-3`,
@@ -2013,7 +2015,8 @@ function FeaturedPostLayout({
           author: post.author,
           date: post.date,
           href: post.permalink,
-          buttonText: "Read more"
+          buttonText: "Read more",
+          shadow: true
         }, i)
       }, i))
     })]
@@ -2625,4 +2628,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=0e631ecd8a2e8c2f2f7c
+//# sourceMappingURL=learning-hub.js.map?ver=3b18fe650517e5850067

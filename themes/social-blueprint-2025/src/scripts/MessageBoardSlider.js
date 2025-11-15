@@ -148,7 +148,7 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
                 className="flex-shrink-0 transform transition-transform duration-200 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg will-change-transform"
                 style={itemStyle}
               >
-                <Card href={post.permalink} styles="h-full">
+                <Card href={post.permalink} styles="h-full shadow-3x3">
                   <div className="flex gap-2">
                     {/* Left tile */}
                     <div className="flex-none w-27 h-36 overflow-hidden grid place-items-center p-2">
