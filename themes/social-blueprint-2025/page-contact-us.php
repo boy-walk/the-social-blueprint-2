@@ -6,7 +6,7 @@
 get_header();
 ?>
 <div id="cf7-proxy" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
-  <?php echo do_shortcode('[contact-form-7 id="e2b4dcd" title="Contact Form Basic Live" html_class="tsb-cf7"]'); ?>
+  <?php echo do_shortcode('[contact-form-7 id="a97f8d1" title="Contact form 1"]'); ?>
 </div>
 <main id="contact-us" class="min-h-screen"></main>
 
