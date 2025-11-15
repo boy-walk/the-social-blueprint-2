@@ -17,24 +17,22 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
   const [errors, setErrors] = useState({});
   const [uploadProgress, setUploadProgress] = useState(null);
 
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
+  const themeRef = useRef(null);
+
   const topicOptions = useMemo(() =>
     (taxonomies?.topic_tag || []).map(t => [t.id, t.name]),
     [taxonomies]
   );
-
   const themeOptions = useMemo(() =>
     (taxonomies?.theme || []).map(t => [t.id, t.name]),
     [taxonomies]
   );
-
   const audienceOptions = useMemo(() =>
     (taxonomies?.audience_tag || []).map(t => [t.id, t.name]),
     [taxonomies]
   );
-
-  const titleRef = useRef(null);
-  const contentRef = useRef(null);
-  const themeRef = useRef(null);
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
   const MAX_INLINE_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB for inline images
