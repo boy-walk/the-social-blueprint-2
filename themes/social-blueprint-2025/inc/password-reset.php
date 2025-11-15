@@ -10,6 +10,12 @@ add_action('rest_api_init', function () {
         'callback' => 'sb_handle_password_reset',
         'permission_callback' => '__return_true', // Public endpoint
     ]);
+    
+    register_rest_route('sb/v1', '/password-reset-confirm', [
+        'methods' => 'POST',
+        'callback' => 'sb_handle_password_reset_confirm',
+        'permission_callback' => '__return_true', // Public endpoint
+    ]);
 });
 
 function sb_handle_password_reset(WP_REST_Request $request) {
@@ -141,3 +147,55 @@ $message = sprintf(
     esc_html(get_bloginfo('name'))
 );
 */
+
+function sb_handle_password_reset_confirm(WP_REST_Request $request) {
+    $user_login = sanitize_text_field($request->get_param('user_login'));
+    $reset_key = sanitize_text_field($request->get_param('reset_key'));
+    $new_password = $request->get_param('password');
+
+    if (empty($user_login) || empty($reset_key) || empty($new_password)) {
+        return new WP_REST_Response([
+            'success' => false,
+            'message' => 'All fields are required',
+        ], 400);
+    }
+
+    if (strlen($new_password) < 8) {
+        return new WP_REST_Response([
+            'success' => false,
+            'message' => 'Password must be at least 8 characters',
+        ], 400);
+    }
+
+    // Get user by login
+    $user = get_user_by('login', $user_login);
+    
+    if (!$user) {
+        return new WP_REST_Response([
+            'success' => false,
+            'message' => 'Invalid reset link',
+        ], 400);
+    }
+
+    // Verify the reset key
+    $check = check_password_reset_key($reset_key, $user_login);
+    
+    if (is_wp_error($check)) {
+        return new WP_REST_Response([
+            'success' => false,
+            'message' => 'Invalid or expired reset link. Please request a new password reset.',
+        ], 400);
+    }
+
+    // Reset the password
+    reset_password($user, $new_password);
+
+    // Optional: Auto-login the user after password reset
+    // wp_set_current_user($user->ID);
+    // wp_set_auth_cookie($user->ID);
+
+    return new WP_REST_Response([
+        'success' => true,
+        'message' => 'Password reset successfully',
+    ], 200);
+}

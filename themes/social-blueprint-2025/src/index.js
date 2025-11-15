@@ -349,3 +349,9 @@ mount(
   () => import(/* webpackChunkName: "forgot-password" */ './scripts/ForgotPassword').then(m => m.default),
   (el) => parse(el.dataset.props || '{}')
 );
+
+mount(
+  'reset-password-root',
+  () => import(/* webpackChunkName: "reset-password" */ './scripts/ResetPassword').then(m => m.default),
+  (el) => parse(el.dataset.props || '{}')
+);
