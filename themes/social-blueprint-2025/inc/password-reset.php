@@ -53,11 +53,24 @@ function sb_handle_password_reset(WP_REST_Request $request) {
     }
 
     // Build reset URL
+    // Try to get UsersWP reset page first
+    $reset_page_url = uwp_get_page_link('reset');
+    
+    // If UsersWP doesn't have a reset page configured, use the account page or wp-login
+    if (empty($reset_page_url) || $reset_page_url === home_url('/')) {
+        // Try UsersWP account page
+        $reset_page_url = uwp_get_page_link('account');
+        if (empty($reset_page_url) || $reset_page_url === home_url('/')) {
+            // Fallback to WordPress default
+            $reset_page_url = network_site_url('wp-login.php', 'login');
+        }
+    }
+    
     $reset_url = add_query_arg([
         'action' => 'rp',
         'key' => $reset_key,
         'login' => rawurlencode($user->user_login),
-    ], uwp_get_page_link('reset')); // UsersWP reset page
+    ], $reset_page_url);
 
     // Prepare email
     $subject = sprintf('[%s] Password Reset', get_bloginfo('name'));
@@ -94,3 +107,37 @@ function sb_handle_password_reset(WP_REST_Request $request) {
         'message' => 'Password reset email sent successfully',
     ], 200);
 }
+
+/**
+ * Optional: Customize the reset page template
+ * Create a template file called: page-reset-password.php
+ */
+
+/**
+ * Optional: Add HTML email template
+ * Uncomment and customize if you want a nicer email
+ */
+/*
+add_filter('wp_mail_content_type', function($content_type) {
+    return 'text/html';
+});
+
+// Then update the message in sb_handle_password_reset to use HTML:
+$message = sprintf(
+    '<html><body>' .
+    '<p>Hi %s,</p>' .
+    '<p>You requested a password reset for your account at %s.</p>' .
+    '<p>To reset your password, click the button below:</p>' .
+    '<p><a href="%s" style="background-color: #0073aa; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">Reset Password</a></p>' .
+    '<p>Or copy and paste this link into your browser:<br>%s</p>' .
+    '<p>This link will expire in 24 hours.</p>' .
+    '<p>If you didn\'t request this password reset, please ignore this email.</p>' .
+    '<p>Thanks,<br>%s</p>' .
+    '</body></html>',
+    esc_html($user->display_name),
+    esc_html(get_bloginfo('name')),
+    esc_url($reset_url),
+    esc_url($reset_url),
+    esc_html(get_bloginfo('name'))
+);
+*/
