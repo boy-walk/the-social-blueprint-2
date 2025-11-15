@@ -5,7 +5,10 @@ import ReactDOM from 'react-dom/client';
 
 const $ = (id) => document.getElementById(id);
 const parse = (s, fallback = '{}') => {
-  try { return JSON.parse(s ?? fallback); } catch { return JSON.parse(fallback); }
+  try { return JSON.parse(s ?? fallback); } catch (e) {
+    console.log(e)
+    return JSON.parse(fallback);
+  }
 };
 
 // Mount helper: loads the component only if the element exists.
