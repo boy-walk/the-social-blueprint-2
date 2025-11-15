@@ -325,19 +325,81 @@ function ContactForm() {
     message: "",
     agreed: false
   });
+  const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [sent, setSent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [submitting, setSubmitting] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const cf7Ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const handleChange = key => e => setForm(prev => ({
-    ...prev,
-    [key]: e.target.value
-  }));
-  const handleToggle = key => () => setForm(prev => ({
-    ...prev,
-    [key]: !prev[key]
-  }));
+  const handleChange = key => e => {
+    setForm(prev => ({
+      ...prev,
+      [key]: e.target.value
+    }));
+    // Clear error for this field when user starts typing
+    if (errors[key]) {
+      setErrors(prev => ({
+        ...prev,
+        [key]: ""
+      }));
+    }
+  };
+  const handleToggle = key => () => {
+    setForm(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+    if (errors[key]) {
+      setErrors(prev => ({
+        ...prev,
+        [key]: ""
+      }));
+    }
+  };
 
-  // Find CF7 form on mount and when DOM updates
+  // Validation functions
+  const validateEmail = email => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+  const validatePhone = phone => {
+    // Australian phone number format - supports various formats
+    // Examples: 0412345678, 04 1234 5678, (03) 9123 4567, +61 3 9123 4567
+    const cleaned = phone.replace(/[\s()-]/g, '');
+    const re = /^(?:\+?61)?[2-478](?:[ -]?[0-9]){8}$/;
+    return re.test(cleaned) || /^04\d{8}$/.test(cleaned);
+  };
+  const validateForm = () => {
+    const newErrors = {};
+    if (!form.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+    }
+    if (!form.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+    }
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!validateEmail(form.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    if (!form.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!validatePhone(form.phone)) {
+      newErrors.phone = "Please enter a valid Australian phone number";
+    }
+    if (!form.topic.trim()) {
+      newErrors.topic = "Topic is required";
+    }
+    if (!form.message.trim()) {
+      newErrors.message = "Message is required";
+    }
+    if (!form.agreed) {
+      newErrors.agreed = "You must agree to the terms to submit";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Find CF7 form on mount
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const findForm = () => {
       const root = document.getElementById("cf7-proxy");
@@ -345,15 +407,10 @@ function ContactForm() {
         const form = root.querySelector("form.wpcf7-form");
         if (form) {
           cf7Ref.current = form;
-          console.log("CF7 form found:", form);
         }
       }
     };
-
-    // Try to find immediately
     findForm();
-
-    // Also try after a short delay in case the form loads async
     const timeout = setTimeout(findForm, 500);
     return () => clearTimeout(timeout);
   }, []);
@@ -361,18 +418,15 @@ function ContactForm() {
   // Set up event listeners
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const cf7 = cf7Ref.current;
-    if (!cf7) {
-      console.warn("CF7 form not found in DOM");
-      return;
-    }
-    const onOk = e => {
-      console.log("CF7 mail sent", e);
+    if (!cf7) return;
+    const onOk = () => {
       setSubmitting(false);
       setSent(true);
+      setError(false);
     };
-    const onFail = e => {
-      console.error("CF7 failed", e);
+    const onFail = () => {
       setSubmitting(false);
+      setError(true);
     };
     cf7.addEventListener("wpcf7mailsent", onOk);
     cf7.addEventListener("wpcf7mailfailed", onFail);
@@ -387,22 +441,23 @@ function ContactForm() {
   }, []);
   const handleSubmit = e => {
     e.preventDefault();
-    const cf7 = cf7Ref.current;
-    if (!cf7) {
-      console.error("CF7 form not available");
-      alert("Contact form is not ready. Please refresh the page and try again.");
+
+    // Validate form
+    if (!validateForm()) {
       return;
     }
-    console.log("Submitting form with data:", form);
+    const cf7 = cf7Ref.current;
+    if (!cf7) {
+      setError(true);
+      return;
+    }
     setSubmitting(true);
+    setError(false);
 
     // Helper to set field value
     const setVal = (name, value) => {
       const el = cf7.querySelector(`[name="${name}"]`);
-      if (!el) {
-        console.warn(`CF7 field not found: ${name}`);
-        return;
-      }
+      if (!el) return;
       el.value = value;
       el.dispatchEvent(new Event("input", {
         bubbles: true
@@ -420,32 +475,79 @@ function ContactForm() {
     setVal("your-subject", form.topic);
     setVal("your-message", form.message);
 
-    // Log for debugging
-    console.log("CF7 form fields populated");
-
     // Trigger CF7 submission
     try {
       if (cf7.requestSubmit) {
-        console.log("Using requestSubmit()");
         cf7.requestSubmit();
       } else {
-        console.log("Using submit()");
         cf7.submit();
       }
     } catch (err) {
-      console.error("Error submitting CF7 form:", err);
       setSubmitting(false);
+      setError(true);
     }
   };
+  const resetForm = () => {
+    setForm({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      topic: "",
+      message: "",
+      agreed: false
+    });
+    setErrors({});
+    setSent(false);
+    setError(false);
+  };
   if (sent) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
-      className: "bg-schemesPrimaryContainer text-schemesOnPrimaryContainer py-16 px-6 sm:px-12 lg:px-20 text-center rounded-3xl w-full",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-        className: "Blueprint-display-small-emphasized mb-4",
-        children: "Thanks for reaching out"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        className: "Blueprint-body-large",
-        children: "We'll get back to you shortly."
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "w-full",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "bg-schemesSurfaceVariant",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-10 flex flex-row items-end justify-between gap-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+            className: "whitespace-nowrap Blueprint-display-small-emphasized md:Blueprint-display-medium-emphasized lg:Blueprint-display-large text-schemesOnSurface",
+            children: "Contact us"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+            src: _assets_contact_us_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
+            alt: "Contact us",
+            className: "block h-auto translate-y-4"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("section", {
+        className: "max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-12 md:py-16",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "bg-schemesPrimaryContainer rounded-3xl p-8 md:p-12 lg:p-16 text-center max-w-2xl mx-auto",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "bg-schemesPrimary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+              className: "w-8 h-8 text-white",
+              fill: "none",
+              stroke: "currentColor",
+              viewBox: "0 0 24 24",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 2,
+                d: "M5 13l4 4L19 7"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+            className: "Blueprint-headline-large-emphasized text-schemesOnSurface mb-4",
+            children: "Thanks for reaching out!"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            className: "Blueprint-body-large text-schemesOnSurface mb-8",
+            children: "We've received your message and will get back to you as soon as possible. Usually within 1-2 business days."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            label: "Send another message",
+            size: "lg",
+            style: "tonal",
+            onClick: resetForm
+          })]
+        })
       })]
     });
   }
@@ -480,6 +582,12 @@ function ContactForm() {
               className: "Blueprint-body-large text-schemesOnSurfaceVariant",
               children: "Use the form below and we'll get back to you as soon as we can."
             })]
+          }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "bg-schemesErrorContainer text-schemesOnErrorContainer p-4 rounded-2xl",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+              className: "Blueprint-body-medium",
+              children: "Something went wrong. Please try again in a few minutes."
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "flex flex-col gap-8",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -488,12 +596,16 @@ function ContactForm() {
                 label: "First name",
                 value: form.firstName,
                 onChange: handleChange("firstName"),
-                style: "outlined"
+                style: "outlined",
+                error: errors.firstName,
+                required: true
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
                 label: "Last name",
                 value: form.lastName,
                 onChange: handleChange("lastName"),
-                style: "outlined"
+                style: "outlined",
+                error: errors.lastName,
+                required: true
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
               className: "grid grid-cols-1 md:grid-cols-2 gap-6",
@@ -501,37 +613,52 @@ function ContactForm() {
                 label: "Email",
                 value: form.email,
                 onChange: handleChange("email"),
-                style: "outlined"
+                style: "outlined",
+                error: errors.email,
+                type: "email",
+                required: true
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
                 label: "Phone number",
                 value: form.phone,
                 onChange: handleChange("phone"),
-                style: "outlined"
+                style: "outlined",
+                error: errors.phone,
+                type: "tel",
+                required: true
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
               label: "Topic",
               value: form.topic,
               onChange: handleChange("topic"),
-              style: "outlined"
+              style: "outlined",
+              error: errors.topic,
+              required: true
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
               label: "Message",
               value: form.message,
               onChange: handleChange("message"),
               multiline: true,
-              style: "outlined"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("label", {
-              className: "flex items-start gap-3 Blueprint-body-medium text-schemesOnSurface",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                type: "checkbox",
-                className: "accent-schemesPrimary mt-1",
-                checked: form.agreed,
-                onChange: handleToggle("agreed")
-              }), "By submitting this form, you agree to provide accurate information and communicate respectfully. The Social Blueprint does not offer crisis or emergency support. Any personal details you share will be handled in line with our Privacy Policy and will not be sold or shared with third parties. We are not responsible for the outcomes of any interactions you may have with organisations listed on this site."]
+              style: "outlined",
+              error: errors.message,
+              required: true
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("label", {
+                className: "flex items-start gap-3 Blueprint-body-medium text-schemesOnSurface",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                  type: "checkbox",
+                  className: "accent-schemesPrimary mt-1",
+                  checked: form.agreed,
+                  onChange: handleToggle("agreed")
+                }), "By submitting this form, you agree to provide accurate information and communicate respectfully. The Social Blueprint does not offer crisis or emergency support. Any personal details you share will be handled in line with our Privacy Policy and will not be sold or shared with third parties. We are not responsible for the outcomes of any interactions you may have with organisations listed on this site."]
+              }), errors.agreed && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+                className: "Blueprint-body-small text-schemesError mt-2",
+                children: errors.agreed
+              })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               label: submitting ? "Sending…" : "Send a message",
               size: "lg",
               style: "filled",
-              disabled: !form.agreed || submitting,
+              disabled: submitting,
               type: "submit"
             })]
           })]
@@ -670,4 +797,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=contact.js.map?ver=e14c526e0d3f13875234
+//# sourceMappingURL=contact.js.map?ver=b95c08385b347e5f6623
