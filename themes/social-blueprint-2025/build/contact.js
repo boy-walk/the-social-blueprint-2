@@ -327,6 +327,7 @@ function ContactForm() {
   });
   const [sent, setSent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [submitting, setSubmitting] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const cf7Ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const handleChange = key => e => setForm(prev => ({
     ...prev,
     [key]: e.target.value
@@ -335,33 +336,73 @@ function ContactForm() {
     ...prev,
     [key]: !prev[key]
   }));
-  const cf7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    const root = document.getElementById("cf7-proxy");
-    return root ? root.querySelector("form.wpcf7-form") : null;
-  }, []);
+
+  // Find CF7 form on mount and when DOM updates
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!cf7) return;
-    const onOk = () => {
+    const findForm = () => {
+      const root = document.getElementById("cf7-proxy");
+      if (root) {
+        const form = root.querySelector("form.wpcf7-form");
+        if (form) {
+          cf7Ref.current = form;
+          console.log("CF7 form found:", form);
+        }
+      }
+    };
+
+    // Try to find immediately
+    findForm();
+
+    // Also try after a short delay in case the form loads async
+    const timeout = setTimeout(findForm, 500);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // Set up event listeners
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const cf7 = cf7Ref.current;
+    if (!cf7) {
+      console.warn("CF7 form not found in DOM");
+      return;
+    }
+    const onOk = e => {
+      console.log("CF7 mail sent", e);
       setSubmitting(false);
       setSent(true);
     };
-    const onFail = () => setSubmitting(false);
+    const onFail = e => {
+      console.error("CF7 failed", e);
+      setSubmitting(false);
+    };
     cf7.addEventListener("wpcf7mailsent", onOk);
     cf7.addEventListener("wpcf7mailfailed", onFail);
     cf7.addEventListener("wpcf7invalid", onFail);
+    cf7.addEventListener("wpcf7spam", onFail);
     return () => {
       cf7.removeEventListener("wpcf7mailsent", onOk);
       cf7.removeEventListener("wpcf7mailfailed", onFail);
       cf7.removeEventListener("wpcf7invalid", onFail);
+      cf7.removeEventListener("wpcf7spam", onFail);
     };
-  }, [cf7]);
+  }, []);
   const handleSubmit = e => {
     e.preventDefault();
-    if (!cf7) return;
+    const cf7 = cf7Ref.current;
+    if (!cf7) {
+      console.error("CF7 form not available");
+      alert("Contact form is not ready. Please refresh the page and try again.");
+      return;
+    }
+    console.log("Submitting form with data:", form);
     setSubmitting(true);
+
+    // Helper to set field value
     const setVal = (name, value) => {
       const el = cf7.querySelector(`[name="${name}"]`);
-      if (!el) return;
+      if (!el) {
+        console.warn(`CF7 field not found: ${name}`);
+        return;
+      }
       el.value = value;
       el.dispatchEvent(new Event("input", {
         bubbles: true
@@ -370,16 +411,31 @@ function ContactForm() {
         bubbles: true
       }));
     };
+
+    // Map form data to CF7 fields
     const fullName = [form.firstName, form.lastName].filter(Boolean).join(" ");
     setVal("your-name", fullName);
     setVal("your-phone", form.phone);
     setVal("your-email", form.email);
     setVal("your-subject", form.topic);
     setVal("your-message", form.message);
-    if (cf7.requestSubmit) cf7.requestSubmit();else cf7.dispatchEvent(new Event("submit", {
-      bubbles: true,
-      cancelable: true
-    }));
+
+    // Log for debugging
+    console.log("CF7 form fields populated");
+
+    // Trigger CF7 submission
+    try {
+      if (cf7.requestSubmit) {
+        console.log("Using requestSubmit()");
+        cf7.requestSubmit();
+      } else {
+        console.log("Using submit()");
+        cf7.submit();
+      }
+    } catch (err) {
+      console.error("Error submitting CF7 form:", err);
+      setSubmitting(false);
+    }
   };
   if (sent) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
@@ -389,7 +445,7 @@ function ContactForm() {
         children: "Thanks for reaching out"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
         className: "Blueprint-body-large",
-        children: "We\u2019ll get back to you shortly."
+        children: "We'll get back to you shortly."
       })]
     });
   }
@@ -422,7 +478,7 @@ function ContactForm() {
               children: "Send us a message"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
               className: "Blueprint-body-large text-schemesOnSurfaceVariant",
-              children: "Use the form below and we\u2019ll get back to you as soon as we can."
+              children: "Use the form below and we'll get back to you as soon as we can."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             className: "flex flex-col gap-8",
@@ -475,7 +531,8 @@ function ContactForm() {
               label: submitting ? "Sending…" : "Send a message",
               size: "lg",
               style: "filled",
-              disabled: !form.agreed || submitting
+              disabled: !form.agreed || submitting,
+              type: "submit"
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("aside", {
@@ -613,4 +670,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=contact.js.map?ver=4991a848b41428e01ba2
+//# sourceMappingURL=contact.js.map?ver=e14c526e0d3f13875234

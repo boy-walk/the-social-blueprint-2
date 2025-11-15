@@ -143,10 +143,10 @@ const MENU_SECTIONS = {
     {
       title: "Browse by category",
       items: [
-        { label: "Jobs", href: "/message-boards?cat=jobs" },
-        { label: "Volunteering", href: "/message-boards?cat=volunteering" },
-        { label: "Local Notices", href: "/message-boards?cat=local-notices" },
-        { label: "Informal Support", href: "/message-boards?cat=support" },
+        { label: "Announcements", href: "/message-boards?cat=announcments" },
+        { label: "Activities and Programs", href: "/message-boards?cat=activities-and-programs" },
+        { label: "Community Jobs", href: "/message-boards?cat=community-jobs" },
+        { label: "Volunteering and Getting Involved", href: "/message-boards?cat=volunteering-and-getting-involved" },
       ],
     },
   ],

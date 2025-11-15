@@ -13,7 +13,6 @@ get_header(); ?>
     $groups = [
       [ 'label' => 'Topics',    'tax' => 'topic_tag' ],
       [ 'label' => 'Audiences', 'tax' => 'audience_tag' ],
-      [ 'label' => 'Locations', 'tax' => 'location_tag' ],
       [ 'label' => 'Theme',     'tax' => 'theme' ],
     ];
 

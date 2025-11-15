@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState, useRef } from "react";
 import { TextField } from "./TextField";
 import { Button } from "./Button";
 import ContactUs from "../../assets/contact-us.svg";
@@ -15,46 +15,92 @@ export function ContactForm() {
   });
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const cf7Ref = useRef(null);
 
   const handleChange = (key) => (e) =>
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
   const handleToggle = (key) => () =>
     setForm((prev) => ({ ...prev, [key]: !prev[key] }));
 
-  const cf7 = useMemo(() => {
-    const root = document.getElementById("cf7-proxy");
-    return root ? root.querySelector("form.wpcf7-form") : null;
+  // Find CF7 form on mount and when DOM updates
+  useEffect(() => {
+    const findForm = () => {
+      const root = document.getElementById("cf7-proxy");
+      if (root) {
+        const form = root.querySelector("form.wpcf7-form");
+        if (form) {
+          cf7Ref.current = form;
+          console.log("CF7 form found:", form);
+        }
+      }
+    };
+
+    // Try to find immediately
+    findForm();
+
+    // Also try after a short delay in case the form loads async
+    const timeout = setTimeout(findForm, 500);
+
+    return () => clearTimeout(timeout);
   }, []);
 
+  // Set up event listeners
   useEffect(() => {
-    if (!cf7) return;
-    const onOk = () => {
+    const cf7 = cf7Ref.current;
+    if (!cf7) {
+      console.warn("CF7 form not found in DOM");
+      return;
+    }
+
+    const onOk = (e) => {
+      console.log("CF7 mail sent", e);
       setSubmitting(false);
       setSent(true);
     };
-    const onFail = () => setSubmitting(false);
+    const onFail = (e) => {
+      console.error("CF7 failed", e);
+      setSubmitting(false);
+    };
+
     cf7.addEventListener("wpcf7mailsent", onOk);
     cf7.addEventListener("wpcf7mailfailed", onFail);
     cf7.addEventListener("wpcf7invalid", onFail);
+    cf7.addEventListener("wpcf7spam", onFail);
+
     return () => {
       cf7.removeEventListener("wpcf7mailsent", onOk);
       cf7.removeEventListener("wpcf7mailfailed", onFail);
       cf7.removeEventListener("wpcf7invalid", onFail);
+      cf7.removeEventListener("wpcf7spam", onFail);
     };
-  }, [cf7]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!cf7) return;
+
+    const cf7 = cf7Ref.current;
+    if (!cf7) {
+      console.error("CF7 form not available");
+      alert("Contact form is not ready. Please refresh the page and try again.");
+      return;
+    }
+
+    console.log("Submitting form with data:", form);
     setSubmitting(true);
 
+    // Helper to set field value
     const setVal = (name, value) => {
       const el = cf7.querySelector(`[name="${name}"]`);
-      if (!el) return;
+      if (!el) {
+        console.warn(`CF7 field not found: ${name}`);
+        return;
+      }
       el.value = value;
       el.dispatchEvent(new Event("input", { bubbles: true }));
       el.dispatchEvent(new Event("change", { bubbles: true }));
     };
+
+    // Map form data to CF7 fields
     const fullName = [form.firstName, form.lastName].filter(Boolean).join(" ");
     setVal("your-name", fullName);
     setVal("your-phone", form.phone);
@@ -62,8 +108,22 @@ export function ContactForm() {
     setVal("your-subject", form.topic);
     setVal("your-message", form.message);
 
-    if (cf7.requestSubmit) cf7.requestSubmit();
-    else cf7.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    // Log for debugging
+    console.log("CF7 form fields populated");
+
+    // Trigger CF7 submission
+    try {
+      if (cf7.requestSubmit) {
+        console.log("Using requestSubmit()");
+        cf7.requestSubmit();
+      } else {
+        console.log("Using submit()");
+        cf7.submit();
+      }
+    } catch (err) {
+      console.error("Error submitting CF7 form:", err);
+      setSubmitting(false);
+    }
   };
 
   if (sent) {
@@ -73,7 +133,7 @@ export function ContactForm() {
           Thanks for reaching out
         </h2>
         <p className="Blueprint-body-large">
-          We’ll get back to you shortly.
+          We'll get back to you shortly.
         </p>
       </section>
     );
@@ -107,7 +167,7 @@ export function ContactForm() {
                 Send us a message
               </h2>
               <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
-                Use the form below and we’ll get back to you as soon as we can.
+                Use the form below and we'll get back to you as soon as we can.
               </p>
             </header>
 
@@ -171,6 +231,7 @@ export function ContactForm() {
                 size="lg"
                 style="filled"
                 disabled={!form.agreed || submitting}
+                type="submit"
               />
             </div>
           </form>
