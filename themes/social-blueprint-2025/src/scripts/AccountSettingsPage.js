@@ -3,7 +3,6 @@ import { TextField } from './TextField';
 import { Button } from './Button';
 
 export function AccountSettings({ profile }) {
-  console.log(profile);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState(profile);
 

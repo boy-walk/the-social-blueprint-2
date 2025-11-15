@@ -473,7 +473,6 @@ __webpack_require__.r(__webpack_exports__);
 function AccountSettings({
   profile
 }) {
-  console.log(profile);
   const [editing, setEditing] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(profile);
   const handleChange = e => {
@@ -886,4 +885,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=4625f0056b9b201d1f8b
+//# sourceMappingURL=account-profile.js.map?ver=9dfc7a5f306f98e94a79
