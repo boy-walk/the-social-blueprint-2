@@ -3,6 +3,7 @@ import { TextField } from './TextField';
 import { Button } from './Button';
 
 export function AccountSettings({ profile }) {
+  console.log(profile);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState(profile);
 
@@ -97,9 +98,9 @@ export function AccountSettings({ profile }) {
         </div>
         <div className="flex gap-6">
           <TextField
-            label="Account name"
-            name="username"
-            value={form.username}
+            label="Display name"
+            name="display_name"
+            value={form.display_name}
             onChange={handleChange}
             disabled={!editing}
           />
