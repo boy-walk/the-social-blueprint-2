@@ -5,8 +5,7 @@ import ReactDOM from 'react-dom/client';
 
 const $ = (id) => document.getElementById(id);
 const parse = (s, fallback = '{}') => {
-  try { return JSON.parse(s ?? fallback); } catch (e) {
-    console.log(e)
+  try { return JSON.parse(s ?? fallback); } catch {
     return JSON.parse(fallback);
   }
 };

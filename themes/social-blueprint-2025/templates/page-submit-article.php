@@ -49,7 +49,6 @@ $props = [
 
 ?>
 <main id="main">
-  <div id="submit-article-root"
-       data-props='<?php echo wp_json_encode($props, JSON_UNESCAPED_SLASHES); ?>'></div>
+<div id="submit-article-root" data-props="<?php echo esc_attr(wp_json_encode($props)); ?>"></div>
 </main>
 <?php get_footer(); ?>

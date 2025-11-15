@@ -3688,8 +3688,7 @@ const $ = id => document.getElementById(id);
 const parse = (s, fallback = '{}') => {
   try {
     return JSON.parse(s !== null && s !== void 0 ? s : fallback);
-  } catch (e) {
-    console.log(e);
+  } catch {
     return JSON.parse(fallback);
   }
 };
