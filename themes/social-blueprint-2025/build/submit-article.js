@@ -922,6 +922,7 @@ function SubmitArticleForm({
   wpNonce,
   taxonomies = {}
 }) {
+  console.log(taxonomies);
   const [acf, setAcf] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     title: "",
     subtitle: "",
@@ -1522,4 +1523,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=submit-article.js.map?ver=8fbeb781eedb85c8fec8
+//# sourceMappingURL=submit-article.js.map?ver=e77a01c5f5433de7f18b
