@@ -61,12 +61,12 @@ export function TextField({
     'aria-invalid': hasError ? 'true' : undefined,
     'aria-describedby': helperText ? msgId : undefined,
     className: multiline
-      ? clsx(inputBase, 'resize-none h-32')
+      ? clsx(inputBase, 'resize-none')
       : inputBase,
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <div
         className={clsx(
           containerBase,
@@ -106,13 +106,13 @@ export function TextField({
         <p
           id={msgId}
           className={clsx(
-            'mt-1 ml-4 Blueprint-body-small',
+            'ml-4 Blueprint-body-small',
             hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'
           )}
         >
           {helperText}
         </p>
       ) : null}
-    </>
+    </div>
   );
 }

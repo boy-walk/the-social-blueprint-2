@@ -50,12 +50,12 @@ export function HealthListingHub({ categories = [], breadcrumbs = [] }) {
                           <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                             {hasFaIcon ? (
                               <div
-                                className="rounded-[12px] p-1 flex items-center justify-center"
+                                className="rounded-full flex items-center justify-center"
                                 style={{ backgroundColor: bgColor }}
                               >
                                 <i
                                   className={`${category.fa_icon} text-white`}
-                                  style={{ fontSize: '22px' }}
+                                  style={{ fontSize: '16px' }}
                                   aria-hidden="true"
                                 ></i>
                               </div>

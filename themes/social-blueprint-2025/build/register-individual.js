@@ -123,6 +123,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function RegisterIndividual() {
   const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [success, setSuccess] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [touched, setTouched] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     firstName: '',
     lastName: '',
@@ -133,18 +135,62 @@ function RegisterIndividual() {
     newsOptIn: false,
     agreed: false
   });
-  const handleChange = key => e => setForm(prev => ({
+  const handleChange = key => e => {
+    setForm(prev => ({
+      ...prev,
+      [key]: e.target.value
+    }));
+    setTouched(prev => ({
+      ...prev,
+      [key]: true
+    }));
+  };
+  const handleBlur = key => () => setTouched(prev => ({
     ...prev,
-    [key]: e.target.value
+    [key]: true
   }));
   const handleToggle = key => () => setForm(prev => ({
     ...prev,
     [key]: !prev[key]
   }));
+
+  // Validation functions
+  const validateEmail = email => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const validatePhone = phone => {
+    const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+    return phone.length >= 10 && phoneRegex.test(phone);
+  };
+  const validatePassword = password => {
+    return password.length >= 8;
+  };
+
+  // Error messages
+  const errors = {
+    firstName: touched.firstName && !form.firstName ? 'First name is required' : '',
+    lastName: touched.lastName && !form.lastName ? 'Last name is required' : '',
+    email: touched.email && !form.email ? 'Email is required' : touched.email && !validateEmail(form.email) ? 'Please enter a valid email address' : '',
+    phone: touched.phone && !form.phone ? 'Phone number is required' : touched.phone && !validatePhone(form.phone) ? 'Please enter a valid phone number' : '',
+    password: touched.password && !form.password ? 'Password is required' : touched.password && !validatePassword(form.password) ? 'Password must be at least 8 characters' : '',
+    confirm: touched.confirm && !form.confirm ? 'Please confirm your password' : touched.confirm && form.password && form.confirm && form.password !== form.confirm ? 'Passwords do not match' : ''
+  };
+  const hasErrors = Object.values(errors).some(error => error !== '');
   const passwordMismatch = form.password && form.confirm && form.password !== form.confirm;
-  const canSubmit = Object.values(form).every(Boolean) && !passwordMismatch;
+  const canSubmit = form.firstName && form.lastName && form.email && form.phone && form.password && form.confirm && form.agreed && !hasErrors;
   const handleSubmit = async e => {
     e.preventDefault();
+
+    // Mark all fields as touched to show validation errors
+    setTouched({
+      firstName: true,
+      lastName: true,
+      email: true,
+      phone: true,
+      password: true,
+      confirm: true
+    });
     if (!canSubmit) return;
     try {
       const res = await fetch('/wp-json/uwp-custom/v1/register', {
@@ -166,11 +212,54 @@ function RegisterIndividual() {
         setError(data.message);
         return;
       }
-      alert('Account created! 🎉');
+      setSuccess(true);
+      setError(null);
     } catch (err) {
       setError(err.message);
     }
   };
+  if (success) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("main", {
+      className: "flex flex-col max-w-xl mx-auto px-4 py-16 gap-8",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "text-center space-y-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "w-20 h-20 mx-auto rounded-full bg-schemesSecondaryContainer flex items-center justify-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
+            className: "w-10 h-10 text-schemesOnSecondaryContainer",
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeWidth: 2,
+              d: "M5 13l4 4L19 7"
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "space-y-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+            className: "Blueprint-headline-large-emphasized text-schemesOnSurface",
+            children: "Account Created Successfully!"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+            className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+            children: ["Welcome to The Social Blueprint, ", form.firstName, "!"]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "flex flex-col gap-3",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Login",
+          style: "outlined",
+          size: "base",
+          shape: "square",
+          className: "w-full",
+          onClick: () => window.location.href = '/login'
+        })
+      })]
+    });
+  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("main", {
     className: "flex flex-col max-w-xl mx-auto px-4 py-16 gap-16",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("header", {
@@ -188,46 +277,57 @@ function RegisterIndividual() {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
       onSubmit: handleSubmit,
-      className: "flex flex-col gap-6",
+      className: "flex flex-col gap-5",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "grid grid-cols-1 md:grid-cols-2 gap-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "First name",
           placeholder: "Input",
           value: form.firstName,
-          onChange: handleChange('firstName')
+          onChange: handleChange('firstName'),
+          onBlur: handleBlur('firstName'),
+          error: errors.firstName
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Last name",
           placeholder: "Input",
           value: form.lastName,
-          onChange: handleChange('lastName')
+          onChange: handleChange('lastName'),
+          onBlur: handleBlur('lastName'),
+          error: errors.lastName
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Email",
         placeholder: "Input",
         value: form.email,
-        onChange: handleChange('email')
+        onChange: handleChange('email'),
+        onBlur: handleBlur('email'),
+        type: "email",
+        error: errors.email
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Phone number",
         placeholder: "Input",
         value: form.phone,
-        onChange: handleChange('phone')
+        onChange: handleChange('phone'),
+        onBlur: handleBlur('phone'),
+        type: "tel",
+        error: errors.phone
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Password",
         placeholder: "Input",
         value: form.password,
         onChange: handleChange('password'),
+        onBlur: handleBlur('password'),
         type: "password",
-        supportingText: passwordMismatch ? 'Passwords do not match' : '',
-        error: passwordMismatch
+        error: errors.password,
+        supportingText: !errors.password ? 'Must be at least 8 characters' : ''
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Confirm Password",
         placeholder: "Input",
         value: form.confirm,
         onChange: handleChange('confirm'),
+        onBlur: handleBlur('confirm'),
         type: "password",
-        supportingText: passwordMismatch ? 'Passwords do not match' : '',
-        error: passwordMismatch
+        error: errors.confirm
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
         className: "flex items-start gap-3 Blueprint-body-medium",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
@@ -336,9 +436,10 @@ function TextField({
     disabled,
     'aria-invalid': hasError ? 'true' : undefined,
     'aria-describedby': helperText ? msgId : undefined,
-    className: multiline ? (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(inputBase, 'resize-none h-32') : inputBase
+    className: multiline ? (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(inputBase, 'resize-none') : inputBase
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "flex flex-col gap-2",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(containerBase, variantMap[style], errorClasses, disabledClasses),
       children: [leadingIcon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -361,7 +462,7 @@ function TextField({
       })]
     }), helperText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
       id: msgId,
-      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('mt-1 ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
       children: helperText
     }) : null]
   });
@@ -370,4 +471,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-individual.js.map?ver=f568f0387e0d1a83ba2d
+//# sourceMappingURL=register-individual.js.map?ver=84e538532a306818b7d7

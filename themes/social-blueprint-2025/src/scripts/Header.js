@@ -12,6 +12,7 @@ import {
   SmileyIcon,
   CaretDownIcon,
   CaretUpIcon,
+  MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
 import { Socials } from "./Socials";
 
@@ -71,7 +72,7 @@ const MENU_SECTIONS = {
         { label: "Discover Events", href: "/events" },
         { label: "View Calendar", href: "/events" },
         { label: "Featured Events", href: "/events?featured=1" },
-        { label: "Submit an Event", href: "/events-calendar/community/add" },
+        { label: "Submit an event", href: "/events-calendar/community/add" },
       ],
     },
     {
@@ -81,8 +82,6 @@ const MENU_SECTIONS = {
         { label: "For Adults", href: "/events?audience=adults" },
         { label: "Community Groups", href: "/events?audience=groups" },
         { label: "For Seniors", href: "/events?audience=seniors" },
-        { label: "For Children", href: "/events?audience=children" },
-        { label: "For Teens", href: "/events?audience=teens" },
       ],
     },
   ],
@@ -107,17 +106,17 @@ const MENU_SECTIONS = {
     {
       title: "Read & Listen",
       items: [
-        { label: "Articles and Blogs", href: "/articles" },
+        { label: "Articles and blogs", href: "/articles" },
         { label: "Everybody has a story", href: "/podcasts/?series=everybody-has-a-story" },
-        { label: "Candid Conversations", href: "/podcasts/?series=candid-conversations" },
+        { label: "Candid conversations", href: "/podcasts/?series=candid-conversations" },
       ],
     },
     {
       title: "Categories",
       items: [
-        { label: "Community & Connection", href: "/podcast.article/?theme=community-and-connection" },
-        { label: "Culture & Identity", href: "/podcast.article/?theme=culture-and-identity" },
-        { label: "Learning & Growth", href: "/podcast.article/?theme=learning-and-growth" },
+        { label: "Community & Connection", href: "/stories-and-interviews?theme=community-and-connection" },
+        { label: "Culture & Identity", href: "/stories-and-interviews?theme=culture-and-identity" },
+        { label: "Learning & Growth", href: "/stories-and-interviews?theme=learning-and-growth" },
       ],
     },
   ],
@@ -128,7 +127,7 @@ const MENU_SECTIONS = {
         { label: "Our Mission", href: "/about-us" },
         { label: "Contact & Support", href: "/contact-us" },
         { label: "FAQs", href: "/faqs" },
-        { label: "Terms and Conditions", href: "/terms" },
+        { label: "Terms and conditions", href: "/terms" },
       ],
     },
   ],
@@ -136,17 +135,17 @@ const MENU_SECTIONS = {
     {
       title: "Message Board",
       items: [
-        { label: "Browse Message Board", href: "/message-boards" },
-        { label: "Post a Notice", href: "/add-listing/message-boards/" },
+        { label: "Browse Message board", href: "/message-boards" },
+        { label: "Post a notice", href: "/add-listing/message-boards/" },
       ],
     },
     {
       title: "Browse by category",
       items: [
-        { label: "Announcements", href: "/message-boards?cat=announcments" },
-        { label: "Activities and Programs", href: "/message-boards?cat=activities-and-programs" },
-        { label: "Community Jobs", href: "/message-boards?cat=community-jobs" },
-        { label: "Volunteering and Getting Involved", href: "/message-boards?cat=volunteering-and-getting-involved" },
+        { label: "Jobs", href: "/message-boards?cat=jobs" },
+        { label: "Volunteering", href: "/message-boards?cat=volunteering" },
+        { label: "Local notices", href: "/message-boards?cat=local-notices" },
+        { label: "Informal support", href: "/message-boards?cat=support" },
       ],
     },
   ],
@@ -163,7 +162,7 @@ const MENU_SECTIONS = {
       title: "Content type",
       items: [
         { label: "Events", href: "/events" },
-        { label: "Interviews", href: "/podcasts" },
+        { label: "Podcasts", href: "/podcasts" },
         { label: "Articles", href: "/articles" },
         { label: "Message Board", href: "/message-boards" },
       ],
@@ -334,6 +333,45 @@ function MobileMenu({
           </button>
         </div>
 
+        {/* Search bar in mobile */}
+        <div className="mb-6">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const query = e.target.elements.search.value.trim();
+              if (query) {
+                window.location.href = `/search?q=${encodeURIComponent(query)}`;
+              }
+            }}
+            className="relative"
+          >
+            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+              <div className="bg-schemesPrimaryFixed rounded-lg p-1.5">
+                <MagnifyingGlassIcon size={22} />
+              </div>
+            </div>
+            <input
+              type="search"
+              name="search"
+              className="block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-2 focus:ring-[#1e6586] focus:border-[#1e6586] outline-none"
+              placeholder="Search..."
+            />
+          </form>
+        </div>
+
+        {/* Socials button */}
+        <div className="mb-6">
+          <Button
+            label="Find our socials"
+            variant="filled"
+            shape="square"
+            size="lg"
+            className="w-full"
+            icon={<PlusIcon size={16} weight="bold" />}
+            onClick={() => window.open("https://linktr.ee/socialblueprint", "_blank")}
+          />
+        </div>
+
         <nav>
           {Object.entries(MENU_SECTIONS).map(([key, groups], idx) => {
             const isOpen = !!expanded[key];
@@ -403,7 +441,6 @@ function MobileMenu({
         </nav>
 
         <div className="mt-8 grid grid-cols-2 gap-3">
-          <Button label="Subscribe" variant="filled" size="lg" onClick={() => goto("/subscribe")} />
           <Button
             label={isUserLoggedIn ? "Account" : "Log in"}
             variant="tonal"
@@ -442,6 +479,9 @@ export default function Header({ isUserLoggedIn = false }) {
   const [showRegister, setShowRegister] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchExpanded, setSearchExpanded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchRef = useRef(null);
   const hoverTimer = useRef(null);
   const headerRef = useRef(null);
   useAdminBarOffset();
@@ -455,6 +495,19 @@ export default function Header({ isUserLoggedIn = false }) {
     document.addEventListener("mousedown", onClick);
     return () => document.removeEventListener("mousedown", onClick);
   }, [showRegister]);
+
+  useEffect(() => {
+    if (!searchExpanded) return;
+    const onClick = (e) => {
+      if (!searchRef.current) return;
+      if (!searchRef.current.contains(e.target)) {
+        setSearchExpanded(false);
+        setSearchQuery("");
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [searchExpanded]);
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
@@ -504,6 +557,13 @@ export default function Header({ isUserLoggedIn = false }) {
   };
   const goto = (href) => (window.location.href = href);
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      goto(`/?s=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   const NavBtn = ({ id, label, href }) => (
     <div onMouseEnter={() => openPanel(id)} onFocus={() => setOpen(id)} className="inline-block">
       <Button label={label} className="text-white" size="lg" variant="text" onClick={() => goto(href)} />
@@ -541,40 +601,61 @@ export default function Header({ isUserLoggedIn = false }) {
           />
         </a>
 
-        <div className={`hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`}>
+        <div className={`hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-4"} transition-all duration-300`}>
           <div
             className={`
               transition-all duration-300 origin-top
               ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
             `}
           >
-            <Socials />
-          </div>
+            <div className="flex gap-4 relative items-center">
+              {/* Search bar / button */}
+              <div ref={searchRef} className="relative">
+                {searchExpanded ? (
+                  <form onSubmit={handleSearchSubmit} className="relative">
+                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                      <div className="bg-schemesPrimaryFixed rounded-lg p-1.5">
+                        <MagnifyingGlassIcon size={20} color="black" />
+                      </div>
+                    </div>
+                    <input
+                      type="search"
+                      autoFocus
+                      className="block w-120 py-2 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-2 focus:ring-[#1e6586] focus:border-[#1e6586] outline-none"
+                      placeholder="Search..."
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      value={searchQuery}
+                    />
+                  </form>
+                ) : (
+                  <Button
+                    label="Search"
+                    variant="ghost"
+                    shape="square"
+                    size="base"
+                    icon={<MagnifyingGlassIcon size={22} weight="duotone" />}
+                    onClick={() => setSearchExpanded(true)}
+                  />
+                )}
+              </div>
 
-          <div className="hidden lg:flex items-center gap-6">
-            <nav className="hidden lg:flex items-center Blueprint-body-medium">
-              <NavBtn id="whats-on" label={t("whats_on")} href="/events" />
-              <NavBtn id="directory" label={t("directory")} href="/directory" />
-              <NavBtn id="blueprint-stories" label={t("blueprint_stories")} href="/stories-and-interviews" />
-              <NavBtn id="about-us" label={t("about_us")} href="/about-us" />
-              <NavBtn id="message-board" label={t("message_board")} href="/message-boards" />
-              <NavBtn id="explore-by" label={"Explore by"} href="/topics" />
-            </nav>
-            <div className="flex gap-4 relative">
+              {/* Socials button */}
               <Button
-                label={t("Subscribe")}
+                label="Find our socials"
                 variant="filled"
                 shape="square"
-                size="lg"
-                onClick={() => goto("/subscribe")}
+                size="base"
+                icon={<PlusIcon size={16} weight="bold" />}
+                onClick={() => window.open("https://linktr.ee/socialblueprint", "_blank")}
               />
 
+              {/* Account/Login buttons */}
               {isUserLoggedIn ? (
                 <Button
                   label={t("account_dasboard")}
                   variant="tonal"
                   shape="square"
-                  size="lg"
+                  size="base"
                   icon={<SmileyIcon size={22} weight="bold" />}
                   onClick={() => goto("/account-dashboard")}
                 />
@@ -582,10 +663,10 @@ export default function Header({ isUserLoggedIn = false }) {
                 <div className="relative">
                   <div className="flex items-center gap-1">
                     <Button
-                      label={t("log_in")}
+                      label={"Log in/Register"}
                       variant="tonal"
-                      shape="square"
-                      size="lg"
+                      shape="pill"
+                      size="sm"
                       icon={<SmileyIcon size={22} weight="bold" />}
                       onClick={() => goto("/login")}
                     />
@@ -623,6 +704,17 @@ export default function Header({ isUserLoggedIn = false }) {
                 </div>
               )}
             </div>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-6">
+            <nav className="hidden lg:flex items-center Blueprint-body-medium">
+              <NavBtn id="whats-on" label={t("whats_on")} href="/events" />
+              <NavBtn id="directory" label={t("directory")} href="/directory" />
+              <NavBtn id="blueprint-stories" label={t("blueprint_stories")} href="/stories-and-interviews" />
+              <NavBtn id="about-us" label={t("about_us")} href="/about-us" />
+              <NavBtn id="message-board" label={t("message_board")} href="/message-boards" />
+              <NavBtn id="explore-by" label={"Explore by"} href="/topics" />
+            </nav>
           </div>
         </div>
 

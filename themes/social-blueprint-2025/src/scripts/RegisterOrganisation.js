@@ -3,6 +3,9 @@ import { TextField } from './TextField';
 import { Button } from './Button';
 
 export function RegisterOrganisation() {
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [touched, setTouched] = useState({});
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -17,8 +20,13 @@ export function RegisterOrganisation() {
   });
 
   /* helpers ------------------------------------------------------------- */
-  const handleChange = key => e =>
+  const handleChange = key => e => {
     setForm(prev => ({ ...prev, [key]: e.target.value }));
+    setTouched(prev => ({ ...prev, [key]: true }));
+  };
+
+  const handleBlur = key => () =>
+    setTouched(prev => ({ ...prev, [key]: true }));
 
   const handleToggle = key => () =>
     setForm(prev => ({ ...prev, [key]: !prev[key] }));
@@ -26,18 +34,79 @@ export function RegisterOrganisation() {
   const handleBusinessType = e =>
     setForm(prev => ({ ...prev, businessType: e.target.value }));
 
+  // Validation functions
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+    return phone.length >= 10 && phoneRegex.test(phone);
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 8;
+  };
+
+  // Error messages
+  const errors = {
+    firstName: touched.firstName && !form.firstName ? 'First name is required' : '',
+    lastName: touched.lastName && !form.lastName ? 'Last name is required' : '',
+    email: touched.email && !form.email
+      ? 'Email is required'
+      : touched.email && !validateEmail(form.email)
+        ? 'Please enter a valid email address'
+        : '',
+    phone: touched.phone && !form.phone
+      ? 'Phone number is required'
+      : touched.phone && !validatePhone(form.phone)
+        ? 'Please enter a valid phone number'
+        : '',
+    organisation: touched.organisation && !form.organisation ? 'Organisation name is required' : '',
+    password: touched.password && !form.password
+      ? 'Password is required'
+      : touched.password && !validatePassword(form.password)
+        ? 'Password must be at least 8 characters'
+        : '',
+    confirm: touched.confirm && !form.confirm
+      ? 'Please confirm your password'
+      : touched.confirm && form.password && form.confirm && form.password !== form.confirm
+        ? 'Passwords do not match'
+        : '',
+  };
+
+  const hasErrors = Object.values(errors).some(error => error !== '');
+
   const passwordMismatch =
     form.password && form.confirm && form.password !== form.confirm;
 
   const canSubmit =
-    Object.values({
-      ...form,
-      newsOptIn: true,
-    }).every(Boolean) && !passwordMismatch;
+    form.firstName &&
+    form.lastName &&
+    form.email &&
+    form.phone &&
+    form.organisation &&
+    form.password &&
+    form.confirm &&
+    form.agreed &&
+    !hasErrors;
 
   /* submit -------------------------------------------------------------- */
   const handleSubmit = async e => {
     e.preventDefault();
+
+    // Mark all fields as touched to show validation errors
+    setTouched({
+      firstName: true,
+      lastName: true,
+      email: true,
+      phone: true,
+      organisation: true,
+      password: true,
+      confirm: true,
+    });
+
     if (!canSubmit) return;
 
     try {
@@ -60,20 +129,86 @@ export function RegisterOrganisation() {
         }),
       });
 
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.message || 'Unknown error');
-      alert('Account created! Please check your inbox to verify your email.');
-      setForm(prev => ({ ...prev, password: '', confirm: '' }));
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+
+      setSuccess(true);
+      setError(null);
     } catch (err) {
-      console.error(err);
-      alert(`Registration failed: ${err.message}`);
+      setError(err.message);
     }
   };
+
+  if (success) {
+    return (
+      <main className="flex flex-col max-w-xl mx-auto px-4 py-16 gap-8">
+        <div className="text-center space-y-6">
+          <div className="w-20 h-20 mx-auto rounded-full bg-schemesSecondaryContainer flex items-center justify-center">
+            <svg className="w-10 h-10 text-schemesOnSecondaryContainer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="Blueprint-headline-large-emphasized text-schemesOnSurface">
+              Organisation Account Created!
+            </h1>
+            <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
+              Welcome to The Social Blueprint, {form.organisation}!
+            </p>
+          </div>
+
+          <div className="bg-schemesSurfaceContainerHigh rounded-2xl p-6 space-y-4 text-left">
+            <h2 className="Blueprint-title-medium text-schemesOnSurface">
+              What's next?
+            </h2>
+            <ul className="space-y-3 Blueprint-body-medium text-schemesOnSurfaceVariant">
+              <li className="flex items-start gap-3">
+                <span className="text-schemesPrimary mt-1">✓</span>
+                <span>Check your email at <strong className="text-schemesOnSurface">{form.email}</strong> to verify your account</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-schemesPrimary mt-1">✓</span>
+                <span>Complete your organisation profile and add listings</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-schemesPrimary mt-1">✓</span>
+                <span>Connect with the community and promote your services</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <Button
+            label="Go to Dashboard"
+            style="filled"
+            size="base"
+            shape="square"
+            className="w-full"
+            onClick={() => window.location.href = '/account'}
+          />
+          <Button
+            label="Browse Community"
+            style="outlined"
+            size="base"
+            shape="square"
+            className="w-full"
+            onClick={() => window.location.href = '/'}
+          />
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="flex flex-col max-w-xl mx-auto px-4 py-16 gap-16">
       <header className="text-center space-y-4">
-        <h1 className="italic Blueprint-headline-large">
+        <h1 className="italic Blueprint-headline-large-emphasized">
           Registration for Organisations
         </h1>
         <p className="Blueprint-body-large text-schemesOnSurfaceVariant">
@@ -85,19 +220,23 @@ export function RegisterOrganisation() {
         </p>
       </header>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <TextField
             label="First name"
             placeholder="Input"
             value={form.firstName}
             onChange={handleChange('firstName')}
+            onBlur={handleBlur('firstName')}
+            error={errors.firstName}
           />
           <TextField
             label="Last name"
             placeholder="Input"
             value={form.lastName}
             onChange={handleChange('lastName')}
+            onBlur={handleBlur('lastName')}
+            error={errors.lastName}
           />
         </div>
 
@@ -107,13 +246,18 @@ export function RegisterOrganisation() {
             placeholder="Input"
             value={form.email}
             onChange={handleChange('email')}
+            onBlur={handleBlur('email')}
             type="email"
+            error={errors.email}
           />
           <TextField
             label="Phone number"
             placeholder="Input"
             value={form.phone}
             onChange={handleChange('phone')}
+            onBlur={handleBlur('phone')}
+            type="tel"
+            error={errors.phone}
           />
         </div>
 
@@ -122,6 +266,8 @@ export function RegisterOrganisation() {
           placeholder="This will be your display name"
           value={form.organisation}
           onChange={handleChange('organisation')}
+          onBlur={handleBlur('organisation')}
+          error={errors.organisation}
         />
 
         <fieldset className="flex flex-wrap gap-3">
@@ -157,16 +303,19 @@ export function RegisterOrganisation() {
           placeholder="Input"
           value={form.password}
           onChange={handleChange('password')}
+          onBlur={handleBlur('password')}
           type="password"
+          error={errors.password}
+          supportingText={!errors.password ? 'Must be at least 8 characters' : ''}
         />
         <TextField
           label="Confirm Password"
           placeholder="Input"
           value={form.confirm}
           onChange={handleChange('confirm')}
+          onBlur={handleBlur('confirm')}
           type="password"
-          supportingText={passwordMismatch ? 'Passwords do not match' : ''}
-          error={passwordMismatch}
+          error={errors.confirm}
         />
 
         <label className="flex items-start gap-3 Blueprint-body-medium">
@@ -194,10 +343,18 @@ export function RegisterOrganisation() {
             <a href="/terms" className="underline">
               Terms&nbsp;&amp;&nbsp;Conditions and Privacy Policy
             </a>
-            .
+            . <span className="text-schemesOnContainerPrimary">*</span>
           </div>
         </label>
 
+        {error && (
+          <div className="text-schemesError text-center">
+            <p className="Blueprint-body-medium">{error}</p>
+          </div>
+        )}
+      </form>
+
+      <div className="flex w-full">
         <Button
           label="Create account"
           style="filled"
@@ -207,7 +364,7 @@ export function RegisterOrganisation() {
           disabled={!canSubmit}
           onClick={handleSubmit}
         />
-      </form>
+      </div>
     </main>
   );
 }

@@ -122,6 +122,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function RegisterOrganisation() {
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [success, setSuccess] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [touched, setTouched] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     firstName: '',
     lastName: '',
@@ -136,9 +139,19 @@ function RegisterOrganisation() {
   });
 
   /* helpers ------------------------------------------------------------- */
-  const handleChange = key => e => setForm(prev => ({
+  const handleChange = key => e => {
+    setForm(prev => ({
+      ...prev,
+      [key]: e.target.value
+    }));
+    setTouched(prev => ({
+      ...prev,
+      [key]: true
+    }));
+  };
+  const handleBlur = key => () => setTouched(prev => ({
     ...prev,
-    [key]: e.target.value
+    [key]: true
   }));
   const handleToggle = key => () => setForm(prev => ({
     ...prev,
@@ -148,15 +161,48 @@ function RegisterOrganisation() {
     ...prev,
     businessType: e.target.value
   }));
+
+  // Validation functions
+  const validateEmail = email => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const validatePhone = phone => {
+    const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+    return phone.length >= 10 && phoneRegex.test(phone);
+  };
+  const validatePassword = password => {
+    return password.length >= 8;
+  };
+
+  // Error messages
+  const errors = {
+    firstName: touched.firstName && !form.firstName ? 'First name is required' : '',
+    lastName: touched.lastName && !form.lastName ? 'Last name is required' : '',
+    email: touched.email && !form.email ? 'Email is required' : touched.email && !validateEmail(form.email) ? 'Please enter a valid email address' : '',
+    phone: touched.phone && !form.phone ? 'Phone number is required' : touched.phone && !validatePhone(form.phone) ? 'Please enter a valid phone number' : '',
+    organisation: touched.organisation && !form.organisation ? 'Organisation name is required' : '',
+    password: touched.password && !form.password ? 'Password is required' : touched.password && !validatePassword(form.password) ? 'Password must be at least 8 characters' : '',
+    confirm: touched.confirm && !form.confirm ? 'Please confirm your password' : touched.confirm && form.password && form.confirm && form.password !== form.confirm ? 'Passwords do not match' : ''
+  };
+  const hasErrors = Object.values(errors).some(error => error !== '');
   const passwordMismatch = form.password && form.confirm && form.password !== form.confirm;
-  const canSubmit = Object.values({
-    ...form,
-    newsOptIn: true
-  }).every(Boolean) && !passwordMismatch;
+  const canSubmit = form.firstName && form.lastName && form.email && form.phone && form.organisation && form.password && form.confirm && form.agreed && !hasErrors;
 
   /* submit -------------------------------------------------------------- */
   const handleSubmit = async e => {
     e.preventDefault();
+
+    // Mark all fields as touched to show validation errors
+    setTouched({
+      firstName: true,
+      lastName: true,
+      email: true,
+      phone: true,
+      organisation: true,
+      password: true,
+      confirm: true
+    });
     if (!canSubmit) return;
     try {
       const res = await fetch('/wp-json/uwp-custom/v1/register-organisation', {
@@ -177,25 +223,108 @@ function RegisterOrganisation() {
           agree: form.agreed ? 'yes' : 'no'
         })
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.message || 'Unknown error');
-      alert('Account created! Please check your inbox to verify your email.');
-      setForm(prev => ({
-        ...prev,
-        password: '',
-        confirm: ''
-      }));
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message);
+        return;
+      }
+      setSuccess(true);
+      setError(null);
     } catch (err) {
-      console.error(err);
-      alert(`Registration failed: ${err.message}`);
+      setError(err.message);
     }
   };
+  if (success) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("main", {
+      className: "flex flex-col max-w-xl mx-auto px-4 py-16 gap-8",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "text-center space-y-6",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "w-20 h-20 mx-auto rounded-full bg-schemesSecondaryContainer flex items-center justify-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
+            className: "w-10 h-10 text-schemesOnSecondaryContainer",
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeWidth: 2,
+              d: "M5 13l4 4L19 7"
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "space-y-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+            className: "Blueprint-headline-large-emphasized text-schemesOnSurface",
+            children: "Organisation Account Created!"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+            className: "Blueprint-body-large text-schemesOnSurfaceVariant",
+            children: ["Welcome to The Social Blueprint, ", form.organisation, "!"]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "bg-schemesSurfaceContainerHigh rounded-2xl p-6 space-y-4 text-left",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            className: "Blueprint-title-medium text-schemesOnSurface",
+            children: "What's next?"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+            className: "space-y-3 Blueprint-body-medium text-schemesOnSurfaceVariant",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+              className: "flex items-start gap-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-schemesPrimary mt-1",
+                children: "\u2713"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                children: ["Check your email at ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
+                  className: "text-schemesOnSurface",
+                  children: form.email
+                }), " to verify your account"]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+              className: "flex items-start gap-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-schemesPrimary mt-1",
+                children: "\u2713"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "Complete your organisation profile and add listings"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+              className: "flex items-start gap-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-schemesPrimary mt-1",
+                children: "\u2713"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "Connect with the community and promote your services"
+              })]
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex flex-col gap-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Go to Dashboard",
+          style: "filled",
+          size: "base",
+          shape: "square",
+          className: "w-full",
+          onClick: () => window.location.href = '/account'
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Browse Community",
+          style: "outlined",
+          size: "base",
+          shape: "square",
+          className: "w-full",
+          onClick: () => window.location.href = '/'
+        })]
+      })]
+    });
+  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("main", {
     className: "flex flex-col max-w-xl mx-auto px-4 py-16 gap-16",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("header", {
       className: "text-center space-y-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-        className: "italic Blueprint-headline-large",
+        className: "italic Blueprint-headline-large-emphasized",
         children: "Registration for Organisations"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
         className: "Blueprint-body-large text-schemesOnSurfaceVariant",
@@ -207,19 +336,23 @@ function RegisterOrganisation() {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
       onSubmit: handleSubmit,
-      className: "flex flex-col gap-6",
+      className: "flex flex-col gap-5",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "grid grid-cols-1 md:grid-cols-2 gap-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "First name",
           placeholder: "Input",
           value: form.firstName,
-          onChange: handleChange('firstName')
+          onChange: handleChange('firstName'),
+          onBlur: handleBlur('firstName'),
+          error: errors.firstName
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Last name",
           placeholder: "Input",
           value: form.lastName,
-          onChange: handleChange('lastName')
+          onChange: handleChange('lastName'),
+          onBlur: handleBlur('lastName'),
+          error: errors.lastName
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "grid grid-cols-1 md:grid-cols-2 gap-4",
@@ -228,18 +361,25 @@ function RegisterOrganisation() {
           placeholder: "Input",
           value: form.email,
           onChange: handleChange('email'),
-          type: "email"
+          onBlur: handleBlur('email'),
+          type: "email",
+          error: errors.email
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Phone number",
           placeholder: "Input",
           value: form.phone,
-          onChange: handleChange('phone')
+          onChange: handleChange('phone'),
+          onBlur: handleBlur('phone'),
+          type: "tel",
+          error: errors.phone
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Organisation Name",
         placeholder: "This will be your display name",
         value: form.organisation,
-        onChange: handleChange('organisation')
+        onChange: handleChange('organisation'),
+        onBlur: handleBlur('organisation'),
+        error: errors.organisation
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("fieldset", {
         className: "flex flex-wrap gap-3",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("legend", {
@@ -269,15 +409,18 @@ function RegisterOrganisation() {
         placeholder: "Input",
         value: form.password,
         onChange: handleChange('password'),
-        type: "password"
+        onBlur: handleBlur('password'),
+        type: "password",
+        error: errors.password,
+        supportingText: !errors.password ? 'Must be at least 8 characters' : ''
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Confirm Password",
         placeholder: "Input",
         value: form.confirm,
         onChange: handleChange('confirm'),
+        onBlur: handleBlur('confirm'),
         type: "password",
-        supportingText: passwordMismatch ? 'Passwords do not match' : '',
-        error: passwordMismatch
+        error: errors.confirm
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
         className: "flex items-start gap-3 Blueprint-body-medium",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
@@ -299,9 +442,21 @@ function RegisterOrganisation() {
             href: "/terms",
             className: "underline",
             children: "Terms\xA0&\xA0Conditions and Privacy Policy"
-          }), "."]
+          }), ". ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "text-schemesOnContainerPrimary",
+            children: "*"
+          })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "text-schemesError text-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "Blueprint-body-medium",
+          children: error
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "flex w-full",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
         label: "Create account",
         style: "filled",
         size: "base",
@@ -309,7 +464,7 @@ function RegisterOrganisation() {
         className: "w-full mt-8",
         disabled: !canSubmit,
         onClick: handleSubmit
-      })]
+      })
     })]
   });
 }
@@ -374,9 +529,10 @@ function TextField({
     disabled,
     'aria-invalid': hasError ? 'true' : undefined,
     'aria-describedby': helperText ? msgId : undefined,
-    className: multiline ? (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(inputBase, 'resize-none h-32') : inputBase
+    className: multiline ? (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(inputBase, 'resize-none') : inputBase
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "flex flex-col gap-2",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(containerBase, variantMap[style], errorClasses, disabledClasses),
       children: [leadingIcon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -399,7 +555,7 @@ function TextField({
       })]
     }), helperText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
       id: msgId,
-      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('mt-1 ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
       children: helperText
     }) : null]
   });
@@ -408,4 +564,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-organisation.js.map?ver=fdb039999562b140a27a
+//# sourceMappingURL=register-organisation.js.map?ver=8010418de8fd66cf9e7e

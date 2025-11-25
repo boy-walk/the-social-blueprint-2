@@ -807,7 +807,6 @@ function GenericArchivePage(props) {
     subtitle,
     breadcrumbs = []
   } = props;
-  console.log(props);
   const postTypes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(postType) ? postType : [postType], [postType]);
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
   const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
@@ -1533,4 +1532,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=bfe6df10532d80c20302
+//# sourceMappingURL=generic-archive.js.map?ver=90dec8f240496a777ac4

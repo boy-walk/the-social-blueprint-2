@@ -168,12 +168,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Icon */ "./src/scripts/Icon.js");
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Minus.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Plus.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretUp.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretDown.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Minus.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Smiley.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretUp.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretDown.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/List.es.js");
 /* harmony import */ var _Socials__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Socials */ "./src/scripts/Socials.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
@@ -237,7 +238,7 @@ const MENU_SECTIONS = {
       label: "Featured Events",
       href: "/events?featured=1"
     }, {
-      label: "Submit an Event",
+      label: "Submit an event",
       href: "/events-calendar/community/add"
     }]
   }, {
@@ -254,12 +255,6 @@ const MENU_SECTIONS = {
     }, {
       label: "For Seniors",
       href: "/events?audience=seniors"
-    }, {
-      label: "For Children",
-      href: "/events?audience=children"
-    }, {
-      label: "For Teens",
-      href: "/events?audience=teens"
     }]
   }],
   directory: [{
@@ -287,26 +282,26 @@ const MENU_SECTIONS = {
   "blueprint-stories": [{
     title: "Read & Listen",
     items: [{
-      label: "Articles and Blogs",
+      label: "Articles and blogs",
       href: "/articles"
     }, {
       label: "Everybody has a story",
       href: "/podcasts/?series=everybody-has-a-story"
     }, {
-      label: "Candid Conversations",
+      label: "Candid conversations",
       href: "/podcasts/?series=candid-conversations"
     }]
   }, {
     title: "Categories",
     items: [{
       label: "Community & Connection",
-      href: "/podcast.article/?theme=community-and-connection"
+      href: "/stories-and-interviews?theme=community-and-connection"
     }, {
       label: "Culture & Identity",
-      href: "/podcast.article/?theme=culture-and-identity"
+      href: "/stories-and-interviews?theme=culture-and-identity"
     }, {
       label: "Learning & Growth",
-      href: "/podcast.article/?theme=learning-and-growth"
+      href: "/stories-and-interviews?theme=learning-and-growth"
     }]
   }],
   "about-us": [{
@@ -321,33 +316,33 @@ const MENU_SECTIONS = {
       label: "FAQs",
       href: "/faqs"
     }, {
-      label: "Terms and Conditions",
+      label: "Terms and conditions",
       href: "/terms"
     }]
   }],
   "message-board": [{
     title: "Message Board",
     items: [{
-      label: "Browse Message Board",
+      label: "Browse Message board",
       href: "/message-boards"
     }, {
-      label: "Post a Notice",
+      label: "Post a notice",
       href: "/add-listing/message-boards/"
     }]
   }, {
     title: "Browse by category",
     items: [{
-      label: "Announcements",
-      href: "/message-boards?cat=announcments"
+      label: "Jobs",
+      href: "/message-boards?cat=jobs"
     }, {
-      label: "Activities and Programs",
-      href: "/message-boards?cat=activities-and-programs"
+      label: "Volunteering",
+      href: "/message-boards?cat=volunteering"
     }, {
-      label: "Community Jobs",
-      href: "/message-boards?cat=community-jobs"
+      label: "Local notices",
+      href: "/message-boards?cat=local-notices"
     }, {
-      label: "Volunteering and Getting Involved",
-      href: "/message-boards?cat=volunteering-and-getting-involved"
+      label: "Informal support",
+      href: "/message-boards?cat=support"
     }]
   }],
   "explore-by": [{
@@ -368,7 +363,7 @@ const MENU_SECTIONS = {
       label: "Events",
       href: "/events"
     }, {
-      label: "Interviews",
+      label: "Podcasts",
       href: "/podcasts"
     }, {
       label: "Articles",
@@ -529,6 +524,46 @@ function MobileMenu({
             weight: "bold"
           })
         })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "mb-6",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
+          onSubmit: e => {
+            e.preventDefault();
+            const query = e.target.elements.search.value.trim();
+            if (query) {
+              window.location.href = `/search?q=${encodeURIComponent(query)}`;
+            }
+          },
+          className: "relative",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "absolute inset-y-0 left-3 flex items-center pointer-events-none",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "bg-schemesPrimaryFixed rounded-lg p-1.5",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MagnifyingGlassIcon, {
+                size: 22
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            type: "search",
+            name: "search",
+            className: "block w-full py-3 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-2 focus:ring-[#1e6586] focus:border-[#1e6586] outline-none",
+            placeholder: "Search..."
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "mb-6",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+          label: "Find our socials",
+          variant: "filled",
+          shape: "square",
+          size: "lg",
+          className: "w-full",
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PlusIcon, {
+            size: 16,
+            weight: "bold"
+          }),
+          onClick: () => window.open("https://linktr.ee/socialblueprint", "_blank")
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("nav", {
         children: Object.entries(MENU_SECTIONS).map(([key, groups], idx) => {
           const isOpen = !!expanded[key];
@@ -558,7 +593,7 @@ function MobileMenu({
                   [key]: !m[key]
                 })),
                 className: "p-2 rounded-md hover:bg-[var(--schemesSurfaceContainerHigh)]",
-                children: isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MinusIcon, {
+                children: isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.MinusIcon, {
                   size: 24,
                   className: "text-[var(--schemesPrimary)]",
                   weight: "bold"
@@ -597,15 +632,10 @@ function MobileMenu({
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "mt-8 grid grid-cols-2 gap-3",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-          label: "Subscribe",
-          variant: "filled",
-          size: "lg",
-          onClick: () => goto("/subscribe")
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
           label: isUserLoggedIn ? "Account" : "Log in",
           variant: "tonal",
           size: "lg",
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.SmileyIcon, {
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.SmileyIcon, {
             size: 22,
             weight: "bold"
           }),
@@ -642,6 +672,9 @@ function Header({
   const [showRegister, setShowRegister] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [mobileOpen, setMobileOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [searchExpanded, setSearchExpanded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+  const searchRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const hoverTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   useAdminBarOffset();
@@ -654,6 +687,18 @@ function Header({
     document.addEventListener("mousedown", onClick);
     return () => document.removeEventListener("mousedown", onClick);
   }, [showRegister]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!searchExpanded) return;
+    const onClick = e => {
+      if (!searchRef.current) return;
+      if (!searchRef.current.contains(e.target)) {
+        setSearchExpanded(false);
+        setSearchQuery("");
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [searchExpanded]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
     const update = () => setIsDesktop(mql.matches);
@@ -699,6 +744,12 @@ function Header({
     if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
   };
   const goto = href => window.location.href = href;
+  const handleSearchSubmit = e => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      goto(`/?s=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
   const NavBtn = ({
     id,
     label,
@@ -740,56 +791,64 @@ function Header({
           className: ["block w-auto flex-none object-contain", "min-h-[24px] md:min-h-[32px] lg:min-h-[36px]", scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20", "transition-all duration-300"].join(" ")
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: `hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-6"} transition-all duration-300`,
+        className: `hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-4"} transition-all duration-300`,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: `
               transition-all duration-300 origin-top
               ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
             `,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Socials__WEBPACK_IMPORTED_MODULE_6__.Socials, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "hidden lg:flex items-center gap-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("nav", {
-            className: "hidden lg:flex items-center Blueprint-body-medium",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
-              id: "whats-on",
-              label: t("whats_on"),
-              href: "/events"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
-              id: "directory",
-              label: t("directory"),
-              href: "/directory"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
-              id: "blueprint-stories",
-              label: t("blueprint_stories"),
-              href: "/stories-and-interviews"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
-              id: "about-us",
-              label: t("about_us"),
-              href: "/about-us"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
-              id: "message-board",
-              label: t("message_board"),
-              href: "/message-boards"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
-              id: "explore-by",
-              label: "Explore by",
-              href: "/topics"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-            className: "flex gap-4 relative",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-              label: t("Subscribe"),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "flex gap-4 relative items-center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              ref: searchRef,
+              className: "relative",
+              children: searchExpanded ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
+                onSubmit: handleSearchSubmit,
+                className: "relative",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                  className: "absolute inset-y-0 left-3 flex items-center pointer-events-none",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "bg-schemesPrimaryFixed rounded-lg p-1.5",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MagnifyingGlassIcon, {
+                      size: 20,
+                      color: "black"
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                  type: "search",
+                  autoFocus: true,
+                  className: "block w-120 py-2 pl-13 pr-4 Blueprint-body-large text-schemesOnSurfaceVariant border border-border-light rounded-xl bg-schemesSurfaceContainerLowest focus:ring-2 focus:ring-[#1e6586] focus:border-[#1e6586] outline-none",
+                  placeholder: "Search...",
+                  onChange: e => setSearchQuery(e.target.value),
+                  value: searchQuery
+                })]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                label: "Search",
+                variant: "ghost",
+                shape: "square",
+                size: "base",
+                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MagnifyingGlassIcon, {
+                  size: 22,
+                  weight: "duotone"
+                }),
+                onClick: () => setSearchExpanded(true)
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              label: "Find our socials",
               variant: "filled",
               shape: "square",
-              size: "lg",
-              onClick: () => goto("/subscribe")
+              size: "base",
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PlusIcon, {
+                size: 16,
+                weight: "bold"
+              }),
+              onClick: () => window.open("https://linktr.ee/socialblueprint", "_blank")
             }), isUserLoggedIn ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
               label: t("account_dasboard"),
               variant: "tonal",
               shape: "square",
-              size: "lg",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.SmileyIcon, {
+              size: "base",
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.SmileyIcon, {
                 size: 22,
                 weight: "bold"
               }),
@@ -799,19 +858,19 @@ function Header({
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                 className: "flex items-center gap-1",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                  label: t("log_in"),
+                  label: "Log in/Register",
                   variant: "tonal",
-                  shape: "square",
-                  size: "lg",
-                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.SmileyIcon, {
+                  shape: "pill",
+                  size: "sm",
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.SmileyIcon, {
                     size: 22,
                     weight: "bold"
                   }),
                   onClick: () => goto("/login")
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                  label: showRegister ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_12__.CaretUpIcon, {
+                  label: showRegister ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.CaretUpIcon, {
                     weight: "bold"
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_13__.CaretDownIcon, {
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__.CaretDownIcon, {
                     weight: "bold"
                   }),
                   variant: "tonal",
@@ -838,12 +897,42 @@ function Header({
                 })]
               })]
             })]
-          })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "hidden lg:flex items-center gap-6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("nav", {
+            className: "hidden lg:flex items-center Blueprint-body-medium",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
+              id: "whats-on",
+              label: t("whats_on"),
+              href: "/events"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
+              id: "directory",
+              label: t("directory"),
+              href: "/directory"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
+              id: "blueprint-stories",
+              label: t("blueprint_stories"),
+              href: "/stories-and-interviews"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
+              id: "about-us",
+              label: t("about_us"),
+              href: "/about-us"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
+              id: "message-board",
+              label: t("message_board"),
+              href: "/message-boards"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(NavBtn, {
+              id: "explore-by",
+              label: "Explore by",
+              href: "/topics"
+            })]
+          })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "lg:hidden items-center",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Icon__WEBPACK_IMPORTED_MODULE_4__.IconButton, {
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_14__.ListIcon, {
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_15__.ListIcon, {
             size: 22,
             weight: "bold"
           }),
@@ -1012,4 +1101,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=b15ad0bbeb531e0f6655
+//# sourceMappingURL=header.js.map?ver=ad4004504a110302d884

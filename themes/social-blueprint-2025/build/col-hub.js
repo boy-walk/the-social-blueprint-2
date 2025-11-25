@@ -1835,14 +1835,14 @@ function CostOfLiving({
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
                       children: [hasFaIcon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "rounded-[12px] p-1 flex items-center justify-center",
+                        className: "rounded-full p-2 flex items-center justify-center",
                         style: {
                           backgroundColor: bgColor
                         },
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                           className: `${category.fa_icon} text-white`,
                           style: {
-                            fontSize: '22px'
+                            fontSize: '16px'
                           },
                           "aria-hidden": "true"
                         })
@@ -2160,4 +2160,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=fef260bb903619b1f044
+//# sourceMappingURL=col-hub.js.map?ver=0b37d08528303a077850
