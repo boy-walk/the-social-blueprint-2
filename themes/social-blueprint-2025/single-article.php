@@ -45,7 +45,7 @@ $mapped_terms = array_map(function($term) {
 // -------- Retrieve 3 other podcasts for "more interviews" --------
 $more_articles = new WP_Query([
   'post_type'      => 'article',
-  'posts_per_page' => 3,
+  'posts_per_page' => 4,
   'post__not_in'   => [$post_id],
   'orderby'        => 'rand',
 ]);
@@ -71,7 +71,7 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, false, ['artic
 
 $more_by_author = new WP_Query([
   'post_type'      => 'article',
-  'posts_per_page' => 3,
+  'posts_per_page' => 4,
   'post__not_in'   => [$post_id],
   'author'         => $author_id,
   'orderby'        => 'date',
