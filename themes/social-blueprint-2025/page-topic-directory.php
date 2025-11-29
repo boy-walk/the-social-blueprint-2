@@ -2,91 +2,118 @@
 /*
 Template Name: Topic Directory
 */
-get_header(); ?>
+get_header(); 
 
-<main class="bg-schemesSurface text-schemesOnSurface min-h-screen">
-  <div class="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
-    <h1 class="Blueprint-headline-large mb-8">Explore Topics</h1>
+// Configure the groups you want to show: label => taxonomy slug
+$groups = [
+  [ 'label' => 'Topics',    'tax' => 'topic_tag' ],
+  [ 'label' => 'Audiences', 'tax' => 'audience_tag' ],
+  [ 'label' => 'Theme',     'tax' => 'theme' ],
+];
 
-    <?php
-    // Configure the groups you want to show: label => taxonomy slug
-    $groups = [
-      [ 'label' => 'Topics',    'tax' => 'topic_tag' ],
-      [ 'label' => 'Audiences', 'tax' => 'audience_tag' ],
-      [ 'label' => 'Theme',     'tax' => 'theme' ],
-    ];
-
-    // Recursive printer for hierarchical terms – prints the node + its children
-    if ( ! function_exists('sb_render_term_branch') ) {
-      function sb_render_term_branch( WP_Term $term, string $taxonomy ) {
-        $children = get_terms([
-          'taxonomy'   => $taxonomy,
-          'parent'     => $term->term_id,
-          'hide_empty' => false,
-        ]);
-        ?>
-        <li class="leading-7">
-          <a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="hover:underline">
-            <?php echo esc_html( $term->name ); ?>
-          </a>
-          <?php if ( ! empty( $children ) && ! is_wp_error( $children ) ) : ?>
-            <ul class="pl-4 mt-1 space-y-1">
-              <?php foreach ( $children as $child ) { sb_render_term_branch( $child, $taxonomy ); } ?>
-            </ul>
-          <?php endif; ?>
-        </li>
-        <?php
-      }
-    }
-
-    foreach ( $groups as $group ) :
-      $taxonomy = $group['tax'];
-      $label    = $group['label'];
-
-      // Top-level terms (roots)
-      $roots = get_terms([
+// Build the data structure
+$data = [];
+foreach ($groups as $group) {
+  $taxonomy = $group['tax'];
+  $label    = $group['label'];
+  
+  $roots = get_terms([
+    'taxonomy'   => $taxonomy,
+    'parent'     => 0,
+    'hide_empty' => false,
+    'orderby'    => 'name',
+    'order'      => 'ASC',
+  ]);
+  
+  $roots_data = [];
+  if (!empty($roots) && !is_wp_error($roots)) {
+    foreach ($roots as $root) {
+      $children = get_terms([
         'taxonomy'   => $taxonomy,
-        'parent'     => 0,
+        'parent'     => $root->term_id,
         'hide_empty' => false,
         'orderby'    => 'name',
         'order'      => 'ASC',
       ]);
-      ?>
-      <section class="mb-12">
-        <h2 class="Blueprint-headline-small-emphasized mb-8"><?php echo esc_html( $label ); ?></h2>
+      
+      $children_data = [];
+      if (!empty($children) && !is_wp_error($children)) {
+        foreach ($children as $child) {
+          $children_data[] = [
+            'id'   => $child->term_id,
+            'name' => $child->name,
+            'link' => get_term_link($child),
+          ];
+        }
+      }
+      
+      $roots_data[] = [
+        'id'       => $root->term_id,
+        'name'     => $root->name,
+        'link'     => get_term_link($root),
+        'children' => $children_data,
+      ];
+    }
+  }
+  
+  $data[] = [
+    'label' => $label,
+    'tax'   => $taxonomy,
+    'roots' => $roots_data,
+  ];
+}
+?>
 
-        <?php if ( ! empty( $roots ) && ! is_wp_error( $roots ) ) : ?>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <?php foreach ( $roots as $root ) : ?>
-              <div>
-                <h3 class="Blueprint-title-small mb-2">
-                  <a href="<?php echo esc_url( get_term_link( $root ) ); ?>" class="hover:underline">
-                    <?php echo esc_html( $root->name ); ?>
+<main class="bg-schemesSurface text-schemesOnSurface">
+  <!-- Hero Section with Search -->
+  <div class="bg-schemesPrimaryFixed">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-8 sm:py-10 lg:py-12">
+      <h1 class="Blueprint-headline-small sm:Blueprint-headline-medium lg:Blueprint-headline-large text-schemesOnSurface mb-4 sm:mb-6">
+        Explore Topics
+      </h1>
+    </div>
+  </div>
+
+  <!-- Topics Grid -->
+  <div class="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-8 sm:py-12 lg:py-16">
+    <?php foreach ($data as $group) : ?>
+      <section class="mb-12 sm:mb-16 lg:mb-20">
+        <h2 class="Blueprint-title-large-emphasized sm:Blueprint-headline-small-emphasized mb-6 sm:mb-8 text-schemesOnSurface">
+          <?php echo esc_html($group['label']); ?>
+        </h2>
+        
+        <?php if (!empty($group['roots'])) : ?>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
+            <?php foreach ($group['roots'] as $root) : ?>
+              <div class="flex flex-col">
+                <h3 class="Blueprint-title-medium mb-3 text-schemesOnSurface">
+                  <a href="<?php echo esc_url($root['link']); ?>" class="hover:underline hover:text-schemesPrimary transition-colors">
+                    <?php echo esc_html($root['name']); ?>
                   </a>
                 </h3>
-                <?php
-                // List only the children under this root to avoid duplicating the root itself
-                $children = get_terms([
-                  'taxonomy'   => $taxonomy,
-                  'parent'     => $root->term_id,
-                  'hide_empty' => false,
-                  'orderby'    => 'name',
-                  'order'      => 'ASC',
-                ]);
-                if ( ! empty( $children ) && ! is_wp_error( $children ) ) : ?>
-                  <ul class="space-y-1">
-                    <?php foreach ( $children as $child ) { sb_render_term_branch( $child, $taxonomy ); } ?>
+                
+                <?php if (!empty($root['children'])) : ?>
+                  <ul class="space-y-2 Blueprint-body-medium text-schemesOnSurfaceVariant">
+                    <?php foreach ($root['children'] as $child) : ?>
+                      <li class="leading-relaxed">
+                        <a href="<?php echo esc_url($child['link']); ?>" class="hover:underline hover:text-schemesPrimary transition-colors">
+                          <?php echo esc_html($child['name']); ?>
+                        </a>
+                      </li>
+                    <?php endforeach; ?>
                   </ul>
-                <?php endif; /* no else — don’t print the root again */ ?>
+                <?php endif; ?>
               </div>
             <?php endforeach; ?>
           </div>
         <?php else : ?>
-          <p class="text-schemesOnSurfaceVariant">No terms found for <?php echo esc_html( $label ); ?>.</p>
+          <p class="text-schemesOnSurfaceVariant Blueprint-body-medium">
+            No terms found for <?php echo esc_html($group['label']); ?>.
+          </p>
         <?php endif; ?>
       </section>
     <?php endforeach; ?>
   </div>
 </main>
 
-<?php get_footer();
+<?php get_footer(); ?>
