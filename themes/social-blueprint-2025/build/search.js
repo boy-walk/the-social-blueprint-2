@@ -347,7 +347,7 @@ function BrowseAll({
         className: `px-4 py-1.5 text-sm rounded-full border transition ${active === label ? "bg-[var(--schemesPrimary)] text-white" : "bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)]"}`,
         children: label
       }, label))
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), console.log(data.items), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-stretch",
       children: loading ? skeletons : data.items.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: `${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
@@ -357,7 +357,7 @@ function BrowseAll({
           badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
           type: post.post_type,
           date: post.date,
-          subtitle: post.meta?.location || post.excerpt || "",
+          subtitle: post.meta?.location || post.excerpt || post.content || "",
           href: post.permalink,
           fullHeight: true
         })
@@ -893,4 +893,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=search.js.map?ver=da59c8815cf0bbca5083
+//# sourceMappingURL=search.js.map?ver=57fa618b97f1d0ddc062

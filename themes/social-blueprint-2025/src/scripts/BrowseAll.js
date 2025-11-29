@@ -171,7 +171,7 @@ export default function BrowseAll({
           ))}
         </div>
       )}
-
+      {console.log(data.items)}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-stretch">
         {loading
           ? skeletons
@@ -186,7 +186,7 @@ export default function BrowseAll({
                 badge={getBadge(post.post_type)}
                 type={post.post_type}
                 date={post.date}
-                subtitle={post.meta?.location || post.excerpt || ""}
+                subtitle={post.meta?.location || post.excerpt || post.content || ""}
                 href={post.permalink}
                 fullHeight
               />

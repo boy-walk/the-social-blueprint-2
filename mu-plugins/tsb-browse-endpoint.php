@@ -111,6 +111,7 @@ add_action('rest_api_init', function () {
             'permalink' => get_permalink($post),
             'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
             'post_type' => get_post_type($post),
+            'content' => apply_filters('the_content', get_post_field('post_content', $post->ID)),
             'date'      => get_the_date('', $post),
             'author'    => get_the_author_meta('display_name', $author_id),
             'topics'    => wp_get_post_terms($post->ID, 'topic_tag', ['fields' => 'names']),
