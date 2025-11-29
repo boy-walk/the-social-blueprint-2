@@ -2550,7 +2550,7 @@ function PostsSlider({
                 author: post.author,
                 title: post.title,
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
-                subtitle: post.meta?.location || post.subtitle || "",
+                subtitle: post.meta?.location || post.subtitle || post.content || "",
                 href: post.link,
                 fullHeight: true
               })
@@ -2627,4 +2627,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=fd8a1e9b63e87113338f
+//# sourceMappingURL=learning-hub.js.map?ver=5df097c99bffe315b499

@@ -2481,7 +2481,7 @@ function PostsSlider({
                 author: post.author,
                 title: post.title,
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
-                subtitle: post.meta?.location || post.subtitle || "",
+                subtitle: post.meta?.location || post.subtitle || post.content || "",
                 href: post.link,
                 fullHeight: true
               })
@@ -2709,4 +2709,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=stories-interviews.js.map?ver=80d64c71f83ec4f2e258
+//# sourceMappingURL=stories-interviews.js.map?ver=b7e82b1ea8e5933b43ac

@@ -112,7 +112,7 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
                     author={post.author}
                     title={post.title}
                     badge={getBadge(post.post_type)}
-                    subtitle={post.meta?.location || post.subtitle || ""}
+                    subtitle={post.meta?.location || post.subtitle || post.content || ""}
                     href={post.link}
                     fullHeight
                   />

@@ -41,7 +41,7 @@ $blueprint_stories_args = [
   'order' => 'DESC',
   'tax_query' => [
     [
-      'taxonomy' => 'article_category',
+      'taxonomy' => 'topic_tag',
       'field' => 'slug',
       'terms' => 'blueprint-stories',
     ]

@@ -60,6 +60,8 @@ if ($more_articles->have_posts()) {
       'link'      => get_permalink(),
       'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'large'),
       'post_type' => get_post_type(),
+      'subtitle' => get_the_excerpt(),
+      'content' => apply_filters('the_content', get_post_field('post_content', get_the_ID())),
     ];
   }
   wp_reset_postdata();
@@ -88,6 +90,8 @@ if ($more_by_author->have_posts()) {
       'link'      => get_permalink(),
       'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
       'post_type' => get_post_type(),
+      'subtitle' => get_the_excerpt(),
+      'content' => apply_filters('the_content', get_post_field('post_content', get_the_ID())),
     ];
   }
   wp_reset_postdata();

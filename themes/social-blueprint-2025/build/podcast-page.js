@@ -1992,7 +1992,7 @@ function PostsSlider({
                 author: post.author,
                 title: post.title,
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
-                subtitle: post.meta?.location || post.subtitle || "",
+                subtitle: post.meta?.location || post.subtitle || post.content || "",
                 href: post.link,
                 fullHeight: true
               })
@@ -2481,4 +2481,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=0ec9957afb68b30bcc57
+//# sourceMappingURL=podcast-page.js.map?ver=906c3076bad3a82c37fd

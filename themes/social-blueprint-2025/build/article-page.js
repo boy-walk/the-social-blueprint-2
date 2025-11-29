@@ -1942,7 +1942,7 @@ function PostsSlider({
                 author: post.author,
                 title: post.title,
                 badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
-                subtitle: post.meta?.location || post.subtitle || "",
+                subtitle: post.meta?.location || post.subtitle || post.content || "",
                 href: post.link,
                 fullHeight: true
               })
@@ -2431,4 +2431,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=article-page.js.map?ver=52d0faf0618853d0d047
+//# sourceMappingURL=article-page.js.map?ver=7172c0a4d1f63aca0308
