@@ -29,7 +29,7 @@ $message_board_args = [
   'posts_per_page' => 15,
   'orderby' => 'date',
   'order' => 'DESC',
-  'tax_query' => [
+  'tax_query' => [  
     [
       'taxonomy' => 'theme',
       'field' => 'slug',

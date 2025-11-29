@@ -1984,7 +1984,7 @@ function CommunityHubPage({
           tax: [{
             taxonomy: 'theme',
             field: 'slug',
-            terms: ['community-and-connection']
+            terms: ['community-connection']
           }]
         },
         filters: [{
@@ -2915,4 +2915,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=f87e2ee0d5ec111254fb
+//# sourceMappingURL=community-hub.js.map?ver=ff09a584b0c5266a7d0f

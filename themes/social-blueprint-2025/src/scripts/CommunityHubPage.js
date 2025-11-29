@@ -134,7 +134,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
             per_page: 10,
             orderby: 'date',
             order: 'DESC',
-            tax: [{ taxonomy: 'theme', field: 'slug', terms: ['community-and-connection'] }],
+            tax: [{ taxonomy: 'theme', field: 'slug', terms: ['community-connection'] }],
           }}
           filters={[
             { label: "Article", post_type: "article" },
