@@ -91,8 +91,6 @@ function WordRotate({ words = [], stepMs = 220, pauseMs = 900 }) {
 export default function FrontPage({ candleLightingTimes, recentArticle, recentEvent, recentEverybodyHasAStory, recentCandidConversations }) {
   const words = ["creative", "resilient", "curious", "connected"];
 
-  console.log({ recentArticle, recentEvent, recentEverybodyHasAStory, recentCandidConversations });
-
   return (
     <div className="bg-schemesSurface">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 pt-10 md:pt-14 lg:pt-16">

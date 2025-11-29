@@ -922,12 +922,6 @@ function FrontPage({
   recentCandidConversations
 }) {
   const words = ["creative", "resilient", "curious", "connected"];
-  console.log({
-    recentArticle,
-    recentEvent,
-    recentEverybodyHasAStory,
-    recentCandidConversations
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
@@ -1603,4 +1597,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=0d34e85fc54ef5043e4f
+//# sourceMappingURL=front-page.js.map?ver=d30ec736dfb0194c8e69

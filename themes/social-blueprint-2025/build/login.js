@@ -228,7 +228,6 @@ function LoginForm() {
       });
       const data = await res.json();
       if (res.ok) {
-        console.log('Login successful:', data);
         window.location.href = '/';
       } else {
         // Handle specific error cases and strip HTML tags
@@ -427,4 +426,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=login.js.map?ver=073c37ebb0f896d87a6e
+//# sourceMappingURL=login.js.map?ver=e48b8f818127f4e9942b

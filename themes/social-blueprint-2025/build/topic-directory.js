@@ -1510,7 +1510,6 @@ function TopicDirectoryPage({
     groups = []
   } = props || {};
   const [q, setQ] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
-  console.log(groups);
   const searchResults = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     if (!q.trim()) return [];
     const needle = q.trim().toLowerCase();
@@ -1636,4 +1635,4 @@ function TopicDirectoryPage({
 /***/ })
 
 }]);
-//# sourceMappingURL=topic-directory.js.map?ver=c14f79989405588137f1
+//# sourceMappingURL=topic-directory.js.map?ver=f0a9b6be40097feda664

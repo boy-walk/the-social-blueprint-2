@@ -22,7 +22,6 @@ function TermBranch({ node, depth = 0 }) {
 export default function TopicDirectoryPage({ props }) {
   const { title = "Explore Topics", breadcrumbs = [], groups = [] } = props || {};
   const [q, setQ] = useState("");
-  console.log(groups)
 
   const searchResults = useMemo(() => {
     if (!q.trim()) return [];

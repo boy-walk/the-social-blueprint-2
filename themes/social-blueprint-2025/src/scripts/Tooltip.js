@@ -7,8 +7,6 @@ export function Tooltip({ content, position = "top" }) {
     return null;
   }
 
-  console.log("Rendering Tooltip with content:", content); // Debugging log
-
   return (
     <div className={`tooltip tooltip-${position}`}>
       <div className="tooltip-content bg-white shadow-lg rounded p-4">

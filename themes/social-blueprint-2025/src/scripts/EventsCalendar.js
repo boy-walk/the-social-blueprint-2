@@ -118,7 +118,6 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
         clearEvents();
         const api = calendarRef.current.getApi();
         (json.events || []).forEach((ev) => {
-          console.log(ev);
           api.addEvent({
             id: ev.id,
             title: ev.title || "Untitled",

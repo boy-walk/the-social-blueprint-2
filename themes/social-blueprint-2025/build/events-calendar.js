@@ -221,7 +221,6 @@ function EventsCalendar({
         clearEvents();
         const api = calendarRef.current.getApi();
         (json.events || []).forEach(ev => {
-          console.log(ev);
           api.addEvent({
             id: ev.id,
             title: ev.title || "Untitled",
@@ -897,4 +896,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=f8243e80509dc7ccf90f
+//# sourceMappingURL=events-calendar.js.map?ver=47d6b5df3c0a1f1e864c

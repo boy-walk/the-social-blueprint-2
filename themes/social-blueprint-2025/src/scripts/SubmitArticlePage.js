@@ -6,7 +6,6 @@ import ImageDropField from "./ImageDropField";
 import { Button } from "./Button";
 
 export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} }) {
-  console.log(taxonomies)
   const [acf, setAcf] = useState({ title: "", subtitle: "", article_content: "" });
   const [img, setImg] = useState(null);
   const [topics, setTopics] = useState([]);

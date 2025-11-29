@@ -37,7 +37,6 @@ export const EventCard = ({
         <IconButton
           variant="primary"
           size="sm"
-          onClick={() => console.log('Saved')}
           label="Save event"
         />
       </div>
