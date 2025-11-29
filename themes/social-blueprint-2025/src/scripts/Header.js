@@ -142,10 +142,10 @@ const MENU_SECTIONS = {
     {
       title: "Browse by category",
       items: [
-        { label: "Jobs", href: "/message-boards?cat=jobs" },
-        { label: "Volunteering", href: "/message-boards?cat=volunteering" },
-        { label: "Local notices", href: "/message-boards?cat=local-notices" },
-        { label: "Informal support", href: "/message-boards?cat=support" },
+        { label: "Activities | Program Alerts", href: "/message-boards?cat=activities" },
+        { label: "Community Jobs", href: "/message-boards?cat=jobs" },
+        { label: "Notice Board", href: "/message-boards?cat=noticeboard" },
+        { label: "Volunteers | Donations", href: "/message-boards?cat=volunteers" },
       ],
     },
   ],

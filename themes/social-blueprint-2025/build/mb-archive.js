@@ -670,13 +670,19 @@ function MessageBoardArchivePage(props) {
     baseQuery = {},
     title,
     subtitle,
-    breadcrumbs = [],
-    categories = []
+    breadcrumbs = []
   } = props;
   const CPT = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (Array.isArray(postType) ? postType[0] : postType) || "gd_discount", [postType]);
 
   // ---------------- State ----------------
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
+
+  // Parse URL query params for initial category filter
+  const getInitialCategoryFromURL = () => {
+    if (typeof window === 'undefined') return null;
+    const params = new URLSearchParams(window.location.search);
+    return params.get('cat') || null;
+  };
 
   // Seed once for taxonomy archives
   const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
@@ -685,6 +691,10 @@ function MessageBoardArchivePage(props) {
     };
     return {};
   });
+
+  // Track if we've initialized from URL
+  const urlInitializedRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  const initialCategorySlug = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(getInitialCategoryFromURL());
   const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [totalPages, setTotalPages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
   const [total, setTotal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
@@ -770,7 +780,7 @@ function MessageBoardArchivePage(props) {
         const tax = f.taxonomy;
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
-          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${encodeURIComponent('gd_discount')}`, {
+          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`, {
             headers: {
               Accept: "application/json"
             }
@@ -860,6 +870,37 @@ function MessageBoardArchivePage(props) {
       didScopeRef.current = true;
     }
   }, [termsOptions, taxonomy, currentTerm]);
+
+  // ---------------- Initialize category from URL query param ----------------
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (urlInitializedRef.current) return;
+    if (!categoryTax || !initialCategorySlug.current) return;
+    const opts = termsOptions[categoryTax];
+    if (!opts || !opts.length) return;
+
+    // Find term by slug
+    const findBySlug = items => {
+      for (const item of items) {
+        if (item.slug === initialCategorySlug.current) {
+          return item;
+        }
+        // Check children if it's a tree structure
+        if (Array.isArray(item.children) && item.children.length > 0) {
+          const found = findBySlug(item.children);
+          if (found) return found;
+        }
+      }
+      return null;
+    };
+    const matchedTerm = findBySlug(opts);
+    if (matchedTerm) {
+      setSelectedTerms(prev => ({
+        ...prev,
+        [categoryTax]: [String(matchedTerm.id)]
+      }));
+      urlInitializedRef.current = true;
+    }
+  }, [termsOptions, categoryTax]);
 
   // ---------------- Fetch posts ----------------
   const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
@@ -1035,36 +1076,7 @@ function MessageBoardArchivePage(props) {
   const LeadingIcon = ({
     item
   }) => {
-    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
-
-    // Find the category image from the categories prop
-    let imageUrl = null;
-
-    // Look through the item's taxonomies to find the category
-    if (item?.taxonomies && categoryTax) {
-      console.log(item?.taxonomies, categoryTax);
-      const itemCategories = item.taxonomies[categoryTax];
-      if (Array.isArray(itemCategories) && itemCategories.length > 0) {
-        // Get the first category's ID
-        const categoryId = itemCategories[0].id;
-        // Find matching category in the categories prop
-        const matchingCategory = categories.find(cat => cat.id === categoryId);
-        if (matchingCategory?.image_url) {
-          imageUrl = matchingCategory.image_url;
-        }
-      }
-    }
-    if (imageUrl) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "aspect-[7/10] max-h-32 rounded-sm overflow-hidden shrink-0 bg-[var(--schemesSurfaceContainerHighest)]",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-          src: `/wp-content/uploads/${imageUrl}`,
-          alt: item?.title || "Category image",
-          className: "w-full h-full object-fit",
-          loading: "lazy"
-        })
-      });
-    }
+    const letter = (String(item?.title || "").trim()[0] || "â€¢").toUpperCase();
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
@@ -1082,11 +1094,11 @@ function MessageBoardArchivePage(props) {
       href: href,
       className: "block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] hover:bg-[var(--schemesSurfaceContainer)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "flex gap-4 p-2",
+        className: "flex gap-4 p-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(LeadingIcon, {
           item: item
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "flex-1 py-2",
+          className: "flex-1",
           children: [categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "flex flex-wrap gap-2 mb-2",
             children: categories.map((label, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
@@ -1465,4 +1477,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-archive.js.map?ver=65db810f46cf1b3e9f68
+//# sourceMappingURL=mb-archive.js.map?ver=f4203a22cccbba188200

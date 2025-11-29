@@ -127,30 +127,140 @@ function LoginForm() {
     pass: '',
     remember: false
   });
-  const handle = key => e => setForm(prev => ({
-    ...prev,
-    [key]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
-  }));
-  const canSubmit = form.user && form.pass;
+  const [errors, setErrors] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    user: '',
+    pass: '',
+    general: ''
+  });
+  const [touched, setTouched] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    user: false,
+    pass: false
+  });
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const handle = key => e => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setForm(prev => ({
+      ...prev,
+      [key]: value
+    }));
+
+    // Clear field error when user starts typing
+    if (errors[key]) {
+      setErrors(prev => ({
+        ...prev,
+        [key]: '',
+        general: ''
+      }));
+    }
+  };
+  const handleBlur = key => () => {
+    setTouched(prev => ({
+      ...prev,
+      [key]: true
+    }));
+    validateField(key, form[key]);
+  };
+  const validateField = (key, value) => {
+    let error = '';
+    if (key === 'user') {
+      if (!value.trim()) {
+        error = 'Username or email is required';
+      } else if (value.includes('@')) {
+        // If it looks like an email, validate it
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value.trim())) {
+          error = 'Please enter a valid email address';
+        }
+      }
+    }
+    if (key === 'pass') {
+      if (!value) {
+        error = 'Password is required';
+      }
+    }
+    setErrors(prev => ({
+      ...prev,
+      [key]: error
+    }));
+    return error;
+  };
+  const validateForm = () => {
+    const userError = validateField('user', form.user);
+    const passError = validateField('pass', form.pass);
+    setTouched({
+      user: true,
+      pass: true
+    });
+    return !userError && !passError;
+  };
+
+  // Helper to strip HTML tags from error messages
+  const stripHtml = html => {
+    if (typeof html !== 'string') return html;
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  };
+  const canSubmit = form.user && form.pass && !errors.user && !errors.pass && !loading;
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch('/wp-json/uwp-custom/v1/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': window?.wpApiSettings?.nonce || ''
-      },
-      body: JSON.stringify({
-        email: form.user,
-        password: form.pass
-      })
-    });
-    const data = await res.json();
-    if (res.ok) {
-      console.log('Login successful:', data);
-      window.location.href = '/';
-    } else {
-      window.alert(`Login failed: ${data.message}`);
+
+    // Validate before submitting
+    if (!validateForm()) {
+      return;
+    }
+    setLoading(true);
+    setErrors(prev => ({
+      ...prev,
+      general: ''
+    }));
+    try {
+      const res = await fetch('/wp-json/uwp-custom/v1/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': window?.wpApiSettings?.nonce || ''
+        },
+        body: JSON.stringify({
+          email: form.user,
+          password: form.pass
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        console.log('Login successful:', data);
+        window.location.href = '/';
+      } else {
+        // Handle specific error cases and strip HTML tags
+        const rawMessage = data.message || 'Login failed. Please check your credentials.';
+        const errorMessage = stripHtml(rawMessage);
+        if (errorMessage.toLowerCase().includes('username') || errorMessage.toLowerCase().includes('email')) {
+          setErrors(prev => ({
+            ...prev,
+            user: errorMessage,
+            general: ''
+          }));
+        } else if (errorMessage.toLowerCase().includes('password')) {
+          setErrors(prev => ({
+            ...prev,
+            pass: errorMessage,
+            general: ''
+          }));
+        } else {
+          setErrors(prev => ({
+            ...prev,
+            general: errorMessage
+          }));
+        }
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrors(prev => ({
+        ...prev,
+        general: 'Network error. Please check your connection and try again.'
+      }));
+    } finally {
+      setLoading(false);
     }
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("main", {
@@ -164,6 +274,12 @@ function LoginForm() {
         className: "Blueprint-body-large text-schemesOnSurfaceVariant",
         children: "Access your account to post, connect, and explore everything happening in the Melbourne Jewish community."
       })]
+    }), errors.general && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "rounded-xl bg-schemesErrorContainer border border-schemesError p-4",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        className: "Blueprint-body-medium text-schemesOnErrorContainer",
+        children: errors.general
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
       onSubmit: handleSubmit,
       className: "flex flex-col gap-6",
@@ -171,13 +287,19 @@ function LoginForm() {
         label: "Username or Email",
         placeholder: "Input",
         value: form.user,
-        onChange: handle('user')
+        onChange: handle('user'),
+        onBlur: handleBlur('user'),
+        error: touched.user && errors.user,
+        helperText: touched.user && errors.user ? errors.user : ''
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Password",
         type: "password",
         placeholder: "Input",
         value: form.pass,
-        onChange: handle('pass')
+        onChange: handle('pass'),
+        onBlur: handleBlur('pass'),
+        error: touched.pass && errors.pass,
+        helperText: touched.pass && errors.pass ? errors.pass : ''
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
         className: "flex items-center gap-2 Blueprint-body-medium select-none",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
@@ -187,7 +309,7 @@ function LoginForm() {
           onChange: handle('remember')
         }), " Remember Me"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-        label: "Log in",
+        label: loading ? "Logging in..." : "Log in",
         style: "filled",
         size: "base",
         shape: "square",
@@ -305,4 +427,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=login.js.map?ver=e38dd7ae8c013c8f6438
+//# sourceMappingURL=login.js.map?ver=073c37ebb0f896d87a6e

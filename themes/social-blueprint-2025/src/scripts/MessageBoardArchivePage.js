@@ -15,7 +15,6 @@ export default function MessageBoardArchivePage(props) {
     title,
     subtitle,
     breadcrumbs = [],
-    categories = [],
   } = props;
 
   const CPT = useMemo(() => (Array.isArray(postType) ? postType[0] : postType) || "gd_discount", [postType]);
@@ -23,11 +22,22 @@ export default function MessageBoardArchivePage(props) {
   // ---------------- State ----------------
   const [page, setPage] = useState(1);
 
+  // Parse URL query params for initial category filter
+  const getInitialCategoryFromURL = () => {
+    if (typeof window === 'undefined') return null;
+    const params = new URLSearchParams(window.location.search);
+    return params.get('cat') || null;
+  };
+
   // Seed once for taxonomy archives
   const [selectedTerms, setSelectedTerms] = useState(() => {
     if (taxonomy && currentTerm?.id) return { [taxonomy]: [String(currentTerm.id)] };
     return {};
   });
+
+  // Track if we've initialized from URL
+  const urlInitializedRef = useRef(false);
+  const initialCategorySlug = useRef(getInitialCategoryFromURL());
 
   const [items, setItems] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -108,7 +118,7 @@ export default function MessageBoardArchivePage(props) {
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
           const res = await fetch(
-            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${encodeURIComponent('gd_discount')}`,
+            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100`,
             { headers: { Accept: "application/json" } }
           );
           if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
@@ -173,6 +183,39 @@ export default function MessageBoardArchivePage(props) {
       didScopeRef.current = true;
     }
   }, [termsOptions, taxonomy, currentTerm]);
+
+  // ---------------- Initialize category from URL query param ----------------
+  useEffect(() => {
+    if (urlInitializedRef.current) return;
+    if (!categoryTax || !initialCategorySlug.current) return;
+
+    const opts = termsOptions[categoryTax];
+    if (!opts || !opts.length) return;
+
+    // Find term by slug
+    const findBySlug = (items) => {
+      for (const item of items) {
+        if (item.slug === initialCategorySlug.current) {
+          return item;
+        }
+        // Check children if it's a tree structure
+        if (Array.isArray(item.children) && item.children.length > 0) {
+          const found = findBySlug(item.children);
+          if (found) return found;
+        }
+      }
+      return null;
+    };
+
+    const matchedTerm = findBySlug(opts);
+    if (matchedTerm) {
+      setSelectedTerms((prev) => ({
+        ...prev,
+        [categoryTax]: [String(matchedTerm.id)]
+      }));
+      urlInitializedRef.current = true;
+    }
+  }, [termsOptions, categoryTax]);
 
   // ---------------- Fetch posts ----------------
   const fetchSeq = useRef(0);
@@ -352,38 +395,7 @@ export default function MessageBoardArchivePage(props) {
   };
 
   const LeadingIcon = ({ item }) => {
-    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
-
-    // Find the category image from the categories prop
-    let imageUrl = null;
-
-    // Look through the item's taxonomies to find the category
-    if (item?.taxonomies && categoryTax) {
-      console.log(item?.taxonomies, categoryTax)
-      const itemCategories = item.taxonomies[categoryTax];
-      if (Array.isArray(itemCategories) && itemCategories.length > 0) {
-        // Get the first category's ID
-        const categoryId = itemCategories[0].id;
-        // Find matching category in the categories prop
-        const matchingCategory = categories.find(cat => cat.id === categoryId);
-        if (matchingCategory?.image_url) {
-          imageUrl = matchingCategory.image_url;
-        }
-      }
-    }
-    if (imageUrl) {
-      return (
-        <div className="aspect-[7/10] max-h-32 rounded-sm overflow-hidden shrink-0 bg-[var(--schemesSurfaceContainerHighest)]">
-          <img
-            src={`/wp-content/uploads/${imageUrl}`}
-            alt={item?.title || "Category image"}
-            className="w-full h-full object-fit"
-            loading="lazy"
-          />
-        </div>
-      );
-    }
-
+    const letter = (String(item?.title || "").trim()[0] || "â€¢").toUpperCase();
     return (
       <div className="w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0">
         <span className="Blueprint-headline-medium text-[var(--schemesOnSecondaryContainer)]">
@@ -402,9 +414,9 @@ export default function MessageBoardArchivePage(props) {
         href={href}
         className="block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] hover:bg-[var(--schemesSurfaceContainer)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition"
       >
-        <div className="flex gap-4 p-2">
+        <div className="flex gap-4 p-4">
           <LeadingIcon item={item} />
-          <div className="flex-1 py-2">
+          <div className="flex-1">
             {categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-2">
                 {categories.map((label, idx) => (

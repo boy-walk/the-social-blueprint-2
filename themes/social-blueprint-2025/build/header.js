@@ -332,17 +332,17 @@ const MENU_SECTIONS = {
   }, {
     title: "Browse by category",
     items: [{
-      label: "Jobs",
+      label: "Activities | Program Alerts",
+      href: "/message-boards?cat=activities"
+    }, {
+      label: "Community Jobs",
       href: "/message-boards?cat=jobs"
     }, {
-      label: "Volunteering",
-      href: "/message-boards?cat=volunteering"
+      label: "Notice Board",
+      href: "/message-boards?cat=noticeboard"
     }, {
-      label: "Local notices",
-      href: "/message-boards?cat=local-notices"
-    }, {
-      label: "Informal support",
-      href: "/message-boards?cat=support"
+      label: "Volunteers | Donations",
+      href: "/message-boards?cat=volunteers"
     }]
   }],
   "explore-by": [{
@@ -1110,4 +1110,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=8422d7857724b3feed51
+//# sourceMappingURL=header.js.map?ver=9ac64bb28ba6627fd0b1
