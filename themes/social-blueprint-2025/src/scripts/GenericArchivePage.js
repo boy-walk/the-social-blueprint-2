@@ -190,6 +190,7 @@ export function GenericArchivePage(props) {
       collect(item.tags, bag);
       collect(item.terms, bag);
       collect(item.taxonomies, bag);
+      collect(item.content, bag);
       idx.set(item.id, bag.join(" ").toLowerCase());
     });
     return idx;
@@ -419,6 +420,7 @@ export function GenericArchivePage(props) {
                     key={item.id}
                     image={item.thumbnail}
                     title={item.title}
+                    subtitle={item.subtitle || item.excerpt || item.content || ""}
                     date={item.date}
                     badge={getBadge(item.post_type)}
                     href={item.permalink}
