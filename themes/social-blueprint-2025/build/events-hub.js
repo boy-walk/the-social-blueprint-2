@@ -2308,7 +2308,7 @@ function FeaturedPostLayout({
         fullHeight: true,
         fullWidth: true,
         title: hero.title,
-        subtitle: hero.subtitle,
+        subtitle: hero.subtitle || hero.excerpt || hero.content || "",
         large: true,
         shadow: true
       })
@@ -2672,4 +2672,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=events-hub.js.map?ver=1e5debd08b7830142b93
+//# sourceMappingURL=events-hub.js.map?ver=f5e72deb35739f8b0f55

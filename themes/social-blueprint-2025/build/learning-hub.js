@@ -1998,7 +1998,7 @@ function FeaturedPostLayout({
         fullHeight: true,
         fullWidth: true,
         title: hero.title,
-        subtitle: hero.subtitle,
+        subtitle: hero.subtitle || hero.excerpt || hero.content || "",
         large: true,
         shadow: true
       })
@@ -2627,4 +2627,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=925001bfcca93981b3b3
+//# sourceMappingURL=learning-hub.js.map?ver=fd8a1e9b63e87113338f

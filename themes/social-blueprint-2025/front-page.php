@@ -71,6 +71,7 @@ function map_post($post) {
     'date' => get_the_date('', $post),
     'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
     'permalink' => get_permalink($post),
+    'content' => apply_filters('the_content', get_post_field('post_content', $post->ID)),
   ];
 }
 

@@ -23,7 +23,7 @@ export default function FeaturedPostLayout({ posts }) {
           fullHeight
           fullWidth
           title={hero.title}
-          subtitle={hero.subtitle}
+          subtitle={hero.subtitle || hero.excerpt || hero.content || ""}
           large={true}
           shadow
         />)}
