@@ -531,7 +531,7 @@ function MobileMenu({
             e.preventDefault();
             const query = e.target.elements.search.value.trim();
             if (query) {
-              window.location.href = `/search?q=${encodeURIComponent(query)}`;
+              window.location.href = `/?s=${encodeURIComponent(query)}`;
             }
           },
           className: "relative",
@@ -1101,4 +1101,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=3693e0447c7f01b83236
+//# sourceMappingURL=header.js.map?ver=671049ed079fd5b50d7e

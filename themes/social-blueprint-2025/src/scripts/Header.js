@@ -340,7 +340,7 @@ function MobileMenu({
               e.preventDefault();
               const query = e.target.elements.search.value.trim();
               if (query) {
-                window.location.href = `/search?q=${encodeURIComponent(query)}`;
+                window.location.href = `/?s=${encodeURIComponent(query)}`;
               }
             }}
             className="relative"
