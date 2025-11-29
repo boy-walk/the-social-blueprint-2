@@ -295,7 +295,7 @@ const MENU_SECTIONS = {
     title: "Categories",
     items: [{
       label: "Community & Connection",
-      href: "/stories-and-interviews?theme=community-and-connection"
+      href: "/stories-and-interviews?theme=community-connection"
     }, {
       label: "Culture & Identity",
       href: "/stories-and-interviews?theme=culture-and-identity"
@@ -1101,4 +1101,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=ad4004504a110302d884
+//# sourceMappingURL=header.js.map?ver=3693e0447c7f01b83236
