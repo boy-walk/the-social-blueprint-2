@@ -77,7 +77,8 @@ $props = [
       'link' => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'large'),
       'post_type' => get_post_type($post),
-      'subtitle' => get_field('podcast_subtitle', $post->ID) ?: '',
+      'subtitle' => get_field('podcast_subtitle', $post->ID) ?: get_the_excerpt($post),
+      'content' => apply_filters('the_content', get_post_field('post_content', $post->ID)),
     ];
   }, $everyBodyHasAStory),
   
@@ -88,7 +89,8 @@ $props = [
       'link' => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'large'),
       'post_type' => get_post_type($post),
-      'subtitle' => get_field('podcast_subtitle', $post->ID) ?: '',
+      'subtitle' => get_field('podcast_subtitle', $post->ID) ?: get_the_excerpt($post),
+      'content' => apply_filters('the_content', get_post_field('post_content', $post->ID)),
     ];
   }, $candidConversations),
 
@@ -99,7 +101,8 @@ $props = [
       'link' => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'large'),
       'post_type' => get_post_type($post),
-      'subtitle' => get_field('subtitle', $post->ID) ?: '',
+      'subtitle' => get_field('subtitle', $post->ID) ?: get_the_excerpt($post),
+      'content' => apply_filters('the_content', get_post_field('post_content', $post->ID)),
     ];
   }, $blueprint_stories),
 
@@ -110,7 +113,7 @@ $props = [
       'link' => get_permalink($post),
       'thumbnail' => get_the_post_thumbnail_url($post, 'large'),
       'post_type' => get_post_type($post),
-      'subtitle' => get_field('subtitle', $post->ID) ?: '',
+      'subtitle' => get_field('subtitle', $post->ID) ?: get_the_excerpt($post),
     ];
   }, $holocaust_stories),
   'breadcrumbs'  => $breadcrumbs,
