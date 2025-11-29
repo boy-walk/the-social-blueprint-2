@@ -2532,7 +2532,7 @@ function PostsSlider({
         ref: scrollRef,
         className: "flex items-stretch transition-transform duration-300 ease-in-out overflow-x-auto scrollbar-hidden overflow-y-visible",
         children: eventsFiltered?.map((post, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "flex-shrink-0 flex px-0 lg:px-1 py-1",
+          className: "flex-shrink-0 flex px-1 py-1",
           style: {
             width: `${100 / itemsPerView}%`
           },
@@ -2628,4 +2628,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=3b18fe650517e5850067
+//# sourceMappingURL=learning-hub.js.map?ver=f9d0e6988dda6adfe396

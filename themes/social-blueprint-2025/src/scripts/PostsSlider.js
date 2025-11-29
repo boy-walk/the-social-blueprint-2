@@ -97,7 +97,7 @@ export function PostsSlider({ title = null, description = null, events, itemsToD
           {eventsFiltered?.map((post, idx) => (
             <div
               key={post.id}
-              className="flex-shrink-0 flex px-0 lg:px-1 py-1"
+              className="flex-shrink-0 flex px-1 py-1"
               style={{ width: `${100 / itemsPerView}%` }}
             >
               <a href={post.permalink} className="block w-full h-full">
