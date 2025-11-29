@@ -151,15 +151,16 @@ const MENU_SECTIONS = {
   ],
   "explore-by": [
     {
-      title: "Explore by",
+      title: "Explore by theme",
       items: [
-        { label: "Topic", href: "/topics" },
-        { label: "Audience", href: "/audience_tag" },
-        { label: "Theme", href: "/theme" },
+        { label: "Community & Connection", href: "/theme/community-connection" },
+        { label: "Culture & Identity", href: "/theme/culture-and-identity" },
+        { label: "Learning & Growth", href: "/theme/learning-and-growth" },
+        { label: "Support & Services", href: "/theme/support-and-services" },
       ],
     },
     {
-      title: "Content type",
+      title: "Explore by content type",
       items: [
         { label: "Events", href: "/events" },
         { label: "Podcasts", href: "/podcasts" },
@@ -167,6 +168,12 @@ const MENU_SECTIONS = {
         { label: "Message Board", href: "/message-boards" },
       ],
     },
+    {
+      title: "Explore by topic",
+      items: [
+        { label: "View all topics", href: "/topics" },
+      ]
+    }
   ],
 };
 

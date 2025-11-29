@@ -346,19 +346,22 @@ const MENU_SECTIONS = {
     }]
   }],
   "explore-by": [{
-    title: "Explore by",
+    title: "Explore by theme",
     items: [{
-      label: "Topic",
-      href: "/topics"
+      label: "Community & Connection",
+      href: "/theme/community-connection"
     }, {
-      label: "Audience",
-      href: "/audience_tag"
+      label: "Culture & Identity",
+      href: "/theme/culture-and-identity"
     }, {
-      label: "Theme",
-      href: "/theme"
+      label: "Learning & Growth",
+      href: "/theme/learning-and-growth"
+    }, {
+      label: "Support & Services",
+      href: "/theme/support-and-services"
     }]
   }, {
-    title: "Content type",
+    title: "Explore by content type",
     items: [{
       label: "Events",
       href: "/events"
@@ -371,6 +374,12 @@ const MENU_SECTIONS = {
     }, {
       label: "Message Board",
       href: "/message-boards"
+    }]
+  }, {
+    title: "Explore by topic",
+    items: [{
+      label: "View all topics",
+      href: "/topics"
     }]
   }]
 };
@@ -1101,4 +1110,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=671049ed079fd5b50d7e
+//# sourceMappingURL=header.js.map?ver=8422d7857724b3feed51
