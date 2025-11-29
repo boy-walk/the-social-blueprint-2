@@ -83,7 +83,7 @@ foreach ($groups as $group) {
         </h2>
         
         <?php if (!empty($group['roots'])) : ?>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4">
             <?php foreach ($group['roots'] as $root) : ?>
               <div class="flex flex-col">
                 <h3 class="Blueprint-title-medium mb-3 text-schemesOnSurface">
