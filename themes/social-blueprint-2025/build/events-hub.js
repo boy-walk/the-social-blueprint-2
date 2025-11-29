@@ -1782,8 +1782,7 @@ function ContentCard({
   author,
   fullHeight = false,
   fullWidth = false,
-  shadow = false,
-  large = false
+  shadow = false
 }) {
   const cardStyles = `
     group
@@ -1804,7 +1803,7 @@ function ContentCard({
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "flex h-full min-h-0 flex-col",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: ["relative overflow-hidden rounded-lg bg-gray-100", fullHeight ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100" : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75", `${large ? "md:max-h-120" : ""}`].join(" "),
+        className: "relative overflow-hidden rounded-lg bg-gray-100 aspect-[4/3] w-full",
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
@@ -1816,22 +1815,22 @@ function ContentCard({
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: " relative p-4 pt-3 overflow-hidden h-auto md:h-[116px] lg:h-[128px] ",
+        className: " relative p-4 pt-3 h-auto md:h-[116px] lg:h-[128px] md:overflow-hidden ",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: " pointer-events-none absolute inset-x-0 bottom-0 h-8 opacity-0 md:opacity-100 transition-opacity duration-200 md:group-hover:opacity-0 "
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "transition-transform duration-200 ease-in-out",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface truncate",
+            className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: date
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-            className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 break-words transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] ",
+            className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-3 sm:line-clamp-2 break-words transition-colors duration-200 group-hover:text-schemesOnSurface ",
+            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface truncate",
+            className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: author
           })]
         })]
@@ -2673,4 +2672,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=events-hub.js.map?ver=5ac602daf6edae5ce963
+//# sourceMappingURL=events-hub.js.map?ver=8e3dbd2565a2c05c41b2

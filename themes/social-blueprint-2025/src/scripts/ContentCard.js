@@ -12,7 +12,6 @@ export function ContentCard({
   fullHeight = false,
   fullWidth = false,
   shadow = false,
-  large = false,
 }) {
   const cardStyles = `
     group
@@ -32,13 +31,7 @@ export function ContentCard({
     <Card href={href} styles={cardStyles}>
       <div className="flex h-full min-h-0 flex-col">
         <div
-          className={[
-            "relative overflow-hidden rounded-lg bg-gray-100",
-            fullHeight
-              ? "aspect-[4/3] max-h-60 md:max-h-50 lg:max-h-100"
-              : "aspect-[4/3] max-h-56 md:max-h-40 lg:max-h-75",
-            `${large ? "md:max-h-120" : ""}`,
-          ].join(" ")}
+          className="relative overflow-hidden rounded-lg bg-gray-100 aspect-[4/3] w-full"
         >
           {image && (
             <img
@@ -66,8 +59,8 @@ export function ContentCard({
           <div
             className="
               relative p-4 pt-3
-              overflow-hidden
               h-auto md:h-[116px] lg:h-[128px]
+              md:overflow-hidden
             "
           >
             <div
@@ -79,7 +72,7 @@ export function ContentCard({
             />
             <div className="transition-transform duration-200 ease-in-out">
               {date && (
-                <div className="Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface truncate">
+                <div className="Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
                   {date}
                 </div>
               )}
@@ -88,7 +81,6 @@ export function ContentCard({
                 className="
                   Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized
                   line-clamp-2
-                  break-words
                   transition-colors duration-200 group-hover:text-[var(--schemesPrimary)]
                 "
               >
@@ -99,8 +91,7 @@ export function ContentCard({
                 <p
                   className="
                     Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant
-                    line-clamp-3 sm:line-clamp-2
-                    break-words
+                    line-clamp-2
                     transition-colors duration-200 group-hover:text-schemesOnSurface
                   "
                 >
@@ -109,7 +100,7 @@ export function ContentCard({
               )}
 
               {author && (
-                <p className="mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface truncate">
+                <p className="mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
                   {author}
                 </p>
               )}
