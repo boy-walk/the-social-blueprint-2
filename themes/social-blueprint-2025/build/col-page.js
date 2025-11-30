@@ -1892,4 +1892,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=col-page.js.map?ver=e256acf2f8ed4de551f1
+//# sourceMappingURL=col-page.js.map?ver=97579a52d361c7dce2a3

@@ -2250,7 +2250,7 @@ const SectionOne = ({
                     children: "Personal reflections, creative insights and thoughtful perspectives."
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
                     label: "View all",
-                    onClick: () => window.location.href = '/articles',
+                    onClick: () => window.location.href = '/podcasts',
                     size: "base",
                     variant: "filled"
                   })]
@@ -2717,4 +2717,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=8640d4e815b0934bc03f
+//# sourceMappingURL=section-one.js.map?ver=75a72557bc8af2ce3f86

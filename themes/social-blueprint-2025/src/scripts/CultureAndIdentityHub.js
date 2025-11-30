@@ -29,7 +29,7 @@ export const CultureAndIdentityHub = ({ podcasts, events, breadcrumbs = [] }) =>
             </div>
             <img src={CultureIdentityIcon} alt="Community Connection Hub" className="lg:block hidden translate-y-10 -translate-x-20" />
           </div>
-          <div className="p-4 md:pb-8 lg:px-16">
+          <div className="p-4 md:px-8 lg:px-16">
             <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4">Quick Links</h2>
             <div className="mt-6">
               <div className="mt-6">

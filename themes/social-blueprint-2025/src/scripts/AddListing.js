@@ -9,7 +9,7 @@ export function AddListing({ breadcrumbs = [] }) {
     <div>
       <div className="bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
-          <div className="md:px-8 md:pt-8 lg:px-16 lg:pt-8">
+          <div className="px-4 md:px-8 pt-8 lg:px-16 lg:pt-8">
             <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
           </div>
           <div className="flex p-4 md:p-8 lg:px-16 lg:pt-16 items-end justify-between">

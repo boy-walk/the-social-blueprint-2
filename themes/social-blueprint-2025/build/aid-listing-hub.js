@@ -2162,4 +2162,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing-hub.js.map?ver=2265e13983d228cd9f56
+//# sourceMappingURL=aid-listing-hub.js.map?ver=88f16d22b9425267127f

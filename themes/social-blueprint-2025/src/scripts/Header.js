@@ -153,10 +153,10 @@ const MENU_SECTIONS = {
     {
       title: "Explore by theme",
       items: [
-        { label: "Community & Connection", href: "/theme/community-connection" },
-        { label: "Culture & Identity", href: "/theme/culture-and-identity" },
-        { label: "Learning & Growth", href: "/theme/learning-and-growth" },
-        { label: "Support & Services", href: "/theme/support-and-services" },
+        { label: "Community & Connection", href: "/community-connection" },
+        { label: "Culture & Identity", href: "/culture-and-identity" },
+        { label: "Learning & Growth", href: "/learning-and-growth" },
+        { label: "Support & Services", href: "/support-and-services" },
       ],
     },
     {

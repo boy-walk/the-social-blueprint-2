@@ -161,4 +161,4 @@ function TermsAndConditions() {
 /***/ })
 
 }]);
-//# sourceMappingURL=terms.js.map?ver=df18143f580158138d59
+//# sourceMappingURL=terms.js.map?ver=34833a60cc1d01783fe2

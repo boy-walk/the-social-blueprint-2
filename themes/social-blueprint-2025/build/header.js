@@ -349,16 +349,16 @@ const MENU_SECTIONS = {
     title: "Explore by theme",
     items: [{
       label: "Community & Connection",
-      href: "/theme/community-connection"
+      href: "/community-connection"
     }, {
       label: "Culture & Identity",
-      href: "/theme/culture-and-identity"
+      href: "/culture-and-identity"
     }, {
       label: "Learning & Growth",
-      href: "/theme/learning-and-growth"
+      href: "/learning-and-growth"
     }, {
       label: "Support & Services",
-      href: "/theme/support-and-services"
+      href: "/support-and-services"
     }]
   }, {
     title: "Explore by content type",
@@ -1110,4 +1110,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=9ac64bb28ba6627fd0b1
+//# sourceMappingURL=header.js.map?ver=07fb7c40bb468e2a85b0

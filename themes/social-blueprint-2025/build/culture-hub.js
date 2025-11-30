@@ -1961,7 +1961,7 @@ const CultureAndIdentityHub = ({
             className: "lg:block hidden translate-y-10 -translate-x-20"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "p-4 md:pb-8 lg:px-16",
+          className: "p-4 md:px-8 lg:px-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h2", {
             className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4",
             children: "Quick Links"
@@ -2604,4 +2604,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=culture-hub.js.map?ver=b4b2bf2ddb8e512fe84b
+//# sourceMappingURL=culture-hub.js.map?ver=017c3c789c6d676d8030

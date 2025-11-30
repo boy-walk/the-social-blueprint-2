@@ -536,7 +536,7 @@ function EventsCalendar({
       })]
     }), tip.visible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       role: "tooltip",
-      className: "pointer-events-none fixed z-[60] max-w-[22rem] rounded-xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 px-4 py-3",
+      className: "pointer-events-none fixed z-[10000] max-w-[22rem] rounded-xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 px-4 py-3",
       style: {
         left: Math.min(window.innerWidth - 16, tip.x + 12),
         top: Math.min(window.innerHeight - 16, tip.y + 12)
@@ -689,8 +689,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StyledCheckbox */ "./src/scripts/StyledCheckbox.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 
@@ -757,29 +759,36 @@ function FilterGroup({
     if (!show) return null;
     const hasKids = Array.isArray(childNode.children) && childNode.children.length > 0;
     const checked = isChecked(childNode.id);
+    const expanded = checked || hasKids && anyChildSelected(childNode);
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "w-full",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "flex items-start relative",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "flex items-center gap-1",
         style: {
           marginLeft: depth * 16
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex-1 pt-1",
+        children: [hasKids && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.CaretRight, {
+          size: 16,
+          weight: "bold",
+          className: `text-schemesOnSurfaceVariant transition-transform flex-shrink-0 ${expanded ? 'rotate-90' : ''}`
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "flex-1 min-w-0",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
             id: childNode.id,
             label: childNode.name,
             checked: checked,
             onChangeHandler: e => onChildChange(parentNode, childNode, e.target.checked)
           })
-        })
-      }), hasKids && childNode.children.map((g, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
-        parentNode: parentNode // keep same top-level parent to control visibility
-        ,
-        childNode: g,
-        isLast: idx === childNode.children.length - 1,
-        depth: depth + 1
-      }, `c-${childNode.id}-${g.id}`))]
+        })]
+      }), hasKids && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "mt-4 mb-2 space-y-4",
+        children: childNode.children.map((g, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
+          parentNode: parentNode,
+          childNode: g,
+          isLast: idx === childNode.children.length - 1,
+          depth: depth + 1
+        }, `c-${childNode.id}-${g.id}`))
+      })]
     }, `c-${childNode.id}`);
   };
   const renderParent = node => {
@@ -788,27 +797,32 @@ function FilterGroup({
     const hasChildren = Array.isArray(node.children) && node.children.length > 0;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "w-full",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "flex items-center my-1",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
-          id: node.id,
-          label: node.name,
-          checked: checked,
-          onChangeHandler: e => onParentChange(node, e.target.checked)
-        })
-      }), hasChildren && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "relative mt-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "absolute left-3 -top-0 bottom-0 border-l border-schemesOutlineVariant"
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "flex items-center gap-1 my-1",
+        children: [hasChildren && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.CaretRight, {
+          size: 16,
+          weight: "bold",
+          className: `text-schemesOnSurfaceVariant transition-transform flex-shrink-0 ${expanded ? 'rotate-90' : ''}`
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "pl-6 py-3 space-y-4",
+          className: "flex-1 min-w-0",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
+            id: node.id,
+            label: node.name,
+            checked: checked,
+            onChangeHandler: e => onParentChange(node, e.target.checked)
+          })
+        })]
+      }), hasChildren && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "relative mt-4 mb-2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "pl-6 space-y-4",
           children: node.children.map((child, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
             parentNode: node,
             childNode: child,
             isLast: idx === node.children.length - 1,
             depth: 0
           }, `c-${child.id}`))
-        })]
+        })
       })]
     }, `p-${node.id}`);
   };
@@ -818,10 +832,10 @@ function FilterGroup({
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "mb-4",
       children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-        className: "Blueprint-title-small mb-8",
+        className: "Blueprint-title-small mb-3",
         children: title
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "flex flex-wrap gap-5",
+        className: "flex flex-wrap gap-2",
         children: options.slice(0, visibleCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
           id: option.id,
           label: option.name,
@@ -841,10 +855,10 @@ function FilterGroup({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "mb-4",
     children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-      className: "Blueprint-title-small mb-8",
+      className: "Blueprint-title-small mb-3",
       children: title
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "flex flex-col gap-3",
+      className: "flex flex-col gap-2",
       children: (parents || []).slice(0, visibleCount).map(renderParent)
     }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
       type: "button",
@@ -896,4 +910,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=47d6b5df3c0a1f1e864c
+//# sourceMappingURL=events-calendar.js.map?ver=98e054dbe71feffd5253

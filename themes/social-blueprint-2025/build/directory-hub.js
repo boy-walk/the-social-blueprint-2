@@ -1879,7 +1879,7 @@ const DirectoryHub = ({
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                         className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
-                        children: "Media Contact List"
+                        children: "Contact Lists"
                       })]
                     })
                   })
@@ -2440,4 +2440,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=directory-hub.js.map?ver=504a08519fa8310b3927
+//# sourceMappingURL=directory-hub.js.map?ver=39a63792643e96a88812

@@ -2497,4 +2497,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=support-hub.js.map?ver=ec8578e816530c7d06bc
+//# sourceMappingURL=support-hub.js.map?ver=534fe9728ba959b494de

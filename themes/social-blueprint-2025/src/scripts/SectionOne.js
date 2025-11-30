@@ -78,7 +78,7 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
                     </div>
                     <Button
                       label="View all"
-                      onClick={() => (window.location.href = '/articles')}
+                      onClick={() => (window.location.href = '/podcasts')}
                       size="base"
                       variant="filled"
                     />

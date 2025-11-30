@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { StyledCheckbox } from "./StyledCheckbox";
+import { CaretRight } from "@phosphor-icons/react";
 
 export function FilterGroup({ title, options, selected, onChangeHandler }) {
   const [visibleCount, setVisibleCount] = useState(5);
@@ -64,14 +65,22 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
 
     const hasKids = Array.isArray(childNode.children) && childNode.children.length > 0;
     const checked = isChecked(childNode.id);
+    const expanded = checked || (hasKids && anyChildSelected(childNode));
 
     return (
       <div key={`c-${childNode.id}`} className="w-full">
         <div
-          className="flex items-start relative"
+          className="flex items-center gap-1"
           style={{ marginLeft: depth * 16 }}
         >
-          <div className="flex-1 pt-1">
+          {hasKids && (
+            <CaretRight
+              size={16}
+              weight="bold"
+              className={`text-schemesOnSurfaceVariant transition-transform flex-shrink-0 ${expanded ? 'rotate-90' : ''}`}
+            />
+          )}
+          <div className="flex-1 min-w-0">
             <StyledCheckbox
               id={childNode.id}
               label={childNode.name}
@@ -80,16 +89,19 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
             />
           </div>
         </div>
-        {hasKids &&
-          childNode.children.map((g, idx) => (
-            <ChildRow
-              key={`c-${childNode.id}-${g.id}`}
-              parentNode={parentNode}         // keep same top-level parent to control visibility
-              childNode={g}
-              isLast={idx === childNode.children.length - 1}
-              depth={depth + 1}
-            />
-          ))}
+        {hasKids && expanded && (
+          <div className="mt-4 mb-2 space-y-4">
+            {childNode.children.map((g, idx) => (
+              <ChildRow
+                key={`c-${childNode.id}-${g.id}`}
+                parentNode={parentNode}
+                childNode={g}
+                isLast={idx === childNode.children.length - 1}
+                depth={depth + 1}
+              />
+            ))}
+          </div>
+        )}
       </div>
     );
   };
@@ -101,21 +113,27 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
 
     return (
       <div key={`p-${node.id}`} className="w-full">
-        <div className="flex items-center my-1">
-          <StyledCheckbox
-            id={node.id}
-            label={node.name}
-            checked={checked}
-            onChangeHandler={(e) => onParentChange(node, e.target.checked)}
-          />
+        <div className="flex items-center gap-1 my-1">
+          {hasChildren && (
+            <CaretRight
+              size={16}
+              weight="bold"
+              className={`text-schemesOnSurfaceVariant transition-transform flex-shrink-0 ${expanded ? 'rotate-90' : ''}`}
+            />
+          )}
+          <div className="flex-1 min-w-0">
+            <StyledCheckbox
+              id={node.id}
+              label={node.name}
+              checked={checked}
+              onChangeHandler={(e) => onParentChange(node, e.target.checked)}
+            />
+          </div>
         </div>
 
         {hasChildren && expanded && (
-          <div className="relative mt-2">
-            {/* trunk under parent */}
-            <div className="absolute left-3 -top-0 bottom-0 border-l border-schemesOutlineVariant" />
-
-            <div className="pl-6 py-3 space-y-4">
+          <div className="relative mt-4 mb-2">
+            <div className="pl-6 space-y-4">
               {node.children.map((child, idx) => (
                 <ChildRow
                   key={`c-${child.id}`}
@@ -136,8 +154,8 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
   if (!isNested) {
     return (
       <div className="mb-4">
-        {title && <h3 className="Blueprint-title-small mb-8">{title}</h3>}
-        <div className="flex flex-wrap gap-5">
+        {title && <h3 className="Blueprint-title-small mb-3">{title}</h3>}
+        <div className="flex flex-wrap gap-2">
           {options.slice(0, visibleCount).map((option) => (
             <StyledCheckbox
               key={option.id}
@@ -165,9 +183,9 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
   // NESTED
   return (
     <div className="mb-4">
-      {title && <h3 className="Blueprint-title-small mb-8">{title}</h3>}
+      {title && <h3 className="Blueprint-title-small mb-3">{title}</h3>}
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         {(parents || []).slice(0, visibleCount).map(renderParent)}
       </div>
 

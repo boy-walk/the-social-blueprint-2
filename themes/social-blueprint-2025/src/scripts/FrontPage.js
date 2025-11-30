@@ -185,7 +185,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
               </div>
 
               <div className="row-span-3 lg:row-span-7">
-                {recentCandidConversations ? <HeroCard badge={getBadge(recentCandidConversations.post_type)}
+                {recentCandidConversations ? <HeroCard badge={"Candid Conversations"}
                   image={recentCandidConversations.thumbnail}
                   href={recentCandidConversations.permalink}
                   title={recentCandidConversations.title}

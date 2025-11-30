@@ -39,7 +39,7 @@ function AddListing({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "max-w-[1600px] mx-auto",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "md:px-8 md:pt-8 lg:px-16 lg:pt-8",
+          className: "px-4 md:px-8 pt-8 lg:px-16 lg:pt-8",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__.Breadcrumbs, {
             items: breadcrumbs,
             textColour: "text-schemesPrimary"
@@ -347,4 +347,4 @@ const NewsletterBanner = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=add-listing.js.map?ver=52bd8d4e210e8eb1ba37
+//# sourceMappingURL=add-listing.js.map?ver=a5c795fbc7d7dce8c1e7

@@ -70,7 +70,7 @@ export const DirectoryHub = ({ costOfLiving, contactLists, breadcrumbs = [] }) =
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Media Contact List</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Contact Lists</div>
                       </div>
                     </Card>
                   </div>
