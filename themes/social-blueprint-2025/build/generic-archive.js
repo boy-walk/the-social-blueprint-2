@@ -427,7 +427,7 @@ function FilterGroup({
         className: "Blueprint-title-small mb-3",
         children: title
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "flex flex-wrap gap-2",
+        className: "flex flex-wrap gap-4",
         children: options.slice(0, visibleCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
           id: option.id,
           label: option.name,
@@ -1236,4 +1236,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=dbc8a62242d24a2462bd
+//# sourceMappingURL=generic-archive.js.map?ver=dedb97d69bc6177a2abe

@@ -359,6 +359,9 @@ const MENU_SECTIONS = {
     }, {
       label: "Support & Services",
       href: "/support-and-services"
+    }, {
+      label: "Events & Experiences",
+      href: "/events-and-experiences"
     }]
   }, {
     title: "Explore by content type",
@@ -1110,4 +1113,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=07fb7c40bb468e2a85b0
+//# sourceMappingURL=header.js.map?ver=141c8aadfd93151717e6

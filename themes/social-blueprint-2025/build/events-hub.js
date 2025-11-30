@@ -2135,25 +2135,6 @@ function EventsHubPage({
           order: 'ASC',
           hide_recurring: true
         },
-        filters: [{
-          label: "Workshops",
-          tax: {
-            taxonomy: "tribe_events_cat",
-            terms: ["workshops"]
-          }
-        }, {
-          label: "Festivals",
-          tax: {
-            taxonomy: "tribe_events_cat",
-            terms: ["festivals"]
-          }
-        }, {
-          label: "Education",
-          tax: {
-            taxonomy: "tribe_events_cat",
-            terms: ["education"]
-          }
-        }],
         className: "py-16 px-4 sm:px-8 lg:px-16 mx-auto"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         className: "py-16 px-4 sm:px-8 lg:px-16",
@@ -2672,4 +2653,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=events-hub.js.map?ver=e1352b2d997966069bd2
+//# sourceMappingURL=events-hub.js.map?ver=41470c2dc03e4e46875a

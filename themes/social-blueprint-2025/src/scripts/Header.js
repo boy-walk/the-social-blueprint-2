@@ -157,6 +157,7 @@ const MENU_SECTIONS = {
         { label: "Culture & Identity", href: "/culture-and-identity" },
         { label: "Learning & Growth", href: "/learning-and-growth" },
         { label: "Support & Services", href: "/support-and-services" },
+        { label: "Events & Experiences", href: "/events-and-experiences" },
       ],
     },
     {

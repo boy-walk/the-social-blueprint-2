@@ -155,7 +155,7 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
     return (
       <div className="mb-4">
         {title && <h3 className="Blueprint-title-small mb-3">{title}</h3>}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-4">
           {options.slice(0, visibleCount).map((option) => (
             <StyledCheckbox
               key={option.id}
