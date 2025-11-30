@@ -109,7 +109,6 @@ export function LoginForm() {
       const data = await res.json();
 
       if (res.ok) {
-
         window.location.href = '/';
       } else {
         // Handle specific error cases and strip HTML tags

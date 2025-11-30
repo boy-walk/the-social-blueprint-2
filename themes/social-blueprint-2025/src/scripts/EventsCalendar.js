@@ -384,7 +384,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       {tip.visible && (
         <div
           role="tooltip"
-          className="pointer-events-none fixed z-[60] max-w-[22rem] rounded-xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 px-4 py-3"
+          className="pointer-events-none fixed z-[10000] max-w-[22rem] rounded-xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 px-4 py-3"
           style={{
             left: Math.min(window.innerWidth - 16, tip.x + 12),
             top: Math.min(window.innerHeight - 16, tip.y + 12),

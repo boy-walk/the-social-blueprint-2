@@ -171,7 +171,6 @@ export default function BrowseAll({
           ))}
         </div>
       )}
-      {console.log(data.items)}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-stretch">
         {loading
           ? skeletons

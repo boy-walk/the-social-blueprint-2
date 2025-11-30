@@ -10,7 +10,7 @@ export function RegisterOrganisation() {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
+    mobile: '',
     organisation: '',
     businessType: 'for-profit',
     password: '',
@@ -40,9 +40,9 @@ export function RegisterOrganisation() {
     return emailRegex.test(email);
   };
 
-  const validatePhone = (phone) => {
-    const phoneRegex = /^[\d\s\+\-\(\)]+$/;
-    return phone.length >= 10 && phoneRegex.test(phone);
+  const validatemobile = (mobile) => {
+    const mobileRegex = /^[\d\s\+\-\(\)]+$/;
+    return mobile.length >= 10 && mobileRegex.test(mobile);
   };
 
   const validatePassword = (password) => {
@@ -58,10 +58,10 @@ export function RegisterOrganisation() {
       : touched.email && !validateEmail(form.email)
         ? 'Please enter a valid email address'
         : '',
-    phone: touched.phone && !form.phone
-      ? 'Phone number is required'
-      : touched.phone && !validatePhone(form.phone)
-        ? 'Please enter a valid phone number'
+    mobile: touched.mobile && !form.mobile
+      ? 'mobile number is required'
+      : touched.mobile && !validatemobile(form.mobile)
+        ? 'Please enter a valid mobile number'
         : '',
     organisation: touched.organisation && !form.organisation ? 'Organisation name is required' : '',
     password: touched.password && !form.password
@@ -85,7 +85,7 @@ export function RegisterOrganisation() {
     form.firstName &&
     form.lastName &&
     form.email &&
-    form.phone &&
+    form.mobile &&
     form.organisation &&
     form.password &&
     form.confirm &&
@@ -101,7 +101,7 @@ export function RegisterOrganisation() {
       firstName: true,
       lastName: true,
       email: true,
-      phone: true,
+      mobile: true,
       organisation: true,
       password: true,
       confirm: true,
@@ -123,7 +123,7 @@ export function RegisterOrganisation() {
           last_name: form.lastName,
           organisation: form.organisation,
           business_type: form.businessType,
-          phone: form.phone,
+          mobile: form.mobile,
           news_opt_in: form.newsOptIn ? 'yes' : 'no',
           agree: form.agreed ? 'yes' : 'no',
         }),
@@ -135,6 +135,7 @@ export function RegisterOrganisation() {
         setError(data.message);
         return;
       }
+      console.log(res)
 
       setSuccess(true);
       setError(null);
@@ -251,13 +252,13 @@ export function RegisterOrganisation() {
             error={errors.email}
           />
           <TextField
-            label="Phone number"
+            label="mobile number"
             placeholder="Input"
-            value={form.phone}
-            onChange={handleChange('phone')}
-            onBlur={handleBlur('phone')}
+            value={form.mobile}
+            onChange={handleChange('mobile')}
+            onBlur={handleBlur('mobile')}
             type="tel"
-            error={errors.phone}
+            error={errors.mobile}
           />
         </div>
 

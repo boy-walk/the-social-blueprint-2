@@ -1538,7 +1538,7 @@ function BrowseAll({
         className: `px-4 py-1.5 text-sm rounded-full border transition ${active === label ? "bg-[var(--schemesPrimary)] text-white" : "bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)]"}`,
         children: label
       }, label))
-    }), console.log(data.items), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-stretch",
       children: loading ? skeletons : data.items.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: `${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
@@ -2914,4 +2914,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=7b9622ff4fc8addfc70c
+//# sourceMappingURL=community-hub.js.map?ver=0d067b5f09db24cded98

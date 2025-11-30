@@ -1837,7 +1837,7 @@ function BrowseAll({
         className: `px-4 py-1.5 text-sm rounded-full border transition ${active === label ? "bg-[var(--schemesPrimary)] text-white" : "bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-[var(--schemesOutlineVariant)]"}`,
         children: label
       }, label))
-    }), console.log(data.items), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-stretch",
       children: loading ? skeletons : data.items.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: `${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
@@ -2709,4 +2709,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=stories-interviews.js.map?ver=b7e82b1ea8e5933b43ac
+//# sourceMappingURL=stories-interviews.js.map?ver=7ff5431666c5ac3f15d3

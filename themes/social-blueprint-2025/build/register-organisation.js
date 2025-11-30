@@ -129,7 +129,7 @@ function RegisterOrganisation() {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
+    mobile: '',
     organisation: '',
     businessType: 'for-profit',
     password: '',
@@ -167,9 +167,9 @@ function RegisterOrganisation() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  const validatePhone = phone => {
-    const phoneRegex = /^[\d\s\+\-\(\)]+$/;
-    return phone.length >= 10 && phoneRegex.test(phone);
+  const validatemobile = mobile => {
+    const mobileRegex = /^[\d\s\+\-\(\)]+$/;
+    return mobile.length >= 10 && mobileRegex.test(mobile);
   };
   const validatePassword = password => {
     return password.length >= 8;
@@ -180,14 +180,14 @@ function RegisterOrganisation() {
     firstName: touched.firstName && !form.firstName ? 'First name is required' : '',
     lastName: touched.lastName && !form.lastName ? 'Last name is required' : '',
     email: touched.email && !form.email ? 'Email is required' : touched.email && !validateEmail(form.email) ? 'Please enter a valid email address' : '',
-    phone: touched.phone && !form.phone ? 'Phone number is required' : touched.phone && !validatePhone(form.phone) ? 'Please enter a valid phone number' : '',
+    mobile: touched.mobile && !form.mobile ? 'mobile number is required' : touched.mobile && !validatemobile(form.mobile) ? 'Please enter a valid mobile number' : '',
     organisation: touched.organisation && !form.organisation ? 'Organisation name is required' : '',
     password: touched.password && !form.password ? 'Password is required' : touched.password && !validatePassword(form.password) ? 'Password must be at least 8 characters' : '',
     confirm: touched.confirm && !form.confirm ? 'Please confirm your password' : touched.confirm && form.password && form.confirm && form.password !== form.confirm ? 'Passwords do not match' : ''
   };
   const hasErrors = Object.values(errors).some(error => error !== '');
   const passwordMismatch = form.password && form.confirm && form.password !== form.confirm;
-  const canSubmit = form.firstName && form.lastName && form.email && form.phone && form.organisation && form.password && form.confirm && form.agreed && !hasErrors;
+  const canSubmit = form.firstName && form.lastName && form.email && form.mobile && form.organisation && form.password && form.confirm && form.agreed && !hasErrors;
 
   /* submit -------------------------------------------------------------- */
   const handleSubmit = async e => {
@@ -198,7 +198,7 @@ function RegisterOrganisation() {
       firstName: true,
       lastName: true,
       email: true,
-      phone: true,
+      mobile: true,
       organisation: true,
       password: true,
       confirm: true
@@ -218,7 +218,7 @@ function RegisterOrganisation() {
           last_name: form.lastName,
           organisation: form.organisation,
           business_type: form.businessType,
-          phone: form.phone,
+          mobile: form.mobile,
           news_opt_in: form.newsOptIn ? 'yes' : 'no',
           agree: form.agreed ? 'yes' : 'no'
         })
@@ -228,6 +228,7 @@ function RegisterOrganisation() {
         setError(data.message);
         return;
       }
+      console.log(res);
       setSuccess(true);
       setError(null);
     } catch (err) {
@@ -365,13 +366,13 @@ function RegisterOrganisation() {
           type: "email",
           error: errors.email
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-          label: "Phone number",
+          label: "mobile number",
           placeholder: "Input",
-          value: form.phone,
-          onChange: handleChange('phone'),
-          onBlur: handleBlur('phone'),
+          value: form.mobile,
+          onChange: handleChange('mobile'),
+          onBlur: handleBlur('mobile'),
           type: "tel",
-          error: errors.phone
+          error: errors.mobile
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Organisation Name",
@@ -564,4 +565,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-organisation.js.map?ver=8010418de8fd66cf9e7e
+//# sourceMappingURL=register-organisation.js.map?ver=221c44202d3dc6462dba

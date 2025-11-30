@@ -8,9 +8,6 @@ require_once get_template_directory() . '/inc/candle-lighting-times.php';
 require_once get_template_directory() . '/inc/article-category-taxonomy.php';
 require_once get_template_directory() . '/inc/submit-article.php';
 require_once get_template_directory() . '/inc/share.php';
-require_once get_template_directory() . '/inc/podcast-youtube-url-quick-edit.php';
-require_once get_template_directory() . '/inc/redirects.php';
-require_once get_template_directory() . '/inc/password-reset.php';
 
 function boilerplate_load_assets() {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
@@ -141,28 +138,58 @@ function uwp_custom_register_organisation( WP_REST_Request $request ) {
   if ( ! is_email( $d['email'] ) )
     return new WP_REST_Response( [ 'message' => 'Invalid email' ], 400 );
 
+  // Check if email already exists
+  if ( email_exists( $d['email'] ) )
+    return new WP_REST_Response( [ 'message' => 'Email already registered' ], 400 );
+
+  // Create the user - display_name is the organisation name
   $user_id = wp_insert_user( [
     'user_login' => sanitize_user( $d['email'] ),
     'user_pass'  => $d['password'],
     'user_email' => sanitize_email( $d['email'] ),
     'first_name' => sanitize_text_field( $d['first_name'] ),
-    'last_name'  => sanitize_text_field( $d['last_name'] ),
-    'display_name' => sanitize_text_field( $d['organisation'] ),
-    'phone' => sanitize_text_field( $d['phone'] ),
+    'last_name'  => sanitize_text_field( $d['last_name'] ?? '' ),
+    'display_name' => sanitize_text_field( $d['organisation'] ), // This is what UsersWP shows
+    'role' => 'subscriber',
   ] );
 
   if ( is_wp_error( $user_id ) )
     return new WP_REST_Response( [ 'message' => $user_id->get_error_message() ], 400 );
 
-  update_user_meta( $user_id, 'organisation_name', sanitize_text_field( $d['organisation'] ) );
-  update_user_meta( $user_id, 'business_type',     sanitize_text_field( $d['business_type'] ) );
-  update_user_meta( $user_id, 'phone',             sanitize_text_field( $d['phone'] ) );
-  update_user_meta( $user_id, 'news_opt_in',       $d['news_opt_in'] === 'yes' ? 'yes' : 'no' );
-  update_user_meta( $user_id, 'agree',             $d['agree'] === 'yes' ? 'yes' : 'no' );
+  // Store meta fields to match UsersWP form
+  $business_type = sanitize_text_field( $d['business_type'] ?? 'for-profit' );
+  $mobile = sanitize_text_field( $d['mobile'] ?? '' );
+  
+  // Save with multiple key variations to ensure compatibility
+  update_user_meta( $user_id, 'business_type', $business_type );
+  update_user_meta( $user_id, 'uwp_business_type', $business_type );
+  
+  update_user_meta( $user_id, 'mobile', $mobile );
+  update_user_meta( $user_id, 'uwp_mobile', $mobile );
+  update_user_meta( $user_id, 'phone', $mobile ); // Also save as 'phone' for compatibility
+  
+  // Newsletter and terms agreement
+  update_user_meta( $user_id, 'news_opt_in', $d['news_opt_in'] === 'yes' ? 'yes' : 'no' );
+  update_user_meta( $user_id, 'agree', $d['agree'] === 'yes' ? 'yes' : 'no' );
 
+  // Log for debugging
+  error_log( "Organisation registered: User ID {$user_id}, Business: {$business_type}, Mobile: {$mobile}" );
+
+  // Trigger UsersWP registration hooks
+  do_action( 'uwp_after_process_register', $user_id );
   do_action( 'uwp_user_register', $user_id, null, $d );
 
-  return new WP_REST_Response( [ 'success' => true ], 200 );
+  return new WP_REST_Response( [ 
+    'success' => true, 
+    'user_id' => $user_id,
+    'debug' => [
+      'business_type_saved' => get_user_meta( $user_id, 'business_type', true ),
+      'mobile_saved' => get_user_meta( $user_id, 'mobile', true ),
+      'display_name' => get_userdata( $user_id )->display_name,
+    ]
+  ], 200 );
+
+  return new WP_REST_Response( [ 'success' => true, 'user_id' => $user_id ], 200 );
 }
 
 add_action('init', function () {
@@ -246,7 +273,7 @@ add_action('init', function () {
     ]);
   }
 
-  // Seed the fixed Theme terms (safe to run on every init — checks existence)
+  // Seed the fixed Theme terms (safe to run on every init â€” checks existence)
   $themes = [
     'community-and-connection' => 'Community and Connection',
     'learning-and-growth'      => 'Learning and Growth',
@@ -531,32 +558,20 @@ add_action('rest_api_init', function () {
       global $wpdb;
       
       $taxonomy = sanitize_key($req->get_param('taxonomy'));
-      $post_types_raw = $req->get_param('post_type'); // Can be string or array
+      $post_type = sanitize_key($req->get_param('post_type'));
       $per_page = max(1, min(200, (int)$req->get_param('per_page') ?: 100));
       
       if (!$taxonomy || !taxonomy_exists($taxonomy)) {
         return new WP_Error('tsb_invalid_taxonomy', 'Invalid taxonomy.', ['status' => 400]);
       }
       
-      // Normalize post_types to an array
-      $post_types = [];
-      if ($post_types_raw) {
-        if (is_array($post_types_raw)) {
-          $post_types = array_map('sanitize_key', $post_types_raw);
-        } else {
-          $post_types = [sanitize_key($post_types_raw)];
-        }
-        
-        // Validate all post types exist
-        foreach ($post_types as $pt) {
-          if (!post_type_exists($pt)) {
-            return new WP_Error('tsb_invalid_post_type', "Invalid post type: {$pt}", ['status' => 400]);
-          }
-        }
+      // If post_type is provided, validate it
+      if ($post_type && !post_type_exists($post_type)) {
+        return new WP_Error('tsb_invalid_post_type', 'Invalid post type.', ['status' => 400]);
       }
       
       // If no post_type specified, use the original behavior
-      if (empty($post_types)) {
+      if (!$post_type) {
         $terms = get_terms([
           'taxonomy'   => $taxonomy,
           'hide_empty' => true,
@@ -576,24 +591,20 @@ add_action('rest_api_init', function () {
         }, $terms);
       }
       
-      // Filter by multiple post types using optimized query with IN clause
-      $placeholders = implode(',', array_fill(0, count($post_types), '%s'));
-      $query = "
+      // Filter by specific post type using optimized query
+      $results = $wpdb->get_results($wpdb->prepare("
         SELECT t.term_id, t.name, t.slug, tt.parent, COUNT(DISTINCT p.ID) as post_count
         FROM {$wpdb->terms} AS t
         INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
         INNER JOIN {$wpdb->term_relationships} AS tr ON tt.term_taxonomy_id = tr.term_taxonomy_id
         INNER JOIN {$wpdb->posts} AS p ON tr.object_id = p.ID
         WHERE tt.taxonomy = %s
-        AND p.post_type IN ($placeholders)
+        AND p.post_type = %s
         AND p.post_status = 'publish'
         GROUP BY t.term_id
         ORDER BY t.name ASC
         LIMIT %d
-      ";
-      
-      $prepare_args = array_merge([$taxonomy], $post_types, [$per_page]);
-      $results = $wpdb->get_results($wpdb->prepare($query, ...$prepare_args));
+      ", $taxonomy, $post_type, $per_page));
       
       if (empty($results)) {
         return [];
