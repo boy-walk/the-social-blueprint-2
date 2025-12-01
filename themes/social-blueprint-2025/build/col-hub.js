@@ -1816,7 +1816,7 @@ function CostOfLiving({
               children: "Access financial resources, interest-free loans, utility support, and community programs to help manage daily expenses."
             })]
           })
-        }), categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        }), (categories || 0).length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "p-4 md:pb-8 lg:px-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
             className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4",
@@ -2231,4 +2231,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=4bb4aefa27f09e70a6fe
+//# sourceMappingURL=col-hub.js.map?ver=22ca5753f1b4e62139e4

@@ -26,7 +26,7 @@ export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBan
             </div>
           </div>
 
-          {categories.length > 0 && (
+          {(categories || 0).length > 0 && (
             <div className="p-4 md:pb-8 lg:px-16">
               <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4">
                 Quick Links
