@@ -68,9 +68,9 @@ export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBan
           )}
         </div>
       </div>
-      <div className="mx-auto max-w-[1600px] w-full py-8 px-4 md:px-8 lg:px-16">
+      {sponsorshipBanner?.isEnabled && (<div className="mx-auto max-w-[1600px] w-full py-8 px-4 md:px-8 lg:px-16">
         <SponsorshipBanner {...sponsorshipBanner} />
-      </div>
+      </div>)}
       <div className="max-w-[1600px] mx-auto">
         <BrowseAll
           title="Browse all cost of living"
