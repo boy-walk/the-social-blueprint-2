@@ -101,7 +101,7 @@ $banner_data = [
 $props = ['sections' => $sections,
           'breadcrumbs' => $breadcrumbs,
           'categories' => $categories,
-          'sponsorshipBanner' => get_field('sponsorship_banner', $post_id) ?: null,
+          'sponsorshipBanner' => $banner_data
 ];
 ?>
 

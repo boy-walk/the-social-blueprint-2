@@ -5,13 +5,14 @@ import { NewsletterBanner } from "./NewsletterBanner";
 import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { SponsorshipBanner } from "./Sponsorship";
 
-export function CostOfLiving({ breadcrumbs = [], categories = [] }) {
+export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBanner = null }) {
   return (
     <div>
-      <div className="hidden md:block bg-schemesPrimaryFixed">
+      <div className="md:block bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
-          <div className="md:px-8 md:pt-8 lg:px-16 lg:pt-8">
+          <div className="px-4 pt-4 md:px-8 md:pt-8 lg:px-16">
             <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
           </div>
           <div className="flex p-4 md:p-8 lg:px-16 lg:pt-16 items-end justify-between">
@@ -67,7 +68,9 @@ export function CostOfLiving({ breadcrumbs = [], categories = [] }) {
           )}
         </div>
       </div>
-
+      <div className="mx-auto max-w-[1600px] w-full py-8 px-4 md:px-8 lg:px-16">
+        <SponsorshipBanner {...sponsorshipBanner} />
+      </div>
       <div className="max-w-[1600px] mx-auto">
         <BrowseAll
           title="Browse all cost of living"
