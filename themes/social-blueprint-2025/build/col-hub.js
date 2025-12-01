@@ -1860,7 +1860,7 @@ function CostOfLiving({
           })]
         })]
       })
-    }), sponsorshipBanner?.isEnabled && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }), sponsorshipBanner && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "mx-auto max-w-[1600px] w-full py-8 px-4 md:px-8 lg:px-16",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Sponsorship__WEBPACK_IMPORTED_MODULE_7__.SponsorshipBanner, {
         ...sponsorshipBanner
@@ -2231,4 +2231,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=1ab654f5af935ec62d86
+//# sourceMappingURL=col-hub.js.map?ver=4bb4aefa27f09e70a6fe
