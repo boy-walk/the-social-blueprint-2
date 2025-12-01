@@ -12,7 +12,7 @@ $breadcrumbs = sbp_build_breadcrumbs();
 // ACF fields you already use
 $image_url      = get_field('article_image', $post_id);
 $subtitle       = get_field('subtitle', $post_id);
-$content = get_field('article_content', $post_id) ?: [];
+$content = get_the_content();
 
 // -------- Author (rich object) --------
 $author_id = (int) get_post_field('post_author', $post_id);

@@ -12,7 +12,7 @@ $breadcrumbs = sbp_build_breadcrumbs();
 // ACF fields you already use
 $video_url      = get_field('podcast_video_url', $post_id);
 $subtitle       = get_field('podcast_subtitle', $post_id);
-$content_blocks = get_field('content_sections', $post_id) ?: [];
+$content = get_the_content();
 
 // -------- Author (rich object) --------
 $author_id = (int) get_post_field('post_author', $post_id);
@@ -83,7 +83,7 @@ $related_content = sb_get_related_by_topic_tags( get_the_ID(), 3, true, ['podcas
      data-date="<?php echo esc_attr(get_the_date('j F Y')); ?>"
      data-subtitle="<?php echo esc_attr($subtitle); ?>"
      data-video-url="<?php echo esc_url($video_url); ?>"
-     data-sections="<?php echo esc_attr( wp_json_encode($content_blocks) ); ?>"
+     data-content="<?php echo esc_attr( wp_json_encode($content) ); ?>"
      data-more-interviews='<?php echo esc_attr( wp_json_encode($more_interviews_data) ); ?>'
      data-author-obj='<?php echo esc_attr( wp_json_encode($author_obj) ); ?>'
      data-tags='<?php echo esc_attr( wp_json_encode($mapped_terms) ); ?>'

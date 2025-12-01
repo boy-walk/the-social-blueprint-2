@@ -105,7 +105,7 @@ mount(
   () => import(/* webpackChunkName: "podcast-page" */ './scripts/PodcastPage').then(m => m.default),
   (el) => ({
     title: el.dataset.title, date: el.dataset.date, subtitle: el.dataset.subtitle,
-    videoUrl: el.dataset.videoUrl, sections: parse(el.dataset.sections || '[]'),
+    videoUrl: el.dataset.videoUrl, content: parse(el.dataset.content || '[]'),
     tags: parse(el.dataset.tags || '[]'), moreInterviews: parse(el.dataset.moreInterviews || '[]'),
     author: parse(el.dataset.authorObj || '{}'), taxonomies: parse(el.dataset.taxonomies || '{}'),
     relatedContent: parse(el.dataset.relatedContent || '[]'), breadcrumbs: parse(el.dataset.breadcrumbs || '[]'),

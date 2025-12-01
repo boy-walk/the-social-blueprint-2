@@ -926,7 +926,7 @@ function FrontPage({
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 pt-10 md:pt-14 lg:pt-16",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "flex w-full flex-col lg:flex-row gap-8 md:gap-10 items-stretch",
+        className: "flex w-full flex-col lg:flex-row gap-8 items-stretch",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "flex flex-col items-stretch md:items-start justify-end gap-4 md:gap-5 w-full md:w-[100%] lg:w-[35%] mb-0 lg:mb-8",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
@@ -972,7 +972,7 @@ function FrontPage({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "flex-1 hidden md:block",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-            className: " grid md:[grid-template-columns:%50_%50] grid-cols-2 lg:grid-cols-3 lg:[grid-template-columns:30%_40%_30%] grid-rows-6 lg:grid-rows-10 gap-4 h-full w-full sm:w-auto md:w-full ",
+            className: " grid md:[grid-template-columns:%50_%50] grid-cols-2 lg:grid-cols-3 lg:[grid-template-columns:30%_40%_30%] grid-rows-6 lg:grid-rows-10 gap-4 h-full w-full sm:w-auto md:w-full lg:aspect-[5/3] ",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
               className: "relative row-span-1 lg:row-span-3 bg-schemesSecondary rounded-xl shadow-3x2 transition-transform hover:-translate-y-1",
               href: "/cost-of-living",
@@ -1596,4 +1596,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=649c464be327714c083c
+//# sourceMappingURL=front-page.js.map?ver=fa191c7085c0d3554598

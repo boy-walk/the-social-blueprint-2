@@ -94,7 +94,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
   return (
     <div className="bg-schemesSurface">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-16 pt-10 md:pt-14 lg:pt-16">
-        <div className="flex w-full flex-col lg:flex-row gap-8 md:gap-10 items-stretch">
+        <div className="flex w-full flex-col lg:flex-row gap-8 items-stretch">
           {/* Left column (text, search, etc.) stays the same */}
           <div className="flex flex-col items-stretch md:items-start justify-end gap-4 md:gap-5 w-full md:w-[100%] lg:w-[35%] mb-0 lg:mb-8">
             <div className="Blueprint-display-large-emphasized text-schemesOnSurface max-w-none md:max-w-xl text-center md:text-left leading-tight">
@@ -142,6 +142,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                     w-full
                     sm:w-auto
                     md:w-full
+                    lg:aspect-[5/3]
                   "
             >
               {/* COST OF LIVING */}

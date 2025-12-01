@@ -89,9 +89,19 @@ if (!is_wp_error($gd_terms)) {
   }
 }
 
+$is_enabled = get_field('display_banner');
+$banner_image = get_field('banner_image');
+$href = get_field('link');
+$banner_data = [
+  'imgSrc' => $banner_image ? $banner_image : null,
+  'enabled' => $is_enabled,
+  'href' => $href ? $href : null,
+];
+
 $props = ['sections' => $sections,
           'breadcrumbs' => $breadcrumbs,
-          'categories' => $categories
+          'categories' => $categories,
+          'sponsorshipBanner' => get_field('sponsorship_banner', $post_id) ?: null,
 ];
 ?>
 
