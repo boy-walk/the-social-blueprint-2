@@ -1081,6 +1081,56 @@ const c = r;
 
 /***/ }),
 
+/***/ "./node_modules/@phosphor-icons/react/dist/csr/CaretLeft.es.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/csr/CaretLeft.es.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CaretLeft: () => (/* binding */ s),
+/* harmony export */   CaretLeftIcon: () => (/* binding */ t)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
+/* harmony import */ var _defs_CaretLeft_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/CaretLeft.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/CaretLeft.es.js");
+
+
+
+const t = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((o, r) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: r, ...o, weights: _defs_CaretLeft_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
+t.displayName = "CaretLeftIcon";
+const s = t;
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CaretRight: () => (/* binding */ s),
+/* harmony export */   CaretRightIcon: () => (/* binding */ e)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/IconBase.es.js */ "./node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js");
+/* harmony import */ var _defs_CaretRight_es_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../defs/CaretRight.es.js */ "./node_modules/@phosphor-icons/react/dist/defs/CaretRight.es.js");
+
+
+
+const e = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((o, r) => /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(_lib_IconBase_es_js__WEBPACK_IMPORTED_MODULE_1__["default"], { ref: r, ...o, weights: _defs_CaretRight_es_js__WEBPACK_IMPORTED_MODULE_2__["default"] }));
+e.displayName = "CaretRightIcon";
+const s = e;
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@phosphor-icons/react/dist/defs/ArrowUpRight.es.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/@phosphor-icons/react/dist/defs/ArrowUpRight.es.js ***!
@@ -1117,6 +1167,92 @@ const a = /* @__PURE__ */ new Map([
   [
     "thin",
     /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M196,64V168a4,4,0,0,1-8,0V73.66L66.83,194.83a4,4,0,0,1-5.66-5.66L182.34,68H88a4,4,0,0,1,0-8H192A4,4,0,0,1,196,64Z" }))
+  ]
+]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@phosphor-icons/react/dist/defs/CaretLeft.es.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/defs/CaretLeft.es.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ a)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+
+const a = /* @__PURE__ */ new Map([
+  [
+    "bold",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z" }))
+  ],
+  [
+    "duotone",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M160,48V208L80,128Z", opacity: "0.2" }), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M163.06,40.61a8,8,0,0,0-8.72,1.73l-80,80a8,8,0,0,0,0,11.32l80,80A8,8,0,0,0,168,208V48A8,8,0,0,0,163.06,40.61ZM152,188.69,91.31,128,152,67.31Z" }))
+  ],
+  [
+    "fill",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M168,48V208a8,8,0,0,1-13.66,5.66l-80-80a8,8,0,0,1,0-11.32l80-80A8,8,0,0,1,168,48Z" }))
+  ],
+  [
+    "light",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M164.24,203.76a6,6,0,1,1-8.48,8.48l-80-80a6,6,0,0,1,0-8.48l80-80a6,6,0,0,1,8.48,8.48L88.49,128Z" }))
+  ],
+  [
+    "regular",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z" }))
+  ],
+  [
+    "thin",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M162.83,205.17a4,4,0,0,1-5.66,5.66l-80-80a4,4,0,0,1,0-5.66l80-80a4,4,0,1,1,5.66,5.66L85.66,128Z" }))
+  ]
+]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@phosphor-icons/react/dist/defs/CaretRight.es.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@phosphor-icons/react/dist/defs/CaretRight.es.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ t)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+
+const t = /* @__PURE__ */ new Map([
+  [
+    "bold",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z" }))
+  ],
+  [
+    "duotone",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M176,128,96,208V48Z", opacity: "0.2" }), /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M181.66,122.34l-80-80A8,8,0,0,0,88,48V208a8,8,0,0,0,13.66,5.66l80-80A8,8,0,0,0,181.66,122.34ZM104,188.69V67.31L164.69,128Z" }))
+  ],
+  [
+    "fill",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z" }))
+  ],
+  [
+    "light",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M180.24,132.24l-80,80a6,6,0,0,1-8.48-8.48L167.51,128,91.76,52.24a6,6,0,0,1,8.48-8.48l80,80A6,6,0,0,1,180.24,132.24Z" }))
+  ],
+  [
+    "regular",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z" }))
+  ],
+  [
+    "thin",
+    /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /* @__PURE__ */ react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", { d: "M178.83,130.83l-80,80a4,4,0,0,1-5.66-5.66L170.34,128,93.17,50.83a4,4,0,0,1,5.66-5.66l80,80A4,4,0,0,1,178.83,130.83Z" }))
   ]
 ]);
 
@@ -1859,8 +1995,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BrowseAll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./BrowseAll */ "./src/scripts/BrowseAll.js");
 /* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
 /* harmony import */ var _Breadcrumbs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Breadcrumbs */ "./src/scripts/Breadcrumbs.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _QuickLinks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./QuickLinks */ "./src/scripts/QuickLinks.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -1873,86 +2011,36 @@ function HealthListingHub({
   categories = [],
   breadcrumbs = []
 }) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      className: "hidden md:block bg-schemesPrimaryFixed",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "bg-schemesPrimaryFixed",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "max-w-[1600px] mx-auto",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          className: "md:px-8 md:pt-8 lg:px-16 lg:pt-8",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Breadcrumbs__WEBPACK_IMPORTED_MODULE_6__.Breadcrumbs, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "px-4 pt-4 md:px-8 md:pt-8 lg:px-16 lg:pt-8",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Breadcrumbs__WEBPACK_IMPORTED_MODULE_6__.Breadcrumbs, {
             items: breadcrumbs,
             textColour: "text-schemesPrimary"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          className: "flex p-4 md:p-8 lg:px-16 lg:pt-16 items-end justify-between",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "flex p-4 md:p-8 lg:px-16 lg:pt-8 items-end justify-between",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "flex flex-col gap-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h1", {
               className: "lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3",
               children: "Health & Wellbeing"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
               className: "text-schemesOnPrimaryFixedVariant Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large max-w-xl",
               children: "Explore health professionals, wellbeing programs, and support groups for mental, physical, and emotional health."
             })]
           })
-        }), categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "p-4 md:pb-8 lg:px-16",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
-            className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4",
-            children: "Quick Links"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            className: "mt-6",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              className: "flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory scrollbar-hidden pb-2",
-              children: categories.map(category => {
-                const categoryLink = `/health_listing/category/${category.slug}`;
-                const bgColor = category.color || '#6ED4BE';
-                const hasFaIcon = category.fa_icon && typeof category.fa_icon === 'string';
-
-                // Build image URL if available
-                const imageUrl = category.image_url ? category.image_url.startsWith('http') ? category.image_url : `/wp-content/uploads/${category.image_url}` : null;
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  className: "shrink-0 snap-start w-[45%] sm:w-[30%] md:w-[200px]",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_5__.Card, {
-                    styles: "shadow-3x3",
-                    href: categoryLink,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                      className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
-                      children: [hasFaIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "rounded-full flex items-center justify-center",
-                        style: {
-                          backgroundColor: bgColor
-                        },
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
-                          className: `${category.fa_icon} text-white`,
-                          style: {
-                            fontSize: '16px'
-                          },
-                          "aria-hidden": "true"
-                        })
-                      }) : imageUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "w-full h-full flex items-center justify-center",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-                          src: imageUrl,
-                          alt: category.name,
-                          className: "max-w-full max-h-[4em] object-contain"
-                        })
-                      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
-                        children: category.name
-                      })]
-                    })
-                  })
-                }, category.id);
-              })
-            })
-          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_QuickLinks__WEBPACK_IMPORTED_MODULE_7__.QuickLinks, {
+          categories: categories
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "max-w-[1600px] mx-auto",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_BrowseAll__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_BrowseAll__WEBPACK_IMPORTED_MODULE_4__["default"], {
         title: "Browse all health directory listings",
         endpoint: "/wp-json/tsb/v1/browse",
         baseQuery: {
@@ -1961,27 +2049,27 @@ function HealthListingHub({
           post_type: ['gd_health_listing']
         },
         className: "p-6 md:p-8 lg:p-16"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "py-16 px-4 sm:px-8 lg:px-16",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_3__.NewsletterBanner, {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_3__.NewsletterBanner, {})
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "bg-schemesPrimaryFixed flex flex-col gap-4",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "max-w-[1600px] mx-auto py-16 px-4 sm:px-8 lg:px-16",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "flex gap-2 md:gap-4 items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized italic py-6",
             children: "Explore more by"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
             label: "Theme",
             backgroundColor: "schemesPrimaryContainer"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "Blueprint-title-small md:Blueprint-title-medium lg:Blueprint-title-large mb-12 text-schemesOnSurface",
           children: "From support services to creative culture, start where you're curious."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_1__.ExploreByTheme, {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_1__.ExploreByTheme, {})]
       })
     })]
   });
@@ -2120,6 +2208,146 @@ function PillTag({
 
 /***/ }),
 
+/***/ "./src/scripts/QuickLinks.js":
+/*!***********************************!*\
+  !*** ./src/scripts/QuickLinks.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   QuickLinks: () => (/* binding */ QuickLinks)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretLeft.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
+/* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+function QuickLinks({
+  categories
+}) {
+  const scrollRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const [canScrollLeft, setCanScrollLeft] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [canScrollRight, setCanScrollRight] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Check scroll position to show/hide arrows
+  const checkScroll = () => {
+    if (!scrollRef.current) return;
+    const {
+      scrollLeft,
+      scrollWidth,
+      clientWidth
+    } = scrollRef.current;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10); // -10 for tolerance
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    checkScroll();
+    const scrollContainer = scrollRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', checkScroll);
+      window.addEventListener('resize', checkScroll);
+    }
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', checkScroll);
+      }
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, [categories]);
+  const scroll = direction => {
+    if (!scrollRef.current) return;
+    const containerWidth = scrollRef.current.clientWidth;
+    const scrollAmount = containerWidth * 0.8; // Scroll 80% of container width
+    const newPosition = direction === 'left' ? scrollRef.current.scrollLeft - scrollAmount : scrollRef.current.scrollLeft + scrollAmount;
+    scrollRef.current.scrollTo({
+      left: newPosition,
+      behavior: 'smooth'
+    });
+  };
+  if (!categories || categories.length === 0) return null;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "p-4 md:px-8 md:pb-8 lg:px-16",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+      className: "Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4",
+      children: "Quick Links"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "mt-6 relative",
+      children: [canScrollLeft && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        onClick: () => scroll('left'),
+        className: "hidden md:flex absolute -left-14 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-schemesSurface shadow-lg border border-schemesOutlineVariant hover:bg-schemesSurfaceContainerHighest transition-colors",
+        "aria-label": "Scroll left",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.CaretLeft, {
+          size: 24,
+          weight: "bold",
+          className: "text-schemesOnSurface"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        ref: scrollRef,
+        className: "flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory scrollbar-hidden pb-2 md:px-2",
+        children: categories.map(category => {
+          const categoryLink = `/aid_listing/category/${category.slug}`;
+          const bgColor = category.color || '#6ED4BE';
+          const hasFaIcon = category.fa_icon && typeof category.fa_icon === 'string';
+
+          // Build image URL if available
+          const imageUrl = category.image_url ? category.image_url.startsWith('http') ? category.image_url : `/wp-content/uploads/${category.image_url}` : null;
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "shrink-0 snap-start w-[45%] sm:w-[30%] md:w-[calc(25%-18px)] lg:w-[calc(20%-19.2px)]",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
+              styles: "shadow-3x3",
+              href: categoryLink,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
+                children: [hasFaIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                  className: "rounded-[12px] p-1 flex items-center justify-center",
+                  style: {
+                    backgroundColor: bgColor
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                    className: `${category.fa_icon} text-white`,
+                    style: {
+                      fontSize: '22px'
+                    },
+                    "aria-hidden": "true"
+                  })
+                }) : imageUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                  className: "w-full h-full flex items-center justify-center",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+                    src: imageUrl,
+                    alt: category.name,
+                    className: "max-w-full max-h-[4em] object-contain"
+                  })
+                }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                  className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
+                  children: category.name
+                })]
+              })
+            })
+          }, category.id);
+        })
+      }), canScrollRight && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        onClick: () => scroll('right'),
+        className: "hidden md:flex absolute -right-14 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-schemesSurface shadow-lg border border-schemesOutlineVariant hover:bg-schemesSurfaceContainerHighest transition-colors",
+        "aria-label": "Scroll right",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretRight, {
+          size: 24,
+          weight: "bold",
+          className: "text-schemesOnSurface"
+        })
+      })]
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./src/scripts/getBadge.js":
 /*!*********************************!*\
   !*** ./src/scripts/getBadge.js ***!
@@ -2162,4 +2390,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=health-hub.js.map?ver=790fa8a9c568cc0e2271
+//# sourceMappingURL=health-hub.js.map?ver=7cb71bc34c22e90c2999

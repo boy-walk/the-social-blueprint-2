@@ -41,9 +41,10 @@ export function GenericArchivePage(props) {
   const fetchedOnceRef = useRef(new Set());
 
   const displayedFilters = useMemo(() => {
-    if (!taxonomy) return filters;
-    return (filters || []).filter((f) => f.taxonomy !== taxonomy);
-  }, [filters, taxonomy]);
+    // Always show all filters, even on taxonomy archives
+    // The scoping effect below will handle showing just the current term + children
+    return filters;
+  }, [filters]);
 
   useEffect(() => {
     if (!displayedFilters.length) {
@@ -58,7 +59,7 @@ export function GenericArchivePage(props) {
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
           const res = await fetch(
-            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${encodeURIComponent(postTypes[0])}`,
+            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${postType}}`,
             { headers: { Accept: "application/json" } }
           );
           if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
@@ -190,7 +191,6 @@ export function GenericArchivePage(props) {
       collect(item.tags, bag);
       collect(item.terms, bag);
       collect(item.taxonomies, bag);
-      collect(item.content, bag);
       idx.set(item.id, bag.join(" ").toLowerCase());
     });
     return idx;
@@ -420,8 +420,7 @@ export function GenericArchivePage(props) {
                     key={item.id}
                     image={item.thumbnail}
                     title={item.title}
-                    subtitle={item.subtitle || item.excerpt || item.content || ""}
-                    date={item.date}
+                    subtitle={item.date}
                     badge={getBadge(item.post_type)}
                     href={item.permalink}
                     fullHeight
@@ -434,76 +433,9 @@ export function GenericArchivePage(props) {
 
           {!loading && !error && totalPages > 1 && !searching && (
             <div className="flex justify-center items-center gap-3 mt-2">
-              <div className="flex justify-center items-center flex-wrap gap-2 mt-2">
-                {(() => {
-                  const buttons = [];
-                  const range = 2; // how many pages before and after current page
-
-                  let start = Math.max(1, page - range);
-                  let end = Math.min(totalPages, page + range);
-
-                  // Adjust range at edges (so we still show up to 5)
-                  if (page <= range) end = Math.min(totalPages, 1 + range * 2);
-                  if (page > totalPages - range) start = Math.max(1, totalPages - range * 2);
-
-                  // Always include first page
-                  if (start > 1) {
-                    buttons.push(
-                      <Button
-                        key={1}
-                        size="sm"
-                        variant={page === 1 ? "filled" : "tonal"}
-                        label="1"
-                        onClick={() => setPage(1)}
-                        className={`min-w-[36px] px-3 ${page === 1 ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`}
-                      />
-                    );
-                    if (start > 2) {
-                      buttons.push(
-                        <span key="start-ellipsis" className="px-1 text-schemesOnSurfaceVariant">
-                          …
-                        </span>
-                      );
-                    }
-                  }
-
-                  // Pages around current
-                  for (let i = start; i <= end; i++) {
-                    buttons.push(
-                      <Button
-                        key={i}
-                        size="sm"
-                        variant={i === page ? "filled" : "tonal"}
-                        label={i.toString()}
-                        onClick={() => setPage(i)}
-                        className={`min-w-[36px] px-3 ${i === page ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`}
-                      />
-                    );
-                  }
-
-                  // Always include last page
-                  if (end < totalPages) {
-                    if (end < totalPages - 1) {
-                      buttons.push(
-                        <span key="end-ellipsis" className="px-1 text-schemesOnSurfaceVariant">
-                          …
-                        </span>
-                      );
-                    }
-                    buttons.push(
-                      <Button
-                        key={totalPages}
-                        size="sm"
-                        variant={page === totalPages ? "filled" : "tonal"}
-                        label={totalPages.toString()}
-                        onClick={() => setPage(totalPages)}
-                        className={`min-w-[36px] px-3 ${page === totalPages ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`}
-                      />
-                    );
-                  }
-                  return buttons;
-                })()}
-              </div>
+              <Button size="base" variant="tonal" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} label="Prev" />
+              <span className="Blueprint-body-medium text-schemesOnSurfaceVariant">{page} / {totalPages}</span>
+              <Button size="base" variant="tonal" disabled={page >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} label="Next" />
             </div>
           )}
         </section>

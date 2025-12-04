@@ -527,9 +527,10 @@ function GenericArchivePage(props) {
   const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set());
   const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    if (!taxonomy) return filters;
-    return (filters || []).filter(f => f.taxonomy !== taxonomy);
-  }, [filters, taxonomy]);
+    // Always show all filters, even on taxonomy archives
+    // The scoping effect below will handle showing just the current term + children
+    return filters;
+  }, [filters]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!displayedFilters.length) {
       setTermsOptions({});
@@ -542,7 +543,7 @@ function GenericArchivePage(props) {
         const tax = f.taxonomy;
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
-          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${encodeURIComponent(postTypes[0])}`, {
+          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${postType}}`, {
             headers: {
               Accept: "application/json"
             }
@@ -704,7 +705,6 @@ function GenericArchivePage(props) {
       collect(item.tags, bag);
       collect(item.terms, bag);
       collect(item.taxonomies, bag);
-      collect(item.content, bag);
       idx.set(item.id, bag.join(" ").toLowerCase());
     });
     return idx;
@@ -972,76 +972,31 @@ function GenericArchivePage(props) {
             children: filteredItems.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
               image: item.thumbnail,
               title: item.title,
-              subtitle: item.subtitle || item.excerpt || item.content || "",
-              date: item.date,
+              subtitle: item.date,
               badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_4__.getBadge)(item.post_type),
               href: item.permalink,
               fullHeight: true,
               shadow: true
             }, item.id))
           })]
-        }), !loading && !error && totalPages > 1 && !searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), !loading && !error && totalPages > 1 && !searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "flex justify-center items-center gap-3 mt-2",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "flex justify-center items-center flex-wrap gap-2 mt-2",
-            children: (() => {
-              const buttons = [];
-              const range = 2; // how many pages before and after current page
-
-              let start = Math.max(1, page - range);
-              let end = Math.min(totalPages, page + range);
-
-              // Adjust range at edges (so we still show up to 5)
-              if (page <= range) end = Math.min(totalPages, 1 + range * 2);
-              if (page > totalPages - range) start = Math.max(1, totalPages - range * 2);
-
-              // Always include first page
-              if (start > 1) {
-                buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                  size: "sm",
-                  variant: page === 1 ? "filled" : "tonal",
-                  label: "1",
-                  onClick: () => setPage(1),
-                  className: `min-w-[36px] px-3 ${page === 1 ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`
-                }, 1));
-                if (start > 2) {
-                  buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                    className: "px-1 text-schemesOnSurfaceVariant",
-                    children: "\u2026"
-                  }, "start-ellipsis"));
-                }
-              }
-
-              // Pages around current
-              for (let i = start; i <= end; i++) {
-                buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                  size: "sm",
-                  variant: i === page ? "filled" : "tonal",
-                  label: i.toString(),
-                  onClick: () => setPage(i),
-                  className: `min-w-[36px] px-3 ${i === page ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`
-                }, i));
-              }
-
-              // Always include last page
-              if (end < totalPages) {
-                if (end < totalPages - 1) {
-                  buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                    className: "px-1 text-schemesOnSurfaceVariant",
-                    children: "\u2026"
-                  }, "end-ellipsis"));
-                }
-                buttons.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                  size: "sm",
-                  variant: page === totalPages ? "filled" : "tonal",
-                  label: totalPages.toString(),
-                  onClick: () => setPage(totalPages),
-                  className: `min-w-[36px] px-3 ${page === totalPages ? "bg-schemesPrimary text-white" : "text-schemesOnSurfaceVariant"}`
-                }, totalPages));
-              }
-              return buttons;
-            })()
-          })
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            size: "base",
+            variant: "tonal",
+            disabled: page <= 1,
+            onClick: () => setPage(p => Math.max(1, p - 1)),
+            label: "Prev"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+            className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
+            children: [page, " / ", totalPages]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            size: "base",
+            variant: "tonal",
+            disabled: page >= totalPages,
+            onClick: () => setPage(p => Math.min(totalPages, p + 1)),
+            label: "Next"
+          })]
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -1236,4 +1191,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=dedb97d69bc6177a2abe
+//# sourceMappingURL=generic-archive.js.map?ver=0edbdac4bb9725e8defa

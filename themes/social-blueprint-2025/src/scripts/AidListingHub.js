@@ -3,18 +3,18 @@ import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { NewsletterBanner } from "./NewsletterBanner";
 import BrowseAll from "./BrowseAll";
-import { Card } from "./Card";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { QuickLinks } from "./QuickLinks";
 
 export function AidListingHub({ categories = [], breadcrumbs = [] }) {
   return (
     <div>
-      <div className="hidden md:block bg-schemesPrimaryFixed">
+      <div className="bg-schemesPrimaryFixed">
         <div className="max-w-[1600px] mx-auto">
-          <div className="md:px-8 md:pt-8 lg:px-16 lg:pt-8">
+          <div className="px-8 pt-8 lg:px-16 lg:pt-8">
             <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
           </div>
-          <div className="flex p-4 md:p-8 lg:px-16 lg:pt-16 items-end justify-between">
+          <div className="flex p-4 md:p-8 lg:px-16 lg:pt-8 items-end justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3">
                 Aid & Support
@@ -24,62 +24,7 @@ export function AidListingHub({ categories = [], breadcrumbs = [] }) {
               </p>
             </div>
           </div>
-
-          {categories.length > 0 && (
-            <div className="p-4 md:pb-8 lg:px-16">
-              <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4">
-                Quick Links
-              </h2>
-              <div className="mt-6">
-                <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory scrollbar-hidden pb-2">
-                  {categories.map((category) => {
-                    const categoryLink = `/aid_listing/category/${category.slug}`;
-                    const bgColor = category.color || '#6ED4BE';
-                    const hasFaIcon = category.fa_icon && typeof category.fa_icon === 'string';
-
-                    // Build image URL if available
-                    const imageUrl = category.image_url
-                      ? (category.image_url.startsWith('http')
-                        ? category.image_url
-                        : `/wp-content/uploads/${category.image_url}`)
-                      : null;
-
-                    return (
-                      <div key={category.id} className="shrink-0 snap-start w-[45%] sm:w-[30%] md:w-[200px]">
-                        <Card styles="shadow-3x3" href={categoryLink}>
-                          <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
-                            {hasFaIcon ? (
-                              <div
-                                className="rounded-[12px] p-1 flex items-center justify-center"
-                                style={{ backgroundColor: bgColor }}
-                              >
-                                <i
-                                  className={`${category.fa_icon} text-white`}
-                                  style={{ fontSize: '22px' }}
-                                  aria-hidden="true"
-                                ></i>
-                              </div>
-                            ) : imageUrl ? (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <img
-                                  src={imageUrl}
-                                  alt={category.name}
-                                  className="max-w-full max-h-[4em] object-contain"
-                                />
-                              </div>
-                            ) : null}
-                            <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">
-                              {category.name}
-                            </div>
-                          </div>
-                        </Card>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          )}
+          <QuickLinks categories={categories} />
         </div>
       </div>
 

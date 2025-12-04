@@ -591,34 +591,62 @@ add_action('rest_api_init', function () {
         }, $terms);
       }
       
-      // Filter by specific post type using optimized query
-      $results = $wpdb->get_results($wpdb->prepare("
-        SELECT t.term_id, t.name, t.slug, tt.parent, COUNT(DISTINCT p.ID) as post_count
-        FROM {$wpdb->terms} AS t
-        INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
-        INNER JOIN {$wpdb->term_relationships} AS tr ON tt.term_taxonomy_id = tr.term_taxonomy_id
-        INNER JOIN {$wpdb->posts} AS p ON tr.object_id = p.ID
-        WHERE tt.taxonomy = %s
-        AND p.post_type = %s
-        AND p.post_status = 'publish'
-        GROUP BY t.term_id
-        ORDER BY t.name ASC
-        LIMIT %d
-      ", $taxonomy, $post_type, $per_page));
+      // Filter by specific post type
+      // Get all terms in the taxonomy first
+      $all_terms = get_terms([
+        'taxonomy'   => $taxonomy,
+        'hide_empty' => false, // Get all terms including empty parents
+        'number'     => $per_page,
+      ]);
       
-      if (empty($results)) {
-        return [];
+      if (is_wp_error($all_terms) || empty($all_terms)) {
+        return is_wp_error($all_terms) ? $all_terms : [];
       }
       
-      return array_map(function ($t) {
-        return [
-          'id' => (int)$t->term_id,
-          'name' => $t->name,
-          'slug' => $t->slug,
-          'parent' => (int)$t->parent,
-          'count' => (int)$t->post_count
-        ];
-      }, $results);
+      // Get counts for each term filtered by post type
+      $term_ids = wp_list_pluck($all_terms, 'term_id');
+      $placeholders = implode(',', array_fill(0, count($term_ids), '%d'));
+      
+      $counts = $wpdb->get_results($wpdb->prepare("
+        SELECT tt.term_id, COUNT(DISTINCT p.ID) as post_count
+        FROM {$wpdb->term_taxonomy} AS tt
+        INNER JOIN {$wpdb->term_relationships} AS tr ON tt.term_taxonomy_id = tr.term_taxonomy_id
+        INNER JOIN {$wpdb->posts} AS p ON tr.object_id = p.ID
+        WHERE tt.term_id IN ($placeholders)
+        AND tt.taxonomy = %s
+        AND p.post_type = %s
+        AND p.post_status = 'publish'
+        GROUP BY tt.term_id
+      ", array_merge($term_ids, [$taxonomy, $post_type])), OBJECT_K);
+      
+      // Build term array with counts
+      $terms_with_counts = [];
+      foreach ($all_terms as $term) {
+        $count = isset($counts[$term->term_id]) ? (int)$counts[$term->term_id]->post_count : 0;
+        
+        // Include parent terms even if they have 0 posts (they might have children with posts)
+        // Include leaf terms only if they have posts
+        $is_parent = false;
+        foreach ($all_terms as $check_term) {
+          if ($check_term->parent == $term->term_id) {
+            $is_parent = true;
+            break;
+          }
+        }
+        
+        // Include if: has posts, OR is a parent term (might have children with posts)
+        if ($count > 0 || $is_parent) {
+          $terms_with_counts[] = [
+            'id' => (int)$term->term_id,
+            'name' => $term->name,
+            'slug' => $term->slug,
+            'parent' => (int)$term->parent,
+            'count' => $count
+          ];
+        }
+      }
+      
+      return $terms_with_counts;
     },
   ]);
 });

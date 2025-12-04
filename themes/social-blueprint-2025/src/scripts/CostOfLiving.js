@@ -6,6 +6,7 @@ import BrowseAll from "./BrowseAll";
 import { Card } from "./Card";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { SponsorshipBanner } from "./Sponsorship";
+import { QuickLinks } from "./QuickLinks";
 
 export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBanner = null }) {
   return (
@@ -15,7 +16,7 @@ export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBan
           <div className="px-4 pt-4 md:px-8 md:pt-8 lg:px-16">
             <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
           </div>
-          <div className="flex p-4 md:p-8 lg:px-16 lg:pt-16 items-end justify-between">
+          <div className="flex p-4 md:p-8 lg:px-16 lg:pt-8 items-end justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="lg:Blueprint-headline-large-emphasized md:Blueprint-headline-medium-emphasized Blueprint-headline-small-emphasized text-schemesOnSurface mb-3">
                 Cost of Living Resources
@@ -26,46 +27,7 @@ export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBan
             </div>
           </div>
 
-          {(categories || 0).length > 0 && (
-            <div className="p-4 md:pb-8 lg:px-16">
-              <h2 className="Blueprint-title-small-emphasized md:Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized text-schemesOnSurface mb-4 mt-4">
-                Quick Links
-              </h2>
-              <div className="mt-6">
-                <div className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory scrollbar-hidden pb-2">
-                  {categories.map((category) => {
-                    const categoryLink = `/cost_of_living/category/${category.slug}`;
-                    const bgColor = category.color || '#6ED4BE';
-                    const hasFaIcon = category.fa_icon && typeof category.fa_icon === 'string';
-
-                    return (
-                      <div key={category.id} className="shrink-0 snap-start w-[45%] sm:w-[30%] md:w-[200px]">
-                        <Card styles="shadow-3x3" href={categoryLink}>
-                          <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
-                            {hasFaIcon && (
-                              <div
-                                className="rounded-full p-2 flex items-center justify-center"
-                                style={{ backgroundColor: bgColor }}
-                              >
-                                <i
-                                  className={`${category.fa_icon} text-white`}
-                                  style={{ fontSize: '16px' }}
-                                  aria-hidden="true"
-                                ></i>
-                              </div>
-                            )}
-                            <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">
-                              {category.name}
-                            </div>
-                          </div>
-                        </Card>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          )}
+          <QuickLinks categories={categories} />
         </div>
       </div>
       {sponsorshipBanner && (<div className="mx-auto max-w-[1600px] w-full py-8 px-4 md:px-8 lg:px-16">
