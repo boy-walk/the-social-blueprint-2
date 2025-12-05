@@ -25,7 +25,7 @@ export function HealthListingHub({ categories = [], breadcrumbs = [] }) {
               </p>
             </div>
           </div>
-          <QuickLinks categories={categories} />
+          <QuickLinks categories={categories} type="health_listing" />
         </div>
       </div>
 

@@ -1411,7 +1411,8 @@ function AidListingHub({
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_QuickLinks__WEBPACK_IMPORTED_MODULE_6__.QuickLinks, {
-          categories: categories
+          categories: categories,
+          type: "aid_listing"
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -2228,7 +2229,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function QuickLinks({
-  categories
+  categories,
+  type = 'gd_place'
 }) {
   const scrollRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const [canScrollLeft, setCanScrollLeft] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -2290,7 +2292,7 @@ function QuickLinks({
         ref: scrollRef,
         className: "flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory scrollbar-hidden pb-2 md:px-2",
         children: categories.map(category => {
-          const categoryLink = `/aid_listing/category/${category.slug}`;
+          const categoryLink = `/${type}/category/${category.slug}`;
           const bgColor = category.color || '#6ED4BE';
           const hasFaIcon = category.fa_icon && typeof category.fa_icon === 'string';
 
@@ -2388,4 +2390,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing-hub.js.map?ver=033257fa1899e9310918
+//# sourceMappingURL=aid-listing-hub.js.map?ver=803c06dc8697262d83ed

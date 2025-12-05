@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import { Card } from './Card';
 
-export function QuickLinks({ categories }) {
+export function QuickLinks({ categories, type = 'gd_place' }) {
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -69,7 +69,7 @@ export function QuickLinks({ categories }) {
           className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory scrollbar-hidden pb-2 md:px-2"
         >
           {categories.map((category) => {
-            const categoryLink = `/aid_listing/category/${category.slug}`;
+            const categoryLink = `/${type}/category/${category.slug}`;
             const bgColor = category.color || '#6ED4BE';
             const hasFaIcon = category.fa_icon && typeof category.fa_icon === 'string';
 

@@ -1955,7 +1955,8 @@ function CostOfLiving({
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_QuickLinks__WEBPACK_IMPORTED_MODULE_8__.QuickLinks, {
-          categories: categories
+          categories: categories,
+          type: "cost_of_living"
         })]
       })
     }), sponsorshipBanner && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
@@ -2245,7 +2246,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function QuickLinks({
-  categories
+  categories,
+  type = 'gd_place'
 }) {
   const scrollRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const [canScrollLeft, setCanScrollLeft] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -2307,7 +2309,7 @@ function QuickLinks({
         ref: scrollRef,
         className: "flex gap-4 sm:gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory scrollbar-hidden pb-2 md:px-2",
         children: categories.map(category => {
-          const categoryLink = `/aid_listing/category/${category.slug}`;
+          const categoryLink = `/${type}/category/${category.slug}`;
           const bgColor = category.color || '#6ED4BE';
           const hasFaIcon = category.fa_icon && typeof category.fa_icon === 'string';
 
@@ -2469,4 +2471,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=45032e2bf44ca4790e3b
+//# sourceMappingURL=col-hub.js.map?ver=42a29817d46507433982

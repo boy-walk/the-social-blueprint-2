@@ -24,7 +24,7 @@ export function AidListingHub({ categories = [], breadcrumbs = [] }) {
               </p>
             </div>
           </div>
-          <QuickLinks categories={categories} />
+          <QuickLinks categories={categories} type="aid_listing" />
         </div>
       </div>
 

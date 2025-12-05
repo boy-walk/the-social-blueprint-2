@@ -27,7 +27,7 @@ export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBan
             </div>
           </div>
 
-          <QuickLinks categories={categories} />
+          <QuickLinks categories={categories} type="cost_of_living" />
         </div>
       </div>
       {sponsorshipBanner && (<div className="mx-auto max-w-[1600px] w-full py-8 px-4 md:px-8 lg:px-16">
