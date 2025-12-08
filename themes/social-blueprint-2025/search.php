@@ -24,7 +24,7 @@ function sb_get_search_results() {
       'title'     => get_the_title($post),
       'link'      => get_permalink($post),
       'type'      => get_post_type($post),
-      'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+      'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
       'meta'      => [
         'event_date' => get_post_meta($post->ID, 'event_date', true),
         'location'   => get_post_meta($post->ID, 'location', true),

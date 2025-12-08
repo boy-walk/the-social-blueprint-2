@@ -30,7 +30,7 @@ function map_post($post) {
     'title' => html_entity_decode(get_the_title($post), ENT_QUOTES, 'UTF-8'),
     'subtitle' => html_entity_decode(get_the_excerpt($post), ENT_QUOTES, 'UTF-8'),
     'permalink' => get_permalink($post),
-    'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+    'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
     'post_type' => get_post_type($post),
     'date' => get_the_date('', $post),
     'author' => get_the_author_meta('display_name', $author_id),

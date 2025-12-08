@@ -64,7 +64,7 @@ $related_content = array_map(function($p){
     'id'        => $p->ID,
     'title'     => get_the_title($p),
     'href'      => get_permalink($p),
-    'thumbnail' => get_the_post_thumbnail_url($p, 'medium'),
+    'thumbnail' => get_the_post_thumbnail_url($p, 'medium_large'),
   ];
 }, $related_posts);
 
@@ -85,7 +85,7 @@ if ($recent_q->have_posts()) {
       'id'        => $p->ID,
       'title'     => get_the_title($p),
       'link'      => get_permalink($p),
-      'thumbnail' => get_the_post_thumbnail_url($p, 'medium'),
+      'thumbnail' => get_the_post_thumbnail_url($p, 'medium_large'),
       'date'      => get_the_date('', $p),
       'author'    => get_the_author_meta('display_name', $p->post_author),
       'post_type' => get_post_type($p),

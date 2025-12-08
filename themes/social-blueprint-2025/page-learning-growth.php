@@ -71,7 +71,7 @@ function map_post($post) {
     'id' => $post->ID,
     'title' => get_the_title($post),
     'permalink' => get_permalink($post),
-    'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+    'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
     'post_type' => get_post_type($post),
     'subtitle' => get_the_excerpt($post),
     'date' => $post->post_type == "tribe_events" ? tribe_get_start_date($post, false, 'D, M j \a\t g:ia') : null,

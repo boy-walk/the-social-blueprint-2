@@ -36,7 +36,7 @@ while ($query->have_posts()) {
         'title' => get_the_title(),
         'excerpt' => get_the_excerpt(),
         'permalink' => get_permalink(),
-        'thumbnail' => get_the_post_thumbnail_url($event_id, 'medium'),
+        'thumbnail' => get_the_post_thumbnail_url($event_id, 'medium_large'),
         'startDate' => $start_date,
         'location' => $location,
         'post_type' => get_post_type($post),

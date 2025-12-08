@@ -88,7 +88,7 @@ if ($more_by_author->have_posts()) {
       'id'        => get_the_ID(),
       'title'     => get_the_title(),
       'link'      => get_permalink(),
-      'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+      'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
       'post_type' => get_post_type(),
       'subtitle' => get_the_excerpt(),
       'content' => apply_filters('the_content', get_post_field('post_content', get_the_ID())),
@@ -114,7 +114,7 @@ if ($more_by_author->have_posts()) {
          'id'        => $post->ID,
          'title'     => get_the_title($post),
          'link'      => get_permalink($post),
-         'thumbnail' => get_the_post_thumbnail_url($post, 'medium'),
+         'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
          'description' => get_the_excerpt($post),
        ];
      }, $related_content)) ); ?>'

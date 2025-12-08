@@ -81,7 +81,7 @@ if (function_exists('sb_get_related_by_topic_tags')) {
         'id'        => $p->ID,
         'title'     => get_the_title($p),
         'href'      => get_permalink($p),
-        'thumbnail' => get_the_post_thumbnail_url($p, 'medium'),
+        'thumbnail' => get_the_post_thumbnail_url($p, 'medium_large'),
         'description' => get_the_excerpt($p),
       ];
     }
