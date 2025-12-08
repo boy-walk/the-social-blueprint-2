@@ -58,7 +58,7 @@ export function GenericArchivePage(props) {
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
           const res = await fetch(
-            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=100&post_type=${postType}}`,
+            `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=1000&post_type=${postType}}`,
             { headers: { Accept: "application/json" } }
           );
           if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
