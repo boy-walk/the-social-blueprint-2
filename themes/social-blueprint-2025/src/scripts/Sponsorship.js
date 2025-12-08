@@ -77,6 +77,7 @@ export const SponsorshipBanner = ({ imgSrc, enabled, href }) => {
               px-6 md:px-8
               w-full sm:w-auto
             "
+            onClick={() => window.location.href = "/about-us"}
           />
         </div>
       </div>

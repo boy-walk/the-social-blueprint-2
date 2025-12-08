@@ -226,7 +226,7 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                 <div className=" flex flex-row p-4">
                   <div className="flex flex-col items-start justify-start h-full p-2">
                     <div className="Blueprint-body-large-emphasized text-schemesOnSecondary">
-                      Messageboard
+                      Message board
                     </div>
                     <div className="Blueprint-body-large text-schemesOnSecondary mt-2">
                       Find ways to <br />volunteer, donate, or get involved today.

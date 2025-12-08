@@ -32,13 +32,13 @@ const TABS = [{
   label: "Articles"
 }, {
   key: "message",
-  label: "Messageboard"
+  label: "Message board"
 }, {
   key: "directory",
   label: "Directory"
 }];
 function typeLabel(item) {
-  if (item.post_type === "gd_discount") return "Messageboard";
+  if (item.post_type === "gd_discount") return "Message board";
   if (item.post_type === "article") return "Article";
   if (item.post_type === "tribe_events") return "Event";
   if (item.post_type?.startsWith("gd_")) return "Directory";
@@ -48,7 +48,7 @@ function tabKey(item) {
   const t = typeLabel(item);
   if (t === "Event") return "event";
   if (t === "Article") return "article";
-  if (t === "Messageboard") return "message";
+  if (t === "Message board") return "message";
   if (t === "Directory") return "directory";
   return "all";
 }
@@ -328,4 +328,4 @@ const Card = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-listings.js.map?ver=f6eaf3bba1e19f74050f
+//# sourceMappingURL=account-listings.js.map?ver=53dd11c973c16f4d9505

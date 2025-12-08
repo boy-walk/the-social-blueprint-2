@@ -38,11 +38,10 @@ export function GenericArchivePage(props) {
   const [retryTick, setRetryTick] = useState(0);
 
   const [termsOptions, setTermsOptions] = useState({});
+  const [expandedFilters, setExpandedFilters] = useState({});
   const fetchedOnceRef = useRef(new Set());
 
   const displayedFilters = useMemo(() => {
-    // Always show all filters, even on taxonomy archives
-    // The scoping effect below will handle showing just the current term + children
     return filters;
   }, [filters]);
 
@@ -282,7 +281,7 @@ export function GenericArchivePage(props) {
 
       <div className="tsb-container flex flex-col lg:flex-row py-8 gap-8">
         {displayedFilters.length > 0 && (
-          <aside className="hidden lg:block lg:w-64 xl:w-72">
+          <aside className="hidden lg:block lg:w-64 xl:w-72 shrink-0">
             <div className="mb-6">
               <label htmlFor="archive-search" className="sr-only">Search by keyword</label>
               <div className="flex items-center gap-2">
@@ -303,68 +302,77 @@ export function GenericArchivePage(props) {
             <h2 className="Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant">Filters</h2>
 
             {(hasActiveFilters || searching) && (
-              <div className="mb-4 flex gap-2">
+              <div className="mb-4 flex flex-wrap gap-2">
                 {hasActiveFilters && <Button size="sm" variant="tonal" onClick={clearAllFilters} label="Clear filters" />}
                 {searching && <Button size="sm" variant="tonal" onClick={() => setSearchQuery("")} label="Clear search" />}
               </div>
             )}
 
-            {displayedFilters
-              .filter((f) => (termsOptions[f.taxonomy] || []).length > 0)
-              .map((f) => (
-                <div key={f.taxonomy} className="mb-4">
-                  {f.taxonomy === "people_tag" ? (
-                    <div>
-                      <label
-                        htmlFor={`filter-${f.taxonomy}`}
-                        className="Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant"
-                      >
-                        {f.label || "People"}
-                      </label>
-                      <select
-                        id={`filter-${f.taxonomy}`}
-                        value={selectedTerms[f.taxonomy]?.[0] || ""}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          setSelectedTerms((prev) => ({
-                            ...prev,
-                            [f.taxonomy]: value ? [value] : [],
-                          }));
-                          setPage(1);
-                        }}
-                        className="w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none"
-                      >
-                        <option value="">All</option>
-                        {(termsOptions[f.taxonomy] || []).map((opt) => (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.name}
-                          </option>
-                        ))}
-                      </select>
+            <div className="space-y-6">
+              {displayedFilters
+                .filter((f) => (termsOptions[f.taxonomy] || []).length > 0)
+                .map((f) => {
+                  const allOptions = termsOptions[f.taxonomy] || [];
+
+                  return (
+                    <div key={f.taxonomy}>
+                      {f.taxonomy === "people_tag" ? (
+                        <div>
+                          <label
+                            htmlFor={`filter-${f.taxonomy}`}
+                            className="Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant"
+                          >
+                            {f.label || "People"}
+                          </label>
+                          <select
+                            id={`filter-${f.taxonomy}`}
+                            value={selectedTerms[f.taxonomy]?.[0] || ""}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              setSelectedTerms((prev) => ({
+                                ...prev,
+                                [f.taxonomy]: value ? [value] : [],
+                              }));
+                              setPage(1);
+                            }}
+                            className="w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none"
+                          >
+                            <option value="">All</option>
+                            {allOptions.map((opt) => (
+                              <option key={opt.id} value={opt.id}>
+                                {opt.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      ) : (
+                        <FilterGroup
+                          title={f.label || f.taxonomy}
+                          options={allOptions}
+                          selected={selectedTerms[f.taxonomy] || []}
+                          expanded={expandedFilters[f.taxonomy]}
+                          onToggleExpand={() => setExpandedFilters(prev => ({ ...prev, [f.taxonomy]: true }))}
+                          onShowLess={() => setExpandedFilters(prev => ({ ...prev, [f.taxonomy]: false }))}
+                          onChangeHandler={(e) => {
+                            const id = String(e.target.value);
+                            const checked = !!e.target.checked;
+                            setSelectedTerms((prev) => {
+                              const current = prev[f.taxonomy] || [];
+                              const next = checked ? [...current, id] : current.filter((x) => x !== id);
+                              return { ...prev, [f.taxonomy]: next };
+                            });
+                            setPage(1);
+                          }}
+                        />
+                      )}
                     </div>
-                  ) : (
-                    <FilterGroup
-                      title={f.label || f.taxonomy}
-                      options={termsOptions[f.taxonomy] || []}
-                      selected={selectedTerms[f.taxonomy] || []}
-                      onChangeHandler={(e) => {
-                        const id = String(e.target.value);
-                        const checked = !!e.target.checked;
-                        setSelectedTerms((prev) => {
-                          const current = prev[f.taxonomy] || [];
-                          const next = checked ? [...current, id] : current.filter((x) => x !== id);
-                          return { ...prev, [f.taxonomy]: next };
-                        });
-                        setPage(1);
-                      }}
-                    />
-                  )}
-                </div>
-              ))}
+                  );
+                })}
+            </div>
           </aside>
         )}
 
-        <section className="flex-1">
+        <section className="flex-1 min-w-0">
           {error && !loading && (
             <div className="mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6">
               <div className="Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]">Something went wrong</div>
@@ -407,7 +415,7 @@ export function GenericArchivePage(props) {
                     : (typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null)}
                 </div>
                 {(hasActiveFilters || searching) && (
-                  <div className="flex gap-2">
+                  <div className="hidden sm:flex gap-2">
                     {hasActiveFilters && <Button size="sm" variant="tonal" label="Clear filters" onClick={clearAllFilters} />}
                     {searching && <Button size="sm" variant="tonal" label="Clear search" onClick={() => setSearchQuery("")} />}
                   </div>
@@ -455,9 +463,9 @@ export function GenericArchivePage(props) {
           role="dialog"
           aria-modal="true"
           aria-label="Filters"
-          className={`absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}`}
+          className={`absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"} flex flex-col`}
         >
-          <div className="relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]">
+          <div className="relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)] shrink-0">
             <div className="mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]" />
             <div className="mt-3 flex items-center justify-between">
               <div className="Blueprint-title-small-emphasized">Filters</div>
@@ -473,7 +481,7 @@ export function GenericArchivePage(props) {
             </div>
           </div>
 
-          <div className="px-4 py-4 overflow-y-auto space-y-4">
+          <div className="px-4 py-4 overflow-y-auto flex-1 space-y-6">
             <div className="relative">
               <input
                 type="search"
@@ -485,59 +493,66 @@ export function GenericArchivePage(props) {
               <MagnifyingGlassIcon size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
             </div>
 
-            {displayedFilters.map((f) => (
-              <div key={`m-${f.taxonomy}`}>
-                {f.taxonomy === "people" ? (
-                  <div>
-                    <label
-                      htmlFor={`mobile-filter-${f.taxonomy}`}
-                      className="Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant"
-                    >
-                      {f.label || "People"}
-                    </label>
-                    <select
-                      id={`mobile-filter-${f.taxonomy}`}
-                      value={selectedTerms[f.taxonomy]?.[0] || ""}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        setSelectedTerms((prev) => ({
-                          ...prev,
-                          [f.taxonomy]: value ? [value] : [],
-                        }));
+            {displayedFilters.map((f) => {
+              const allOptions = termsOptions[f.taxonomy] || [];
+
+              return (
+                <div key={`m-${f.taxonomy}`}>
+                  {f.taxonomy === "people_tag" ? (
+                    <div>
+                      <label
+                        htmlFor={`mobile-filter-${f.taxonomy}`}
+                        className="Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant"
+                      >
+                        {f.label || "People"}
+                      </label>
+                      <select
+                        id={`mobile-filter-${f.taxonomy}`}
+                        value={selectedTerms[f.taxonomy]?.[0] || ""}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setSelectedTerms((prev) => ({
+                            ...prev,
+                            [f.taxonomy]: value ? [value] : [],
+                          }));
+                          setPage(1);
+                        }}
+                        className="w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none"
+                      >
+                        <option value="">All</option>
+                        {allOptions.map((opt) => (
+                          <option key={opt.id} value={opt.id}>
+                            {opt.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ) : (
+                    <FilterGroup
+                      title={f.label || f.taxonomy}
+                      options={allOptions}
+                      selected={selectedTerms[f.taxonomy] || []}
+                      expanded={expandedFilters[f.taxonomy]}
+                      onToggleExpand={() => setExpandedFilters(prev => ({ ...prev, [f.taxonomy]: true }))}
+                      onShowLess={() => setExpandedFilters(prev => ({ ...prev, [f.taxonomy]: false }))}
+                      onChangeHandler={(e) => {
+                        const id = String(e.target.value);
+                        const checked = !!e.target.checked;
+                        setSelectedTerms((prev) => {
+                          const current = prev[f.taxonomy] || [];
+                          const next = checked ? [...current, id] : current.filter((x) => x !== id);
+                          return { ...prev, [f.taxonomy]: next };
+                        });
                         setPage(1);
                       }}
-                      className="w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none"
-                    >
-                      <option value="">All</option>
-                      {(termsOptions[f.taxonomy] || []).map((opt) => (
-                        <option key={opt.id} value={opt.id}>
-                          {opt.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                ) : (
-                  <FilterGroup
-                    title={f.label || f.taxonomy}
-                    options={termsOptions[f.taxonomy] || []}
-                    selected={selectedTerms[f.taxonomy] || []}
-                    onChangeHandler={(e) => {
-                      const id = String(e.target.value);
-                      const checked = !!e.target.checked;
-                      setSelectedTerms((prev) => {
-                        const current = prev[f.taxonomy] || [];
-                        const next = checked ? [...current, id] : current.filter((x) => x !== id);
-                        return { ...prev, [f.taxonomy]: next };
-                      });
-                      setPage(1);
-                    }}
-                  />
-                )}
-              </div>
-            ))}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
-          <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2">
+          <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2 shrink-0">
             <Button onClick={clearAllFilters} variant="outlined" label="Clear all" className="flex-1" />
             <Button onClick={closeFilters} variant="filled" label="Apply" className="flex-1" />
           </div>

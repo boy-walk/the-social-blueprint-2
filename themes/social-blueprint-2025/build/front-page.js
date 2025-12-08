@@ -1064,7 +1064,7 @@ function FrontPage({
                   className: "flex flex-col items-start justify-start h-full p-2",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                     className: "Blueprint-body-large-emphasized text-schemesOnSecondary",
-                    children: "Messageboard"
+                    children: "Message board"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
                     className: "Blueprint-body-large text-schemesOnSecondary mt-2",
                     children: ["Find ways to ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("br", {}), "volunteer, donate, or get involved today."]
@@ -1596,4 +1596,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=fa191c7085c0d3554598
+//# sourceMappingURL=front-page.js.map?ver=b82003cf661c34c3ab67

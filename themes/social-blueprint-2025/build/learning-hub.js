@@ -2627,4 +2627,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=93dd2c5926ce10cd2786
+//# sourceMappingURL=learning-hub.js.map?ver=0b0fdfa7b6b4bd9111ec

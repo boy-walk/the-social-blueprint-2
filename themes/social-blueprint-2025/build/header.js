@@ -593,7 +593,7 @@ function MobileMenu({
                   directory: "Directory",
                   "blueprint-stories": "Blueprint stories",
                   "about-us": "About us",
-                  "message-board": "Messageboard",
+                  "message-board": "Message board",
                   "explore-by": "Explore by"
                 }[key]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
@@ -1113,4 +1113,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=141c8aadfd93151717e6
+//# sourceMappingURL=header.js.map?ver=5898f5d22f39c2ddfebd

@@ -700,16 +700,17 @@ function FilterGroup({
   title,
   options,
   selected,
-  onChangeHandler
+  onChangeHandler,
+  expanded = false,
+  onToggleExpand,
+  onShowLess,
+  initialShowCount = 8
 }) {
-  const [visibleCount, setVisibleCount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5);
   const isNested = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(options) && options.some(o => Array.isArray(o.children) && o.children.length > 0), [options]);
   const parents = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => isNested ? options : options, [isNested, options]);
-  const hasMore = isNested ? parents.length > 5 : options.length > 5;
-  const showingAll = visibleCount >= (isNested ? parents.length : options.length);
-  const handleToggleShowMore = () => {
-    if (showingAll) setVisibleCount(5);else setVisibleCount(prev => prev + 5);
-  };
+  const totalCount = isNested ? parents.length : options.length;
+  const hasMore = totalCount > initialShowCount;
+  const displayCount = expanded ? totalCount : initialShowCount;
   const isChecked = id => selected.includes(String(id));
   const collectDescendantIds = (node, bag = []) => {
     (node.children || []).forEach(c => {
@@ -832,21 +833,26 @@ function FilterGroup({
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "mb-4",
       children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-        className: "Blueprint-title-small mb-3",
+        className: "Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3",
         children: title
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "flex flex-wrap gap-4",
-        children: options.slice(0, visibleCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
+        children: options.slice(0, displayCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
           id: option.id,
           label: option.name,
           checked: selected.includes(String(option.id)),
           onChangeHandler: onChangeHandler
         }, option.id))
-      }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      }), hasMore && !expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
         type: "button",
-        onClick: handleToggleShowMore,
-        className: "mt-4 text-schemesPrimary Blueprint-label-large hover:underline",
-        children: showingAll ? "Show less" : "Show more"
+        onClick: onToggleExpand,
+        className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
+        children: ["Show all (", totalCount, ")"]
+      }), hasMore && expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        type: "button",
+        onClick: onShowLess,
+        className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
+        children: "Show less"
       })]
     });
   }
@@ -855,16 +861,16 @@ function FilterGroup({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "mb-4",
     children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-      className: "Blueprint-title-small mb-3",
+      className: "Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3",
       children: title
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "flex flex-col gap-2",
-      children: (parents || []).slice(0, visibleCount).map(renderParent)
-    }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      children: (parents || []).slice(0, displayCount).map(renderParent)
+    }), hasMore && !expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
       type: "button",
-      onClick: handleToggleShowMore,
-      className: "mt-4 text-schemesPrimary Blueprint-label-large hover:underline",
-      children: showingAll ? "Show less" : "Show more"
+      onClick: onToggleExpand,
+      className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
+      children: ["Show all (", totalCount, ")"]
     })]
   });
 }
@@ -910,4 +916,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=f4b449dc4fb6e38b5cd4
+//# sourceMappingURL=events-calendar.js.map?ver=982c7b6a7b2673136269

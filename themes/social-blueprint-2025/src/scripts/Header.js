@@ -397,7 +397,7 @@ function MobileMenu({
                       directory: "Directory",
                       "blueprint-stories": "Blueprint stories",
                       "about-us": "About us",
-                      "message-board": "Messageboard",
+                      "message-board": "Message board",
                       "explore-by": "Explore by",
                     }[key]}
                   </a>

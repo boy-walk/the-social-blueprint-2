@@ -2392,4 +2392,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=health-hub.js.map?ver=9eff4e6167a398a94f05
+//# sourceMappingURL=health-hub.js.map?ver=f88ca36f2b902e4c168a

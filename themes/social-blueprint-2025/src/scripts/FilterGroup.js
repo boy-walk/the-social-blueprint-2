@@ -1,10 +1,8 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { StyledCheckbox } from "./StyledCheckbox";
 import { CaretRight } from "@phosphor-icons/react";
 
-export function FilterGroup({ title, options, selected, onChangeHandler }) {
-  const [visibleCount, setVisibleCount] = useState(5);
-
+export function FilterGroup({ title, options, selected, onChangeHandler, expanded = false, onToggleExpand, onShowLess, initialShowCount = 8 }) {
   const isNested = useMemo(
     () => Array.isArray(options) && options.some(o => Array.isArray(o.children) && o.children.length > 0),
     [options]
@@ -12,13 +10,9 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
 
   const parents = useMemo(() => (isNested ? options : options), [isNested, options]);
 
-  const hasMore = isNested ? parents.length > 5 : options.length > 5;
-  const showingAll = visibleCount >= (isNested ? parents.length : options.length);
-
-  const handleToggleShowMore = () => {
-    if (showingAll) setVisibleCount(5);
-    else setVisibleCount(prev => prev + 5);
-  };
+  const totalCount = isNested ? parents.length : options.length;
+  const hasMore = totalCount > initialShowCount;
+  const displayCount = expanded ? totalCount : initialShowCount;
 
   const isChecked = (id) => selected.includes(String(id));
 
@@ -154,9 +148,9 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
   if (!isNested) {
     return (
       <div className="mb-4">
-        {title && <h3 className="Blueprint-title-small mb-3">{title}</h3>}
+        {title && <h3 className="Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3">{title}</h3>}
         <div className="flex flex-wrap gap-4">
-          {options.slice(0, visibleCount).map((option) => (
+          {options.slice(0, displayCount).map((option) => (
             <StyledCheckbox
               key={option.id}
               id={option.id}
@@ -167,13 +161,22 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
           ))}
         </div>
 
-        {hasMore && (
+        {hasMore && !expanded && onToggleExpand && (
           <button
             type="button"
-            onClick={handleToggleShowMore}
-            className="mt-4 text-schemesPrimary Blueprint-label-large hover:underline"
+            onClick={onToggleExpand}
+            className="mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large"
           >
-            {showingAll ? "Show less" : "Show more"}
+            Show all ({totalCount})
+          </button>
+        )}
+        {hasMore && expanded && onToggleExpand && (
+          <button
+            type="button"
+            onClick={onShowLess}
+            className="mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large"
+          >
+            Show less
           </button>
         )}
       </div>
@@ -183,19 +186,19 @@ export function FilterGroup({ title, options, selected, onChangeHandler }) {
   // NESTED
   return (
     <div className="mb-4">
-      {title && <h3 className="Blueprint-title-small mb-3">{title}</h3>}
+      {title && <h3 className="Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3">{title}</h3>}
 
       <div className="flex flex-col gap-2">
-        {(parents || []).slice(0, visibleCount).map(renderParent)}
+        {(parents || []).slice(0, displayCount).map(renderParent)}
       </div>
 
-      {hasMore && (
+      {hasMore && !expanded && onToggleExpand && (
         <button
           type="button"
-          onClick={handleToggleShowMore}
-          className="mt-4 text-schemesPrimary Blueprint-label-large hover:underline"
+          onClick={onToggleExpand}
+          className="mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large"
         >
-          {showingAll ? "Show less" : "Show more"}
+          Show all ({totalCount})
         </button>
       )}
     </div>

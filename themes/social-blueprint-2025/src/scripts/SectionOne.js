@@ -50,7 +50,7 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
                   </div>
                 </div>
               </div>
-              <div className="flex flex-no-wrap lg:flex-wrap gap-4 items-center justify-start">
+              <div className="flex flex-no-wrap lg:flex-wrap gap-4 items-center justify-center md:justify-start w-full md:w-auto">
                 <Button
                   label="Browse the calendar"
                   onClick={() => (window.location.href = '/events')}

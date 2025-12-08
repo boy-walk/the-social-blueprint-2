@@ -2204,7 +2204,7 @@ const SectionOne = ({
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-              className: "flex flex-no-wrap lg:flex-wrap gap-4 items-center justify-start",
+              className: "flex flex-no-wrap lg:flex-wrap gap-4 items-center justify-center md:justify-start w-full md:w-auto",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
                 label: "Browse the calendar",
                 onClick: () => window.location.href = '/events',
@@ -2666,7 +2666,8 @@ const SponsorshipBanner = ({
           label: "More about us",
           variant: "tonal",
           size: "base",
-          className: " bg-[#c5e3f5] text-[#1a4a5e] hover:bg-[#b0d6ec] px-6 md:px-8 w-full sm:w-auto "
+          className: " bg-[#c5e3f5] text-[#1a4a5e] hover:bg-[#b0d6ec] px-6 md:px-8 w-full sm:w-auto ",
+          onClick: () => window.location.href = "/about-us"
         })]
       })]
     })
@@ -2717,4 +2718,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=44c50f83fc64121bdbbf
+//# sourceMappingURL=section-one.js.map?ver=db485ee7359b3771927a

@@ -292,16 +292,17 @@ function FilterGroup({
   title,
   options,
   selected,
-  onChangeHandler
+  onChangeHandler,
+  expanded = false,
+  onToggleExpand,
+  onShowLess,
+  initialShowCount = 8
 }) {
-  const [visibleCount, setVisibleCount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5);
   const isNested = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(options) && options.some(o => Array.isArray(o.children) && o.children.length > 0), [options]);
   const parents = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => isNested ? options : options, [isNested, options]);
-  const hasMore = isNested ? parents.length > 5 : options.length > 5;
-  const showingAll = visibleCount >= (isNested ? parents.length : options.length);
-  const handleToggleShowMore = () => {
-    if (showingAll) setVisibleCount(5);else setVisibleCount(prev => prev + 5);
-  };
+  const totalCount = isNested ? parents.length : options.length;
+  const hasMore = totalCount > initialShowCount;
+  const displayCount = expanded ? totalCount : initialShowCount;
   const isChecked = id => selected.includes(String(id));
   const collectDescendantIds = (node, bag = []) => {
     (node.children || []).forEach(c => {
@@ -424,21 +425,26 @@ function FilterGroup({
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "mb-4",
       children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-        className: "Blueprint-title-small mb-3",
+        className: "Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3",
         children: title
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "flex flex-wrap gap-4",
-        children: options.slice(0, visibleCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
+        children: options.slice(0, displayCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
           id: option.id,
           label: option.name,
           checked: selected.includes(String(option.id)),
           onChangeHandler: onChangeHandler
         }, option.id))
-      }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      }), hasMore && !expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
         type: "button",
-        onClick: handleToggleShowMore,
-        className: "mt-4 text-schemesPrimary Blueprint-label-large hover:underline",
-        children: showingAll ? "Show less" : "Show more"
+        onClick: onToggleExpand,
+        className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
+        children: ["Show all (", totalCount, ")"]
+      }), hasMore && expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        type: "button",
+        onClick: onShowLess,
+        className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
+        children: "Show less"
       })]
     });
   }
@@ -447,16 +453,16 @@ function FilterGroup({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "mb-4",
     children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-      className: "Blueprint-title-small mb-3",
+      className: "Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3",
       children: title
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "flex flex-col gap-2",
-      children: (parents || []).slice(0, visibleCount).map(renderParent)
-    }), hasMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+      children: (parents || []).slice(0, displayCount).map(renderParent)
+    }), hasMore && !expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
       type: "button",
-      onClick: handleToggleShowMore,
-      className: "mt-4 text-schemesPrimary Blueprint-label-large hover:underline",
-      children: showingAll ? "Show less" : "Show more"
+      onClick: onToggleExpand,
+      className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
+      children: ["Show all (", totalCount, ")"]
     })]
   });
 }
@@ -525,10 +531,9 @@ function GenericArchivePage(props) {
   const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
   const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+  const [expandedFilters, setExpandedFilters] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set());
   const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    // Always show all filters, even on taxonomy archives
-    // The scoping effect below will handle showing just the current term + children
     return filters;
   }, [filters]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -809,7 +814,7 @@ function GenericArchivePage(props) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "tsb-container flex flex-col lg:flex-row py-8 gap-8",
       children: [displayedFilters.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("aside", {
-        className: "hidden lg:block lg:w-64 xl:w-72",
+        className: "hidden lg:block lg:w-64 xl:w-72 shrink-0",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "mb-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
@@ -838,7 +843,7 @@ function GenericArchivePage(props) {
           className: "Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant",
           children: "Filters"
         }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "mb-4 flex gap-2",
+          className: "mb-4 flex flex-wrap gap-2",
           children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
             size: "sm",
             variant: "tonal",
@@ -850,54 +855,68 @@ function GenericArchivePage(props) {
             onClick: () => setSearchQuery(""),
             label: "Clear search"
           })]
-        }), displayedFilters.filter(f => (termsOptions[f.taxonomy] || []).length > 0).map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "mb-4",
-          children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-              htmlFor: `filter-${f.taxonomy}`,
-              className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
-              children: f.label || "People"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-              id: `filter-${f.taxonomy}`,
-              value: selectedTerms[f.taxonomy]?.[0] || "",
-              onChange: e => {
-                const value = e.target.value;
-                setSelectedTerms(prev => ({
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "space-y-6",
+          children: displayedFilters.filter(f => (termsOptions[f.taxonomy] || []).length > 0).map(f => {
+            const allOptions = termsOptions[f.taxonomy] || [];
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                  htmlFor: `filter-${f.taxonomy}`,
+                  className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
+                  children: f.label || "People"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+                  id: `filter-${f.taxonomy}`,
+                  value: selectedTerms[f.taxonomy]?.[0] || "",
+                  onChange: e => {
+                    const value = e.target.value;
+                    setSelectedTerms(prev => ({
+                      ...prev,
+                      [f.taxonomy]: value ? [value] : []
+                    }));
+                    setPage(1);
+                  },
+                  className: "w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                    value: "",
+                    children: "All"
+                  }), allOptions.map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                    value: opt.id,
+                    children: opt.name
+                  }, opt.id))]
+                })]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
+                title: f.label || f.taxonomy,
+                options: allOptions,
+                selected: selectedTerms[f.taxonomy] || [],
+                expanded: expandedFilters[f.taxonomy],
+                onToggleExpand: () => setExpandedFilters(prev => ({
                   ...prev,
-                  [f.taxonomy]: value ? [value] : []
-                }));
-                setPage(1);
-              },
-              className: "w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                value: "",
-                children: "All"
-              }), (termsOptions[f.taxonomy] || []).map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                value: opt.id,
-                children: opt.name
-              }, opt.id))]
-            })]
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
-            title: f.label || f.taxonomy,
-            options: termsOptions[f.taxonomy] || [],
-            selected: selectedTerms[f.taxonomy] || [],
-            onChangeHandler: e => {
-              const id = String(e.target.value);
-              const checked = !!e.target.checked;
-              setSelectedTerms(prev => {
-                const current = prev[f.taxonomy] || [];
-                const next = checked ? [...current, id] : current.filter(x => x !== id);
-                return {
+                  [f.taxonomy]: true
+                })),
+                onShowLess: () => setExpandedFilters(prev => ({
                   ...prev,
-                  [f.taxonomy]: next
-                };
-              });
-              setPage(1);
-            }
+                  [f.taxonomy]: false
+                })),
+                onChangeHandler: e => {
+                  const id = String(e.target.value);
+                  const checked = !!e.target.checked;
+                  setSelectedTerms(prev => {
+                    const current = prev[f.taxonomy] || [];
+                    const next = checked ? [...current, id] : current.filter(x => x !== id);
+                    return {
+                      ...prev,
+                      [f.taxonomy]: next
+                    };
+                  });
+                  setPage(1);
+                }
+              })
+            }, f.taxonomy);
           })
-        }, f.taxonomy))]
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("section", {
-        className: "flex-1",
+        className: "flex-1 min-w-0",
         children: [error && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -954,7 +973,7 @@ function GenericArchivePage(props) {
               "aria-live": "polite",
               children: searching ? `${filteredItems.length} match${filteredItems.length === 1 ? "" : "es"} on this page` : typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null
             }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-              className: "flex gap-2",
+              className: "hidden sm:flex gap-2",
               children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
                 size: "sm",
                 variant: "tonal",
@@ -1010,9 +1029,9 @@ function GenericArchivePage(props) {
         role: "dialog",
         "aria-modal": "true",
         "aria-label": "Filters",
-        className: `absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}`,
+        className: `absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"} flex flex-col`,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]",
+          className: "relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)] shrink-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -1030,7 +1049,7 @@ function GenericArchivePage(props) {
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "px-4 py-4 overflow-y-auto space-y-4",
+          className: "px-4 py-4 overflow-y-auto flex-1 space-y-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "relative",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
@@ -1045,53 +1064,65 @@ function GenericArchivePage(props) {
               weight: "bold",
               "aria-hidden": true
             })]
-          }), displayedFilters.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            children: f.taxonomy === "people" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                htmlFor: `mobile-filter-${f.taxonomy}`,
-                className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
-                children: f.label || "People"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-                id: `mobile-filter-${f.taxonomy}`,
-                value: selectedTerms[f.taxonomy]?.[0] || "",
-                onChange: e => {
-                  const value = e.target.value;
-                  setSelectedTerms(prev => ({
-                    ...prev,
-                    [f.taxonomy]: value ? [value] : []
-                  }));
+          }), displayedFilters.map(f => {
+            const allOptions = termsOptions[f.taxonomy] || [];
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                  htmlFor: `mobile-filter-${f.taxonomy}`,
+                  className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
+                  children: f.label || "People"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+                  id: `mobile-filter-${f.taxonomy}`,
+                  value: selectedTerms[f.taxonomy]?.[0] || "",
+                  onChange: e => {
+                    const value = e.target.value;
+                    setSelectedTerms(prev => ({
+                      ...prev,
+                      [f.taxonomy]: value ? [value] : []
+                    }));
+                    setPage(1);
+                  },
+                  className: "w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                    value: "",
+                    children: "All"
+                  }), allOptions.map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                    value: opt.id,
+                    children: opt.name
+                  }, opt.id))]
+                })]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
+                title: f.label || f.taxonomy,
+                options: allOptions,
+                selected: selectedTerms[f.taxonomy] || [],
+                expanded: expandedFilters[f.taxonomy],
+                onToggleExpand: () => setExpandedFilters(prev => ({
+                  ...prev,
+                  [f.taxonomy]: true
+                })),
+                onShowLess: () => setExpandedFilters(prev => ({
+                  ...prev,
+                  [f.taxonomy]: false
+                })),
+                onChangeHandler: e => {
+                  const id = String(e.target.value);
+                  const checked = !!e.target.checked;
+                  setSelectedTerms(prev => {
+                    const current = prev[f.taxonomy] || [];
+                    const next = checked ? [...current, id] : current.filter(x => x !== id);
+                    return {
+                      ...prev,
+                      [f.taxonomy]: next
+                    };
+                  });
                   setPage(1);
-                },
-                className: "w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                  value: "",
-                  children: "All"
-                }), (termsOptions[f.taxonomy] || []).map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                  value: opt.id,
-                  children: opt.name
-                }, opt.id))]
-              })]
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
-              title: f.label || f.taxonomy,
-              options: termsOptions[f.taxonomy] || [],
-              selected: selectedTerms[f.taxonomy] || [],
-              onChangeHandler: e => {
-                const id = String(e.target.value);
-                const checked = !!e.target.checked;
-                setSelectedTerms(prev => {
-                  const current = prev[f.taxonomy] || [];
-                  const next = checked ? [...current, id] : current.filter(x => x !== id);
-                  return {
-                    ...prev,
-                    [f.taxonomy]: next
-                  };
-                });
-                setPage(1);
-              }
-            })
-          }, `m-${f.taxonomy}`))]
+                }
+              })
+            }, `m-${f.taxonomy}`);
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2",
+          className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2 shrink-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
             onClick: clearAllFilters,
             variant: "outlined",
@@ -1191,4 +1222,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=0edbdac4bb9725e8defa
+//# sourceMappingURL=generic-archive.js.map?ver=07a51c82d174121728ad

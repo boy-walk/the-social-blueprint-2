@@ -2420,7 +2420,8 @@ const SponsorshipBanner = ({
           label: "More about us",
           variant: "tonal",
           size: "base",
-          className: " bg-[#c5e3f5] text-[#1a4a5e] hover:bg-[#b0d6ec] px-6 md:px-8 w-full sm:w-auto "
+          className: " bg-[#c5e3f5] text-[#1a4a5e] hover:bg-[#b0d6ec] px-6 md:px-8 w-full sm:w-auto ",
+          onClick: () => window.location.href = "/about-us"
         })]
       })]
     })
@@ -2471,4 +2472,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=42a29817d46507433982
+//# sourceMappingURL=col-hub.js.map?ver=cce2cce7548b8a60d1fc
