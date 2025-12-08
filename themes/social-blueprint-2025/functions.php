@@ -8,7 +8,6 @@ require_once get_template_directory() . '/inc/candle-lighting-times.php';
 require_once get_template_directory() . '/inc/article-category-taxonomy.php';
 require_once get_template_directory() . '/inc/submit-article.php';
 require_once get_template_directory() . '/inc/share.php';
-require_once get_template_directory() . '/inc/search-fix.php';
 
 function boilerplate_load_assets() {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
@@ -837,3 +836,20 @@ function sb_prepend_banner_on_tribe_community_pages( $content ) {
   return $content;
 }
 add_filter( 'the_content', 'sb_prepend_banner_on_tribe_community_pages', 5 );
+
+add_filter('relevanssi_modify_wp_query', 'sbp_force_phrase_search', 10, 1);
+function sbp_force_phrase_search($query) {
+    if (!$query->is_search()) {
+        return $query; // IMPORTANT: must return the query
+    }
+    
+    $search_query = $query->get('s');
+    
+    // If search has multiple words and no quotes already
+    if (!empty($search_query) && strpos($search_query, ' ') !== false && strpos($search_query, '"') === false) {
+        // Wrap in quotes for phrase matching
+        $query->set('s', '"' . $search_query . '"');
+    }
+    
+    return $query; // IMPORTANT: must return the query
+}
