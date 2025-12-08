@@ -39,7 +39,7 @@ export function ContentCard({
               alt={title}
               className="
                 h-full w-full
-                object-cover
+                object-contain
                 transition-transform duration-300 ease-in-out
                 group-hover:scale-105
                 [transform-origin:center]

@@ -19,6 +19,7 @@ export default function MessageBoardPage({
   recentPosts = [],
   trendingTopics = [],
   breadcrumbs = [],
+  phone,
 }) {
   const formattedDate = date
     ? new Date(date).toLocaleDateString("en-AU", {

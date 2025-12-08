@@ -1074,6 +1074,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Globe.es.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Mailbox.es.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/PhoneCall.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MapPin.es.js");
 /* harmony import */ var _ShareButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ShareButton */ "./src/scripts/ShareButton.js");
 /* harmony import */ var _ExploreByTheme__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ExploreByTheme */ "./src/scripts/ExploreByTheme.js");
 /* harmony import */ var _PillTag__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PillTag */ "./src/scripts/PillTag.js");
@@ -1114,12 +1115,13 @@ function AidListingPage({
       return {};
     }
   }, []);
+  const hasContactInfo = contact.website || contact.email || contact.phone || contact.address;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("main", {
     className: "bg-schemesSurface text-schemesOnSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      className: "p-6 md:p-8 lg:p-12",
+      className: "p-4 sm:p-6 md:p-8 lg:p-12",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16",
+        className: "max-w-[1600px] mx-auto px-0 lg:px-16",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Breadcrumbs__WEBPACK_IMPORTED_MODULE_1__.Breadcrumbs, {
           items: breadcrumbs
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -1127,73 +1129,64 @@ function AidListingPage({
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: "flex-[3] min-w-0 space-y-4",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("header", {
-              className: "space-y-1 lg:space-y-2",
+              className: "space-y-3 lg:space-y-4",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
-                className: "Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight py-3",
+                className: "Blueprint-title-large sm:Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight py-2 lg:py-3",
                 children: title
+              }), gdHtml.notifications && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: "!px-0",
+                dangerouslySetInnerHTML: {
+                  __html: gdHtml.notifications
+                }
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                className: "flex flex-row justify-between",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                  className: "flex items-center gap-4",
-                  children: [author?.avatar ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-                    src: author.avatar,
-                    alt: author?.name || "",
-                    className: "w-10 h-10 rounded-full"
-                  }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                    className: "flex flex-col gap-1",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                      className: "lg:Blueprint-title-medium",
-                      children: author?.name || ""
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                      className: "Blueprint-label-large text-schemesOnSurfaceVariant",
-                      children: formattedDate
-                    })]
-                  })]
+                className: "flex items-center gap-3",
+                children: [author?.avatar && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                  src: author.avatar,
+                  alt: author?.name || "",
+                  className: "w-10 h-10 rounded-full flex-shrink-0"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                  className: "flex flex-row justify-end gap-1",
-                  children: [contact.website && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                    variant: "tonal",
-                    onClick: () => {
-                      window.open(contact.website, "_blank");
-                    },
-                    className: "whitespace-nowrap",
-                    label: "Website",
-                    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.GlobeIcon, {
-                      size: 22
-                    })
-                  }), contact.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                    variant: "tonal",
-                    onClick: () => {
-                      window.location.href = `mailto:${contact.email}`;
-                    },
-                    className: "whitespace-nowrap",
-                    label: "Email",
-                    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MailboxIcon, {
-                      size: 22
-                    })
-                  }), contact.phone && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                    variant: "tonal",
-                    onClick: () => {
-                      window.location.href = `tel:${contact.phone}`;
-                    },
-                    className: "whitespace-nowrap",
-                    label: "Call",
-                    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PhoneCallIcon, {
-                      size: 22
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ShareButton__WEBPACK_IMPORTED_MODULE_4__.ShareButton, {
-                    title: title,
-                    summary: "",
-                    size: "lg",
-                    url: typeof window !== "undefined" ? window.location.href : undefined
+                  className: "flex flex-col gap-0.5",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "Blueprint-title-small lg:Blueprint-title-medium",
+                    children: author?.name || ""
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "Blueprint-label-medium lg:Blueprint-label-large text-schemesOnSurfaceVariant",
+                    children: formattedDate
                   })]
                 })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                className: "flex flex-col sm:flex-row flex-wrap gap-2",
+                children: [contact.website && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                  variant: "tonal",
+                  onClick: () => window.open(contact.website, "_blank"),
+                  className: "w-full sm:w-auto justify-center sm:justify-start",
+                  label: "Website",
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.GlobeIcon, {
+                    size: 22
+                  })
+                }), contact.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                  variant: "tonal",
+                  onClick: () => window.location.href = `mailto:${contact.email}`,
+                  className: "w-full sm:w-auto justify-center sm:justify-start",
+                  label: "Email",
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MailboxIcon, {
+                    size: 22
+                  })
+                }), contact.phone && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                  variant: "tonal",
+                  onClick: () => window.location.href = `tel:${contact.phone}`,
+                  className: "w-full sm:w-auto justify-center sm:justify-start",
+                  label: "Call",
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PhoneCallIcon, {
+                    size: 22
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ShareButton__WEBPACK_IMPORTED_MODULE_4__.ShareButton, {
+                  title: title,
+                  summary: "",
+                  size: "lg",
+                  url: typeof window !== "undefined" ? window.location.href : undefined
+                })]
               })]
-            }), gdHtml.notifications && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              className: "!px-0",
-              dangerouslySetInnerHTML: {
-                __html: gdHtml.notifications
-              }
             }), gdHtml.taxonomies && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
               className: "sbp-gd-chips !px-0",
               dangerouslySetInnerHTML: {
@@ -1204,12 +1197,98 @@ function AidListingPage({
               dangerouslySetInnerHTML: {
                 __html: gdHtml.tabs
               }
+            }), hasContactInfo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
+              className: "rounded-xl bg-schemesSurfaceContainerLow p-4 sm:p-6 space-y-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+                className: "Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized",
+                children: "Contact Details"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                className: "grid grid-cols-1 sm:grid-cols-2 gap-4",
+                children: [contact.address && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  className: "flex items-start gap-3",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "p-2 rounded-full bg-schemesSurfaceContainerHigh flex-shrink-0",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.MapPinIcon, {
+                      size: 20,
+                      className: "text-schemesOnSurfaceVariant"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "flex flex-col gap-0.5",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                      className: "Blueprint-label-large text-schemesOnSurfaceVariant",
+                      children: "Address"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                      className: "Blueprint-body-medium text-schemesOnSurface",
+                      children: contact.address
+                    })]
+                  })]
+                }), contact.phone && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  className: "flex items-start gap-3",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "p-2 rounded-full bg-schemesSurfaceContainerHigh flex-shrink-0",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PhoneCallIcon, {
+                      size: 20,
+                      className: "text-schemesOnSurfaceVariant"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "flex flex-col gap-0.5",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                      className: "Blueprint-label-large text-schemesOnSurfaceVariant",
+                      children: "Phone"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                      href: `tel:${contact.phone}`,
+                      className: "Blueprint-body-medium text-schemesPrimary hover:underline",
+                      children: contact.phone
+                    })]
+                  })]
+                }), contact.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  className: "flex items-start gap-3",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "p-2 rounded-full bg-schemesSurfaceContainerHigh flex-shrink-0",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.MailboxIcon, {
+                      size: 20,
+                      className: "text-schemesOnSurfaceVariant"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "flex flex-col gap-0.5 min-w-0",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                      className: "Blueprint-label-large text-schemesOnSurfaceVariant",
+                      children: "Email"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                      href: `mailto:${contact.email}`,
+                      className: "Blueprint-body-medium text-schemesPrimary hover:underline break-all",
+                      children: contact.email
+                    })]
+                  })]
+                }), contact.website && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  className: "flex items-start gap-3",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "p-2 rounded-full bg-schemesSurfaceContainerHigh flex-shrink-0",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.GlobeIcon, {
+                      size: 20,
+                      className: "text-schemesOnSurfaceVariant"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "flex flex-col gap-0.5 min-w-0",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                      className: "Blueprint-label-large text-schemesOnSurfaceVariant",
+                      children: "Website"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                      href: contact.website,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                      className: "Blueprint-body-medium text-schemesPrimary hover:underline break-all",
+                      children: contact.website.replace(/^https?:\/\//, "")
+                    })]
+                  })]
+                })]
+              })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("aside", {
-            className: "w-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1 min-w-70 mt-10 lg:mt-0",
+            className: "w-full lg:w-auto space-y-4 lg:sticky lg:top-16 lg:self-start flex-1 lg:min-w-70 lg:max-w-80 mt-8 lg:mt-0",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
-                className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2",
+                className: "Blueprint-title-medium-emphasized lg:Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2",
                 children: "Related Content"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 className: "rounded-lg flex items-stretch justify-center",
@@ -1221,7 +1300,7 @@ function AidListingPage({
                     href: item.href,
                     description: item.description
                   }, item.id)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
-                    className: "text-schemesOnSurfaceVariant",
+                    className: "text-schemesOnSurfaceVariant Blueprint-body-medium p-2",
                     children: "No related content available."
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                     href: "/topics",
@@ -1240,18 +1319,18 @@ function AidListingPage({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "bg-schemesPrimaryFixed w-full",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "p-6 md:p-8 lg:p-16 flex flex-col max-w-[1600px] mx-auto gap-4",
+        className: "p-4 sm:p-6 md:p-8 lg:p-16 flex flex-col max-w-[1600px] mx-auto gap-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "flex flex-wrap gap-3 items-center",
+          className: "flex flex-wrap gap-2 sm:gap-3 items-center",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            className: "lg:Blueprint-headline-large-emphasized md:Blueprint-title-medium-emphasized Blueprint-title-small-emphasized italic",
+            className: "Blueprint-title-medium-emphasized sm:Blueprint-title-large-emphasized lg:Blueprint-headline-large-emphasized italic",
             children: "Explore more by"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PillTag__WEBPACK_IMPORTED_MODULE_6__["default"], {
             label: "Theme",
             backgroundColor: "schemesPrimaryContainer"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface mb-8 lg:mb-12 max-w-[68ch]",
+          className: "Blueprint-body-small sm:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface mb-6 sm:mb-8 lg:mb-12 max-w-[68ch]",
           children: "From support services to creative culture, start where you're curious."
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ExploreByTheme__WEBPACK_IMPORTED_MODULE_5__.ExploreByTheme, {})]
       })
@@ -1935,4 +2014,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing.js.map?ver=2b5c2c137dc35e1050b4
+//# sourceMappingURL=aid-listing.js.map?ver=972e780a82fcee7e1152

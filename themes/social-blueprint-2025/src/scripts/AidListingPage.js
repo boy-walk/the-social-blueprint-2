@@ -2,7 +2,12 @@ import React, { useMemo } from "react";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { RelatedContentCard } from "./RelatedContentCard";
 import { Button } from "./Button";
-import { GlobeIcon, MailboxIcon, PhoneCallIcon } from "@phosphor-icons/react";
+import {
+  GlobeIcon,
+  MailboxIcon,
+  PhoneCallIcon,
+  MapPinIcon,
+} from "@phosphor-icons/react";
 import { ShareButton } from "./ShareButton";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
@@ -36,77 +41,90 @@ export default function AidListingPage({ props }) {
     }
   }, []);
 
+  const hasContactInfo =
+    contact.website || contact.email || contact.phone || contact.address;
+
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
-      <div className="p-6 md:p-8 lg:p-12">
-        <div className="lg:max-w-[1600px] sm:max-w-[640px] md:max-w-[640px] mx-auto px-0 lg:px-16">
+      <div className="p-4 sm:p-6 md:p-8 lg:p-12">
+        <div className="max-w-[1600px] mx-auto px-0 lg:px-16">
           <Breadcrumbs items={breadcrumbs} />
           <div className="flex flex-col lg:flex-row lg:gap-16">
             <div className="flex-[3] min-w-0 space-y-4">
-              <header className="space-y-1 lg:space-y-2">
-                <h1 className="Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight py-3">
+              <header className="space-y-3 lg:space-y-4">
+                <h1 className="Blueprint-title-large sm:Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight py-2 lg:py-3">
                   {title}
                 </h1>
-                <div className="flex flex-row justify-between">
-                  <div className="flex items-center gap-4">
-                    {author?.avatar ? (
-                      <img
-                        src={author.avatar}
-                        alt={author?.name || ""}
-                        className="w-10 h-10 rounded-full"
-                      />
-                    ) : null}
-                    <div className="flex flex-col gap-1">
-                      <div className="lg:Blueprint-title-medium">
-                        {author?.name || ""}
-                      </div>
-                      <div className="Blueprint-label-large text-schemesOnSurfaceVariant">
-                        {formattedDate}
-                      </div>
+
+                {gdHtml.notifications && (
+                  <div
+                    className="!px-0"
+                    dangerouslySetInnerHTML={{ __html: gdHtml.notifications }}
+                  />
+                )}
+
+                <div className="flex items-center gap-3">
+                  {author?.avatar && (
+                    <img
+                      src={author.avatar}
+                      alt={author?.name || ""}
+                      className="w-10 h-10 rounded-full flex-shrink-0"
+                    />
+                  )}
+                  <div className="flex flex-col gap-0.5">
+                    <div className="Blueprint-title-small lg:Blueprint-title-medium">
+                      {author?.name || ""}
+                    </div>
+                    <div className="Blueprint-label-medium lg:Blueprint-label-large text-schemesOnSurfaceVariant">
+                      {formattedDate}
                     </div>
                   </div>
-                  <div className="flex flex-row justify-end gap-1">
-                    {contact.website && (
-                      <Button
-                        variant="tonal"
-                        onClick={() => { window.open(contact.website, "_blank") }}
-                        className="whitespace-nowrap"
-                        label="Website"
-                        icon={<GlobeIcon size={22} />}
-                      />
-                    )}
-                    {contact.email && (
-                      <Button
-                        variant="tonal"
-                        onClick={() => { window.location.href = `mailto:${contact.email}` }}
-                        className="whitespace-nowrap"
-                        label="Email"
-                        icon={<MailboxIcon size={22} />}
-                      />
-                    )}
-                    {contact.phone && (
-                      <Button
-                        variant="tonal"
-                        onClick={() => { window.location.href = `tel:${contact.phone}` }}
-                        className="whitespace-nowrap"
-                        label="Call"
-                        icon={<PhoneCallIcon size={22} />}
-                      />
-                    )}
-                    <ShareButton
-                      title={title}
-                      summary=""
-                      size="lg"
-                      url={typeof window !== "undefined" ? window.location.href : undefined}
+                </div>
+
+                <div className="flex flex-col sm:flex-row flex-wrap gap-2">
+                  {contact.website && (
+                    <Button
+                      variant="tonal"
+                      onClick={() => window.open(contact.website, "_blank")}
+                      className="w-full sm:w-auto justify-center sm:justify-start"
+                      label="Website"
+                      icon={<GlobeIcon size={22} />}
                     />
-                  </div>
+                  )}
+                  {contact.email && (
+                    <Button
+                      variant="tonal"
+                      onClick={() =>
+                        (window.location.href = `mailto:${contact.email}`)
+                      }
+                      className="w-full sm:w-auto justify-center sm:justify-start"
+                      label="Email"
+                      icon={<MailboxIcon size={22} />}
+                    />
+                  )}
+                  {contact.phone && (
+                    <Button
+                      variant="tonal"
+                      onClick={() =>
+                        (window.location.href = `tel:${contact.phone}`)
+                      }
+                      className="w-full sm:w-auto justify-center sm:justify-start"
+                      label="Call"
+                      icon={<PhoneCallIcon size={22} />}
+                    />
+                  )}
+                  <ShareButton
+                    title={title}
+                    summary=""
+                    size="lg"
+                    url={
+                      typeof window !== "undefined"
+                        ? window.location.href
+                        : undefined
+                    }
+                  />
                 </div>
               </header>
-
-              {/* GD EXACT DATA */}
-              {gdHtml.notifications && (
-                <div className="!px-0" dangerouslySetInnerHTML={{ __html: gdHtml.notifications }} />
-              )}
 
               {gdHtml.taxonomies && (
                 <section
@@ -121,11 +139,107 @@ export default function AidListingPage({ props }) {
                   dangerouslySetInnerHTML={{ __html: gdHtml.tabs }}
                 />
               )}
+
+              {hasContactInfo && (
+                <section className="rounded-xl bg-schemesSurfaceContainerLow p-4 sm:p-6 space-y-4">
+                  <h2 className="Blueprint-title-medium-emphasized lg:Blueprint-title-large-emphasized">
+                    Contact Details
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {contact.address && (
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 rounded-full bg-schemesSurfaceContainerHigh flex-shrink-0">
+                          <MapPinIcon
+                            size={20}
+                            className="text-schemesOnSurfaceVariant"
+                          />
+                        </div>
+                        <div className="flex flex-col gap-0.5">
+                          <span className="Blueprint-label-large text-schemesOnSurfaceVariant">
+                            Address
+                          </span>
+                          <span className="Blueprint-body-medium text-schemesOnSurface">
+                            {contact.address}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {contact.phone && (
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 rounded-full bg-schemesSurfaceContainerHigh flex-shrink-0">
+                          <PhoneCallIcon
+                            size={20}
+                            className="text-schemesOnSurfaceVariant"
+                          />
+                        </div>
+                        <div className="flex flex-col gap-0.5">
+                          <span className="Blueprint-label-large text-schemesOnSurfaceVariant">
+                            Phone
+                          </span>
+                          <a
+                            href={`tel:${contact.phone}`}
+                            className="Blueprint-body-medium text-schemesPrimary hover:underline"
+                          >
+                            {contact.phone}
+                          </a>
+                        </div>
+                      </div>
+                    )}
+
+                    {contact.email && (
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 rounded-full bg-schemesSurfaceContainerHigh flex-shrink-0">
+                          <MailboxIcon
+                            size={20}
+                            className="text-schemesOnSurfaceVariant"
+                          />
+                        </div>
+                        <div className="flex flex-col gap-0.5 min-w-0">
+                          <span className="Blueprint-label-large text-schemesOnSurfaceVariant">
+                            Email
+                          </span>
+                          <a
+                            href={`mailto:${contact.email}`}
+                            className="Blueprint-body-medium text-schemesPrimary hover:underline break-all"
+                          >
+                            {contact.email}
+                          </a>
+                        </div>
+                      </div>
+                    )}
+
+                    {contact.website && (
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 rounded-full bg-schemesSurfaceContainerHigh flex-shrink-0">
+                          <GlobeIcon
+                            size={20}
+                            className="text-schemesOnSurfaceVariant"
+                          />
+                        </div>
+                        <div className="flex flex-col gap-0.5 min-w-0">
+                          <span className="Blueprint-label-large text-schemesOnSurfaceVariant">
+                            Website
+                          </span>
+                          <a
+                            href={contact.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="Blueprint-body-medium text-schemesPrimary hover:underline break-all"
+                          >
+                            {contact.website.replace(/^https?:\/\//, "")}
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </section>
+              )}
             </div>
 
-            <aside className="w-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1 min-w-70 mt-10 lg:mt-0">
+            <aside className="w-full lg:w-auto space-y-4 lg:sticky lg:top-16 lg:self-start flex-1 lg:min-w-70 lg:max-w-80 mt-8 lg:mt-0">
               <section>
-                <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2">
+                <h2 className="Blueprint-title-medium-emphasized lg:Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant p-2">
                   Related Content
                 </h2>
                 <div className="rounded-lg flex items-stretch justify-center">
@@ -141,7 +255,7 @@ export default function AidListingPage({ props }) {
                         />
                       ))
                     ) : (
-                      <p className="text-schemesOnSurfaceVariant">
+                      <p className="text-schemesOnSurfaceVariant Blueprint-body-medium p-2">
                         No related content available.
                       </p>
                     )}
@@ -157,17 +271,19 @@ export default function AidListingPage({ props }) {
           </div>
         </div>
       </div>
+
       <div className="bg-schemesPrimaryFixed w-full">
-        <div className="p-6 md:p-8 lg:p-16 flex flex-col max-w-[1600px] mx-auto gap-4">
-          <div className="flex flex-wrap gap-3 items-center">
-            <div className="lg:Blueprint-headline-large-emphasized md:Blueprint-title-medium-emphasized Blueprint-title-small-emphasized italic">
+        <div className="p-4 sm:p-6 md:p-8 lg:p-16 flex flex-col max-w-[1600px] mx-auto gap-4">
+          <div className="flex flex-wrap gap-2 sm:gap-3 items-center">
+            <div className="Blueprint-title-medium-emphasized sm:Blueprint-title-large-emphasized lg:Blueprint-headline-large-emphasized italic">
               Explore more by
             </div>
             <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
           </div>
 
-          <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface mb-8 lg:mb-12 max-w-[68ch]">
-            From support services to creative culture, start where you're curious.
+          <div className="Blueprint-body-small sm:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurface mb-6 sm:mb-8 lg:mb-12 max-w-[68ch]">
+            From support services to creative culture, start where you're
+            curious.
           </div>
 
           <ExploreByTheme />

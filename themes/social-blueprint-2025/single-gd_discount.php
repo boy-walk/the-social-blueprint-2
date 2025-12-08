@@ -124,6 +124,7 @@ if ($recent_q->have_posts()) {
       'date'       => get_the_date('', $p),
       'author'     => get_the_author_meta('display_name', $p->post_author),
       'post_type'  => get_post_type($p),
+      'phone'     => get_post_meta($p->ID, 'gd_place_phone', true),
       'categories' => $cats,        // human-readable category labels
       'cat_slugs'  => $cat_slugs,   // optional: slugs if you need URLs/filters
     ];

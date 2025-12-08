@@ -1534,7 +1534,8 @@ function MessageBoardPage({
   relatedContent = [],
   recentPosts = [],
   trendingTopics = [],
-  breadcrumbs = []
+  breadcrumbs = [],
+  phone
 }) {
   const formattedDate = date ? new Date(date).toLocaleDateString("en-AU", {
     year: "numeric",
@@ -2355,4 +2356,4 @@ const Tag = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=ecae64974ce22369d6c0
+//# sourceMappingURL=mb-page.js.map?ver=c405150a386991a37364

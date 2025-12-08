@@ -274,6 +274,7 @@ mount(
       recentPosts: parse(ds.recentPosts || '[]'), trendingTopics: parse(ds.trendingTopics || '[]'),
       breadcrumbs: parse(ds.breadcrumbs || '[]'),
       tags: parse(ds.tags || '[]'),
+      phone: ds.phone || null,
     };
   }
 );

@@ -1860,7 +1860,7 @@ function ContentCard({
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
-          className: " h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 [transform-origin:center] ",
+          className: " h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105 [transform-origin:center] ",
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -2392,4 +2392,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=health-hub.js.map?ver=9eff4e6167a398a94f05
+//# sourceMappingURL=health-hub.js.map?ver=caf06571670b208999ba
