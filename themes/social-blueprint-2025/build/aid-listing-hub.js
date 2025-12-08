@@ -1959,7 +1959,7 @@ function ContentCard({
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
-          className: " h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105 [transform-origin:center] ",
+          className: " h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 [transform-origin:center] ",
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -2390,4 +2390,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing-hub.js.map?ver=8489ef00a2fb72d1d9c3
+//# sourceMappingURL=aid-listing-hub.js.map?ver=09c75b56d651789c0cc4

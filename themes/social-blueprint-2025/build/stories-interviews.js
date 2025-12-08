@@ -2103,7 +2103,7 @@ function ContentCard({
         children: [image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: image,
           alt: title,
-          className: " h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105 [transform-origin:center] ",
+          className: " h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 [transform-origin:center] ",
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -2709,4 +2709,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=stories-interviews.js.map?ver=a9830cc9f873c68ca1cf
+//# sourceMappingURL=stories-interviews.js.map?ver=3028e91c1be6af1fbb18
