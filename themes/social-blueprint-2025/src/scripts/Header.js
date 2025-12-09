@@ -90,8 +90,10 @@ const MENU_SECTIONS = {
       title: "Browse",
       items: [
         { label: "All Listings", href: "/directory" },
-        { label: "Featured Listings", href: "/directory?featured=1" },
-        { label: "Support Services", href: "/directory?type=service" },
+        { label: "Cost of Living", href: "/cost-of-living" },
+        { label: "Health Listings", href: "/health-listing-hub" },
+        { label: "Aid Listings", href: "/aid-listing-hub" },
+        { label: "Social | Community Interests", href: "/listings" }
       ],
     },
     {

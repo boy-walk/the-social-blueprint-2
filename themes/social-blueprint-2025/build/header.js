@@ -263,11 +263,17 @@ const MENU_SECTIONS = {
       label: "All Listings",
       href: "/directory"
     }, {
-      label: "Featured Listings",
-      href: "/directory?featured=1"
+      label: "Cost of Living",
+      href: "/cost-of-living"
     }, {
-      label: "Support Services",
-      href: "/directory?type=service"
+      label: "Health Listings",
+      href: "/health-listing-hub"
+    }, {
+      label: "Aid Listings",
+      href: "/aid-listing-hub"
+    }, {
+      label: "Social | Community Interests",
+      href: "/listings"
     }]
   }, {
     title: "Contribute",
@@ -1113,4 +1119,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=5898f5d22f39c2ddfebd
+//# sourceMappingURL=header.js.map?ver=1c051c23aaba567ac500
