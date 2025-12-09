@@ -9,7 +9,7 @@ export const SponsorshipBanner = ({ imgSrc, enabled, href }) => {
       <div
         className="
           flex flex-col items-start text-left
-          md:flex-row md:justify-between lg:items-center
+          lg:flex-row lg:justify-between lg:items-center
           gap-6 md:gap-8 lg:gap-10
         "
       >
@@ -35,7 +35,7 @@ export const SponsorshipBanner = ({ imgSrc, enabled, href }) => {
               alt="Sponsor Logo"
               className="
                 w-auto
-                max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[420px]
+                max-w-[250px] md:max-w-[360px] lg:max-w-[420px]
                 object-contain
               "
             />

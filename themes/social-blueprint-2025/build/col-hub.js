@@ -2392,7 +2392,7 @@ const SponsorshipBanner = ({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
     className: "w-full bg-schemesInverseSurface rounded-2xl p-6 md:p-8 lg:p-10",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: " flex flex-col items-start text-left md:flex-row md:justify-between lg:items-center gap-6 md:gap-8 lg:gap-10 ",
+      className: " flex flex-col items-start text-left lg:flex-row lg:justify-between lg:items-center gap-6 md:gap-8 lg:gap-10 ",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: " flex flex-col lg:items-start justify-start gap-4 lg:w-auto ",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
@@ -2401,7 +2401,7 @@ const SponsorshipBanner = ({
         }), imgSrc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: imgSrc,
           alt: "Sponsor Logo",
-          className: " w-auto max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[420px] object-contain "
+          className: " w-auto max-w-[250px] md:max-w-[360px] lg:max-w-[420px] object-contain "
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: " flex flex-row justify-center items-end gap-4 md:flex-row lg:flex-col lg:justify-end ",
@@ -2472,4 +2472,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=cce2cce7548b8a60d1fc
+//# sourceMappingURL=col-hub.js.map?ver=6be3151746624c5a9884
