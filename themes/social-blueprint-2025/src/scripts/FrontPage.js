@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useEffect, useState } from "react";
 import { SearchBar } from "./SearchBar";
-import DirectoryIcon from "../../assets/directory.svg"
+import EventIcon from "../../assets/generic-event.svg"
 import { getBadge } from "./getBadge";
 import { HeroCard } from "./HeroCard";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
@@ -229,8 +229,8 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                       />
                     </div>
                   </div>
-                  <div className="absolute bottom-5 right-5">
-                    <img src={DirectoryIcon} alt="Cost of Living" className="w-40 h-30" />
+                  <div className="absolute bottom-0 right-5">
+                    <img src={EventIcon} alt="Events" className="w-50 h-40" />
                   </div>
                 </div>
               </a>
