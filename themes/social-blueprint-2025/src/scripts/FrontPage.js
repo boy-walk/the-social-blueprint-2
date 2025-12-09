@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useEffect, useState } from "react";
 import { SearchBar } from "./SearchBar";
-import { ContentCard } from "./ContentCard";
+import DirectoryIcon from "../../assets/directory.svg"
 import { getBadge } from "./getBadge";
 import { HeroCard } from "./HeroCard";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
@@ -209,17 +209,31 @@ export default function FrontPage({ candleLightingTimes, recentArticle, recentEv
                 /> : <div />}
               </div>
 
-              <div className="row-span-2 lg:row-span-5">
-                {recentEvent ? <HeroCard badge={getBadge(recentEvent.post_type)}
-                  image={recentEvent.thumbnail}
-                  href={recentEvent.permalink}
-                  title={recentEvent.title}
-                  subtitle={recentEvent.subtitle || recentEvent.excerpt}
-                  date={recentEvent.date}
-                  fullHeight
-                  shadow
-                /> : <div />}
-              </div>
+              <a className="relative row-span-2 lg:row-span-5 bg-[#B5E2CF] rounded-xl shadow-3x2 transition-transform hover:-translate-y-1" href="/events">
+                <div className="flex flex-row p-4">
+                  <div className="flex flex-col items-start justify-start h-full p-2">
+                    <div className="Blueprint-body-large-emphasized text-schemesOnSurface">
+                      Community Events
+                    </div>
+                    <div className="Blueprint-body-large text-schemesOnSurface mt-2">
+                      Discover Melbourne's largest Jewish events calendar.
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <div className="p-2 bg-schemesPrimaryFixed rounded-2xl">
+                      <ArrowUpRightIcon
+                        size={24}
+                        className="text-schemesOnSecondary"
+                        color="black"
+                        weight="bold"
+                      />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-5 right-5">
+                    <img src={DirectoryIcon} alt="Cost of Living" className="w-40 h-30" />
+                  </div>
+                </div>
+              </a>
 
               {/* MESSAGEBOARD CTA */}
               <a className="relative row-span-1 lg:row-span-3 bg-schemesPrimaryContainer rounded-xl shadow-3x2 transition-transform hover:-translate-y-1" href="/message-boards">
