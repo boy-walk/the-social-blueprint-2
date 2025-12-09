@@ -266,7 +266,7 @@ add_action('init', function () {
   foreach ($other_tax as $slug => $name) {
     register_taxonomy($slug, $post_types, [
       'label'        => $name . ' Tags',
-      'hierarchical' => false,
+      'hierarchical' => true,
       'public'       => true,
       'rewrite'      => ['slug' => $slug],
       'show_in_rest' => true,

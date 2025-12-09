@@ -500,7 +500,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * GenericArchivePage (lean) + mobile filters drawer
+ * GenericArchivePage
+ * - Supports pre-fetched terms in filters (filter.terms)
+ * - Only fetches terms from API if not provided by PHP
  */
 
 function GenericArchivePage(props) {
@@ -515,14 +517,8 @@ function GenericArchivePage(props) {
     subtitle,
     breadcrumbs = []
   } = props;
-  const postTypes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(postType) ? postType : [postType], [postType]);
   const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
-  const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
-    if (taxonomy && currentTerm?.id) return {
-      [taxonomy]: [String(currentTerm.id)]
-    };
-    return {};
-  });
+  const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [totalPages, setTotalPages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
   const [total, setTotal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
@@ -533,35 +529,60 @@ function GenericArchivePage(props) {
   const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const [expandedFilters, setExpandedFilters] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set());
-  const displayedFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    return filters;
-  }, [filters]);
+
+  // Initialize termsOptions with pre-fetched terms from filters
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!displayedFilters.length) {
-      setTermsOptions({});
-      return;
+    const preFetched = {};
+    for (const f of filters) {
+      if (f.terms && Array.isArray(f.terms) && f.terms.length > 0) {
+        // Use pre-fetched terms directly
+        preFetched[f.taxonomy] = f.terms.map(t => {
+          var _t$parent;
+          return {
+            id: String(t.id),
+            name: t.name,
+            slug: t.slug,
+            parent: String((_t$parent = t.parent) !== null && _t$parent !== void 0 ? _t$parent : 0)
+          };
+        });
+        fetchedOnceRef.current.add(f.taxonomy);
+      }
     }
+    if (Object.keys(preFetched).length) {
+      setTermsOptions(prev => ({
+        ...prev,
+        ...preFetched
+      }));
+    }
+  }, [filters]);
+
+  // Fetch terms for filters that don't have pre-fetched terms
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const filtersToFetch = filters.filter(f => !f.terms && !fetchedOnceRef.current.has(f.taxonomy));
+    if (!filtersToFetch.length) return;
     let cancelled = false;
     (async () => {
       const next = {};
-      for (const f of displayedFilters) {
+      for (const f of filtersToFetch) {
         const tax = f.taxonomy;
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
-          const res = await fetch(`/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=1000&post_type=${postType}}`, {
+          const ptParam = Array.isArray(postType) ? postType[0] : postType;
+          const termsUrl = `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=200${ptParam ? `&post_type=${encodeURIComponent(ptParam)}` : ''}`;
+          const res = await fetch(termsUrl, {
             headers: {
               Accept: "application/json"
             }
           });
-          if (!res.ok) throw new Error(`Terms fetch failed for ${tax} (HTTP ${res.status})`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const json = await res.json();
           const rows = (Array.isArray(json) ? json : []).map(t => {
-            var _t$parent;
+            var _t$parent2;
             return {
               id: String(t.id),
               name: t.name,
               slug: t.slug,
-              parent: String(((_t$parent = t.parent) !== null && _t$parent !== void 0 ? _t$parent : 0) || "0")
+              parent: String(((_t$parent2 = t.parent) !== null && _t$parent2 !== void 0 ? _t$parent2 : 0) || "0")
             };
           });
           const isHier = rows.some(r => r.parent !== "0");
@@ -592,7 +613,7 @@ function GenericArchivePage(props) {
           }
           fetchedOnceRef.current.add(tax);
         } catch {
-          next[f.taxonomy] = [];
+          next[tax] = [];
         }
       }
       if (!cancelled && Object.keys(next).length) setTermsOptions(prev => ({
@@ -603,40 +624,9 @@ function GenericArchivePage(props) {
     return () => {
       cancelled = true;
     };
-  }, [displayedFilters]);
-  const didScopeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (didScopeRef.current) return;
-    if (!taxonomy || !currentTerm?.id) return;
-    const opts = termsOptions[taxonomy];
-    if (!opts || !opts.length) return;
-    const isTree = Array.isArray(opts) && Array.isArray(opts[0]?.children);
-    if (isTree) {
-      const stack = [...opts];
-      let node = null;
-      while (stack.length) {
-        const n = stack.pop();
-        if (String(n.id) === String(currentTerm.id)) {
-          node = n;
-          break;
-        }
-        (n.children || []).forEach(c => stack.push(c));
-      }
-      if (node) {
-        setTermsOptions(prev => ({
-          ...prev,
-          [taxonomy]: [node]
-        }));
-        didScopeRef.current = true;
-      }
-    } else {
-      setTermsOptions(prev => ({
-        ...prev,
-        [taxonomy]: (prev[taxonomy] || []).filter(o => String(o.id) === String(currentTerm.id))
-      }));
-      didScopeRef.current = true;
-    }
-  }, [termsOptions, taxonomy, currentTerm]);
+  }, [filters, postType]);
+
+  // Fetch posts
   const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
@@ -691,6 +681,8 @@ function GenericArchivePage(props) {
       cancelled = true;
     };
   }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
+
+  // Client-side search index
   const searchIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     const idx = new Map();
     const collect = (val, bag) => {
@@ -729,6 +721,8 @@ function GenericArchivePage(props) {
     setSelectedTerms({});
     setPage(1);
   };
+
+  // Mobile drawer state
   const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const firstCloseBtnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const openFilters = () => setIsFiltersOpen(true);
@@ -748,20 +742,21 @@ function GenericArchivePage(props) {
     };
   }, [isFiltersOpen]);
   const filterCount = Object.values(selectedTerms).reduce((n, arr) => n + (arr?.length || 0), 0) + (searching ? 1 : 0);
+  const hasFiltersToShow = filters.some(f => (termsOptions[f.taxonomy] || []).length > 0);
   const skeletonCards = Array.from({
     length: 8
   }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-    className: "rounded-xl border border-[var(--schemesOutlineVariant)] overflow-hidden",
+    className: "rounded-xl border border-schemesOutlineVariant overflow-hidden",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "w-full aspect-[1] bg-[var(--schemesSurfaceContainerHighest)] animate-pulse"
+      className: "w-full aspect-square bg-schemesSurfaceContainerHighest animate-pulse"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "p-4 space-y-2",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "h-4 w-3/4 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+        className: "h-4 w-3/4 bg-schemesSurfaceContainerHigh animate-pulse rounded"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "h-3 w-1/2 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+        className: "h-3 w-1/2 bg-schemesSurfaceContainerHigh animate-pulse rounded"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "h-3 w-2/3 bg-[var(--schemesSurfaceContainerHigh)] animate-pulse rounded"
+        className: "h-3 w-2/3 bg-schemesSurfaceContainerHigh animate-pulse rounded"
       })]
     })]
   }, `sk-${i}`));
@@ -794,7 +789,7 @@ function GenericArchivePage(props) {
             value: searchQuery,
             onChange: e => setSearchQuery(e.target.value),
             placeholder: "Search by keyword",
-            className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+            className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlassIcon, {
             size: 20,
             className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
@@ -807,13 +802,13 @@ function GenericArchivePage(props) {
           label: filterCount ? `Filters (${filterCount})` : "Filters",
           variant: "outlined",
           size: "base",
-          "aria-expanded": isFiltersOpen ? "true" : "false",
+          "aria-expanded": isFiltersOpen,
           "aria-controls": "mobile-filters"
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "tsb-container flex flex-col lg:flex-row py-8 gap-8",
-      children: [displayedFilters.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("aside", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("aside", {
         className: "hidden lg:block lg:w-64 xl:w-72 shrink-0",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "mb-6",
@@ -821,109 +816,108 @@ function GenericArchivePage(props) {
             htmlFor: "archive-search",
             className: "sr-only",
             children: "Search by keyword"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "bg-schemesSurfaceContainer flex items-center gap-2 rounded-full px-4 py-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+              id: "archive-search",
+              type: "search",
+              value: searchQuery,
+              onChange: e => setSearchQuery(e.target.value),
+              placeholder: "Search by keyword",
+              className: "w-full outline-none Blueprint-body-medium text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant bg-transparent"
+            }), !searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlassIcon, {
+              size: 20,
+              className: "text-schemesOnSurfaceVariant",
+              weight: "bold"
+            })]
+          })]
+        }), hasFiltersToShow && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+            className: "Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant",
+            children: "Filters"
+          }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "mb-4 flex flex-wrap gap-2",
+            children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              size: "sm",
+              variant: "tonal",
+              onClick: clearAllFilters,
+              label: "Clear filters"
+            }), searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              size: "sm",
+              variant: "tonal",
+              onClick: () => setSearchQuery(""),
+              label: "Clear search"
+            })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "flex items-center gap-2",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-              className: "bg-schemesSurfaceContainer flex-1 flex items-center gap-2 rounded-full px-4 py-3",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-                id: "archive-search",
-                type: "search",
-                value: searchQuery,
-                onChange: e => setSearchQuery(e.target.value),
-                placeholder: "Search by keyword",
-                className: "w-full outline-none Blueprint-body-medium text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant"
-              }), !searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlassIcon, {
-                size: 20,
-                className: "text-schemesOnSurfaceVariant",
-                weight: "bold"
-              })]
+            className: "space-y-6",
+            children: filters.filter(f => (termsOptions[f.taxonomy] || []).length > 0).map(f => {
+              const allOptions = termsOptions[f.taxonomy] || [];
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                    htmlFor: `filter-${f.taxonomy}`,
+                    className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
+                    children: f.label || "People"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+                    id: `filter-${f.taxonomy}`,
+                    value: selectedTerms[f.taxonomy]?.[0] || "",
+                    onChange: e => {
+                      const value = e.target.value;
+                      setSelectedTerms(prev => ({
+                        ...prev,
+                        [f.taxonomy]: value ? [value] : []
+                      }));
+                      setPage(1);
+                    },
+                    className: "w-full rounded-lg border border-schemesOutlineVariant bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-schemesPrimary focus:outline-none",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                      value: "",
+                      children: "All"
+                    }), allOptions.map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                      value: opt.id,
+                      children: opt.name
+                    }, opt.id))]
+                  })]
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
+                  title: f.label || f.taxonomy,
+                  options: allOptions,
+                  selected: selectedTerms[f.taxonomy] || [],
+                  expanded: expandedFilters[f.taxonomy],
+                  onToggleExpand: () => setExpandedFilters(prev => ({
+                    ...prev,
+                    [f.taxonomy]: true
+                  })),
+                  onShowLess: () => setExpandedFilters(prev => ({
+                    ...prev,
+                    [f.taxonomy]: false
+                  })),
+                  onChangeHandler: e => {
+                    const id = String(e.target.value);
+                    const checked = !!e.target.checked;
+                    setSelectedTerms(prev => {
+                      const current = prev[f.taxonomy] || [];
+                      const next = checked ? [...current, id] : current.filter(x => x !== id);
+                      return {
+                        ...prev,
+                        [f.taxonomy]: next
+                      };
+                    });
+                    setPage(1);
+                  }
+                })
+              }, f.taxonomy);
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
-          className: "Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant",
-          children: "Filters"
-        }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "mb-4 flex flex-wrap gap-2",
-          children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-            size: "sm",
-            variant: "tonal",
-            onClick: clearAllFilters,
-            label: "Clear filters"
-          }), searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
-            size: "sm",
-            variant: "tonal",
-            onClick: () => setSearchQuery(""),
-            label: "Clear search"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "space-y-6",
-          children: displayedFilters.filter(f => (termsOptions[f.taxonomy] || []).length > 0).map(f => {
-            const allOptions = termsOptions[f.taxonomy] || [];
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-              children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                  htmlFor: `filter-${f.taxonomy}`,
-                  className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
-                  children: f.label || "People"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-                  id: `filter-${f.taxonomy}`,
-                  value: selectedTerms[f.taxonomy]?.[0] || "",
-                  onChange: e => {
-                    const value = e.target.value;
-                    setSelectedTerms(prev => ({
-                      ...prev,
-                      [f.taxonomy]: value ? [value] : []
-                    }));
-                    setPage(1);
-                  },
-                  className: "w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                    value: "",
-                    children: "All"
-                  }), allOptions.map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                    value: opt.id,
-                    children: opt.name
-                  }, opt.id))]
-                })]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
-                title: f.label || f.taxonomy,
-                options: allOptions,
-                selected: selectedTerms[f.taxonomy] || [],
-                expanded: expandedFilters[f.taxonomy],
-                onToggleExpand: () => setExpandedFilters(prev => ({
-                  ...prev,
-                  [f.taxonomy]: true
-                })),
-                onShowLess: () => setExpandedFilters(prev => ({
-                  ...prev,
-                  [f.taxonomy]: false
-                })),
-                onChangeHandler: e => {
-                  const id = String(e.target.value);
-                  const checked = !!e.target.checked;
-                  setSelectedTerms(prev => {
-                    const current = prev[f.taxonomy] || [];
-                    const next = checked ? [...current, id] : current.filter(x => x !== id);
-                    return {
-                      ...prev,
-                      [f.taxonomy]: next
-                    };
-                  });
-                  setPage(1);
-                }
-              })
-            }, f.taxonomy);
-          })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("section", {
         className: "flex-1 min-w-0",
         children: [error && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "mb-8 rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurface)] p-6",
+          className: "mb-8 rounded-xl border border-schemesOutlineVariant bg-schemesSurface p-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "Blueprint-title-small-emphasized mb-2 text-[var(--schemesError)]",
+            className: "Blueprint-title-small-emphasized mb-2 text-schemesError",
             children: "Something went wrong"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            className: "Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-4",
+            className: "Blueprint-body-medium text-schemesOnSurfaceVariant mb-4",
             children: error
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "flex gap-2",
@@ -942,12 +936,12 @@ function GenericArchivePage(props) {
           "aria-hidden": "true",
           children: skeletonCards
         }), !loading && !error && filteredItems.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "rounded-2xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] p-10 text-center mb-8",
+          className: "rounded-2xl border border-schemesOutlineVariant bg-schemesSurfaceContainerLowest p-10 text-center mb-8",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "Blueprint-headline-small mb-2",
             children: "No results found"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            className: "Blueprint-body-medium text-[var(--schemesOnSurfaceVariant)] mb-6",
+            className: "Blueprint-body-medium text-schemesOnSurfaceVariant mb-6",
             children: searching ? "Try a different keyword or clear search." : "Try adjusting or clearing your filters to see more results."
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "flex justify-center gap-3",
@@ -969,7 +963,7 @@ function GenericArchivePage(props) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "flex items-center justify-between mb-4",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-              className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-[var(--schemesOnSurfaceVariant)]",
+              className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant",
               "aria-live": "polite",
               children: searching ? `${filteredItems.length} match${filteredItems.length === 1 ? "" : "es"} on this page` : typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null
             }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -1021,19 +1015,19 @@ function GenericArchivePage(props) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       id: "mobile-filters",
       className: `lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`,
-      "aria-hidden": isFiltersOpen ? "false" : "true",
+      "aria-hidden": !isFiltersOpen,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         onClick: closeFilters,
-        className: `absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`
+        className: `absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-black/40`
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         role: "dialog",
         "aria-modal": "true",
         "aria-label": "Filters",
         className: `absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 ${isFiltersOpen ? "translate-y-0" : "translate-y-full"} flex flex-col`,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)] shrink-0",
+          className: "relative px-4 py-3 border-b border-schemesOutlineVariant shrink-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]"
+            className: "mx-auto h-1.5 w-12 rounded-full bg-schemesOutlineVariant"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "mt-3 flex items-center justify-between",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -1043,7 +1037,7 @@ function GenericArchivePage(props) {
               ref: firstCloseBtnRef,
               type: "button",
               onClick: closeFilters,
-              className: "rounded-full p-2 hover:bg-surfaceContainerHigh text-schemesOnSurfaceVariant",
+              className: "rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant",
               "aria-label": "Close filters",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.XIcon, {})
             })]
@@ -1057,15 +1051,16 @@ function GenericArchivePage(props) {
               placeholder: "Search by keyword",
               value: searchQuery,
               onChange: e => setSearchQuery(e.target.value),
-              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlassIcon, {
               size: 20,
               className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
               weight: "bold",
               "aria-hidden": true
             })]
-          }), displayedFilters.map(f => {
+          }), filters.map(f => {
             const allOptions = termsOptions[f.taxonomy] || [];
+            if (!allOptions.length) return null;
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
               children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
@@ -1083,7 +1078,7 @@ function GenericArchivePage(props) {
                     }));
                     setPage(1);
                   },
-                  className: "w-full rounded-lg border border-[var(--schemesOutlineVariant)] bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-[var(--schemesPrimary)] focus:outline-none",
+                  className: "w-full rounded-lg border border-schemesOutlineVariant bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-schemesPrimary focus:outline-none",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
                     value: "",
                     children: "All"
@@ -1122,7 +1117,7 @@ function GenericArchivePage(props) {
             }, `m-${f.taxonomy}`);
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2 shrink-0",
+          className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
             onClick: clearAllFilters,
             variant: "outlined",
@@ -1222,4 +1217,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=ee24b76784060b95e8c1
+//# sourceMappingURL=generic-archive.js.map?ver=c48a1d15516b56ed8727
