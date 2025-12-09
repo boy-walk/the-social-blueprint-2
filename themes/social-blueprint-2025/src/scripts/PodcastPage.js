@@ -84,7 +84,7 @@ export default function PodcastPage({
 
               <section className="space-y-6 lg:space-y-7 max-w-5xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant">
                 <div
-                  className=" break-words
+                  className="break-words
                                 [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline
                                 [&_img]:max-w-full [&_img]:h-auto [&_img]:block
                                 [&_figure]:max-w-full [&_figure]:overflow-hidden

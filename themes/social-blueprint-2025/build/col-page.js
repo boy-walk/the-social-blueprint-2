@@ -1333,7 +1333,7 @@ function CostOfLivingPage({
                 url: typeof window !== "undefined" ? window.location.href : undefined
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("section", {
-              className: "sbp-col-prose lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant",
+              className: "sbp-col-prose lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto [&_img]:block [&_figure]:max-w-full [&_figure]:overflow-hidden [&_p]:mb-4",
               dangerouslySetInnerHTML: {
                 __html: contentHtml || ""
               }
@@ -1892,4 +1892,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=col-page.js.map?ver=97579a52d361c7dce2a3
+//# sourceMappingURL=col-page.js.map?ver=c7f59ff35b8d278cbd68

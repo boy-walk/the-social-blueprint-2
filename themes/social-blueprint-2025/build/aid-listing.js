@@ -1134,7 +1134,7 @@ function AidListingPage({
                 className: "Blueprint-title-large sm:Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large leading-tight py-2 lg:py-3",
                 children: title
               }), gdHtml.notifications && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                className: "!px-0",
+                className: "!px-0 break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto [&_img]:block [&_figure]:max-w-full [&_figure]:overflow-hidden [&_p]:mb-4",
                 dangerouslySetInnerHTML: {
                   __html: gdHtml.notifications
                 }
@@ -2014,4 +2014,4 @@ function ShareButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing.js.map?ver=9565bd78d3dc981807fe
+//# sourceMappingURL=aid-listing.js.map?ver=cb525e027613ed063246

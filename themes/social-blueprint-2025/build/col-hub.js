@@ -1974,13 +1974,6 @@ function CostOfLiving({
           hide_recurring: true,
           post_type: ['gd_cost_of_living']
         },
-        filters: [{
-          label: "Community jobs",
-          tax: {
-            taxonomy: "gd_cost_of_livingcategory",
-            terms: ["education"]
-          }
-        }],
         className: "p-6 md:p-8 lg:p-16"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "py-16 px-4 sm:px-8 lg:px-16",
@@ -2472,4 +2465,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=6be3151746624c5a9884
+//# sourceMappingURL=col-hub.js.map?ver=4910cb026955d71921d3

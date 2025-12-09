@@ -1775,7 +1775,7 @@ function PodcastPage({
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("section", {
               className: "space-y-6 lg:space-y-7 max-w-5xl lg:Blueprint-body-large md:Blueprint-body-medium sm:Blueprint-body-small text-schemesOnSurfaceVariant",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                className: " break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto [&_img]:block [&_figure]:max-w-full [&_figure]:overflow-hidden [&_p]:mb-4",
+                className: "break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto [&_img]:block [&_figure]:max-w-full [&_figure]:overflow-hidden [&_p]:mb-4",
                 dangerouslySetInnerHTML: {
                   __html: content
                 }
@@ -2481,4 +2481,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=91fb04b4aa96acecd2c0
+//# sourceMappingURL=podcast-page.js.map?ver=5a257c8e7dd40c2d3e24
