@@ -1906,6 +1906,7 @@ function MessageBoardSlider({
         ref: scrollRef
         // keep horizontal scrolling but allow vertical overflow; remove hard px padding here because we set it dynamically above
         ,
+
         className: "flex items-stretch gap-2 transition-transform duration-300 ease-in-out overflow-x-auto overflow-y-visible py-2 scrollbar-hidden",
         children: messageBoard.map(post => {
           const cats = Array.isArray(post.categories) ? post.categories.slice(0, 2) : [];
@@ -2718,4 +2719,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=9975471f9b9c80feceab
+//# sourceMappingURL=section-one.js.map?ver=7141ac3f6e11630ab9d8

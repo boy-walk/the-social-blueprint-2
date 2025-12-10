@@ -118,6 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function EventsCalendar({
+  categories,
   types,
   topics,
   audiences,
@@ -132,12 +133,14 @@ function EventsCalendar({
   const [requestParams, setRequestParams] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     per_page: 100
   });
+  const [selectedCategories, setSelectedCategories] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedTypes, setSelectedTypes] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedTopics, setSelectedTopics] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedAudiences, setSelectedAudiences] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedLocations, setSelectedLocations] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [onlyFeatured, setOnlyFeatured] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [currentView, setCurrentView] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("dayGridMonth");
   const calendarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
   const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -160,9 +163,32 @@ function EventsCalendar({
     const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
     return () => clearTimeout(t);
   }, [keyword]);
-  const handlePrevClick = () => calendarRef.current.getApi().prev();
-  const handleNextClick = () => calendarRef.current.getApi().next();
-  const clearEvents = () => calendarRef.current.getApi().removeAllEvents();
+  const getApi = () => {
+    const cal = calendarRef.current;
+    if (!cal) return null;
+    return cal.getApi();
+  };
+  const handlePrevClick = () => {
+    const api = getApi();
+    if (api) api.prev();
+  };
+  const handleNextClick = () => {
+    const api = getApi();
+    if (api) api.next();
+  };
+  const handleTodayClick = () => {
+    const api = getApi();
+    if (api) api.today();
+  };
+  const clearEvents = () => {
+    const api = getApi();
+    if (api) api.removeAllEvents();
+  };
+  const changeView = viewName => {
+    const api = getApi();
+    if (api) api.changeView(viewName);
+  };
+  const onCategory = e => setSelectedCategories(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
   const onType = e => setSelectedTypes(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
   const onTopic = e => setSelectedTopics(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
   const onAudience = e => setSelectedAudiences(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
@@ -174,6 +200,7 @@ function EventsCalendar({
       start,
       end
     });
+    setCurrentView(info.view.type);
   };
   const slugify = (s = "") => s.toString().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -182,6 +209,15 @@ function EventsCalendar({
     const audienceParam = params.get("audience");
     const featuredParam = params.get("featured");
     const themeParam = params.get("theme");
+    const categoryParam = params.get("category");
+    if (categoryParam) {
+      const matchedCategory = (categories || []).find(opt => {
+        const idStr = String(opt.id);
+        const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
+        return categoryParam === idStr || categoryParam === optSlug;
+      });
+      if (matchedCategory) setSelectedCategories([String(matchedCategory.id)]);
+    }
     if (themeParam) {
       const matchedType = (types || []).find(opt => {
         const idStr = String(opt.id);
@@ -200,7 +236,7 @@ function EventsCalendar({
       return requested.includes(idStr) || requested.includes(optSlug);
     }).map(opt => String(opt.id));
     if (matchedIds.length) setSelectedAudiences(matchedIds);
-  }, [audiences, types]);
+  }, [audiences, types, categories]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFirstDatesSet.current) {
       isFirstDatesSet.current = false;
@@ -250,6 +286,7 @@ function EventsCalendar({
       ...prev,
       start_date: dateRange.start,
       end_date: dateRange.end,
+      categories: selectedCategories.toString(),
       types: selectedTypes.toString(),
       topics: selectedTopics.toString(),
       audience: selectedAudiences.toString(),
@@ -257,12 +294,16 @@ function EventsCalendar({
       is_featured: onlyFeatured ? "1" : "",
       s: debouncedKeywordValue
     }));
-  }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
+  }, [dateRange, selectedCategories, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
   const applyResponsiveView = api => {
     if (!api || typeof window === "undefined") return;
     const mobile = window.matchMedia("(max-width: 568px)").matches;
-    const desired = mobile ? "listMonth" : "dayGridMonth";
-    if (api.view?.type !== desired) api.changeView(desired);
+    if (mobile) {
+      if (api.view?.type !== "listMonth") {
+        api.changeView("listMonth");
+        setCurrentView("listMonth");
+      }
+    }
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const api = calendarRef.current?.getApi();
@@ -350,7 +391,7 @@ function EventsCalendar({
       visible: false
     }));
   };
-  const filterCount = selectedTypes.length + selectedTopics.length + selectedAudiences.length + selectedLocations.length + (onlyFeatured ? 1 : 0) + (debouncedKeywordValue ? 1 : 0);
+  const filterCount = selectedCategories.length + selectedTypes.length + selectedTopics.length + selectedAudiences.length + selectedLocations.length + (onlyFeatured ? 1 : 0) + (debouncedKeywordValue ? 1 : 0);
   const openFilters = () => setIsFiltersOpen(true);
   const closeFilters = () => setIsFiltersOpen(false);
   const locationTypeOptions = [{
@@ -377,15 +418,125 @@ function EventsCalendar({
   }, [isFiltersOpen]);
   const clearAll = () => {
     setKeyword("");
+    setSelectedCategories([]);
     setSelectedTypes([]);
     setSelectedTopics([]);
     setSelectedAudiences([]);
     setSelectedLocations([]);
     setOnlyFeatured(false);
   };
+
+  // View options for the switcher
+  const viewOptions = [{
+    key: "dayGridMonth",
+    label: "Month"
+  }, {
+    key: "listWeek",
+    label: "Week"
+  }, {
+    key: "listDay",
+    label: "Day"
+  }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "bg-schemesSurface",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("style", {
+      children: `
+        .calendar-wrapper .fc {
+          font-family: inherit;
+        }
+        
+        /* Month view events */
+        .calendar-wrapper .fc-daygrid-event {
+          padding: 2px 4px;
+          font-size: 0.8125rem;
+          line-height: 1.3;
+          border-radius: 4px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .calendar-wrapper .fc-daygrid-day-frame {
+          min-height: 100px;
+        }
+        .calendar-wrapper .fc-daygrid-event .fc-event-time {
+          font-weight: 600;
+          margin-right: 4px;
+        }
+        
+        /* List view styles */
+        .calendar-wrapper .fc-list {
+          border: none;
+        }
+        .calendar-wrapper .fc-list-day-cushion {
+          background-color: var(--schemesSurfaceContainerHigh) !important;
+          padding: 12px 16px;
+        }
+        .calendar-wrapper .fc-list-day-text {
+          font-weight: 600;
+          color: var(--schemesOnSurface);
+        }
+        .calendar-wrapper .fc-list-event {
+          cursor: pointer;
+        }
+        .calendar-wrapper .fc-list-event:hover td {
+          background-color: var(--schemesSurfaceContainerHighest) !important;
+        }
+        .calendar-wrapper .fc-list-event-time {
+          padding: 12px 16px;
+          font-weight: 500;
+          color: var(--schemesOnSurfaceVariant);
+          white-space: nowrap;
+        }
+        .calendar-wrapper .fc-list-event-graphic {
+          padding: 12px 8px;
+        }
+        .calendar-wrapper .fc-list-event-dot {
+          border-color: var(--schemesPrimary) !important;
+        }
+        .calendar-wrapper .fc-list-event-title {
+          padding: 12px 16px;
+          font-weight: 500;
+        }
+        .calendar-wrapper .fc-list-event-title a {
+          color: var(--schemesOnSurface);
+          text-decoration: none;
+        }
+        .calendar-wrapper .fc-list-event-title a:hover {
+          color: var(--schemesPrimary);
+        }
+        
+        /* Day view - taller minimum height */
+        .calendar-wrapper .fc-listDay-view {
+          min-height: 500px;
+        }
+        .calendar-wrapper .fc-listDay-view .fc-list-empty {
+          min-height: 500px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        /* Headers */
+        .calendar-wrapper .fc-col-header-cell {
+          padding: 12px 0;
+          font-weight: 600;
+        }
+        
+        /* Borders */
+        .calendar-wrapper .fc-scrollgrid {
+          border: none !important;
+        }
+        .calendar-wrapper .fc-scrollgrid td,
+        .calendar-wrapper .fc-scrollgrid th {
+          border-color: var(--schemesOutlineVariant) !important;
+        }
+        
+        /* Today highlight */
+        .calendar-wrapper .fc-day-today {
+          background-color: var(--schemesPrimaryContainer) !important;
+        }
+      `
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "bg-schemesPrimaryFixed",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "tsb-container",
@@ -396,14 +547,14 @@ function EventsCalendar({
             children: "Upcoming Community Events"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small text-schemesOnPrimaryFixedVariant",
-            children: "Connect. Celebrate. Belong. Explore Melbourne\u2019s Jewish Events."
+            children: "Connect. Celebrate. Belong. Explore Melbourne's Jewish Events."
           })]
         })
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: `tsb-container py-8 flex flex-grow ${isLoading ? "cursor-wait" : ""}`,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("aside", {
-        className: `hidden md:hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
+        className: `hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "relative flex items-center mb-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
@@ -411,9 +562,9 @@ function EventsCalendar({
             placeholder: "Search by keyword",
             value: keyword,
             onChange: e => setKeyword(e.target.value),
-            className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+            className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-            className: "absolute right-3 text-[var(--schemesOnSurfaceVariant)] w-5 h-5",
+            className: "absolute right-3 text-schemesOnSurfaceVariant w-5 h-5",
             viewBox: "0 0 24 24",
             fill: "none",
             "aria-hidden": true,
@@ -437,6 +588,11 @@ function EventsCalendar({
             }],
             selected: onlyFeatured ? ["1"] : [],
             onChangeHandler: e => setOnlyFeatured(!!e.target.checked)
+          }), categories && categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            title: "Category",
+            options: categories,
+            selected: selectedCategories,
+            onChangeHandler: onCategory
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Topic",
             options: topics,
@@ -465,9 +621,9 @@ function EventsCalendar({
               placeholder: "Search by keyword",
               value: keyword,
               onChange: e => setKeyword(e.target.value),
-              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-              className: "absolute right-3 top-1/2 -translate-y-1/2 text-[var(--schemesOnSurfaceVariant)] w-5 h-5",
+              className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant w-5 h-5",
               viewBox: "0 0 24 24",
               fill: "none",
               "aria-hidden": true,
@@ -485,47 +641,101 @@ function EventsCalendar({
             label: filterCount ? `Filters (${filterCount})` : "Filters",
             variant: "outlined",
             size: "base",
-            "aria-expanded": isFiltersOpen ? "true" : "false",
+            "aria-expanded": isFiltersOpen,
             "aria-controls": "mobile-filters"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14 mb-6",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "flex items-center justify-end gap-2 w-full",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-3 sm:px-4 md:px-6 lg:px-8 mb-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "flex items-center gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+              type: "button",
               onClick: handlePrevClick,
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.ArrowLeftIcon, {}),
-              label: "Previous Month"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+              className: "flex items-center gap-2 px-4 py-2 rounded-full border border-schemesOutline text-schemesOnSurface Blueprint-label-large hover:bg-schemesSurfaceContainerHigh transition-colors",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.ArrowLeftIcon, {
+                size: 18
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "hidden sm:inline",
+                children: "Previous"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+              type: "button",
+              onClick: handleTodayClick,
+              className: "px-4 py-2 rounded-full bg-schemesPrimaryContainer text-schemesOnPrimaryContainer Blueprint-label-large hover:bg-schemesPrimary hover:text-schemesOnPrimary transition-colors",
+              children: "Today"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+              type: "button",
               onClick: handleNextClick,
-              label: "Next Month",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.ArrowRightIcon, {})
+              className: "flex items-center gap-2 px-4 py-2 rounded-full border border-schemesOutline text-schemesOnSurface Blueprint-label-large hover:bg-schemesSurfaceContainerHigh transition-colors",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "hidden sm:inline",
+                children: "Next"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.ArrowRightIcon, {
+                size: 18
+              })]
             })]
-          })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "hidden md:flex items-center gap-1 p-1 rounded-full bg-schemesSurfaceContainerHigh",
+            children: viewOptions.map(opt => {
+              const isActive = currentView === opt.key;
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                type: "button",
+                onClick: () => changeView(opt.key),
+                className: `px-4 py-2 rounded-full Blueprint-label-large transition-colors ${isActive ? "bg-schemesPrimary text-schemesOnPrimary" : "text-schemesOnSurfaceVariant hover:bg-schemesSurfaceContainerHighest"}`,
+                children: opt.label
+              }, opt.key);
+            })
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "bg-white rounded-2xl border border-schemesOutlineVariant overflow-hidden",
+          className: "bg-white rounded-2xl border border-schemesOutlineVariant overflow-hidden calendar-wrapper",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
             ref: calendarRef,
             plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_8__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_9__["default"]],
             initialView: "dayGridMonth",
             headerToolbar: false,
             fixedWeekCount: false,
-            dayMaxEvents: 4,
+            dayMaxEvents: 3,
             dayMaxEventRows: 3,
             eventColor: "var(--schemesPrimaryFixed)",
             eventTextColor: "var(--schemesOnPrimaryFixed)",
             eventDisplay: "block",
-            height: "800px",
+            height: "auto",
             datesSet: datesSet,
             eventMouseEnter: showTooltip,
             eventMouseLeave: hideTooltip,
+            nowIndicator: true,
+            eventTimeFormat: {
+              hour: "numeric",
+              minute: "2-digit",
+              meridiem: "short"
+            },
             views: {
               dayGridMonth: {
                 showNonCurrentDates: false,
                 displayEventTime: false,
                 dayHeaderFormat: {
                   weekday: "short"
-                }
+                },
+                dayMaxEvents: 3
+              },
+              listWeek: {
+                listDayFormat: {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric"
+                },
+                listDaySideFormat: false,
+                noEventsContent: "No events this week"
+              },
+              listDay: {
+                listDayFormat: {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric"
+                },
+                listDaySideFormat: false,
+                noEventsContent: "No events today"
               },
               listMonth: {
                 noEventsContent: "No events this month"
@@ -536,60 +746,55 @@ function EventsCalendar({
       })]
     }), tip.visible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       role: "tooltip",
-      className: "pointer-events-none fixed z-[10000] max-w-[22rem] rounded-xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 px-4 py-3",
+      className: "pointer-events-none fixed z-[10000] max-w-md rounded-2xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 p-5",
       style: {
         left: Math.min(window.innerWidth - 16, tip.x + 12),
         top: Math.min(window.innerHeight - 16, tip.y + 12)
       },
-      "aria-hidden": tip.visible ? "false" : "true",
+      "aria-hidden": !tip.visible,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex gap-3",
-        children: [tip.image ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+        className: "flex gap-4",
+        children: [tip.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           src: tip.image,
           alt: "",
-          className: "max-h-25 rounded-lg object-cover shrink-0",
+          className: "w-28 h-28 rounded-xl object-cover shrink-0",
           loading: "lazy",
           decoding: "async"
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "min-w-0",
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "min-w-0 flex-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-title-small-emphasized truncate",
+            className: "Blueprint-title-medium-emphasized line-clamp-2",
             children: tip.title
-          }), tip.range ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-label-small text-schemesOnSurfaceVariant mt-0.5",
+          }), tip.range && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant mt-1",
             children: tip.range
-          }) : null, tip.venue || tip.location ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-label-small text-schemesOnSurfaceVariant truncate mt-0.5",
+          }), (tip.venue || tip.location) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant mt-1",
             children: [tip.venue, tip.location].filter(Boolean).join(" • ")
-          }) : null, tip.description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-body-small text-schemesOnSurface mt-2 line-clamp-3 ",
+          }), tip.description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "Blueprint-body-medium text-schemesOnSurface mt-3 line-clamp-4",
             dangerouslySetInnerHTML: {
               __html: tip.description
             }
-          }) : null]
+          })]
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       id: "mobile-filters",
       className: `lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`,
-      "aria-hidden": isFiltersOpen ? "false" : "true",
+      "aria-hidden": !isFiltersOpen,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         onClick: closeFilters,
-        className: `absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`
+        className: `absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-black/40`
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         role: "dialog",
         "aria-modal": "true",
         "aria-label": "Filters",
-        className: `
-            absolute left-0 right-0 bottom-0 max-h-[85vh]
-            rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)]
-            transition-transform duration-300
-            ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}
-          `,
+        className: `absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 flex flex-col ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}`,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]",
+          className: "relative px-4 py-3 border-b border-schemesOutlineVariant shrink-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]"
+            className: "mx-auto h-1.5 w-12 rounded-full bg-schemesOutlineVariant"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "mt-3 flex items-center justify-between",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -599,13 +804,13 @@ function EventsCalendar({
               ref: firstCloseBtnRef,
               type: "button",
               onClick: closeFilters,
-              className: "rounded-full p-2 hover:bg-surfaceContainerHigh text-schemesOnSurfaceVariant",
+              className: "rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant",
               "aria-label": "Close filters",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.XIcon, {})
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "px-4 py-4 overflow-y-auto space-y-4",
+          className: "px-4 py-4 overflow-y-auto flex-1 space-y-4",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "relative",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
@@ -613,9 +818,9 @@ function EventsCalendar({
               placeholder: "Search by keyword",
               value: keyword,
               onChange: e => setKeyword(e.target.value),
-              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-              className: "absolute right-3 top-1/2 -translate-y-1/2 text-[var(--schemesOnSurfaceVariant)] w-5 h-5",
+              className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant w-5 h-5",
               viewBox: "0 0 24 24",
               fill: "none",
               "aria-hidden": true,
@@ -634,6 +839,11 @@ function EventsCalendar({
             }],
             selected: onlyFeatured ? ["1"] : [],
             onChangeHandler: e => setOnlyFeatured(!!e.target.checked)
+          }), categories && categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
+            title: "Category",
+            options: categories,
+            selected: selectedCategories,
+            onChangeHandler: onCategory
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
             title: "Theme",
             options: types,
@@ -656,7 +866,7 @@ function EventsCalendar({
             onChangeHandler: onLocation
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2",
+          className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             onClick: clearAll,
             variant: "outlined",
@@ -903,6 +1113,7 @@ function StyledCheckbox({
       value: id,
       checked: checked // ✅ controlled by parent
       ,
+
       className: "peer hidden",
       onChange: onChangeHandler
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
@@ -916,4 +1127,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=982c7b6a7b2673136269
+//# sourceMappingURL=events-calendar.js.map?ver=0cb9653cb9dd21c049a9

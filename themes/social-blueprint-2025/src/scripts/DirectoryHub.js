@@ -66,7 +66,7 @@ export const DirectoryHub = ({ costOfLiving, contactLists, breadcrumbs = [] }) =
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/business">
+                    <Card styles="shadow-3x3" href="/articles/?article_category=contact-lists">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />

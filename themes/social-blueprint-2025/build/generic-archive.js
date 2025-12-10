@@ -1163,6 +1163,7 @@ function StyledCheckbox({
       value: id,
       checked: checked // ✅ controlled by parent
       ,
+
       className: "peer hidden",
       onChange: onChangeHandler
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
@@ -1217,4 +1218,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=c48a1d15516b56ed8727
+//# sourceMappingURL=generic-archive.js.map?ver=8742305ff75281841c59

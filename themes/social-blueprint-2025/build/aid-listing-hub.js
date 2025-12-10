@@ -2390,4 +2390,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing-hub.js.map?ver=8ccaaf6fcf7d66c14a65
+//# sourceMappingURL=aid-listing-hub.js.map?ver=b4832efa9b18fbaab1c9

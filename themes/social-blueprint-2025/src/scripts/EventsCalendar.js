@@ -6,12 +6,13 @@ import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
 import { ArrowLeftIcon, ArrowRightIcon, FunnelSimpleIcon, XIcon } from "@phosphor-icons/react";
 
-export function EventsCalendar({ types, topics, audiences, locations }) {
+export function EventsCalendar({ categories, types, topics, audiences, locations }) {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeywordValue, setDebouncedKeywordValue] = useState("");
   const [dateRange, setDateRange] = useState({ start: "", end: "" });
   const [requestParams, setRequestParams] = useState({ per_page: 100 });
 
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedAudiences, setSelectedAudiences] = useState([]);
@@ -19,6 +20,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
   const [onlyFeatured, setOnlyFeatured] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [currentView, setCurrentView] = useState("dayGridMonth");
 
   const calendarRef = useRef(null);
   const isFirstDatesSet = useRef(true);
@@ -46,10 +48,39 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     return () => clearTimeout(t);
   }, [keyword]);
 
-  const handlePrevClick = () => calendarRef.current.getApi().prev();
-  const handleNextClick = () => calendarRef.current.getApi().next();
-  const clearEvents = () => calendarRef.current.getApi().removeAllEvents();
+  const getApi = () => {
+    const cal = calendarRef.current;
+    if (!cal) return null;
+    return cal.getApi();
+  };
 
+  const handlePrevClick = () => {
+    const api = getApi();
+    if (api) api.prev();
+  };
+
+  const handleNextClick = () => {
+    const api = getApi();
+    if (api) api.next();
+  };
+
+  const handleTodayClick = () => {
+    const api = getApi();
+    if (api) api.today();
+  };
+
+  const clearEvents = () => {
+    const api = getApi();
+    if (api) api.removeAllEvents();
+  };
+
+  const changeView = (viewName) => {
+    const api = getApi();
+    if (api) api.changeView(viewName);
+  };
+
+  const onCategory = (e) =>
+    setSelectedCategories((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
   const onType = (e) =>
     setSelectedTypes((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
   const onTopic = (e) =>
@@ -63,6 +94,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     const start = info.startStr.split("T")[0];
     const end = info.endStr.split("T")[0];
     setDateRange({ start, end });
+    setCurrentView(info.view.type);
   };
 
   const slugify = (s = "") =>
@@ -75,6 +107,17 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     const audienceParam = params.get("audience");
     const featuredParam = params.get("featured");
     const themeParam = params.get("theme");
+    const categoryParam = params.get("category");
+
+    if (categoryParam) {
+      const matchedCategory = (categories || []).find(opt => {
+        const idStr = String(opt.id);
+        const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
+        return categoryParam === idStr || categoryParam === optSlug;
+      });
+      if (matchedCategory) setSelectedCategories([String(matchedCategory.id)]);
+    }
+
     if (themeParam) {
       const matchedType = (types || []).find(opt => {
         const idStr = String(opt.id);
@@ -98,7 +141,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       .map(opt => String(opt.id));
 
     if (matchedIds.length) setSelectedAudiences(matchedIds);
-  }, [audiences, types]);
+  }, [audiences, types, categories]);
 
   useEffect(() => {
     if (isFirstDatesSet.current) {
@@ -147,6 +190,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       ...prev,
       start_date: dateRange.start,
       end_date: dateRange.end,
+      categories: selectedCategories.toString(),
       types: selectedTypes.toString(),
       topics: selectedTopics.toString(),
       audience: selectedAudiences.toString(),
@@ -154,14 +198,19 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
       is_featured: onlyFeatured ? "1" : "",
       s: debouncedKeywordValue,
     }));
-  }, [dateRange, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
+  }, [dateRange, selectedCategories, selectedTypes, selectedTopics, selectedAudiences, selectedLocations, onlyFeatured, debouncedKeywordValue]);
 
   const applyResponsiveView = (api) => {
     if (!api || typeof window === "undefined") return;
     const mobile = window.matchMedia("(max-width: 568px)").matches;
-    const desired = mobile ? "listMonth" : "dayGridMonth";
-    if (api.view?.type !== desired) api.changeView(desired);
+    if (mobile) {
+      if (api.view?.type !== "listMonth") {
+        api.changeView("listMonth");
+        setCurrentView("listMonth");
+      }
+    }
   };
+
   useEffect(() => {
     const api = calendarRef.current?.getApi();
     if (!api) return;
@@ -237,6 +286,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
   };
 
   const filterCount =
+    selectedCategories.length +
     selectedTypes.length +
     selectedTopics.length +
     selectedAudiences.length +
@@ -265,6 +315,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
 
   const clearAll = () => {
     setKeyword("");
+    setSelectedCategories([]);
     setSelectedTypes([]);
     setSelectedTopics([]);
     setSelectedAudiences([]);
@@ -272,8 +323,112 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
     setOnlyFeatured(false);
   };
 
+  // View options for the switcher
+  const viewOptions = [
+    { key: "dayGridMonth", label: "Month" },
+    { key: "listWeek", label: "Week" },
+    { key: "listDay", label: "Day" },
+  ];
+
   return (
     <div className="bg-schemesSurface">
+      {/* Calendar CSS fixes */}
+      <style>{`
+        .calendar-wrapper .fc {
+          font-family: inherit;
+        }
+        
+        /* Month view events */
+        .calendar-wrapper .fc-daygrid-event {
+          padding: 2px 4px;
+          font-size: 0.8125rem;
+          line-height: 1.3;
+          border-radius: 4px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .calendar-wrapper .fc-daygrid-day-frame {
+          min-height: 100px;
+        }
+        .calendar-wrapper .fc-daygrid-event .fc-event-time {
+          font-weight: 600;
+          margin-right: 4px;
+        }
+        
+        /* List view styles */
+        .calendar-wrapper .fc-list {
+          border: none;
+        }
+        .calendar-wrapper .fc-list-day-cushion {
+          background-color: var(--schemesSurfaceContainerHigh) !important;
+          padding: 12px 16px;
+        }
+        .calendar-wrapper .fc-list-day-text {
+          font-weight: 600;
+          color: var(--schemesOnSurface);
+        }
+        .calendar-wrapper .fc-list-event {
+          cursor: pointer;
+        }
+        .calendar-wrapper .fc-list-event:hover td {
+          background-color: var(--schemesSurfaceContainerHighest) !important;
+        }
+        .calendar-wrapper .fc-list-event-time {
+          padding: 12px 16px;
+          font-weight: 500;
+          color: var(--schemesOnSurfaceVariant);
+          white-space: nowrap;
+        }
+        .calendar-wrapper .fc-list-event-graphic {
+          padding: 12px 8px;
+        }
+        .calendar-wrapper .fc-list-event-dot {
+          border-color: var(--schemesPrimary) !important;
+        }
+        .calendar-wrapper .fc-list-event-title {
+          padding: 12px 16px;
+          font-weight: 500;
+        }
+        .calendar-wrapper .fc-list-event-title a {
+          color: var(--schemesOnSurface);
+          text-decoration: none;
+        }
+        .calendar-wrapper .fc-list-event-title a:hover {
+          color: var(--schemesPrimary);
+        }
+        
+        /* Day view - taller minimum height */
+        .calendar-wrapper .fc-listDay-view {
+          min-height: 500px;
+        }
+        .calendar-wrapper .fc-listDay-view .fc-list-empty {
+          min-height: 500px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        /* Headers */
+        .calendar-wrapper .fc-col-header-cell {
+          padding: 12px 0;
+          font-weight: 600;
+        }
+        
+        /* Borders */
+        .calendar-wrapper .fc-scrollgrid {
+          border: none !important;
+        }
+        .calendar-wrapper .fc-scrollgrid td,
+        .calendar-wrapper .fc-scrollgrid th {
+          border-color: var(--schemesOutlineVariant) !important;
+        }
+        
+        /* Today highlight */
+        .calendar-wrapper .fc-day-today {
+          background-color: var(--schemesPrimaryContainer) !important;
+        }
+      `}</style>
       <div className="bg-schemesPrimaryFixed">
         <div className="tsb-container">
           <div className="py-16 flex flex-col justify-end items-start gap-2 max-w-3xl">
@@ -281,23 +436,23 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
               Upcoming Community Events
             </div>
             <div className="lg:Blueprint-body-large md:Blueprint-body-medium Blueprint-body-small text-schemesOnPrimaryFixedVariant">
-              Connect. Celebrate. Belong. Explore Melbourne’s Jewish Events.
+              Connect. Celebrate. Belong. Explore Melbourne's Jewish Events.
             </div>
           </div>
         </div>
       </div>
 
       <div className={`tsb-container py-8 flex flex-grow ${isLoading ? "cursor-wait" : ""}`}>
-        <aside className={`hidden md:hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
+        <aside className={`hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
           <div className="relative flex items-center mb-6">
             <input
               type="text"
               placeholder="Search by keyword"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+              className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
             />
-            <svg className="absolute right-3 text-[var(--schemesOnSurfaceVariant)] w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <svg className="absolute right-3 text-schemesOnSurfaceVariant w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
@@ -311,6 +466,9 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
               onChangeHandler={(e) => setOnlyFeatured(!!e.target.checked)}
             />
 
+            {categories && categories.length > 0 && (
+              <FilterGroup title="Category" options={categories} selected={selectedCategories} onChangeHandler={onCategory} />
+            )}
             <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
             <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
             <FilterGroup title="Location Type" options={locationTypeOptions} selected={selectedLocations} onChangeHandler={onLocation} />
@@ -318,6 +476,7 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
         </aside>
 
         <section className={`flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
+          {/* Mobile: Search + Filter button */}
           <div className="lg:hidden px-3 sm:px-4 md:px-6 flex items-center gap-2 mb-4">
             <div className="relative flex-1">
               <input
@@ -325,9 +484,9 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
                 placeholder="Search by keyword"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+                className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
               />
-              <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--schemesOnSurfaceVariant)] w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
@@ -338,39 +497,99 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
               label={filterCount ? `Filters (${filterCount})` : "Filters"}
               variant="outlined"
               size="base"
-              aria-expanded={isFiltersOpen ? "true" : "false"}
+              aria-expanded={isFiltersOpen}
               aria-controls="mobile-filters"
             />
           </div>
 
-          <div className="flex items-center justify-between rounded-t-2xl px-3 sm:px-4 md:px-6 lg:px-8 h-14 mb-6">
-            <div className="flex items-center justify-end gap-2 w-full">
-              <Button onClick={handlePrevClick} icon={<ArrowLeftIcon />} label="Previous Month" />
-              <Button onClick={handleNextClick} label="Next Month" icon={<ArrowRightIcon />} />
+          {/* Calendar controls: nav + view switcher */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-3 sm:px-4 md:px-6 lg:px-8 mb-6">
+            {/* Navigation buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handlePrevClick}
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-schemesOutline text-schemesOnSurface Blueprint-label-large hover:bg-schemesSurfaceContainerHigh transition-colors"
+              >
+                <ArrowLeftIcon size={18} />
+                <span className="hidden sm:inline">Previous</span>
+              </button>
+              <button
+                type="button"
+                onClick={handleTodayClick}
+                className="px-4 py-2 rounded-full bg-schemesPrimaryContainer text-schemesOnPrimaryContainer Blueprint-label-large hover:bg-schemesPrimary hover:text-schemesOnPrimary transition-colors"
+              >
+                Today
+              </button>
+              <button
+                type="button"
+                onClick={handleNextClick}
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-schemesOutline text-schemesOnSurface Blueprint-label-large hover:bg-schemesSurfaceContainerHigh transition-colors"
+              >
+                <span className="hidden sm:inline">Next</span>
+                <ArrowRightIcon size={18} />
+              </button>
+            </div>
+
+            {/* View switcher - hidden on mobile */}
+            <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-schemesSurfaceContainerHigh">
+              {viewOptions.map((opt) => {
+                const isActive = currentView === opt.key;
+                return (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => changeView(opt.key)}
+                    className={`px-4 py-2 rounded-full Blueprint-label-large transition-colors ${isActive
+                      ? "bg-schemesPrimary text-schemesOnPrimary"
+                      : "text-schemesOnSurfaceVariant hover:bg-schemesSurfaceContainerHighest"
+                      }`}
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-schemesOutlineVariant overflow-hidden">
+          <div className="bg-white rounded-2xl border border-schemesOutlineVariant overflow-hidden calendar-wrapper">
             <FullCalendar
               ref={calendarRef}
               plugins={[dayGridPlugin, listPlugin]}
               initialView="dayGridMonth"
               headerToolbar={false}
               fixedWeekCount={false}
-              dayMaxEvents={4}
+              dayMaxEvents={3}
               dayMaxEventRows={3}
               eventColor="var(--schemesPrimaryFixed)"
               eventTextColor="var(--schemesOnPrimaryFixed)"
               eventDisplay="block"
-              height="800px"
+              height="auto"
               datesSet={datesSet}
               eventMouseEnter={showTooltip}
               eventMouseLeave={hideTooltip}
+              nowIndicator={true}
+              eventTimeFormat={{
+                hour: "numeric",
+                minute: "2-digit",
+                meridiem: "short",
+              }}
               views={{
                 dayGridMonth: {
                   showNonCurrentDates: false,
                   displayEventTime: false,
                   dayHeaderFormat: { weekday: "short" },
+                  dayMaxEvents: 3,
+                },
+                listWeek: {
+                  listDayFormat: { weekday: "long", month: "long", day: "numeric" },
+                  listDaySideFormat: false,
+                  noEventsContent: "No events this week",
+                },
+                listDay: {
+                  listDayFormat: { weekday: "long", month: "long", day: "numeric", year: "numeric" },
+                  listDaySideFormat: false,
+                  noEventsContent: "No events today",
                 },
                 listMonth: {
                   noEventsContent: "No events this month",
@@ -381,72 +600,69 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
         </section>
       </div>
 
+      {/* Tooltip */}
       {tip.visible && (
         <div
           role="tooltip"
-          className="pointer-events-none fixed z-[10000] max-w-[22rem] rounded-xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 px-4 py-3"
+          className="pointer-events-none fixed z-[10000] max-w-md rounded-2xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 p-5"
           style={{
             left: Math.min(window.innerWidth - 16, tip.x + 12),
             top: Math.min(window.innerHeight - 16, tip.y + 12),
           }}
-          aria-hidden={tip.visible ? "false" : "true"}
+          aria-hidden={!tip.visible}
         >
-          <div className="flex gap-3">
-            {tip.image ? (
+          <div className="flex gap-4">
+            {tip.image && (
               <img
                 src={tip.image}
                 alt=""
-                className="max-h-25 rounded-lg object-cover shrink-0"
+                className="w-28 h-28 rounded-xl object-cover shrink-0"
                 loading="lazy"
                 decoding="async"
               />
-            ) : null}
-            <div className="min-w-0">
-              <div className="Blueprint-title-small-emphasized truncate">{tip.title}</div>
-              {tip.range ? <div className="Blueprint-label-small text-schemesOnSurfaceVariant mt-0.5">{tip.range}</div> : null}
-              {(tip.venue || tip.location) ? (
-                <div className="Blueprint-label-small text-schemesOnSurfaceVariant truncate mt-0.5">
+            )}
+            <div className="min-w-0 flex-1">
+              <div className="Blueprint-title-medium-emphasized line-clamp-2">{tip.title}</div>
+              {tip.range && <div className="Blueprint-body-small text-schemesOnSurfaceVariant mt-1">{tip.range}</div>}
+              {(tip.venue || tip.location) && (
+                <div className="Blueprint-body-small text-schemesOnSurfaceVariant mt-1">
                   {[tip.venue, tip.location].filter(Boolean).join(" • ")}
                 </div>
-              ) : null}
-              {tip.description ? (
-                <div className="Blueprint-body-small text-schemesOnSurface mt-2 line-clamp-3 " dangerouslySetInnerHTML={{ __html: tip.description }} />
-              ) : null}
+              )}
+              {tip.description && (
+                <div className="Blueprint-body-medium text-schemesOnSurface mt-3 line-clamp-4" dangerouslySetInnerHTML={{ __html: tip.description }} />
+              )}
             </div>
           </div>
         </div>
       )}
 
+      {/* Mobile filters drawer */}
       <div
         id="mobile-filters"
         className={`lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`}
-        aria-hidden={isFiltersOpen ? "false" : "true"}
+        aria-hidden={!isFiltersOpen}
       >
         <div
           onClick={closeFilters}
-          className={`absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-[color:rgb(0_0_0_/_0.44)]`}
+          className={`absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-black/40`}
         />
 
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Filters"
-          className={`
-            absolute left-0 right-0 bottom-0 max-h-[85vh]
-            rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)]
-            transition-transform duration-300
-            ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}
-          `}
+          className={`absolute left-0 right-0 bottom-0 max-h-[85vh] rounded-t-2xl bg-schemesSurface shadow-[0_-16px_48px_rgba(0,0,0,0.25)] transition-transform duration-300 flex flex-col ${isFiltersOpen ? "translate-y-0" : "translate-y-full"}`}
         >
-          <div className="relative px-4 py-3 border-b border-[var(--schemesOutlineVariant)]">
-            <div className="mx-auto h-1.5 w-12 rounded-full bg-[var(--schemesOutlineVariant)]" />
+          <div className="relative px-4 py-3 border-b border-schemesOutlineVariant shrink-0">
+            <div className="mx-auto h-1.5 w-12 rounded-full bg-schemesOutlineVariant" />
             <div className="mt-3 flex items-center justify-between">
               <div className="Blueprint-title-small-emphasized">Filters</div>
               <button
                 ref={firstCloseBtnRef}
                 type="button"
                 onClick={closeFilters}
-                className="rounded-full p-2 hover:bg-surfaceContainerHigh text-schemesOnSurfaceVariant"
+                className="rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant"
                 aria-label="Close filters"
               >
                 <XIcon />
@@ -454,16 +670,16 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
             </div>
           </div>
 
-          <div className="px-4 py-4 overflow-y-auto space-y-4">
+          <div className="px-4 py-4 overflow-y-auto flex-1 space-y-4">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search by keyword"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)]"
+                className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
               />
-              <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--schemesOnSurfaceVariant)] w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
@@ -473,13 +689,16 @@ export function EventsCalendar({ types, topics, audiences, locations }) {
               selected={onlyFeatured ? ["1"] : []}
               onChangeHandler={(e) => setOnlyFeatured(!!e.target.checked)}
             />
+            {categories && categories.length > 0 && (
+              <FilterGroup title="Category" options={categories} selected={selectedCategories} onChangeHandler={onCategory} />
+            )}
             <FilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
             <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
             <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
             <FilterGroup title="Location Type" options={locationTypeOptions} selected={selectedLocations} onChangeHandler={onLocation} />
           </div>
 
-          <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-[var(--schemesOutlineVariant)] flex gap-2">
+          <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0">
             <Button onClick={clearAll} variant="outlined" label="Clear all" className="flex-1" />
             <Button onClick={closeFilters} variant="filled" label="Apply" className="flex-1" />
           </div>

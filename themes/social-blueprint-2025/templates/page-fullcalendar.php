@@ -80,6 +80,23 @@ foreach ($taxonomies as $taxonomy => $var_name) {
       }
   }
 }
+
+$event_categories = get_terms([
+  'taxonomy'   => 'tribe_events_cat',
+  'hide_empty' => true,
+  'orderby'    => 'name',
+]);
+
+$categories = [];
+if (!is_wp_error($event_categories)) {
+  foreach ($event_categories as $cat) {
+    $categories[] = [
+      'id'   => (int) $cat->term_id,
+      'name' => $cat->name,
+      'slug' => $cat->slug,
+    ];
+  }
+}
 ?>
 
 <div
@@ -88,6 +105,7 @@ foreach ($taxonomies as $taxonomy => $var_name) {
     data-topics="<?= esc_attr(wp_json_encode($topics)) ?>"
     data-audiences="<?= esc_attr(wp_json_encode($audiences)) ?>"
     data-locations="<?= esc_attr(wp_json_encode($locations)) ?>"
+    data-categories="<?= esc_attr(wp_json_encode($categories)) ?>"
 >
 </div>
 

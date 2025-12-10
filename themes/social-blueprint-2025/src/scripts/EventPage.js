@@ -54,9 +54,6 @@ export function EventPage({
           <Breadcrumbs items={breadcrumbs} />
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="flex-3 min-w-0 space-y-8 lg:space-y-10">
-              {tags.length > 0 && (<div className="flex flex-wrap gap-2">
-                {tags?.map((t) => <Tag key={t} tagName={t.name} href={`${t.url}`} />)}
-              </div>)}
               <header className="space-y-2">
                 {dateLine && <div className="Blueprint-label-large text-schemesOnSurfaceVariant">{dateLine}</div>}
                 <h1 className="Blueprint-headline-large lg:Blueprint-display-small-emphasized leading-tight">
@@ -102,12 +99,12 @@ export function EventPage({
                   <div className="Blueprint-title-medium">{organizer?.name || "Organizer"}</div>
                 </div>
                 <div className="ml-auto flex flex-wrap gap-2 items-center">
-                  <Button
+                  {calendarUrl && (<Button
                     label="Add to Calendar"
                     size="lg"
                     variant="tonal"
                     onClick={() => window.location.href = calendarUrl || "#"}
-                  />
+                  />)}
                   <ShareButton
                     title={title}
                     size="lg"
@@ -115,14 +112,17 @@ export function EventPage({
                     summary={subtitle || ""}
                     url={typeof window !== "undefined" ? window.location.href : undefined}
                   />
-                  <Button
+                  {bookingUrl && (<Button
                     label="Book Now"
                     size="lg"
                     variant="filled"
                     onClick={() => window.location.href = bookingUrl}
-                  />
+                  />)}
                 </div>
               </div>
+              {tags.length > 0 && (<div className="flex flex-wrap gap-2">
+                {tags?.map((t) => <Tag key={t} tagName={t.name} href={`${t.url}`} />)}
+              </div>)}
 
               {heroUrl && (
                 <div className="w-full rounded-xl overflow-hidden shadow-md">

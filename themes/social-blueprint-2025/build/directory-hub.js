@@ -2052,7 +2052,7 @@ const DirectoryHub = ({
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_7__.Card, {
                     styles: "shadow-3x3",
-                    href: "/business",
+                    href: "/articles/?article_category=contact-lists",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2623,4 +2623,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=directory-hub.js.map?ver=f43b4337dcf7f03176fa
+//# sourceMappingURL=directory-hub.js.map?ver=1fbedee55a943853b868

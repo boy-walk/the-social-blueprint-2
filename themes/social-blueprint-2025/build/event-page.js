@@ -1549,13 +1549,7 @@ function EventPage({
           className: "flex flex-col lg:flex-row gap-8 lg:gap-12",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
             className: "flex-3 min-w-0 space-y-8 lg:space-y-10",
-            children: [tags.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-              className: "flex flex-wrap gap-2",
-              children: tags?.map(t => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_3__.Tag, {
-                tagName: t.name,
-                href: `${t.url}`
-              }, t))
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("header", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("header", {
               className: "space-y-2",
               children: [dateLine && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                 className: "Blueprint-label-large text-schemesOnSurfaceVariant",
@@ -1599,7 +1593,7 @@ function EventPage({
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
                 className: "ml-auto flex flex-wrap gap-2 items-center",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_6__.Button, {
+                children: [calendarUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_6__.Button, {
                   label: "Add to Calendar",
                   size: "lg",
                   variant: "tonal",
@@ -1610,13 +1604,19 @@ function EventPage({
                   variant: "tonal",
                   summary: subtitle || "",
                   url: typeof window !== "undefined" ? window.location.href : undefined
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_6__.Button, {
+                }), bookingUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_6__.Button, {
                   label: "Book Now",
                   size: "lg",
                   variant: "filled",
                   onClick: () => window.location.href = bookingUrl
                 })]
               })]
+            }), tags.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+              className: "flex flex-wrap gap-2",
+              children: tags?.map(t => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Tag__WEBPACK_IMPORTED_MODULE_3__.Tag, {
+                tagName: t.name,
+                href: `${t.url}`
+              }, t))
             }), heroUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
               className: "w-full rounded-xl overflow-hidden shadow-md",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
@@ -2450,4 +2450,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=event-page.js.map?ver=4662495e0399c9ebbf3f
+//# sourceMappingURL=event-page.js.map?ver=7b407f9f83f171999678
