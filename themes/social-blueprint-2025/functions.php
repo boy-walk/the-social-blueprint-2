@@ -169,8 +169,8 @@ function uwp_custom_register_organisation( WP_REST_Request $request ) {
   update_user_meta( $user_id, 'agree', $d['agree'] === 'yes' ? 'yes' : 'no' );
   
   // Track which registration form was used
-  update_user_meta( $user_id, 'register_form_type', 'register-form-organisation' );
-  update_user_meta( $user_id, 'uwp_register_form_type', 'register-form-organisation' );
+  update_user_meta( $user_id, 'register_form_type', 'register-form-organization' );
+  update_user_meta( $user_id, 'uwp_register_form_type', 'register-form-organization' );
   
   // Store organisation name separately
   update_user_meta( $user_id, 'organisation', sanitize_text_field( $d['organisation'] ) );
