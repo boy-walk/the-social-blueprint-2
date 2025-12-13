@@ -218,8 +218,8 @@ function LoginForm() {
       const res = await fetch('/wp-json/uwp-custom/v1/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'X-WP-Nonce': window?.wpApiSettings?.nonce || ''
+          'Content-Type': 'application/json'
+          // ⭐ REMOVED: X-WP-Nonce header - not needed for login
         },
         body: JSON.stringify({
           email: form.user,
@@ -426,4 +426,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=login.js.map?ver=23a7f79434de6835e800
+//# sourceMappingURL=login.js.map?ver=7c4e6157aa95c4f92946

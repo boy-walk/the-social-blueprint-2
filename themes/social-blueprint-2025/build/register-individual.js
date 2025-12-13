@@ -196,8 +196,8 @@ function RegisterIndividual() {
       const res = await fetch('/wp-json/uwp-custom/v1/register', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'X-WP-Nonce': window?.wpApiSettings?.nonce || ''
+          'Content-Type': 'application/json'
+          // ⭐ REMOVED: X-WP-Nonce header - not needed for registration
         },
         body: JSON.stringify({
           email: form.email,
@@ -471,4 +471,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-individual.js.map?ver=015b389f8fb2ec5f1b06
+//# sourceMappingURL=register-individual.js.map?ver=9457a01e6b83bf7d5271

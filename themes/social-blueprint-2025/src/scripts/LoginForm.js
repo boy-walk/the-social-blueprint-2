@@ -98,7 +98,7 @@ export function LoginForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': window?.wpApiSettings?.nonce || '',
+          // ⭐ REMOVED: X-WP-Nonce header - not needed for login
         },
         body: JSON.stringify({
           email: form.user,

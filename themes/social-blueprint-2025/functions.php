@@ -9,9 +9,18 @@ require_once get_template_directory() . '/inc/article-category-taxonomy.php';
 require_once get_template_directory() . '/inc/submit-article.php';
 require_once get_template_directory() . '/inc/share.php';
 
+// ⭐ FIXED: Consolidated script enqueuing (removed duplicate)
 function boilerplate_load_assets() {
-  wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'react-jsx-runtime'), '1.0', true);
+  wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), 
+    array('wp-element', 'react-jsx-runtime'), '1.0', true);
   wp_enqueue_style('ourmaincss', get_theme_file_uri('/build/index.css'));
+  
+  // Add localized data
+  wp_localize_script('ourmainjs', 'wpData', [
+    'nonce' => wp_create_nonce('wp_rest'),
+    'restUrl' => rest_url(),
+    'siteUrl' => home_url(),
+  ]);
 }
 add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
 
@@ -21,30 +30,17 @@ function boilerplate_add_support() {
 }
 add_action('after_setup_theme', 'boilerplate_add_support');
 
-add_action('wp_enqueue_scripts', function () {
-  wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), 
-    array('wp-element', 'react-jsx-runtime'), '1.0', true);
-  
-  wp_localize_script('ourmainjs', 'wpData', [
-    'nonce' => wp_create_nonce('wp_rest'),
-    'restUrl' => rest_url(),
-    'siteUrl' => home_url(),
-  ]);
-}, 10);
+// ⭐ REMOVED: Lines 23-30 were duplicate script enqueuing - DELETED
 
 
-// 2. Register REST route
 add_action('rest_api_init', function () {
   register_rest_route('uwp-custom/v1', '/register', [
     'methods' => 'POST',
     'callback' => 'uwp_custom_register_user',
-    'permission_callback' => function () {
-      return wp_verify_nonce($_SERVER['HTTP_X_WP_NONCE'] ?? '', 'wp_rest');
-    },
+    'permission_callback' => '__return_true', // Allow unauthenticated registration
   ]);
 });
 
-// 3. REST Callback to register user
 function uwp_custom_register_user(WP_REST_Request $request) {
   $data = $request->get_json_params();
 
@@ -53,6 +49,11 @@ function uwp_custom_register_user(WP_REST_Request $request) {
   }
   if (!is_email($data['email'])) {
     return new WP_REST_Response(['message' => 'Invalid email'], 400);
+  }
+
+  // Check if email already exists
+  if (email_exists($data['email'])) {
+    return new WP_REST_Response(['message' => 'Email already registered'], 400);
   }
 
   $user_id = wp_insert_user([
@@ -68,7 +69,14 @@ function uwp_custom_register_user(WP_REST_Request $request) {
     return new WP_REST_Response(['message' => $user_id->get_error_message()], 400);
   }
 
+  // Save user meta fields
   update_user_meta($user_id, 'agree', sanitize_text_field($data['agree']));
+  
+  // Track which registration form was used
+  update_user_meta($user_id, 'register_form_type', 'register-form-individual');
+  update_user_meta($user_id, 'uwp_register_form_type', 'register-form-individual');
+  
+  // Trigger UsersWP hooks
   do_action('uwp_user_register', $user_id, null, $data);
 
   return new WP_REST_Response(['success' => true], 200);
@@ -110,18 +118,11 @@ function uwp_custom_login_user( WP_REST_Request $request ) {
   return new WP_REST_Response(['success' => true, 'user_id' => $user->ID], 200);
 }
 
-
-/**
- *  Register a BUSINESS / ORGANISATION account
- *  POST /wp-json/uwp-custom/v1/register-organisation
- */
 add_action( 'rest_api_init', function () {
   register_rest_route( 'uwp-custom/v1', '/register-organisation', [
     'methods'  => 'POST',
     'callback' => 'uwp_custom_register_organisation',
-    'permission_callback' => function () {
-      return wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'] ?? '', 'wp_rest' );
-    },
+    'permission_callback' => '__return_true', // Allow unauthenticated registration
   ] );
 } );
 
@@ -146,47 +147,46 @@ function uwp_custom_register_organisation( WP_REST_Request $request ) {
     'user_email' => sanitize_email( $d['email'] ),
     'first_name' => sanitize_text_field( $d['first_name'] ),
     'last_name'  => sanitize_text_field( $d['last_name'] ?? '' ),
-    'display_name' => sanitize_text_field( $d['organisation'] ), // This is what UsersWP shows
+    'display_name' => sanitize_text_field( $d['organisation'] ),
     'role' => 'subscriber',
   ] );
 
   if ( is_wp_error( $user_id ) )
     return new WP_REST_Response( [ 'message' => $user_id->get_error_message() ], 400 );
 
-  // Store meta fields to match UsersWP form
+  // Store meta fields
   $business_type = sanitize_text_field( $d['business_type'] ?? 'for-profit' );
   $mobile = sanitize_text_field( $d['mobile'] ?? '' );
   
-  // Save with multiple key variations to ensure compatibility
   update_user_meta( $user_id, 'business_type', $business_type );
   update_user_meta( $user_id, 'uwp_business_type', $business_type );
   
   update_user_meta( $user_id, 'mobile', $mobile );
   update_user_meta( $user_id, 'uwp_mobile', $mobile );
-  update_user_meta( $user_id, 'phone', $mobile ); // Also save as 'phone' for compatibility
+  update_user_meta( $user_id, 'phone', $mobile );
   
-  // Newsletter and terms agreement
   update_user_meta( $user_id, 'news_opt_in', $d['news_opt_in'] === 'yes' ? 'yes' : 'no' );
   update_user_meta( $user_id, 'agree', $d['agree'] === 'yes' ? 'yes' : 'no' );
+  
+  // Track which registration form was used
+  update_user_meta( $user_id, 'register_form_type', 'register-form-organisation' );
+  update_user_meta( $user_id, 'uwp_register_form_type', 'register-form-organisation' );
+  
+  // Store organisation name separately
+  update_user_meta( $user_id, 'organisation', sanitize_text_field( $d['organisation'] ) );
+  update_user_meta( $user_id, 'uwp_organisation', sanitize_text_field( $d['organisation'] ) );
 
   // Log for debugging
   error_log( "Organisation registered: User ID {$user_id}, Business: {$business_type}, Mobile: {$mobile}" );
 
-  // Trigger UsersWP registration hooks
+  // Trigger UsersWP hooks
   do_action( 'uwp_after_process_register', $user_id );
   do_action( 'uwp_user_register', $user_id, null, $d );
 
   return new WP_REST_Response( [ 
     'success' => true, 
     'user_id' => $user_id,
-    'debug' => [
-      'business_type_saved' => get_user_meta( $user_id, 'business_type', true ),
-      'mobile_saved' => get_user_meta( $user_id, 'mobile', true ),
-      'display_name' => get_userdata( $user_id )->display_name,
-    ]
   ], 200 );
-
-  return new WP_REST_Response( [ 'success' => true, 'user_id' => $user_id ], 200 );
 }
 
 add_action('init', function () {
@@ -270,7 +270,7 @@ add_action('init', function () {
     ]);
   }
 
-  // Seed the fixed Theme terms (safe to run on every init â€” checks existence)
+  // Seed the fixed Theme terms (safe to run on every init – checks existence)
   $themes = [
     'community-and-connection' => 'Community and Connection',
     'learning-and-growth'      => 'Learning and Growth',

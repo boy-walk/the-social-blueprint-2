@@ -208,8 +208,8 @@ function RegisterOrganisation() {
       const res = await fetch('/wp-json/uwp-custom/v1/register-organisation', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'X-WP-Nonce': window?.wpApiSettings?.nonce || ''
+          'Content-Type': 'application/json'
+          // ⭐ REMOVED: X-WP-Nonce header - not needed for registration
         },
         body: JSON.stringify({
           email: form.email,
@@ -565,4 +565,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-organisation.js.map?ver=467e182877795f764cac
+//# sourceMappingURL=register-organisation.js.map?ver=d8230980d627bd63b527

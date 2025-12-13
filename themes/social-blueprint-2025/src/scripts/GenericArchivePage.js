@@ -413,7 +413,8 @@ export function GenericArchivePage(props) {
                     key={item.id}
                     image={item.thumbnail}
                     title={item.title}
-                    subtitle={item.date}
+                    date={item.date}
+                    subtitle={item.excerpt || item.subtitle}
                     badge={getBadge(item.post_type)}
                     href={item.permalink}
                     fullHeight

@@ -985,7 +985,8 @@ function GenericArchivePage(props) {
             children: filteredItems.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
               image: item.thumbnail,
               title: item.title,
-              subtitle: item.date,
+              date: item.date,
+              subtitle: item.excerpt || item.subtitle,
               badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_4__.getBadge)(item.post_type),
               href: item.permalink,
               fullHeight: true,
@@ -1218,4 +1219,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=8742305ff75281841c59
+//# sourceMappingURL=generic-archive.js.map?ver=b93f47257b05a4469922

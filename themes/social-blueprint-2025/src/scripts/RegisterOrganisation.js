@@ -114,7 +114,7 @@ export function RegisterOrganisation() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': window?.wpApiSettings?.nonce || '',
+          // ⭐ REMOVED: X-WP-Nonce header - not needed for registration
         },
         body: JSON.stringify({
           email: form.email,
