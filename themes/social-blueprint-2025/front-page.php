@@ -164,8 +164,7 @@ $dynamic_props = [
 
 $historical_photos = get_posts([
   'post_type' => 'historical_photo',
-  'posts_per_page' => 12,
-  'orderby' => 'rand',
+  'posts_per_page' => 6,
 ]);
 
 $articles = get_posts([

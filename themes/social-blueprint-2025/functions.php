@@ -21,20 +21,17 @@ function boilerplate_add_support() {
 }
 add_action('after_setup_theme', 'boilerplate_add_support');
 
-// 1. Add nonce to localized script
 add_action('wp_enqueue_scripts', function () {
-  wp_enqueue_script('ourmainjs');
-  wp_localize_script('ourmainjs', 'wpApiSettings', [
+  wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), 
+    array('wp-element', 'react-jsx-runtime'), '1.0', true);
+  
+  wp_localize_script('ourmainjs', 'wpData', [
     'nonce' => wp_create_nonce('wp_rest'),
+    'restUrl' => rest_url(),
+    'siteUrl' => home_url(),
   ]);
-});
+}, 10);
 
-add_action('wp_enqueue_scripts', function () {
-  wp_enqueue_script('ourmainjs');
-  wp_localize_script('ourmainjs', 'WPData', [
-    'nonce' => wp_create_nonce('wp_rest'),
-  ]);
-});
 
 // 2. Register REST route
 add_action('rest_api_init', function () {
