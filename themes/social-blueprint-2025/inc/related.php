@@ -1,17 +1,14 @@
 <?php
+/**
+ * UPDATED: sb_get_related_by_topic_tags with Ghost Event Protection
+ * 
+ * Changes:
+ * 1. Added post_status check in scoring WHERE clause
+ * 2. Added safety filter to remove non-published posts at the end
+ * 3. Added debug logging for non-published posts that leak through
+ */
+
 if ( ! function_exists('sb_get_related_by_topic_tags') ) {
-  /**
-   * Related content by shared terms (topic_tag, theme, ...).
-   * - Blends TEC events (tribe_events) and normal post types.
-   * - Scores by # of matching terms across $match_taxes.
-   *
-   * @param int          $post_id
-   * @param int          $limit
-   * @param bool         $hide_recurring
-   * @param array        $post_types     e.g. ['tribe_events','article','podcast']
-   * @param array        $match_taxes    e.g. ['topic_tag','theme']
-   * @return WP_Post[]                   up to $limit posts
-   */
   function sb_get_related_by_topic_tags(
     $post_id,
     $limit          = 3,
@@ -56,6 +53,7 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     }
 
     // --- Scoring filter: prefer posts sharing more of the same terms ---
+    // ⭐ UPDATED: Added post_status check to prevent scoring trashed posts
     $rel_filter = function( $clauses ) use ( $wpdb, $all_ttids ) {
       if ( empty($all_ttids) ) return $clauses;
 
@@ -63,6 +61,9 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
       // Join to term_relationships for scoring
       $clauses['join']   .= " INNER JOIN {$wpdb->term_relationships} sbp_tr_rel
                                ON sbp_tr_rel.object_id = {$wpdb->posts}.ID";
+      
+      // ⭐ NEW: Explicitly filter to only published posts in the scoring
+      $clauses['where']  .= " AND {$wpdb->posts}.post_status = 'publish'";
       $clauses['where']  .= " AND sbp_tr_rel.term_taxonomy_id IN ($in)";
       $clauses['fields'] .= ", COUNT(DISTINCT sbp_tr_rel.term_taxonomy_id) AS rel_score";
 
@@ -199,11 +200,26 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
       add_filter( 'posts_clauses', $rel_filter, 10, 1 );
     }
 
-    // Final sanitisation: de-dup (paranoia) & cap
+    // ⭐ UPDATED: Final sanitisation with actual post_status verification
     $final = [];
     $seen  = [];
     foreach ( $out as $p ) {
       if ( isset($seen[$p->ID]) ) continue;
+      
+      // ⭐ NEW: Double-check that post is actually published
+      $actual_status = get_post_status($p->ID);
+      if ($actual_status !== 'publish') {
+        // Log ghost posts for debugging
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+          error_log("🚨 Ghost post filtered out from related content:");
+          error_log("  Post ID: {$p->ID}");
+          error_log("  Title: " . ($p->post_title ?? 'Unknown'));
+          error_log("  Type: " . ($p->post_type ?? 'Unknown'));
+          error_log("  Status in DB: $actual_status");
+        }
+        continue; // Skip this post
+      }
+      
       $seen[$p->ID] = true;
       $final[] = $p;
       if ( count($final) >= $limit ) break;
@@ -215,3 +231,16 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     return $final;
   }
 }
+
+/**
+ * CHANGES MADE:
+ * 
+ * 1. Line ~48: Added "AND {$wpdb->posts}.post_status = 'publish'" to scoring WHERE clause
+ *    - Prevents trashed posts from being counted in the scoring JOIN
+ * 
+ * 2. Lines ~175-192: Added post_status verification before adding to final results
+ *    - Acts as safety net to catch any non-published posts that leaked through
+ *    - Logs ghost posts to debug.log when WP_DEBUG is enabled
+ * 
+ * These changes prevent deleted/trashed posts from appearing in related content.
+ */
