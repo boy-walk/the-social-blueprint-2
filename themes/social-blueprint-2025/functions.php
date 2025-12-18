@@ -850,3 +850,134 @@ function sbp_force_phrase_search($query) {
     
     return $query; // IMPORTANT: must return the query
 }
+
+add_action('wp_footer', function() {
+    // Only show for admins
+    if (!current_user_can('manage_options')) return;
+    
+    // Only on singular posts
+    if (!is_singular()) return;
+    
+    global $post, $wpdb;
+    
+    $output = [];
+    $output[] = "GHOST EVENT DIAGNOSTIC";
+    $output[] = "Current Post: {$post->ID} - {$post->post_title}";
+    $output[] = "";
+    
+    // Test 1: Function exists?
+    if (function_exists('sb_get_related_by_topic_tags')) {
+        $output[] = "✓ sb_get_related_by_topic_tags function EXISTS";
+        
+        try {
+            $related = sb_get_related_by_topic_tags(
+                $post->ID,
+                5,
+                true,
+                ['tribe_events', 'post', 'article'],
+                ['topic_tag', 'theme']
+            );
+            
+            $output[] = "Function returned " . count($related) . " posts:";
+            foreach ($related as $r) {
+                $status = get_post_status($r->ID);
+                $ghost = ($status !== 'publish') ? '🚨 GHOST' : '✓ OK';
+                $output[] = "  - Post {$r->ID}: {$r->post_title} (Status: {$status}) {$ghost}";
+            }
+        } catch (Exception $e) {
+            $output[] = "✗ Error: " . $e->getMessage();
+        }
+    } else {
+        $output[] = "✗ sb_get_related_by_topic_tags DOES NOT EXIST";
+        $output[] = "   Related content comes from somewhere else!";
+    }
+    
+    $output[] = "";
+    
+    // Test 2: ACF fields?
+    if (function_exists('get_fields')) {
+        $fields = get_fields($post->ID);
+        $found_ghost = false;
+        
+        if ($fields) {
+            foreach ($fields as $key => $value) {
+                if (is_array($value) || is_object($value)) {
+                    $items = is_array($value) ? $value : [$value];
+                    foreach ($items as $item) {
+                        if (is_object($item) && isset($item->ID)) {
+                            $status = get_post_status($item->ID);
+                            if (!$status || $status === 'trash') {
+                                $output[] = "🚨🚨🚨 GHOST POST FOUND!";
+                                $output[] = "   ACF Field: '{$key}'";
+                                $output[] = "   Post ID: {$item->ID}";
+                                $output[] = "   Status: " . ($status ?: 'DELETED');
+                                $found_ghost = true;
+                            }
+                        } elseif (is_numeric($item)) {
+                            $status = get_post_status($item);
+                            if (!$status || $status === 'trash') {
+                                $output[] = "🚨🚨🚨 GHOST POST FOUND!";
+                                $output[] = "   ACF Field: '{$key}'";
+                                $output[] = "   Post ID: {$item}";
+                                $output[] = "   Status: " . ($status ?: 'DELETED');
+                                $found_ghost = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (!$found_ghost) {
+            $output[] = "No ghost posts found in ACF fields";
+        }
+    }
+    
+    $output[] = "";
+    
+    // Test 3: Trashed events?
+    $trashed = $wpdb->get_var("
+        SELECT COUNT(*) 
+        FROM $wpdb->posts 
+        WHERE post_status = 'trash' 
+        AND post_type = 'tribe_events'
+    ");
+    
+    $output[] = "Trashed events in database: {$trashed}";
+    
+    // Display as HTML comment (view page source to see)
+    echo "<!-- \n";
+    echo "========================================\n";
+    foreach ($output as $line) {
+        echo $line . "\n";
+    }
+    echo "========================================\n";
+    echo "COPY THIS AND SEND TO ME!\n";
+    echo "-->\n";
+    
+    // Also display visible alert for admins
+    ?>
+    <div style="position: fixed; top: 32px; left: 0; right: 0; background: #fff; border: 3px solid #f00; padding: 20px; z-index: 99999; max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 12px; line-height: 1.6;">
+        <h3 style="margin: 0 0 10px 0; color: #f00;">🔍 GHOST EVENT DIAGNOSTIC</h3>
+        <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word;"><?php 
+            foreach ($output as $line) {
+                echo esc_html($line) . "\n";
+            }
+        ?></pre>
+        <button onclick="this.parentElement.remove()" style="margin-top: 10px; padding: 5px 10px; cursor: pointer;">Close</button>
+        <button onclick="navigator.clipboard.writeText(this.previousElementSibling.previousElementSibling.textContent)" style="margin-top: 10px; padding: 5px 10px; cursor: pointer;">Copy to Clipboard</button>
+    </div>
+    <?php
+}, 9999);
+
+/**
+ * USAGE:
+ * 
+ * 1. Add this to functions.php
+ * 2. Visit ANY page on your site (while logged in as admin)
+ * 3. A red box will appear at the top showing the diagnostic
+ * 4. Click "Copy to Clipboard" and paste to me
+ * 5. Or view page source (Ctrl+U) and look for the HTML comment
+ * 
+ * This is the EASIEST method - no special URLs needed!
+ */
