@@ -1,11 +1,12 @@
 <?php
 /**
- * UPDATED: sb_get_related_by_topic_tags with Ghost Event Protection
+ * UPDATED: sb_get_related_by_topic_tags with 6-Month Event Filter
  * 
- * Changes:
+ * Changes from previous version:
  * 1. Added post_status check in scoring WHERE clause
- * 2. Added safety filter to remove non-published posts at the end
- * 3. Added debug logging for non-published posts that leak through
+ * 2. Added safety filter to remove non-published posts
+ * 3. ⭐ NEW: Events limited to last 6 months
+ * 4. ⭐ NEW: Optional date_range parameter for flexibility
  */
 
 if ( ! function_exists('sb_get_related_by_topic_tags') ) {
@@ -14,11 +15,16 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     $limit          = 3,
     $hide_recurring = true,
     $post_types     = [],
-    $match_taxes    = []
+    $match_taxes    = [],
+    $date_range     = '-6 months' // ⭐ NEW: How far back to look for events
   ) {
     global $wpdb;
 
     $post_types = array_values( array_unique( (array) $post_types ) );
+
+    // ⭐ NEW: Calculate date range for events
+    $start_date = date('Y-m-d H:i:s', strtotime($date_range));
+    $end_date = date('Y-m-d H:i:s'); // Today
 
     // --- Build tax data: term_ids (for tax_query) and tt_ids (for scoring) ---
     $tax_ids_by_tax = [];
@@ -53,7 +59,6 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     }
 
     // --- Scoring filter: prefer posts sharing more of the same terms ---
-    // ⭐ UPDATED: Added post_status check to prevent scoring trashed posts
     $rel_filter = function( $clauses ) use ( $wpdb, $all_ttids ) {
       if ( empty($all_ttids) ) return $clauses;
 
@@ -62,7 +67,7 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
       $clauses['join']   .= " INNER JOIN {$wpdb->term_relationships} sbp_tr_rel
                                ON sbp_tr_rel.object_id = {$wpdb->posts}.ID";
       
-      // ⭐ NEW: Explicitly filter to only published posts in the scoring
+      // Explicitly filter to only published posts in the scoring
       $clauses['where']  .= " AND {$wpdb->posts}.post_status = 'publish'";
       $clauses['where']  .= " AND sbp_tr_rel.term_taxonomy_id IN ($in)";
       $clauses['fields'] .= ", COUNT(DISTINCT sbp_tr_rel.term_taxonomy_id) AS rel_score";
@@ -89,6 +94,7 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     $non_events  = array_values( array_diff( $post_types, ['tribe_events'] ) );
 
     // -------- 1) EVENTS via TEC (scored + tax_query) --------
+    // ⭐ UPDATED: Now limited to last 6 months
     if ( $want_events && $limit > 0 ) {
       $slots = $limit;
       $args = [
@@ -96,8 +102,8 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
         'posts_per_page'    => $slots,
         'post__not_in'      => $used_ids,
         'eventDisplay'      => 'custom',
-        'start_date'        => '1970-01-01 00:00:00',
-        'end_date'          => '2100-01-01 00:00:00',
+        'start_date'        => $start_date,  // ⭐ CHANGED: Was '1970-01-01', now last 6 months
+        'end_date'          => $end_date,    // ⭐ CHANGED: Was '2100-01-01', now today
         'suppress_filters'  => false, // let our posts_clauses run for scoring
       ];
       if ( ! empty($tax_query) ) {
@@ -118,6 +124,7 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     }
 
     // -------- 2) NON-EVENTS via WP_Query (scored + tax_query) --------
+    // ⭐ UPDATED: Also limited to last 6 months for consistency
     if ( $non_events && count($out) < $limit ) {
       $slots = $limit - count($out);
       $q = new WP_Query([
@@ -129,6 +136,12 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
         'no_found_rows'       => true,
         'suppress_filters'    => false,     // let our posts_clauses run for scoring
         'tax_query'           => ! empty($tax_query) ? $tax_query : [],
+        'date_query'          => [          // ⭐ NEW: Date filter for non-events
+          [
+            'after'     => $date_range,
+            'inclusive' => true,
+          ],
+        ],
         // Keep a deterministic secondary order after score:
         'orderby'             => 'date',
         'order'               => 'DESC',
@@ -144,6 +157,7 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     }
 
     // -------- 3) FALLBACK FILL (no tax filter; no scoring) --------
+    // ⭐ UPDATED: Fallback also limited to last 6 months
     $need = $limit - count($out);
     if ( $need > 0 ) {
       // Temporarily disable scoring filter for neutral fills
@@ -159,6 +173,12 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
           'ignore_sticky_posts' => true,
           'no_found_rows'       => true,
           'suppress_filters'    => true, // skip scoring/join entirely
+          'date_query'          => [      // ⭐ NEW: Date filter for fallback
+            [
+              'after'     => $date_range,
+              'inclusive' => true,
+            ],
+          ],
           'orderby'             => 'date',
           'order'               => 'DESC',
         ]);
@@ -179,8 +199,8 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
           'posts_per_page'    => $need,
           'post__not_in'      => array_values($used_ids),
           'eventDisplay'      => 'custom',
-          'start_date'        => '1970-01-01 00:00:00',
-          'end_date'          => '2100-01-01 00:00:00',
+          'start_date'        => $start_date,  // ⭐ CHANGED: Last 6 months
+          'end_date'          => $end_date,    // ⭐ CHANGED: Today
           'hide_subsequent_recurrences' => $hide_recurring,
           'tribeHideRecurrence'         => $hide_recurring,
           'orderby'           => 'event_date',
@@ -200,13 +220,13 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
       add_filter( 'posts_clauses', $rel_filter, 10, 1 );
     }
 
-    // ⭐ UPDATED: Final sanitisation with actual post_status verification
+    // Final sanitisation with actual post_status verification
     $final = [];
     $seen  = [];
     foreach ( $out as $p ) {
       if ( isset($seen[$p->ID]) ) continue;
       
-      // ⭐ NEW: Double-check that post is actually published
+      // Double-check that post is actually published
       $actual_status = get_post_status($p->ID);
       if ($actual_status !== 'publish') {
         // Log ghost posts for debugging
@@ -231,16 +251,3 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     return $final;
   }
 }
-
-/**
- * CHANGES MADE:
- * 
- * 1. Line ~48: Added "AND {$wpdb->posts}.post_status = 'publish'" to scoring WHERE clause
- *    - Prevents trashed posts from being counted in the scoring JOIN
- * 
- * 2. Lines ~175-192: Added post_status verification before adding to final results
- *    - Acts as safety net to catch any non-published posts that leaked through
- *    - Logs ghost posts to debug.log when WP_DEBUG is enabled
- * 
- * These changes prevent deleted/trashed posts from appearing in related content.
- */
