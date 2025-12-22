@@ -81,16 +81,17 @@ $week_q = new WP_Query([
 ]);
 if ($week_q->have_posts()) {
   while ($week_q->have_posts()) { $week_q->the_post();
+    $id = get_the_ID();
     $more_week[] = [
-      'id'        => get_the_ID(),
+      'id'        => $id,
       'title'     => get_the_title(),
       'post_type' => get_post_type(),
       'link'      => get_permalink(),
-      'image'     => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
-      'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
-      'subtitle'  => get_post_meta(get_the_ID(), '_EventStartDate', true),
-      'date'      => get_the_date('', get_the_ID()),
-      'author'    => get_the_author_meta('display_name', get_post_field('post_author', get_the_ID())),
+      'image'     => get_the_post_thumbnail_url($id, 'medium_large'),
+      'thumbnail' => get_the_post_thumbnail_url($id, 'medium_large'),
+      'subtitle'  => get_the_excerpt(),
+      'date'      => get_post_meta($id, '_EventStartDate', true),
+      'author'    => get_the_author_meta('display_name', get_post_field('post_author', $id)),
     ];
   }
   wp_reset_postdata();
