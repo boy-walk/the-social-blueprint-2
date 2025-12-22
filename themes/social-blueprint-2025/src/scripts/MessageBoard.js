@@ -59,7 +59,7 @@ export default function MessageBoardPage({
                       className="w-10 h-10 rounded-full"
                     />
                     <div className="flex flex-col gap-0.5">
-                      <div className="lg:Blueprint-title-medium">
+                      <div className="Blueprint-title-small lg:Blueprint-title-medium">
                         {author?.name || "Author"}
                       </div>
                       {formattedDate && (

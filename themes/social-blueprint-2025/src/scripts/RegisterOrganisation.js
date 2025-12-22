@@ -252,7 +252,7 @@ export function RegisterOrganisation() {
             error={errors.email}
           />
           <TextField
-            label="mobile number"
+            label="Phone Number"
             placeholder="Input"
             value={form.mobile}
             onChange={handleChange('mobile')}

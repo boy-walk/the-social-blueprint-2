@@ -366,7 +366,7 @@ function RegisterOrganisation() {
           type: "email",
           error: errors.email
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
-          label: "mobile number",
+          label: "Phone Number",
           placeholder: "Input",
           value: form.mobile,
           onChange: handleChange('mobile'),
@@ -565,4 +565,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-organisation.js.map?ver=d8230980d627bd63b527
+//# sourceMappingURL=register-organisation.js.map?ver=0cac1a5296ecf07a34df

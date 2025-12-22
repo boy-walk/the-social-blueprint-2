@@ -21,6 +21,7 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
 
   const [isLoading, setIsLoading] = useState(false);
   const [currentView, setCurrentView] = useState("dayGridMonth");
+  const [supportsHover, setSupportsHover] = useState(true); // ⭐ NEW: Detect if device supports hover
 
   const calendarRef = useRef(null);
   const isFirstDatesSet = useRef(true);
@@ -42,6 +43,30 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
   });
   const moveHandlerRef = useRef(null);
   const rafRef = useRef(null);
+
+  // ⭐ NEW: Detect if device supports hover (not touch-only device)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Check if primary input can hover (desktop/laptop with mouse)
+    const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setSupportsHover(hoverQuery.matches);
+
+    const onChange = (e) => setSupportsHover(e.matches);
+    if (hoverQuery.addEventListener) {
+      hoverQuery.addEventListener("change", onChange);
+    } else {
+      hoverQuery.addListener(onChange);
+    }
+
+    return () => {
+      if (hoverQuery.removeEventListener) {
+        hoverQuery.removeEventListener("change", onChange);
+      } else {
+        hoverQuery.removeListener(onChange);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
@@ -566,8 +591,9 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
               eventDisplay="block"
               height="auto"
               datesSet={datesSet}
-              eventMouseEnter={showTooltip}
-              eventMouseLeave={hideTooltip}
+              // ⭐ CHANGED: Only enable tooltip handlers on hover-capable devices
+              eventMouseEnter={supportsHover ? showTooltip : undefined}
+              eventMouseLeave={supportsHover ? hideTooltip : undefined}
               nowIndicator={true}
               eventTimeFormat={{
                 hour: "numeric",
@@ -600,8 +626,8 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
         </section>
       </div>
 
-      {/* Tooltip */}
-      {tip.visible && (
+      {/* ⭐ CHANGED: Tooltip only renders on hover-capable devices */}
+      {supportsHover && tip.visible && (
         <div
           role="tooltip"
           className="pointer-events-none fixed z-[10000] max-w-md rounded-2xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 p-5"

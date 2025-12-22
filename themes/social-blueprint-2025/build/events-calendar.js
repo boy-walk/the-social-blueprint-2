@@ -141,6 +141,8 @@ function EventsCalendar({
   const [onlyFeatured, setOnlyFeatured] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [currentView, setCurrentView] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("dayGridMonth");
+  const [supportsHover, setSupportsHover] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true); // ⭐ NEW: Detect if device supports hover
+
   const calendarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
   const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -159,6 +161,28 @@ function EventsCalendar({
   });
   const moveHandlerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const rafRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // ⭐ NEW: Detect if device supports hover (not touch-only device)
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (typeof window === "undefined") return;
+
+    // Check if primary input can hover (desktop/laptop with mouse)
+    const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setSupportsHover(hoverQuery.matches);
+    const onChange = e => setSupportsHover(e.matches);
+    if (hoverQuery.addEventListener) {
+      hoverQuery.addEventListener("change", onChange);
+    } else {
+      hoverQuery.addListener(onChange);
+    }
+    return () => {
+      if (hoverQuery.removeEventListener) {
+        hoverQuery.removeEventListener("change", onChange);
+      } else {
+        hoverQuery.removeListener(onChange);
+      }
+    };
+  }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const t = setTimeout(() => setDebouncedKeywordValue(keyword), 500);
     return () => clearTimeout(t);
@@ -700,9 +724,12 @@ function EventsCalendar({
             eventTextColor: "var(--schemesOnPrimaryFixed)",
             eventDisplay: "block",
             height: "auto",
-            datesSet: datesSet,
-            eventMouseEnter: showTooltip,
-            eventMouseLeave: hideTooltip,
+            datesSet: datesSet
+            // ⭐ CHANGED: Only enable tooltip handlers on hover-capable devices
+            ,
+
+            eventMouseEnter: supportsHover ? showTooltip : undefined,
+            eventMouseLeave: supportsHover ? hideTooltip : undefined,
             nowIndicator: true,
             eventTimeFormat: {
               hour: "numeric",
@@ -744,7 +771,7 @@ function EventsCalendar({
           })
         })]
       })]
-    }), tip.visible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    }), supportsHover && tip.visible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       role: "tooltip",
       className: "pointer-events-none fixed z-[10000] max-w-md rounded-2xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 p-5",
       style: {
@@ -1127,4 +1154,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=0cb9653cb9dd21c049a9
+//# sourceMappingURL=events-calendar.js.map?ver=37d2625e82df6a712ef0

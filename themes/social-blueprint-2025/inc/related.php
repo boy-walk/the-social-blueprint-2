@@ -1,14 +1,4 @@
 <?php
-/**
- * UPDATED: sb_get_related_by_topic_tags with 6-Month Event Filter
- * 
- * Changes from previous version:
- * 1. Added post_status check in scoring WHERE clause
- * 2. Added safety filter to remove non-published posts
- * 3. ⭐ NEW: Events limited to last 6 months
- * 4. ⭐ NEW: Optional date_range parameter for flexibility
- */
-
 if ( ! function_exists('sb_get_related_by_topic_tags') ) {
   function sb_get_related_by_topic_tags(
     $post_id,

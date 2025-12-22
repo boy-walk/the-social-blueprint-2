@@ -1576,7 +1576,7 @@ function MessageBoardPage({
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
                     className: "flex flex-col gap-0.5",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                      className: "lg:Blueprint-title-medium",
+                      className: "Blueprint-title-small lg:Blueprint-title-medium",
                       children: author?.name || "Author"
                     }), formattedDate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                       className: "Blueprint-label-large text-schemesOnSurfaceVariant",
@@ -2357,4 +2357,4 @@ const Tag = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=61ede2ce5b8efe33e408
+//# sourceMappingURL=mb-page.js.map?ver=1265a9fdc0353c92bc7b
