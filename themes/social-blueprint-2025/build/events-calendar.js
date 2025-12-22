@@ -771,42 +771,67 @@ function EventsCalendar({
           })
         })]
       })]
-    }), supportsHover && tip.visible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      role: "tooltip",
-      className: "pointer-events-none fixed z-[10000] max-w-md rounded-2xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 p-5",
-      style: {
-        left: Math.min(window.innerWidth - 16, tip.x + 12),
-        top: Math.min(window.innerHeight - 16, tip.y + 12)
-      },
-      "aria-hidden": !tip.visible,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex gap-4",
-        children: [tip.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-          src: tip.image,
-          alt: "",
-          className: "w-28 h-28 rounded-xl object-cover shrink-0",
-          loading: "lazy",
-          decoding: "async"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "min-w-0 flex-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-title-medium-emphasized line-clamp-2",
-            children: tip.title
-          }), tip.range && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-body-small text-schemesOnSurfaceVariant mt-1",
-            children: tip.range
-          }), (tip.venue || tip.location) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-body-small text-schemesOnSurfaceVariant mt-1",
-            children: [tip.venue, tip.location].filter(Boolean).join(" • ")
-          }), tip.description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "Blueprint-body-medium text-schemesOnSurface mt-3 line-clamp-4",
-            dangerouslySetInnerHTML: {
-              __html: tip.description
-            }
+    }), supportsHover && tip.visible && (() => {
+      const tooltipWidth = 448; // max-w-md = 28rem = 448px
+      const tooltipHeight = 200; // approximate height
+      const offset = 12;
+      const padding = 16;
+
+      // Determine horizontal position
+      const spaceOnRight = window.innerWidth - tip.x - offset - padding;
+      const spaceOnLeft = tip.x - offset - padding;
+      const showOnLeft = spaceOnRight < tooltipWidth && spaceOnLeft > spaceOnRight;
+
+      // Determine vertical position
+      const spaceBelow = window.innerHeight - tip.y - offset - padding;
+      const spaceAbove = tip.y - offset - padding;
+      const showAbove = spaceBelow < tooltipHeight && spaceAbove > spaceBelow;
+      const style = {
+        ...(showOnLeft ? {
+          right: window.innerWidth - tip.x + offset
+        } : {
+          left: tip.x + offset
+        }),
+        ...(showAbove ? {
+          bottom: window.innerHeight - tip.y + offset
+        } : {
+          top: tip.y + offset
+        })
+      };
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        role: "tooltip",
+        className: "pointer-events-none fixed z-[10000] max-w-md rounded-2xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 p-5",
+        style: style,
+        "aria-hidden": !tip.visible,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex gap-4",
+          children: [tip.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: tip.image,
+            alt: "",
+            className: "w-28 h-28 rounded-xl object-cover shrink-0",
+            loading: "lazy",
+            decoding: "async"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "min-w-0 flex-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "Blueprint-title-medium-emphasized line-clamp-2",
+              children: tip.title
+            }), tip.range && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "Blueprint-body-small text-schemesOnSurfaceVariant mt-1",
+              children: tip.range
+            }), (tip.venue || tip.location) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "Blueprint-body-small text-schemesOnSurfaceVariant mt-1",
+              children: [tip.venue, tip.location].filter(Boolean).join(" • ")
+            }), tip.description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "Blueprint-body-medium text-schemesOnSurface mt-3 line-clamp-4",
+              dangerouslySetInnerHTML: {
+                __html: tip.description
+              }
+            })]
           })]
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        })
+      });
+    })(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       id: "mobile-filters",
       className: `lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`,
       "aria-hidden": !isFiltersOpen,
@@ -1154,4 +1179,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=37d2625e82df6a712ef0
+//# sourceMappingURL=events-calendar.js.map?ver=6cf961beb858fa60ecfe

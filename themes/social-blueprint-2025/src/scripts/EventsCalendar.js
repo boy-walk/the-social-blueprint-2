@@ -625,43 +625,66 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
           </div>
         </section>
       </div>
+      {supportsHover && tip.visible && (() => {
+        const tooltipWidth = 448; // max-w-md = 28rem = 448px
+        const tooltipHeight = 200; // approximate height
+        const offset = 12;
+        const padding = 16;
 
-      {/* ⭐ CHANGED: Tooltip only renders on hover-capable devices */}
-      {supportsHover && tip.visible && (
-        <div
-          role="tooltip"
-          className="pointer-events-none fixed z-[10000] max-w-md rounded-2xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 p-5"
-          style={{
-            left: Math.min(window.innerWidth - 16, tip.x + 12),
-            top: Math.min(window.innerHeight - 16, tip.y + 12),
-          }}
-          aria-hidden={!tip.visible}
-        >
-          <div className="flex gap-4">
-            {tip.image && (
-              <img
-                src={tip.image}
-                alt=""
-                className="w-28 h-28 rounded-xl object-cover shrink-0"
-                loading="lazy"
-                decoding="async"
-              />
-            )}
-            <div className="min-w-0 flex-1">
-              <div className="Blueprint-title-medium-emphasized line-clamp-2">{tip.title}</div>
-              {tip.range && <div className="Blueprint-body-small text-schemesOnSurfaceVariant mt-1">{tip.range}</div>}
-              {(tip.venue || tip.location) && (
-                <div className="Blueprint-body-small text-schemesOnSurfaceVariant mt-1">
-                  {[tip.venue, tip.location].filter(Boolean).join(" • ")}
-                </div>
+        // Determine horizontal position
+        const spaceOnRight = window.innerWidth - tip.x - offset - padding;
+        const spaceOnLeft = tip.x - offset - padding;
+        const showOnLeft = spaceOnRight < tooltipWidth && spaceOnLeft > spaceOnRight;
+
+        // Determine vertical position
+        const spaceBelow = window.innerHeight - tip.y - offset - padding;
+        const spaceAbove = tip.y - offset - padding;
+        const showAbove = spaceBelow < tooltipHeight && spaceAbove > spaceBelow;
+
+        const style = {
+          ...(showOnLeft
+            ? { right: window.innerWidth - tip.x + offset }
+            : { left: tip.x + offset }
+          ),
+          ...(showAbove
+            ? { bottom: window.innerHeight - tip.y + offset }
+            : { top: tip.y + offset }
+          ),
+        };
+
+        return (
+          <div
+            role="tooltip"
+            className="pointer-events-none fixed z-[10000] max-w-md rounded-2xl border bg-schemesSurface text-schemesOnSurface border-schemesOutlineVariant shadow-3x3 p-5"
+            style={style}
+            aria-hidden={!tip.visible}
+          >
+            <div className="flex gap-4">
+              {tip.image && (
+                <img
+                  src={tip.image}
+                  alt=""
+                  className="w-28 h-28 rounded-xl object-cover shrink-0"
+                  loading="lazy"
+                  decoding="async"
+                />
               )}
-              {tip.description && (
-                <div className="Blueprint-body-medium text-schemesOnSurface mt-3 line-clamp-4" dangerouslySetInnerHTML={{ __html: tip.description }} />
-              )}
+              <div className="min-w-0 flex-1">
+                <div className="Blueprint-title-medium-emphasized line-clamp-2">{tip.title}</div>
+                {tip.range && <div className="Blueprint-body-small text-schemesOnSurfaceVariant mt-1">{tip.range}</div>}
+                {(tip.venue || tip.location) && (
+                  <div className="Blueprint-body-small text-schemesOnSurfaceVariant mt-1">
+                    {[tip.venue, tip.location].filter(Boolean).join(" • ")}
+                  </div>
+                )}
+                {tip.description && (
+                  <div className="Blueprint-body-medium text-schemesOnSurface mt-3 line-clamp-4" dangerouslySetInnerHTML={{ __html: tip.description }} />
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Mobile filters drawer */}
       <div
