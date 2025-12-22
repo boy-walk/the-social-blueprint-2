@@ -119,28 +119,36 @@ function tsb_browse_callback(WP_REST_Request $r) {
 
         // Map results
         $items = array_map(function ($post) {
-            $author_id = (int) $post->post_author;
-            
-            // Get excerpt without running expensive filters
-            $excerpt = $post->post_excerpt;
-            if (empty($excerpt)) {
-                $excerpt = wp_trim_words(wp_strip_all_tags($post->post_content), 30, '...');
-            }
-
-            return [
-                'id'        => $post->ID,
-                'title'     => html_entity_decode(get_the_title($post), ENT_QUOTES, 'UTF-8'),
-                'excerpt'   => html_entity_decode($excerpt, ENT_QUOTES, 'UTF-8'),
-                'permalink' => get_permalink($post),
-                'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
-                'post_type' => $post->post_type,
-                'date'      => get_the_date('', $post),
-                'author'    => get_the_author_meta('display_name', $author_id),
-                'topics'    => wp_get_post_terms($post->ID, 'topic_tag', ['fields' => 'names']),
-                'featured'  => (bool) get_post_meta($post->ID, 'is_featured', true),
-                'gd_category_image' => get_post_meta($post->ID, 'gd_category_image', true),
-            ];
-        }, $q->posts);
+          $author_id = (int) $post->post_author;
+          
+          // Get excerpt without running expensive filters
+          $excerpt = $post->post_excerpt;
+          if (empty($excerpt)) {
+              $excerpt = wp_trim_words(wp_strip_all_tags($post->post_content), 30, '...');
+          }
+      
+          // Handle date based on post type
+          if ($post->post_type === 'tribe_events') {
+              $event_start = get_post_meta($post->ID, '_EventStartDate', true);
+              $date = $event_start ? date('F j, Y', strtotime($event_start)) : get_the_date('', $post);
+          } else {
+              $date = get_the_date('', $post);
+          }
+      
+          return [
+              'id'        => $post->ID,
+              'title'     => html_entity_decode(get_the_title($post), ENT_QUOTES, 'UTF-8'),
+              'excerpt'   => html_entity_decode($excerpt, ENT_QUOTES, 'UTF-8'),
+              'permalink' => get_permalink($post),
+              'thumbnail' => get_the_post_thumbnail_url($post, 'medium_large'),
+              'post_type' => $post->post_type,
+              'date'      => $date,
+              'author'    => get_the_author_meta('display_name', $author_id),
+              'topics'    => wp_get_post_terms($post->ID, 'topic_tag', ['fields' => 'names']),
+              'featured'  => (bool) get_post_meta($post->ID, 'is_featured', true),
+              'gd_category_image' => get_post_meta($post->ID, 'gd_category_image', true),
+          ];
+      }, $q->posts);
 
         return new WP_REST_Response([
             'items'       => $items,
