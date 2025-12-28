@@ -227,10 +227,7 @@ const MENU_SECTIONS = {
   "whats-on": [{
     title: "Discover",
     items: [{
-      label: "Discover Events",
-      href: "/events"
-    }, {
-      label: "View Calendar",
+      label: "View Events Calendar",
       href: "/events"
     }, {
       label: "Featured Events",
@@ -1027,4 +1024,4 @@ function IconButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=1df670c424a97d190da5
+//# sourceMappingURL=header.js.map?ver=d5b3d48d8489f515a63b
