@@ -1,5 +1,6 @@
-import React, { useId } from 'react';
+import React, { useId, useState } from 'react';
 import clsx from 'clsx';
+import { Eye, EyeClosed } from '@phosphor-icons/react';
 
 export function TextField({
   label = 'Label',
@@ -22,6 +23,10 @@ export function TextField({
   const msgId = `${inputId}-msg`;
   const hasError = typeof error === 'string' && error.length > 0;
   const helperText = hasError ? error : supportingText;
+
+  const [showPassword, setShowPassword] = useState(false);
+  const isPassword = type === 'password';
+  const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
   const containerBase =
     'relative w-full rounded-xl text-schemesOnSurface Blueprint-body-medium';
@@ -60,9 +65,41 @@ export function TextField({
     disabled,
     'aria-invalid': hasError ? 'true' : undefined,
     'aria-describedby': helperText ? msgId : undefined,
-    className: multiline
-      ? clsx(inputBase, 'resize-none')
-      : inputBase,
+    className: clsx(
+      inputBase,
+      multiline && 'resize-none',
+      (isPassword || trailingIcon) && 'pr-12'
+    ),
+  };
+
+  const renderTrailingIcon = () => {
+    if (isPassword) {
+      return (
+        <button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant hover:text-schemesOnSurface"
+          tabIndex={-1}
+          aria-label={showPassword ? 'Hide password' : 'Show password'}
+        >
+          {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
+        </button>
+      );
+    }
+
+    if (trailingIcon) {
+      return (
+        <button
+          type="button"
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant hover:text-schemesOnSurface"
+          tabIndex={-1}
+        >
+          {trailingIcon}
+        </button>
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -84,22 +121,14 @@ export function TextField({
         {multiline ? (
           <textarea {...commonProps} />
         ) : (
-          <input type={type} {...commonProps} />
+          <input type={inputType} {...commonProps} />
         )}
 
         <label htmlFor={inputId} className={labelBase}>
           {label}
         </label>
 
-        {trailingIcon && (
-          <button
-            type="button"
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant hover:text-schemesOnSurface"
-            tabIndex={-1}
-          >
-            {trailingIcon}
-          </button>
-        )}
+        {renderTrailingIcon()}
       </div>
 
       {helperText ? (
