@@ -273,7 +273,13 @@ $endpoint = (count($post_types) === 1 && $post_types[0] === 'tribe_events')
   : '/wp-json/tsb/v1/browse';
 
 /** ---------------- Title ---------------- */
-$title = (count($post_types) > 1) ? tsb_clean_archive_title_from_pts($post_types) : tsb_clean_archive_title();
+if (count($post_types) === 1 && $post_types[0] === 'podcast') {
+  $title = 'Podcasts and Interviews';
+} elseif (count($post_types) > 1) {
+  $title = tsb_clean_archive_title_from_pts($post_types);
+} else {
+  $title = tsb_clean_archive_title();
+}
 
 $breadcrumbs = sbp_build_breadcrumbs();
 

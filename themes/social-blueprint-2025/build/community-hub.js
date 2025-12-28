@@ -2096,11 +2096,11 @@ function ContentCard({
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: " relative p-4 pt-3 h-auto md:h-[116px] lg:h-[128px] md:overflow-hidden ",
+        className: " relative p-1 pt-2 h-auto md:h-[116px] lg:h-[128px] md:overflow-hidden ",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: " pointer-events-none absolute inset-x-0 bottom-0 h-8 opacity-0 md:opacity-100 transition-opacity duration-200 md:group-hover:opacity-0 "
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "transition-transform duration-200 ease-in-out",
+          className: "flex flex-col gap-1 transition-transform duration-200 ease-in-out",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
             className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: date
@@ -2108,7 +2108,7 @@ function ContentCard({
             className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface ",
+            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-3 transition-colors duration-200 group-hover:text-schemesOnSurface ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
             className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
@@ -2915,4 +2915,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=b446f8a9b013c3c50213
+//# sourceMappingURL=community-hub.js.map?ver=8d99c2117e8107bd2456

@@ -169,20 +169,6 @@ export const SectionOne = ({ events, podcasts, articles, messageBoardPosts, dyna
           <NewsletterBanner />
         </div>
       </div >
-      <div className="bg-schemesPrimaryFixed">
-        <div className="py-16 px-4 sm:px-8 lg:px-16 flex flex-col max-w-[1600px] mx-auto gap-4">
-          <div className="flex gap-3 items-center">
-            <div className="Blueprint-headline-medium italic">
-              Explore more by
-            </div>
-            <PillTag label="Theme" backgroundColor="schemesPrimaryContainer" />
-          </div>
-          <div className="Blurprint-title-large mb-12 text-schemesOnSurface">
-            From support services to creative culture, start where you're curious.
-          </div>
-          <ExploreByTheme />
-        </div>
-      </div>
     </div >
   );
 };

@@ -58,7 +58,7 @@ export function ContentCard({
         {title && (
           <div
             className="
-              relative p-4 pt-3
+              relative p-1 pt-2
               h-auto md:h-[116px] lg:h-[128px]
               md:overflow-hidden
             "
@@ -70,7 +70,7 @@ export function ContentCard({
                 md:group-hover:opacity-0
               "
             />
-            <div className="transition-transform duration-200 ease-in-out">
+            <div className="flex flex-col gap-1 transition-transform duration-200 ease-in-out">
               {date && (
                 <div className="Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
                   {date}
@@ -91,7 +91,7 @@ export function ContentCard({
                 <p
                   className="
                     Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant
-                    line-clamp-2
+                    line-clamp-3
                     transition-colors duration-200 group-hover:text-schemesOnSurface
                   "
                 >
