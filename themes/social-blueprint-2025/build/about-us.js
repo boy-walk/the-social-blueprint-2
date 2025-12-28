@@ -268,8 +268,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/StarOfDavid.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Play.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Planet.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowElbowRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Play.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Planet.es.js");
 /* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Card */ "./src/scripts/Card.js");
 /* harmony import */ var _TestimonialSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TestimonialSlider */ "./src/scripts/TestimonialSlider.js");
 /* harmony import */ var _IconPicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./IconPicker */ "./src/scripts/IconPicker.js");
@@ -341,6 +342,17 @@ function AboutUs(props) {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
               children: "Showcasing and supporting our vibrant Melbourne Jewish community"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+              href: "/podcasts",
+              className: "flex items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                className: "Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large text-schemesPrimary hover:underline hover:cursor-pointer",
+                children: "Browse our interviews"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.ArrowElbowRightIcon, {
+                size: 18,
+                className: "text-schemesPrimary ml-2",
+                weight: "bold"
+              })]
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
@@ -355,6 +367,17 @@ function AboutUs(props) {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
               children: "Collaborating with 250+ organisations and community leaders"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+              href: "/directory",
+              className: "flex items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                className: "Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large text-schemesPrimary hover:underline hover:cursor-pointer",
+                children: "Click here to see the directory"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.ArrowElbowRightIcon, {
+                size: 18,
+                className: "text-schemesPrimary ml-2",
+                weight: "bold"
+              })]
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
@@ -369,6 +392,17 @@ function AboutUs(props) {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
               children: "Hosting the largest Jewish events calendar in Melbourne"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+              href: "/events",
+              className: "flex items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                className: "Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large text-schemesPrimary hover:underline hover:cursor-pointer",
+                children: "Click here to view our events"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.ArrowElbowRightIcon, {
+                size: 18,
+                className: "text-schemesPrimary ml-2",
+                weight: "bold"
+              })]
             })]
           })
         })]
@@ -405,7 +439,7 @@ function AboutUs(props) {
           className: "aspect-video w-full",
           children: videoNode || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "w-full h-full flex items-center justify-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.PlayIcon, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.PlayIcon, {
               size: 36
             })
           })
@@ -473,7 +507,7 @@ const TimelineSection = ({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ol", {
       className: "flex flex-col",
       children: timeline.map((time, index) => {
-        const Icon = _IconPicker__WEBPACK_IMPORTED_MODULE_3__.ICONS[time.icon] || _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.PlanetIcon;
+        const Icon = _IconPicker__WEBPACK_IMPORTED_MODULE_3__.ICONS[time.icon] || _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.PlanetIcon;
         const isLast = index === timeline.length - 1;
         const [ref, visible] = useInView({
           rootMargin: "0px 0px -10% 0px",
@@ -757,4 +791,4 @@ function TestimonialSlider({
 /***/ })
 
 }]);
-//# sourceMappingURL=about-us.js.map?ver=7c894424014c3747f9d1
+//# sourceMappingURL=about-us.js.map?ver=7aebe46d81e9023c51b3

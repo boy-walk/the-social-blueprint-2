@@ -14,7 +14,6 @@ import {
   CaretUpIcon,
   MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
-import { Socials } from "./Socials";
 
 function useAdminBarOffset() {
   const [offset, setOffset] = useState(0);
@@ -240,9 +239,6 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
         >
           {groups.map((section) => (
             <div key={section.title} className="min-w-0">
-              <div className="Blueprint-title-small text-[var(--schemesOnSurface)] mb-2">
-                {section.title}
-              </div>
               <ul className="space-y-1">
                 {section.items.map((item) => (
                   <li key={item.href}>
@@ -387,7 +383,7 @@ function MobileMenu({
             const isOpen = !!expanded[key];
             const panelId = `mm-panel-${key}`;
             return (
-              <div key={key} className={idx ? "border-t border-[var(--schemesOutlineVariant)]" : ""}>
+              <div key={key}>
                 <div className="w-full flex items-center justify-between py-4">
                   <a
                     href={SECTION_ROUTES[key]}
@@ -423,26 +419,21 @@ function MobileMenu({
                   className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                 >
                   <div className="overflow-hidden">
-                    {groups.map((group, gi) => (
-                      <div key={gi} className={gi ? "my-3 pt-3 border-t border-[var(--schemesOutlineVariant)]" : ""}>
-                        <div className="Blueprint-title-small text-[var(--schemesOnSurfaceVariant)] mb-3">
-                          {group.title}
-                        </div>
-                        <ul className="space-y-3">
-                          {group.items.map((it) => (
-                            <li key={it.href}>
-                              <a
-                                href={it.href}
-                                className="block Blueprint-body-large hover:text-[var(--schemesPrimary)]"
-                                onClick={onClose}
-                              >
-                                {it.label}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                    <ul className="space-y-4">
+                      {groups.flatMap((group) =>
+                        group.items.map((it) => (
+                          <li key={it.href}>
+                            <a
+                              href={it.href}
+                              className="ml-4 block Blueprint-body-large hover:text-[var(--schemesPrimary)]"
+                              onClick={onClose}
+                            >
+                              {it.label}
+                            </a>
+                          </li>
+                        ))
+                      )}
+                    </ul>
                   </div>
                 </div>
               </div>

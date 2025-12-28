@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import { PlanetIcon, PlayIcon, StarOfDavidIcon } from "@phosphor-icons/react"
+import { ArrowElbowRightIcon, PlanetIcon, PlayIcon, StarOfDavidIcon } from "@phosphor-icons/react"
 import { Card } from "./Card"
 import { TestimonialSlider } from "./TestimonialSlider"
 import { ICONS } from "./IconPicker"
@@ -53,6 +53,12 @@ export function AboutUs(props) {
               <p>
                 Showcasing and supporting our vibrant Melbourne Jewish community
               </p>
+              <a href="/podcasts" className="flex items-center">
+                <div className="Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large text-schemesPrimary hover:underline hover:cursor-pointer">
+                  Browse our interviews
+                </div>
+                <ArrowElbowRightIcon size={18} className="text-schemesPrimary ml-2" weight="bold" />
+              </a>
             </div>
           </Card>
           <Card>
@@ -63,6 +69,12 @@ export function AboutUs(props) {
               <p>
                 Collaborating with 250+ organisations and community leaders
               </p>
+              <a href="/directory" className="flex items-center">
+                <div className="Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large text-schemesPrimary hover:underline hover:cursor-pointer">
+                  Click here to see the directory
+                </div>
+                <ArrowElbowRightIcon size={18} className="text-schemesPrimary ml-2" weight="bold" />
+              </a>
             </div>
           </Card>
           <Card>
@@ -73,6 +85,12 @@ export function AboutUs(props) {
               <p>
                 Hosting the largest Jewish events calendar in Melbourne
               </p>
+              <a href="/events" className="flex items-center">
+                <div className="Blueprint-label-small md:Blueprint-label-medium lg:Blueprint-label-large text-schemesPrimary hover:underline hover:cursor-pointer">
+                  Click here to view our events
+                </div>
+                <ArrowElbowRightIcon size={18} className="text-schemesPrimary ml-2" weight="bold" />
+              </a>
             </div>
           </Card>
         </div>

@@ -152,7 +152,7 @@
 
   .sm\:Blueprint-label-medium {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 26px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -160,7 +160,7 @@
 
   .sm\:Blueprint-label-medium-emphasized {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -169,7 +169,7 @@
 
   .sm\:Blueprint-label-small {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -178,7 +178,7 @@
 
   .sm\:Blueprint-label-small-emphasized {
     font-weight: 600;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -388,7 +388,7 @@
 
   .md\:Blueprint-label-medium {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 26px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -396,7 +396,7 @@
 
   .md\:Blueprint-label-medium-emphasized {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -405,7 +405,7 @@
 
   .md\:Blueprint-label-small {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -414,7 +414,7 @@
 
   .md\:Blueprint-label-small-emphasized {
     font-weight: 600;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -624,7 +624,7 @@
 
   .lg\:Blueprint-label-medium {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 26px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -632,7 +632,7 @@
 
   .lg\:Blueprint-label-medium-emphasized {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -641,7 +641,7 @@
 
   .lg\:Blueprint-label-small {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
@@ -650,7 +650,7 @@
 
   .lg\:Blueprint-label-small-emphasized {
     font-weight: 600;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.5px;
     font-family: 'Heebo', sans-serif;
