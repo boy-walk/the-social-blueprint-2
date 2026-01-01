@@ -116,7 +116,7 @@ function RegisterOrganisation() {
     email: '',
     mobile: '',
     organisation: '',
-    businessType: 'for-profit',
+    businessType: 'For Profit',
     password: '',
     confirm: '',
     newsOptIn: false,
@@ -376,8 +376,8 @@ function RegisterOrganisation() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "radio",
             name: "businessType",
-            value: "for-profit",
-            checked: form.businessType === 'for-profit',
+            value: "For Profit",
+            checked: form.businessType === 'For Profit',
             onChange: handleBusinessType
           }), "For Profit"]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
@@ -385,8 +385,8 @@ function RegisterOrganisation() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "radio",
             name: "businessType",
-            value: "not-for-profit",
-            checked: form.businessType === 'not-for-profit',
+            value: "Not for Profit",
+            checked: form.businessType === 'Not for Profit',
             onChange: handleBusinessType
           }), "Not for Profit"]
         })]
@@ -576,4 +576,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-organisation.js.map?ver=342f5ee28981d4f5d0a5
+//# sourceMappingURL=register-organisation.js.map?ver=22e45cde8b059b338717

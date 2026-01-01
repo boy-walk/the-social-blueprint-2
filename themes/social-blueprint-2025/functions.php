@@ -30,14 +30,11 @@ function boilerplate_add_support() {
 }
 add_action('after_setup_theme', 'boilerplate_add_support');
 
-// ⭐ REMOVED: Lines 23-30 were duplicate script enqueuing - DELETED
-
-
 add_action('rest_api_init', function () {
   register_rest_route('uwp-custom/v1', '/register', [
     'methods' => 'POST',
     'callback' => 'uwp_custom_register_user',
-    'permission_callback' => '__return_true', // Allow unauthenticated registration
+    'permission_callback' => '__return_true',
   ]);
 });
 
@@ -51,35 +48,50 @@ function uwp_custom_register_user(WP_REST_Request $request) {
     return new WP_REST_Response(['message' => 'Invalid email'], 400);
   }
 
-  // Check if email already exists
   if (email_exists($data['email'])) {
     return new WP_REST_Response(['message' => 'Email already registered'], 400);
   }
 
+  // Create user with subscriber role (as per UsersWP config for individuals)
   $user_id = wp_insert_user([
-    'user_login' => sanitize_user($data['email']),
-    'user_pass'  => $data['password'],
-    'user_email' => sanitize_email($data['email']),
-    'first_name' => sanitize_text_field($data['first_name']),
-    'last_name'  => sanitize_text_field($data['last_name']),
-    'role'       => 'subscriber',
+    'user_login'   => sanitize_user($data['email']),
+    'user_pass'    => $data['password'],
+    'user_email'   => sanitize_email($data['email']),
+    'first_name'   => sanitize_text_field($data['first_name']),
+    'last_name'    => sanitize_text_field($data['last_name'] ?? ''),
+    'display_name' => sanitize_text_field($data['first_name'] . ' ' . ($data['last_name'] ?? '')),
+    'role'         => 'subscriber',
   ]);
 
   if (is_wp_error($user_id)) {
     return new WP_REST_Response(['message' => $user_id->get_error_message()], 400);
   }
 
-  // Save user meta fields
-  update_user_meta($user_id, 'agree', sanitize_text_field($data['agree']));
+  // Use UsersWP's meta function to store fields properly
+  uwp_update_usermeta($user_id, 'uwp_account_type', '2');
+  uwp_update_usermeta($user_id, 'agree', $data['agree'] === 'yes' ? 'yes' : 'no');
   
-  // Track which registration form was used
-  update_user_meta($user_id, 'register_form_type', 'register-form-individual');
-  update_user_meta($user_id, 'uwp_register_form_type', 'register-form-individual');
+  // If you collect mobile/phone for individuals too
+  if (!empty($data['mobile'])) {
+    uwp_update_usermeta($user_id, 'mobile', sanitize_text_field($data['mobile']));
+  }
   
-  // Trigger UsersWP hooks
-  do_action('uwp_user_register', $user_id, null, $data);
+  // If you have news opt-in for individuals
+  if (isset($data['news_opt_in'])) {
+    uwp_update_usermeta($user_id, 'news_opt_in', $data['news_opt_in'] === 'yes' ? 'yes' : 'no');
+  }
 
-  return new WP_REST_Response(['success' => true], 200);
+  // Log for debugging
+  error_log("Individual registered: User ID {$user_id}");
+  error_log("Account type via uwp_get: " . uwp_get_usermeta($user_id, 'uwp_account_type', ''));
+
+  // Trigger UsersWP hooks
+  do_action('uwp_after_process_register', $user_id);
+
+  return new WP_REST_Response([
+    'success' => true,
+    'user_id' => $user_id,
+  ], 200);
 }
 
 add_action('rest_api_init', function () {
@@ -118,75 +130,58 @@ function uwp_custom_login_user( WP_REST_Request $request ) {
   return new WP_REST_Response(['success' => true, 'user_id' => $user->ID], 200);
 }
 
-add_action( 'rest_api_init', function () {
-  register_rest_route( 'uwp-custom/v1', '/register-organisation', [
+add_action('rest_api_init', function () {
+  register_rest_route('uwp-custom/v1', '/register-organisation', [
     'methods'  => 'POST',
     'callback' => 'uwp_custom_register_organisation',
-    'permission_callback' => '__return_true', // Allow unauthenticated registration
-  ] );
-} );
+    'permission_callback' => '__return_true',
+  ]);
+});
 
-function uwp_custom_register_organisation( WP_REST_Request $request ) {
+function uwp_custom_register_organisation(WP_REST_Request $request) {
   $d = $request->get_json_params();
 
-  foreach ( [ 'email', 'password', 'first_name', 'organisation' ] as $key ) {
-    if ( empty( $d[ $key ] ) )
-      return new WP_REST_Response( [ 'message' => "Missing field: $key" ], 400 );
+  foreach (['email', 'password', 'first_name', 'organisation'] as $key) {
+    if (empty($d[$key]))
+      return new WP_REST_Response(['message' => "Missing field: $key"], 400);
   }
-  if ( ! is_email( $d['email'] ) )
-    return new WP_REST_Response( [ 'message' => 'Invalid email' ], 400 );
+  if (!is_email($d['email']))
+    return new WP_REST_Response(['message' => 'Invalid email'], 400);
 
-  // Check if email already exists
-  if ( email_exists( $d['email'] ) )
-    return new WP_REST_Response( [ 'message' => 'Email already registered' ], 400 );
+  if (email_exists($d['email']))
+    return new WP_REST_Response(['message' => 'Email already registered'], 400);
 
-  // Create the user - display_name is the organisation name
-  $user_id = wp_insert_user( [
-    'user_login' => sanitize_user( $d['email'] ),
-    'user_pass'  => $d['password'],
-    'user_email' => sanitize_email( $d['email'] ),
-    'first_name' => sanitize_text_field( $d['first_name'] ),
-    'last_name'  => sanitize_text_field( $d['last_name'] ?? '' ),
-    'display_name' => sanitize_text_field( $d['organisation'] ),
-    'role' => 'subscriber',
-  ] );
+  $user_id = wp_insert_user([
+    'user_login'   => sanitize_user($d['email']),
+    'user_pass'    => $d['password'],
+    'user_email'   => sanitize_email($d['email']),
+    'first_name'   => sanitize_text_field($d['first_name']),
+    'last_name'    => sanitize_text_field($d['last_name'] ?? ''),
+    'display_name' => sanitize_text_field($d['organisation']),
+    'role'         => 'contributor',
+  ]);
 
-  if ( is_wp_error( $user_id ) )
-    return new WP_REST_Response( [ 'message' => $user_id->get_error_message() ], 400 );
+  if (is_wp_error($user_id))
+    return new WP_REST_Response(['message' => $user_id->get_error_message()], 400);
 
-  // Store meta fields
-  $business_type = sanitize_text_field( $d['business_type'] ?? 'for-profit' );
-  $mobile = sanitize_text_field( $d['mobile'] ?? '' );
-  
-  update_user_meta( $user_id, 'business_type', $business_type );
-  update_user_meta( $user_id, 'uwp_business_type', $business_type );
-  
-  update_user_meta( $user_id, 'mobile', $mobile );
-  update_user_meta( $user_id, 'uwp_mobile', $mobile );
-  update_user_meta( $user_id, 'phone', $mobile );
-  
-  update_user_meta( $user_id, 'news_opt_in', $d['news_opt_in'] === 'yes' ? 'yes' : 'no' );
-  update_user_meta( $user_id, 'agree', $d['agree'] === 'yes' ? 'yes' : 'no' );
-  
-  // Track which registration form was used
-  update_user_meta( $user_id, 'register_form_type', 'register-form-organization' );
-  update_user_meta( $user_id, 'uwp_register_form_type', 'register-form-organization' );
-  
-  // Store organisation name separately
-  update_user_meta( $user_id, 'organisation', sanitize_text_field( $d['organisation'] ) );
-  update_user_meta( $user_id, 'uwp_organisation', sanitize_text_field( $d['organisation'] ) );
+  $business_type = sanitize_text_field($d['business_type'] ?? 'for-profit');
+  $mobile = sanitize_text_field($d['mobile'] ?? '');
 
-  // Log for debugging
-  error_log( "Organisation registered: User ID {$user_id}, Business: {$business_type}, Mobile: {$mobile}" );
+  // ⭐ Use standard WP function for account type (stored in wp_usermeta)
+  update_user_meta($user_id, 'uwp_account_type', '1');
 
-  // Trigger UsersWP hooks
-  do_action( 'uwp_after_process_register', $user_id );
-  do_action( 'uwp_user_register', $user_id, null, $d );
+  // ⭐ Use UsersWP function for custom fields (stored in UsersWP's own table)
+  uwp_update_usermeta($user_id, 'mobile', $mobile);
+  uwp_update_usermeta($user_id, 'business_type', $business_type);
+  uwp_update_usermeta($user_id, 'organisation', sanitize_text_field($d['organisation']));
+  uwp_update_usermeta($user_id, 'news_opt_in', $d['news_opt_in'] === 'yes' ? 'yes' : 'no');
 
-  return new WP_REST_Response( [ 
-    'success' => true, 
+  do_action('uwp_after_process_register', $user_id);
+
+  return new WP_REST_Response([
+    'success' => true,
     'user_id' => $user_id,
-  ], 200 );
+  ], 200);
 }
 
 add_action('init', function () {

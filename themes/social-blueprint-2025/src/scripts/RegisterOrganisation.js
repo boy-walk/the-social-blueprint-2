@@ -12,7 +12,7 @@ export function RegisterOrganisation() {
     email: '',
     mobile: '',
     organisation: '',
-    businessType: 'for-profit',
+    businessType: 'For Profit',
     password: '',
     confirm: '',
     newsOptIn: false,
@@ -280,8 +280,8 @@ export function RegisterOrganisation() {
             <input
               type="radio"
               name="businessType"
-              value="for-profit"
-              checked={form.businessType === 'for-profit'}
+              value="For Profit"
+              checked={form.businessType === 'For Profit'}
               onChange={handleBusinessType}
             />
             For Profit
@@ -291,8 +291,8 @@ export function RegisterOrganisation() {
             <input
               type="radio"
               name="businessType"
-              value="not-for-profit"
-              checked={form.businessType === 'not-for-profit'}
+              value="Not for Profit"
+              checked={form.businessType === 'Not for Profit'}
               onChange={handleBusinessType}
             />
             Not for Profit
