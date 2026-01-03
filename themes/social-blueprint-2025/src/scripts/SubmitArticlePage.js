@@ -4,6 +4,7 @@ import { RichTextField } from "./RichTextField";
 import SelectField from "./SelectField";
 import ImageDropField from "./ImageDropField";
 import { Button } from "./Button";
+import { DropdownSelect } from "./DropdownSelect";
 
 export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} }) {
   const [acf, setAcf] = useState({ title: "", subtitle: "", article_content: "" });
@@ -21,8 +22,9 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
   const contentRef = useRef(null);
   const themeRef = useRef(null);
 
+  // Convert to DropdownSelect format: { value, label }
   const topicOptions = useMemo(() =>
-    (taxonomies?.topic_tag || []).map(t => [t.id, t.name]),
+    (taxonomies?.topic_tag || []).map(t => ({ value: t.id, label: t.name })),
     [taxonomies]
   );
   const themeOptions = useMemo(() =>
@@ -74,7 +76,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
         try {
           let { width, height } = img;
 
-          // Calculate new dimensions while maintaining aspect ratio
           if (width > maxWidth || height > maxHeight) {
             const aspectRatio = width / height;
 
@@ -87,15 +88,12 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
             }
           }
 
-          // Set canvas size
           canvas.width = width;
           canvas.height = height;
 
-          // Enable image smoothing for better quality
           ctx.imageSmoothingEnabled = true;
           ctx.imageSmoothingQuality = 'high';
 
-          // Draw and compress
           ctx.drawImage(img, 0, 0, width, height);
 
           canvas.toBlob(
@@ -105,7 +103,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
                 return;
               }
 
-              // Create a new file with the original name but resized content
               const resizedFile = new File([blob], file.name, {
                 type: file.type,
                 lastModified: Date.now(),
@@ -125,11 +122,9 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
         reject(new Error('Failed to load image for resizing'));
       };
 
-      // Create object URL and set as image source
       const objectUrl = URL.createObjectURL(file);
       img.src = objectUrl;
 
-      // Clean up object URL after a delay to ensure image loads
       setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
     });
   };
@@ -151,14 +146,12 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
         const res = await fetch(img.src);
         const blob = await res.blob();
 
-        // Check inline image size
         if (blob.size > MAX_INLINE_IMAGE_SIZE) {
           throw new Error(`Inline image is too large (${(blob.size / (1024 * 1024)).toFixed(1)}MB). Please use images smaller than 5MB.`);
         }
 
         const file = new File([blob], "inline-image.png", { type: blob.type });
 
-        // Resize inline image if it's too large
         const processedFile = blob.size > 1024 * 1024 ? await resizeImage(file, 1200, 800, 0.8) : file;
 
         const url = await uploadInlineImage(processedFile);
@@ -234,7 +227,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
       nextErrors.theme = "Please choose a theme";
     }
 
-    // Validate image if present
     if (img) {
       const imageValidation = validateImageFile(img);
       if (!imageValidation.valid) {
@@ -270,7 +262,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
     try {
       setUploadProgress({ current: 0, total: 100, status: 'Preparing submission...' });
 
-      // Process inline images first
       let processedContent = acf.article_content;
       if (acf.article_content.includes('data:image/')) {
         processedContent = await processInlineImages(acf.article_content);
@@ -278,33 +269,29 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
 
       setUploadProgress({ current: 50, total: 100, status: 'Processing main image...' });
 
-      // Process main image if needed
       let finalImage = img;
-      if (img && img.size > 2 * 1024 * 1024) { // Resize if larger than 2MB
+      if (img && img.size > 2 * 1024 * 1024) {
         try {
           finalImage = await resizeImage(img);
         } catch (resizeError) {
           console.warn('Image resize failed, using original:', resizeError);
-          finalImage = img; // Fall back to original if resize fails
+          finalImage = img;
         }
       }
 
       setUploadProgress({ current: 75, total: 100, status: 'Submitting article...' });
 
       const fd = new FormData();
-      fd.append("website", ""); // Honeypot
+      fd.append("website", "");
 
-      // Add ACF data
       Object.entries(acf).forEach(([k, v]) =>
         fd.append(`acf[${k}]`, k === "article_content" ? processedContent : v)
       );
 
-      // Add taxonomies
       topics.forEach((id) => fd.append("topic_tags[]", String(id)));
       if (theme) fd.append("theme", String(theme));
       if (audience) fd.append("audience_tag", String(audience));
 
-      // Add image
       if (finalImage) fd.append("acf_files[article_image]", finalImage);
 
       const res = await fetch(restUrl, {
@@ -381,7 +368,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
           </p>
         </div>
 
-        {/* Progress indicator */}
         {uploadProgress && (
           <div className="bg-surfaceContainerHigh rounded-lg p-4 border border-schemesOutlineVariant">
             <div className="flex items-center justify-between mb-2">
@@ -399,7 +385,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
           </div>
         )}
 
-        {/* Error/Success Messages */}
         {msg && (
           <div
             role="alert"
@@ -413,7 +398,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
           </div>
         )}
 
-        {/* Title */}
         <div ref={titleRef}>
           <TextField
             label="Story Title"
@@ -426,7 +410,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
           />
         </div>
 
-        {/* Subtitle (optional) */}
         <TextField
           label="Subtitle / Short Introduction"
           value={acf.subtitle}
@@ -436,7 +419,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
           disabled={busy}
         />
 
-        {/* Content */}
         <div ref={contentRef}>
           <RichTextField
             label="Your Story"
@@ -452,7 +434,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
           )}
         </div>
 
-        {/* Featured image (optional) */}
         <div>
           <ImageDropField
             label="Upload an Image"
@@ -472,7 +453,6 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
           )}
         </div>
 
-        {/* Theme */}
         <div ref={themeRef}>
           <SelectField
             label="Theme"
@@ -491,39 +471,20 @@ export default function SubmitArticleForm({ restUrl, wpNonce, taxonomies = {} })
           )}
         </div>
 
-        {/* Topics */}
-        <div className="flex flex-col gap-2">
-          <label className="Blueprint-label-large text-schemesOnSurface">Topics</label>
-          <div className="flex flex-wrap gap-2">
-            {topicOptions.map(([id, name]) => {
-              const checked = topics.includes(Number(id));
-              return (
-                <label
-                  key={id}
-                  className={`flex items-center gap-2 bg-surfaceContainerHigh border border-schemesOutlineVariant rounded-lg px-3 py-2 cursor-pointer select-none transition-colors ${busy ? 'opacity-50 cursor-not-allowed' : 'hover:bg-surfaceContainerHighest'
-                    }`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    disabled={busy}
-                    onChange={() => {
-                      if (busy) return;
-                      setTopics((prev) =>
-                        checked
-                          ? prev.filter((x) => x !== Number(id))
-                          : [...prev, Number(id)]
-                      );
-                    }}
-                  />
-                  <span className="Blueprint-body-medium text-schemesOnSurface">{name}</span>
-                </label>
-              );
-            })}
-          </div>
-        </div>
+        {/* Topics - Using DropdownSelect */}
+        <DropdownSelect
+          label="Topics"
+          placeholder="Select topics..."
+          multiple
+          searchable
+          searchPlaceholder="Search topics..."
+          options={topicOptions}
+          value={topics}
+          onChange={setTopics}
+          disabled={busy}
+          supportingText="Select one or more topics that relate to your story"
+        />
 
-        {/* Audience (optional) */}
         <SelectField
           label="Audience"
           value={audience}

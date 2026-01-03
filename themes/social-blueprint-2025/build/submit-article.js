@@ -86,6 +86,393 @@ function Button({
 
 /***/ }),
 
+/***/ "./src/scripts/DropdownSelect.js":
+/*!***************************************!*\
+  !*** ./src/scripts/DropdownSelect.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DropdownSelect: () => (/* binding */ DropdownSelect)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretDown.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Check.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+/**
+ * Flattens nested options into a flat array with depth info
+ */
+
+function flattenOptions(options, depth = 0, parentExpanded = true) {
+  let result = [];
+  for (const option of options) {
+    result.push({
+      ...option,
+      depth,
+      hasChildren: Array.isArray(option.children) && option.children.length > 0
+    });
+    if (option.children && option.children.length > 0) {
+      result = result.concat(flattenOptions(option.children, depth + 1, parentExpanded));
+    }
+  }
+  return result;
+}
+
+/**
+ * Recursively filter options based on search query
+ * Returns options that match OR have children that match
+ */
+function filterOptionsRecursive(options, searchLower) {
+  if (!searchLower) return options;
+  return options.reduce((acc, option) => {
+    const labelMatches = option.label.toLowerCase().includes(searchLower);
+
+    // Check if any children match
+    let filteredChildren = [];
+    if (option.children && option.children.length > 0) {
+      filteredChildren = filterOptionsRecursive(option.children, searchLower);
+    }
+
+    // Include if label matches OR has matching children
+    if (labelMatches || filteredChildren.length > 0) {
+      acc.push({
+        ...option,
+        children: filteredChildren.length > 0 ? filteredChildren : option.children,
+        // Mark as matching if the label itself matches (for highlighting)
+        _matches: labelMatches
+      });
+    }
+    return acc;
+  }, []);
+}
+
+/**
+ * Get all descendant values of an option
+ */
+function getDescendantValues(option) {
+  let values = [];
+  if (option.children) {
+    for (const child of option.children) {
+      values.push(child.value);
+      values = values.concat(getDescendantValues(child));
+    }
+  }
+  return values;
+}
+
+/**
+ * Find an option by value in nested structure
+ */
+function findOptionByValue(options, value) {
+  for (const option of options) {
+    if (option.value === value) return option;
+    if (option.children) {
+      const found = findOptionByValue(option.children, value);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+function DropdownSelect({
+  label = 'Select',
+  options = [],
+  value = [],
+  onChange,
+  multiple = false,
+  searchable = true,
+  searchPlaceholder = 'Search...',
+  placeholder = 'Select an option',
+  disabled = false,
+  error = '',
+  supportingText = '',
+  collapsible = false // Whether parent items can be collapsed
+}) {
+  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [search, setSearch] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [expandedNodes, setExpandedNodes] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Set());
+  const dropdownRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const triggerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const id = (0,react__WEBPACK_IMPORTED_MODULE_0__.useId)();
+
+  // Normalize value to array for consistent handling
+  const selectedValues = multiple ? Array.isArray(value) ? value : [] : value ? [value] : [];
+
+  // Check if options are nested
+  const isNested = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return options.some(opt => opt.children && opt.children.length > 0);
+  }, [options]);
+
+  // Filter options based on search
+  const filteredOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const searchLower = search.toLowerCase().trim();
+    if (!searchLower) return options;
+    return filterOptionsRecursive(options, searchLower);
+  }, [options, search]);
+
+  // Flatten for rendering
+  const flatOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return flattenOptions(filteredOptions);
+  }, [filteredOptions]);
+
+  // Auto-expand all when searching
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (search && isNested) {
+      const allParentValues = new Set();
+      const collectParents = opts => {
+        for (const opt of opts) {
+          if (opt.children && opt.children.length > 0) {
+            allParentValues.add(opt.value);
+            collectParents(opt.children);
+          }
+        }
+      };
+      collectParents(filteredOptions);
+      setExpandedNodes(allParentValues);
+    }
+  }, [search, filteredOptions, isNested]);
+
+  // Initialize expanded state to show all by default
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (isNested && !collapsible) {
+      const allParentValues = new Set();
+      const collectParents = opts => {
+        for (const opt of opts) {
+          if (opt.children && opt.children.length > 0) {
+            allParentValues.add(opt.value);
+            collectParents(opt.children);
+          }
+        }
+      };
+      collectParents(options);
+      setExpandedNodes(allParentValues);
+    }
+  }, [options, isNested, collapsible]);
+
+  // Close on outside click
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleClickOutside = e => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target) && !triggerRef.current.contains(e.target)) {
+        setIsOpen(false);
+        setSearch('');
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
+  // Close on escape
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleEscape = e => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        setSearch('');
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+  const toggleExpanded = (optionValue, e) => {
+    e.stopPropagation();
+    setExpandedNodes(prev => {
+      const next = new Set(prev);
+      if (next.has(optionValue)) {
+        next.delete(optionValue);
+      } else {
+        next.add(optionValue);
+      }
+      return next;
+    });
+  };
+  const handleSelect = optionValue => {
+    if (multiple) {
+      const newValue = selectedValues.includes(optionValue) ? selectedValues.filter(v => v !== optionValue) : [...selectedValues, optionValue];
+      onChange?.(newValue);
+    } else {
+      onChange?.(optionValue);
+      setIsOpen(false);
+      setSearch('');
+    }
+  };
+  const getDisplayText = () => {
+    if (selectedValues.length === 0) return placeholder;
+
+    // Find labels from nested structure
+    const findLabels = (opts, values) => {
+      let labels = [];
+      for (const opt of opts) {
+        if (values.includes(opt.value)) {
+          labels.push(opt.label);
+        }
+        if (opt.children) {
+          labels = labels.concat(findLabels(opt.children, values));
+        }
+      }
+      return labels;
+    };
+    const selectedLabels = findLabels(options, selectedValues);
+    if (selectedLabels.length === 1) return selectedLabels[0];
+    return `${selectedLabels.length} selected`;
+  };
+  const hasError = typeof error === 'string' && error.length > 0;
+  const helperText = hasError ? error : supportingText;
+
+  // Check if an option or any of its ancestors is hidden due to collapsed parent
+  const isOptionVisible = (option, index) => {
+    if (!collapsible || option.depth === 0) return true;
+
+    // Find parent option
+    for (let i = index - 1; i >= 0; i--) {
+      const prevOption = flatOptions[i];
+      if (prevOption.depth < option.depth) {
+        // This is a potential parent
+        if (prevOption.hasChildren && !expandedNodes.has(prevOption.value)) {
+          return false;
+        }
+        if (prevOption.depth === 0) break;
+      }
+    }
+    return true;
+  };
+
+  // Render a single option
+  const renderOption = (option, index) => {
+    // Skip if parent is collapsed
+    if (collapsible && !isOptionVisible(option, index)) {
+      return null;
+    }
+    const isSelected = selectedValues.includes(option.value);
+    const isExpanded = expandedNodes.has(option.value);
+    const indent = option.depth * 24;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+        type: "button",
+        onClick: () => handleSelect(option.value),
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('w-full flex items-center gap-3 px-3 py-2.5 rounded-lg', 'Blueprint-body-medium text-left', 'transition-colors duration-150', isSelected ? 'bg-schemesPrimaryContainer text-schemesOnPrimaryContainer' : 'text-schemesOnSurface hover:bg-schemesSurfaceContainerHigh'),
+        style: {
+          paddingLeft: `${12 + indent}px`
+        },
+        role: "option",
+        "aria-selected": isSelected,
+        children: [collapsible && option.hasChildren ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          type: "button",
+          onClick: e => toggleExpanded(option.value, e),
+          className: "p-0.5 -ml-1 rounded hover:bg-schemesOutlineVariant/30",
+          "aria-label": isExpanded ? 'Collapse' : 'Expand',
+          children: isExpanded ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretDown, {
+            size: 16,
+            className: "text-schemesOnSurfaceVariant"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.CaretRight, {
+            size: 16,
+            className: "text-schemesOnSurfaceVariant"
+          })
+        }) : option.depth > 0 && collapsible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "w-5"
+        }) // Spacer for alignment
+        , /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('flex items-center justify-center w-5 h-5 shrink-0', 'border-2 transition-colors duration-150', multiple ? 'rounded' : 'rounded-full', isSelected ? 'bg-schemesPrimary border-schemesPrimary' : 'border-schemesOutline bg-transparent'),
+          children: isSelected && (multiple ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.Check, {
+            size: 14,
+            weight: "bold",
+            className: "text-schemesOnPrimary"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "w-2 h-2 rounded-full bg-schemesOnPrimary"
+          }))
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "flex-1 min-w-0 truncate",
+          children: option.label
+        }), option.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: option.image,
+          alt: "",
+          className: "w-6 h-6 rounded-full object-cover"
+        })]
+      })
+    }, option.value);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "relative flex flex-col gap-2",
+    children: [label && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+      className: "Blueprint-label-medium text-schemesOnSurface",
+      children: label
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+      ref: triggerRef,
+      type: "button",
+      onClick: () => !disabled && setIsOpen(!isOpen),
+      disabled: disabled,
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('w-full flex items-center justify-between gap-2', 'px-4 py-3 rounded-xl', 'Blueprint-body-medium text-left', 'border bg-schemesSurfaceContainerLow', 'transition-colors duration-150', hasError ? 'border-schemesError' : 'border-schemesOutline hover:border-schemesOnSurfaceVariant focus:border-schemesPrimary', disabled && 'opacity-50 cursor-not-allowed', !disabled && 'cursor-pointer'),
+      "aria-haspopup": "listbox",
+      "aria-expanded": isOpen,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('truncate', selectedValues.length === 0 && 'text-schemesOnSurfaceVariant'),
+        children: getDisplayText()
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretDown, {
+        size: 20,
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('text-schemesOnSurfaceVariant transition-transform duration-200 shrink-0', isOpen && 'rotate-180')
+      })]
+    }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      ref: dropdownRef,
+      className: "absolute top-full left-0 right-0 z-50 mt-1 bg-schemesSurface border border-schemesOutlineVariant rounded-xl shadow-lg overflow-hidden",
+      role: "listbox",
+      "aria-multiselectable": multiple,
+      children: [searchable && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-2 border-b border-schemesOutlineVariant",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "relative",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlass, {
+            size: 18,
+            className: "absolute left-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            type: "text",
+            value: search,
+            onChange: e => setSearch(e.target.value),
+            placeholder: searchPlaceholder,
+            className: "w-full pl-10 pr-4 py-2 Blueprint-body-medium bg-schemesSurfaceContainerHigh border border-schemesOutline rounded-lg text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant focus:outline-none focus:ring-2 focus:ring-schemesPrimary focus:border-schemesPrimary",
+            autoFocus: true
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+        className: "max-h-60 overflow-y-auto p-2",
+        children: flatOptions.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+          className: "px-4 py-3 Blueprint-body-medium text-schemesOnSurfaceVariant text-center",
+          children: "No results found"
+        }) : flatOptions.map((option, index) => renderOption(option, index))
+      }), multiple && selectedValues.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-2 border-t border-schemesOutlineVariant",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Clear selection",
+          variant: "text",
+          size: "sm",
+          className: "w-full",
+          onClick: () => {
+            onChange?.([]);
+            setIsOpen(false);
+          }
+        })
+      })]
+    }), helperText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
+      children: helperText
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./src/scripts/ImageDropField.js":
 /*!***************************************!*\
   !*** ./src/scripts/ImageDropField.js ***!
@@ -908,8 +1295,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SelectField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SelectField */ "./src/scripts/SelectField.js");
 /* harmony import */ var _ImageDropField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ImageDropField */ "./src/scripts/ImageDropField.js");
 /* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _DropdownSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DropdownSelect */ "./src/scripts/DropdownSelect.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -939,7 +1328,12 @@ function SubmitArticleForm({
   const titleRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const contentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const themeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const topicOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (taxonomies?.topic_tag || []).map(t => [t.id, t.name]), [taxonomies]);
+
+  // Convert to DropdownSelect format: { value, label }
+  const topicOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (taxonomies?.topic_tag || []).map(t => ({
+    value: t.id,
+    label: t.name
+  })), [taxonomies]);
   const themeOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (taxonomies?.theme || []).map(t => [t.id, t.name]), [taxonomies]);
   const audienceOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (taxonomies?.audience_tag || []).map(t => [t.id, t.name]), [taxonomies]);
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -987,8 +1381,6 @@ function SubmitArticleForm({
             width,
             height
           } = img;
-
-          // Calculate new dimensions while maintaining aspect ratio
           if (width > maxWidth || height > maxHeight) {
             const aspectRatio = width / height;
             if (width > height) {
@@ -999,24 +1391,16 @@ function SubmitArticleForm({
               width = height * aspectRatio;
             }
           }
-
-          // Set canvas size
           canvas.width = width;
           canvas.height = height;
-
-          // Enable image smoothing for better quality
           ctx.imageSmoothingEnabled = true;
           ctx.imageSmoothingQuality = 'high';
-
-          // Draw and compress
           ctx.drawImage(img, 0, 0, width, height);
           canvas.toBlob(blob => {
             if (!blob) {
               reject(new Error('Failed to resize image'));
               return;
             }
-
-            // Create a new file with the original name but resized content
             const resizedFile = new File([blob], file.name, {
               type: file.type,
               lastModified: Date.now()
@@ -1030,12 +1414,8 @@ function SubmitArticleForm({
       img.onerror = () => {
         reject(new Error('Failed to load image for resizing'));
       };
-
-      // Create object URL and set as image source
       const objectUrl = URL.createObjectURL(file);
       img.src = objectUrl;
-
-      // Clean up object URL after a delay to ensure image loads
       setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
     });
   };
@@ -1056,16 +1436,12 @@ function SubmitArticleForm({
       try {
         const res = await fetch(img.src);
         const blob = await res.blob();
-
-        // Check inline image size
         if (blob.size > MAX_INLINE_IMAGE_SIZE) {
           throw new Error(`Inline image is too large (${(blob.size / (1024 * 1024)).toFixed(1)}MB). Please use images smaller than 5MB.`);
         }
         const file = new File([blob], "inline-image.png", {
           type: blob.type
         });
-
-        // Resize inline image if it's too large
         const processedFile = blob.size > 1024 * 1024 ? await resizeImage(file, 1200, 800, 0.8) : file;
         const url = await uploadInlineImage(processedFile);
         img.src = url;
@@ -1135,8 +1511,6 @@ function SubmitArticleForm({
     if (!theme) {
       nextErrors.theme = "Please choose a theme";
     }
-
-    // Validate image if present
     if (img) {
       const imageValidation = validateImageFile(img);
       if (!imageValidation.valid) {
@@ -1164,8 +1538,6 @@ function SubmitArticleForm({
         total: 100,
         status: 'Preparing submission...'
       });
-
-      // Process inline images first
       let processedContent = acf.article_content;
       if (acf.article_content.includes('data:image/')) {
         processedContent = await processInlineImages(acf.article_content);
@@ -1175,16 +1547,13 @@ function SubmitArticleForm({
         total: 100,
         status: 'Processing main image...'
       });
-
-      // Process main image if needed
       let finalImage = img;
       if (img && img.size > 2 * 1024 * 1024) {
-        // Resize if larger than 2MB
         try {
           finalImage = await resizeImage(img);
         } catch (resizeError) {
           console.warn('Image resize failed, using original:', resizeError);
-          finalImage = img; // Fall back to original if resize fails
+          finalImage = img;
         }
       }
       setUploadProgress({
@@ -1193,17 +1562,11 @@ function SubmitArticleForm({
         status: 'Submitting article...'
       });
       const fd = new FormData();
-      fd.append("website", ""); // Honeypot
-
-      // Add ACF data
+      fd.append("website", "");
       Object.entries(acf).forEach(([k, v]) => fd.append(`acf[${k}]`, k === "article_content" ? processedContent : v));
-
-      // Add taxonomies
       topics.forEach(id => fd.append("topic_tags[]", String(id)));
       if (theme) fd.append("theme", String(theme));
       if (audience) fd.append("audience_tag", String(audience));
-
-      // Add image
       if (finalImage) fd.append("acf_files[article_image]", finalImage);
       const res = await fetch(restUrl, {
         method: "POST",
@@ -1256,17 +1619,17 @@ function SubmitArticleForm({
     }));
   };
   if (submitted) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "max-w-2xl mx-auto text-center space-y-4 py-8 md:py-16 min-h-[50vh]",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
         className: "Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large text-schemesOnSurface",
         children: "Your article was successfully submitted"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
         className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
         children: "Thank you for your submission! Your article is now pending review by our editorial team."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
         className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
-        children: ["Go to ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+        children: ["Go to ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
           href: "/account-listings",
           className: "text-schemesPrimary underline hover:text-schemesPrimary/80 transition-colors",
           children: "Account Listings"
@@ -1274,52 +1637,52 @@ function SubmitArticleForm({
       })]
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     className: "bg-schemesSurface px-4 lg:px-0",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
       onSubmit: submit,
       className: "max-w-[1000px] grid grid-cols-1 gap-8 w-full py-8 md:py-16 mx-auto",
       noValidate: true,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "flex flex-col gap-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
           className: "Blueprint-headline-small md:Blueprint-headline-medium lg:Blueprint-headline-large text-schemesOnSurface text-center italic",
           children: "Submit your story"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
           className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant text-center mb-4 max-w-xl mx-auto",
           children: "We'd love to hear from you. Share your journey, reflections, or insights with the Melbourne Jewish community. Please note: submissions are reviewed by our editorial team and not every story will be published."
         })]
-      }), uploadProgress && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), uploadProgress && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "bg-surfaceContainerHigh rounded-lg p-4 border border-schemesOutlineVariant",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "flex items-center justify-between mb-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
             className: "Blueprint-body-medium text-schemesOnSurface",
             children: uploadProgress.status
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
             className: "Blueprint-body-small text-schemesOnSurfaceVariant",
             children: [uploadProgress.current, "/", uploadProgress.total]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "w-full bg-schemesOutlineVariant rounded-full h-2",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "bg-schemesPrimary h-2 rounded-full transition-all duration-300",
             style: {
               width: `${uploadProgress.current / uploadProgress.total * 100}%`
             }
           })
         })]
-      }), msg && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), msg && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         role: "alert",
         "aria-live": "assertive",
         className: `p-4 rounded-lg border ${msg.t === "success" ? "bg-stateSuccess/10 border-stateSuccess text-stateSuccess" : "bg-stateError/10 border-stateError text-stateError"}`,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "Blueprint-body-medium",
           children: msg.m
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         ref: titleRef,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
           label: "Story Title",
           required: true,
           value: acf.title,
@@ -1328,16 +1691,16 @@ function SubmitArticleForm({
           error: errors.title || "",
           disabled: busy
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_TextField__WEBPACK_IMPORTED_MODULE_1__.TextField, {
         label: "Subtitle / Short Introduction",
         value: acf.subtitle,
         onChange: e => update("subtitle", e.target.value),
         style: "outlined",
         error: "",
         disabled: busy
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         ref: contentRef,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_RichTextField__WEBPACK_IMPORTED_MODULE_2__.RichTextField, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_RichTextField__WEBPACK_IMPORTED_MODULE_2__.RichTextField, {
           label: "Your Story",
           required: true,
           value: acf.article_content,
@@ -1345,28 +1708,28 @@ function SubmitArticleForm({
           onUpload: uploadInlineImage,
           error: errors.article_content || "",
           disabled: busy
-        }), errors.article_content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+        }), errors.article_content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
           className: "Blueprint-body-small text-schemesError mt-1",
           children: errors.article_content
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ImageDropField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ImageDropField__WEBPACK_IMPORTED_MODULE_4__["default"], {
           label: "Upload an Image",
           value: null,
           onChange: handleImageChange,
           required: false,
           helpText: "Landscape image (3:2 ratio, min 1200x800px, max 10MB). Best with no text overlays. Large images will be automatically resized.",
           disabled: busy
-        }), errors.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+        }), errors.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
           className: "Blueprint-body-small text-schemesError mt-1",
           children: errors.image
-        }), img && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+        }), img && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
           className: "Blueprint-body-small text-schemesOnSurfaceVariant mt-1",
           children: ["Selected: ", img.name, " (", (img.size / (1024 * 1024)).toFixed(1), "MB)"]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         ref: themeRef,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_SelectField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_SelectField__WEBPACK_IMPORTED_MODULE_3__["default"], {
           label: "Theme",
           required: true,
           value: theme,
@@ -1380,44 +1743,29 @@ function SubmitArticleForm({
           options: themeOptions,
           error: errors.theme || "",
           disabled: busy
-        }), errors.theme && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+        }), errors.theme && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
           className: "Blueprint-body-small text-schemesError mt-1",
           children: errors.theme
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "flex flex-col gap-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-          className: "Blueprint-label-large text-schemesOnSurface",
-          children: "Topics"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "flex flex-wrap gap-2",
-          children: topicOptions.map(([id, name]) => {
-            const checked = topics.includes(Number(id));
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-              className: `flex items-center gap-2 bg-surfaceContainerHigh border border-schemesOutlineVariant rounded-lg px-3 py-2 cursor-pointer select-none transition-colors ${busy ? 'opacity-50 cursor-not-allowed' : 'hover:bg-surfaceContainerHighest'}`,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-                type: "checkbox",
-                checked: checked,
-                disabled: busy,
-                onChange: () => {
-                  if (busy) return;
-                  setTopics(prev => checked ? prev.filter(x => x !== Number(id)) : [...prev, Number(id)]);
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                className: "Blueprint-body-medium text-schemesOnSurface",
-                children: name
-              })]
-            }, id);
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_SelectField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_6__.DropdownSelect, {
+        label: "Topics",
+        placeholder: "Select topics...",
+        multiple: true,
+        searchable: true,
+        searchPlaceholder: "Search topics...",
+        options: topicOptions,
+        value: topics,
+        onChange: setTopics,
+        disabled: busy,
+        supportingText: "Select one or more topics that relate to your story"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_SelectField__WEBPACK_IMPORTED_MODULE_3__["default"], {
         label: "Audience",
         value: audience,
         onChange: e => setAudience(e.target.value),
         options: audienceOptions,
         error: "",
         disabled: busy
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_5__.Button, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_5__.Button, {
         type: "submit",
         label: busy ? "Submitting..." : "Submit Story",
         variant: "filled",
@@ -1549,4 +1897,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=submit-article.js.map?ver=941ad7b4860df9c04584
+//# sourceMappingURL=submit-article.js.map?ver=1c599356efeb6cb21539

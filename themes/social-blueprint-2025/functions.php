@@ -550,20 +550,46 @@ add_action('rest_api_init', function () {
       global $wpdb;
       
       $taxonomy = sanitize_key($req->get_param('taxonomy'));
-      $post_type = sanitize_key($req->get_param('post_type'));
+      $post_type_param = $req->get_param('post_type');
       $per_page = max(1, min(200, (int)$req->get_param('per_page') ?: 100));
+      
+      // Taxonomies that should never be returned
+      $blocked_taxonomies = [
+        'tribe_events_cat',
+        'post_format',
+        'nav_menu',
+        'link_category',
+        'wp_theme',
+        'wp_template_part_area',
+      ];
       
       if (!$taxonomy || !taxonomy_exists($taxonomy)) {
         return new WP_Error('tsb_invalid_taxonomy', 'Invalid taxonomy.', ['status' => 400]);
       }
       
-      // If post_type is provided, validate it
-      if ($post_type && !post_type_exists($post_type)) {
-        return new WP_Error('tsb_invalid_post_type', 'Invalid post type.', ['status' => 400]);
+      // Block certain taxonomies from being queried
+      if (in_array($taxonomy, $blocked_taxonomies, true)) {
+        return new WP_Error('tsb_blocked_taxonomy', 'This taxonomy is not available.', ['status' => 403]);
       }
       
-      // If no post_type specified, use the original behavior
-      if (!$post_type) {
+      // Parse post_type - can be single value or comma-separated list
+      $post_types = [];
+      if ($post_type_param) {
+        if (is_array($post_type_param)) {
+          $post_types = array_map('sanitize_key', $post_type_param);
+        } else {
+          $post_types = array_map('sanitize_key', explode(',', $post_type_param));
+        }
+        $post_types = array_filter($post_types, 'post_type_exists');
+        
+        // Exclude event post types from filtering
+        $excluded_post_types = ['tribe_events', 'tribe_venue', 'tribe_organizer'];
+        $post_types = array_diff($post_types, $excluded_post_types);
+        $post_types = array_values($post_types);
+      }
+      
+      // If no post_type specified (or all were excluded), use original behavior
+      if (empty($post_types)) {
         $terms = get_terms([
           'taxonomy'   => $taxonomy,
           'hide_empty' => true,
@@ -583,11 +609,10 @@ add_action('rest_api_init', function () {
         }, $terms);
       }
       
-      // Filter by specific post type
-      // Get all terms in the taxonomy first
+      // Filter by specific post type(s)
       $all_terms = get_terms([
         'taxonomy'   => $taxonomy,
-        'hide_empty' => false, // Get all terms including empty parents
+        'hide_empty' => false,
         'number'     => $per_page,
       ]);
       
@@ -595,39 +620,57 @@ add_action('rest_api_init', function () {
         return is_wp_error($all_terms) ? $all_terms : [];
       }
       
-      // Get counts for each term filtered by post type
+      // Get counts for each term filtered by post type(s)
       $term_ids = wp_list_pluck($all_terms, 'term_id');
-      $placeholders = implode(',', array_fill(0, count($term_ids), '%d'));
+      $term_placeholders = implode(',', array_fill(0, count($term_ids), '%d'));
+      $pt_placeholders = implode(',', array_fill(0, count($post_types), '%s'));
       
-      $counts = $wpdb->get_results($wpdb->prepare("
+      // Build the query with multiple post types support
+      $query = "
         SELECT tt.term_id, COUNT(DISTINCT p.ID) as post_count
         FROM {$wpdb->term_taxonomy} AS tt
         INNER JOIN {$wpdb->term_relationships} AS tr ON tt.term_taxonomy_id = tr.term_taxonomy_id
         INNER JOIN {$wpdb->posts} AS p ON tr.object_id = p.ID
-        WHERE tt.term_id IN ($placeholders)
+        WHERE tt.term_id IN ($term_placeholders)
         AND tt.taxonomy = %s
-        AND p.post_type = %s
+        AND p.post_type IN ($pt_placeholders)
         AND p.post_status = 'publish'
         GROUP BY tt.term_id
-      ", array_merge($term_ids, [$taxonomy, $post_type])), OBJECT_K);
+      ";
+      
+      // Prepare values: term_ids, taxonomy, post_types
+      $prepare_values = array_merge($term_ids, [$taxonomy], $post_types);
+      
+      $counts = $wpdb->get_results($wpdb->prepare($query, $prepare_values), OBJECT_K);
       
       // Build term array with counts
       $terms_with_counts = [];
+      $term_ids_with_posts = [];
+      
+      // First pass: identify terms with posts
+      foreach ($all_terms as $term) {
+        $count = isset($counts[$term->term_id]) ? (int)$counts[$term->term_id]->post_count : 0;
+        if ($count > 0) {
+          $term_ids_with_posts[] = $term->term_id;
+        }
+      }
+      
+      // Second pass: include terms that have posts OR are ancestors of terms with posts
       foreach ($all_terms as $term) {
         $count = isset($counts[$term->term_id]) ? (int)$counts[$term->term_id]->post_count : 0;
         
-        // Include parent terms even if they have 0 posts (they might have children with posts)
-        // Include leaf terms only if they have posts
-        $is_parent = false;
-        foreach ($all_terms as $check_term) {
-          if ($check_term->parent == $term->term_id) {
-            $is_parent = true;
+        // Check if this term is an ancestor of any term with posts
+        $is_ancestor_of_term_with_posts = false;
+        foreach ($term_ids_with_posts as $child_id) {
+          $ancestors = get_ancestors($child_id, $taxonomy, 'taxonomy');
+          if (in_array($term->term_id, $ancestors, true)) {
+            $is_ancestor_of_term_with_posts = true;
             break;
           }
         }
         
-        // Include if: has posts, OR is a parent term (might have children with posts)
-        if ($count > 0 || $is_parent) {
+        // Include if: has posts OR is ancestor of term with posts
+        if ($count > 0 || $is_ancestor_of_term_with_posts) {
           $terms_with_counts[] = [
             'id' => (int)$term->term_id,
             'name' => $term->name,

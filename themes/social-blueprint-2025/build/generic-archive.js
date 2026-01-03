@@ -268,201 +268,387 @@ function ContentCard({
 
 /***/ }),
 
-/***/ "./src/scripts/FilterGroup.js":
-/*!************************************!*\
-  !*** ./src/scripts/FilterGroup.js ***!
-  \************************************/
+/***/ "./src/scripts/DropdownSelect.js":
+/*!***************************************!*\
+  !*** ./src/scripts/DropdownSelect.js ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FilterGroup: () => (/* binding */ FilterGroup)
+/* harmony export */   DropdownSelect: () => (/* binding */ DropdownSelect)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StyledCheckbox */ "./src/scripts/StyledCheckbox.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretDown.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Check.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
 
-function FilterGroup({
-  title,
-  options,
-  selected,
-  onChangeHandler,
-  expanded = false,
-  onToggleExpand,
-  onShowLess,
-  initialShowCount = 8
+
+/**
+ * Flattens nested options into a flat array with depth info
+ */
+
+function flattenOptions(options, depth = 0, parentExpanded = true) {
+  let result = [];
+  for (const option of options) {
+    result.push({
+      ...option,
+      depth,
+      hasChildren: Array.isArray(option.children) && option.children.length > 0
+    });
+    if (option.children && option.children.length > 0) {
+      result = result.concat(flattenOptions(option.children, depth + 1, parentExpanded));
+    }
+  }
+  return result;
+}
+
+/**
+ * Recursively filter options based on search query
+ * Returns options that match OR have children that match
+ */
+function filterOptionsRecursive(options, searchLower) {
+  if (!searchLower) return options;
+  return options.reduce((acc, option) => {
+    const labelMatches = option.label.toLowerCase().includes(searchLower);
+
+    // Check if any children match
+    let filteredChildren = [];
+    if (option.children && option.children.length > 0) {
+      filteredChildren = filterOptionsRecursive(option.children, searchLower);
+    }
+
+    // Include if label matches OR has matching children
+    if (labelMatches || filteredChildren.length > 0) {
+      acc.push({
+        ...option,
+        children: filteredChildren.length > 0 ? filteredChildren : option.children,
+        // Mark as matching if the label itself matches (for highlighting)
+        _matches: labelMatches
+      });
+    }
+    return acc;
+  }, []);
+}
+
+/**
+ * Get all descendant values of an option
+ */
+function getDescendantValues(option) {
+  let values = [];
+  if (option.children) {
+    for (const child of option.children) {
+      values.push(child.value);
+      values = values.concat(getDescendantValues(child));
+    }
+  }
+  return values;
+}
+
+/**
+ * Find an option by value in nested structure
+ */
+function findOptionByValue(options, value) {
+  for (const option of options) {
+    if (option.value === value) return option;
+    if (option.children) {
+      const found = findOptionByValue(option.children, value);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+function DropdownSelect({
+  label = 'Select',
+  options = [],
+  value = [],
+  onChange,
+  multiple = false,
+  searchable = true,
+  searchPlaceholder = 'Search...',
+  placeholder = 'Select an option',
+  disabled = false,
+  error = '',
+  supportingText = '',
+  collapsible = false // Whether parent items can be collapsed
 }) {
-  const isNested = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(options) && options.some(o => Array.isArray(o.children) && o.children.length > 0), [options]);
-  const parents = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => isNested ? options : options, [isNested, options]);
-  const totalCount = isNested ? parents.length : options.length;
-  const hasMore = totalCount > initialShowCount;
-  const displayCount = expanded ? totalCount : initialShowCount;
-  const isChecked = id => selected.includes(String(id));
-  const collectDescendantIds = (node, bag = []) => {
-    (node.children || []).forEach(c => {
-      bag.push(String(c.id));
-      collectDescendantIds(c, bag);
-    });
-    return bag;
-  };
-  const anyChildSelected = node => {
-    const kids = collectDescendantIds(node, []);
-    return kids.some(id => isChecked(id));
-  };
-  const fireChange = (id, checked) => {
-    onChangeHandler({
-      target: {
-        value: String(id),
-        checked: !!checked
+  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [search, setSearch] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [expandedNodes, setExpandedNodes] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Set());
+  const dropdownRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const triggerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const id = (0,react__WEBPACK_IMPORTED_MODULE_0__.useId)();
+
+  // Normalize value to array for consistent handling
+  const selectedValues = multiple ? Array.isArray(value) ? value : [] : value ? [value] : [];
+
+  // Check if options are nested
+  const isNested = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return options.some(opt => opt.children && opt.children.length > 0);
+  }, [options]);
+
+  // Filter options based on search
+  const filteredOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const searchLower = search.toLowerCase().trim();
+    if (!searchLower) return options;
+    return filterOptionsRecursive(options, searchLower);
+  }, [options, search]);
+
+  // Flatten for rendering
+  const flatOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return flattenOptions(filteredOptions);
+  }, [filteredOptions]);
+
+  // Auto-expand all when searching
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (search && isNested) {
+      const allParentValues = new Set();
+      const collectParents = opts => {
+        for (const opt of opts) {
+          if (opt.children && opt.children.length > 0) {
+            allParentValues.add(opt.value);
+            collectParents(opt.children);
+          }
+        }
+      };
+      collectParents(filteredOptions);
+      setExpandedNodes(allParentValues);
+    }
+  }, [search, filteredOptions, isNested]);
+
+  // Initialize expanded state to show all by default
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (isNested && !collapsible) {
+      const allParentValues = new Set();
+      const collectParents = opts => {
+        for (const opt of opts) {
+          if (opt.children && opt.children.length > 0) {
+            allParentValues.add(opt.value);
+            collectParents(opt.children);
+          }
+        }
+      };
+      collectParents(options);
+      setExpandedNodes(allParentValues);
+    }
+  }, [options, isNested, collapsible]);
+
+  // Close on outside click
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleClickOutside = e => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target) && !triggerRef.current.contains(e.target)) {
+        setIsOpen(false);
+        setSearch('');
       }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
+  // Close on escape
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleEscape = e => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        setSearch('');
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+  const toggleExpanded = (optionValue, e) => {
+    e.stopPropagation();
+    setExpandedNodes(prev => {
+      const next = new Set(prev);
+      if (next.has(optionValue)) {
+        next.delete(optionValue);
+      } else {
+        next.add(optionValue);
+      }
+      return next;
     });
   };
-  const onParentChange = (node, checked) => {
-    if (checked) {
-      fireChange(node.id, true);
-      return;
+  const handleSelect = optionValue => {
+    if (multiple) {
+      const newValue = selectedValues.includes(optionValue) ? selectedValues.filter(v => v !== optionValue) : [...selectedValues, optionValue];
+      onChange?.(newValue);
+    } else {
+      onChange?.(optionValue);
+      setIsOpen(false);
+      setSearch('');
     }
-    fireChange(node.id, false);
-    const kids = collectDescendantIds(node, []);
-    kids.forEach(id => {
-      if (isChecked(id)) fireChange(id, false);
-    });
   };
-  const onChildChange = (parentNode, childNode, checked) => {
-    fireChange(childNode.id, checked);
-    if (checked && isChecked(parentNode.id)) {
-      fireChange(parentNode.id, false);
+  const getDisplayText = () => {
+    if (selectedValues.length === 0) return placeholder;
+
+    // Find labels from nested structure
+    const findLabels = (opts, values) => {
+      let labels = [];
+      for (const opt of opts) {
+        if (values.includes(opt.value)) {
+          labels.push(opt.label);
+        }
+        if (opt.children) {
+          labels = labels.concat(findLabels(opt.children, values));
+        }
+      }
+      return labels;
+    };
+    const selectedLabels = findLabels(options, selectedValues);
+    if (selectedLabels.length === 1) return selectedLabels[0];
+    return `${selectedLabels.length} selected`;
+  };
+  const hasError = typeof error === 'string' && error.length > 0;
+  const helperText = hasError ? error : supportingText;
+
+  // Check if an option or any of its ancestors is hidden due to collapsed parent
+  const isOptionVisible = (option, index) => {
+    if (!collapsible || option.depth === 0) return true;
+
+    // Find parent option
+    for (let i = index - 1; i >= 0; i--) {
+      const prevOption = flatOptions[i];
+      if (prevOption.depth < option.depth) {
+        // This is a potential parent
+        if (prevOption.hasChildren && !expandedNodes.has(prevOption.value)) {
+          return false;
+        }
+        if (prevOption.depth === 0) break;
+      }
     }
+    return true;
   };
 
-  // one row of a child with connector lines
-  const ChildRow = ({
-    parentNode,
-    childNode,
-    isLast,
-    depth = 0
-  }) => {
-    const show = isChecked(parentNode.id) || anyChildSelected(parentNode);
-    if (!show) return null;
-    const hasKids = Array.isArray(childNode.children) && childNode.children.length > 0;
-    const checked = isChecked(childNode.id);
-    const expanded = checked || hasKids && anyChildSelected(childNode);
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "w-full",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex items-center gap-1",
+  // Render a single option
+  const renderOption = (option, index) => {
+    // Skip if parent is collapsed
+    if (collapsible && !isOptionVisible(option, index)) {
+      return null;
+    }
+    const isSelected = selectedValues.includes(option.value);
+    const isExpanded = expandedNodes.has(option.value);
+    const indent = option.depth * 24;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+        type: "button",
+        onClick: () => handleSelect(option.value),
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('w-full flex items-center gap-3 px-3 py-2.5 rounded-lg', 'Blueprint-body-medium text-left', 'transition-colors duration-150', isSelected ? 'bg-schemesPrimaryContainer text-schemesOnPrimaryContainer' : 'text-schemesOnSurface hover:bg-schemesSurfaceContainerHigh'),
         style: {
-          marginLeft: depth * 16
+          paddingLeft: `${12 + indent}px`
         },
-        children: [hasKids && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.CaretRight, {
-          size: 16,
-          weight: "bold",
-          className: `text-schemesOnSurfaceVariant transition-transform flex-shrink-0 ${expanded ? 'rotate-90' : ''}`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex-1 min-w-0",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
-            id: childNode.id,
-            label: childNode.name,
-            checked: checked,
-            onChangeHandler: e => onChildChange(parentNode, childNode, e.target.checked)
+        role: "option",
+        "aria-selected": isSelected,
+        children: [collapsible && option.hasChildren ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          type: "button",
+          onClick: e => toggleExpanded(option.value, e),
+          className: "p-0.5 -ml-1 rounded hover:bg-schemesOutlineVariant/30",
+          "aria-label": isExpanded ? 'Collapse' : 'Expand',
+          children: isExpanded ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretDown, {
+            size: 16,
+            className: "text-schemesOnSurfaceVariant"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.CaretRight, {
+            size: 16,
+            className: "text-schemesOnSurfaceVariant"
           })
+        }) : option.depth > 0 && collapsible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "w-5"
+        }) // Spacer for alignment
+        , /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('flex items-center justify-center w-5 h-5 shrink-0', 'border-2 transition-colors duration-150', multiple ? 'rounded' : 'rounded-full', isSelected ? 'bg-schemesPrimary border-schemesPrimary' : 'border-schemesOutline bg-transparent'),
+          children: isSelected && (multiple ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.Check, {
+            size: 14,
+            weight: "bold",
+            className: "text-schemesOnPrimary"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "w-2 h-2 rounded-full bg-schemesOnPrimary"
+          }))
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "flex-1 min-w-0 truncate",
+          children: option.label
+        }), option.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: option.image,
+          alt: "",
+          className: "w-6 h-6 rounded-full object-cover"
         })]
-      }), hasKids && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "mt-4 mb-2 space-y-4",
-        children: childNode.children.map((g, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
-          parentNode: parentNode,
-          childNode: g,
-          isLast: idx === childNode.children.length - 1,
-          depth: depth + 1
-        }, `c-${childNode.id}-${g.id}`))
-      })]
-    }, `c-${childNode.id}`);
+      })
+    }, option.value);
   };
-  const renderParent = node => {
-    const checked = isChecked(node.id);
-    const expanded = checked || anyChildSelected(node);
-    const hasChildren = Array.isArray(node.children) && node.children.length > 0;
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "w-full",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex items-center gap-1 my-1",
-        children: [hasChildren && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.CaretRight, {
-          size: 16,
-          weight: "bold",
-          className: `text-schemesOnSurfaceVariant transition-transform flex-shrink-0 ${expanded ? 'rotate-90' : ''}`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex-1 min-w-0",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
-            id: node.id,
-            label: node.name,
-            checked: checked,
-            onChangeHandler: e => onParentChange(node, e.target.checked)
-          })
-        })]
-      }), hasChildren && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "relative mt-4 mb-2",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "pl-6 space-y-4",
-          children: node.children.map((child, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
-            parentNode: node,
-            childNode: child,
-            isLast: idx === node.children.length - 1,
-            depth: 0
-          }, `c-${child.id}`))
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "relative flex flex-col gap-2",
+    children: [label && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+      className: "Blueprint-label-medium text-schemesOnSurface",
+      children: label
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+      ref: triggerRef,
+      type: "button",
+      onClick: () => !disabled && setIsOpen(!isOpen),
+      disabled: disabled,
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('w-full flex items-center justify-between gap-2', 'px-4 py-3 rounded-xl', 'Blueprint-body-medium text-left', 'border bg-schemesSurfaceContainerLow', 'transition-colors duration-150', hasError ? 'border-schemesError' : 'border-schemesOutline hover:border-schemesOnSurfaceVariant focus:border-schemesPrimary', disabled && 'opacity-50 cursor-not-allowed', !disabled && 'cursor-pointer'),
+      "aria-haspopup": "listbox",
+      "aria-expanded": isOpen,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('truncate', selectedValues.length === 0 && 'text-schemesOnSurfaceVariant'),
+        children: getDisplayText()
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretDown, {
+        size: 20,
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('text-schemesOnSurfaceVariant transition-transform duration-200 shrink-0', isOpen && 'rotate-180')
+      })]
+    }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      ref: dropdownRef,
+      className: "absolute top-full left-0 right-0 z-50 mt-1 bg-schemesSurface border border-schemesOutlineVariant rounded-xl shadow-lg overflow-hidden",
+      role: "listbox",
+      "aria-multiselectable": multiple,
+      children: [searchable && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-2 border-b border-schemesOutlineVariant",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "relative",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlass, {
+            size: 18,
+            className: "absolute left-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            type: "text",
+            value: search,
+            onChange: e => setSearch(e.target.value),
+            placeholder: searchPlaceholder,
+            className: "w-full pl-10 pr-4 py-2 Blueprint-body-medium bg-schemesSurfaceContainerHigh border border-schemesOutline rounded-lg text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant focus:outline-none focus:ring-2 focus:ring-schemesPrimary focus:border-schemesPrimary",
+            autoFocus: true
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+        className: "max-h-60 overflow-y-auto p-2",
+        children: flatOptions.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+          className: "px-4 py-3 Blueprint-body-medium text-schemesOnSurfaceVariant text-center",
+          children: "No results found"
+        }) : flatOptions.map((option, index) => renderOption(option, index))
+      }), multiple && selectedValues.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-2 border-t border-schemesOutlineVariant",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Clear selection",
+          variant: "text",
+          size: "sm",
+          className: "w-full",
+          onClick: () => {
+            onChange?.([]);
+            setIsOpen(false);
+          }
         })
       })]
-    }, `p-${node.id}`);
-  };
-
-  // FLAT
-  if (!isNested) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-4",
-      children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-        className: "Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3",
-        children: title
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "flex flex-wrap gap-4",
-        children: options.slice(0, displayCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
-          id: option.id,
-          label: option.name,
-          checked: selected.includes(String(option.id)),
-          onChangeHandler: onChangeHandler
-        }, option.id))
-      }), hasMore && !expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-        type: "button",
-        onClick: onToggleExpand,
-        className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
-        children: ["Show all (", totalCount, ")"]
-      }), hasMore && expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-        type: "button",
-        onClick: onShowLess,
-        className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
-        children: "Show less"
-      })]
-    });
-  }
-
-  // NESTED
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "mb-4",
-    children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-      className: "Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3",
-      children: title
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "flex flex-col gap-2",
-      children: (parents || []).slice(0, displayCount).map(renderParent)
-    }), hasMore && !expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-      type: "button",
-      onClick: onToggleExpand,
-      className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
-      children: ["Show all (", totalCount, ")"]
+    }), helperText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
+      children: helperText
     })]
   });
 }
@@ -482,13 +668,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ContentCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContentCard */ "./src/scripts/ContentCard.js");
-/* harmony import */ var _FilterGroup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FilterGroup */ "./src/scripts/FilterGroup.js");
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
-/* harmony import */ var _getBadge__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getBadge */ "./src/scripts/getBadge.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var _getBadge__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getBadge */ "./src/scripts/getBadge.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FunnelSimple.es.js");
 /* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
-/* harmony import */ var _Breadcrumbs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Breadcrumbs */ "./src/scripts/Breadcrumbs.js");
+/* harmony import */ var _Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Breadcrumbs */ "./src/scripts/Breadcrumbs.js");
+/* harmony import */ var _DropdownSelect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DropdownSelect */ "./src/scripts/DropdownSelect.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
 
@@ -527,7 +713,6 @@ function GenericArchivePage(props) {
   const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
   const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
-  const [expandedFilters, setExpandedFilters] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set());
 
   // Initialize termsOptions with pre-fetched terms from filters
@@ -535,7 +720,6 @@ function GenericArchivePage(props) {
     const preFetched = {};
     for (const f of filters) {
       if (f.terms && Array.isArray(f.terms) && f.terms.length > 0) {
-        // Use pre-fetched terms directly
         preFetched[f.taxonomy] = f.terms.map(t => {
           var _t$parent;
           return {
@@ -556,7 +740,7 @@ function GenericArchivePage(props) {
     }
   }, [filters]);
 
-  // Fetch terms for filters that don't have pre-fetched terms
+  // In the useEffect that fetches terms, update the URL construction:
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const filtersToFetch = filters.filter(f => !f.terms && !fetchedOnceRef.current.has(f.taxonomy));
     if (!filtersToFetch.length) return;
@@ -567,7 +751,8 @@ function GenericArchivePage(props) {
         const tax = f.taxonomy;
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
-          const ptParam = Array.isArray(postType) ? postType[0] : postType;
+          // Support multiple post types
+          const ptParam = Array.isArray(postType) ? postType.join(',') : postType || '';
           const termsUrl = `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=200${ptParam ? `&post_type=${encodeURIComponent(ptParam)}` : ''}`;
           const res = await fetch(termsUrl, {
             headers: {
@@ -625,6 +810,29 @@ function GenericArchivePage(props) {
       cancelled = true;
     };
   }, [filters, postType]);
+  const getDropdownOptions = taxonomy => {
+    const options = termsOptions[taxonomy] || [];
+
+    // Convert tree structure to DropdownSelect format
+    const convertOptions = items => {
+      return items.map(item => ({
+        value: item.id,
+        label: item.name,
+        children: item.children && item.children.length > 0 ? convertOptions(item.children) : undefined
+      }));
+    };
+
+    // Check if it's a tree structure (has children arrays)
+    if (options.length > 0 && Array.isArray(options[0]?.children)) {
+      return convertOptions(options);
+    }
+
+    // Flat options
+    return options.map(opt => ({
+      value: opt.id,
+      label: opt.name
+    }));
+  };
 
   // Fetch posts
   const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
@@ -743,6 +951,24 @@ function GenericArchivePage(props) {
   }, [isFiltersOpen]);
   const filterCount = Object.values(selectedTerms).reduce((n, arr) => n + (arr?.length || 0), 0) + (searching ? 1 : 0);
   const hasFiltersToShow = filters.some(f => (termsOptions[f.taxonomy] || []).length > 0);
+
+  // Handle filter change for DropdownSelect
+  const handleFilterChange = (taxonomy, value, multiple = true) => {
+    if (multiple) {
+      // value is an array of IDs
+      setSelectedTerms(prev => ({
+        ...prev,
+        [taxonomy]: value
+      }));
+    } else {
+      // value is a single ID or empty string
+      setSelectedTerms(prev => ({
+        ...prev,
+        [taxonomy]: value ? [value] : []
+      }));
+    }
+    setPage(1);
+  };
   const skeletonCards = Array.from({
     length: 8
   }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -760,13 +986,32 @@ function GenericArchivePage(props) {
       })]
     })]
   }, `sk-${i}`));
+
+  // Render a filter using DropdownSelect
+  const renderFilter = (f, isMobile = false) => {
+    const options = getDropdownOptions(f.taxonomy);
+    if (!options.length) return null;
+    const isPeopleTag = f.taxonomy === "people_tag";
+    const isMultiple = !isPeopleTag;
+    const currentValue = isMultiple ? selectedTerms[f.taxonomy] || [] : selectedTerms[f.taxonomy]?.[0] || '';
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_5__.DropdownSelect, {
+      label: f.label || f.taxonomy,
+      placeholder: isPeopleTag ? "Select person..." : "Select...",
+      multiple: isMultiple,
+      searchable: true,
+      searchPlaceholder: `Search ${(f.label || f.taxonomy).toLowerCase()}...`,
+      options: options,
+      value: currentValue,
+      onChange: value => handleFilterChange(f.taxonomy, value, isMultiple)
+    }, `${isMobile ? 'mobile-' : ''}${f.taxonomy}`);
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "archive-container bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "bg-schemesPrimaryFixed py-8",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "tsb-container",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Breadcrumbs__WEBPACK_IMPORTED_MODULE_5__.Breadcrumbs, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__.Breadcrumbs, {
           items: breadcrumbs,
           textColour: "text-schemesPrimary"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
@@ -790,15 +1035,15 @@ function GenericArchivePage(props) {
             onChange: e => setSearchQuery(e.target.value),
             placeholder: "Search by keyword",
             className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlassIcon, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlass, {
             size: 20,
             className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
             weight: "bold",
             "aria-hidden": true
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
           onClick: openFilters,
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.FunnelSimpleIcon, {}),
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.FunnelSimple, {}),
           label: filterCount ? `Filters (${filterCount})` : "Filters",
           variant: "outlined",
           size: "base",
@@ -825,7 +1070,7 @@ function GenericArchivePage(props) {
               onChange: e => setSearchQuery(e.target.value),
               placeholder: "Search by keyword",
               className: "w-full outline-none Blueprint-body-medium text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant bg-transparent"
-            }), !searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlassIcon, {
+            }), !searchQuery && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlass, {
               size: 20,
               className: "text-schemesOnSurfaceVariant",
               weight: "bold"
@@ -837,76 +1082,20 @@ function GenericArchivePage(props) {
             children: "Filters"
           }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "mb-4 flex flex-wrap gap-2",
-            children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               size: "sm",
               variant: "tonal",
               onClick: clearAllFilters,
               label: "Clear filters"
-            }), searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            }), searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               size: "sm",
               variant: "tonal",
               onClick: () => setSearchQuery(""),
               label: "Clear search"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "space-y-6",
-            children: filters.filter(f => (termsOptions[f.taxonomy] || []).length > 0).map(f => {
-              const allOptions = termsOptions[f.taxonomy] || [];
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                    htmlFor: `filter-${f.taxonomy}`,
-                    className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
-                    children: f.label || "People"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-                    id: `filter-${f.taxonomy}`,
-                    value: selectedTerms[f.taxonomy]?.[0] || "",
-                    onChange: e => {
-                      const value = e.target.value;
-                      setSelectedTerms(prev => ({
-                        ...prev,
-                        [f.taxonomy]: value ? [value] : []
-                      }));
-                      setPage(1);
-                    },
-                    className: "w-full rounded-lg border border-schemesOutlineVariant bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-schemesPrimary focus:outline-none",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                      value: "",
-                      children: "All"
-                    }), allOptions.map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                      value: opt.id,
-                      children: opt.name
-                    }, opt.id))]
-                  })]
-                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
-                  title: f.label || f.taxonomy,
-                  options: allOptions,
-                  selected: selectedTerms[f.taxonomy] || [],
-                  expanded: expandedFilters[f.taxonomy],
-                  onToggleExpand: () => setExpandedFilters(prev => ({
-                    ...prev,
-                    [f.taxonomy]: true
-                  })),
-                  onShowLess: () => setExpandedFilters(prev => ({
-                    ...prev,
-                    [f.taxonomy]: false
-                  })),
-                  onChangeHandler: e => {
-                    const id = String(e.target.value);
-                    const checked = !!e.target.checked;
-                    setSelectedTerms(prev => {
-                      const current = prev[f.taxonomy] || [];
-                      const next = checked ? [...current, id] : current.filter(x => x !== id);
-                      return {
-                        ...prev,
-                        [f.taxonomy]: next
-                      };
-                    });
-                    setPage(1);
-                  }
-                })
-              }, f.taxonomy);
-            })
+            className: "space-y-4",
+            children: filters.filter(f => (termsOptions[f.taxonomy] || []).length > 0).map(f => renderFilter(f, false))
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("section", {
@@ -921,11 +1110,11 @@ function GenericArchivePage(props) {
             children: error
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "flex gap-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               variant: "filled",
               label: "Try again",
               onClick: () => setRetryTick(n => n + 1)
-            }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            }), hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               variant: "tonal",
               label: "Clear filters",
               onClick: clearAllFilters
@@ -945,15 +1134,15 @@ function GenericArchivePage(props) {
             children: searching ? "Try a different keyword or clear search." : "Try adjusting or clearing your filters to see more results."
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "flex justify-center gap-3",
-            children: [searching ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            children: [searching ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               variant: "filled",
               label: "Clear search",
               onClick: () => setSearchQuery("")
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               variant: "filled",
               label: "Clear all filters",
               onClick: clearAllFilters
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
               variant: "tonal",
               label: "Reload",
               onClick: () => setRetryTick(n => n + 1)
@@ -968,12 +1157,12 @@ function GenericArchivePage(props) {
               children: searching ? `${filteredItems.length} match${filteredItems.length === 1 ? "" : "es"} on this page` : typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null
             }), (hasActiveFilters || searching) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
               className: "hidden sm:flex gap-2",
-              children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              children: [hasActiveFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
                 size: "sm",
                 variant: "tonal",
                 label: "Clear filters",
                 onClick: clearAllFilters
-              }), searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+              }), searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
                 size: "sm",
                 variant: "tonal",
                 label: "Clear search",
@@ -987,7 +1176,7 @@ function GenericArchivePage(props) {
               title: item.title,
               date: item.date,
               subtitle: item.excerpt || item.subtitle,
-              badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_4__.getBadge)(item.post_type),
+              badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_3__.getBadge)(item.post_type),
               href: item.permalink,
               fullHeight: true,
               shadow: true
@@ -995,7 +1184,7 @@ function GenericArchivePage(props) {
           })]
         }), !loading && !error && totalPages > 1 && !searching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "flex justify-center items-center gap-3 mt-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             size: "base",
             variant: "tonal",
             disabled: page <= 1,
@@ -1004,7 +1193,7 @@ function GenericArchivePage(props) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
             className: "Blueprint-body-medium text-schemesOnSurfaceVariant",
             children: [page, " / ", totalPages]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             size: "base",
             variant: "tonal",
             disabled: page >= totalPages,
@@ -1040,11 +1229,11 @@ function GenericArchivePage(props) {
               onClick: closeFilters,
               className: "rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant",
               "aria-label": "Close filters",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.XIcon, {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.X, {})
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "px-4 py-4 overflow-y-auto flex-1 space-y-6",
+          className: "px-4 py-4 overflow-y-auto flex-1 space-y-4",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "relative",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
@@ -1053,78 +1242,21 @@ function GenericArchivePage(props) {
               value: searchQuery,
               onChange: e => setSearchQuery(e.target.value),
               className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlassIcon, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlass, {
               size: 20,
               className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
               weight: "bold",
               "aria-hidden": true
             })]
-          }), filters.map(f => {
-            const allOptions = termsOptions[f.taxonomy] || [];
-            if (!allOptions.length) return null;
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-              children: f.taxonomy === "people_tag" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                  htmlFor: `mobile-filter-${f.taxonomy}`,
-                  className: "Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant",
-                  children: f.label || "People"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-                  id: `mobile-filter-${f.taxonomy}`,
-                  value: selectedTerms[f.taxonomy]?.[0] || "",
-                  onChange: e => {
-                    const value = e.target.value;
-                    setSelectedTerms(prev => ({
-                      ...prev,
-                      [f.taxonomy]: value ? [value] : []
-                    }));
-                    setPage(1);
-                  },
-                  className: "w-full rounded-lg border border-schemesOutlineVariant bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-schemesPrimary focus:outline-none",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                    value: "",
-                    children: "All"
-                  }), allOptions.map(opt => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                    value: opt.id,
-                    children: opt.name
-                  }, opt.id))]
-                })]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_2__.FilterGroup, {
-                title: f.label || f.taxonomy,
-                options: allOptions,
-                selected: selectedTerms[f.taxonomy] || [],
-                expanded: expandedFilters[f.taxonomy],
-                onToggleExpand: () => setExpandedFilters(prev => ({
-                  ...prev,
-                  [f.taxonomy]: true
-                })),
-                onShowLess: () => setExpandedFilters(prev => ({
-                  ...prev,
-                  [f.taxonomy]: false
-                })),
-                onChangeHandler: e => {
-                  const id = String(e.target.value);
-                  const checked = !!e.target.checked;
-                  setSelectedTerms(prev => {
-                    const current = prev[f.taxonomy] || [];
-                    const next = checked ? [...current, id] : current.filter(x => x !== id);
-                    return {
-                      ...prev,
-                      [f.taxonomy]: next
-                    };
-                  });
-                  setPage(1);
-                }
-              })
-            }, `m-${f.taxonomy}`);
-          })]
+          }), filters.map(f => renderFilter(f, true))]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             onClick: clearAllFilters,
             variant: "outlined",
             label: "Clear all",
             className: "flex-1"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
             onClick: closeFilters,
             variant: "filled",
             label: "Apply",
@@ -1134,45 +1266,6 @@ function GenericArchivePage(props) {
       })]
     })]
   });
-}
-
-/***/ }),
-
-/***/ "./src/scripts/StyledCheckbox.js":
-/*!***************************************!*\
-  !*** ./src/scripts/StyledCheckbox.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   StyledCheckbox: () => (/* binding */ StyledCheckbox)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-
-function StyledCheckbox({
-  id,
-  label,
-  onChangeHandler,
-  checked
-}) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-      type: "checkbox",
-      id: `filter-${id}`,
-      value: id,
-      checked: checked // ✅ controlled by parent
-      ,
-
-      className: "peer hidden",
-      onChange: onChangeHandler
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-      htmlFor: `filter-${id}`,
-      className: "cursor-pointer px-3 py-2 rounded-md Blueprint-label-small transition-colors duration-200 peer-checked:bg-gray-500 peer-checked:text-white peer-checked:border-grey-700 peer-not-checked:bg-[var(--schemesSurfaceContainer)] peer-not-checked:text-gray-700 peer-not-checked:border-gray-300",
-      children: label
-    })]
-  }, id);
 }
 
 /***/ }),
@@ -1219,4 +1312,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=8b1b967888e003628e41
+//# sourceMappingURL=generic-archive.js.map?ver=8f27c21a7dd398c43a43

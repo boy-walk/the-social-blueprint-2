@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { MoreInterviews } from "./MoreInterviews";
 import { Tag } from "./Tag";
 import { ExploreByTheme } from "./ExploreByTheme";
@@ -7,6 +7,7 @@ import { ShareButton } from "./ShareButton";
 import { RelatedContentCard } from "./RelatedContentCard";
 import { PostsSlider } from "./PostsSlider";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { DropdownSelect } from "./DropdownSelect";
 
 export default function PodcastPage({
   title,
@@ -21,6 +22,8 @@ export default function PodcastPage({
   breadcrumbs = [],
   interviewees = [],
 }) {
+  const [selectedInterviewee, setSelectedInterviewee] = useState('');
+
   const formattedDate = date
     ? new Date(date).toLocaleDateString("en-AU", {
       year: "numeric",
@@ -28,6 +31,26 @@ export default function PodcastPage({
       day: "numeric",
     })
     : "No date provided";
+
+  // Convert interviewees to DropdownSelect format
+  const intervieweeOptions = useMemo(() =>
+    interviewees.map((person) => ({
+      value: String(person.id),
+      label: person.name,
+    })),
+    [interviewees]
+  );
+
+  // Handle interviewee selection - navigate to their page
+  const handleIntervieweeChange = (value) => {
+    setSelectedInterviewee(value);
+    if (value) {
+      const person = interviewees.find((p) => String(p.id) === value);
+      if (person?.link) {
+        window.location.href = person.link;
+      }
+    }
+  };
 
   return (
     <main className="bg-schemesSurface text-schemesOnSurface">
@@ -77,8 +100,7 @@ export default function PodcastPage({
                     </div>
                   </div>
 
-                  <ShareButton
-                  />
+                  <ShareButton />
                 </div>
               </div>
 
@@ -130,19 +152,21 @@ export default function PodcastPage({
                       Explore all topics
                     </div>
                   </a>
-                  <select className="mt-4 w-full rounded-lg bg-schemesSurfaceContainer text-schemesOnSurfaceVariant p-3 outline-none Blueprint-body-medium" onChange={(e) => {
-                    const selectedUrl = e.target.value;
-                    if (selectedUrl) {
-                      window.location.href = selectedUrl;
-                    }
-                  }}>
-                    <option value="">Browse by Interviewee</option>
-                    {interviewees.map((person) => (
-                      <option key={person.id} value={person.link}>
-                        {person.name}
-                      </option>
-                    ))}
-                  </select>
+
+                  {interviewees.length > 0 && (
+                    <div className="mt-4">
+                      <DropdownSelect
+                        label="Browse by Interviewee"
+                        placeholder="Select an interviewee..."
+                        multiple={false}
+                        searchable
+                        searchPlaceholder="Search interviewees..."
+                        options={intervieweeOptions}
+                        value={selectedInterviewee}
+                        onChange={handleIntervieweeChange}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </aside>

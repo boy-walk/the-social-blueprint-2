@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import { ContentCard } from "./ContentCard";
-import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
 import { getBadge } from "./getBadge";
-import { MagnifyingGlassIcon, FunnelSimpleIcon, XIcon } from "@phosphor-icons/react";
+import { MagnifyingGlass, FunnelSimple, X } from "@phosphor-icons/react";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { DropdownSelect } from "./DropdownSelect";
 
 /**
  * GenericArchivePage
@@ -35,7 +35,6 @@ export function GenericArchivePage(props) {
   const [retryTick, setRetryTick] = useState(0);
 
   const [termsOptions, setTermsOptions] = useState({});
-  const [expandedFilters, setExpandedFilters] = useState({});
   const fetchedOnceRef = useRef(new Set());
 
   // Initialize termsOptions with pre-fetched terms from filters
@@ -43,7 +42,6 @@ export function GenericArchivePage(props) {
     const preFetched = {};
     for (const f of filters) {
       if (f.terms && Array.isArray(f.terms) && f.terms.length > 0) {
-        // Use pre-fetched terms directly
         preFetched[f.taxonomy] = f.terms.map((t) => ({
           id: String(t.id),
           name: t.name,
@@ -58,7 +56,7 @@ export function GenericArchivePage(props) {
     }
   }, [filters]);
 
-  // Fetch terms for filters that don't have pre-fetched terms
+  // In the useEffect that fetches terms, update the URL construction:
   useEffect(() => {
     const filtersToFetch = filters.filter((f) => !f.terms && !fetchedOnceRef.current.has(f.taxonomy));
     if (!filtersToFetch.length) return;
@@ -70,7 +68,11 @@ export function GenericArchivePage(props) {
         const tax = f.taxonomy;
         if (fetchedOnceRef.current.has(tax)) continue;
         try {
-          const ptParam = Array.isArray(postType) ? postType[0] : postType;
+          // Support multiple post types
+          const ptParam = Array.isArray(postType)
+            ? postType.join(',')
+            : (postType || '');
+
           const termsUrl = `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=200${ptParam ? `&post_type=${encodeURIComponent(ptParam)}` : ''}`;
           const res = await fetch(termsUrl, { headers: { Accept: "application/json" } });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -104,6 +106,32 @@ export function GenericArchivePage(props) {
     })();
     return () => { cancelled = true; };
   }, [filters, postType]);
+
+  const getDropdownOptions = (taxonomy) => {
+    const options = termsOptions[taxonomy] || [];
+
+    // Convert tree structure to DropdownSelect format
+    const convertOptions = (items) => {
+      return items.map((item) => ({
+        value: item.id,
+        label: item.name,
+        children: item.children && item.children.length > 0
+          ? convertOptions(item.children)
+          : undefined,
+      }));
+    };
+
+    // Check if it's a tree structure (has children arrays)
+    if (options.length > 0 && Array.isArray(options[0]?.children)) {
+      return convertOptions(options);
+    }
+
+    // Flat options
+    return options.map((opt) => ({
+      value: opt.id,
+      label: opt.name,
+    }));
+  };
 
   // Fetch posts
   const fetchSeq = useRef(0);
@@ -220,6 +248,18 @@ export function GenericArchivePage(props) {
 
   const hasFiltersToShow = filters.some((f) => (termsOptions[f.taxonomy] || []).length > 0);
 
+  // Handle filter change for DropdownSelect
+  const handleFilterChange = (taxonomy, value, multiple = true) => {
+    if (multiple) {
+      // value is an array of IDs
+      setSelectedTerms((prev) => ({ ...prev, [taxonomy]: value }));
+    } else {
+      // value is a single ID or empty string
+      setSelectedTerms((prev) => ({ ...prev, [taxonomy]: value ? [value] : [] }));
+    }
+    setPage(1);
+  };
+
   const skeletonCards = Array.from({ length: 8 }).map((_, i) => (
     <div key={`sk-${i}`} className="rounded-xl border border-schemesOutlineVariant overflow-hidden">
       <div className="w-full aspect-square bg-schemesSurfaceContainerHighest animate-pulse" />
@@ -230,6 +270,32 @@ export function GenericArchivePage(props) {
       </div>
     </div>
   ));
+
+  // Render a filter using DropdownSelect
+  const renderFilter = (f, isMobile = false) => {
+    const options = getDropdownOptions(f.taxonomy);
+    if (!options.length) return null;
+
+    const isPeopleTag = f.taxonomy === "people_tag";
+    const isMultiple = !isPeopleTag;
+    const currentValue = isMultiple
+      ? (selectedTerms[f.taxonomy] || [])
+      : (selectedTerms[f.taxonomy]?.[0] || '');
+
+    return (
+      <DropdownSelect
+        key={`${isMobile ? 'mobile-' : ''}${f.taxonomy}`}
+        label={f.label || f.taxonomy}
+        placeholder={isPeopleTag ? "Select person..." : "Select..."}
+        multiple={isMultiple}
+        searchable
+        searchPlaceholder={`Search ${(f.label || f.taxonomy).toLowerCase()}...`}
+        options={options}
+        value={currentValue}
+        onChange={(value) => handleFilterChange(f.taxonomy, value, isMultiple)}
+      />
+    );
+  };
 
   return (
     <div className="archive-container bg-schemesSurface">
@@ -254,11 +320,11 @@ export function GenericArchivePage(props) {
               placeholder="Search by keyword"
               className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
             />
-            <MagnifyingGlassIcon size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
+            <MagnifyingGlass size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
           </div>
           <Button
             onClick={openFilters}
-            icon={<FunnelSimpleIcon />}
+            icon={<FunnelSimple />}
             label={filterCount ? `Filters (${filterCount})` : "Filters"}
             variant="outlined"
             size="base"
@@ -272,7 +338,7 @@ export function GenericArchivePage(props) {
       <div className="tsb-container flex flex-col lg:flex-row py-8 gap-8">
         {/* Desktop sidebar */}
         <aside className="hidden lg:block lg:w-64 xl:w-72 shrink-0">
-          {/* Search - always visible */}
+          {/* Search */}
           <div className="mb-6">
             <label htmlFor="archive-search" className="sr-only">Search by keyword</label>
             <div className="bg-schemesSurfaceContainer flex items-center gap-2 rounded-full px-4 py-3">
@@ -284,7 +350,7 @@ export function GenericArchivePage(props) {
                 placeholder="Search by keyword"
                 className="w-full outline-none Blueprint-body-medium text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant bg-transparent"
               />
-              {!searchQuery && <MagnifyingGlassIcon size={20} className="text-schemesOnSurfaceVariant" weight="bold" />}
+              {!searchQuery && <MagnifyingGlass size={20} className="text-schemesOnSurfaceVariant" weight="bold" />}
             </div>
           </div>
 
@@ -300,57 +366,10 @@ export function GenericArchivePage(props) {
                 </div>
               )}
 
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {filters
                   .filter((f) => (termsOptions[f.taxonomy] || []).length > 0)
-                  .map((f) => {
-                    const allOptions = termsOptions[f.taxonomy] || [];
-                    return (
-                      <div key={f.taxonomy}>
-                        {f.taxonomy === "people_tag" ? (
-                          <div>
-                            <label htmlFor={`filter-${f.taxonomy}`} className="Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant">
-                              {f.label || "People"}
-                            </label>
-                            <select
-                              id={`filter-${f.taxonomy}`}
-                              value={selectedTerms[f.taxonomy]?.[0] || ""}
-                              onChange={(e) => {
-                                const value = e.target.value;
-                                setSelectedTerms((prev) => ({ ...prev, [f.taxonomy]: value ? [value] : [] }));
-                                setPage(1);
-                              }}
-                              className="w-full rounded-lg border border-schemesOutlineVariant bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-schemesPrimary focus:outline-none"
-                            >
-                              <option value="">All</option>
-                              {allOptions.map((opt) => (
-                                <option key={opt.id} value={opt.id}>{opt.name}</option>
-                              ))}
-                            </select>
-                          </div>
-                        ) : (
-                          <FilterGroup
-                            title={f.label || f.taxonomy}
-                            options={allOptions}
-                            selected={selectedTerms[f.taxonomy] || []}
-                            expanded={expandedFilters[f.taxonomy]}
-                            onToggleExpand={() => setExpandedFilters(prev => ({ ...prev, [f.taxonomy]: true }))}
-                            onShowLess={() => setExpandedFilters(prev => ({ ...prev, [f.taxonomy]: false }))}
-                            onChangeHandler={(e) => {
-                              const id = String(e.target.value);
-                              const checked = !!e.target.checked;
-                              setSelectedTerms((prev) => {
-                                const current = prev[f.taxonomy] || [];
-                                const next = checked ? [...current, id] : current.filter((x) => x !== id);
-                                return { ...prev, [f.taxonomy]: next };
-                              });
-                              setPage(1);
-                            }}
-                          />
-                        )}
-                      </div>
-                    );
-                  })}
+                  .map((f) => renderFilter(f, false))}
               </div>
             </>
           )}
@@ -462,12 +481,12 @@ export function GenericArchivePage(props) {
                 className="rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant"
                 aria-label="Close filters"
               >
-                <XIcon />
+                <X />
               </button>
             </div>
           </div>
 
-          <div className="px-4 py-4 overflow-y-auto flex-1 space-y-6">
+          <div className="px-4 py-4 overflow-y-auto flex-1 space-y-4">
             {/* Search in drawer */}
             <div className="relative">
               <input
@@ -477,59 +496,11 @@ export function GenericArchivePage(props) {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
               />
-              <MagnifyingGlassIcon size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
+              <MagnifyingGlass size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
             </div>
 
-            {/* Filter groups in drawer */}
-            {filters.map((f) => {
-              const allOptions = termsOptions[f.taxonomy] || [];
-              if (!allOptions.length) return null;
-              return (
-                <div key={`m-${f.taxonomy}`}>
-                  {f.taxonomy === "people_tag" ? (
-                    <div>
-                      <label htmlFor={`mobile-filter-${f.taxonomy}`} className="Blueprint-title-small-emphasized block mb-2 text-schemesOnSurfaceVariant">
-                        {f.label || "People"}
-                      </label>
-                      <select
-                        id={`mobile-filter-${f.taxonomy}`}
-                        value={selectedTerms[f.taxonomy]?.[0] || ""}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          setSelectedTerms((prev) => ({ ...prev, [f.taxonomy]: value ? [value] : [] }));
-                          setPage(1);
-                        }}
-                        className="w-full rounded-lg border border-schemesOutlineVariant bg-schemesSurfaceContainerHigh Blueprint-body-medium text-schemesOnSurface py-2 px-3 focus:ring-2 focus:ring-schemesPrimary focus:outline-none"
-                      >
-                        <option value="">All</option>
-                        {allOptions.map((opt) => (
-                          <option key={opt.id} value={opt.id}>{opt.name}</option>
-                        ))}
-                      </select>
-                    </div>
-                  ) : (
-                    <FilterGroup
-                      title={f.label || f.taxonomy}
-                      options={allOptions}
-                      selected={selectedTerms[f.taxonomy] || []}
-                      expanded={expandedFilters[f.taxonomy]}
-                      onToggleExpand={() => setExpandedFilters(prev => ({ ...prev, [f.taxonomy]: true }))}
-                      onShowLess={() => setExpandedFilters(prev => ({ ...prev, [f.taxonomy]: false }))}
-                      onChangeHandler={(e) => {
-                        const id = String(e.target.value);
-                        const checked = !!e.target.checked;
-                        setSelectedTerms((prev) => {
-                          const current = prev[f.taxonomy] || [];
-                          const next = checked ? [...current, id] : current.filter((x) => x !== id);
-                          return { ...prev, [f.taxonomy]: next };
-                        });
-                        setPage(1);
-                      }}
-                    />
-                  )}
-                </div>
-              );
-            })}
+            {/* Filter dropdowns in drawer */}
+            {filters.map((f) => renderFilter(f, true))}
           </div>
 
           <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0">
