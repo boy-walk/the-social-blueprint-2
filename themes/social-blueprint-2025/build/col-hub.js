@@ -1880,7 +1880,7 @@ function ContentCard({
             className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-3 transition-colors duration-200 group-hover:text-schemesOnSurface ",
+            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-3 transition-colors duration-200 group-hover:text-schemesOnSurface ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
             className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
@@ -2465,4 +2465,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=19ebd36f3b53f16bc6d8
+//# sourceMappingURL=col-hub.js.map?ver=8d8305f5e6e9a1f9017d

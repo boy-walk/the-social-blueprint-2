@@ -14,7 +14,7 @@ export function DetailedCard({
 }) {
   return (
     <Card styles={`h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`}>
-      <a href={href || "#"} className="flex h-full w-full gap-0 md:gap-2 lg:gap-4 group">
+      <a href={href || "#"} className="flex h-full w-full gap-2 group">
         <div className="lg:aspect-[4/3] max-h-[275px] w-1/2 lg:w-2/5 flex-shrink-0 p-2">
           <div className="w-full h-full overflow-hidden rounded-lg bg-gray-100">
             <img
@@ -24,7 +24,7 @@ export function DetailedCard({
             />
           </div>
         </div>
-        <div className="flex flex-col justify-between w-full h-full p-2 lg:p-4">
+        <div className="flex flex-col justify-between w-full h-full pr-1 py-1">
           <div className="space-y-1 py-1 lg:py-2">
             {date && (
               <p className="Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
@@ -37,7 +37,7 @@ export function DetailedCard({
               </h3>
             )}
             {description && (
-              <p className="Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface">
+              <p className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface">
                 {description}
               </p>
             )}
@@ -52,7 +52,7 @@ export function DetailedCard({
 
             <span className="inline-flex ml-auto items-center gap-1 Blueprint-label-large text-schemesOnSurface group-hover:underline transition-all duration-200 group-hover:text-blue-600">
               {buttonText}
-              <ArrowIcon className="w-7.5 transition-transform duration-200 group-hover:translate-x-1" />
+              <ArrowIcon />
             </span>
           </div>
         </div>

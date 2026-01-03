@@ -90,7 +90,7 @@ export function ContentCard({
               {subtitle && (
                 <p
                   className="
-                    Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant
+                    Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-schemesOnSurfaceVariant
                     line-clamp-3
                     transition-colors duration-200 group-hover:text-schemesOnSurface
                   "

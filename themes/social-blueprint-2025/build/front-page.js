@@ -302,7 +302,7 @@ const ArrowIcon = ({
   className
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-    className: `lg:w-11 md:w-10 w-8 ${className}`,
+    className: `lg:w-9 md:w-8 w-7 ${className}`,
     width: "63",
     height: "24",
     viewBox: "0 0 63 24",
@@ -976,7 +976,7 @@ function ContentCard({
             className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] ",
             children: title
           }), subtitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant line-clamp-3 transition-colors duration-200 group-hover:text-schemesOnSurface ",
+            className: " Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-3 transition-colors duration-200 group-hover:text-schemesOnSurface ",
             children: subtitle
           }), author && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
             className: "mt-1 Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
@@ -1792,4 +1792,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=front-page.js.map?ver=ae3b434c092f209f6e2e
+//# sourceMappingURL=front-page.js.map?ver=b05062bfc2f88def3d95

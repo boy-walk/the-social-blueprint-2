@@ -1076,7 +1076,7 @@ const ArrowIcon = ({
   className
 }) => {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-    className: `lg:w-11 md:w-10 w-8 ${className}`,
+    className: `lg:w-9 md:w-8 w-7 ${className}`,
     width: "63",
     height: "24",
     viewBox: "0 0 63 24",
@@ -2357,4 +2357,4 @@ const Tag = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=1265a9fdc0353c92bc7b
+//# sourceMappingURL=mb-page.js.map?ver=2f6c15a672c4805f1fbc
