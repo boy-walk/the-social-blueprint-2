@@ -35,7 +35,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                 <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/aid_listing.health_listing/?topic_tag=mental-health">
+                    <Card styles="shadow-3x3" href="/health_listing/?gd_health_listingcategory=mental-health">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <HeadCircuitIcon size={22} />
@@ -45,7 +45,7 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/stories-and-interviews">
+                    <Card styles="shadow-3x3" href="/aid-listing-hub">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <FirstAidIcon size={22} />
@@ -55,27 +55,27 @@ export const SupportAndServicesHub = ({ podcasts, articles, breadcrumbs = [] }) 
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/categories/cost-of-living">
+                    <Card styles="shadow-3x3" href="/listings">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <ButterflyIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Free Community Services</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Social | Community Interests</div>
                       </div>
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3">
+                    <Card styles="shadow-3x3" href="/health-listing-hub">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
                         </div>
-                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Mental Health & Wellbeing</div>
+                        <div className="lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized">Health & Wellbeing</div>
                       </div>
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3">
+                    <Card styles="shadow-3x3" href="https://www.csgvic.com.au/jeap">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <AppWindowIcon size={22} />

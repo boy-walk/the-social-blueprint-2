@@ -36,7 +36,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                 <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/message-board">
+                    <Card styles="shadow-3x3" href="/podcasts/?theme=learning-and-growth">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <MailboxIcon size={22} />
@@ -46,7 +46,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/stories-and-interviews">
+                    <Card styles="shadow-3x3" href="/articles/?theme=learning-and-growth">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CellTowerIcon size={22} />
@@ -56,7 +56,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/categories/cost-of-living">
+                    <Card styles="shadow-3x3" href="/cost-of-living">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CalendarDotIcon size={22} />
@@ -66,7 +66,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3">
+                    <Card styles="shadow-3x3" href="/topic_tag/reports-surveys">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
@@ -76,7 +76,7 @@ export const LearningAndGrowthHub = ({ featured, podcasts, events, costOfLiving,
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3">
+                    <Card styles="shadow-3x3" href="/topic_tag/israel">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <StarIcon size={22} />
