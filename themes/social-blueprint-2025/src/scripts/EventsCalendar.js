@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
-import { FilterGroup } from "./FilterGroup";
 import { Button } from "./Button";
-import { ArrowLeftIcon, ArrowRightIcon, FunnelSimpleIcon, XIcon } from "@phosphor-icons/react";
+import { DropdownSelect } from "./DropdownSelect";
+import { ArrowLeft, ArrowRight, FunnelSimple, X, MagnifyingGlass } from "@phosphor-icons/react";
 
 export function EventsCalendar({ categories, types, topics, audiences, locations }) {
   const [keyword, setKeyword] = useState("");
@@ -21,7 +21,7 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
 
   const [isLoading, setIsLoading] = useState(false);
   const [currentView, setCurrentView] = useState("dayGridMonth");
-  const [supportsHover, setSupportsHover] = useState(true); // ⭐ NEW: Detect if device supports hover
+  const [supportsHover, setSupportsHover] = useState(true);
 
   const calendarRef = useRef(null);
   const isFirstDatesSet = useRef(true);
@@ -44,11 +44,38 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
   const moveHandlerRef = useRef(null);
   const rafRef = useRef(null);
 
-  // ⭐ NEW: Detect if device supports hover (not touch-only device)
+  console.log(topics);
+
+  // Convert options to DropdownSelect format
+  const categoryOptions = useMemo(() =>
+    (categories || []).map(opt => ({ value: String(opt.id), label: opt.name })),
+    [categories]
+  );
+
+  const typeOptions = useMemo(() =>
+    (types || []).map(opt => ({ value: String(opt.id), label: opt.name })),
+    [types]
+  );
+
+  const topicOptions = useMemo(() =>
+    (Object.values(topics) || []).map(opt => ({ value: String(opt.id), label: opt.name })),
+    [topics]
+  );
+
+  const audienceOptions = useMemo(() =>
+    (audiences || []).map(opt => ({ value: String(opt.id), label: opt.name })),
+    [audiences]
+  );
+
+  const locationTypeOptions = useMemo(() => [
+    { value: "In Person", label: "In Person" },
+    { value: "Online", label: "Online" }
+  ], []);
+
+  // Detect if device supports hover
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Check if primary input can hover (desktop/laptop with mouse)
     const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
     setSupportsHover(hoverQuery.matches);
 
@@ -103,17 +130,6 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
     const api = getApi();
     if (api) api.changeView(viewName);
   };
-
-  const onCategory = (e) =>
-    setSelectedCategories((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
-  const onType = (e) =>
-    setSelectedTypes((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
-  const onTopic = (e) =>
-    setSelectedTopics((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
-  const onAudience = (e) =>
-    setSelectedAudiences((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
-  const onLocation = (e) =>
-    setSelectedLocations((s) => (e.target.checked ? [...s, e.target.value] : s.filter((v) => v !== e.target.value)));
 
   const datesSet = (info) => {
     const start = info.startStr.split("T")[0];
@@ -322,11 +338,6 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
   const openFilters = () => setIsFiltersOpen(true);
   const closeFilters = () => setIsFiltersOpen(false);
 
-  const locationTypeOptions = [
-    { id: "In Person", name: "In Person" },
-    { id: "Online", name: "Online" }
-  ];
-
   useEffect(() => {
     if (isFiltersOpen) {
       const prev = document.body.style.overflow;
@@ -348,12 +359,90 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
     setOnlyFeatured(false);
   };
 
-  // View options for the switcher
   const viewOptions = [
     { key: "dayGridMonth", label: "Month" },
     { key: "listWeek", label: "Week" },
     { key: "listDay", label: "Day" },
   ];
+
+  // Render filters (reusable for desktop and mobile)
+  const renderFilters = (isMobile = false) => (
+    <div className="space-y-4">
+      <label className="flex items-center gap-3 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={onlyFeatured}
+          onChange={(e) => setOnlyFeatured(e.target.checked)}
+          className="w-5 h-5 rounded border-schemesOutline text-schemesPrimary focus:ring-schemesPrimary"
+        />
+        <span className="Blueprint-body-medium text-schemesOnSurface">
+          Featured only
+        </span>
+      </label>
+
+      {categoryOptions.length > 0 && (
+        <DropdownSelect
+          label="Category"
+          placeholder="Select categories..."
+          multiple
+          searchable
+          searchPlaceholder="Search categories..."
+          options={categoryOptions}
+          value={selectedCategories}
+          onChange={setSelectedCategories}
+        />
+      )}
+
+      {typeOptions.length > 0 && (
+        <DropdownSelect
+          label="Theme"
+          placeholder="Select themes..."
+          multiple
+          searchable
+          searchPlaceholder="Search themes..."
+          options={typeOptions}
+          value={selectedTypes}
+          onChange={setSelectedTypes}
+        />
+      )}
+
+      {topicOptions.length > 0 && (
+        <DropdownSelect
+          label="Topic"
+          placeholder="Select topics..."
+          multiple
+          searchable
+          searchPlaceholder="Search topics..."
+          options={topicOptions}
+          value={selectedTopics}
+          onChange={setSelectedTopics}
+        />
+      )}
+
+      {audienceOptions.length > 0 && (
+        <DropdownSelect
+          label="Audience"
+          placeholder="Select audiences..."
+          multiple
+          searchable
+          searchPlaceholder="Search audiences..."
+          options={audienceOptions}
+          value={selectedAudiences}
+          onChange={setSelectedAudiences}
+        />
+      )}
+
+      <DropdownSelect
+        label="Location Type"
+        placeholder="Select location type..."
+        multiple
+        searchable={false}
+        options={locationTypeOptions}
+        value={selectedLocations}
+        onChange={setSelectedLocations}
+      />
+    </div>
+  );
 
   return (
     <div className="bg-schemesSurface">
@@ -454,6 +543,7 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
           background-color: var(--schemesPrimaryContainer) !important;
         }
       `}</style>
+
       <div className="bg-schemesPrimaryFixed">
         <div className="tsb-container">
           <div className="py-16 flex flex-col justify-end items-start gap-2 max-w-3xl">
@@ -468,36 +558,37 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
       </div>
 
       <div className={`tsb-container py-8 flex flex-grow ${isLoading ? "cursor-wait" : ""}`}>
+        {/* Desktop sidebar */}
         <aside className={`hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
-          <div className="relative flex items-center mb-6">
-            <input
-              type="text"
-              placeholder="Search by keyword"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
-            />
-            <svg className="absolute right-3 text-schemesOnSurfaceVariant w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+          {/* Search */}
+          <div className="mb-6">
+            <label htmlFor="calendar-search" className="sr-only">Search by keyword</label>
+            <div className="relative">
+              <input
+                id="calendar-search"
+                type="text"
+                placeholder="Search by keyword"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
+              />
+              <MagnifyingGlass
+                size={20}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant"
+                weight="bold"
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col gap-4 px-4">
-            <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant">Filters</h2>
+          <h2 className="Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant mb-4">Filters</h2>
 
-            <FilterGroup
-              options={[{ id: "1", name: "Featured only" }]}
-              selected={onlyFeatured ? ["1"] : []}
-              onChangeHandler={(e) => setOnlyFeatured(!!e.target.checked)}
-            />
+          {filterCount > 0 && (
+            <div className="mb-4">
+              <Button size="sm" variant="tonal" onClick={clearAll} label="Clear all filters" />
+            </div>
+          )}
 
-            {categories && categories.length > 0 && (
-              <FilterGroup title="Category" options={categories} selected={selectedCategories} onChangeHandler={onCategory} />
-            )}
-            <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
-            <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
-            <FilterGroup title="Location Type" options={locationTypeOptions} selected={selectedLocations} onChangeHandler={onLocation} />
-          </div>
+          {renderFilters(false)}
         </aside>
 
         <section className={`flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
@@ -511,14 +602,16 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
                 onChange={(e) => setKeyword(e.target.value)}
                 className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
               />
-              <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <MagnifyingGlass
+                size={20}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant"
+                weight="bold"
+              />
             </div>
 
             <Button
               onClick={openFilters}
-              icon={<FunnelSimpleIcon />}
+              icon={<FunnelSimple />}
               label={filterCount ? `Filters (${filterCount})` : "Filters"}
               variant="outlined"
               size="base"
@@ -536,7 +629,7 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
                 onClick={handlePrevClick}
                 className="flex items-center gap-2 px-4 py-2 rounded-full border border-schemesOutline text-schemesOnSurface Blueprint-label-large hover:bg-schemesSurfaceContainerHigh transition-colors"
               >
-                <ArrowLeftIcon size={18} />
+                <ArrowLeft size={18} />
                 <span className="hidden sm:inline">Previous</span>
               </button>
               <button
@@ -552,7 +645,7 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
                 className="flex items-center gap-2 px-4 py-2 rounded-full border border-schemesOutline text-schemesOnSurface Blueprint-label-large hover:bg-schemesSurfaceContainerHigh transition-colors"
               >
                 <span className="hidden sm:inline">Next</span>
-                <ArrowRightIcon size={18} />
+                <ArrowRight size={18} />
               </button>
             </div>
 
@@ -591,7 +684,6 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
               eventDisplay="block"
               height="auto"
               datesSet={datesSet}
-              // ⭐ CHANGED: Only enable tooltip handlers on hover-capable devices
               eventMouseEnter={supportsHover ? showTooltip : undefined}
               eventMouseLeave={supportsHover ? hideTooltip : undefined}
               nowIndicator={true}
@@ -625,18 +717,18 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
           </div>
         </section>
       </div>
+
+      {/* Tooltip */}
       {supportsHover && tip.visible && (() => {
-        const tooltipWidth = 448; // max-w-md = 28rem = 448px
-        const tooltipHeight = 200; // approximate height
+        const tooltipWidth = 448;
+        const tooltipHeight = 200;
         const offset = 12;
         const padding = 16;
 
-        // Determine horizontal position
         const spaceOnRight = window.innerWidth - tip.x - offset - padding;
         const spaceOnLeft = tip.x - offset - padding;
         const showOnLeft = spaceOnRight < tooltipWidth && spaceOnLeft > spaceOnRight;
 
-        // Determine vertical position
         const spaceBelow = window.innerHeight - tip.y - offset - padding;
         const spaceAbove = tip.y - offset - padding;
         const showAbove = spaceBelow < tooltipHeight && spaceAbove > spaceBelow;
@@ -714,12 +806,13 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
                 className="rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant"
                 aria-label="Close filters"
               >
-                <XIcon />
+                <X />
               </button>
             </div>
           </div>
 
           <div className="px-4 py-4 overflow-y-auto flex-1 space-y-4">
+            {/* Search in drawer */}
             <div className="relative">
               <input
                 type="text"
@@ -728,23 +821,14 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
                 onChange={(e) => setKeyword(e.target.value)}
                 className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
               />
-              <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <MagnifyingGlass
+                size={20}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant"
+                weight="bold"
+              />
             </div>
 
-            <FilterGroup
-              options={[{ id: "1", name: "Featured only" }]}
-              selected={onlyFeatured ? ["1"] : []}
-              onChangeHandler={(e) => setOnlyFeatured(!!e.target.checked)}
-            />
-            {categories && categories.length > 0 && (
-              <FilterGroup title="Category" options={categories} selected={selectedCategories} onChangeHandler={onCategory} />
-            )}
-            <FilterGroup title="Theme" options={types} selected={selectedTypes} onChangeHandler={onType} />
-            <FilterGroup title="Topic" options={topics} selected={selectedTopics} onChangeHandler={onTopic} />
-            <FilterGroup title="Audience" options={audiences} selected={selectedAudiences} onChangeHandler={onAudience} />
-            <FilterGroup title="Location Type" options={locationTypeOptions} selected={selectedLocations} onChangeHandler={onLocation} />
+            {renderFilters(true)}
           </div>
 
           <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0">

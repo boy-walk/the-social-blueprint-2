@@ -36,7 +36,7 @@ export const CultureAndIdentityHub = ({ podcasts, events, breadcrumbs = [] }) =>
                 <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory
                 md:grid md:grid-cols-5 md:overflow-visible md:snap-none scrollbar-hidden pb-2 md:pb-0">
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/message-board">
+                    <Card styles="shadow-3x3" href="/events/?category=religious-occasion">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <MailboxIcon size={22} />
@@ -46,7 +46,7 @@ export const CultureAndIdentityHub = ({ podcasts, events, breadcrumbs = [] }) =>
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/stories-and-interviews">
+                    <Card styles="shadow-3x3" href="/topic_tag/jewish-history.israel.jewish-values">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CellTowerIcon size={22} />

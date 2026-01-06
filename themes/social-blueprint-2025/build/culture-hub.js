@@ -1975,7 +1975,7 @@ const CultureAndIdentityHub = ({
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_7__.Card, {
                     styles: "shadow-3x3",
-                    href: "/message-board",
+                    href: "/events/?category=religious-occasion",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -1993,7 +1993,7 @@ const CultureAndIdentityHub = ({
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_7__.Card, {
                     styles: "shadow-3x3",
-                    href: "/stories-and-interviews",
+                    href: "/topic_tag/jewish-history.israel.jewish-values",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2604,4 +2604,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=culture-hub.js.map?ver=b4686e38395354be2f86
+//# sourceMappingURL=culture-hub.js.map?ver=759108e2c7e5df1a0d23

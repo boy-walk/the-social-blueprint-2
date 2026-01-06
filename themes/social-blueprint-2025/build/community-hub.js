@@ -1921,6 +1921,7 @@ function CommunityHubPage({
                   className: "shrink-0 snap-start w-3/7 md:w-64 md:w-auto",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
                     styles: "shadow-3x3",
+                    href: "/contact-us",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
                       className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
@@ -2913,4 +2914,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=0c3d04c2d735fe25a7f1
+//# sourceMappingURL=community-hub.js.map?ver=c240c2f473fb4d069e8c

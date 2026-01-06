@@ -86,7 +86,7 @@ export function CommunityHubPage({ featured, messageBoard, events, breadcrumbs =
                   </div>
 
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3">
+                    <Card styles="shadow-3x3" href='/contact-us'>
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <StarIcon size={22} />

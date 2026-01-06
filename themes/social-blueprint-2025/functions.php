@@ -888,3 +888,43 @@ function sbp_force_phrase_search($query) {
     
     return $query; // IMPORTANT: must return the query
 }
+
+add_action('init', function () {
+  $taxonomies = get_taxonomies(['public' => true], 'objects');
+  
+  foreach ($taxonomies as $tax) {
+    if (in_array($tax->name, ['category', 'post_tag'], true)) continue;
+    
+    $tax_slug = $tax->rewrite['slug'] ?? $tax->name;
+    
+    // Match URLs with dots (multi-term)
+    add_rewrite_rule(
+      '^' . preg_quote($tax_slug, '/') . '/([^/]+\.[^/]+)/?$',
+      'index.php?' . $tax->name . '=$matches[1]&tsb_multi_term=$matches[1]',
+      'top'
+    );
+  }
+}, 25);
+
+add_filter('request', function ($qv) {
+  foreach (get_taxonomies(['public' => true], 'names') as $tax) {
+    if (isset($qv[$tax]) && is_string($qv[$tax]) && strpos($qv[$tax], '.') !== false) {
+      $slugs = explode('.', $qv[$tax]);
+      $first = sanitize_title($slugs[0]);
+      $term = get_term_by('slug', $first, $tax);
+      
+      if ($term && !is_wp_error($term)) {
+        $qv['tsb_multi_term'] = $qv[$tax]; // Store full string
+        $qv[$tax] = $first;                 // Use first term for WP
+        $qv['taxonomy'] = $tax;
+        $qv['term'] = $first;
+      }
+    }
+  }
+  return $qv;
+});
+
+add_filter('query_vars', function ($vars) {
+  $vars[] = 'tsb_multi_term';
+  return $vars;
+});

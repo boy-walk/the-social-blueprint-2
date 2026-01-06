@@ -86,6 +86,393 @@ function Button({
 
 /***/ }),
 
+/***/ "./src/scripts/DropdownSelect.js":
+/*!***************************************!*\
+  !*** ./src/scripts/DropdownSelect.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DropdownSelect: () => (/* binding */ DropdownSelect)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretDown.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/Check.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+/**
+ * Flattens nested options into a flat array with depth info
+ */
+
+function flattenOptions(options, depth = 0, parentExpanded = true) {
+  let result = [];
+  for (const option of options) {
+    result.push({
+      ...option,
+      depth,
+      hasChildren: Array.isArray(option.children) && option.children.length > 0
+    });
+    if (option.children && option.children.length > 0) {
+      result = result.concat(flattenOptions(option.children, depth + 1, parentExpanded));
+    }
+  }
+  return result;
+}
+
+/**
+ * Recursively filter options based on search query
+ * Returns options that match OR have children that match
+ */
+function filterOptionsRecursive(options, searchLower) {
+  if (!searchLower) return options;
+  return options.reduce((acc, option) => {
+    const labelMatches = option.label.toLowerCase().includes(searchLower);
+
+    // Check if any children match
+    let filteredChildren = [];
+    if (option.children && option.children.length > 0) {
+      filteredChildren = filterOptionsRecursive(option.children, searchLower);
+    }
+
+    // Include if label matches OR has matching children
+    if (labelMatches || filteredChildren.length > 0) {
+      acc.push({
+        ...option,
+        children: filteredChildren.length > 0 ? filteredChildren : option.children,
+        // Mark as matching if the label itself matches (for highlighting)
+        _matches: labelMatches
+      });
+    }
+    return acc;
+  }, []);
+}
+
+/**
+ * Get all descendant values of an option
+ */
+function getDescendantValues(option) {
+  let values = [];
+  if (option.children) {
+    for (const child of option.children) {
+      values.push(child.value);
+      values = values.concat(getDescendantValues(child));
+    }
+  }
+  return values;
+}
+
+/**
+ * Find an option by value in nested structure
+ */
+function findOptionByValue(options, value) {
+  for (const option of options) {
+    if (option.value === value) return option;
+    if (option.children) {
+      const found = findOptionByValue(option.children, value);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+function DropdownSelect({
+  label = 'Select',
+  options = [],
+  value = [],
+  onChange,
+  multiple = false,
+  searchable = true,
+  searchPlaceholder = 'Search...',
+  placeholder = 'Select an option',
+  disabled = false,
+  error = '',
+  supportingText = '',
+  collapsible = false // Whether parent items can be collapsed
+}) {
+  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [search, setSearch] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [expandedNodes, setExpandedNodes] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Set());
+  const dropdownRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const triggerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const id = (0,react__WEBPACK_IMPORTED_MODULE_0__.useId)();
+
+  // Normalize value to array for consistent handling
+  const selectedValues = multiple ? Array.isArray(value) ? value : [] : value ? [value] : [];
+
+  // Check if options are nested
+  const isNested = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return options.some(opt => opt.children && opt.children.length > 0);
+  }, [options]);
+
+  // Filter options based on search
+  const filteredOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const searchLower = search.toLowerCase().trim();
+    if (!searchLower) return options;
+    return filterOptionsRecursive(options, searchLower);
+  }, [options, search]);
+
+  // Flatten for rendering
+  const flatOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return flattenOptions(filteredOptions);
+  }, [filteredOptions]);
+
+  // Auto-expand all when searching
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (search && isNested) {
+      const allParentValues = new Set();
+      const collectParents = opts => {
+        for (const opt of opts) {
+          if (opt.children && opt.children.length > 0) {
+            allParentValues.add(opt.value);
+            collectParents(opt.children);
+          }
+        }
+      };
+      collectParents(filteredOptions);
+      setExpandedNodes(allParentValues);
+    }
+  }, [search, filteredOptions, isNested]);
+
+  // Initialize expanded state to show all by default
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (isNested && !collapsible) {
+      const allParentValues = new Set();
+      const collectParents = opts => {
+        for (const opt of opts) {
+          if (opt.children && opt.children.length > 0) {
+            allParentValues.add(opt.value);
+            collectParents(opt.children);
+          }
+        }
+      };
+      collectParents(options);
+      setExpandedNodes(allParentValues);
+    }
+  }, [options, isNested, collapsible]);
+
+  // Close on outside click
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleClickOutside = e => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target) && !triggerRef.current.contains(e.target)) {
+        setIsOpen(false);
+        setSearch('');
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
+  // Close on escape
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const handleEscape = e => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        setSearch('');
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+  const toggleExpanded = (optionValue, e) => {
+    e.stopPropagation();
+    setExpandedNodes(prev => {
+      const next = new Set(prev);
+      if (next.has(optionValue)) {
+        next.delete(optionValue);
+      } else {
+        next.add(optionValue);
+      }
+      return next;
+    });
+  };
+  const handleSelect = optionValue => {
+    if (multiple) {
+      const newValue = selectedValues.includes(optionValue) ? selectedValues.filter(v => v !== optionValue) : [...selectedValues, optionValue];
+      onChange?.(newValue);
+    } else {
+      onChange?.(optionValue);
+      setIsOpen(false);
+      setSearch('');
+    }
+  };
+  const getDisplayText = () => {
+    if (selectedValues.length === 0) return placeholder;
+
+    // Find labels from nested structure
+    const findLabels = (opts, values) => {
+      let labels = [];
+      for (const opt of opts) {
+        if (values.includes(opt.value)) {
+          labels.push(opt.label);
+        }
+        if (opt.children) {
+          labels = labels.concat(findLabels(opt.children, values));
+        }
+      }
+      return labels;
+    };
+    const selectedLabels = findLabels(options, selectedValues);
+    if (selectedLabels.length === 1) return selectedLabels[0];
+    return `${selectedLabels.length} selected`;
+  };
+  const hasError = typeof error === 'string' && error.length > 0;
+  const helperText = hasError ? error : supportingText;
+
+  // Check if an option or any of its ancestors is hidden due to collapsed parent
+  const isOptionVisible = (option, index) => {
+    if (!collapsible || option.depth === 0) return true;
+
+    // Find parent option
+    for (let i = index - 1; i >= 0; i--) {
+      const prevOption = flatOptions[i];
+      if (prevOption.depth < option.depth) {
+        // This is a potential parent
+        if (prevOption.hasChildren && !expandedNodes.has(prevOption.value)) {
+          return false;
+        }
+        if (prevOption.depth === 0) break;
+      }
+    }
+    return true;
+  };
+
+  // Render a single option
+  const renderOption = (option, index) => {
+    // Skip if parent is collapsed
+    if (collapsible && !isOptionVisible(option, index)) {
+      return null;
+    }
+    const isSelected = selectedValues.includes(option.value);
+    const isExpanded = expandedNodes.has(option.value);
+    const indent = option.depth * 24;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+        type: "button",
+        onClick: () => handleSelect(option.value),
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('w-full flex items-center gap-3 px-3 py-2.5 rounded-lg', 'Blueprint-body-medium text-left', 'transition-colors duration-150', isSelected ? 'bg-schemesPrimaryContainer text-schemesOnPrimaryContainer' : 'text-schemesOnSurface hover:bg-schemesSurfaceContainerHigh'),
+        style: {
+          paddingLeft: `${12 + indent}px`
+        },
+        role: "option",
+        "aria-selected": isSelected,
+        children: [collapsible && option.hasChildren ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          type: "button",
+          onClick: e => toggleExpanded(option.value, e),
+          className: "p-0.5 -ml-1 rounded hover:bg-schemesOutlineVariant/30",
+          "aria-label": isExpanded ? 'Collapse' : 'Expand',
+          children: isExpanded ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretDown, {
+            size: 16,
+            className: "text-schemesOnSurfaceVariant"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.CaretRight, {
+            size: 16,
+            className: "text-schemesOnSurfaceVariant"
+          })
+        }) : option.depth > 0 && collapsible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "w-5"
+        }) // Spacer for alignment
+        , /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('flex items-center justify-center w-5 h-5 shrink-0', 'border-2 transition-colors duration-150', multiple ? 'rounded' : 'rounded-full', isSelected ? 'bg-schemesPrimary border-schemesPrimary' : 'border-schemesOutline bg-transparent'),
+          children: isSelected && (multiple ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.Check, {
+            size: 14,
+            weight: "bold",
+            className: "text-schemesOnPrimary"
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "w-2 h-2 rounded-full bg-schemesOnPrimary"
+          }))
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: "flex-1 min-w-0 truncate",
+          children: option.label
+        }), option.image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: option.image,
+          alt: "",
+          className: "w-6 h-6 rounded-full object-cover"
+        })]
+      })
+    }, option.value);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "relative flex flex-col gap-2",
+    children: [label && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+      className: "Blueprint-label-medium text-schemesOnSurface",
+      children: label
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+      ref: triggerRef,
+      type: "button",
+      onClick: () => !disabled && setIsOpen(!isOpen),
+      disabled: disabled,
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('w-full flex items-center justify-between gap-2', 'px-4 py-3 rounded-xl', 'Blueprint-body-medium text-left', 'border bg-schemesSurfaceContainerLow', 'transition-colors duration-150', hasError ? 'border-schemesError' : 'border-schemesOutline hover:border-schemesOnSurfaceVariant focus:border-schemesPrimary', disabled && 'opacity-50 cursor-not-allowed', !disabled && 'cursor-pointer'),
+      "aria-haspopup": "listbox",
+      "aria-expanded": isOpen,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('truncate', selectedValues.length === 0 && 'text-schemesOnSurfaceVariant'),
+        children: getDisplayText()
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.CaretDown, {
+        size: 20,
+        className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('text-schemesOnSurfaceVariant transition-transform duration-200 shrink-0', isOpen && 'rotate-180')
+      })]
+    }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      ref: dropdownRef,
+      className: "absolute top-full left-0 right-0 z-50 mt-1 bg-schemesSurface border border-schemesOutlineVariant rounded-xl shadow-lg overflow-hidden",
+      role: "listbox",
+      "aria-multiselectable": multiple,
+      children: [searchable && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-2 border-b border-schemesOutlineVariant",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "relative",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.MagnifyingGlass, {
+            size: 18,
+            className: "absolute left-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+            type: "text",
+            value: search,
+            onChange: e => setSearch(e.target.value),
+            placeholder: searchPlaceholder,
+            className: "w-full pl-10 pr-4 py-2 Blueprint-body-medium bg-schemesSurfaceContainerHigh border border-schemesOutline rounded-lg text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant focus:outline-none focus:ring-2 focus:ring-schemesPrimary focus:border-schemesPrimary",
+            autoFocus: true
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("ul", {
+        className: "max-h-60 overflow-y-auto p-2",
+        children: flatOptions.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+          className: "px-4 py-3 Blueprint-body-medium text-schemesOnSurfaceVariant text-center",
+          children: "No results found"
+        }) : flatOptions.map((option, index) => renderOption(option, index))
+      }), multiple && selectedValues.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "p-2 border-t border-schemesOutlineVariant",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          label: "Clear selection",
+          variant: "text",
+          size: "sm",
+          className: "w-full",
+          onClick: () => {
+            onChange?.([]);
+            setIsOpen(false);
+          }
+        })
+      })]
+    }), helperText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])('ml-4 Blueprint-body-small', hasError ? 'text-schemesError' : 'text-schemesOnSurfaceVariant'),
+      children: helperText
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./src/scripts/EventsCalendar.js":
 /*!***************************************!*\
   !*** ./src/scripts/EventsCalendar.js ***!
@@ -98,15 +485,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
-/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
-/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/index.js");
-/* harmony import */ var _FilterGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterGroup */ "./src/scripts/FilterGroup.js");
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FunnelSimple.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowRight.es.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
+/* harmony import */ var _fullcalendar_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fullcalendar/react */ "./node_modules/@fullcalendar/react/dist/index.js");
+/* harmony import */ var _fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fullcalendar/daygrid */ "./node_modules/@fullcalendar/daygrid/index.js");
+/* harmony import */ var _fullcalendar_list__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fullcalendar/list */ "./node_modules/@fullcalendar/list/index.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button */ "./src/scripts/Button.js");
+/* harmony import */ var _DropdownSelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DropdownSelect */ "./src/scripts/DropdownSelect.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/FunnelSimple.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowLeft.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/ArrowRight.es.js");
+/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/X.es.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 
@@ -141,8 +529,7 @@ function EventsCalendar({
   const [onlyFeatured, setOnlyFeatured] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [currentView, setCurrentView] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("dayGridMonth");
-  const [supportsHover, setSupportsHover] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true); // ⭐ NEW: Detect if device supports hover
-
+  const [supportsHover, setSupportsHover] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const calendarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const isFirstDatesSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
   const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -161,12 +548,36 @@ function EventsCalendar({
   });
   const moveHandlerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const rafRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  console.log(topics);
 
-  // ⭐ NEW: Detect if device supports hover (not touch-only device)
+  // Convert options to DropdownSelect format
+  const categoryOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (categories || []).map(opt => ({
+    value: String(opt.id),
+    label: opt.name
+  })), [categories]);
+  const typeOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (types || []).map(opt => ({
+    value: String(opt.id),
+    label: opt.name
+  })), [types]);
+  const topicOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (Object.values(topics) || []).map(opt => ({
+    value: String(opt.id),
+    label: opt.name
+  })), [topics]);
+  const audienceOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (audiences || []).map(opt => ({
+    value: String(opt.id),
+    label: opt.name
+  })), [audiences]);
+  const locationTypeOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => [{
+    value: "In Person",
+    label: "In Person"
+  }, {
+    value: "Online",
+    label: "Online"
+  }], []);
+
+  // Detect if device supports hover
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (typeof window === "undefined") return;
-
-    // Check if primary input can hover (desktop/laptop with mouse)
     const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
     setSupportsHover(hoverQuery.matches);
     const onChange = e => setSupportsHover(e.matches);
@@ -212,11 +623,6 @@ function EventsCalendar({
     const api = getApi();
     if (api) api.changeView(viewName);
   };
-  const onCategory = e => setSelectedCategories(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
-  const onType = e => setSelectedTypes(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
-  const onTopic = e => setSelectedTopics(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
-  const onAudience = e => setSelectedAudiences(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
-  const onLocation = e => setSelectedLocations(s => e.target.checked ? [...s, e.target.value] : s.filter(v => v !== e.target.value));
   const datesSet = info => {
     const start = info.startStr.split("T")[0];
     const end = info.endStr.split("T")[0];
@@ -418,13 +824,6 @@ function EventsCalendar({
   const filterCount = selectedCategories.length + selectedTypes.length + selectedTopics.length + selectedAudiences.length + selectedLocations.length + (onlyFeatured ? 1 : 0) + (debouncedKeywordValue ? 1 : 0);
   const openFilters = () => setIsFiltersOpen(true);
   const closeFilters = () => setIsFiltersOpen(false);
-  const locationTypeOptions = [{
-    id: "In Person",
-    name: "In Person"
-  }, {
-    id: "Online",
-    name: "Online"
-  }];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isFiltersOpen) {
       const prev = document.body.style.overflow;
@@ -449,8 +848,6 @@ function EventsCalendar({
     setSelectedLocations([]);
     setOnlyFeatured(false);
   };
-
-  // View options for the switcher
   const viewOptions = [{
     key: "dayGridMonth",
     label: "Month"
@@ -461,6 +858,67 @@ function EventsCalendar({
     key: "listDay",
     label: "Day"
   }];
+
+  // Render filters (reusable for desktop and mobile)
+  const renderFilters = (isMobile = false) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "space-y-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
+      className: "flex items-center gap-3 cursor-pointer",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+        type: "checkbox",
+        checked: onlyFeatured,
+        onChange: e => setOnlyFeatured(e.target.checked),
+        className: "w-5 h-5 rounded border-schemesOutline text-schemesPrimary focus:ring-schemesPrimary"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        className: "Blueprint-body-medium text-schemesOnSurface",
+        children: "Featured only"
+      })]
+    }), categoryOptions.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_2__.DropdownSelect, {
+      label: "Category",
+      placeholder: "Select categories...",
+      multiple: true,
+      searchable: true,
+      searchPlaceholder: "Search categories...",
+      options: categoryOptions,
+      value: selectedCategories,
+      onChange: setSelectedCategories
+    }), typeOptions.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_2__.DropdownSelect, {
+      label: "Theme",
+      placeholder: "Select themes...",
+      multiple: true,
+      searchable: true,
+      searchPlaceholder: "Search themes...",
+      options: typeOptions,
+      value: selectedTypes,
+      onChange: setSelectedTypes
+    }), topicOptions.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_2__.DropdownSelect, {
+      label: "Topic",
+      placeholder: "Select topics...",
+      multiple: true,
+      searchable: true,
+      searchPlaceholder: "Search topics...",
+      options: topicOptions,
+      value: selectedTopics,
+      onChange: setSelectedTopics
+    }), audienceOptions.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_2__.DropdownSelect, {
+      label: "Audience",
+      placeholder: "Select audiences...",
+      multiple: true,
+      searchable: true,
+      searchPlaceholder: "Search audiences...",
+      options: audienceOptions,
+      value: selectedAudiences,
+      onChange: setSelectedAudiences
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_2__.DropdownSelect, {
+      label: "Location Type",
+      placeholder: "Select location type...",
+      multiple: true,
+      searchable: false,
+      options: locationTypeOptions,
+      value: selectedLocations,
+      onChange: setSelectedLocations
+    })]
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("style", {
@@ -580,60 +1038,38 @@ function EventsCalendar({
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("aside", {
         className: `hidden lg:block calendar-sidebar pr-4 basis-[20%] shrink-0 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "relative flex items-center mb-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            placeholder: "Search by keyword",
-            value: keyword,
-            onChange: e => setKeyword(e.target.value),
-            className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-            className: "absolute right-3 text-schemesOnSurfaceVariant w-5 h-5",
-            viewBox: "0 0 24 24",
-            fill: "none",
-            "aria-hidden": true,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
-              d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
-              stroke: "currentColor",
-              strokeWidth: "2",
-              strokeLinecap: "round",
-              strokeLinejoin: "round"
-            })
+          className: "mb-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            htmlFor: "calendar-search",
+            className: "sr-only",
+            children: "Search by keyword"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "relative",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              id: "calendar-search",
+              type: "text",
+              placeholder: "Search by keyword",
+              value: keyword,
+              onChange: e => setKeyword(e.target.value),
+              className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.MagnifyingGlass, {
+              size: 20,
+              className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
+              weight: "bold"
+            })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "flex flex-col gap-4 px-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-            className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant",
-            children: "Filters"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            options: [{
-              id: "1",
-              name: "Featured only"
-            }],
-            selected: onlyFeatured ? ["1"] : [],
-            onChangeHandler: e => setOnlyFeatured(!!e.target.checked)
-          }), categories && categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Category",
-            options: categories,
-            selected: selectedCategories,
-            onChangeHandler: onCategory
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Topic",
-            options: topics,
-            selected: selectedTopics,
-            onChangeHandler: onTopic
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Audience",
-            options: audiences,
-            selected: selectedAudiences,
-            onChangeHandler: onAudience
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Location Type",
-            options: locationTypeOptions,
-            selected: selectedLocations,
-            onChangeHandler: onLocation
-          })]
-        })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+          className: "Blueprint-headline-small-emphasized text-schemesOnSurfaceVariant mb-4",
+          children: "Filters"
+        }), filterCount > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "mb-4",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+            size: "sm",
+            variant: "tonal",
+            onClick: clearAll,
+            label: "Clear all filters"
+          })
+        }), renderFilters(false)]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
         className: `flex-1 min-w-0 transition duration-100 ${isLoading ? "opacity-50 pointer-events-none" : ""}`,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -646,22 +1082,14 @@ function EventsCalendar({
               value: keyword,
               onChange: e => setKeyword(e.target.value),
               className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-              className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant w-5 h-5",
-              viewBox: "0 0 24 24",
-              fill: "none",
-              "aria-hidden": true,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
-                d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
-                stroke: "currentColor",
-                strokeWidth: "2",
-                strokeLinecap: "round",
-                strokeLinejoin: "round"
-              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.MagnifyingGlass, {
+              size: 20,
+              className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
+              weight: "bold"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
             onClick: openFilters,
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.FunnelSimpleIcon, {}),
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.FunnelSimple, {}),
             label: filterCount ? `Filters (${filterCount})` : "Filters",
             variant: "outlined",
             size: "base",
@@ -676,7 +1104,7 @@ function EventsCalendar({
               type: "button",
               onClick: handlePrevClick,
               className: "flex items-center gap-2 px-4 py-2 rounded-full border border-schemesOutline text-schemesOnSurface Blueprint-label-large hover:bg-schemesSurfaceContainerHigh transition-colors",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_5__.ArrowLeftIcon, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.ArrowLeft, {
                 size: 18
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                 className: "hidden sm:inline",
@@ -694,7 +1122,7 @@ function EventsCalendar({
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                 className: "hidden sm:inline",
                 children: "Next"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_6__.ArrowRightIcon, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_7__.ArrowRight, {
                 size: 18
               })]
             })]
@@ -712,9 +1140,9 @@ function EventsCalendar({
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "bg-white rounded-2xl border border-schemesOutlineVariant overflow-hidden calendar-wrapper",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_fullcalendar_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
             ref: calendarRef,
-            plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_8__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_9__["default"]],
+            plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_9__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_10__["default"]],
             initialView: "dayGridMonth",
             headerToolbar: false,
             fixedWeekCount: false,
@@ -724,10 +1152,7 @@ function EventsCalendar({
             eventTextColor: "var(--schemesOnPrimaryFixed)",
             eventDisplay: "block",
             height: "auto",
-            datesSet: datesSet
-            // ⭐ CHANGED: Only enable tooltip handlers on hover-capable devices
-            ,
-
+            datesSet: datesSet,
             eventMouseEnter: supportsHover ? showTooltip : undefined,
             eventMouseLeave: supportsHover ? hideTooltip : undefined,
             nowIndicator: true,
@@ -772,17 +1197,13 @@ function EventsCalendar({
         })]
       })]
     }), supportsHover && tip.visible && (() => {
-      const tooltipWidth = 448; // max-w-md = 28rem = 448px
-      const tooltipHeight = 200; // approximate height
+      const tooltipWidth = 448;
+      const tooltipHeight = 200;
       const offset = 12;
       const padding = 16;
-
-      // Determine horizontal position
       const spaceOnRight = window.innerWidth - tip.x - offset - padding;
       const spaceOnLeft = tip.x - offset - padding;
       const showOnLeft = spaceOnRight < tooltipWidth && spaceOnLeft > spaceOnRight;
-
-      // Determine vertical position
       const spaceBelow = window.innerHeight - tip.y - offset - padding;
       const spaceAbove = tip.y - offset - padding;
       const showAbove = spaceBelow < tooltipHeight && spaceAbove > spaceBelow;
@@ -858,7 +1279,7 @@ function EventsCalendar({
               onClick: closeFilters,
               className: "rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant",
               "aria-label": "Close filters",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.XIcon, {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_11__.X, {})
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -871,60 +1292,20 @@ function EventsCalendar({
               value: keyword,
               onChange: e => setKeyword(e.target.value),
               className: "Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-              className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant w-5 h-5",
-              viewBox: "0 0 24 24",
-              fill: "none",
-              "aria-hidden": true,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
-                d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
-                stroke: "currentColor",
-                strokeWidth: "2",
-                strokeLinecap: "round",
-                strokeLinejoin: "round"
-              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_4__.MagnifyingGlass, {
+              size: 20,
+              className: "absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant",
+              weight: "bold"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            options: [{
-              id: "1",
-              name: "Featured only"
-            }],
-            selected: onlyFeatured ? ["1"] : [],
-            onChangeHandler: e => setOnlyFeatured(!!e.target.checked)
-          }), categories && categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Category",
-            options: categories,
-            selected: selectedCategories,
-            onChangeHandler: onCategory
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Theme",
-            options: types,
-            selected: selectedTypes,
-            onChangeHandler: onType
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Topic",
-            options: topics,
-            selected: selectedTopics,
-            onChangeHandler: onTopic
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Audience",
-            options: audiences,
-            selected: selectedAudiences,
-            onChangeHandler: onAudience
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FilterGroup__WEBPACK_IMPORTED_MODULE_1__.FilterGroup, {
-            title: "Location Type",
-            options: locationTypeOptions,
-            selected: selectedLocations,
-            onChangeHandler: onLocation
-          })]
+          }), renderFilters(true)]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
             onClick: clearAll,
             variant: "outlined",
             label: "Clear all",
             className: "flex-1"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
             onClick: closeFilters,
             variant: "filled",
             label: "Apply",
@@ -936,247 +1317,7 @@ function EventsCalendar({
   });
 }
 
-/***/ }),
-
-/***/ "./src/scripts/FilterGroup.js":
-/*!************************************!*\
-  !*** ./src/scripts/FilterGroup.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FilterGroup: () => (/* binding */ FilterGroup)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StyledCheckbox */ "./src/scripts/StyledCheckbox.js");
-/* harmony import */ var _phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @phosphor-icons/react */ "./node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-
-function FilterGroup({
-  title,
-  options,
-  selected,
-  onChangeHandler,
-  expanded = false,
-  onToggleExpand,
-  onShowLess,
-  initialShowCount = 8
-}) {
-  const isNested = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.isArray(options) && options.some(o => Array.isArray(o.children) && o.children.length > 0), [options]);
-  const parents = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => isNested ? options : options, [isNested, options]);
-  const totalCount = isNested ? parents.length : options.length;
-  const hasMore = totalCount > initialShowCount;
-  const displayCount = expanded ? totalCount : initialShowCount;
-  const isChecked = id => selected.includes(String(id));
-  const collectDescendantIds = (node, bag = []) => {
-    (node.children || []).forEach(c => {
-      bag.push(String(c.id));
-      collectDescendantIds(c, bag);
-    });
-    return bag;
-  };
-  const anyChildSelected = node => {
-    const kids = collectDescendantIds(node, []);
-    return kids.some(id => isChecked(id));
-  };
-  const fireChange = (id, checked) => {
-    onChangeHandler({
-      target: {
-        value: String(id),
-        checked: !!checked
-      }
-    });
-  };
-  const onParentChange = (node, checked) => {
-    if (checked) {
-      fireChange(node.id, true);
-      return;
-    }
-    fireChange(node.id, false);
-    const kids = collectDescendantIds(node, []);
-    kids.forEach(id => {
-      if (isChecked(id)) fireChange(id, false);
-    });
-  };
-  const onChildChange = (parentNode, childNode, checked) => {
-    fireChange(childNode.id, checked);
-    if (checked && isChecked(parentNode.id)) {
-      fireChange(parentNode.id, false);
-    }
-  };
-
-  // one row of a child with connector lines
-  const ChildRow = ({
-    parentNode,
-    childNode,
-    isLast,
-    depth = 0
-  }) => {
-    const show = isChecked(parentNode.id) || anyChildSelected(parentNode);
-    if (!show) return null;
-    const hasKids = Array.isArray(childNode.children) && childNode.children.length > 0;
-    const checked = isChecked(childNode.id);
-    const expanded = checked || hasKids && anyChildSelected(childNode);
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "w-full",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex items-center gap-1",
-        style: {
-          marginLeft: depth * 16
-        },
-        children: [hasKids && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.CaretRight, {
-          size: 16,
-          weight: "bold",
-          className: `text-schemesOnSurfaceVariant transition-transform flex-shrink-0 ${expanded ? 'rotate-90' : ''}`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex-1 min-w-0",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
-            id: childNode.id,
-            label: childNode.name,
-            checked: checked,
-            onChangeHandler: e => onChildChange(parentNode, childNode, e.target.checked)
-          })
-        })]
-      }), hasKids && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "mt-4 mb-2 space-y-4",
-        children: childNode.children.map((g, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
-          parentNode: parentNode,
-          childNode: g,
-          isLast: idx === childNode.children.length - 1,
-          depth: depth + 1
-        }, `c-${childNode.id}-${g.id}`))
-      })]
-    }, `c-${childNode.id}`);
-  };
-  const renderParent = node => {
-    const checked = isChecked(node.id);
-    const expanded = checked || anyChildSelected(node);
-    const hasChildren = Array.isArray(node.children) && node.children.length > 0;
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "w-full",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "flex items-center gap-1 my-1",
-        children: [hasChildren && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_3__.CaretRight, {
-          size: 16,
-          weight: "bold",
-          className: `text-schemesOnSurfaceVariant transition-transform flex-shrink-0 ${expanded ? 'rotate-90' : ''}`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex-1 min-w-0",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
-            id: node.id,
-            label: node.name,
-            checked: checked,
-            onChangeHandler: e => onParentChange(node, e.target.checked)
-          })
-        })]
-      }), hasChildren && expanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "relative mt-4 mb-2",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "pl-6 space-y-4",
-          children: node.children.map((child, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ChildRow, {
-            parentNode: node,
-            childNode: child,
-            isLast: idx === node.children.length - 1,
-            depth: 0
-          }, `c-${child.id}`))
-        })
-      })]
-    }, `p-${node.id}`);
-  };
-
-  // FLAT
-  if (!isNested) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-4",
-      children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-        className: "Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3",
-        children: title
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "flex flex-wrap gap-4",
-        children: options.slice(0, displayCount).map(option => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_StyledCheckbox__WEBPACK_IMPORTED_MODULE_1__.StyledCheckbox, {
-          id: option.id,
-          label: option.name,
-          checked: selected.includes(String(option.id)),
-          onChangeHandler: onChangeHandler
-        }, option.id))
-      }), hasMore && !expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-        type: "button",
-        onClick: onToggleExpand,
-        className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
-        children: ["Show all (", totalCount, ")"]
-      }), hasMore && expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-        type: "button",
-        onClick: onShowLess,
-        className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
-        children: "Show less"
-      })]
-    });
-  }
-
-  // NESTED
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "mb-4",
-    children: [title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
-      className: "Blueprint-title-small-emphasized text-schemesOnSurfaceVariant mb-3",
-      children: title
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "flex flex-col gap-2",
-      children: (parents || []).slice(0, displayCount).map(renderParent)
-    }), hasMore && !expanded && onToggleExpand && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
-      type: "button",
-      onClick: onToggleExpand,
-      className: "mt-2 text-sm text-schemesPrimary hover:underline Blueprint-label-large",
-      children: ["Show all (", totalCount, ")"]
-    })]
-  });
-}
-
-/***/ }),
-
-/***/ "./src/scripts/StyledCheckbox.js":
-/*!***************************************!*\
-  !*** ./src/scripts/StyledCheckbox.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   StyledCheckbox: () => (/* binding */ StyledCheckbox)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-
-function StyledCheckbox({
-  id,
-  label,
-  onChangeHandler,
-  checked
-}) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-      type: "checkbox",
-      id: `filter-${id}`,
-      value: id,
-      checked: checked // ✅ controlled by parent
-      ,
-
-      className: "peer hidden",
-      onChange: onChangeHandler
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-      htmlFor: `filter-${id}`,
-      className: "cursor-pointer px-3 py-2 rounded-md Blueprint-label-small transition-colors duration-200 peer-checked:bg-gray-500 peer-checked:text-white peer-checked:border-grey-700 peer-not-checked:bg-[var(--schemesSurfaceContainer)] peer-not-checked:text-gray-700 peer-not-checked:border-gray-300",
-      children: label
-    })]
-  }, id);
-}
-
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=6cf961beb858fa60ecfe
+//# sourceMappingURL=events-calendar.js.map?ver=72776df1cb810f4a09b1
