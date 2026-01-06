@@ -828,9 +828,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * GenericArchivePage
- * - Supports pre-fetched terms in filters (filter.terms)
- * - Only fetches terms from API if not provided by PHP
+ * GenericArchivePage (OPTIMIZED)
+ * - Expects pre-fetched terms from PHP (filter.terms)
+ * - Falls back to parallel API fetching if terms not provided
  */
 
 function GenericArchivePage(props) {
@@ -856,13 +856,50 @@ function GenericArchivePage(props) {
   const [retryTick, setRetryTick] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
   const [termsOptions, setTermsOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   const fetchedOnceRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set());
+  const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
 
-  // Initialize termsOptions with pre-fetched terms from filters
+  // ─────────────────────────────────────────────────────────────────────────
+  // Initialize with pre-fetched terms from PHP
+  // ─────────────────────────────────────────────────────────────────────────
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const preFetched = {};
     for (const f of filters) {
       if (f.terms && Array.isArray(f.terms) && f.terms.length > 0) {
-        preFetched[f.taxonomy] = f.terms.map(t => {
+        // Already in correct format (flat or tree)
+        preFetched[f.taxonomy] = f.terms;
+        fetchedOnceRef.current.add(f.taxonomy);
+      }
+    }
+    if (Object.keys(preFetched).length) {
+      setTermsOptions(preFetched);
+    }
+  }, [filters]);
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Fallback: Parallel fetch for any filters without pre-fetched terms
+  // ─────────────────────────────────────────────────────────────────────────
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const filtersToFetch = filters.filter(f => !f.terms && !fetchedOnceRef.current.has(f.taxonomy));
+    if (!filtersToFetch.length) return;
+    let cancelled = false;
+
+    // Mark as fetching immediately to prevent duplicate requests
+    filtersToFetch.forEach(f => fetchedOnceRef.current.add(f.taxonomy));
+    const ptParam = Array.isArray(postType) ? postType.join(",") : postType || "";
+
+    // Fetch ALL taxonomies in parallel
+    Promise.all(filtersToFetch.map(async f => {
+      const tax = f.taxonomy;
+      try {
+        const url = `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=200${ptParam ? `&post_type=${encodeURIComponent(ptParam)}` : ""}`;
+        const res = await fetch(url, {
+          headers: {
+            Accept: "application/json"
+          }
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        const rows = (Array.isArray(json) ? json : []).map(t => {
           var _t$parent;
           return {
             id: String(t.id),
@@ -871,113 +908,82 @@ function GenericArchivePage(props) {
             parent: String((_t$parent = t.parent) !== null && _t$parent !== void 0 ? _t$parent : 0)
           };
         });
-        fetchedOnceRef.current.add(f.taxonomy);
-      }
-    }
-    if (Object.keys(preFetched).length) {
-      setTermsOptions(prev => ({
-        ...prev,
-        ...preFetched
-      }));
-    }
-  }, [filters]);
 
-  // In the useEffect that fetches terms, update the URL construction:
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const filtersToFetch = filters.filter(f => !f.terms && !fetchedOnceRef.current.has(f.taxonomy));
-    if (!filtersToFetch.length) return;
-    let cancelled = false;
-    (async () => {
-      const next = {};
-      for (const f of filtersToFetch) {
-        const tax = f.taxonomy;
-        if (fetchedOnceRef.current.has(tax)) continue;
-        try {
-          // Support multiple post types
-          const ptParam = Array.isArray(postType) ? postType.join(',') : postType || '';
-          const termsUrl = `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=200${ptParam ? `&post_type=${encodeURIComponent(ptParam)}` : ''}`;
-          const res = await fetch(termsUrl, {
-            headers: {
-              Accept: "application/json"
-            }
+        // Build tree if hierarchical
+        const isHier = rows.some(r => r.parent !== "0");
+        if (isHier) {
+          const byId = {};
+          rows.forEach(r => byId[r.id] = {
+            ...r,
+            children: []
           });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const json = await res.json();
-          const rows = (Array.isArray(json) ? json : []).map(t => {
-            var _t$parent2;
-            return {
-              id: String(t.id),
-              name: t.name,
-              slug: t.slug,
-              parent: String(((_t$parent2 = t.parent) !== null && _t$parent2 !== void 0 ? _t$parent2 : 0) || "0")
-            };
-          });
-          const isHier = rows.some(r => r.parent !== "0");
-          if (isHier) {
-            const byId = {};
-            rows.forEach(r => byId[r.id] = {
-              ...r,
-              children: []
-            });
-            const roots = [];
-            rows.forEach(r => r.parent !== "0" && byId[r.parent] ? byId[r.parent].children.push(byId[r.id]) : roots.push(byId[r.id]));
-            const sortTree = nodes => {
-              nodes.sort((a, b) => a.name.localeCompare(b.name));
-              nodes.forEach(n => sortTree(n.children));
-            };
-            sortTree(roots);
-            next[tax] = roots;
-          } else {
-            next[tax] = rows.map(({
-              id,
-              name,
-              slug
-            }) => ({
-              id,
-              name,
-              slug
-            }));
-          }
-          fetchedOnceRef.current.add(tax);
-        } catch {
-          next[tax] = [];
+          const roots = [];
+          rows.forEach(r => r.parent !== "0" && byId[r.parent] ? byId[r.parent].children.push(byId[r.id]) : roots.push(byId[r.id]));
+          const sortTree = nodes => {
+            nodes.sort((a, b) => a.name.localeCompare(b.name));
+            nodes.forEach(n => sortTree(n.children));
+          };
+          sortTree(roots);
+          return {
+            tax,
+            terms: roots
+          };
         }
+        return {
+          tax,
+          terms: rows
+        };
+      } catch {
+        return {
+          tax,
+          terms: []
+        };
       }
-      if (!cancelled && Object.keys(next).length) setTermsOptions(prev => ({
-        ...prev,
-        ...next
-      }));
-    })();
+    })).then(results => {
+      if (cancelled) return;
+      const next = {};
+      results.forEach(({
+        tax,
+        terms
+      }) => {
+        next[tax] = terms;
+      });
+      if (Object.keys(next).length) {
+        setTermsOptions(prev => ({
+          ...prev,
+          ...next
+        }));
+      }
+    });
     return () => {
       cancelled = true;
     };
   }, [filters, postType]);
-  const getDropdownOptions = taxonomy => {
-    const options = termsOptions[taxonomy] || [];
 
-    // Convert tree structure to DropdownSelect format
-    const convertOptions = items => {
-      return items.map(item => ({
-        value: item.id,
-        label: item.name,
-        children: item.children && item.children.length > 0 ? convertOptions(item.children) : undefined
-      }));
-    };
+  // ─────────────────────────────────────────────────────────────────────────
+  // Convert terms to DropdownSelect format
+  // ─────────────────────────────────────────────────────────────────────────
+  const getDropdownOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(taxonomyKey => {
+    const options = termsOptions[taxonomyKey] || [];
+    const convertOptions = items => items.map(item => ({
+      value: String(item.id),
+      label: item.name,
+      children: item.children && item.children.length > 0 ? convertOptions(item.children) : undefined
+    }));
 
-    // Check if it's a tree structure (has children arrays)
+    // Check if tree structure
     if (options.length > 0 && Array.isArray(options[0]?.children)) {
       return convertOptions(options);
     }
-
-    // Flat options
     return options.map(opt => ({
-      value: opt.id,
+      value: String(opt.id),
       label: opt.name
     }));
-  };
+  }, [termsOptions]);
 
+  // ─────────────────────────────────────────────────────────────────────────
   // Fetch posts
-  const fetchSeq = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  // ─────────────────────────────────────────────────────────────────────────
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     let cancelled = false;
     const seq = ++fetchSeq.current;
@@ -989,19 +995,16 @@ function GenericArchivePage(props) {
           ...baseQuery,
           page
         };
+
+        // Build tax query
         const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
-        const uiTax = [];
-        for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
-          if (termIds && termIds.length) {
-            uiTax.push({
-              taxonomy: taxKey,
-              field: "term_id",
-              terms: termIds.map(id => parseInt(id, 10)).filter(Number.isFinite),
-              operator: "IN",
-              include_children: true
-            });
-          }
-        }
+        const uiTax = Object.entries(selectedTerms).filter(([, termIds]) => termIds?.length).map(([taxKey, termIds]) => ({
+          taxonomy: taxKey,
+          field: "term_id",
+          terms: termIds.map(id => parseInt(id, 10)).filter(Number.isFinite),
+          operator: "IN",
+          include_children: true
+        }));
         const finalTax = [...baseTax, ...uiTax];
         if (finalTax.length) {
           payload.tax = finalTax;
@@ -1022,7 +1025,9 @@ function GenericArchivePage(props) {
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
       } catch (err) {
-        if (!cancelled && seq === fetchSeq.current) setError(err.message || "Failed to load data");
+        if (!cancelled && seq === fetchSeq.current) {
+          setError(err.message || "Failed to load data");
+        }
       } finally {
         if (!cancelled && seq === fetchSeq.current) setLoading(false);
       }
@@ -1032,7 +1037,9 @@ function GenericArchivePage(props) {
     };
   }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
-  // Client-side search index
+  // ─────────────────────────────────────────────────────────────────────────
+  // Client-side search
+  // ─────────────────────────────────────────────────────────────────────────
   const searchIndex = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     const idx = new Map();
     const collect = (val, bag) => {
@@ -1067,22 +1074,22 @@ function GenericArchivePage(props) {
   }, [items, searchQuery, searchIndex]);
   const searching = searchQuery.trim().length > 0;
   const hasActiveFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Object.values(selectedTerms).some(arr => (arr || []).length > 0), [selectedTerms]);
-  const clearAllFilters = () => {
+  const clearAllFilters = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
     setSelectedTerms({});
     setPage(1);
-  };
+  }, []);
 
-  // Mobile drawer state
+  // ─────────────────────────────────────────────────────────────────────────
+  // Mobile drawer
+  // ─────────────────────────────────────────────────────────────────────────
   const [isFiltersOpen, setIsFiltersOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const firstCloseBtnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const openFilters = () => setIsFiltersOpen(true);
-  const closeFilters = () => setIsFiltersOpen(false);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!isFiltersOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = e => {
-      if (e.key === "Escape") closeFilters();
+      if (e.key === "Escape") setIsFiltersOpen(false);
     };
     window.addEventListener("keydown", onKey);
     setTimeout(() => firstCloseBtnRef.current?.focus(), 0);
@@ -1092,26 +1099,47 @@ function GenericArchivePage(props) {
     };
   }, [isFiltersOpen]);
   const filterCount = Object.values(selectedTerms).reduce((n, arr) => n + (arr?.length || 0), 0) + (searching ? 1 : 0);
-  const hasFiltersToShow = filters.some(f => (termsOptions[f.taxonomy] || []).length > 0);
 
-  // Handle filter change for DropdownSelect
-  const handleFilterChange = (taxonomy, value, multiple = true) => {
-    if (multiple) {
-      // value is an array of IDs
-      setSelectedTerms(prev => ({
-        ...prev,
-        [taxonomy]: value
-      }));
-    } else {
-      // value is a single ID or empty string
-      setSelectedTerms(prev => ({
-        ...prev,
-        [taxonomy]: value ? [value] : []
-      }));
-    }
+  // Check which filters actually have options to show
+  const filtersWithOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => filters.filter(f => (termsOptions[f.taxonomy] || []).length > 0), [filters, termsOptions]);
+  const hasFiltersToShow = filtersWithOptions.length > 0;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Filter change handler
+  // ─────────────────────────────────────────────────────────────────────────
+  const handleFilterChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((taxonomyKey, value, multiple = true) => {
+    setSelectedTerms(prev => ({
+      ...prev,
+      [taxonomyKey]: multiple ? value : value ? [value] : []
+    }));
     setPage(1);
-  };
-  const skeletonCards = Array.from({
+  }, []);
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Render filter
+  // ─────────────────────────────────────────────────────────────────────────
+  const renderFilter = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((f, isMobile = false) => {
+    const options = getDropdownOptions(f.taxonomy);
+    if (!options.length) return null;
+    const isPeopleTag = f.taxonomy === "people_tag";
+    const isMultiple = !isPeopleTag;
+    const currentValue = isMultiple ? selectedTerms[f.taxonomy] || [] : selectedTerms[f.taxonomy]?.[0] || "";
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_5__.DropdownSelect, {
+      label: f.label || f.taxonomy,
+      placeholder: isPeopleTag ? "Select person..." : "Select...",
+      multiple: isMultiple,
+      searchable: true,
+      searchPlaceholder: `Search ${(f.label || f.taxonomy).toLowerCase()}...`,
+      options: options,
+      value: currentValue,
+      onChange: value => handleFilterChange(f.taxonomy, value, isMultiple)
+    }, `${isMobile ? "mobile-" : ""}${f.taxonomy}`);
+  }, [getDropdownOptions, selectedTerms, handleFilterChange]);
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Skeleton cards
+  // ─────────────────────────────────────────────────────────────────────────
+  const skeletonCards = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => Array.from({
     length: 8
   }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "rounded-xl border border-schemesOutlineVariant overflow-hidden",
@@ -1127,26 +1155,7 @@ function GenericArchivePage(props) {
         className: "h-3 w-2/3 bg-schemesSurfaceContainerHigh animate-pulse rounded"
       })]
     })]
-  }, `sk-${i}`));
-
-  // Render a filter using DropdownSelect
-  const renderFilter = (f, isMobile = false) => {
-    const options = getDropdownOptions(f.taxonomy);
-    if (!options.length) return null;
-    const isPeopleTag = f.taxonomy === "people_tag";
-    const isMultiple = !isPeopleTag;
-    const currentValue = isMultiple ? selectedTerms[f.taxonomy] || [] : selectedTerms[f.taxonomy]?.[0] || '';
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_DropdownSelect__WEBPACK_IMPORTED_MODULE_5__.DropdownSelect, {
-      label: f.label || f.taxonomy,
-      placeholder: isPeopleTag ? "Select person..." : "Select...",
-      multiple: isMultiple,
-      searchable: true,
-      searchPlaceholder: `Search ${(f.label || f.taxonomy).toLowerCase()}...`,
-      options: options,
-      value: currentValue,
-      onChange: value => handleFilterChange(f.taxonomy, value, isMultiple)
-    }, `${isMobile ? 'mobile-' : ''}${f.taxonomy}`);
-  };
+  }, `sk-${i}`)), []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "archive-container bg-schemesSurface",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -1171,7 +1180,6 @@ function GenericArchivePage(props) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "relative flex-1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-            id: "archive-search-mobile",
             type: "search",
             value: searchQuery,
             onChange: e => setSearchQuery(e.target.value),
@@ -1184,7 +1192,7 @@ function GenericArchivePage(props) {
             "aria-hidden": true
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-          onClick: openFilters,
+          onClick: () => setIsFiltersOpen(true),
           icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_8__.FunnelSimple, {}),
           label: filterCount ? `Filters (${filterCount})` : "Filters",
           variant: "outlined",
@@ -1237,7 +1245,7 @@ function GenericArchivePage(props) {
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "space-y-4",
-            children: filters.filter(f => (termsOptions[f.taxonomy] || []).length > 0).map(f => renderFilter(f, false))
+            children: filtersWithOptions.map(f => renderFilter(f, false))
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("section", {
@@ -1349,7 +1357,7 @@ function GenericArchivePage(props) {
       className: `lg:hidden fixed inset-0 z-[70] ${isFiltersOpen ? "" : "pointer-events-none"}`,
       "aria-hidden": !isFiltersOpen,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        onClick: closeFilters,
+        onClick: () => setIsFiltersOpen(false),
         className: `absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-black/40`
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         role: "dialog",
@@ -1368,7 +1376,7 @@ function GenericArchivePage(props) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
               ref: firstCloseBtnRef,
               type: "button",
-              onClick: closeFilters,
+              onClick: () => setIsFiltersOpen(false),
               className: "rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant",
               "aria-label": "Close filters",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_9__.X, {})
@@ -1390,7 +1398,7 @@ function GenericArchivePage(props) {
               weight: "bold",
               "aria-hidden": true
             })]
-          }), filters.map(f => renderFilter(f, true))]
+          }), filtersWithOptions.map(f => renderFilter(f, true))]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
@@ -1399,7 +1407,7 @@ function GenericArchivePage(props) {
             label: "Clear all",
             className: "flex-1"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            onClick: closeFilters,
+            onClick: () => setIsFiltersOpen(false),
             variant: "filled",
             label: "Apply",
             className: "flex-1"
@@ -1454,4 +1462,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=555352bf692058dc5130
+//# sourceMappingURL=generic-archive.js.map?ver=286c3aba8b2351678fe3

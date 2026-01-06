@@ -1,17 +1,14 @@
 <?php
 /**
- * Generalized archive template for CPTs and taxonomies.
- * Save as archive.php in your theme.
- *
- * Supports multi-CPT archives via query var `tsb_multi_pt`
- * (set by the rewrite rule in functions.php) — e.g. /aid_listing.health_listing/
- * ALSO: Reads any public taxonomy query vars (e.g. ?topic_tag=mental-health)
- * and injects them into the API base query.
+ * Generalized archive template (OPTIMIZED)
+ * Pre-fetches all filter terms server-side to eliminate client API calls
  */
 
 get_header();
 
-/** ---------------- Helpers ---------------- */
+// ─────────────────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────────────────
 
 function tsb_clean_archive_title_from_pts(array $pts): string {
   if (empty($pts)) return get_the_archive_title();
@@ -34,7 +31,6 @@ function tsb_clean_archive_title(): string {
   return get_the_archive_title();
 }
 
-/** Robust current-term detector (works for GD too). */
 function tsb_detect_current_term(?string $post_type): array {
   $qo = get_queried_object();
   if ( $qo instanceof WP_Term ) return [ $qo->taxonomy, (int)$qo->term_id, $qo->slug ];
@@ -58,13 +54,12 @@ function tsb_detect_current_term(?string $post_type): array {
     if ( $t && ! is_wp_error($t) ) return [ 'post_tag', (int)$t->term_id, $t->slug ];
   }
 
-  // Scan taxonomies on this post type (or all public if unknown)
   $tax_objects = $post_type
     ? get_object_taxonomies( $post_type, 'objects' )
     : get_taxonomies( ['public' => true], 'objects' );
 
   foreach ( $tax_objects as $tx ) {
-    $qv  = $tx->query_var ? $tx->query_var : $tx->name;
+    $qv  = $tx->query_var ?: $tx->name;
     $val = get_query_var( $qv );
     if ( $val ) {
       $slug = is_array($val) ? reset($val) : $val;
@@ -73,42 +68,17 @@ function tsb_detect_current_term(?string $post_type): array {
     }
   }
 
-  // URL fallback like /{something}/category/{slug}/ or /{something}/tag/{slug}/
-  $req = isset($_SERVER['REQUEST_URI']) ? trim($_SERVER['REQUEST_URI'], '/') : '';
-  if ( $req ) {
-    $segments = explode('/', $req);
-    foreach (['category', 'tag'] as $needle) {
-      $i = array_search($needle, $segments, true);
-      if ($i !== false && isset($segments[$i+1])) {
-        $slug = sanitize_title($segments[$i+1]);
-        foreach ($tax_objects as $tx) {
-          $rw = is_array($tx->rewrite ?? null) ? ($tx->rewrite['slug'] ?? '') : '';
-          if ($rw === $needle) {
-            $t = get_term_by('slug', $slug, $tx->name);
-            if ( $t && ! is_wp_error($t) ) return [ $tx->name, (int)$t->term_id, $t->slug ];
-          }
-        }
-      }
-    }
-  }
-
   return [ null, null, null ];
 }
 
-/**
- * Collect ANY public taxonomy filters present in the URL and convert them to
- * WP_Query-style tax_query parts (by term_id).
- * Accepts comma- or dot-separated slug lists: ?topic_tag=mental-health,anxiety
- */
 function tsb_collect_url_tax_filters(): array {
   $out = [];
   $tax_objects = get_taxonomies( ['public' => true], 'objects' );
   foreach ( $tax_objects as $tx ) {
-    $qv  = $tx->query_var ? $tx->query_var : $tx->name; // e.g. 'topic_tag', 'category_name', 'tag'
+    $qv  = $tx->query_var ?: $tx->name;
     $val = get_query_var( $qv );
     if ( ! $val ) continue;
 
-    // Normalize into an array of slugs
     if ( is_array($val) ) {
       $slugs = array_map('sanitize_title', $val);
     } else {
@@ -139,16 +109,127 @@ function tsb_collect_url_tax_filters(): array {
   return $out;
 }
 
-/** ---------------- Resolve context (single or multi CPT) ---------------- */
+// ─────────────────────────────────────────────────────────────────────────────
+// Get terms for a taxonomy filtered by post types (with caching)
+// ─────────────────────────────────────────────────────────────────────────────
+function tsb_get_filtered_terms_for_archive(string $taxonomy, array $post_types, int $limit = 200): array {
+  global $wpdb;
+  
+  $cache_key = 'tsb_terms_' . md5($taxonomy . implode(',', $post_types));
+  $cached = wp_cache_get($cache_key, 'tsb_terms');
+  if ($cached !== false) {
+    return $cached;
+  }
+  
+  if (empty($post_types)) {
+    $terms = get_terms([
+      'taxonomy'   => $taxonomy,
+      'hide_empty' => true,
+      'number'     => $limit,
+    ]);
+    
+    if (is_wp_error($terms)) return [];
+    
+    $result = array_map(fn($t) => [
+      'id'     => (int) $t->term_id,
+      'name'   => $t->name,
+      'slug'   => $t->slug,
+      'parent' => (int) $t->parent,
+    ], $terms);
+    
+    wp_cache_set($cache_key, $result, 'tsb_terms', 300);
+    return $result;
+  }
+  
+  $all_terms = get_terms([
+    'taxonomy'   => $taxonomy,
+    'hide_empty' => false,
+    'number'     => $limit,
+  ]);
+  
+  if (is_wp_error($all_terms) || empty($all_terms)) return [];
+  
+  $term_ids = wp_list_pluck($all_terms, 'term_id');
+  $term_placeholders = implode(',', array_fill(0, count($term_ids), '%d'));
+  $pt_placeholders = implode(',', array_fill(0, count($post_types), '%s'));
+  
+  $query = $wpdb->prepare("
+    SELECT DISTINCT tt.term_id
+    FROM {$wpdb->term_taxonomy} AS tt
+    INNER JOIN {$wpdb->term_relationships} AS tr ON tt.term_taxonomy_id = tr.term_taxonomy_id
+    INNER JOIN {$wpdb->posts} AS p ON tr.object_id = p.ID
+    WHERE tt.term_id IN ($term_placeholders)
+    AND tt.taxonomy = %s
+    AND p.post_type IN ($pt_placeholders)
+    AND p.post_status = 'publish'
+  ", array_merge($term_ids, [$taxonomy], $post_types));
+  
+  $terms_with_posts = $wpdb->get_col($query);
+  $terms_with_posts = array_map('intval', $terms_with_posts);
+  
+  // Include ancestors
+  $all_valid_ids = $terms_with_posts;
+  foreach ($terms_with_posts as $tid) {
+    $ancestors = get_ancestors($tid, $taxonomy, 'taxonomy');
+    $all_valid_ids = array_merge($all_valid_ids, $ancestors);
+  }
+  $all_valid_ids = array_unique($all_valid_ids);
+  
+  $result = [];
+  foreach ($all_terms as $term) {
+    if (in_array((int)$term->term_id, $all_valid_ids, true)) {
+      $result[] = [
+        'id'     => (int) $term->term_id,
+        'name'   => $term->name,
+        'slug'   => $term->slug,
+        'parent' => (int) $term->parent,
+      ];
+    }
+  }
+  
+  wp_cache_set($cache_key, $result, 'tsb_terms', 300);
+  return $result;
+}
 
-// 1) Multi-CPT via our custom query var (set by rewrite rule)
-$multi_pt_raw = get_query_var('tsb_multi_pt'); // e.g. "aid_listing.health_listing"
+function tsb_build_term_tree_for_archive(array $terms): array {
+  $by_id = [];
+  foreach ($terms as $t) {
+    $by_id[$t['id']] = array_merge($t, ['children' => []]);
+  }
+  
+  $roots = [];
+  foreach ($by_id as $id => &$node) {
+    $parent_id = $node['parent'];
+    if ($parent_id && isset($by_id[$parent_id])) {
+      $by_id[$parent_id]['children'][] = &$node;
+    } else {
+      $roots[] = &$node;
+    }
+  }
+  unset($node);
+  
+  $sort_tree = function(&$nodes) use (&$sort_tree) {
+    usort($nodes, fn($a, $b) => strcasecmp($a['name'], $b['name']));
+    foreach ($nodes as &$n) {
+      if (!empty($n['children'])) $sort_tree($n['children']);
+    }
+  };
+  $sort_tree($roots);
+  
+  return $roots;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Resolve context
+// ─────────────────────────────────────────────────────────────────────────────
+
+$multi_pt_raw = get_query_var('tsb_multi_pt');
 $post_types   = [];
 
 if ( $multi_pt_raw ) {
   $slugs = array_filter(array_map('trim', explode('.', $multi_pt_raw)));
   foreach ($slugs as $slug) {
-    $base = sanitize_key($slug); // keep underscores
+    $base = sanitize_key($slug);
     $gd   = 'gd_' . $base;
     if ( post_type_exists($gd) )      $post_types[] = $gd;
     elseif ( post_type_exists($base) ) $post_types[] = $base;
@@ -157,18 +238,16 @@ if ( $multi_pt_raw ) {
   $post_types = array_values(array_unique($post_types));
 }
 
-// 2) If not multi, fall back to WordPress-normal detection
 if ( empty($post_types) ) {
   $q_pt = get_query_var('post_type');
   if ( is_array($q_pt) )       $post_types = array_values(array_filter($q_pt));
-  elseif ( is_string($q_pt) )  $post_types = [$q_pt];
+  elseif ( is_string($q_pt) && $q_pt )  $post_types = [$q_pt];
 
   if ( is_post_type_archive() ) {
     $pt = get_post_type();
     if ($pt) $post_types = [$pt];
   }
 
-  // Infer GD CPT from first URL segment if still unknown
   if ( empty($post_types) && ! empty($_SERVER['REQUEST_URI']) ) {
     $parts = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
     if (!empty($parts[0]) && preg_match('/^[a-z0-9_]+$/i', $parts[0])) {
@@ -182,34 +261,35 @@ if ( empty($post_types) ) {
   }
 }
 
-// Final fallback
 if ( empty($post_types) ) $post_types = ['post'];
 
-// Detect a single "current term" (only used for title/context on real tax archives)
 $for_term_detection = count($post_types) === 1 ? $post_types[0] : null;
 list($taxonomy, $current_term_id, $current_term_slug) = tsb_detect_current_term($for_term_detection);
 
-/** ---------------- Filters (server-provided) ----------------
- * For single CPT we emit its taxonomies (except excluded ones).
- * For multi CPT, we find SHARED taxonomies across all post types.
- */
+// ─────────────────────────────────────────────────────────────────────────────
+// Build filters WITH pre-fetched terms
+// ─────────────────────────────────────────────────────────────────────────────
 $filters = [];
-$excluded_taxonomies = [ 'theme', 'location_tag', 'post_tag', 'category', 'audience_tag' ];
+$excluded_taxonomies = [ 'theme', 'location_tag', 'post_tag', 'category', 'audience_tag', 'tribe_events_cat' ];
 
 if ( count($post_types) === 1 ) {
-  // Single CPT: use its taxonomies
   $all_taxonomies = get_object_taxonomies( $post_types[0], 'objects' );
-  $taxonomies = array_filter( $all_taxonomies, function( $tax ) use ( $excluded_taxonomies ) {
-    return ! in_array( $tax->name, $excluded_taxonomies, true );
-  } );
+  $taxonomies = array_filter( $all_taxonomies, fn($tax) => !in_array($tax->name, $excluded_taxonomies, true) );
+  
   foreach ( $taxonomies as $slug => $tax_obj ) {
+    $tax_terms = tsb_get_filtered_terms_for_archive($slug, $post_types);
+    if (empty($tax_terms)) continue;
+    
+    $is_hierarchical = $tax_obj->hierarchical && count(array_filter($tax_terms, fn($t) => $t['parent'] > 0)) > 0;
+    
     $filters[] = [
       'taxonomy' => $slug,
       'label'    => $tax_obj->labels->singular_name,
+      'terms'    => $is_hierarchical ? tsb_build_term_tree_for_archive($tax_terms) : $tax_terms,
     ];
   }
 } else {
-  // Multi CPT: find shared taxonomies across all post types
+  // Multi CPT: find shared taxonomies
   $shared_taxonomies = null;
   foreach ( $post_types as $pt ) {
     $pt_taxonomies = get_object_taxonomies( $pt, 'names' );
@@ -224,25 +304,32 @@ if ( count($post_types) === 1 ) {
     foreach ( $shared_taxonomies as $tax_name ) {
       if ( in_array( $tax_name, $excluded_taxonomies, true ) ) continue;
       $tax_obj = get_taxonomy( $tax_name );
-      if ( $tax_obj ) {
-        $filters[] = [
-          'taxonomy' => $tax_name,
-          'label'    => $tax_obj->labels->singular_name,
-        ];
-      }
+      if ( !$tax_obj ) continue;
+      
+      $tax_terms = tsb_get_filtered_terms_for_archive($tax_name, $post_types);
+      if (empty($tax_terms)) continue;
+      
+      $is_hierarchical = $tax_obj->hierarchical && count(array_filter($tax_terms, fn($t) => $t['parent'] > 0)) > 0;
+      
+      $filters[] = [
+        'taxonomy' => $tax_name,
+        'label'    => $tax_obj->labels->singular_name,
+        'terms'    => $is_hierarchical ? tsb_build_term_tree_for_archive($tax_terms) : $tax_terms,
+      ];
     }
   }
 }
 
-/** ---------------- Base API query ---------------- */
+// ─────────────────────────────────────────────────────────────────────────────
+// Base API query
+// ─────────────────────────────────────────────────────────────────────────────
 $base_query = [
-  'post_type' => $post_types,   // <<< supports multiple CPTs
+  'post_type' => $post_types,
   'per_page'  => 12,
   'order'     => 'DESC',
   'orderby'   => 'date',
 ];
 
-// Compile tax filters from (a) the actual tax archive context and (b) query-string filters
 $tax_parts = [];
 
 if ( $taxonomy && $current_term_id ) {
@@ -252,11 +339,9 @@ if ( $taxonomy && $current_term_id ) {
     'terms'            => [ (int)$current_term_id ],
     'operator'         => 'IN',
     'include_children' => true,
-    'hide_empty'      => true,
   ];
 }
 
-// Add any extra filters from URL query vars, e.g. ?topic_tag=mental-health
 $extra_parts = tsb_collect_url_tax_filters();
 foreach ($extra_parts as $tp) {
   $tax_parts[] = $tp;
@@ -267,12 +352,13 @@ if ( !empty($tax_parts) ) {
   $base_query['tax_relation'] = 'AND';
 }
 
-/** ---------------- Endpoint selection ---------------- */
+// ─────────────────────────────────────────────────────────────────────────────
+// Endpoint and title
+// ─────────────────────────────────────────────────────────────────────────────
 $endpoint = (count($post_types) === 1 && $post_types[0] === 'tribe_events')
   ? '/wp-json/tsb/v1/events'
   : '/wp-json/tsb/v1/browse';
 
-/** ---------------- Title ---------------- */
 if (count($post_types) === 1 && $post_types[0] === 'podcast') {
   $title = 'Podcasts and Interviews';
 } elseif (count($post_types) > 1) {
@@ -281,11 +367,13 @@ if (count($post_types) === 1 && $post_types[0] === 'podcast') {
   $title = tsb_clean_archive_title();
 }
 
-$breadcrumbs = sbp_build_breadcrumbs();
+$breadcrumbs = function_exists('sbp_build_breadcrumbs') ? sbp_build_breadcrumbs() : [];
 
-/** ---------------- Props ---------------- */
+// ─────────────────────────────────────────────────────────────────────────────
+// Props
+// ─────────────────────────────────────────────────────────────────────────────
 $props = [
-  'postType'    => (count($post_types) === 1) ? $post_types[0] : $post_types, // string or array
+  'postType'    => (count($post_types) === 1) ? $post_types[0] : $post_types,
   'taxonomy'    => $taxonomy ?: '',
   'filters'     => $filters,
   'endpoint'    => $endpoint,

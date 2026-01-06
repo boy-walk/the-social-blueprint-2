@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useRef } from "react";
+import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { ContentCard } from "./ContentCard";
 import { Button } from "./Button";
 import { getBadge } from "./getBadge";
@@ -7,9 +7,9 @@ import { Breadcrumbs } from "./Breadcrumbs";
 import { DropdownSelect } from "./DropdownSelect";
 
 /**
- * GenericArchivePage
- * - Supports pre-fetched terms in filters (filter.terms)
- * - Only fetches terms from API if not provided by PHP
+ * GenericArchivePage (OPTIMIZED)
+ * - Expects pre-fetched terms from PHP (filter.terms)
+ * - Falls back to parallel API fetching if terms not provided
  */
 export function GenericArchivePage(props) {
   const {
@@ -33,165 +33,205 @@ export function GenericArchivePage(props) {
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [retryTick, setRetryTick] = useState(0);
-
   const [termsOptions, setTermsOptions] = useState({});
-  const fetchedOnceRef = useRef(new Set());
 
-  // Initialize termsOptions with pre-fetched terms from filters
+  const fetchedOnceRef = useRef(new Set());
+  const fetchSeq = useRef(0);
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Initialize with pre-fetched terms from PHP
+  // ─────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     const preFetched = {};
     for (const f of filters) {
       if (f.terms && Array.isArray(f.terms) && f.terms.length > 0) {
-        preFetched[f.taxonomy] = f.terms.map((t) => ({
-          id: String(t.id),
-          name: t.name,
-          slug: t.slug,
-          parent: String(t.parent ?? 0),
-        }));
+        // Already in correct format (flat or tree)
+        preFetched[f.taxonomy] = f.terms;
         fetchedOnceRef.current.add(f.taxonomy);
       }
     }
     if (Object.keys(preFetched).length) {
-      setTermsOptions((prev) => ({ ...prev, ...preFetched }));
+      setTermsOptions(preFetched);
     }
   }, [filters]);
 
-  // In the useEffect that fetches terms, update the URL construction:
+  // ─────────────────────────────────────────────────────────────────────────
+  // Fallback: Parallel fetch for any filters without pre-fetched terms
+  // ─────────────────────────────────────────────────────────────────────────
   useEffect(() => {
-    const filtersToFetch = filters.filter((f) => !f.terms && !fetchedOnceRef.current.has(f.taxonomy));
+    const filtersToFetch = filters.filter(
+      (f) => !f.terms && !fetchedOnceRef.current.has(f.taxonomy)
+    );
     if (!filtersToFetch.length) return;
 
     let cancelled = false;
-    (async () => {
-      const next = {};
-      for (const f of filtersToFetch) {
-        const tax = f.taxonomy;
-        if (fetchedOnceRef.current.has(tax)) continue;
-        try {
-          // Support multiple post types
-          const ptParam = Array.isArray(postType)
-            ? postType.join(',')
-            : (postType || '');
 
-          const termsUrl = `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=200${ptParam ? `&post_type=${encodeURIComponent(ptParam)}` : ''}`;
-          const res = await fetch(termsUrl, { headers: { Accept: "application/json" } });
+    // Mark as fetching immediately to prevent duplicate requests
+    filtersToFetch.forEach((f) => fetchedOnceRef.current.add(f.taxonomy));
+
+    const ptParam = Array.isArray(postType)
+      ? postType.join(",")
+      : postType || "";
+
+    // Fetch ALL taxonomies in parallel
+    Promise.all(
+      filtersToFetch.map(async (f) => {
+        const tax = f.taxonomy;
+        try {
+          const url = `/wp-json/tsb/v1/terms?taxonomy=${encodeURIComponent(tax)}&per_page=200${ptParam ? `&post_type=${encodeURIComponent(ptParam)}` : ""}`;
+          const res = await fetch(url, { headers: { Accept: "application/json" } });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const json = await res.json();
+
           const rows = (Array.isArray(json) ? json : []).map((t) => ({
             id: String(t.id),
             name: t.name,
             slug: t.slug,
-            parent: String((t.parent ?? 0) || "0"),
+            parent: String(t.parent ?? 0),
           }));
+
+          // Build tree if hierarchical
           const isHier = rows.some((r) => r.parent !== "0");
           if (isHier) {
             const byId = {};
             rows.forEach((r) => (byId[r.id] = { ...r, children: [] }));
             const roots = [];
             rows.forEach((r) =>
-              (r.parent !== "0" && byId[r.parent]) ? byId[r.parent].children.push(byId[r.id]) : roots.push(byId[r.id])
+              r.parent !== "0" && byId[r.parent]
+                ? byId[r.parent].children.push(byId[r.id])
+                : roots.push(byId[r.id])
             );
-            const sortTree = (nodes) => { nodes.sort((a, b) => a.name.localeCompare(b.name)); nodes.forEach(n => sortTree(n.children)); };
+            const sortTree = (nodes) => {
+              nodes.sort((a, b) => a.name.localeCompare(b.name));
+              nodes.forEach((n) => sortTree(n.children));
+            };
             sortTree(roots);
-            next[tax] = roots;
-          } else {
-            next[tax] = rows.map(({ id, name, slug }) => ({ id, name, slug }));
+            return { tax, terms: roots };
           }
-          fetchedOnceRef.current.add(tax);
+          return { tax, terms: rows };
         } catch {
-          next[tax] = [];
+          return { tax, terms: [] };
         }
+      })
+    ).then((results) => {
+      if (cancelled) return;
+      const next = {};
+      results.forEach(({ tax, terms }) => {
+        next[tax] = terms;
+      });
+      if (Object.keys(next).length) {
+        setTermsOptions((prev) => ({ ...prev, ...next }));
       }
-      if (!cancelled && Object.keys(next).length) setTermsOptions((prev) => ({ ...prev, ...next }));
-    })();
-    return () => { cancelled = true; };
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [filters, postType]);
 
-  const getDropdownOptions = (taxonomy) => {
-    const options = termsOptions[taxonomy] || [];
+  // ─────────────────────────────────────────────────────────────────────────
+  // Convert terms to DropdownSelect format
+  // ─────────────────────────────────────────────────────────────────────────
+  const getDropdownOptions = useCallback((taxonomyKey) => {
+    const options = termsOptions[taxonomyKey] || [];
 
-    // Convert tree structure to DropdownSelect format
-    const convertOptions = (items) => {
-      return items.map((item) => ({
-        value: item.id,
+    const convertOptions = (items) =>
+      items.map((item) => ({
+        value: String(item.id),
         label: item.name,
-        children: item.children && item.children.length > 0
-          ? convertOptions(item.children)
-          : undefined,
+        children:
+          item.children && item.children.length > 0
+            ? convertOptions(item.children)
+            : undefined,
       }));
-    };
 
-    // Check if it's a tree structure (has children arrays)
+    // Check if tree structure
     if (options.length > 0 && Array.isArray(options[0]?.children)) {
       return convertOptions(options);
     }
 
-    // Flat options
     return options.map((opt) => ({
-      value: opt.id,
+      value: String(opt.id),
       label: opt.name,
     }));
-  };
+  }, [termsOptions]);
 
+  // ─────────────────────────────────────────────────────────────────────────
   // Fetch posts
-  const fetchSeq = useRef(0);
+  // ─────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     let cancelled = false;
     const seq = ++fetchSeq.current;
+
     (async () => {
       setLoading(true);
       setError("");
       try {
         const payload = { ...baseQuery, page };
-        const baseTax = Array.isArray(baseQuery.tax) ? baseQuery.tax.slice() : baseQuery.tax ? [baseQuery.tax] : [];
-        const uiTax = [];
-        for (const [taxKey, termIds] of Object.entries(selectedTerms)) {
-          if (termIds && termIds.length) {
-            uiTax.push({
-              taxonomy: taxKey,
-              field: "term_id",
-              terms: termIds.map((id) => parseInt(id, 10)).filter(Number.isFinite),
-              operator: "IN",
-              include_children: true,
-            });
-          }
-        }
+
+        // Build tax query
+        const baseTax = Array.isArray(baseQuery.tax)
+          ? baseQuery.tax.slice()
+          : baseQuery.tax
+            ? [baseQuery.tax]
+            : [];
+
+        const uiTax = Object.entries(selectedTerms)
+          .filter(([, termIds]) => termIds?.length)
+          .map(([taxKey, termIds]) => ({
+            taxonomy: taxKey,
+            field: "term_id",
+            terms: termIds.map((id) => parseInt(id, 10)).filter(Number.isFinite),
+            operator: "IN",
+            include_children: true,
+          }));
+
         const finalTax = [...baseTax, ...uiTax];
         if (finalTax.length) {
           payload.tax = finalTax;
           if (baseQuery.tax_relation) payload.tax_relation = baseQuery.tax_relation;
         }
+
         const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
+
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
+
         if (!cancelled && seq === fetchSeq.current) {
           setItems(json.items || []);
           setTotalPages(json.total_pages || 1);
           setTotal(typeof json.total === "number" ? json.total : undefined);
         }
       } catch (err) {
-        if (!cancelled && seq === fetchSeq.current) setError(err.message || "Failed to load data");
+        if (!cancelled && seq === fetchSeq.current) {
+          setError(err.message || "Failed to load data");
+        }
       } finally {
         if (!cancelled && seq === fetchSeq.current) setLoading(false);
       }
     })();
-    return () => { cancelled = true; };
+
+    return () => {
+      cancelled = true;
+    };
   }, [baseQuery, endpoint, page, selectedTerms, retryTick]);
 
-  // Client-side search index
+  // ─────────────────────────────────────────────────────────────────────────
+  // Client-side search
+  // ─────────────────────────────────────────────────────────────────────────
   const searchIndex = useMemo(() => {
     const idx = new Map();
     const collect = (val, bag) => {
       if (!val) return;
-      if (Array.isArray(val)) val.forEach(v => collect(v, bag));
+      if (Array.isArray(val)) val.forEach((v) => collect(v, bag));
       else if (typeof val === "object") {
         if (typeof val.name === "string") bag.push(val.name);
         if (typeof val.slug === "string") bag.push(val.slug.replace(/-/g, " "));
-        Object.values(val).forEach(v => collect(v, bag));
+        Object.values(val).forEach((v) => collect(v, bag));
       } else if (typeof val === "string") bag.push(val);
     };
     (items || []).forEach((item) => {
@@ -219,83 +259,112 @@ export function GenericArchivePage(props) {
   }, [items, searchQuery, searchIndex]);
 
   const searching = searchQuery.trim().length > 0;
+
   const hasActiveFilters = useMemo(
     () => Object.values(selectedTerms).some((arr) => (arr || []).length > 0),
     [selectedTerms]
   );
 
-  const clearAllFilters = () => { setSelectedTerms({}); setPage(1); };
+  const clearAllFilters = useCallback(() => {
+    setSelectedTerms({});
+    setPage(1);
+  }, []);
 
-  // Mobile drawer state
+  // ─────────────────────────────────────────────────────────────────────────
+  // Mobile drawer
+  // ─────────────────────────────────────────────────────────────────────────
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const firstCloseBtnRef = useRef(null);
-  const openFilters = () => setIsFiltersOpen(true);
-  const closeFilters = () => setIsFiltersOpen(false);
 
   useEffect(() => {
     if (!isFiltersOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const onKey = (e) => { if (e.key === "Escape") closeFilters(); };
+    const onKey = (e) => {
+      if (e.key === "Escape") setIsFiltersOpen(false);
+    };
     window.addEventListener("keydown", onKey);
     setTimeout(() => firstCloseBtnRef.current?.focus(), 0);
-    return () => { document.body.style.overflow = prev; window.removeEventListener("keydown", onKey); };
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [isFiltersOpen]);
 
   const filterCount =
     Object.values(selectedTerms).reduce((n, arr) => n + (arr?.length || 0), 0) +
     (searching ? 1 : 0);
 
-  const hasFiltersToShow = filters.some((f) => (termsOptions[f.taxonomy] || []).length > 0);
+  // Check which filters actually have options to show
+  const filtersWithOptions = useMemo(
+    () => filters.filter((f) => (termsOptions[f.taxonomy] || []).length > 0),
+    [filters, termsOptions]
+  );
 
-  // Handle filter change for DropdownSelect
-  const handleFilterChange = (taxonomy, value, multiple = true) => {
-    if (multiple) {
-      // value is an array of IDs
-      setSelectedTerms((prev) => ({ ...prev, [taxonomy]: value }));
-    } else {
-      // value is a single ID or empty string
-      setSelectedTerms((prev) => ({ ...prev, [taxonomy]: value ? [value] : [] }));
-    }
+  const hasFiltersToShow = filtersWithOptions.length > 0;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Filter change handler
+  // ─────────────────────────────────────────────────────────────────────────
+  const handleFilterChange = useCallback((taxonomyKey, value, multiple = true) => {
+    setSelectedTerms((prev) => ({
+      ...prev,
+      [taxonomyKey]: multiple ? value : value ? [value] : [],
+    }));
     setPage(1);
-  };
+  }, []);
 
-  const skeletonCards = Array.from({ length: 8 }).map((_, i) => (
-    <div key={`sk-${i}`} className="rounded-xl border border-schemesOutlineVariant overflow-hidden">
-      <div className="w-full aspect-square bg-schemesSurfaceContainerHighest animate-pulse" />
-      <div className="p-4 space-y-2">
-        <div className="h-4 w-3/4 bg-schemesSurfaceContainerHigh animate-pulse rounded" />
-        <div className="h-3 w-1/2 bg-schemesSurfaceContainerHigh animate-pulse rounded" />
-        <div className="h-3 w-2/3 bg-schemesSurfaceContainerHigh animate-pulse rounded" />
-      </div>
-    </div>
-  ));
+  // ─────────────────────────────────────────────────────────────────────────
+  // Render filter
+  // ─────────────────────────────────────────────────────────────────────────
+  const renderFilter = useCallback(
+    (f, isMobile = false) => {
+      const options = getDropdownOptions(f.taxonomy);
+      if (!options.length) return null;
 
-  // Render a filter using DropdownSelect
-  const renderFilter = (f, isMobile = false) => {
-    const options = getDropdownOptions(f.taxonomy);
-    if (!options.length) return null;
+      const isPeopleTag = f.taxonomy === "people_tag";
+      const isMultiple = !isPeopleTag;
+      const currentValue = isMultiple
+        ? selectedTerms[f.taxonomy] || []
+        : selectedTerms[f.taxonomy]?.[0] || "";
 
-    const isPeopleTag = f.taxonomy === "people_tag";
-    const isMultiple = !isPeopleTag;
-    const currentValue = isMultiple
-      ? (selectedTerms[f.taxonomy] || [])
-      : (selectedTerms[f.taxonomy]?.[0] || '');
+      return (
+        <DropdownSelect
+          key={`${isMobile ? "mobile-" : ""}${f.taxonomy}`}
+          label={f.label || f.taxonomy}
+          placeholder={isPeopleTag ? "Select person..." : "Select..."}
+          multiple={isMultiple}
+          searchable
+          searchPlaceholder={`Search ${(f.label || f.taxonomy).toLowerCase()}...`}
+          options={options}
+          value={currentValue}
+          onChange={(value) => handleFilterChange(f.taxonomy, value, isMultiple)}
+        />
+      );
+    },
+    [getDropdownOptions, selectedTerms, handleFilterChange]
+  );
 
-    return (
-      <DropdownSelect
-        key={`${isMobile ? 'mobile-' : ''}${f.taxonomy}`}
-        label={f.label || f.taxonomy}
-        placeholder={isPeopleTag ? "Select person..." : "Select..."}
-        multiple={isMultiple}
-        searchable
-        searchPlaceholder={`Search ${(f.label || f.taxonomy).toLowerCase()}...`}
-        options={options}
-        value={currentValue}
-        onChange={(value) => handleFilterChange(f.taxonomy, value, isMultiple)}
-      />
-    );
-  };
+  // ─────────────────────────────────────────────────────────────────────────
+  // Skeleton cards
+  // ─────────────────────────────────────────────────────────────────────────
+  const skeletonCards = useMemo(
+    () =>
+      Array.from({ length: 8 }).map((_, i) => (
+        <div
+          key={`sk-${i}`}
+          className="rounded-xl border border-schemesOutlineVariant overflow-hidden"
+        >
+          <div className="w-full aspect-square bg-schemesSurfaceContainerHighest animate-pulse" />
+          <div className="p-4 space-y-2">
+            <div className="h-4 w-3/4 bg-schemesSurfaceContainerHigh animate-pulse rounded" />
+            <div className="h-3 w-1/2 bg-schemesSurfaceContainerHigh animate-pulse rounded" />
+            <div className="h-3 w-2/3 bg-schemesSurfaceContainerHigh animate-pulse rounded" />
+          </div>
+        </div>
+      )),
+    []
+  );
 
   return (
     <div className="archive-container bg-schemesSurface">
@@ -303,8 +372,14 @@ export function GenericArchivePage(props) {
       <div className="bg-schemesPrimaryFixed py-8">
         <div className="tsb-container">
           <Breadcrumbs items={breadcrumbs} textColour="text-schemesPrimary" />
-          <h1 className="Blueprint-headline-large text-schemesOnSurface mb-1">{title}</h1>
-          {subtitle && <p className="Blueprint-body-medium text-schemesOnPrimaryFixedVariant">{subtitle}</p>}
+          <h1 className="Blueprint-headline-large text-schemesOnSurface mb-1">
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="Blueprint-body-medium text-schemesOnPrimaryFixedVariant">
+              {subtitle}
+            </p>
+          )}
         </div>
       </div>
 
@@ -313,17 +388,21 @@ export function GenericArchivePage(props) {
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
             <input
-              id="archive-search-mobile"
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by keyword"
               className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
             />
-            <MagnifyingGlass size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
+            <MagnifyingGlass
+              size={20}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant"
+              weight="bold"
+              aria-hidden
+            />
           </div>
           <Button
-            onClick={openFilters}
+            onClick={() => setIsFiltersOpen(true)}
             icon={<FunnelSimple />}
             label={filterCount ? `Filters (${filterCount})` : "Filters"}
             variant="outlined"
@@ -338,9 +417,10 @@ export function GenericArchivePage(props) {
       <div className="tsb-container flex flex-col lg:flex-row py-8 gap-8">
         {/* Desktop sidebar */}
         <aside className="hidden lg:block lg:w-64 xl:w-72 shrink-0">
-          {/* Search */}
           <div className="mb-6">
-            <label htmlFor="archive-search" className="sr-only">Search by keyword</label>
+            <label htmlFor="archive-search" className="sr-only">
+              Search by keyword
+            </label>
             <div className="bg-schemesSurfaceContainer flex items-center gap-2 rounded-full px-4 py-3">
               <input
                 id="archive-search"
@@ -350,46 +430,82 @@ export function GenericArchivePage(props) {
                 placeholder="Search by keyword"
                 className="w-full outline-none Blueprint-body-medium text-schemesOnSurface placeholder:text-schemesOnSurfaceVariant bg-transparent"
               />
-              {!searchQuery && <MagnifyingGlass size={20} className="text-schemesOnSurfaceVariant" weight="bold" />}
+              {!searchQuery && (
+                <MagnifyingGlass
+                  size={20}
+                  className="text-schemesOnSurfaceVariant"
+                  weight="bold"
+                />
+              )}
             </div>
           </div>
 
-          {/* Filters */}
           {hasFiltersToShow && (
             <>
-              <h2 className="Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant">Filters</h2>
+              <h2 className="Blueprint-headline-small-emphasized mb-4 text-schemesOnSurfaceVariant">
+                Filters
+              </h2>
 
               {(hasActiveFilters || searching) && (
                 <div className="mb-4 flex flex-wrap gap-2">
-                  {hasActiveFilters && <Button size="sm" variant="tonal" onClick={clearAllFilters} label="Clear filters" />}
-                  {searching && <Button size="sm" variant="tonal" onClick={() => setSearchQuery("")} label="Clear search" />}
+                  {hasActiveFilters && (
+                    <Button
+                      size="sm"
+                      variant="tonal"
+                      onClick={clearAllFilters}
+                      label="Clear filters"
+                    />
+                  )}
+                  {searching && (
+                    <Button
+                      size="sm"
+                      variant="tonal"
+                      onClick={() => setSearchQuery("")}
+                      label="Clear search"
+                    />
+                  )}
                 </div>
               )}
 
               <div className="space-y-4">
-                {filters
-                  .filter((f) => (termsOptions[f.taxonomy] || []).length > 0)
-                  .map((f) => renderFilter(f, false))}
+                {filtersWithOptions.map((f) => renderFilter(f, false))}
               </div>
             </>
           )}
         </aside>
 
-        {/* Results section */}
+        {/* Results */}
         <section className="flex-1 min-w-0">
           {error && !loading && (
             <div className="mb-8 rounded-xl border border-schemesOutlineVariant bg-schemesSurface p-6">
-              <div className="Blueprint-title-small-emphasized mb-2 text-schemesError">Something went wrong</div>
-              <p className="Blueprint-body-medium text-schemesOnSurfaceVariant mb-4">{error}</p>
+              <div className="Blueprint-title-small-emphasized mb-2 text-schemesError">
+                Something went wrong
+              </div>
+              <p className="Blueprint-body-medium text-schemesOnSurfaceVariant mb-4">
+                {error}
+              </p>
               <div className="flex gap-2">
-                <Button variant="filled" label="Try again" onClick={() => setRetryTick((n) => n + 1)} />
-                {hasActiveFilters && <Button variant="tonal" label="Clear filters" onClick={clearAllFilters} />}
+                <Button
+                  variant="filled"
+                  label="Try again"
+                  onClick={() => setRetryTick((n) => n + 1)}
+                />
+                {hasActiveFilters && (
+                  <Button
+                    variant="tonal"
+                    label="Clear filters"
+                    onClick={clearAllFilters}
+                  />
+                )}
               </div>
             </div>
           )}
 
           {loading && (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8" aria-hidden="true">
+            <div
+              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8"
+              aria-hidden="true"
+            >
               {skeletonCards}
             </div>
           )}
@@ -398,14 +514,29 @@ export function GenericArchivePage(props) {
             <div className="rounded-2xl border border-schemesOutlineVariant bg-schemesSurfaceContainerLowest p-10 text-center mb-8">
               <div className="Blueprint-headline-small mb-2">No results found</div>
               <p className="Blueprint-body-medium text-schemesOnSurfaceVariant mb-6">
-                {searching ? "Try a different keyword or clear search." : "Try adjusting or clearing your filters to see more results."}
+                {searching
+                  ? "Try a different keyword or clear search."
+                  : "Try adjusting or clearing your filters to see more results."}
               </p>
               <div className="flex justify-center gap-3">
-                {searching
-                  ? <Button variant="filled" label="Clear search" onClick={() => setSearchQuery("")} />
-                  : <Button variant="filled" label="Clear all filters" onClick={clearAllFilters} />
-                }
-                <Button variant="tonal" label="Reload" onClick={() => setRetryTick((n) => n + 1)} />
+                {searching ? (
+                  <Button
+                    variant="filled"
+                    label="Clear search"
+                    onClick={() => setSearchQuery("")}
+                  />
+                ) : (
+                  <Button
+                    variant="filled"
+                    label="Clear all filters"
+                    onClick={clearAllFilters}
+                  />
+                )}
+                <Button
+                  variant="tonal"
+                  label="Reload"
+                  onClick={() => setRetryTick((n) => n + 1)}
+                />
               </div>
             </div>
           )}
@@ -413,15 +544,34 @@ export function GenericArchivePage(props) {
           {!loading && !error && filteredItems.length > 0 && (
             <>
               <div className="flex items-center justify-between mb-4">
-                <div className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant" aria-live="polite">
+                <div
+                  className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-large text-schemesOnSurfaceVariant"
+                  aria-live="polite"
+                >
                   {searching
                     ? `${filteredItems.length} match${filteredItems.length === 1 ? "" : "es"} on this page`
-                    : (typeof total === "number" ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}` : null)}
+                    : typeof total === "number"
+                      ? `${total.toLocaleString()} result${total === 1 ? "" : "s"}`
+                      : null}
                 </div>
                 {(hasActiveFilters || searching) && (
                   <div className="hidden sm:flex gap-2">
-                    {hasActiveFilters && <Button size="sm" variant="tonal" label="Clear filters" onClick={clearAllFilters} />}
-                    {searching && <Button size="sm" variant="tonal" label="Clear search" onClick={() => setSearchQuery("")} />}
+                    {hasActiveFilters && (
+                      <Button
+                        size="sm"
+                        variant="tonal"
+                        label="Clear filters"
+                        onClick={clearAllFilters}
+                      />
+                    )}
+                    {searching && (
+                      <Button
+                        size="sm"
+                        variant="tonal"
+                        label="Clear search"
+                        onClick={() => setSearchQuery("")}
+                      />
+                    )}
                   </div>
                 )}
               </div>
@@ -446,9 +596,23 @@ export function GenericArchivePage(props) {
 
           {!loading && !error && totalPages > 1 && !searching && (
             <div className="flex justify-center items-center gap-3 mt-2">
-              <Button size="base" variant="tonal" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} label="Prev" />
-              <span className="Blueprint-body-medium text-schemesOnSurfaceVariant">{page} / {totalPages}</span>
-              <Button size="base" variant="tonal" disabled={page >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} label="Next" />
+              <Button
+                size="base"
+                variant="tonal"
+                disabled={page <= 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                label="Prev"
+              />
+              <span className="Blueprint-body-medium text-schemesOnSurfaceVariant">
+                {page} / {totalPages}
+              </span>
+              <Button
+                size="base"
+                variant="tonal"
+                disabled={page >= totalPages}
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                label="Next"
+              />
             </div>
           )}
         </section>
@@ -461,7 +625,7 @@ export function GenericArchivePage(props) {
         aria-hidden={!isFiltersOpen}
       >
         <div
-          onClick={closeFilters}
+          onClick={() => setIsFiltersOpen(false)}
           className={`absolute inset-0 transition-opacity ${isFiltersOpen ? "opacity-100" : "opacity-0"} bg-black/40`}
         />
         <div
@@ -477,7 +641,7 @@ export function GenericArchivePage(props) {
               <button
                 ref={firstCloseBtnRef}
                 type="button"
-                onClick={closeFilters}
+                onClick={() => setIsFiltersOpen(false)}
                 className="rounded-full p-2 hover:bg-schemesSurfaceContainerHigh text-schemesOnSurfaceVariant"
                 aria-label="Close filters"
               >
@@ -487,7 +651,6 @@ export function GenericArchivePage(props) {
           </div>
 
           <div className="px-4 py-4 overflow-y-auto flex-1 space-y-4">
-            {/* Search in drawer */}
             <div className="relative">
               <input
                 type="search"
@@ -496,16 +659,30 @@ export function GenericArchivePage(props) {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="Blueprint-body-medium w-full pl-4 pr-10 py-3 rounded-3xl bg-schemesSurfaceContainerHigh focus:outline-none focus:ring-2 focus:ring-schemesPrimary"
               />
-              <MagnifyingGlass size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant" weight="bold" aria-hidden />
+              <MagnifyingGlass
+                size={20}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-schemesOnSurfaceVariant"
+                weight="bold"
+                aria-hidden
+              />
             </div>
 
-            {/* Filter dropdowns in drawer */}
-            {filters.map((f) => renderFilter(f, true))}
+            {filtersWithOptions.map((f) => renderFilter(f, true))}
           </div>
 
           <div className="sticky bottom-0 px-4 py-3 bg-schemesSurface border-t border-schemesOutlineVariant flex gap-2 shrink-0">
-            <Button onClick={clearAllFilters} variant="outlined" label="Clear all" className="flex-1" />
-            <Button onClick={closeFilters} variant="filled" label="Apply" className="flex-1" />
+            <Button
+              onClick={clearAllFilters}
+              variant="outlined"
+              label="Clear all"
+              className="flex-1"
+            />
+            <Button
+              onClick={() => setIsFiltersOpen(false)}
+              variant="filled"
+              label="Apply"
+              className="flex-1"
+            />
           </div>
         </div>
       </div>
