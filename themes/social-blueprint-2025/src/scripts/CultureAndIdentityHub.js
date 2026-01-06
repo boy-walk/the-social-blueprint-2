@@ -56,7 +56,7 @@ export const CultureAndIdentityHub = ({ podcasts, events, breadcrumbs = [] }) =>
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3" href="/categories/cost-of-living">
+                    <Card styles="shadow-3x3" href="/topic_tag/leadership">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <CalendarDotIcon size={22} />
@@ -66,7 +66,7 @@ export const CultureAndIdentityHub = ({ podcasts, events, breadcrumbs = [] }) =>
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3">
+                    <Card styles="shadow-3x3" href="/topic_tag/israel">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <TrendUpIcon size={22} />
@@ -76,7 +76,7 @@ export const CultureAndIdentityHub = ({ podcasts, events, breadcrumbs = [] }) =>
                     </Card>
                   </div>
                   <div className="shrink-0 snap-start w-3/7 md:w-64 md:w-auto">
-                    <Card styles="shadow-3x3">
+                    <Card styles="shadow-3x3" href="/topic_tag/holocaust.oct-7th.jewish-history.kidnapping-victims-stories">
                       <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                         <div className="bg-schemesPrimaryFixed rounded-[12px] p-1">
                           <StarIcon size={22} />
