@@ -24,6 +24,21 @@ function sbp_rest_get_events( WP_REST_Request $request ) {
     // --- tax_query
     $tax_query = array();
 
+
+    // Add handling for categories
+    $categories = $request->get_param('categories') ?? '';
+    if ( ! empty( $categories ) ) {
+        $ids = array_filter( array_map( 'intval', explode( ',', $categories ) ) );
+        if ( $ids ) {
+            $tax_query[] = array(
+                'taxonomy' => 'tribe_events_cat',
+                'field'    => 'term_id',
+                'terms'    => $ids,
+            );
+        }
+    }
+
+
     $types = $request->get_param('types') ?? '';
     if ( ! empty( $types ) ) {
         $ids = array_filter( array_map( 'intval', explode( ',', $types ) ) );

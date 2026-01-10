@@ -227,20 +227,30 @@ if ( is_tax() || is_category() || is_tag() ) {
   }
 
   // Collect other taxonomies
-  $other_taxonomies = [];
-  foreach ( $post_types as $pt ) {
-    $pt_taxes = get_object_taxonomies($pt, 'objects');
-    foreach ( $pt_taxes as $pt_tax ) {
-      if ( 
-        $pt_tax->public && 
-        $pt_tax->name !== $taxonomy && 
-        !in_array($pt_tax->name, $excluded_taxonomies, true) &&
-        !isset($other_taxonomies[$pt_tax->name])
-      ) {
-        $other_taxonomies[$pt_tax->name] = $pt_tax;
-      }
+  // Collect other taxonomies
+$other_taxonomies = [];
+
+// Define allowed taxonomies for topic_tag
+$allowed_topic_taxonomies = ['people_tag', 'theme', 'topic_tag', 'audience_tag'];
+
+foreach ( $post_types as $pt ) {
+  $pt_taxes = get_object_taxonomies($pt, 'objects');
+  foreach ( $pt_taxes as $pt_tax ) {
+    // If on topic_tag taxonomy, only include allowed taxonomies
+    if (!in_array($pt_tax->name, $allowed_topic_taxonomies, true) ) {
+      continue;
+    }
+    
+    if ( 
+      $pt_tax->public && 
+      $pt_tax->name !== $taxonomy && 
+      !in_array($pt_tax->name, $excluded_taxonomies, true) &&
+      !isset($other_taxonomies[$pt_tax->name])
+    ) {
+      $other_taxonomies[$pt_tax->name] = $pt_tax;
     }
   }
+}
 
   // Pre-fetch terms for ALL other taxonomy filters
   foreach ( $other_taxonomies as $other_tax ) {

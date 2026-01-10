@@ -6,15 +6,15 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     $hide_recurring = true,
     $post_types     = [],
     $match_taxes    = [],
-    $date_range     = '-6 months' // ⭐ NEW: How far back to look for events
+    $date_range     = '-6 months'
   ) {
     global $wpdb;
 
     $post_types = array_values( array_unique( (array) $post_types ) );
 
-    // ⭐ NEW: Calculate date range for events
+    // Calculate date range for events
     $start_date = date('Y-m-d H:i:s', strtotime($date_range));
-    $end_date = date('Y-m-d H:i:s'); // Today
+    $end_date = date('Y-m-d H:i:s');
 
     // --- Build tax data: term_ids (for tax_query) and tt_ids (for scoring) ---
     $tax_ids_by_tax = [];
@@ -48,28 +48,41 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
       }
     }
 
+    // ⭐ NEW: Meta query to exclude recurring event children
+    $no_recurring_meta = [];
+    if ( $hide_recurring ) {
+      $no_recurring_meta = [
+        'relation' => 'OR',
+        [
+          'key'     => '_EventRecurrence',
+          'compare' => 'NOT EXISTS',
+        ],
+        [
+          'key'     => '_EventRecurrence',
+          'value'   => '',
+          'compare' => '=',
+        ],
+      ];
+    }
+
     // --- Scoring filter: prefer posts sharing more of the same terms ---
     $rel_filter = function( $clauses ) use ( $wpdb, $all_ttids ) {
       if ( empty($all_ttids) ) return $clauses;
 
       $in = implode(',', array_map('intval', $all_ttids));
-      // Join to term_relationships for scoring
       $clauses['join']   .= " INNER JOIN {$wpdb->term_relationships} sbp_tr_rel
                                ON sbp_tr_rel.object_id = {$wpdb->posts}.ID";
       
-      // Explicitly filter to only published posts in the scoring
       $clauses['where']  .= " AND {$wpdb->posts}.post_status = 'publish'";
       $clauses['where']  .= " AND sbp_tr_rel.term_taxonomy_id IN ($in)";
       $clauses['fields'] .= ", COUNT(DISTINCT sbp_tr_rel.term_taxonomy_id) AS rel_score";
 
-      // Ensure GROUP BY includes post ID (and keep any existing groupby)
       $clauses['groupby'] = trim(
         $clauses['groupby']
           ? "{$clauses['groupby']}, {$wpdb->posts}.ID"
           : "{$wpdb->posts}.ID"
       );
 
-      // Put our score first; keep existing order next if present
       $clauses['orderby'] = "rel_score DESC" .
         ( $clauses['orderby'] ? ", {$clauses['orderby']}" : ", {$wpdb->posts}.post_date DESC" );
 
@@ -84,7 +97,6 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     $non_events  = array_values( array_diff( $post_types, ['tribe_events'] ) );
 
     // -------- 1) EVENTS via TEC (scored + tax_query) --------
-    // ⭐ UPDATED: Now limited to last 6 months
     if ( $want_events && $limit > 0 ) {
       $slots = $limit;
       $args = [
@@ -92,19 +104,23 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
         'posts_per_page'    => $slots,
         'post__not_in'      => $used_ids,
         'eventDisplay'      => 'custom',
-        'start_date'        => $start_date,  // ⭐ CHANGED: Was '1970-01-01', now last 6 months
-        'end_date'          => $end_date,    // ⭐ CHANGED: Was '2100-01-01', now today
-        'suppress_filters'  => false, // let our posts_clauses run for scoring
+        'start_date'        => $start_date,
+        'end_date'          => $end_date,
+        'suppress_filters'  => false,
       ];
       if ( ! empty($tax_query) ) {
         $args['tax_query'] = $tax_query;
       }
+      // ⭐ UPDATED: More explicit recurring event exclusion
       if ( $hide_recurring ) {
         $args['hide_subsequent_recurrences'] = true;
-        $args['tribeHideRecurrence']         = true; // legacy
+        $args['tribeHideRecurrence']         = true;
+        if ( ! empty($no_recurring_meta) ) {
+          $args['meta_query'] = $no_recurring_meta;
+        }
       }
 
-      $q = tribe_get_events( $args, true ); // WP_Query
+      $q = tribe_get_events( $args, true );
       foreach ( $q->posts as $p ) {
         if ( count($out) >= $limit ) break;
         if ( isset($used_ids[$p->ID]) ) continue;
@@ -114,7 +130,6 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     }
 
     // -------- 2) NON-EVENTS via WP_Query (scored + tax_query) --------
-    // ⭐ UPDATED: Also limited to last 6 months for consistency
     if ( $non_events && count($out) < $limit ) {
       $slots = $limit - count($out);
       $q = new WP_Query([
@@ -124,15 +139,14 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
         'post__not_in'        => array_values($used_ids),
         'ignore_sticky_posts' => true,
         'no_found_rows'       => true,
-        'suppress_filters'    => false,     // let our posts_clauses run for scoring
+        'suppress_filters'    => false,
         'tax_query'           => ! empty($tax_query) ? $tax_query : [],
-        'date_query'          => [          // ⭐ NEW: Date filter for non-events
+        'date_query'          => [
           [
             'after'     => $date_range,
             'inclusive' => true,
           ],
         ],
-        // Keep a deterministic secondary order after score:
         'orderby'             => 'date',
         'order'               => 'DESC',
       ]);
@@ -147,13 +161,11 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
     }
 
     // -------- 3) FALLBACK FILL (no tax filter; no scoring) --------
-    // ⭐ UPDATED: Fallback also limited to last 6 months
     $need = $limit - count($out);
     if ( $need > 0 ) {
-      // Temporarily disable scoring filter for neutral fills
       remove_filter( 'posts_clauses', $rel_filter, 10 );
 
-      // 3a) Try fill with NON-EVENTS first (fresh, newest content)
+      // 3a) Try fill with NON-EVENTS first
       if ( $non_events ) {
         $q_fill = new WP_Query([
           'post_type'           => $non_events,
@@ -162,8 +174,8 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
           'post__not_in'        => array_values($used_ids),
           'ignore_sticky_posts' => true,
           'no_found_rows'       => true,
-          'suppress_filters'    => true, // skip scoring/join entirely
-          'date_query'          => [      // ⭐ NEW: Date filter for fallback
+          'suppress_filters'    => true,
+          'date_query'          => [
             [
               'after'     => $date_range,
               'inclusive' => true,
@@ -181,22 +193,31 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
         wp_reset_postdata();
       }
 
-      // 3b) If still short and events are allowed, fill with events (no tax filter)
+      // 3b) If still short and events are allowed, fill with events
       $need = $limit - count($out);
       if ( $need > 0 && $want_events ) {
-        $q_fill_ev = tribe_get_events([
+        $fill_args = [
           'post_status'       => 'publish',
           'posts_per_page'    => $need,
           'post__not_in'      => array_values($used_ids),
           'eventDisplay'      => 'custom',
-          'start_date'        => $start_date,  // ⭐ CHANGED: Last 6 months
-          'end_date'          => $end_date,    // ⭐ CHANGED: Today
-          'hide_subsequent_recurrences' => $hide_recurring,
-          'tribeHideRecurrence'         => $hide_recurring,
+          'start_date'        => $start_date,
+          'end_date'          => $end_date,
           'orderby'           => 'event_date',
           'order'             => 'DESC',
-          'suppress_filters'  => true, // skip scoring/join on the fill
-        ], true );
+          'suppress_filters'  => true,
+        ];
+        
+        // ⭐ UPDATED: Add recurring exclusion to fallback too
+        if ( $hide_recurring ) {
+          $fill_args['hide_subsequent_recurrences'] = true;
+          $fill_args['tribeHideRecurrence']         = true;
+          if ( ! empty($no_recurring_meta) ) {
+            $fill_args['meta_query'] = $no_recurring_meta;
+          }
+        }
+        
+        $q_fill_ev = tribe_get_events($fill_args, true);
 
         foreach ( $q_fill_ev->posts as $p ) {
           if ( count($out) >= $limit ) break;
@@ -206,7 +227,6 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
         }
       }
 
-      // Restore filter in case any later code expects it
       add_filter( 'posts_clauses', $rel_filter, 10, 1 );
     }
 
@@ -219,7 +239,6 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
       // Double-check that post is actually published
       $actual_status = get_post_status($p->ID);
       if ($actual_status !== 'publish') {
-        // Log ghost posts for debugging
         if (defined('WP_DEBUG') && WP_DEBUG) {
           error_log("🚨 Ghost post filtered out from related content:");
           error_log("  Post ID: {$p->ID}");
@@ -227,7 +246,23 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
           error_log("  Type: " . ($p->post_type ?? 'Unknown'));
           error_log("  Status in DB: $actual_status");
         }
-        continue; // Skip this post
+        continue;
+      }
+      
+      // ⭐ NEW: Extra check for recurring events
+      if ($hide_recurring && $p->post_type === 'tribe_events') {
+        if (function_exists('tribe_is_recurring_event') && tribe_is_recurring_event($p->ID)) {
+          // Check if this is a child event (not the parent)
+          $recurrence_meta = get_post_meta($p->ID, '_EventRecurrence', true);
+          if (!empty($recurrence_meta)) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+              error_log("🔁 Recurring event child filtered out:");
+              error_log("  Post ID: {$p->ID}");
+              error_log("  Title: " . ($p->post_title ?? 'Unknown'));
+            }
+            continue;
+          }
+        }
       }
       
       $seen[$p->ID] = true;
@@ -235,7 +270,6 @@ if ( ! function_exists('sb_get_related_by_topic_tags') ) {
       if ( count($final) >= $limit ) break;
     }
 
-    // Always clean up our filter
     remove_filter( 'posts_clauses', $rel_filter, 10 );
 
     return $final;
