@@ -893,4 +893,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=search.js.map?ver=3ba54fdd28255f4014b3
+//# sourceMappingURL=search.js.map?ver=728c6fbecd0c9ac69bd5

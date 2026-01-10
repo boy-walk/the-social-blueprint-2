@@ -487,4 +487,4 @@ const Socials = () => {
 /***/ })
 
 }]);
-//# sourceMappingURL=footer.js.map?ver=c00e1434ab41cb1dff29
+//# sourceMappingURL=footer.js.map?ver=998f9f7a41ec45818fa1

@@ -1829,38 +1829,38 @@ function DetailedCard({
     styles: `h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
       href: href || "#",
-      className: "flex h-full w-full gap-2 group",
+      className: "flex h-full w-full gap-3 md:gap-4 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "lg:aspect-[4/3] max-h-[275px] w-1/2 lg:w-2/5 flex-shrink-0 p-2",
+        className: "w-[90px] sm:w-[100px] md:w-[120px] lg:w-[140px] flex-shrink-0 p-1 md:p-2 lg:p-2",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full h-full overflow-hidden rounded-lg bg-gray-100",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
             src: image,
             alt: image ? title : null,
-            className: "w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105"
+            className: "w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex flex-col justify-between w-full h-full pr-1 py-1",
+        className: "flex flex-col justify-between flex-1 py-2 pr-3",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "space-y-1 py-1 lg:py-2",
+          className: "space-y-1",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: date
           }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
-            className: "Blueprint-body-large-emphasized text-schemesLightOnSurface transition-colors duration-200 group-hover:text-[var(--schemesPrimary)]",
+            className: "Blueprint-body-large-emphasized text-schemesLightOnSurface transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] line-clamp-2 md:line-clamp-3",
             children: title
           }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: description
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "flex items-center pt-2 mt-auto w-full",
+          className: "flex items-center justify-between gap-3 pt-2 mt-auto",
           children: [location && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-label-large text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small md:Blueprint-label-large text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface truncate",
             children: location
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
-            className: "inline-flex ml-auto items-center gap-1 Blueprint-label-large text-schemesOnSurface group-hover:underline transition-all duration-200 group-hover:text-blue-600",
+            className: "inline-flex items-center gap-1 Blueprint-body-small md:Blueprint-label-large text-schemesOnSurface group-hover:underline transition-all duration-200 group-hover:text-blue-600 whitespace-nowrap flex-shrink-0",
             children: [buttonText, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_2__.ArrowIcon, {})]
           })]
         })]
@@ -2627,4 +2627,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=50632030132a6f84b52a
+//# sourceMappingURL=learning-hub.js.map?ver=002889d3319b8bd188ff

@@ -1320,4 +1320,4 @@ function EventsCalendar({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=72776df1cb810f4a09b1
+//# sourceMappingURL=events-calendar.js.map?ver=a04881b01085373da4ec
