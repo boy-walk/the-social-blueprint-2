@@ -1831,7 +1831,7 @@ function DetailedCard({
       href: href || "#",
       className: "flex h-full w-full gap-3 md:gap-4 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "w-[90px] sm:w-[100px] md:w-[120px] lg:w-[140px] flex-shrink-0 p-1 md:p-2 lg:p-2",
+        className: "w-[90px] sm:w-[100px] md:w-[140px] lg:w-[200px] flex-shrink-0 p-1 md:p-2 lg:p-2",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full h-full overflow-hidden rounded-lg bg-gray-100",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
@@ -2627,4 +2627,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=002889d3319b8bd188ff
+//# sourceMappingURL=learning-hub.js.map?ver=7d01548a50c19a9240a8
