@@ -44,8 +44,6 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
   const moveHandlerRef = useRef(null);
   const rafRef = useRef(null);
 
-  console.log(topics);
-
   // Convert options to DropdownSelect format
   const categoryOptions = useMemo(() =>
     (categories || []).map(opt => ({ value: String(opt.id), label: opt.name })),
@@ -53,7 +51,7 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
   );
 
   const typeOptions = useMemo(() =>
-    (types || []).map(opt => ({ value: String(opt.id), label: opt.name })),
+    (Object.values(types) || []).map(opt => ({ value: String(opt.id), label: opt.name })),
     [types]
   );
 
@@ -160,7 +158,7 @@ export function EventsCalendar({ categories, types, topics, audiences, locations
     }
 
     if (themeParam) {
-      const matchedType = (types || []).find(opt => {
+      const matchedType = (Object.values(types) || []).find(opt => {
         const idStr = String(opt.id);
         const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
         return themeParam === idStr || themeParam === optSlug;

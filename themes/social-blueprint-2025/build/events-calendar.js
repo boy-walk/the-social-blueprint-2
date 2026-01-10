@@ -548,14 +548,13 @@ function EventsCalendar({
   });
   const moveHandlerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const rafRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  console.log(topics);
 
   // Convert options to DropdownSelect format
   const categoryOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (categories || []).map(opt => ({
     value: String(opt.id),
     label: opt.name
   })), [categories]);
-  const typeOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (types || []).map(opt => ({
+  const typeOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (Object.values(types) || []).map(opt => ({
     value: String(opt.id),
     label: opt.name
   })), [types]);
@@ -649,7 +648,7 @@ function EventsCalendar({
       if (matchedCategory) setSelectedCategories([String(matchedCategory.id)]);
     }
     if (themeParam) {
-      const matchedType = (types || []).find(opt => {
+      const matchedType = (Object.values(types) || []).find(opt => {
         const idStr = String(opt.id);
         const optSlug = (opt.slug ? String(opt.slug) : slugify(opt.name || "")).toLowerCase();
         return themeParam === idStr || themeParam === optSlug;
@@ -1320,4 +1319,4 @@ function EventsCalendar({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=a04881b01085373da4ec
+//# sourceMappingURL=events-calendar.js.map?ver=5b77f8def67713dbd383
