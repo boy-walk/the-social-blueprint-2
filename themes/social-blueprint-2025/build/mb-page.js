@@ -1847,11 +1847,11 @@ function MessageBoardSlider({
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                 className: "flex",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                  className: "flex-none w-45 h-45 overflow-hidden grid place-items-center p-2",
+                  className: "flex-none overflow-hidden grid place-items-center p-2 basis-1/3 max-w-[33.333%] aspect-[4/4]",
                   children: post.thumbnail ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
                     src: post.thumbnail,
                     alt: "",
-                    className: "w-full h-full object-cover rounded-lg",
+                    className: "object-cover rounded-lg w-full h-full",
                     loading: "lazy"
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
                     viewBox: "0 0 24 24",
@@ -2355,4 +2355,4 @@ const Tag = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=ddac8c56379b458bc9f9
+//# sourceMappingURL=mb-page.js.map?ver=cf07f8bb6ee2b4eaa72d

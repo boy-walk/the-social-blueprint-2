@@ -149,12 +149,12 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
               >
                 <Card href={post.permalink} styles="h-full shadow-3x3">
                   <div className="flex">
-                    <div className="flex-none w-45 h-45 overflow-hidden grid place-items-center p-2">
+                    <div className="flex-none overflow-hidden grid place-items-center p-2 basis-1/3 max-w-[33.333%] aspect-[4/4]">
                       {post.thumbnail ? (
                         <img
                           src={post.thumbnail}
                           alt=""
-                          className="w-full h-full object-cover rounded-lg"
+                          className="object-cover rounded-lg w-full h-full"
                           loading="lazy"
                         />
                       ) : (
