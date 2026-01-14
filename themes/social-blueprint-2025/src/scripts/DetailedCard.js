@@ -14,9 +14,9 @@ export function DetailedCard({
 }) {
   return (
     <Card styles={`h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`}>
-      <a href={href || "#"} className="flex h-full w-full gap-3 md:gap-4 group">
+      <a href={href || "#"} className="flex h-full w-full gap-2 md:gap-2 group">
         {/* Image Section */}
-        <div className="w-[90px] sm:w-[100px] md:w-[140px] lg:w-[200px] flex-shrink-0 p-1 md:p-2 lg:p-2">
+        <div className="w-[160px] md:w-[200px] lg:w-[300px] flex-shrink-0 p-1 md:p-2 lg:p-2 max-h-[150px] md:max-h-[200px] lg:max-h-[260px]">
           <div className="w-full h-full overflow-hidden rounded-lg bg-gray-100">
             <img
               src={image}

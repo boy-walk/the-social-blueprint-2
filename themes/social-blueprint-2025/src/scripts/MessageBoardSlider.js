@@ -144,19 +144,17 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
             return (
               <div
                 key={post.id}
-                // keep the hover transform but avoid clipping by letting the parent be overflow-visible
                 className="flex-shrink-0 transform transition-transform duration-200 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg will-change-transform"
                 style={itemStyle}
               >
                 <Card href={post.permalink} styles="h-full shadow-3x3">
-                  <div className="flex gap-2">
-                    {/* Left tile */}
-                    <div className="flex-none w-27 h-36 overflow-hidden grid place-items-center p-2">
+                  <div className="flex">
+                    <div className="flex-none w-45 h-45 overflow-hidden grid place-items-center p-2">
                       {post.thumbnail ? (
                         <img
                           src={post.thumbnail}
                           alt=""
-                          className="aspect-[3/4] w-full h-full object-cover rounded-lg"
+                          className="w-full h-full object-cover rounded-lg"
                           loading="lazy"
                         />
                       ) : (
@@ -167,7 +165,7 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
                     </div>
 
                     {/* Content */}
-                    <div className="min-w-0 flex-1 p-4">
+                    <div className="min-w-0 flex-1 pl-2 pt-4 pb-4 pr-4">
                       {/* Chips */}
                       {cats.length > 0 && (<div className="flex flex-wrap gap-2 mb-2">
                         <span

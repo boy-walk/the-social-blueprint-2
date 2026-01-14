@@ -1520,9 +1520,9 @@ function DetailedCard({
     styles: `h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
       href: href || "#",
-      className: "flex h-full w-full gap-3 md:gap-4 group",
+      className: "flex h-full w-full gap-2 md:gap-2 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "w-[90px] sm:w-[100px] md:w-[140px] lg:w-[200px] flex-shrink-0 p-1 md:p-2 lg:p-2",
+        className: "w-[160px] md:w-[200px] lg:w-[300px] flex-shrink-0 p-1 md:p-2 lg:p-2 max-h-[150px] md:max-h-[200px] lg:max-h-[260px]",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full h-full overflow-hidden rounded-lg bg-gray-100",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
@@ -1916,20 +1916,19 @@ function MessageBoardSlider({
             width: `${100 / itemsPerView}%`
           };
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            // keep the hover transform but avoid clipping by letting the parent be overflow-visible
             className: "flex-shrink-0 transform transition-transform duration-200 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg will-change-transform",
             style: itemStyle,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
               href: post.permalink,
               styles: "h-full shadow-3x3",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                className: "flex gap-2",
+                className: "flex",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                  className: "flex-none w-27 h-36 overflow-hidden grid place-items-center p-2",
+                  className: "flex-none w-45 h-45 overflow-hidden grid place-items-center p-2",
                   children: post.thumbnail ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
                     src: post.thumbnail,
                     alt: "",
-                    className: "aspect-[3/4] w-full h-full object-cover rounded-lg",
+                    className: "w-full h-full object-cover rounded-lg",
                     loading: "lazy"
                   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
                     viewBox: "0 0 24 24",
@@ -1940,7 +1939,7 @@ function MessageBoardSlider({
                     })
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                  className: "min-w-0 flex-1 p-4",
+                  className: "min-w-0 flex-1 pl-2 pt-4 pb-4 pr-4",
                   children: [cats.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                     className: "flex flex-wrap gap-2 mb-2",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -2698,4 +2697,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=ccdbf2b4087f1e11d6b4
+//# sourceMappingURL=section-one.js.map?ver=92fde633ccd7f5c583fe

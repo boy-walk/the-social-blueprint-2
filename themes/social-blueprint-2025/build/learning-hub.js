@@ -1829,9 +1829,9 @@ function DetailedCard({
     styles: `h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
       href: href || "#",
-      className: "flex h-full w-full gap-3 md:gap-4 group",
+      className: "flex h-full w-full gap-2 md:gap-2 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "w-[90px] sm:w-[100px] md:w-[140px] lg:w-[200px] flex-shrink-0 p-1 md:p-2 lg:p-2",
+        className: "w-[160px] md:w-[200px] lg:w-[300px] flex-shrink-0 p-1 md:p-2 lg:p-2 max-h-[150px] md:max-h-[200px] lg:max-h-[260px]",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full h-full overflow-hidden rounded-lg bg-gray-100",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
@@ -2627,4 +2627,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=learning-hub.js.map?ver=7d01548a50c19a9240a8
+//# sourceMappingURL=learning-hub.js.map?ver=0fa16f3df512edee88dc
