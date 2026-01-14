@@ -1522,13 +1522,13 @@ function DetailedCard({
       href: href || "#",
       className: "flex h-full w-full gap-2 md:gap-2 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "w-[160px] md:w-[200px] lg:w-[300px] flex-shrink-0 p-1 md:p-2 lg:p-2 max-h-[150px] md:max-h-[200px] lg:max-h-[260px]",
+        className: "flex-shrink-0 p-1 md:p-2 lg:p-2 ",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-full h-full overflow-hidden rounded-lg bg-gray-100",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
             src: image,
             alt: image ? title : null,
-            className: "w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+            className: "w-[160px] md:w-[200px] lg:w-[300px] max-h-[150px] md:max-h-[200px] lg:max-h-[260px] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -2697,4 +2697,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=92fde633ccd7f5c583fe
+//# sourceMappingURL=section-one.js.map?ver=12e5f49135d5dc2406d0

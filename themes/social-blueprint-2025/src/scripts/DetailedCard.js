@@ -16,12 +16,12 @@ export function DetailedCard({
     <Card styles={`h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`}>
       <a href={href || "#"} className="flex h-full w-full gap-2 md:gap-2 group">
         {/* Image Section */}
-        <div className="w-[160px] md:w-[200px] lg:w-[300px] flex-shrink-0 p-1 md:p-2 lg:p-2 max-h-[150px] md:max-h-[200px] lg:max-h-[260px]">
+        <div className="flex-shrink-0 p-1 md:p-2 lg:p-2 ">
           <div className="w-full h-full overflow-hidden rounded-lg bg-gray-100">
             <img
               src={image}
               alt={image ? title : null}
-              className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+              className="w-[160px] md:w-[200px] lg:w-[300px] max-h-[150px] md:max-h-[200px] lg:max-h-[260px] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
             />
           </div>
         </div>
