@@ -1517,41 +1517,42 @@ function DetailedCard({
   shadow = false
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Card__WEBPACK_IMPORTED_MODULE_1__.Card, {
-    styles: `h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? 'shadow-3x3' : ''}`,
+    styles: `h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 ${shadow ? "shadow-3x3" : ""}`,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
       href: href || "#",
-      className: "flex h-full w-full gap-2 md:gap-2 group",
+      className: "flex h-full w-full gap-2 group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "flex-shrink-0 p-1 md:p-2 lg:p-2 ",
+        className: "flex-shrink-0 basis-2/5 max-w-[40%] p-2",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "w-full h-full overflow-hidden rounded-lg bg-gray-100",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          className: "w-full aspect-[6/5] overflow-hidden rounded-lg bg-gray-100",
+          children: image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
             src: image,
-            alt: image ? title : null,
-            className: "w-[160px] md:w-[200px] lg:w-[300px] max-h-[150px] md:max-h-[200px] lg:max-h-[260px] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+            alt: title || "",
+            loading: "lazy",
+            className: "w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
           })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex flex-col justify-between flex-1 py-2 pr-3",
+        className: "flex flex-col justify-between flex-1 py-2 pr-3 min-w-0",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "space-y-1",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant group-hover:text-schemesOnSurface",
             children: date
           }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
-            className: "Blueprint-body-large-emphasized text-schemesLightOnSurface transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] line-clamp-2 md:line-clamp-3",
+            className: "Blueprint-body-large-emphasized text-schemesLightOnSurface group-hover:text-[var(--schemesPrimary)] line-clamp-2 md:line-clamp-3",
             children: title
           }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 transition-colors duration-200 group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 group-hover:text-schemesOnSurface",
             children: description
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "flex items-center justify-between gap-3 pt-2 mt-auto",
           children: [location && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-small md:Blueprint-label-large text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface truncate",
+            className: "Blueprint-body-small md:Blueprint-label-large text-schemesOnSurfaceVariant truncate",
             children: location
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
-            className: "inline-flex items-center gap-1 Blueprint-body-small md:Blueprint-label-large text-schemesOnSurface group-hover:underline transition-all duration-200 group-hover:text-blue-600 whitespace-nowrap flex-shrink-0",
+            className: "inline-flex items-center gap-1 Blueprint-body-small md:Blueprint-label-large text-schemesOnSurface group-hover:underline whitespace-nowrap flex-shrink-0",
             children: [buttonText, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_assets_icons_arrow__WEBPACK_IMPORTED_MODULE_2__.ArrowIcon, {})]
           })]
         })]
@@ -2697,4 +2698,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=12e5f49135d5dc2406d0
+//# sourceMappingURL=section-one.js.map?ver=6b75e1c5108cc2ac7968
