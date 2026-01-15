@@ -49,7 +49,7 @@ export function ContentCard({
             />
           )}
           {badge && (
-            <span className="absolute left-1 top-1 z-10 rounded bg-schemesPrimary text-schemesOnPrimary px-1.5 py-1 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100">
+            <span className="absolute left-3 top-3 z-20 rounded bg-white/80 px-3 py-1 Blueprint-label-small text-schemesOnSurfaceVariant backdrop-blur-sm group-hover:opacity-0">
               {badge}
             </span>
           )}
@@ -72,7 +72,7 @@ export function ContentCard({
             />
             <div className="flex flex-col gap-1 transition-transform duration-200 ease-in-out">
               {date && (
-                <div className="Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
+                <div className="Blueprint-body-small text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface">
                   {date}
                 </div>
               )}

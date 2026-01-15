@@ -172,7 +172,6 @@ $dynamic_props = [
   'pdfUrl' => $pdf_flipbook ? $pdf_flipbook : null,
 ];
 
-// ========== HISTORICAL PHOTOS - OPTIMIZED! ==========
 $historical_photos = get_posts([
   'post_type' => 'historical_photo',
   'posts_per_page' => 6,
@@ -180,7 +179,6 @@ $historical_photos = get_posts([
   'order' => 'DESC',
 ]);
 
-// ========== RECENT ARTICLES ==========
 $articles = get_posts([
   'post_type' => 'article',
   'posts_per_page' => 3,

@@ -170,7 +170,7 @@ export function MessageBoardSlider({ messageBoard = [], displaySlider = true }) 
                       {cats.length > 0 && (<div className="flex flex-wrap gap-2 mb-2">
                         <span
                           key={`${cats[0].id}-cat`}
-                          className="rounded-md px-3 py-1.5 bg-schemesSurfaceContainer text-schemesOnSurface Blueprint-label-small"
+                          className="rounded-md px-3 py-1.5 bg-schemesPrimary text-schemesOnPrimary Blueprint-label-small"
                         >
                           {cats[0]}
                         </span>

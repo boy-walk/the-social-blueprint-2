@@ -380,7 +380,7 @@ function ContentCard({
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          className: "absolute left-1 top-1 z-10 rounded bg-schemesPrimary text-schemesOnPrimary px-1.5 py-1 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100",
+          className: "absolute left-3 top-3 z-20 rounded bg-white/80 px-3 py-1 Blueprint-label-small text-schemesOnSurfaceVariant backdrop-blur-sm group-hover:opacity-0",
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -390,7 +390,7 @@ function ContentCard({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "flex flex-col gap-1 transition-transform duration-200 ease-in-out",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: date
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
             className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] ",
@@ -1462,4 +1462,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=generic-archive.js.map?ver=77fff9a924a0c845d7c1
+//# sourceMappingURL=generic-archive.js.map?ver=03a2206f26a5f2120ce5

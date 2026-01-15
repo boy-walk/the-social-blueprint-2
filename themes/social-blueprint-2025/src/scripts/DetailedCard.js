@@ -35,7 +35,7 @@ export function DetailedCard({
         <div className="flex flex-col justify-between flex-1 py-2 pr-3 min-w-0">
           <div className="space-y-1">
             {date && (
-              <p className="Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant group-hover:text-schemesOnSurface">
+              <p className="Blueprint-body-small text-schemesOnSurfaceVariant group-hover:text-schemesOnSurface">
                 {date}
               </p>
             )}
@@ -47,7 +47,7 @@ export function DetailedCard({
             )}
 
             {description && (
-              <p className="Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 group-hover:text-schemesOnSurface">
+              <p className="Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 group-hover:text-schemesOnSurface">
                 {description}
               </p>
             )}

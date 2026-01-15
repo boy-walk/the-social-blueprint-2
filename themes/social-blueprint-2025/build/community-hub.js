@@ -2093,7 +2093,7 @@ function ContentCard({
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          className: "absolute left-1 top-1 z-10 rounded bg-schemesPrimary text-schemesOnPrimary px-1.5 py-1 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100",
+          className: "absolute left-3 top-3 z-20 rounded bg-white/80 px-3 py-1 Blueprint-label-small text-schemesOnSurfaceVariant backdrop-blur-sm group-hover:opacity-0",
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -2103,7 +2103,7 @@ function ContentCard({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "flex flex-col gap-1 transition-transform duration-200 ease-in-out",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "Blueprint-body-small md:Blueprint-body-small lg:Blueprint-body-medium text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant transition-colors duration-200 group-hover:text-schemesOnSurface",
             children: date
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
             className: " Blueprint-body-medium-emphasized md:Blueprint-body-medium-emphasized lg:Blueprint-body-large-emphasized line-clamp-2 transition-colors duration-200 group-hover:text-[var(--schemesPrimary)] ",
@@ -2174,13 +2174,13 @@ function DetailedCard({
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "space-y-1",
           children: [date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small text-schemesOnSurfaceVariant group-hover:text-schemesOnSurface",
             children: date
           }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
             className: "Blueprint-body-large-emphasized text-schemesLightOnSurface group-hover:text-[var(--schemesPrimary)] line-clamp-2 md:line-clamp-3",
             children: title
           }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-            className: "Blueprint-body-small md:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 group-hover:text-schemesOnSurface",
+            className: "Blueprint-body-small md:Blueprint-body-medium lg:Blueprint-body-medium text-schemesOnSurfaceVariant line-clamp-2 group-hover:text-schemesOnSurface",
             children: description
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -2587,7 +2587,7 @@ function MessageBoardSlider({
                   children: [cats.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                     className: "flex flex-wrap gap-2 mb-2",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                      className: "rounded-md px-3 py-1.5 bg-schemesSurfaceContainer text-schemesOnSurface Blueprint-label-small",
+                      className: "rounded-md px-3 py-1.5 bg-schemesPrimary text-schemesOnPrimary Blueprint-label-small",
                       children: cats[0]
                     }, `${cats[0].id}-cat`)
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
@@ -2913,4 +2913,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=cbb85ac77f1cff0e37c2
+//# sourceMappingURL=community-hub.js.map?ver=8af21d9d699b000bddda
