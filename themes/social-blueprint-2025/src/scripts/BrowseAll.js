@@ -177,7 +177,7 @@ export default function BrowseAll({
           : data.items.map((post) => (
             <div
               key={post.id}
-              className={`${gridHeights.base} ${gridHeights.md} ${gridHeights.lg} overflow-hidden rounded-xl`}
+              className={`${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`}
             >
               <ContentCard
                 image={post.thumbnail}

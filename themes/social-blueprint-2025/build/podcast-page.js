@@ -1334,7 +1334,7 @@ function ContentCard({
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: " relative p-1 pt-2 h-auto md:h-[116px] lg:h-[128px] md:overflow-hidden ",
+        className: " relative p-1 pt-2 flex-1 min-h-0 overflow-hidden ",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: " pointer-events-none absolute inset-x-0 bottom-0 h-8 opacity-0 md:opacity-100 transition-opacity duration-200 md:group-hover:opacity-0 "
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -2749,4 +2749,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=podcast-page.js.map?ver=5613b6515babfa770402
+//# sourceMappingURL=podcast-page.js.map?ver=67e92c646092121ab8af
