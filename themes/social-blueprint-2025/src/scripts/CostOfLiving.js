@@ -35,7 +35,7 @@ export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBan
       </div>)}
       <div className="max-w-[1600px] mx-auto">
         <BrowseAll
-          title="Browse all cost of living"
+          title="Browse all Cost of Living"
           endpoint="/wp-json/tsb/v1/browse"
           baseQuery={{
             per_page: 10,

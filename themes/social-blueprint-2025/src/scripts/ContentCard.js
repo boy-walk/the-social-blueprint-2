@@ -49,7 +49,7 @@ export function ContentCard({
             />
           )}
           {badge && (
-            <span className="absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100">
+            <span className="absolute left-1 top-1 z-10 rounded bg-schemesPrimary text-schemesOnPrimary px-1.5 py-1 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100">
               {badge}
             </span>
           )}

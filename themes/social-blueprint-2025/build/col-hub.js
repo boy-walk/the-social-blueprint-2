@@ -1864,7 +1864,7 @@ function ContentCard({
           loading: "lazy",
           decoding: "async"
         }), badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          className: "absolute left-2 top-2 z-10 rounded bg-schemesSurfaceContainer px-4 py-1.5 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100",
+          className: "absolute left-1 top-1 z-10 rounded bg-schemesPrimary text-schemesOnPrimary px-1.5 py-1 Blueprint-label-small font-medium transition-colors duration-200 group-hover:bg-blue-100",
           children: badge
         })]
       }), title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -1967,7 +1967,7 @@ function CostOfLiving({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "max-w-[1600px] mx-auto",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_BrowseAll__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        title: "Browse all cost of living",
+        title: "Browse all Cost of Living",
         endpoint: "/wp-json/tsb/v1/browse",
         baseQuery: {
           per_page: 10,
@@ -2465,4 +2465,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=7a3b8b101452a0b4c737
+//# sourceMappingURL=col-hub.js.map?ver=924077932d58db5738c4

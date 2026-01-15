@@ -25,6 +25,7 @@ foreach ($rows as $row) {
       'title'     => get_the_title($pid),
       'permalink' => get_permalink($pid),
       'thumbnail' => get_the_post_thumbnail_url($pid, 'medium_large'),
+      'subtitle' =>  get_the_excerpt($pid),
       'post_type' => get_post_type($pid),
       'date'      => get_the_date('', $pid),
     ];
