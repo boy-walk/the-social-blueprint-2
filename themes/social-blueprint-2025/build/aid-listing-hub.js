@@ -2322,7 +2322,7 @@ function QuickLinks({
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
                     src: imageUrl,
                     alt: category.name,
-                    className: "max-w-full max-h-[4em] object-contain"
+                    className: "max-w-full max-h-[4em] object-contain rounded-lg"
                   })
                 }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                   className: "lg:Blueprint-body-large-emphasized md:Blueprint-body-medium-emphasized Blueprint-body-small-emphasized",
@@ -2390,4 +2390,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=aid-listing-hub.js.map?ver=46c8c91c7aaeb63bdb29
+//# sourceMappingURL=aid-listing-hub.js.map?ver=afd42ae53c9148d5a8cc

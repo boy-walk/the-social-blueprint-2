@@ -100,7 +100,7 @@ export function QuickLinks({ categories, type = 'gd_place' }) {
                         <img
                           src={imageUrl}
                           alt={category.name}
-                          className="max-w-full max-h-[4em] object-contain"
+                          className="max-w-full max-h-[4em] object-contain rounded-lg"
                         />
                       </div>
                     ) : null}
