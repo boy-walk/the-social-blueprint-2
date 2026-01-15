@@ -173,15 +173,11 @@ $dynamic_props = [
 ];
 
 // ========== HISTORICAL PHOTOS - OPTIMIZED! ==========
-// BEFORE: 12 random photos with ORDER BY RAND() (very slow!)
-// AFTER: 6 photos with deterministic selection (changes daily, same all day)
-// This is 50-100ms faster and more cache-friendly
-$offset = (int)(date('z') % 10); // Day of year modulo 10
 $historical_photos = get_posts([
   'post_type' => 'historical_photo',
-  'posts_per_page' => 6,  // Reduced from 12
-  'orderby' => 'date',     // No more RAND()!
-  'offset' => $offset,     // Rotates daily
+  'posts_per_page' => 6,
+  'orderby' => 'date',
+  'order' => 'DESC',
 ]);
 
 // ========== RECENT ARTICLES ==========
