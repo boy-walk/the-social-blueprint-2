@@ -86,7 +86,7 @@ export function QuickLinks({ categories, type = 'gd_place' }) {
                   <div className="flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full">
                     {hasFaIcon ? (
                       <div
-                        className="rounded-[12px] p-1 flex items-center justify-center"
+                        className="rounded-[12px] p-1 flex items-center justify-start"
                         style={{ backgroundColor: bgColor }}
                       >
                         <i
@@ -96,7 +96,7 @@ export function QuickLinks({ categories, type = 'gd_place' }) {
                         />
                       </div>
                     ) : imageUrl ? (
-                      <div className="w-full h-full flex items-center justify-center">
+                      <div className="w-full h-full flex items-center justify-start">
                         <img
                           src={imageUrl}
                           alt={category.name}

@@ -2308,7 +2308,7 @@ function QuickLinks({
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                 className: "flex flex-col gap-2 h-[8em] justify-between items-start p-4 w-full",
                 children: [hasFaIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                  className: "rounded-[12px] p-1 flex items-center justify-center",
+                  className: "rounded-[12px] p-1 flex items-center justify-start",
                   style: {
                     backgroundColor: bgColor
                   },
@@ -2320,7 +2320,7 @@ function QuickLinks({
                     "aria-hidden": "true"
                   })
                 }) : imageUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                  className: "w-full h-full flex items-center justify-center",
+                  className: "w-full h-full flex items-center justify-start",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
                     src: imageUrl,
                     alt: category.name,
@@ -2392,4 +2392,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=health-hub.js.map?ver=e56f74d8656dd41790d4
+//# sourceMappingURL=health-hub.js.map?ver=fd37ad805a08a6212e8b
