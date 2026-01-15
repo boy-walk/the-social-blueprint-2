@@ -1537,7 +1537,7 @@ function BrowseAll({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-stretch",
       children: loading ? skeletons : data.items.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: `${gridHeights.base} ${gridHeights.md} ${gridHeights.lg}`,
+        className: `${gridHeights.base} ${gridHeights.md} ${gridHeights.lg} overflow-hidden rounded-xl`,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
           image: post.thumbnail,
           title: post.title,
@@ -2499,4 +2499,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=support-hub.js.map?ver=2f9044f899f0e1d9721b
+//# sourceMappingURL=support-hub.js.map?ver=1407dd1fc9ee1e1b5570
