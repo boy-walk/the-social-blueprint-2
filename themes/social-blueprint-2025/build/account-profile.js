@@ -753,7 +753,7 @@ function AccountSettings({
             const res = await fetch('/wp-json/custom/v1/upload-avatar', {
               method: 'POST',
               headers: {
-                'X-WP-Nonce': window.WPData?.nonce
+                'X-WP-Nonce': window.wpData?.nonce
               },
               body: formData
             });
@@ -1134,4 +1134,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=4738bf6b91f7239dadf2
+//# sourceMappingURL=account-profile.js.map?ver=650cf907506339c3c5a4

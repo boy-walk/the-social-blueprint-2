@@ -54,7 +54,7 @@ export function AccountSettings({ profile }) {
                 const res = await fetch('/wp-json/custom/v1/upload-avatar', {
                   method: 'POST',
                   headers: {
-                    'X-WP-Nonce': window.WPData?.nonce,
+                    'X-WP-Nonce': window.wpData?.nonce,
                   },
                   body: formData,
                 });
