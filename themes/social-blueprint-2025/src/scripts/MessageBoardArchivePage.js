@@ -4,6 +4,36 @@ import { Button } from "./Button";
 import { MagnifyingGlassIcon, FunnelSimpleIcon, XIcon } from "@phosphor-icons/react";
 import { Breadcrumbs } from "./Breadcrumbs";
 
+const getCategoryColor = (label, isSelected = false) => {
+  const colors = [
+    { bg: "bg-blue-100", text: "text-blue-800", selectedBg: "bg-blue-600" },
+    { bg: "bg-emerald-100", text: "text-emerald-800", selectedBg: "bg-emerald-600" },
+    { bg: "bg-amber-100", text: "text-amber-800", selectedBg: "bg-amber-600" },
+    { bg: "bg-rose-100", text: "text-rose-800", selectedBg: "bg-rose-600" },
+    { bg: "bg-violet-100", text: "text-violet-800", selectedBg: "bg-violet-600" },
+    { bg: "bg-cyan-100", text: "text-cyan-800", selectedBg: "bg-cyan-600" },
+    { bg: "bg-orange-100", text: "text-orange-800", selectedBg: "bg-orange-600" },
+    { bg: "bg-pink-100", text: "text-pink-800", selectedBg: "bg-pink-600" },
+    { bg: "bg-teal-100", text: "text-teal-800", selectedBg: "bg-teal-600" },
+    { bg: "bg-indigo-100", text: "text-indigo-800", selectedBg: "bg-indigo-600" },
+    { bg: "bg-lime-100", text: "text-lime-800", selectedBg: "bg-lime-600" },
+    { bg: "bg-fuchsia-100", text: "text-fuchsia-800", selectedBg: "bg-fuchsia-600" },
+  ];
+
+  // Hash the label to get a consistent index
+  let hash = 0;
+  for (let i = 0; i < label.length; i++) {
+    hash = label.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % colors.length;
+  const color = colors[index];
+
+  if (isSelected) {
+    return { bg: color.selectedBg, text: "text-white" };
+  }
+  return { bg: color.bg, text: color.text };
+};
+
 export default function MessageBoardArchivePage(props) {
   const {
     postType,
@@ -419,14 +449,17 @@ export default function MessageBoardArchivePage(props) {
           <div className="flex-1">
             {categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-2">
-                {categories.map((label, idx) => (
-                  <span
-                    key={`${item.id}-cat-${idx}`}
-                    className="px-3 py-2 rounded-lg bg-[var(--schemesSurfaceContainerHigh)] text-[var(--schemesOnSurface)] Blueprint-label-small"
-                  >
-                    {label}
-                  </span>
-                ))}
+                {categories.map((label, idx) => {
+                  const color = getCategoryColor(label);
+                  return (
+                    <span
+                      key={`${item.id}-cat-${idx}`}
+                      className={`px-3 py-1.5 rounded-lg ${color.bg} ${color.text} Blueprint-label-small`}
+                    >
+                      {label}
+                    </span>
+                  );
+                })}
               </div>
             )}
 
@@ -568,25 +601,29 @@ export default function MessageBoardArchivePage(props) {
               <button
                 type="button"
                 onClick={() => setCategory("")}
-                className={`px-3 py-2 rounded-sm whitespace-nowrap ${currentCategorySel ? "bg-[var(--schemesSurfaceContainerHigh)]" : "bg-gray-500 text-[var(--schemesOnPrimary)]"
+                className={`px-3 py-2 rounded-full whitespace-nowrap transition-colors ${!currentCategorySel
+                  ? "bg-gray-700 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                   } Blueprint-label-small`}
               >
                 All
               </button>
-              {categoryRoots.map((opt) => (
-                <button
-                  key={opt.id}
-                  type="button"
-                  onClick={() => setCategory(opt.id)}
-                  className={`px-3 py-2 rounded-sm whitespace-nowrap ${String(currentCategorySel) === String(opt.id)
-                    ? "bg-gray-500 text-[var(--schemesOnPrimary)]"
-                    : "bg-[var(--schemesSurfaceContainerHigh)]"
-                    } Blueprint-label-small`}
-                  title={opt.name}
-                >
-                  {opt.name}
-                </button>
-              ))}
+              {categoryRoots.map((opt) => {
+                const isSelected = String(currentCategorySel) === String(opt.id);
+                const color = getCategoryColor(opt.name, isSelected);
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => setCategory(opt.id)}
+                    className={`px-3 py-2 rounded-full whitespace-nowrap transition-colors ${color.bg} ${color.text} ${!isSelected ? "hover:opacity-80" : ""
+                      } Blueprint-label-small`}
+                    title={opt.name}
+                  >
+                    {opt.name}
+                  </button>
+                );
+              })}
             </div>
           )}
           {/* Error */}

@@ -1455,6 +1455,7 @@ function BrowseAll({
   filters = EMPTY,
   initialFilter = "All",
   gridHeights = DEFAULT_GRID_HEIGHTS,
+  showBadge = true,
   className = ""
 }) {
   var _baseQuery$per_page;
@@ -1601,7 +1602,7 @@ function BrowseAll({
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
           image: post.thumbnail,
           title: post.title,
-          badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
+          badge: showBadge ? (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type) : undefined,
           type: post.post_type,
           date: post.date,
           subtitle: post.meta?.location || post.excerpt || post.content || "",
@@ -1974,6 +1975,7 @@ function CostOfLiving({
           hide_recurring: true,
           post_type: ['gd_cost_of_living']
         },
+        showBadge: false,
         className: "p-6 md:p-8 lg:p-16"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "py-16 px-4 sm:px-8 lg:px-16",
@@ -2465,4 +2467,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=col-hub.js.map?ver=2f0ae8363349a09950fc
+//# sourceMappingURL=col-hub.js.map?ver=d582581b25de99f24ea2

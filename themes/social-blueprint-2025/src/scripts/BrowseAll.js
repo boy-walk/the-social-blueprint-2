@@ -25,6 +25,7 @@ export default function BrowseAll({
   filters = EMPTY,
   initialFilter = "All",
   gridHeights = DEFAULT_GRID_HEIGHTS,
+  showBadge = true,
   className = "",
 }) {
   const [active, setActive] = useState(initialFilter);
@@ -182,7 +183,7 @@ export default function BrowseAll({
               <ContentCard
                 image={post.thumbnail}
                 title={post.title}
-                badge={getBadge(post.post_type)}
+                badge={showBadge ? getBadge(post.post_type) : undefined}
                 type={post.post_type}
                 date={post.date}
                 subtitle={post.meta?.location || post.excerpt || post.content || ""}

@@ -716,7 +716,7 @@ function AccountSettings({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-WP-Nonce': window.WPData?.nonce
+        'X-WP-Nonce': window.wpData?.nonce
       },
       body: JSON.stringify(form)
     });
@@ -1134,4 +1134,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=56f49eebf9c3a6933d19
+//# sourceMappingURL=account-profile.js.map?ver=4738bf6b91f7239dadf2

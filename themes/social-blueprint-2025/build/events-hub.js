@@ -1402,6 +1402,7 @@ function BrowseAll({
   filters = EMPTY,
   initialFilter = "All",
   gridHeights = DEFAULT_GRID_HEIGHTS,
+  showBadge = true,
   className = ""
 }) {
   var _baseQuery$per_page;
@@ -1548,7 +1549,7 @@ function BrowseAll({
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ContentCard__WEBPACK_IMPORTED_MODULE_1__.ContentCard, {
           image: post.thumbnail,
           title: post.title,
-          badge: (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type),
+          badge: showBadge ? (0,_getBadge__WEBPACK_IMPORTED_MODULE_2__.getBadge)(post.post_type) : undefined,
           type: post.post_type,
           date: post.date,
           subtitle: post.meta?.location || post.excerpt || post.content || "",
@@ -2652,4 +2653,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=events-hub.js.map?ver=ab68631a1ddea97b1844
+//# sourceMappingURL=events-hub.js.map?ver=2db113f74067be336b38

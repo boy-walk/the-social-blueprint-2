@@ -19,7 +19,7 @@ export function AccountSettings({ profile }) {
   const saveChanges = async () => {
     await fetch('/wp-json/custom/v1/user-profile', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': window.WPData?.nonce, },
+      headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': window.wpData?.nonce, },
       body: JSON.stringify(form)
     });
     setForm(form);

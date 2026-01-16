@@ -42,6 +42,7 @@ export function CostOfLiving({ breadcrumbs = [], categories = [], sponsorshipBan
             hide_recurring: true,
             post_type: ['gd_cost_of_living']
           }}
+          showBadge={false}
           className="p-6 md:p-8 lg:p-16"
         />
         <div className="py-16 px-4 sm:px-8 lg:px-16">
