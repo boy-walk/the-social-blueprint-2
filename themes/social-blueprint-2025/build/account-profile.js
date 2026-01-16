@@ -358,7 +358,7 @@ const AccountChangePassword = ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': window.WPData?.nonce || ''
+          'X-WP-Nonce': window.wpData?.nonce || ''
         },
         credentials: 'include',
         body: JSON.stringify({
@@ -1134,4 +1134,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=account-profile.js.map?ver=650cf907506339c3c5a4
+//# sourceMappingURL=account-profile.js.map?ver=6b64503aee119985e517

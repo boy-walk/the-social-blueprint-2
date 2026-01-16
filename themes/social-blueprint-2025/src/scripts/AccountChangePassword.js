@@ -114,7 +114,7 @@ export const AccountChangePassword = ({ user }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': window.WPData?.nonce || '',
+          'X-WP-Nonce': window.wpData?.nonce || '',
         },
         credentials: 'include',
         body: JSON.stringify({
@@ -185,8 +185,8 @@ export const AccountChangePassword = ({ user }) => {
       {status && (
         <div
           className={`mb-6 p-4 rounded-lg border ${status.success
-              ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess'
-              : 'bg-stateError/10 border-stateError text-stateError'
+            ? 'bg-stateSuccess/10 border-stateSuccess text-stateSuccess'
+            : 'bg-stateError/10 border-stateError text-stateError'
             }`}
           role="alert"
         >
