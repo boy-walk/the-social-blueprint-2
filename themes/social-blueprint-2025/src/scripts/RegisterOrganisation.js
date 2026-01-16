@@ -135,8 +135,6 @@ export function RegisterOrganisation() {
         setError(data.message);
         return;
       }
-      console.log(res)
-
       setSuccess(true);
       setError(null);
     } catch (err) {

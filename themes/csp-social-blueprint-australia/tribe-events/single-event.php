@@ -192,26 +192,3 @@ $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $befo
 }
 }
 </style>
-<script>
-	/*jQuery(window).scroll(function($){
-if(jQuery("#pattern-list-container").length > 0){
-var offsetTopContainer = document.getElementById("pattern-list-container").offsetTop - window.scrollY;
-//var offsetTopContainer = window.scrollY + document.querySelector('#pattern-list-container').getBoundingClientRect().top
-//console.log(offsetTopContainer);
-    if (offsetTopContainer <= 0) {
-    var listWidth  = document.getElementById("pattern-list-container").offsetWidth;
-    document.getElementById("pattern-list-container").style.width = listWidth + "px";
-//    alert(listWidth);
-jQuery('#pattern-list-container').addClass('csp-sticky');
-//        $('nav div').addClass('visible-title');
-    }
-    else {
-        jQuery('#pattern-list-container').removeClass('csp-sticky');
-//        $('nav div').removeClass('visible-title');
-    }
-}
-
-
-
-});*/
-</script>

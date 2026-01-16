@@ -213,7 +213,6 @@ function RegisterOrganisation() {
         setError(data.message);
         return;
       }
-      console.log(res);
       setSuccess(true);
       setError(null);
     } catch (err) {
@@ -576,4 +575,4 @@ function TextField({
 /***/ })
 
 }]);
-//# sourceMappingURL=register-organisation.js.map?ver=65b27b99220d61cf3ba2
+//# sourceMappingURL=register-organisation.js.map?ver=4398720dd7ccfcc7e144
