@@ -185,47 +185,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function useAdminBarOffset() {
-  const [offset, setOffset] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const root = document.getElementById("header");
-    if (!root) return;
-    const getBar = () => document.getElementById("wpadminbar");
-    const compute = () => {
-      const bar = getBar();
-      const h = bar ? Math.round(bar.getBoundingClientRect().height) : 0;
-      setOffset(h);
-      if (bar) {
-        bar.style.position = "fixed";
-        bar.style.top = "0";
-        bar.style.left = "0";
-        bar.style.right = "0";
-        bar.style.zIndex = "99999";
-      }
-      root.style.position = "sticky";
-      root.style.top = `${h}px`;
-      root.style.zIndex = "1000";
-    };
-    compute();
-    const ro = window.ResizeObserver && getBar() ? new ResizeObserver(compute) : null;
-    if (ro && getBar()) ro.observe(getBar());
-    window.addEventListener("resize", compute);
-    const id = setInterval(() => {
-      if (!getBar()) return;
-      compute();
-      clearInterval(id);
-    }, 200);
-    return () => {
-      window.removeEventListener("resize", compute);
-      if (ro) ro.disconnect();
-      clearInterval(id);
-    };
-  }, []);
-  return offset;
-}
 const MENU_SECTIONS = {
   "whats-on": [{
-    title: "Discover",
     items: [{
       label: "View Events Calendar",
       href: "/events"
@@ -237,7 +198,6 @@ const MENU_SECTIONS = {
       href: "/events-calendar/community/add"
     }]
   }, {
-    title: "Browse by Audience",
     items: [{
       label: "For Families",
       href: "/events?audience=families"
@@ -253,7 +213,6 @@ const MENU_SECTIONS = {
     }]
   }],
   directory: [{
-    title: "Browse",
     items: [{
       label: "All Listings",
       href: "/directory"
@@ -271,7 +230,6 @@ const MENU_SECTIONS = {
       href: "/listings"
     }]
   }, {
-    title: "Contribute",
     items: [{
       label: "Add a Listing",
       href: "/add-listing-hub"
@@ -281,7 +239,6 @@ const MENU_SECTIONS = {
     }]
   }],
   "blueprint-stories": [{
-    title: "Read & Listen",
     items: [{
       label: "Articles and blogs",
       href: "/articles"
@@ -293,7 +250,6 @@ const MENU_SECTIONS = {
       href: "/podcasts/?series=candid-conversations"
     }]
   }, {
-    title: "Categories",
     items: [{
       label: "Community & Connection",
       href: "/stories-and-interviews?theme=community-connection"
@@ -306,7 +262,6 @@ const MENU_SECTIONS = {
     }]
   }],
   "about-us": [{
-    title: "About Us",
     items: [{
       label: "Our Mission",
       href: "/about-us"
@@ -322,7 +277,6 @@ const MENU_SECTIONS = {
     }]
   }],
   "message-board": [{
-    title: "Message Board",
     items: [{
       label: "Browse Message board",
       href: "/message-boards"
@@ -331,7 +285,6 @@ const MENU_SECTIONS = {
       href: "/add-listing/message-boards/"
     }]
   }, {
-    title: "Browse by category",
     items: [{
       label: "Activities | Program Alerts",
       href: "/message-boards?cat=activities"
@@ -347,7 +300,6 @@ const MENU_SECTIONS = {
     }]
   }],
   "explore-by": [{
-    title: "Explore by theme",
     items: [{
       label: "Community & Connection",
       href: "/community-connection"
@@ -365,7 +317,6 @@ const MENU_SECTIONS = {
       href: "/events-and-experiences"
     }]
   }, {
-    title: "Explore by content type",
     items: [{
       label: "Events",
       href: "/events"
@@ -380,7 +331,6 @@ const MENU_SECTIONS = {
       href: "/message-boards"
     }]
   }, {
-    title: "Explore by topic",
     items: [{
       label: "View all topics",
       href: "/topics"
@@ -395,6 +345,108 @@ const SECTION_ROUTES = {
   "message-board": "/message-boards",
   "explore-by": "/topics"
 };
+const SECTION_LABELS = {
+  "whats-on": "Whats on",
+  directory: "Directory",
+  "blueprint-stories": "Blueprint stories",
+  "about-us": "About us",
+  "message-board": "Message board",
+  "explore-by": "Explore by"
+};
+const goto = href => {
+  window.location.href = href;
+};
+function useAdminBarOffset() {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const root = document.getElementById("header");
+    if (!root) return;
+    const getBar = () => document.getElementById("wpadminbar");
+    const compute = () => {
+      const bar = getBar();
+      const h = bar ? Math.round(bar.getBoundingClientRect().height) : 0;
+      if (bar) {
+        bar.style.position = "fixed";
+        bar.style.top = "0";
+        bar.style.left = "0";
+        bar.style.right = "0";
+        bar.style.zIndex = "99999";
+      }
+      root.style.position = "sticky";
+      root.style.top = `${h}px`;
+      root.style.zIndex = "1000";
+    };
+    compute();
+    const bar = getBar();
+    const ro = window.ResizeObserver && bar ? new ResizeObserver(compute) : null;
+    if (ro && bar) ro.observe(bar);
+    window.addEventListener("resize", compute);
+    const id = setInterval(() => {
+      if (!getBar()) return;
+      compute();
+      clearInterval(id);
+    }, 200);
+    return () => {
+      window.removeEventListener("resize", compute);
+      ro?.disconnect();
+      clearInterval(id);
+    };
+  }, []);
+}
+function useClickOutside(ref, handler, active = true) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!active) return;
+    const onClick = e => {
+      if (ref.current && !ref.current.contains(e.target)) handler();
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [ref, handler, active]);
+}
+function useScrollState() {
+  const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const SCROLL_DOWN_THRESHOLD = 20;
+    const SCROLL_UP_THRESHOLD = 1;
+    let ticking = false;
+    let lastScrollY = window.scrollY || 0;
+    setScrolled(lastScrollY > SCROLL_DOWN_THRESHOLD);
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY || 0;
+        const scrollingDown = y > lastScrollY;
+        lastScrollY = y;
+        setScrolled(prev => {
+          if (!prev && scrollingDown && y > SCROLL_DOWN_THRESHOLD) return true;
+          if (prev && y <= SCROLL_UP_THRESHOLD) return false;
+          return prev;
+        });
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, {
+      passive: true
+    });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return scrolled;
+}
+function useMediaQuery(query) {
+  const [matches, setMatches] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    var _mql$addEventListener;
+    const mql = window.matchMedia(query);
+    setMatches(mql.matches);
+    const handler = e => setMatches(e.matches);
+    (_mql$addEventListener = mql.addEventListener?.("change", handler)) !== null && _mql$addEventListener !== void 0 ? _mql$addEventListener : mql.addListener(handler);
+    return () => {
+      var _mql$removeEventListe;
+      return (_mql$removeEventListe = mql.removeEventListener?.("change", handler)) !== null && _mql$removeEventListe !== void 0 ? _mql$removeEventListe : mql.removeListener(handler);
+    };
+  }, [query]);
+  return matches;
+}
 function MegaPanel({
   open,
   onClose,
@@ -403,13 +455,13 @@ function MegaPanel({
   onPanelLeave
 }) {
   const panelRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const groups = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => MENU_SECTIONS[open] || [], [open]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!open) return;
     const onDown = e => {
       const p = panelRef.current;
       const a = anchorRef?.current;
-      if (!p) return;
-      if (p.contains(e.target) || a?.contains?.(e.target)) return;
+      if (p?.contains(e.target) || a?.contains?.(e.target)) return;
       onClose();
     };
     document.addEventListener("mousedown", onDown);
@@ -421,7 +473,6 @@ function MegaPanel({
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
-  const groups = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => MENU_SECTIONS[open] || [], [open]);
   if (!open) return null;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
     ref: panelRef,
@@ -429,15 +480,12 @@ function MegaPanel({
     "aria-label": "Site section",
     onMouseEnter: onPanelEnter,
     onMouseLeave: onPanelLeave,
-    className: " absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[7px_6px_1px_rgba(28,27,26,0.15)] z-[60] ",
+    className: "absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[7px_6px_1px_rgba(28,27,26,0.15)] z-[60]",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: `
-            grid gap-8 items-start
-            ${groups.length >= 3 ? "grid-cols-3" : "grid-cols-2"}
-          `,
-        children: groups.map(section => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: `grid gap-8 items-start ${groups.length >= 3 ? "grid-cols-3" : "grid-cols-2"}`,
+        children: groups.map((section, idx) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: "min-w-0",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
             className: "space-y-1",
@@ -449,7 +497,7 @@ function MegaPanel({
               })
             }, item.href))
           })
-        }, section.title))
+        }, idx))
       })
     })
   });
@@ -489,30 +537,18 @@ function MobileMenu({
     };
   }, [present]);
   if (!present) return null;
-  const goto = href => {
-    window.location.href = href;
-  };
+  const toggleSection = key => setExpanded(m => ({
+    ...m,
+    [key]: !m[key]
+  }));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    className: `
-        fixed inset-0 z-[999] lg:hidden
-        bg-black/40
-        transition-opacity duration-300
-        ${entered ? "opacity-100" : "opacity-0"}
-      `,
+    className: `fixed inset-0 z-[999] lg:hidden bg-black/40 transition-opacity duration-300 ${entered ? "opacity-100" : "opacity-0"}`,
     "aria-modal": "true",
     role: "dialog",
     id: "mobile-menu",
     onClick: onClose,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("aside", {
-      className: `
-          absolute inset-y-0 left-0 w-full
-          bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
-          shadow-[0_12px_28px_rgba(0,0,0,.25)]
-          p-5 pt-6
-          overflow-y-auto
-          transform transition-transform duration-300 ease-out
-          ${entered ? "translate-x-0" : "-translate-x-full"}
-        `,
+      className: `absolute inset-y-0 left-0 w-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] shadow-[0_12px_28px_rgba(0,0,0,.25)] p-5 pt-6 overflow-y-auto transform transition-transform duration-300 ease-out ${entered ? "translate-x-0" : "-translate-x-full"}`,
       onClick: e => e.stopPropagation(),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "flex items-center justify-between mb-6",
@@ -540,9 +576,7 @@ function MobileMenu({
           onSubmit: e => {
             e.preventDefault();
             const query = e.target.elements.search.value.trim();
-            if (query) {
-              window.location.href = `/?s=${encodeURIComponent(query)}`;
-            }
+            if (query) goto(`/?s=${encodeURIComponent(query)}`);
           },
           className: "relative",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -575,7 +609,7 @@ function MobileMenu({
           onClick: () => window.open("https://linktr.ee/socialblueprint", "_blank")
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("nav", {
-        children: Object.entries(MENU_SECTIONS).map(([key, groups], idx) => {
+        children: Object.entries(MENU_SECTIONS).map(([key, groups]) => {
           const isOpen = !!expanded[key];
           const panelId = `mm-panel-${key}`;
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -585,22 +619,12 @@ function MobileMenu({
                 href: SECTION_ROUTES[key],
                 className: "Blueprint-title-medium hover:text-[var(--schemesPrimary)]",
                 onClick: onClose,
-                children: {
-                  "whats-on": "Whats on",
-                  directory: "Directory",
-                  "blueprint-stories": "Blueprint stories",
-                  "about-us": "About us",
-                  "message-board": "Message board",
-                  "explore-by": "Explore by"
-                }[key]
+                children: SECTION_LABELS[key]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
                 type: "button",
                 "aria-expanded": isOpen,
                 "aria-controls": panelId,
-                onClick: () => setExpanded(m => ({
-                  ...m,
-                  [key]: !m[key]
-                })),
+                onClick: () => toggleSection(key),
                 className: "p-2 rounded-md hover:bg-[var(--schemesSurfaceContainerHigh)]",
                 children: isOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_phosphor_icons_react__WEBPACK_IMPORTED_MODULE_10__.MinusIcon, {
                   size: 24,
@@ -664,102 +688,16 @@ function MobileMenu({
     })
   });
 }
-function Header({
-  isUserLoggedIn = false
+function NavBtn({
+  id,
+  label,
+  href,
+  onHover,
+  onFocus
 }) {
-  const {
-    t
-  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_5__.useTranslation)();
-  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const [isDesktop, setIsDesktop] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [showRegister, setShowRegister] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [mobileOpen, setMobileOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [searchExpanded, setSearchExpanded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
-  const searchRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const hoverTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  useAdminBarOffset();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!showRegister) return;
-    const onClick = e => {
-      if (!headerRef.current) return;
-      if (!headerRef.current.contains(e.target)) setShowRegister(false);
-    };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-  }, [showRegister]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!searchExpanded) return;
-    const onClick = e => {
-      if (!searchRef.current) return;
-      if (!searchRef.current.contains(e.target)) {
-        setSearchExpanded(false);
-        setSearchQuery("");
-      }
-    };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-  }, [searchExpanded]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const mql = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mql.matches);
-    update();
-    if (mql.addEventListener) mql.addEventListener("change", update);else mql.addListener(update);
-    return () => {
-      if (mql.removeEventListener) mql.removeEventListener("change", update);else mql.removeListener(update);
-    };
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const threshold = 6;
-    let ticking = false;
-    const evaluate = () => {
-      const y = window.scrollY || window.pageYOffset || 0;
-      const atTop = y <= threshold;
-      setScrolled(prev => prev === !atTop ? prev : !atTop);
-    };
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        evaluate();
-        ticking = false;
-      });
-    };
-    evaluate();
-    window.addEventListener("scroll", onScroll, {
-      passive: true
-    });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  const openPanel = key => {
-    if (!isDesktop) return;
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-    setOpen(key);
-  };
-  const scheduleClose = () => {
-    if (!isDesktop) return;
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-    hoverTimer.current = window.setTimeout(() => setOpen(null), 80);
-  };
-  const cancelClose = () => {
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-  };
-  const goto = href => window.location.href = href;
-  const handleSearchSubmit = e => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      goto(`/?s=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
-  const NavBtn = ({
-    id,
-    label,
-    href
-  }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    onMouseEnter: () => openPanel(id),
-    onFocus: () => setOpen(id),
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    onMouseEnter: () => onHover(id),
+    onFocus: () => onFocus(id),
     className: "inline-block",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__.Button, {
       label: label,
@@ -769,37 +707,66 @@ function Header({
       onClick: () => goto(href)
     })
   });
+}
+function Header({
+  isUserLoggedIn = false
+}) {
+  const {
+    t
+  } = (0,react_i18next__WEBPACK_IMPORTED_MODULE_5__.useTranslation)();
+  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [showRegister, setShowRegister] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [mobileOpen, setMobileOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [searchExpanded, setSearchExpanded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [searchQuery, setSearchQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+  const searchRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const hoverTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const scrolled = useScrollState();
+  useAdminBarOffset();
+  const closeSearch = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    setSearchExpanded(false);
+    setSearchQuery("");
+  }, []);
+  const closeRegister = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => setShowRegister(false), []);
+  useClickOutside(headerRef, closeRegister, showRegister);
+  useClickOutside(searchRef, closeSearch, searchExpanded);
+  const openPanel = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(key => {
+    if (!isDesktop) return;
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    setOpen(key);
+  }, [isDesktop]);
+  const scheduleClose = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    if (!isDesktop) return;
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setOpen(null), 80);
+  }, [isDesktop]);
+  const cancelClose = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+  }, []);
+  const handleSearchSubmit = e => {
+    e.preventDefault();
+    if (searchQuery.trim()) goto(`/?s=${encodeURIComponent(searchQuery.trim())}`);
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("header", {
       ref: headerRef,
       onMouseLeave: scheduleClose,
       onMouseEnter: cancelClose,
-      className: `
-          relative w-full z-50
-          bg-[var(--schemesPrimaryContainer)]
-          text-[var(--schemesOnPrimaryContainer)]
-          flex items-center justify-between
-          shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
-          ${open ? "mix-blend-normal" : "mix-blend-multiply"}
-          px-4 lg:px-16
-          ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"}
-          transition-all duration-300
-        `,
+      className: `relative w-full z-50 bg-[var(--schemesPrimaryContainer)] text-[var(--schemesOnPrimaryContainer)] flex items-center justify-between shadow-[7px_6px_1px_rgba(28,27,26,0.15)] ${open ? "mix-blend-normal" : "mix-blend-multiply"} px-4 lg:px-16 ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"} transition-all duration-300`,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
         href: "/",
         className: "flex items-center flex-none",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
           src: _assets_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
           alt: "The Social Blueprint",
-          className: ["block w-auto flex-none object-contain", "min-h-[24px] md:min-h-[32px] lg:min-h-[36px]", scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20", "transition-all duration-300"].join(" ")
+          className: `block w-auto flex-none object-contain min-h-[24px] md:min-h-[32px] lg:min-h-[36px] ${scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20"} transition-all duration-300`
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: `hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-4"} transition-all duration-300`,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: `
-              transition-all duration-300 origin-top
-              ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
-            `,
+          className: `transition-all duration-300 origin-top ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}`,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "flex gap-4 relative items-center",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -908,27 +875,39 @@ function Header({
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
               id: "whats-on",
               label: t("whats_on"),
-              href: "/events"
+              href: "/events",
+              onHover: openPanel,
+              onFocus: setOpen
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
               id: "directory",
               label: t("directory"),
-              href: "/directory"
+              href: "/directory",
+              onHover: openPanel,
+              onFocus: setOpen
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
               id: "blueprint-stories",
               label: t("blueprint_stories"),
-              href: "/stories-and-interviews"
+              href: "/stories-and-interviews",
+              onHover: openPanel,
+              onFocus: setOpen
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
               id: "about-us",
               label: t("about_us"),
-              href: "/about-us"
+              href: "/about-us",
+              onHover: openPanel,
+              onFocus: setOpen
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
               id: "message-board",
               label: t("message_board"),
-              href: "/message-boards"
+              href: "/message-boards",
+              onHover: openPanel,
+              onFocus: setOpen
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(NavBtn, {
               id: "explore-by",
               label: "Explore by",
-              href: "/topics"
+              href: "/topics",
+              onHover: openPanel,
+              onFocus: setOpen
             })]
           })
         })]
@@ -1024,4 +1003,4 @@ function IconButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=c4910567c0fb4c51886b
+//# sourceMappingURL=header.js.map?ver=18886ee38d1af9e41d7b

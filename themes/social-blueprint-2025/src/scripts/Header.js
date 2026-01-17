@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import Logo from "../../assets/logo.svg";
 import LogoDark from "../../assets/logo-dark.svg";
 import { Button } from "./Button";
@@ -15,58 +15,9 @@ import {
   MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
 
-function useAdminBarOffset() {
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const root = document.getElementById("header");
-    if (!root) return;
-
-    const getBar = () => document.getElementById("wpadminbar");
-    const compute = () => {
-      const bar = getBar();
-      const h = bar ? Math.round(bar.getBoundingClientRect().height) : 0;
-      setOffset(h);
-      if (bar) {
-        bar.style.position = "fixed";
-        bar.style.top = "0";
-        bar.style.left = "0";
-        bar.style.right = "0";
-        bar.style.zIndex = "99999";
-      }
-      root.style.position = "sticky";
-      root.style.top = `${h}px`;
-      root.style.zIndex = "1000";
-    };
-
-    compute();
-
-    const ro = (window.ResizeObserver && getBar())
-      ? new ResizeObserver(compute)
-      : null;
-    if (ro && getBar()) ro.observe(getBar());
-
-    window.addEventListener("resize", compute);
-    const id = setInterval(() => {
-      if (!getBar()) return;
-      compute();
-      clearInterval(id);
-    }, 200);
-
-    return () => {
-      window.removeEventListener("resize", compute);
-      if (ro) ro.disconnect();
-      clearInterval(id);
-    };
-  }, []);
-
-  return offset;
-}
-
 const MENU_SECTIONS = {
   "whats-on": [
     {
-      title: "Discover",
       items: [
         { label: "View Events Calendar", href: "/events" },
         { label: "Featured Events", href: "/events?featured=1" },
@@ -74,7 +25,6 @@ const MENU_SECTIONS = {
       ],
     },
     {
-      title: "Browse by Audience",
       items: [
         { label: "For Families", href: "/events?audience=families" },
         { label: "For Adults", href: "/events?audience=adults" },
@@ -85,7 +35,6 @@ const MENU_SECTIONS = {
   ],
   directory: [
     {
-      title: "Browse",
       items: [
         { label: "All Listings", href: "/directory" },
         { label: "Cost of Living", href: "/cost-of-living" },
@@ -95,7 +44,6 @@ const MENU_SECTIONS = {
       ],
     },
     {
-      title: "Contribute",
       items: [
         { label: "Add a Listing", href: "/add-listing-hub" },
         { label: "Contact & Support", href: "/contact" },
@@ -104,7 +52,6 @@ const MENU_SECTIONS = {
   ],
   "blueprint-stories": [
     {
-      title: "Read & Listen",
       items: [
         { label: "Articles and blogs", href: "/articles" },
         { label: "Everybody has a story", href: "/podcasts/?series=everybody-has-a-story" },
@@ -112,7 +59,6 @@ const MENU_SECTIONS = {
       ],
     },
     {
-      title: "Categories",
       items: [
         { label: "Community & Connection", href: "/stories-and-interviews?theme=community-connection" },
         { label: "Culture & Identity", href: "/stories-and-interviews?theme=culture-and-identity" },
@@ -122,7 +68,6 @@ const MENU_SECTIONS = {
   ],
   "about-us": [
     {
-      title: "About Us",
       items: [
         { label: "Our Mission", href: "/about-us" },
         { label: "Contact & Support", href: "/contact-us" },
@@ -133,14 +78,12 @@ const MENU_SECTIONS = {
   ],
   "message-board": [
     {
-      title: "Message Board",
       items: [
         { label: "Browse Message board", href: "/message-boards" },
         { label: "Post a notice", href: "/add-listing/message-boards/" },
       ],
     },
     {
-      title: "Browse by category",
       items: [
         { label: "Activities | Program Alerts", href: "/message-boards?cat=activities" },
         { label: "Community Jobs", href: "/message-boards?cat=jobs" },
@@ -151,7 +94,6 @@ const MENU_SECTIONS = {
   ],
   "explore-by": [
     {
-      title: "Explore by theme",
       items: [
         { label: "Community & Connection", href: "/community-connection" },
         { label: "Culture & Identity", href: "/culture-and-identity" },
@@ -161,7 +103,6 @@ const MENU_SECTIONS = {
       ],
     },
     {
-      title: "Explore by content type",
       items: [
         { label: "Events", href: "/events" },
         { label: "Podcasts", href: "/podcasts" },
@@ -170,7 +111,6 @@ const MENU_SECTIONS = {
       ],
     },
     {
-      title: "Explore by topic",
       items: [
         { label: "View all topics", href: "/topics" },
       ]
@@ -187,16 +127,129 @@ const SECTION_ROUTES = {
   "explore-by": "/topics",
 };
 
+const SECTION_LABELS = {
+  "whats-on": "Whats on",
+  directory: "Directory",
+  "blueprint-stories": "Blueprint stories",
+  "about-us": "About us",
+  "message-board": "Message board",
+  "explore-by": "Explore by",
+};
+
+const goto = (href) => { window.location.href = href; };
+
+function useAdminBarOffset() {
+  useEffect(() => {
+    const root = document.getElementById("header");
+    if (!root) return;
+
+    const getBar = () => document.getElementById("wpadminbar");
+    const compute = () => {
+      const bar = getBar();
+      const h = bar ? Math.round(bar.getBoundingClientRect().height) : 0;
+      if (bar) {
+        bar.style.position = "fixed";
+        bar.style.top = "0";
+        bar.style.left = "0";
+        bar.style.right = "0";
+        bar.style.zIndex = "99999";
+      }
+      root.style.position = "sticky";
+      root.style.top = `${h}px`;
+      root.style.zIndex = "1000";
+    };
+
+    compute();
+
+    const bar = getBar();
+    const ro = window.ResizeObserver && bar ? new ResizeObserver(compute) : null;
+    if (ro && bar) ro.observe(bar);
+
+    window.addEventListener("resize", compute);
+    const id = setInterval(() => {
+      if (!getBar()) return;
+      compute();
+      clearInterval(id);
+    }, 200);
+
+    return () => {
+      window.removeEventListener("resize", compute);
+      ro?.disconnect();
+      clearInterval(id);
+    };
+  }, []);
+}
+
+function useClickOutside(ref, handler, active = true) {
+  useEffect(() => {
+    if (!active) return;
+    const onClick = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) handler();
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [ref, handler, active]);
+}
+
+function useScrollState() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const SCROLL_DOWN_THRESHOLD = 20;
+    const SCROLL_UP_THRESHOLD = 1;
+    let ticking = false;
+    let lastScrollY = window.scrollY || 0;
+
+    setScrolled(lastScrollY > SCROLL_DOWN_THRESHOLD);
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY || 0;
+        const scrollingDown = y > lastScrollY;
+        lastScrollY = y;
+
+        setScrolled((prev) => {
+          if (!prev && scrollingDown && y > SCROLL_DOWN_THRESHOLD) return true;
+          if (prev && y <= SCROLL_UP_THRESHOLD) return false;
+          return prev;
+        });
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return scrolled;
+}
+
+function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    setMatches(mql.matches);
+    const handler = (e) => setMatches(e.matches);
+    mql.addEventListener?.("change", handler) ?? mql.addListener(handler);
+    return () => mql.removeEventListener?.("change", handler) ?? mql.removeListener(handler);
+  }, [query]);
+
+  return matches;
+}
+
 function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
   const panelRef = useRef(null);
+  const groups = useMemo(() => MENU_SECTIONS[open] || [], [open]);
 
   useEffect(() => {
     if (!open) return;
     const onDown = (e) => {
       const p = panelRef.current;
       const a = anchorRef?.current;
-      if (!p) return;
-      if (p.contains(e.target) || a?.contains?.(e.target)) return;
+      if (p?.contains(e.target) || a?.contains?.(e.target)) return;
       onClose();
     };
     document.addEventListener("mousedown", onDown);
@@ -210,8 +263,6 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  const groups = useMemo(() => MENU_SECTIONS[open] || [], [open]);
-
   if (!open) return null;
 
   return (
@@ -221,23 +272,12 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
       aria-label="Site section"
       onMouseEnter={onPanelEnter}
       onMouseLeave={onPanelLeave}
-      className="
-        absolute left-0 right-0 top-full
-        bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
-        border-t border-[var(--schemesOutlineVariant)]
-        shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
-        z-[60]
-      "
+      className="absolute left-0 right-0 top-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] border-t border-[var(--schemesOutlineVariant)] shadow-[7px_6px_1px_rgba(28,27,26,0.15)] z-[60]"
     >
       <div className="mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 py-8">
-        <div
-          className={`
-            grid gap-8 items-start
-            ${groups.length >= 3 ? "grid-cols-3" : "grid-cols-2"}
-          `}
-        >
-          {groups.map((section) => (
-            <div key={section.title} className="min-w-0">
+        <div className={`grid gap-8 items-start ${groups.length >= 3 ? "grid-cols-3" : "grid-cols-2"}`}>
+          {groups.map((section, idx) => (
+            <div key={idx} className="min-w-0">
               <ul className="space-y-1">
                 {section.items.map((item) => (
                   <li key={item.href}>
@@ -258,11 +298,7 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
   );
 }
 
-function MobileMenu({
-  open,
-  onClose,
-  isUserLoggedIn,
-}) {
+function MobileMenu({ open, onClose, isUserLoggedIn }) {
   const [expanded, setExpanded] = useState({});
   const [present, setPresent] = useState(open);
   const [entered, setEntered] = useState(false);
@@ -271,9 +307,7 @@ function MobileMenu({
     if (open) {
       setPresent(true);
       setEntered(false);
-      const id = requestAnimationFrame(() =>
-        requestAnimationFrame(() => setEntered(true))
-      );
+      const id = requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
       return () => cancelAnimationFrame(id);
     } else {
       setEntered(false);
@@ -296,33 +330,18 @@ function MobileMenu({
 
   if (!present) return null;
 
-  const goto = (href) => {
-    window.location.href = href;
-  };
+  const toggleSection = (key) => setExpanded((m) => ({ ...m, [key]: !m[key] }));
 
   return (
     <div
-      className={`
-        fixed inset-0 z-[999] lg:hidden
-        bg-black/40
-        transition-opacity duration-300
-        ${entered ? "opacity-100" : "opacity-0"}
-      `}
+      className={`fixed inset-0 z-[999] lg:hidden bg-black/40 transition-opacity duration-300 ${entered ? "opacity-100" : "opacity-0"}`}
       aria-modal="true"
       role="dialog"
       id="mobile-menu"
       onClick={onClose}
     >
       <aside
-        className={`
-          absolute inset-y-0 left-0 w-full
-          bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)]
-          shadow-[0_12px_28px_rgba(0,0,0,.25)]
-          p-5 pt-6
-          overflow-y-auto
-          transform transition-transform duration-300 ease-out
-          ${entered ? "translate-x-0" : "-translate-x-full"}
-        `}
+        className={`absolute inset-y-0 left-0 w-full bg-[var(--schemesSurface)] text-[var(--schemesOnSurface)] shadow-[0_12px_28px_rgba(0,0,0,.25)] p-5 pt-6 overflow-y-auto transform transition-transform duration-300 ease-out ${entered ? "translate-x-0" : "-translate-x-full"}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6">
@@ -338,15 +357,12 @@ function MobileMenu({
           </button>
         </div>
 
-        {/* Search bar in mobile */}
         <div className="mb-6">
           <form
             onSubmit={(e) => {
               e.preventDefault();
               const query = e.target.elements.search.value.trim();
-              if (query) {
-                window.location.href = `/?s=${encodeURIComponent(query)}`;
-              }
+              if (query) goto(`/?s=${encodeURIComponent(query)}`);
             }}
             className="relative"
           >
@@ -364,7 +380,6 @@ function MobileMenu({
           </form>
         </div>
 
-        {/* Socials button */}
         <div className="mb-6">
           <Button
             label="Find our socials"
@@ -378,7 +393,7 @@ function MobileMenu({
         </div>
 
         <nav>
-          {Object.entries(MENU_SECTIONS).map(([key, groups], idx) => {
+          {Object.entries(MENU_SECTIONS).map(([key, groups]) => {
             const isOpen = !!expanded[key];
             const panelId = `mm-panel-${key}`;
             return (
@@ -389,20 +404,13 @@ function MobileMenu({
                     className="Blueprint-title-medium hover:text-[var(--schemesPrimary)]"
                     onClick={onClose}
                   >
-                    {{
-                      "whats-on": "Whats on",
-                      directory: "Directory",
-                      "blueprint-stories": "Blueprint stories",
-                      "about-us": "About us",
-                      "message-board": "Message board",
-                      "explore-by": "Explore by",
-                    }[key]}
+                    {SECTION_LABELS[key]}
                   </a>
                   <button
                     type="button"
                     aria-expanded={isOpen}
                     aria-controls={panelId}
-                    onClick={() => setExpanded((m) => ({ ...m, [key]: !m[key] }))}
+                    onClick={() => toggleSection(key)}
                     className="p-2 rounded-md hover:bg-[var(--schemesSurfaceContainerHigh)]"
                   >
                     {isOpen ? (
@@ -449,14 +457,15 @@ function MobileMenu({
             onClick={() => goto(isUserLoggedIn ? "/account-dashboard" : "/login")}
           />
           {!isUserLoggedIn && (
-            <><Button
-              label="Register as Individual"
-              className="w-full px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow"
-              variant="tonal"
-              size="lg"
-              role="menuitem"
-              onClick={() => goto("/register-individual")}
-            />
+            <>
+              <Button
+                label="Register as Individual"
+                className="w-full px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow"
+                variant="tonal"
+                size="lg"
+                role="menuitem"
+                onClick={() => goto("/register-individual")}
+              />
               <Button
                 label="Register as Organisation"
                 className="w-full px-4 py-2 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow"
@@ -465,110 +474,67 @@ function MobileMenu({
                 size="lg"
                 onClick={() => goto("/register-organisation")}
               />
-            </>)}
+            </>
+          )}
         </div>
-      </aside >
-    </div >
+      </aside>
+    </div>
+  );
+}
+
+function NavBtn({ id, label, href, onHover, onFocus }) {
+  return (
+    <div onMouseEnter={() => onHover(id)} onFocus={() => onFocus(id)} className="inline-block">
+      <Button label={label} className="text-white" size="lg" variant="text" onClick={() => goto(href)} />
+    </div>
   );
 }
 
 export default function Header({ isUserLoggedIn = false }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(null);
-  const [isDesktop, setIsDesktop] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const searchRef = useRef(null);
-  const hoverTimer = useRef(null);
   const headerRef = useRef(null);
+  const hoverTimer = useRef(null);
+
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const scrolled = useScrollState();
   useAdminBarOffset();
 
-  useEffect(() => {
-    if (!showRegister) return;
-    const onClick = (e) => {
-      if (!headerRef.current) return;
-      if (!headerRef.current.contains(e.target)) setShowRegister(false);
-    };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-  }, [showRegister]);
-
-  useEffect(() => {
-    if (!searchExpanded) return;
-    const onClick = (e) => {
-      if (!searchRef.current) return;
-      if (!searchRef.current.contains(e.target)) {
-        setSearchExpanded(false);
-        setSearchQuery("");
-      }
-    };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-  }, [searchExpanded]);
-
-  useEffect(() => {
-    const mql = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mql.matches);
-    update();
-    if (mql.addEventListener) mql.addEventListener("change", update);
-    else mql.addListener(update);
-    return () => {
-      if (mql.removeEventListener) mql.removeEventListener("change", update);
-      else mql.removeListener(update);
-    };
+  const closeSearch = useCallback(() => {
+    setSearchExpanded(false);
+    setSearchQuery("");
   }, []);
 
-  useEffect(() => {
-    const threshold = 6;
-    let ticking = false;
-    const evaluate = () => {
-      const y = window.scrollY || window.pageYOffset || 0;
-      const atTop = y <= threshold;
-      setScrolled((prev) => (prev === !atTop ? prev : !atTop));
-    };
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        evaluate();
-        ticking = false;
-      });
-    };
-    evaluate();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const closeRegister = useCallback(() => setShowRegister(false), []);
 
-  const openPanel = (key) => {
+  useClickOutside(headerRef, closeRegister, showRegister);
+  useClickOutside(searchRef, closeSearch, searchExpanded);
+
+  const openPanel = useCallback((key) => {
     if (!isDesktop) return;
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
     setOpen(key);
-  };
-  const scheduleClose = () => {
+  }, [isDesktop]);
+
+  const scheduleClose = useCallback(() => {
     if (!isDesktop) return;
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-    hoverTimer.current = window.setTimeout(() => setOpen(null), 80);
-  };
-  const cancelClose = () => {
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-  };
-  const goto = (href) => (window.location.href = href);
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setOpen(null), 80);
+  }, [isDesktop]);
+
+  const cancelClose = useCallback(() => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      goto(`/?s=${encodeURIComponent(searchQuery.trim())}`);
-    }
+    if (searchQuery.trim()) goto(`/?s=${encodeURIComponent(searchQuery.trim())}`);
   };
-
-  const NavBtn = ({ id, label, href }) => (
-    <div onMouseEnter={() => openPanel(id)} onFocus={() => setOpen(id)} className="inline-block">
-      <Button label={label} className="text-white" size="lg" variant="text" onClick={() => goto(href)} />
-    </div>
-  );
 
   return (
     <>
@@ -576,40 +542,19 @@ export default function Header({ isUserLoggedIn = false }) {
         ref={headerRef}
         onMouseLeave={scheduleClose}
         onMouseEnter={cancelClose}
-        className={`
-          relative w-full z-50
-          bg-[var(--schemesPrimaryContainer)]
-          text-[var(--schemesOnPrimaryContainer)]
-          flex items-center justify-between
-          shadow-[7px_6px_1px_rgba(28,27,26,0.15)]
-          ${open ? "mix-blend-normal" : "mix-blend-multiply"}
-          px-4 lg:px-16
-          ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"}
-          transition-all duration-300
-        `}
+        className={`relative w-full z-50 bg-[var(--schemesPrimaryContainer)] text-[var(--schemesOnPrimaryContainer)] flex items-center justify-between shadow-[7px_6px_1px_rgba(28,27,26,0.15)] ${open ? "mix-blend-normal" : "mix-blend-multiply"} px-4 lg:px-16 ${scrolled ? "py-2 lg:py-3" : "py-4 lg:py-6"} transition-all duration-300`}
       >
         <a href="/" className="flex items-center flex-none">
           <img
             src={Logo}
             alt="The Social Blueprint"
-            className={[
-              "block w-auto flex-none object-contain",
-              "min-h-[24px] md:min-h-[32px] lg:min-h-[36px]",
-              scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20",
-              "transition-all duration-300",
-            ].join(" ")}
+            className={`block w-auto flex-none object-contain min-h-[24px] md:min-h-[32px] lg:min-h-[36px] ${scrolled ? "max-h-12 lg:max-h-16" : "max-h-16 lg:max-h-20"} transition-all duration-300`}
           />
         </a>
 
         <div className={`hidden lg:flex flex-col items-end ${scrolled ? "gap-0" : "gap-4"} transition-all duration-300`}>
-          <div
-            className={`
-              transition-all duration-300 origin-top
-              ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}
-            `}
-          >
+          <div className={`transition-all duration-300 origin-top ${scrolled ? "opacity-0 -translate-y-1 scale-95 pointer-events-none" : "opacity-100 translate-y-0 scale-100"}`}>
             <div className="flex gap-4 relative items-center">
-              {/* Search bar / button */}
               <div ref={searchRef} className="relative">
                 {searchExpanded ? (
                   <form onSubmit={handleSearchSubmit} className="relative">
@@ -639,7 +584,6 @@ export default function Header({ isUserLoggedIn = false }) {
                 )}
               </div>
 
-              {/* Socials button */}
               <Button
                 label="Find our socials"
                 variant="filled"
@@ -649,7 +593,6 @@ export default function Header({ isUserLoggedIn = false }) {
                 onClick={() => window.open("https://linktr.ee/socialblueprint", "_blank")}
               />
 
-              {/* Account/Login buttons */}
               {isUserLoggedIn ? (
                 <Button
                   label={t("account_dasboard")}
@@ -663,7 +606,7 @@ export default function Header({ isUserLoggedIn = false }) {
                 <div className="relative">
                   <div className="flex items-center gap-1">
                     <Button
-                      label={"Log in/Register"}
+                      label="Log in/Register"
                       variant="tonal"
                       shape="pill"
                       size="sm"
@@ -681,10 +624,7 @@ export default function Header({ isUserLoggedIn = false }) {
                   </div>
 
                   {showRegister && (
-                    <div
-                      className="absolute right-0 mt-2 w-56 rounded-md z-50"
-                      role="menu"
-                    >
+                    <div className="absolute right-0 mt-2 w-56 rounded-md z-50" role="menu">
                       <Button
                         label="Register as Individual"
                         className="w-full justify-start px-4 py-2 mb-1 Blueprint-body-medium text-schemesOnSurface hover:bg-schemesSurfaceContainerLow border-1 border-black"
@@ -708,12 +648,12 @@ export default function Header({ isUserLoggedIn = false }) {
 
           <div className="hidden lg:flex items-center gap-6">
             <nav className="hidden lg:flex items-center Blueprint-body-medium">
-              <NavBtn id="whats-on" label={t("whats_on")} href="/events" />
-              <NavBtn id="directory" label={t("directory")} href="/directory" />
-              <NavBtn id="blueprint-stories" label={t("blueprint_stories")} href="/stories-and-interviews" />
-              <NavBtn id="about-us" label={t("about_us")} href="/about-us" />
-              <NavBtn id="message-board" label={t("message_board")} href="/message-boards" />
-              <NavBtn id="explore-by" label={"Explore by"} href="/topics" />
+              <NavBtn id="whats-on" label={t("whats_on")} href="/events" onHover={openPanel} onFocus={setOpen} />
+              <NavBtn id="directory" label={t("directory")} href="/directory" onHover={openPanel} onFocus={setOpen} />
+              <NavBtn id="blueprint-stories" label={t("blueprint_stories")} href="/stories-and-interviews" onHover={openPanel} onFocus={setOpen} />
+              <NavBtn id="about-us" label={t("about_us")} href="/about-us" onHover={openPanel} onFocus={setOpen} />
+              <NavBtn id="message-board" label={t("message_board")} href="/message-boards" onHover={openPanel} onFocus={setOpen} />
+              <NavBtn id="explore-by" label="Explore by" href="/topics" onHover={openPanel} onFocus={setOpen} />
             </nav>
           </div>
         </div>

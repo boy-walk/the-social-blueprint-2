@@ -1,5 +1,4 @@
 import React from "react";
-import { ArrowIcon } from "../../assets/icons/arrow";
 import { ExploreByTheme } from "./ExploreByTheme";
 import PillTag from "./PillTag";
 import { NewsletterBanner } from "./NewsletterBanner";
@@ -8,7 +7,17 @@ import CommunityConnectionHubIcon from "../../assets/community-connection-hub.sv
 import BrowseAll from "./BrowseAll";
 import { Breadcrumbs } from "./Breadcrumbs";
 
-export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, blueprintStories, holocaustStories, breadcrumbs = [] }) {
+const SERIES_BACKGROUNDS = [
+  "bg-schemesSurfaceBright",
+  "bg-schemesSurfaceContainerLow",
+];
+
+export function StoriesAndInterviews({
+  podcastSeries = [],
+  blueprintStories = [],
+  holocaustStories = [],
+  breadcrumbs = []
+}) {
   return (
     <div>
       <div className="bg-schemesPrimaryFixed">
@@ -30,26 +39,41 @@ export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, 
         </div>
       </div>
 
+      {podcastSeries.map((series, index) => (
+        <div key={series.slug} className={SERIES_BACKGROUNDS[index % SERIES_BACKGROUNDS.length]}>
+          <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
+            <PostsSlider
+              events={series.posts}
+              title={series.name}
+              description={series.description}
+              viewAllUrl={series.viewAllUrl}
+            />
+          </div>
+        </div>
+      ))}
+
       <div className="bg-schemesSurfaceBright">
-        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-24 lg:gap-32">
-          <PostsSlider events={everyBodyHasAStory || []} title="Everybody has a story" description="Every person has a unique journey worth sharing. In this podcast we shine a light on individual experiences, reminding us of the many paths that make up our community." viewAllUrl="/podcasts/?series=everybody-has-a-story" />
-        </div>
-      </div>
-      <div className="bg-schemesSurfaceContainerLow">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <PostsSlider events={candidConversations || []} title="Candid Conversations" description="Open, thoughtful discussions with people from across Jewish life in Melbourne. These conversations explore challenges, hopes, and perspectives with honesty and care." viewAllUrl="/podcasts/?series=candid-conversations" />
+          <PostsSlider
+            events={blueprintStories}
+            title="Blueprint Stories"
+            description="Articles and reflections that capture culture, identity, and everyday community life. From practical advice to inspiring voices, discover writing that informs and uplifts."
+            viewAllUrl="/articles/?article_category=blueprint-stories"
+          />
         </div>
       </div>
-      <div className="bg-schemesSurfaceBright">
-        <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <PostsSlider events={blueprintStories || []} title="Blueprint Stories" description="Articles and reflections that capture culture, identity, and everyday community life. From practical advice to inspiring voices, discover writing that informs and uplifts." viewAllUrl="/articles/?article_category=blueprint-stories" />
-        </div>
-      </div>
+
       <div className="bg-schemesSecondaryFixed">
         <div className="flex flex-col max-w-[1600px] mx-auto lg:p-16 md:p-8 p-4 gap-4 lg:gap-8">
-          <PostsSlider events={holocaustStories || []} title="Holocaust stories" description="First-hand accounts and interviews that honour memory, resilience, and the importance of sharing these experiences with future generations." viewAllUrl="/articles/?article_category=holocaust-stories" />
+          <PostsSlider
+            events={holocaustStories}
+            title="Holocaust stories"
+            description="First-hand accounts and interviews that honour memory, resilience, and the importance of sharing these experiences with future generations."
+            viewAllUrl="/articles/?article_category=holocaust-stories"
+          />
         </div>
       </div>
+
       <div className="max-w-[1600px] mx-auto">
         <BrowseAll
           title="Browse all stories"
@@ -65,6 +89,7 @@ export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, 
           <NewsletterBanner />
         </div>
       </div>
+
       <div className="bg-schemesPrimaryFixed flex flex-col gap-4">
         <div className="max-w-[1600px] mx-auto py-16 px-4 sm:px-8 lg:px-16">
           <div className="flex gap-2 md:gap-4 items-center">
@@ -79,6 +104,6 @@ export function StoriesAndInterviews({ everyBodyHasAStory, candidConversations, 
           <ExploreByTheme />
         </div>
       </div>
-    </div >
+    </div>
   );
 }
