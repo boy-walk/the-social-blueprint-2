@@ -444,7 +444,7 @@ function MegaPanel({
             children: section.items.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
                 href: item.href,
-                className: "Blueprint-body-medium block py-1.5 text-[var(--schemesOnSurface)] hover:text-[var(--schemesPrimary)]",
+                className: "Blueprint-body-medium block py-1.5 text-[var(--schemesOnSurface)] hover:text-[var(--schemesSecondary)] hover:underline",
                 children: item.label
               })
             }, item.href))
@@ -1024,4 +1024,4 @@ function IconButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=d456754bc9a7cc19e54d
+//# sourceMappingURL=header.js.map?ver=c4910567c0fb4c51886b

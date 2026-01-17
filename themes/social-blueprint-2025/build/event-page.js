@@ -1568,8 +1568,16 @@ function EventPage({
                   backgroundColor: "schemesPrimaryContainer"
                 })
               })]
+            }), heroUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+              className: "w-full rounded-xl overflow-hidden shadow-md",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
+                src: heroUrl,
+                alt: "",
+                className: "w-full h-auto block object-cover",
+                loading: "lazy"
+              })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("section", {
-              className: "space-y-6 lg:space-y-7 max-w-3xl",
+              className: "space-y-6 lg:space-y-7",
               children: sections.length > 0 ? sections.map((s, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                 className: "break-words [&_ul]:list-disc [&_ul]:pl-5 [&_a]:underline",
                 dangerouslySetInnerHTML: {
@@ -1617,14 +1625,6 @@ function EventPage({
                 tagName: t.name,
                 href: `${t.url}`
               }, t))
-            }), heroUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-              className: "w-full rounded-xl overflow-hidden shadow-md",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
-                src: heroUrl,
-                alt: "",
-                className: "w-full h-auto block max-h-175 object-cover",
-                loading: "lazy"
-              })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("aside", {
             className: "w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1",
@@ -2450,4 +2450,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=event-page.js.map?ver=bceee7c78c1a6ca7fcaf
+//# sourceMappingURL=event-page.js.map?ver=c2efdd205e75bf43621c

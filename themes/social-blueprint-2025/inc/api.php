@@ -153,7 +153,7 @@ function sbp_rest_get_events( WP_REST_Request $request ) {
     foreach ( $events as $event ) {
         $result[] = array(
             'id'          => $event->ID,
-            'title'       => $event->post_title,
+            'title'       => html_entity_decode( $event->post_title, ENT_QUOTES, 'UTF-8' ),
             'start'       => tribe_get_start_date( $event, true, 'Y-m-d H:i:s' ),
             'end'         => tribe_get_end_date( $event, true, 'Y-m-d H:i:s' ),
             'url'         => tribe_get_event_link( $event ),

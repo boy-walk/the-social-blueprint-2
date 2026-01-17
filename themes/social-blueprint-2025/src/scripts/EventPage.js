@@ -75,7 +75,12 @@ export function EventPage({
                 )}
               </header>
 
-              <section className="space-y-6 lg:space-y-7 max-w-3xl">
+              {heroUrl && (
+                <div className="w-full rounded-xl overflow-hidden shadow-md">
+                  <img src={heroUrl} alt="" className="w-full h-auto block object-cover" loading="lazy" />
+                </div>
+              )}
+              <section className="space-y-6 lg:space-y-7">
                 {sections.length > 0 ? (
                   sections.map((s, i) => (
                     <div
@@ -123,12 +128,6 @@ export function EventPage({
               {tags.length > 0 && (<div className="flex flex-wrap gap-2">
                 {tags?.map((t) => <Tag key={t} tagName={t.name} href={`${t.url}`} />)}
               </div>)}
-
-              {heroUrl && (
-                <div className="w-full rounded-xl overflow-hidden shadow-md">
-                  <img src={heroUrl} alt="" className="w-full h-auto block max-h-175 object-cover" loading="lazy" />
-                </div>
-              )}
             </div>
 
             <aside className="w-full h-full lg:w-auto space-y-4 lg:sticky lg:top-16 flex-1">

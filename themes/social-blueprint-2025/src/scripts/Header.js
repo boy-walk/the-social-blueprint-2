@@ -243,7 +243,7 @@ function MegaPanel({ open, onClose, anchorRef, onPanelEnter, onPanelLeave }) {
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className="Blueprint-body-medium block py-1.5 text-[var(--schemesOnSurface)] hover:text-[var(--schemesPrimary)]"
+                      className="Blueprint-body-medium block py-1.5 text-[var(--schemesOnSurface)] hover:text-[var(--schemesSecondary)] hover:underline"
                     >
                       {item.label}
                     </a>

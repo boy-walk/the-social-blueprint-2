@@ -211,8 +211,6 @@ mount(
     types: parse(el.dataset.types || '[]'),
     topics: parse(el.dataset.topics || '[]'),
     audiences: parse(el.dataset.audiences || '[]'),
-    locations: parse(el.dataset.locations || '[]'),
-    categories: parse(el.dataset.categories || '[]'),
   })
 );
 

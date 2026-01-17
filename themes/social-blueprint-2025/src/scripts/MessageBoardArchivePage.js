@@ -45,6 +45,7 @@ export default function MessageBoardArchivePage(props) {
     title,
     subtitle,
     breadcrumbs = [],
+    categories = [],
   } = props;
 
   const CPT = useMemo(() => (Array.isArray(postType) ? postType[0] : postType) || "gd_discount", [postType]);
@@ -424,11 +425,60 @@ export default function MessageBoardArchivePage(props) {
     return labels;
   };
 
-  const LeadingIcon = ({ item }) => {
-    const letter = (String(item?.title || "").trim()[0] || "â€¢").toUpperCase();
+  const LeadingIcon = ({ item, categories }) => {
+    // Try to find a matching category with an image
+    const itemCategories = extractCategoryLabels(item);
+
+    let imageUrl = null;
+    let faIcon = null;
+    let color = null;
+
+    // Look for a matching category with image/icon data
+    if (categories && categories.length > 0 && itemCategories.length > 0) {
+      for (const catLabel of itemCategories) {
+        const match = categories.find(
+          (c) => c?.name?.toLowerCase() === catLabel?.toLowerCase() || c?.slug === catLabel?.toLowerCase().replace(/\s+/g, '-')
+        );
+        if (match) {
+          imageUrl = match.image_url;
+          faIcon = match.fa_icon;
+          color = match.color;
+          break;
+        }
+      }
+    }
+
+    // If we have an image, display it
+    if (imageUrl) {
+      return (
+        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+          <img
+            src={imageUrl}
+            alt=""
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      );
+    }
+
+    // If we have a Font Awesome icon, display it
+    if (faIcon) {
+      return (
+        <div
+          className="w-16 h-16 rounded-xl flex items-center justify-center shrink-0"
+          style={{ backgroundColor: color || 'var(--schemesSecondaryContainer)' }}
+        >
+          <i className={`${faIcon} text-2xl`} style={{ color: color ? '#fff' : 'var(--schemesOnSecondaryContainer)' }} />
+        </div>
+      );
+    }
+
+    // Fallback to letter
+    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
     return (
-      <div className="w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0">
-        <span className="Blueprint-headline-medium text-[var(--schemesOnSecondaryContainer)]">
+      <div className="w-16 h-16 rounded-xl bg-schemesSecondaryContainer flex items-center justify-center shrink-0">
+        <span className="Blueprint-headline-medium text-schemesOnSecondaryContainer">
           {letter}
         </span>
       </div>
@@ -445,7 +495,7 @@ export default function MessageBoardArchivePage(props) {
         className="block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] hover:bg-[var(--schemesSurfaceContainer)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition"
       >
         <div className="flex gap-4 p-4">
-          <LeadingIcon item={item} />
+          <LeadingIcon item={item} categories={categories} />
           <div className="flex-1">
             {categories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-2">

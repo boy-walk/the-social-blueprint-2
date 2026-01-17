@@ -448,7 +448,8 @@ function MessageBoardArchivePage(props) {
     baseQuery = {},
     title,
     subtitle,
-    breadcrumbs = []
+    breadcrumbs = [],
+    categories = []
   } = props;
   const CPT = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => (Array.isArray(postType) ? postType[0] : postType) || "gd_discount", [postType]);
 
@@ -852,13 +853,63 @@ function MessageBoardArchivePage(props) {
     return labels;
   };
   const LeadingIcon = ({
-    item
+    item,
+    categories
   }) => {
-    const letter = (String(item?.title || "").trim()[0] || "â€¢").toUpperCase();
+    // Try to find a matching category with an image
+    const itemCategories = extractCategoryLabels(item);
+    let imageUrl = null;
+    let faIcon = null;
+    let color = null;
+
+    // Look for a matching category with image/icon data
+    if (categories && categories.length > 0 && itemCategories.length > 0) {
+      for (const catLabel of itemCategories) {
+        const match = categories.find(c => c?.name?.toLowerCase() === catLabel?.toLowerCase() || c?.slug === catLabel?.toLowerCase().replace(/\s+/g, '-'));
+        if (match) {
+          imageUrl = match.image_url;
+          faIcon = match.fa_icon;
+          color = match.color;
+          break;
+        }
+      }
+    }
+
+    // If we have an image, display it
+    if (imageUrl) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "w-16 h-16 rounded-xl overflow-hidden shrink-0",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+          src: imageUrl,
+          alt: "",
+          className: "w-full h-full object-cover",
+          loading: "lazy"
+        })
+      });
+    }
+
+    // If we have a Font Awesome icon, display it
+    if (faIcon) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "w-16 h-16 rounded-xl flex items-center justify-center shrink-0",
+        style: {
+          backgroundColor: color || 'var(--schemesSecondaryContainer)'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+          className: `${faIcon} text-2xl`,
+          style: {
+            color: color ? '#fff' : 'var(--schemesOnSecondaryContainer)'
+          }
+        })
+      });
+    }
+
+    // Fallback to letter
+    const letter = (String(item?.title || "").trim()[0] || "•").toUpperCase();
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "w-16 h-16 rounded-xl bg-[var(--schemesSecondaryContainer)] flex items-center justify-center shrink-0",
+      className: "w-16 h-16 rounded-xl bg-schemesSecondaryContainer flex items-center justify-center shrink-0",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-        className: "Blueprint-headline-medium text-[var(--schemesOnSecondaryContainer)]",
+        className: "Blueprint-headline-medium text-schemesOnSecondaryContainer",
         children: letter
       })
     });
@@ -874,7 +925,8 @@ function MessageBoardArchivePage(props) {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "flex gap-4 p-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(LeadingIcon, {
-          item: item
+          item: item,
+          categories: categories
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "flex-1",
           children: [categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -1262,4 +1314,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-archive.js.map?ver=4ad27b1f81652e7fe577
+//# sourceMappingURL=mb-archive.js.map?ver=37f35608f789e7b376d4

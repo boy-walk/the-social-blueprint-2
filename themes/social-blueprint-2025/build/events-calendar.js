@@ -509,8 +509,7 @@ function EventsCalendar({
   categories,
   types,
   topics,
-  audiences,
-  locations
+  audiences
 }) {
   const [keyword, setKeyword] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [debouncedKeywordValue, setDebouncedKeywordValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
@@ -1319,4 +1318,4 @@ function EventsCalendar({
 /***/ })
 
 }]);
-//# sourceMappingURL=events-calendar.js.map?ver=5b77f8def67713dbd383
+//# sourceMappingURL=events-calendar.js.map?ver=8503f4eab6eebddadfc5

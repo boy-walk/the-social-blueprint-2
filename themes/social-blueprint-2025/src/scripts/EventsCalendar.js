@@ -6,7 +6,8 @@ import { Button } from "./Button";
 import { DropdownSelect } from "./DropdownSelect";
 import { ArrowLeft, ArrowRight, FunnelSimple, X, MagnifyingGlass } from "@phosphor-icons/react";
 
-export function EventsCalendar({ categories, types, topics, audiences, locations }) {
+
+export function EventsCalendar({ categories, types, topics, audiences }) {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeywordValue, setDebouncedKeywordValue] = useState("");
   const [dateRange, setDateRange] = useState({ start: "", end: "" });
