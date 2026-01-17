@@ -880,7 +880,7 @@ function MessageBoardArchivePage(props) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "w-16 h-16 rounded-xl overflow-hidden shrink-0",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-          src: imageUrl,
+          src: `/wp-content/uploads/${imageUrl}`,
           alt: "",
           className: "w-full h-full object-cover",
           loading: "lazy"
@@ -917,8 +917,8 @@ function MessageBoardArchivePage(props) {
   const MessageRow = ({
     item
   }) => {
-    const href = item?.permalink || "#";
-    const categories = extractCategoryLabels(item);
+    const href = `${item?.permalink}` || "#";
+    const itemCategories = extractCategoryLabels(item);
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
       href: href,
       className: "block rounded-xl border border-[var(--schemesOutlineVariant)] bg-[var(--schemesSurfaceContainerLowest)] hover:bg-[var(--schemesSurfaceContainer)] focus:outline-none focus:ring-2 focus:ring-[var(--schemesPrimary)] transition",
@@ -929,9 +929,9 @@ function MessageBoardArchivePage(props) {
           categories: categories
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "flex-1",
-          children: [categories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: [itemCategories.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "flex flex-wrap gap-2 mb-2",
-            children: categories.map((label, idx) => {
+            children: itemCategories.map((label, idx) => {
               const color = getCategoryColor(label);
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
                 className: `px-3 py-1.5 rounded-lg ${color.bg} ${color.text} Blueprint-label-small`,
@@ -1314,4 +1314,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-archive.js.map?ver=37f35608f789e7b376d4
+//# sourceMappingURL=mb-archive.js.map?ver=71f7b7b9d5c8fdeab713

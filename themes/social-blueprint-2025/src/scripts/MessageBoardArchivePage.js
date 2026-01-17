@@ -453,7 +453,7 @@ export default function MessageBoardArchivePage(props) {
       return (
         <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
           <img
-            src={imageUrl}
+            src={`/wp-content/uploads/${imageUrl}`}
             alt=""
             className="w-full h-full object-cover"
             loading="lazy"
@@ -486,8 +486,8 @@ export default function MessageBoardArchivePage(props) {
   };
 
   const MessageRow = ({ item }) => {
-    const href = item?.permalink || "#";
-    const categories = extractCategoryLabels(item);
+    const href = `${item?.permalink}` || "#";
+    const itemCategories = extractCategoryLabels(item);
 
     return (
       <a
@@ -497,9 +497,9 @@ export default function MessageBoardArchivePage(props) {
         <div className="flex gap-4 p-4">
           <LeadingIcon item={item} categories={categories} />
           <div className="flex-1">
-            {categories.length > 0 && (
+            {itemCategories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-2">
-                {categories.map((label, idx) => {
+                {itemCategories.map((label, idx) => {
                   const color = getCategoryColor(label);
                   return (
                     <span
