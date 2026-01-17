@@ -2588,7 +2588,7 @@ function MessageBoardSlider({
                   children: [cats.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                     className: "flex flex-wrap gap-2 mb-2",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                      className: "rounded-md px-3 py-1.5 bg-schemesPrimary text-schemesOnPrimary Blueprint-label-small",
+                      className: "rounded-md px-3 py-1.5 bg-schemesSurfaceContainer text-schemesOnSurface Blueprint-label-small",
                       children: cats[0]
                     }, `${cats[0].id}-cat`)
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
@@ -2914,4 +2914,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=community-hub.js.map?ver=3de41ebb5138ba48901b
+//# sourceMappingURL=community-hub.js.map?ver=2628f9123b0b5d19da93

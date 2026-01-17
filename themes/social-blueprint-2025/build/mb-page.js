@@ -1617,7 +1617,7 @@ function MessageBoardPage({
                   href: item.href || item.link,
                   description: item.description
                 }, item.id)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
-                  className: "text-schemesOnSurfaceVariant",
+                  className: "text-schemesOnSurfaceVariant p-2",
                   children: "No related content available."
                 })
               })
@@ -1866,7 +1866,7 @@ function MessageBoardSlider({
                   children: [cats.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                     className: "flex flex-wrap gap-2 mb-2",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-                      className: "rounded-md px-3 py-1.5 bg-schemesPrimary text-schemesOnPrimary Blueprint-label-small",
+                      className: "rounded-md px-3 py-1.5 bg-schemesSurfaceContainer text-schemesOnSurface Blueprint-label-small",
                       children: cats[0]
                     }, `${cats[0].id}-cat`)
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
@@ -2355,4 +2355,4 @@ const Tag = ({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-page.js.map?ver=c5bda8e0c7b85b34dbfc
+//# sourceMappingURL=mb-page.js.map?ver=3e6223fdc345d161f9f8

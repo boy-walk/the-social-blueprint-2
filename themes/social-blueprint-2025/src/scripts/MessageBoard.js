@@ -119,7 +119,7 @@ export default function MessageBoardPage({
                       />
                     ))
                   ) : (
-                    <p className="text-schemesOnSurfaceVariant">
+                    <p className="text-schemesOnSurfaceVariant p-2">
                       No related content available.
                     </p>
                   )}
