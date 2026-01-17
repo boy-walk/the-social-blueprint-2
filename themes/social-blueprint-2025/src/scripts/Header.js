@@ -53,7 +53,7 @@ const MENU_SECTIONS = {
   "blueprint-stories": [
     {
       items: [
-        { label: "Articles and blogs", href: "/articles" },
+        { label: "Articles and Blogs", href: "/articles" },
         { label: "Everybody has a story", href: "/podcasts/?series=everybody-has-a-story" },
         { label: "Candid conversations", href: "/podcasts/?series=candid-conversations" },
       ],
@@ -72,14 +72,14 @@ const MENU_SECTIONS = {
         { label: "Our Mission", href: "/about-us" },
         { label: "Contact & Support", href: "/contact-us" },
         { label: "FAQs", href: "/faqs" },
-        { label: "Terms and conditions", href: "/terms" },
+        { label: "Terms and Conditions", href: "/terms" },
       ],
     },
   ],
   "message-board": [
     {
       items: [
-        { label: "Browse Message board", href: "/message-boards" },
+        { label: "Browse Message Board", href: "/message-boards" },
         { label: "Post a notice", href: "/add-listing/message-boards/" },
       ],
     },

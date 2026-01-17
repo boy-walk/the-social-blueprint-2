@@ -240,7 +240,7 @@ const MENU_SECTIONS = {
   }],
   "blueprint-stories": [{
     items: [{
-      label: "Articles and blogs",
+      label: "Articles and Blogs",
       href: "/articles"
     }, {
       label: "Everybody has a story",
@@ -272,13 +272,13 @@ const MENU_SECTIONS = {
       label: "FAQs",
       href: "/faqs"
     }, {
-      label: "Terms and conditions",
+      label: "Terms and Conditions",
       href: "/terms"
     }]
   }],
   "message-board": [{
     items: [{
-      label: "Browse Message board",
+      label: "Browse Message Board",
       href: "/message-boards"
     }, {
       label: "Post a notice",
@@ -1003,4 +1003,4 @@ function IconButton({
 /***/ })
 
 }]);
-//# sourceMappingURL=header.js.map?ver=18886ee38d1af9e41d7b
+//# sourceMappingURL=header.js.map?ver=e5bc693293e519f5a0df

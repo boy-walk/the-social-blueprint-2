@@ -2178,7 +2178,7 @@ const SectionOne = ({
           })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 lg:px-16",
+        className: "py-4 lg:py-8 px-4 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "bg-schemesPrimaryFixed flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x3 px-4 sm:px-6 md:px-8 lg:px-16 py-12",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
@@ -2223,7 +2223,7 @@ const SectionOne = ({
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 lg:px-16",
+        className: "py-4 lg:py-8 px-4 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2260,7 +2260,7 @@ const SectionOne = ({
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 lg:px-16",
+        className: "py-4 lg:py-8 px-4 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "px-4 sm:px-6 md:px-8 lg:px-16 py-12 h-full w-full flex flex-col items-center gap-12 self-stretch rounded-3xl shadow-3x1",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2297,7 +2297,7 @@ const SectionOne = ({
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 lg:px-16 flex flex-col",
+        className: "py-4 lg:py-8 px-4 lg:px-16 flex flex-col",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "bg-schemesSecondaryFixed flex flex-col gap-12 self-stretch rounded-3xl shadow-3x3 px-4 md:px-8 lg:px-16 py-8 lg:py-16",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -2339,15 +2339,15 @@ const SectionOne = ({
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-8 px-4 sm:px-8 lg:px-16",
+        className: "py-4 lg:py-8 px-4 sm:px-8 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ListingCallout__WEBPACK_IMPORTED_MODULE_6__.ListingCallout, {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 sm:px-8 lg:px-16",
+        className: "py-4 lg:py-8 px-4 sm:px-8 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(DynamicSection, {
           dynamicProps: dynamicProps
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 sm:px-8 lg:px-16",
+        className: "py-4 lg:py-8 px-4 sm:px-8 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "flex flex-col gap-6",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
@@ -2367,7 +2367,7 @@ const SectionOne = ({
         className: "pb-16 px-4 sm:px-8 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ThankYouBanner, {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "py-16 px-4 sm:px-8 lg:px-16",
+        className: "py-4 lg:py-8 px-4 sm:px-8 lg:px-16",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_NewsletterBanner__WEBPACK_IMPORTED_MODULE_7__.NewsletterBanner, {})
       })]
     })
@@ -2698,4 +2698,4 @@ const getBadge = type => {
 /***/ })
 
 }]);
-//# sourceMappingURL=section-one.js.map?ver=242877cecb65fcfb5e30
+//# sourceMappingURL=section-one.js.map?ver=72c3bfbaef206a6a4aff
