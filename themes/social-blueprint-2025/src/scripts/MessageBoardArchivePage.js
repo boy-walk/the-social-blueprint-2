@@ -451,7 +451,7 @@ export default function MessageBoardArchivePage(props) {
     // If we have an image, display it
     if (imageUrl) {
       return (
-        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+        <div className="w-20 h-26 rounded-xl overflow-hidden shrink-0">
           <img
             src={`/wp-content/uploads/${imageUrl}`}
             alt=""

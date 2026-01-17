@@ -878,7 +878,7 @@ function MessageBoardArchivePage(props) {
     // If we have an image, display it
     if (imageUrl) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "w-16 h-16 rounded-xl overflow-hidden shrink-0",
+        className: "w-20 h-26 rounded-xl overflow-hidden shrink-0",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
           src: `/wp-content/uploads/${imageUrl}`,
           alt: "",
@@ -1314,4 +1314,4 @@ function StyledCheckbox({
 /***/ })
 
 }]);
-//# sourceMappingURL=mb-archive.js.map?ver=71f7b7b9d5c8fdeab713
+//# sourceMappingURL=mb-archive.js.map?ver=1f561ae66476a81642ac
